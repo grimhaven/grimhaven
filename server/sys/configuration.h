@@ -120,6 +120,9 @@ class Config {
   // turn off mail system
   static bool no_mail;
 
+  // enable various beta-mode options
+  static bool beta_mode;
+
   // deny the creation of new users
   static bool wizlock;
 
@@ -153,6 +156,7 @@ class Config {
   static sstring DataDir(){ return data_dir; }
   static sstring ConfigFile(){ return config_file; }
   static bool NoMail(){ return no_mail; }
+  static bool BetaMode(){ return beta_mode; }
   static bool WizLock(){ return wizlock; }
   static sstring WizLockPassword(){ return wizlock_password; }
 
@@ -164,7 +168,6 @@ class Config {
   public:
     static const int PROD;
     static const int PROD_XML;
-    static const int BETA;
     static const int BUILDER;
   };
 };

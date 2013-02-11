@@ -33,12 +33,12 @@ bool Config::no_specials;
 sstring Config::data_dir;
 sstring Config::config_file;
 bool Config::no_mail;
+bool Config::beta_mode;
 bool Config::wizlock;
 sstring Config::wizlock_password;
 
 const int Config::Port::PROD=7900;
 const int Config::Port::PROD_XML=7901;
-const int Config::Port::BETA=5678;
 const int Config::Port::BUILDER=8900;
 
 bool Config::doConfiguration(int argc, char *argv[])
@@ -62,6 +62,8 @@ bool Config::doConfiguration(int argc, char *argv[])
      "suppress assignment of special routines")
     ("port,p", po::value<int>(&gamePort)->default_value(Config::Port::PROD),
      "game port")
+    ("beta_mode,b", po::value<bool>(&beta_mode)->default_value(false),
+     "run game in beta mode")
     ("wizlock,w", po::value<bool>(&wizlock)->default_value(false),
      "wizlock game")
     ("wizlock_password", po::value<string>(&wizlock_password)->default_value("superviii"),
