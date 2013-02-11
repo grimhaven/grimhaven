@@ -277,9 +277,6 @@ bool Descriptor::checkForMultiplay()
     if (!character || !account || !character->name)
       return FALSE;
     
-    if (gamePort == Config::Port::ALPHA)
-      return FALSE;
-    
     if (character->hasWizPower(POWER_MULTIPLAY))
       return FALSE;
     

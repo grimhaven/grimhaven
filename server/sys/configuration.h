@@ -112,7 +112,6 @@ class Config {
   static bool no_specials;
 
   // run as trimmed port
-  static bool b_trimmed;
 
   // data directory to run in (eg "lib")
   static sstring data_dir;
@@ -144,7 +143,6 @@ class Config {
   static bool LoadOnDeath(){ return load_on_death; }
   static bool ThrowFormatExceptions(){ return throw_format_exceptions; }
   static bool NoSpecials(){ return no_specials; }
-  static bool bTrimmed(){ return b_trimmed; }
   static sstring DataDir(){ return data_dir; }
   static bool NoMail(){ return no_mail; }
 
@@ -156,8 +154,6 @@ class Config {
     static const int PROD;
     static const int PROD_XML;
     static const int BETA;
-    static const int GAMMA;
-    static const int ALPHA;
     static const int BUILDER;
   };
 };

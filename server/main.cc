@@ -31,11 +31,6 @@ int main(int argc, char *argv[])
   if(Config::NoSpecials())
     vlogf(LOG_MISC, "Suppressing assignment of special routines.");
 
-  if(Config::bTrimmed()){
-    vlogf(LOG_MISC, "Loading as trimmed port.");
-    gamePort = Config::Port::GAMMA;
-  }
-
   Uptime = time(0);
 
   vlogf(LOG_MISC, format("Running %s on port %d.") %  MUD_NAME % gamePort);
