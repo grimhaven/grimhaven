@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
 
   Uptime = time(0);
 
-  vlogf(LOG_MISC, format("Running %s on port %d.") %  MUD_NAME % gamePort);
+  vlogf(LOG_MISC, format("Running %s on port %d.") %  MUD_NAME_VERS % gamePort);
 
   if (chdir(Config::DataDir().c_str()) < 0) {
     perror("chdir");
