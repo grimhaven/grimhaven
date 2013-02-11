@@ -335,56 +335,6 @@ static void fastFight()
   while (num_fighting && gCombatList) {
     pulse++;
 
-#if 0
-    // Check what's happening out there
-    FD_ZERO(&input_set);
-    FD_ZERO(&output_set);
-    FD_ZERO(&exc_set);
-    FD_SET(m_sock, &input_set);
-    for (point = descriptor_list; point; point = point->next) {
-      FD_SET(point->socket->m_sock, &input_set);
-      FD_SET(point->socket->m_sock, &exc_set);
-      FD_SET(point->socket->m_sock, &output_set);
-    }
-
-    // check out the time
-    gettimeofday(&now, NULL);
-    timespent=timediff(&now, &last_time);
-    timeout=timediff(&opt_time, &timespent);
-    last_time.tv_sec = now.tv_sec + timeout.tv_sec;
-    last_time.tv_usec = now.tv_usec + timeout.tv_usec;
-    if (last_time.tv_usec >= 1000000) {
-      last_time.tv_usec -= 1000000;
-      last_time.tv_sec++;
-    }
-#ifndef SOLARIS
-//    sigsetmask(mask);
-#endif
-#ifdef LINUX
-    // linux uses a nonstandard style of "timedout" (the last parm of select)
-    // it gets hosed each select() so must be reinited here
-    null_time.tv_sec = 0;
-    null_time.tv_usec = 0;
-#endif
-    if (select(maxdesc + 1, &input_set, &output_set, &exc_set, &null_time) < 0) {
-      perror("Error in Select (poll)");
-      return;
-    }
-    if (select(0, 0, 0, 0, &timeout) < 0) {
-      perror("Error in select (sleep)");
-    }
-
-    // close any connections with an exceptional condition pending
-    for (point = descriptor_list; point; point = next_to_process) {
-      next_to_process = point->next;
-      if (FD_ISSET(point->socket->m_sock, &exc_set)) {
-        FD_CLR(point->socket->m_sock, &input_set);
-        FD_CLR(point->socket->m_sock, &output_set);
-        delete point;
-      }
-    }
-#endif
-
     int combat = (pulse % Pulse::COMBAT);
     int tick_updates = (pulse % Pulse::MUDHOUR);
     int mobstuff = (pulse % Pulse::MOBACT);

@@ -1,4 +1,3 @@
-#if defined LINUX
 // Linux systems will reset the signal after it gets raised
 // According to the man page, we can get around this by using different include
 #include <stdio.h>
@@ -6,9 +5,6 @@
 // #include <bsd/signal.h>    doesn't seem to compile though
 //#include <bsd/signal.h>
 #include <csignal>
-#else
-#include <csignal>
-#endif
 
 #include <sys/time.h>
 #include "extern.h"
@@ -33,23 +29,17 @@ void signalSetup(void)
   signal(SIGINT, hupsig);
   signal(SIGALRM, logsig);
   signal(SIGTERM, hupsig);
-// Trapping PROF PREVENTS the timing signals from working correctly
-//   signal(SIGPROF, profsig);
-
-#ifndef SOLARIS
-  struct itimerval itime;
-  struct timeval interval;
 
   // This stuff crashes on the Solaris machine
   // set up the deadlock-protection 
-
+  struct itimerval itime;
+  struct timeval interval;
   interval.tv_sec = 1200;
   interval.tv_usec = 0;
   itime.it_interval = interval;
   itime.it_value = interval;
   setitimer(ITIMER_VIRTUAL, &itime, 0);
   signal(SIGVTALRM, checkpointing);
-#endif
 }
 
 void checkpointing(int)

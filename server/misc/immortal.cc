@@ -823,27 +823,12 @@ void TBeing::doEcho(const char *argument)
 int getSockReceiveBuffer(int s)
 {
   int buf = 0;
-
-#if defined(SOLARIS) || defined(SUN)
-  int size;
-  size = sizeof(buf);
-
-  if (getsockopt((int) s, (int) SOL_SOCKET, (int) SO_RCVBUF, (char *) &buf, 
-          (int *) &size))
-    perror("getsockopt 1");
-#elif defined(LINUX)
   unsigned int size;
+
   size = sizeof(buf);
-  // JESUS
+
   if (getsockopt(s, SOL_SOCKET, SO_RCVBUF, &buf, (unsigned *) &size))
     perror("getsockopt 2");
-#else
-  int size;
-  size = sizeof(buf);
-
-  if (getsockopt(s, SOL_SOCKET, SO_RCVBUF, &buf, &size))
-    perror("getsockopt 3");
-#endif
 
   return buf;
 }
@@ -852,22 +837,10 @@ int getSockReceiveBuffer(int s)
 int getSockSendBuffer(int s)
 {
   int buf = 0;
-#if defined(SOLARIS) || defined(SUN)
-  int size;
-  size = sizeof(buf);
-  if (getsockopt(s, SOL_SOCKET, SO_SNDBUF, (char *) &buf, &size))
-    perror("getsockopt 4");
-#elif defined(LINUX)
   unsigned int size;
   size = sizeof(buf);
   if (getsockopt(s, SOL_SOCKET, SO_SNDBUF, &buf, &size))
     perror("getsockopt 5");
-#else
-  int size;
-  size = sizeof(buf);
-  if (getsockopt(s, SOL_SOCKET, SO_SNDBUF, &buf, &size))
-    perror("getsockopt 6");
-#endif
   return buf;
 }
 
@@ -881,13 +854,7 @@ const char *getSockOptString(int s, int opt)
     size = sizeof(ld);
     ld.l_onoff = -1;        // serious error checking 
 
-#if defined(SOLARIS) || defined(SUN)
-    if (getsockopt(s, SOL_SOCKET, opt, (char *) &ld, &size) == -1) {
-#elif defined(LINUX)
     if (getsockopt(s, SOL_SOCKET, opt, &ld, (unsigned *) &size) == -1) {
-#else
-    if (getsockopt(s, SOL_SOCKET, opt, &ld, &size) == -1) {
-#endif
       perror("getsockopt 5");
       return "Test Failed";
     }
@@ -901,13 +868,7 @@ const char *getSockOptString(int s, int opt)
     }
   }
   size = sizeof(result);
-#if defined(SOLARIS) || defined(SUN)
-  if (getsockopt(s, SOL_SOCKET, opt, (char *) &result, &size) == -1) {
-#elif defined(LINUX)
   if (getsockopt(s, SOL_SOCKET, opt, (char *) &result, (unsigned *) &size) == -1) {
-#else
-  if (getsockopt(s, SOL_SOCKET, opt, &result, &size) == -1) {
-#endif
     perror("getsockopt 6");
     return "Test Failed";
   }

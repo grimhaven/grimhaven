@@ -43,9 +43,6 @@ extern "C" {
 
 pid_t vfork(void);
 
-#ifdef SOLARIS
-extern long random(void);
-#endif
 }
 #include "disease.h"
 #include "shop.h"
@@ -1096,11 +1093,7 @@ int vsystem(const sstring &buf)
   char *prog;
   char tmp[64];
   char *argv[4], buf2[MAX_STRING_LENGTH];
-#ifndef SUN
   int *status = NULL;
-#else
-  union wait status;
-#endif
 
 
   if (buf.empty()) {
@@ -1126,11 +1119,7 @@ int vsystem(const sstring &buf)
     vlogf(LOG_BUG, "Error in vsystem.  Fork failed.");
     return FALSE;
   }
-#ifndef SUN
   while (wait(status) != pid);
-#else
-  while (wait(&status) != pid);
-#endif
 
   return TRUE;
 }

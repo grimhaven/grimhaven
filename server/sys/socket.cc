@@ -28,10 +28,6 @@ extern "C" {
 #include <sys/param.h>
 #include <ares.h>
 
-#ifdef SOLARIS
-#include <sys/file.h>
-#endif
-
 int select(int, fd_set *, fd_set *, fd_set *, struct timeval *);   
 }
 
@@ -141,12 +137,11 @@ void TMainSocket::addNewDescriptorsDuringBoot(sstring tStString)
 
   sigprocmask(SIG_SETMASK, &mask, NULL);
   
-#ifdef LINUX
   // linux uses a nonstandard style of "timedout" (the last parm of select)
   // it gets hosed each select() so must be reinited here
   null_time.tv_sec = 0;
   null_time.tv_usec = 0;
-#endif
+
   if (select(maxdesc + 1, &input_set, &output_set, &exc_set, &null_time) < 0) {
     perror("Error in Select (poll)");
     return;
@@ -1980,20 +1975,12 @@ TSocket *TMainSocket::newConnection(int t_sock, int port)
 static const sstring IP_String(in_addr &_a)
 {
   sstring buf;
-#if (defined SUN)
-  sprintf( buf, "%d.%d.%d.%d", 
-          _a.S_un.S_un_b.s_b1,
-          _a.S_un.S_un_b.s_b2,
-          _a.S_un.S_un_b.s_b3,
-          _a.S_un.S_un_b.s_b4);
-#else
   int n1, n2, n3, n4; 
   n1 = _a.s_addr >> 24;
   n2 = (_a.s_addr >> 16) - (n1 * 256);
   n3 = (_a.s_addr >> 8) - (n1 * 65536) - (n2 * 256);
   n4 = (_a.s_addr) % 256;
   buf = format("%d.%d.%d.%d") % n4 % n3 % n2 % n1;
-#endif
   return buf;
 }
 
@@ -2194,11 +2181,7 @@ void TMainSocket::initSocket(int t_port)
   struct linger ld;
   int t_sock;
 
-#if defined(SUN)
-  bzero((char *) &sa, sizeof(struct sockaddr_in));
-#else
   memset((char *) &sa, 0, sizeof(sa));
-#endif
 
 #if 0
   gethostname(hostname, MAXHOSTNAMELEN);

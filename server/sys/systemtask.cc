@@ -20,10 +20,6 @@ extern "C" {
 #include "obj_note.h"
 #include "extern.h"
 
-#if !defined(LINUX)
-extern pid_t vfork(void);
-#endif
-
 const char TMPFILE[] = "/mud/prod/lib/tmp/task.output";
 
 class _task {
@@ -139,11 +135,7 @@ void SystemTask::CheckTask()
       //  Process the output.
       memset((char *) &fstatus, 0, sizeof(struct stat));
       if (stat(TMPFILE, &fstatus) < 0) 
-#if defined(LINUX)
         vlogf(LOG_BUG, "WARNING: SystemTask::CheckTask(): stat()");
-#else
-        vlogf(LOG_BUG, format("WARNING: SystemTask::CheckTask(): stat(): errno=%d") %  errno);
-#endif
 
       // there's no real technical reason we couldn't shove all the
       // info onto a note.  My fear is someone would checklog "e" log*

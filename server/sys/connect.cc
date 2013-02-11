@@ -24,10 +24,7 @@ extern "C" {
 #include <sys/param.h>
 #include <arpa/telnet.h>
 #include <arpa/inet.h>
-
-#if defined(LINUX) || defined(SOLARIS)
 #include <sys/stat.h>
-#endif
 }
 
 #include "extern.h"

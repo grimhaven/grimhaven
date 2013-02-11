@@ -9,13 +9,9 @@
 //////////////////////////////////////////////////////////////////////////
 
 #include <stdio.h>
-
 #include <cstdarg>
-
-#if defined(LINUX) || defined(SOLARIS)
 #include <sys/stat.h>
 #include <unistd.h>
-#endif
 
 #include "extern.h"
 #include "room.h"
