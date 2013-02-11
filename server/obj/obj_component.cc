@@ -22,6 +22,7 @@
 #include "obj_mergeable.h"
 #include "monster.h"
 #include "weather.h"
+#include "configuration.h"
 
 std::vector<compPlace>component_placement(0);
 std::vector<compInfo>CompInfo(0);
@@ -85,7 +86,7 @@ void TComponent::doMerge(TMergeable *tm)
 
 void assign_component_placement()
 {
-  if(gamePort==8900){
+  if (Config::BuilderMode()) {
     vlogf(LOG_LOW, "Skipping assign_component_placement for builder mud");
     return;
   }

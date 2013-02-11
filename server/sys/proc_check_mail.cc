@@ -15,7 +15,7 @@ void procCheckMail::run(const TPulse &) const
 {
   Descriptor *d;
 
-  if (Config::QuietMode())
+  if (Config::BuilderMode())
     return;
   
   for (d = descriptor_list; d; d = d->next) {

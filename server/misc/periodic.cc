@@ -253,7 +253,7 @@ void procApocCheck::run(const TPulse &) const
   int num, rc;
   TMonster *mob;
 
-  if (Config::QuietMode())
+  if (Config::BuilderMode())
     return;
 
   if (number(0,350)) 

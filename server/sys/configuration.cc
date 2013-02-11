@@ -32,7 +32,7 @@ bool Config::throw_format_exceptions;
 bool Config::no_specials;
 sstring Config::data_dir;
 sstring Config::config_file;
-bool Config::quiet_mode;
+bool Config::builder_mode;
 bool Config::beta_mode;
 bool Config::wizlock;
 sstring Config::wizlock_password;
@@ -63,8 +63,8 @@ bool Config::doConfiguration(int argc, char *argv[])
      "game port")
     ("beta_mode,b", po::value<bool>(&beta_mode)->default_value(false),
      "run game in beta mode")
-    ("quiet_mode,q", po::value<bool>(&quiet_mode)->default_value(false),
-     "disable mail notification & 4 horsemen")
+    ("builder_mode", po::value<bool>(&builder_mode)->default_value(false),
+     "run game in builder mode")
     ("wizlock,w", po::value<bool>(&wizlock)->default_value(false),
      "wizlock game")
     ("wizlock_password", po::value<string>(&wizlock_password)->default_value("superviii"),
