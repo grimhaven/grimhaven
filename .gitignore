@@ -1,2 +1,2 @@
-*.o
-.sconsign.dblite
+/.sconsign.dblite
+/build
