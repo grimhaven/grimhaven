@@ -9,21 +9,21 @@
 namespace po = boost::program_options;
 
 // static data member defs
-int Config::ITEM_DAMAGE_RATE;
-int Config::RENT_CREDIT_VAL;
-bool Config::RENT_SELL_TO_PAWN;
-bool Config::RENT_RESTRICT_INNS_BY_LEVEL;
-bool Config::PENALIZE_FOR_AUTO_RENTING;
-int Config::WEAPON_DAM_MIN_HARDNESS;
-int Config::WEAPON_DAM_MAX_HARDNESS;
-int Config::WEAPON_DAM_MAX_SHARP;
-bool Config::SPEEF_MAKE_BODY;
-bool Config::NUKE_REPAIR_ITEMS;
-bool Config::CHECK_MULTIPLAY;
-bool Config::FORCE_MULTIPLAY_COMPLIANCE;
-bool Config::REPO_MOBS;
-bool Config::SUPER_REPO_MOBS;
-bool Config::NO_DAMAGED_ITEMS_SHOP;
+int Config::item_damage_rate;
+int Config::rent_credit_val;
+bool Config::rent_sell_to_pawn;
+bool Config::rent_restrict_inns_by_level;
+bool Config::penalize_for_auto_renting;
+int Config::weapon_dam_min_hardness;
+int Config::weapon_dam_max_hardness;
+int Config::weapon_dam_max_sharp;
+bool Config::speef_make_body;
+bool Config::nuke_repair_items;
+bool Config::check_multiplay;
+bool Config::force_multiplay_compliance;
+bool Config::repo_mobs;
+bool Config::super_repo_mobs;
+bool Config::no_damaged_items_shop;
 bool Config::auto_deletion;
 bool Config::rent_only_deletion;
 bool Config::nuke_inactive_mobs;
@@ -76,49 +76,49 @@ bool Config::doConfiguration(int argc, char *argv[])
   po::options_description configOnly("Configuration File Only");
   configOnly.add_options()
     ("item_damage_rate", 
-     po::value<int>(&ITEM_DAMAGE_RATE)->default_value(1),
+     po::value<int>(&item_damage_rate)->default_value(1),
      "see configuration.h")
     ("rent_credit_val",
-     po::value<int>(&RENT_CREDIT_VAL)->default_value(75),
+     po::value<int>(&rent_credit_val)->default_value(75),
      "see configuration.h")
     ("rent_sell_to_pawn",
-     po::value<bool>(&RENT_SELL_TO_PAWN)->default_value(false),
+     po::value<bool>(&rent_sell_to_pawn)->default_value(false),
      "see configuration.h")
     ("rent_restrict_inns_by_level",
-     po::value<bool>(&RENT_RESTRICT_INNS_BY_LEVEL)->default_value(false),
+     po::value<bool>(&rent_restrict_inns_by_level)->default_value(false),
      "see configuration.h")
     ("penalize_for_auto_renting",
-     po::value<bool>(&PENALIZE_FOR_AUTO_RENTING)->default_value(true),
+     po::value<bool>(&penalize_for_auto_renting)->default_value(true),
      "see configuration.h")
     ("weapon_dam_min_hardness",
-     po::value<int>(&WEAPON_DAM_MIN_HARDNESS)->default_value(20),
+     po::value<int>(&weapon_dam_min_hardness)->default_value(20),
      "see configuration.h")
     ("weapon_dam_max_hardness",
-     po::value<int>(&WEAPON_DAM_MAX_HARDNESS)->default_value(150),
+     po::value<int>(&weapon_dam_max_hardness)->default_value(150),
      "see configuration.h")
     ("weapon_dam_max_sharp",
-     po::value<int>(&WEAPON_DAM_MAX_SHARP)->default_value(150),
+     po::value<int>(&weapon_dam_max_sharp)->default_value(150),
      "see configuration.h")
     ("speef_make_body",
-     po::value<bool>(&SPEEF_MAKE_BODY)->default_value(false),
+     po::value<bool>(&speef_make_body)->default_value(false),
      "see configuration.h")
     ("nuke_repair_items",
-     po::value<bool>(&NUKE_REPAIR_ITEMS)->default_value(true),
+     po::value<bool>(&nuke_repair_items)->default_value(true),
      "see configuration.h")
     ("check_multiplay",
-     po::value<bool>(&CHECK_MULTIPLAY)->default_value(true),
+     po::value<bool>(&check_multiplay)->default_value(true),
      "see configuration.h")
     ("force_multiplay_compliance",
-     po::value<bool>(&FORCE_MULTIPLAY_COMPLIANCE)->default_value(true),
+     po::value<bool>(&force_multiplay_compliance)->default_value(true),
      "see configuration.h")
     ("repo_mobs",
-     po::value<bool>(&REPO_MOBS)->default_value(false),
+     po::value<bool>(&repo_mobs)->default_value(false),
      "see configuration.h")
     ("super_repo_mobs",
-     po::value<bool>(&SUPER_REPO_MOBS)->default_value(false),
+     po::value<bool>(&super_repo_mobs)->default_value(false),
      "see configuration.h")
     ("no_damaged_items_shop",
-     po::value<bool>(&NO_DAMAGED_ITEMS_SHOP)->default_value(false),
+     po::value<bool>(&no_damaged_items_shop)->default_value(false),
      "see configuration.h")
     ("auto_deletion",
      po::value<bool>(&auto_deletion)->default_value(false),
@@ -197,7 +197,8 @@ bool Config::doConfiguration(int argc, char *argv[])
   po::notify(vm);
   
   if(vm.count("help")){
-    sendHelp(visible);
+    std::cout << "Usage: sneezy [options] [port]" << std::endl;
+    std::cout << visible;  
     return false;
   }
   return true;

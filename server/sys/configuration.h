@@ -12,7 +12,7 @@ class Config {
   // Any hit doing less then this amount has no chance of damaging
   // All other hits get modifier on damage rate based on this value
   // 4.1 balanced at 2 prior to depreciation
-  static int ITEM_DAMAGE_RATE;
+  static int item_damage_rate;
 
   // used to determine rent credit
   // credit = level * maxi(20, level) * x
@@ -20,64 +20,64 @@ class Config {
   // on this rent credit being at 75
   // 4.0's no rent, and 4.1's big rent credit have distorted this so feel free
   // to adjust if this no longer works
-  static int RENT_CREDIT_VAL;
+  static int rent_credit_val;
   
   // if player goes over rent, items are "sold" to pay for it
   // this handles what is done with the sold item(s)
   // If turned on, the pawnguy gets them
   // otherwise they get deleted
-  static bool RENT_SELL_TO_PAWN;
+  static bool rent_sell_to_pawn;
   
   // causes innkeepers to grant rentCredit based on the innkeepers levels
   // otherwise, it is based on the players level.
   // the chief use of this is to encourage high level pc's to use certain inns
-  static bool RENT_RESTRICT_INNS_BY_LEVEL;
+  static bool rent_restrict_inns_by_level;
   
   // causes bad things to happen to player based on time in autorent
   // there is a grace period to handle crashes
-  static bool PENALIZE_FOR_AUTO_RENTING;
+  static bool penalize_for_auto_renting;
   
   // the minimum "hardness" for a material to damage/blunt a weapon
   // when hitting.
-  static int WEAPON_DAM_MIN_HARDNESS;
+  static int weapon_dam_min_hardness;
   
   // the max value of a hardness roll, raising it = weapon
   // damage/blunt DECREASE
-  static int WEAPON_DAM_MAX_HARDNESS;
+  static int weapon_dam_max_hardness;
   
   // the max value of a sharpness roll, raising it = weapon blunt DECREASE
-  static int WEAPON_DAM_MAX_SHARP;
+  static int weapon_dam_max_sharp;
   
   // speef is too important for comments so we don't know what this does
-  static bool SPEEF_MAKE_BODY;
+  static bool speef_make_body;
   
   // causes items left in repair to be deleted after a set number of days.
   // Good to keep things circulating, but bad if extended downtime anticipated.
   // Simply deletes the file in mobdata/repairs/, the tickets still exist
   // and the repairman will say he doesn't have the item.
-  static bool NUKE_REPAIR_ITEMS;
+  static bool nuke_repair_items;
   
   // Enables a check to validate that players are not multiplaying. 
   // check is done each login and periodically for all chars logged in.
-  static bool CHECK_MULTIPLAY;
+  static bool check_multiplay;
   
   // code will disallow any bad multiplay event
-  static bool FORCE_MULTIPLAY_COMPLIANCE;
+  static bool force_multiplay_compliance;
 
   // Enables automatic generation of repossession mobs based on item max-exist.
   // Not extremely popular, but a good way to get item overturn.
-  static bool REPO_MOBS;
+  static bool repo_mobs;
   
   // items that are over max-exist get hunted by a buffed up version of the
-  // hunter.  Requires REPO_MOBS be TRUE.
+  // hunter.  Requires repo_mobs be TRUE.
   // VERY unpopular
-  static bool SUPER_REPO_MOBS;
+  static bool super_repo_mobs;
   
   // shops tend to get a lot of goods that strictly speaking aren't isSimilar()
   // slightly damaged, depreciated, etc.
   // We can eliminate this by turning this on.  Any item not perfect will get
   // deleted.
-  static bool NO_DAMAGED_ITEMS_SHOP;
+  static bool no_damaged_items_shop;
 
   // causes player/rent files to be automatically purged if inactive for
   // more then a few weeks.  Conserves disk space and speeds up the boot
@@ -123,21 +123,21 @@ class Config {
  public:
   static bool doConfiguration(int argc=0, char *argv[]=0);
   
-  static int ItemDamageRate(){ return ITEM_DAMAGE_RATE; }
-  static int RentCreditVal(){ return RENT_CREDIT_VAL;}
-  static bool RentSellToPawn(){ return RENT_SELL_TO_PAWN;}
-  static bool RentRestrictInnsByLevel(){return RENT_RESTRICT_INNS_BY_LEVEL;}
-  static bool PenalizeForAutoRenting(){ return PENALIZE_FOR_AUTO_RENTING;}
-  static int WeaponDamMinHardness(){ return WEAPON_DAM_MIN_HARDNESS;}
-  static int WeaponDamMaxHardness(){ return WEAPON_DAM_MAX_HARDNESS;}
-  static int WeaponDamMaxSharp(){ return WEAPON_DAM_MAX_SHARP;}
-  static bool SpeefMakeBody(){ return SPEEF_MAKE_BODY;}
-  static bool NukeRepairItems(){ return NUKE_REPAIR_ITEMS; }
-  static bool CheckMultiplay(){ return CHECK_MULTIPLAY; }
-  static bool ForceMultiplayCompliance(){return FORCE_MULTIPLAY_COMPLIANCE;}
-  static bool RepoMobs(){ return REPO_MOBS; }
-  static bool SuperRepoMobs(){ return SUPER_REPO_MOBS; }
-  static bool NoDamagedItemsShop(){ return NO_DAMAGED_ITEMS_SHOP; }
+  static int ItemDamageRate(){ return item_damage_rate; }
+  static int RentCreditVal(){ return rent_credit_val;}
+  static bool RentSellToPawn(){ return rent_sell_to_pawn;}
+  static bool RentRestrictInnsByLevel(){return rent_restrict_inns_by_level;}
+  static bool PenalizeForAutoRenting(){ return penalize_for_auto_renting;}
+  static int WeaponDamMinHardness(){ return weapon_dam_min_hardness;}
+  static int WeaponDamMaxHardness(){ return weapon_dam_max_hardness;}
+  static int WeaponDamMaxSharp(){ return weapon_dam_max_sharp;}
+  static bool SpeefMakeBody(){ return speef_make_body;}
+  static bool NukeRepairItems(){ return nuke_repair_items; }
+  static bool CheckMultiplay(){ return check_multiplay; }
+  static bool ForceMultiplayCompliance(){return force_multiplay_compliance;}
+  static bool RepoMobs(){ return repo_mobs; }
+  static bool SuperRepoMobs(){ return super_repo_mobs; }
+  static bool NoDamagedItemsShop(){ return no_damaged_items_shop; }
   static bool AutoDeletion(){ return auto_deletion; }
   static bool RentOnlyDeletion(){ return rent_only_deletion; }
   static bool NukeInactiveMobs(){ return nuke_inactive_mobs; }
