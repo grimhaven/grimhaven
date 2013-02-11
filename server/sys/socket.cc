@@ -563,14 +563,7 @@ void procPingData::run(const TPulse &) const
   
   if(p) pclose(p);
   
-  if(gamePort == Config::Port::PROD){
-    p=popen("/mud/prod/lib/bin/ping sneezy", "w");
-  } else if(gamePort == Config::Port::BUILDER){
-    p=popen("/mud/prod/lib/bin/ping sneezybuilder", "w");
-  } else {
-    p=popen("/mud/prod/lib/bin/ping sneezybeta", "w");
-  }
-  
+  p=popen("/mud/prod/lib/bin/ping", "w");
   
   for (d = descriptor_list; d; d = d->next) {
     if (!(d->host.empty()) && d->character && d->character->isPlayerAction(PLR_PING)){

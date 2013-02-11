@@ -253,7 +253,7 @@ void procApocCheck::run(const TPulse &) const
   int num, rc;
   TMonster *mob;
 
-  if(gamePort == Config::Port::BUILDER)
+  if (Config::QuietMode())
     return;
 
   if (number(0,350)) 

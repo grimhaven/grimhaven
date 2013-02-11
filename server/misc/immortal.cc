@@ -1411,11 +1411,9 @@ void TPerson::doShutdown(const char *argument)
   argument = one_argument(argument, arg, cElements(buf));
 
   if (!*arg) {
-    if (gamePort == Config::Port::PROD || gamePort == Config::Port::BUILDER) {
+    if (!Config::BetaMode()) {
       // oops, did we type shutdown in the wrong window again???
-      sendTo(format("Running on game port (%d) or builder port (%d).\n\r") 
-          % Config::Port::PROD % Config::Port::BUILDER);
-      sendTo("Please do a timed shutdown to avoid complaints.\n\r");
+      sendTo("Running in production mode.\n\rPlease do a timed shutdown to avoid complaints.\n\r");
       return;
     }
     sprintf(buf, "<r>%s by %s.<z>\n\r", shutdown_or_reboot().c_str(), getName());

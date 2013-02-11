@@ -38,11 +38,7 @@ const char *TDatabaseConnection::getConnectParam(dbTypeT type)
   const char *ret = db_connect[type];
   if (ret)
     return ret;
-  if (gamePort == Config::Port::PROD)
-    return db_connect[DB_SNEEZYPROD];
-  if (gamePort == Config::Port::BUILDER)
-    return db_connect[DB_SNEEZYBUILDER];
-  return db_connect[DB_SNEEZYBETA];
+  return db_connect[DB_SNEEZYPROD];
 }
 
 

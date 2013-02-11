@@ -117,8 +117,8 @@ class Config {
   // config file that options were loaded from
   static sstring config_file;
 
-  // turn off mail system
-  static bool no_mail;
+  // turn off mail & horsemen
+  static bool quiet_mode;
 
   // enable various beta-mode options
   static bool beta_mode;
@@ -155,7 +155,7 @@ class Config {
   static bool NoSpecials(){ return no_specials; }
   static sstring DataDir(){ return data_dir; }
   static sstring ConfigFile(){ return config_file; }
-  static bool NoMail(){ return no_mail; }
+  static bool QuietMode(){ return quiet_mode; }
   static bool BetaMode(){ return beta_mode; }
   static bool WizLock(){ return wizlock; }
   static sstring WizLockPassword(){ return wizlock_password; }

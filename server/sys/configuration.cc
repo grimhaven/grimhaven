@@ -32,14 +32,13 @@ bool Config::throw_format_exceptions;
 bool Config::no_specials;
 sstring Config::data_dir;
 sstring Config::config_file;
-bool Config::no_mail;
+bool Config::quiet_mode;
 bool Config::beta_mode;
 bool Config::wizlock;
 sstring Config::wizlock_password;
 
 const int Config::Port::PROD=7900;
 const int Config::Port::PROD_XML=7901;
-const int Config::Port::BUILDER=8900;
 
 bool Config::doConfiguration(int argc, char *argv[])
 {
@@ -64,6 +63,8 @@ bool Config::doConfiguration(int argc, char *argv[])
      "game port")
     ("beta_mode,b", po::value<bool>(&beta_mode)->default_value(false),
      "run game in beta mode")
+    ("quiet_mode,q", po::value<bool>(&quiet_mode)->default_value(false),
+     "disable mail notification & 4 horsemen")
     ("wizlock,w", po::value<bool>(&wizlock)->default_value(false),
      "wizlock game")
     ("wizlock_password", po::value<string>(&wizlock_password)->default_value("superviii"),
@@ -132,9 +133,6 @@ bool Config::doConfiguration(int argc, char *argv[])
      "see configuration.h")
     ("throw_format_exceptions",
      po::value<bool>(&throw_format_exceptions)->default_value(true),
-     "see configuration.h")
-    ("no_mail",
-     po::value<bool>(&no_mail)->default_value(false),
      "see configuration.h")
     ;
 
