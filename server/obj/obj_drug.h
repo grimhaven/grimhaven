@@ -6,8 +6,8 @@
 //////////////////////////////////////////////////////////////////////////
 
 
-#ifndef __DRUG_H
-#define __DRUG_H
+#ifndef __OBJ_DRUG_H
+#define __OBJ_DRUG_H
 
 #include "obj.h"
 #include "gametime.h"

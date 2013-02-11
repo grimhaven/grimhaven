@@ -13,10 +13,7 @@
 #ifndef __DB_H
 #define __DB_H
 
-#ifndef __STRUCTS_H
 #include "structs.h"
-#endif
-
 #include "sstring.h"
 
 #include <map>

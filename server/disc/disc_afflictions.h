@@ -16,8 +16,8 @@
 //////////////////////////////////////////////////////////////////////////
 
 
-#ifndef __DISC_AFFLICT_H
-#define __DISC_AFFLICT_H
+#ifndef __DISC_AFFLICTIONS_H
+#define __DISC_AFFLICTIONS_H
 
 // This is the AFFLICT discipline.
 

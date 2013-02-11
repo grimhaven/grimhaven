@@ -5,8 +5,8 @@
 //////////////////////////////////////////////////////////////////////////
 
 
-#ifndef __H
-#define __H
+#ifndef __WEATHER_H
+#define __WEATHER_H
 
 class TBeing;
 class TRoom;

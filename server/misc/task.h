@@ -19,8 +19,8 @@
 
 *************************************************************************/
 
-#ifndef __TASK
-#define __TASK
+#ifndef __TASK_H
+#define __TASK_H
 
 extern int task_bogus         (TBeing *, cmdTypeT, const char *, int, TRoom *, TObj *);
 extern int task_sharpening    (TBeing *, cmdTypeT, const char *, int, TRoom *, TObj *);

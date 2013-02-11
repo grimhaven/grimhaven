@@ -30,8 +30,8 @@
 
 *************************************************************************/
 
-#ifndef __SPELLTASK
-#define __SPELLTASK 1
+#ifndef __SPELLTASK_H
+#define __SPELLTASK_H
 
 #include "spell2.h"
 

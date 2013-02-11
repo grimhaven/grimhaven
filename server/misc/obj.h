@@ -8,10 +8,6 @@
 #ifndef __OBJ_H
 #define __OBJ_H
 
-#ifndef __SPEC_OBJS_H
-#include "spec_objs.h"
-#endif
-
 #include <vector>
 #include <list>
 
@@ -21,6 +17,7 @@
 #include "db.h"
 #include "thing.h"
 #include "limbs.h"
+#include "spec_objs.h"
 
 class objIndexData;
 

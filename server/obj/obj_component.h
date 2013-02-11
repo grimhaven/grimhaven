@@ -9,8 +9,8 @@
 *  file: components.h, Implementation of periodic components      DIKUMUD *
 ************************************************************************* */
 
-#ifndef __COMPONENTS_H
-#define __COMPONENTS_H
+#ifndef __OBJ_COMPONENT_H
+#define __OBJ_COMPONENT_H
 
 #include "obj_mergeable.h"
 #include "enum.h"

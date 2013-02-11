@@ -13,9 +13,7 @@
 #ifndef __BODY_H
 #define __BODY_H
 
-#ifndef __LIMBS_H
 #include "limbs.h"
-#endif
 
 const int MAX_SHEATH = 3;
 

@@ -16,8 +16,8 @@
 //////////////////////////////////////////////////////////////////////////
 
 
-#ifndef __SIGNALS_H
-#define __SIGNALS_H
+#ifndef __SNEEZY_SIGNALS_H
+#define __SNEEZY_SIGNALS_H
 
 class SignalHandler {
   private:

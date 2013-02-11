@@ -5,8 +5,8 @@
 //
 //////////////////////////////////////////////////////////////////////////
 
-#ifndef __OBJ_APPLIED_SUB_H
-#define __OBJ_APPLIED_SUB_H
+#ifndef __OBJ_APPLIEDSUB_H
+#define __OBJ_APPLIEDSUB_H
 
 #include "obj.h"
 

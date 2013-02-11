@@ -5,8 +5,8 @@
 //////////////////////////////////////////////////////////////////////////
 
 
-#ifndef __WIZPOWER_H
-#define __WIZPOWER_H
+#ifndef __WIZ_POWERS_H
+#define __WIZ_POWERS_H
 
 // Wiz-Powers
 

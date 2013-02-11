@@ -9,8 +9,8 @@
 //
 // A class for defining the stat system.
 
-#ifndef __CHARACTERISTICS_H
-#define __CHARACTERISTICS_H
+#ifndef __STATS_H
+#define __STATS_H
 
 enum statTypeT {
      STAT_STR,

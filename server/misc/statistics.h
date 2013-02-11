@@ -5,8 +5,8 @@
 //////////////////////////////////////////////////////////////////////////
 
 
-#ifndef __STATS_H
-#define __STATS_H
+#ifndef __STATISTICS_H
+#define __STATISTICS_H
 
 #include <algorithm>
 #include <string.h>

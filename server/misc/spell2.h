@@ -5,8 +5,8 @@
 //////////////////////////////////////////////////////////////////////////
 
 
-#ifndef __SPELLS2_H
-#define __SPELLS2_H
+#ifndef __SPELL2_H
+#define __SPELL2_H
 
 #include <map>
 
