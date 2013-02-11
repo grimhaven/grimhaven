@@ -986,7 +986,7 @@ int TBeing::doGive(const sstring &oarg, giveTypeT flags)
     }
 
     if (vict) {
-      rc = vict->checkSpec(this, CMD_MOB_GIVEN_COINS, arg.c_str(), (TObj *) amount);
+      rc = vict->checkSpec(this, CMD_MOB_GIVEN_COINS, arg.c_str(), (TObj *)(long) amount);
 
       if (IS_SET_DELETE(rc, DELETE_THIS)) {
         delete vict;

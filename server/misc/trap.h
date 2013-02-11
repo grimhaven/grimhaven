@@ -8,6 +8,7 @@
 #ifndef __TRAP_H
 #define __TRAP_H
 
+class sstring;
 
 const unsigned int TRAP_EFF_MOVE      = (1<<0);   // 1  trigger on movement
 const unsigned int TRAP_EFF_OBJECT    = (1<<1);   // 2  trigger on get or put
