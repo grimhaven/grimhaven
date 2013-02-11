@@ -1411,7 +1411,7 @@ void TPerson::doShutdown(const char *argument)
   argument = one_argument(argument, arg, cElements(buf));
 
   if (!*arg) {
-    if (!Config::BetaMode()) {
+    if (Config::ModeProd() || Config::ModeBuilder()) {
       // oops, did we type shutdown in the wrong window again???
       sendTo("Running in production mode.\n\rPlease do a timed shutdown to avoid complaints.\n\r");
       return;

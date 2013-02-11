@@ -1056,7 +1056,7 @@ void TBaseWeapon::curseMe()
 int TBaseWeapon::wieldMe(TBeing *ch, char *arg2)
 {
   // Test code to flux 'Two-Handed' weapons based on size.
-  if (gamePort != Config::Port::PROD) {
+  if (!Config::ModeProd()) {
     bool canSingleWieldPrim = ch->checkWeaponWeight(this, HAND_TYPE_PRIM, false),
          canSingleWieldSecd = ch->checkWeaponWeight(this, HAND_TYPE_SEC , false);
 

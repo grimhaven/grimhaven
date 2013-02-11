@@ -211,7 +211,7 @@ void TPerson::doSEdit(const char *tArg)
         return;
       }
 
-      if (gamePort != Config::Port::PROD)
+      if (!Config::ModeProd())
         sedit(this, tMonster);
       else
         sendTo("There are still problems with the menu system, please don't use it yet.\n\r");

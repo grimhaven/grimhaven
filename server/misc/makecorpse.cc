@@ -698,7 +698,7 @@ TThing * TBeing::makeCorpse(spellNumT dmg_type, TBeing * tKiller, float exp_lost
     }
   }
 
-  if (gamePort != Config::Port::PROD)
+  if (!Config::ModeProd())
     gen_corpse->setupDissectionObjects();
 
 

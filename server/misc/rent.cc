@@ -1964,7 +1964,7 @@ void emailStorageBag(sstring tStMessage, sstring tStSender, TThing * tStuff)
   FILE * tFile;
   sstring tStMail("");
 
-  if (gamePort != Config::Port::PROD)
+  if (!Config::ModeProd())
     return;
 
   if (!(tFile = fopen("storage.temp", "w")))
@@ -2062,7 +2062,7 @@ void TRoom::loadItems()
 
       // Now we verify the 'user'.  tString should have been set prior.
       if (!load_char(tString, &tSt)) {
-        if (gamePort == Config::Port::PROD)
+        if (Config::ModeProd())
           emailStorageBag("User Deleted", tString, tThing);
 
         vlogf(LOG_LOW, format("Storage: Purging linkbag: %s") %  tString);
@@ -2192,7 +2192,7 @@ void TRoom::loadItems()
 
         // Allow a bag to be 'retained' for 30 days.
         if (tTimeDiff > tCheck || tTimeDiff < -tCheck) {
-          if (gamePort == Config::Port::PROD)
+          if (!Config::ModeProd())
             emailStorageBag("Time Expired", tString, tThing);
 
           vlogf(LOG_LOW, format("Storage: Expired: %s") %  tString);

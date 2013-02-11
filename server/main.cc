@@ -44,7 +44,6 @@ int main(int argc, char *argv[])
 
   vlogf(LOG_MISC, format("Running %s on port %d.") %  MUD_NAME_VERS % gamePort);
 
-  WizLock = Config::WizLock();
   if (WizLock)
     vlogf(LOG_MISC, "Starting with wizlock enabled");
 

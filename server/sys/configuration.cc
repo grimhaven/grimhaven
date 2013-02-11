@@ -32,9 +32,9 @@ bool Config::throw_format_exceptions;
 bool Config::no_specials;
 sstring Config::data_dir;
 sstring Config::config_file;
-bool Config::builder_mode;
-bool Config::beta_mode;
-bool Config::wizlock;
+bool Config::mode_builder;
+bool Config::mode_beta;
+bool Config::mode_prod;
 sstring Config::wizlock_password;
 int Config::xml_port;
 
@@ -64,15 +64,18 @@ bool Config::doConfiguration(int argc, char *argv[])
     ("xml_port",
       po::value<int>(&xml_port)->default_value(0),
       "xml protocol game port")
-    ("beta_mode,b",
-      po::value<bool>(&beta_mode)->default_value(false),
+    ("prod_mode",
+      po::value<bool>(&mode_prod)->default_value(true),
+      "run game in production mode")
+    ("beta_mode",
+      po::value<bool>(&mode_beta)->default_value(false),
       "run game in beta mode")
     ("builder_mode",
-      po::value<bool>(&builder_mode)->default_value(false),
+      po::value<bool>(&mode_builder)->default_value(false),
       "run game in builder mode")
     ("wizlock,w",
-      po::value<bool>(&wizlock)->default_value(false),
-      "wizlock game")
+      po::value<bool>(&WizLock)->default_value(false),
+      "enable wizlock at startup")
     ("wizlock_password",
       po::value<string>(&wizlock_password)->default_value("superviii"),
       "password to bypass wizlock")

@@ -245,7 +245,7 @@ void TPerson::resetChar()
     if (isupper(*tmp))
       *tmp = tolower(*tmp);
   }
-  if (!Config::BuilderMode() && has_mail(recipient))
+  if (!Config::ModeBuilder() && has_mail(recipient))
     sendTo(format("\n\rYou have %sMAIL%s.\n\r") % bold() % norm());
 
   time_t ct = player.time->last_logon ? player.time->last_logon : time(0);

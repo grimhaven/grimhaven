@@ -12,7 +12,7 @@ bool twitterShout(sstring from, sstring msg)
 {
   CURL *curl;
 
-  if(gamePort!=Config::Port::PROD)
+  if (!Config::ModeProd())
     return false;
 
   struct curl_httppost *formpost=NULL;

@@ -117,22 +117,22 @@ class Config {
   // config file that options were loaded from
   static sstring config_file;
 
-  // turn off mail & horsemen & comp placement
-  static bool builder_mode;
-
-  // enable various beta-mode options
-  static bool beta_mode;
-
-  // deny the creation of new users
-  static bool wizlock;
-
   // password to bypass wizlock
   static sstring wizlock_password;
 
- public:
   // TCP port which speaks the XML network protocol rather than raw telnet
   static int xml_port;
 
+  // turn off mail & horsemen & comp placement
+  static bool mode_builder;
+
+  // enable various beta-mode more fun options
+  static bool mode_beta;
+
+  // remove various production-mode restrictions
+  static bool mode_prod;
+
+ public:
   static bool doConfiguration(int argc=0, char *argv[]=0);
   
   static int ItemDamageRate(){ return item_damage_rate; }
@@ -158,19 +158,12 @@ class Config {
   static bool NoSpecials(){ return no_specials; }
   static sstring DataDir(){ return data_dir; }
   static sstring ConfigFile(){ return config_file; }
-  static bool BuilderMode(){ return builder_mode; }
-  static bool BetaMode(){ return beta_mode; }
-  static bool WizLock(){ return wizlock; }
   static sstring WizLockPassword(){ return wizlock_password; }
-
-
-  // defines the port of the running muds
-  class Port {
-  private:
-    Port();
-  public:
-    static const int PROD = 7900;
-  };
+  static bool XmlPort(){ return xml_port; }
+  static bool ModeBuilder(){ return mode_builder; }
+  static bool ModeBeta(){ return mode_beta; }
+  // builder & beta mode exclude prod mode
+  static bool ModeProd(){ return !(mode_builder || mode_beta) && mode_prod; }
 };
 
 

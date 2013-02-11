@@ -58,7 +58,10 @@ void sleepTagEndGame(SSTControl *);
  */
 int sleepTagControl(TBeing *tBeing, cmdTypeT tCmd, const char *tArg, TRoom *tRoom)
 {
-  if (gamePort == Config::Port::PROD || !ACTIVE)
+#if !ACTIVE
+  return FALSE;
+#endif
+  if (Config::ModeProd())
     return FALSE;
 
   SSTControl *tJob   = NULL;
@@ -227,7 +230,10 @@ void sleepTagEndGame(SSTControl *tJob)
 
 int sleepTagRoom(TBeing *tBeing, cmdTypeT tCmd, const char *tArg, TRoom *tRoom)
 {
-  if (gamePort == Config::Port::PROD || !ACTIVE)
+#if !ACTIVE
+  return FALSE;
+#endif
+  if (Config::ModeProd())
     return FALSE;
 
   TThing *tThing;
