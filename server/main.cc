@@ -25,30 +25,28 @@ int main(int argc, char *argv[])
 {
   int a;
 
-  if(!Config::doConfiguration(argc, argv))
-    return 0;
+  if (!Config::doConfiguration(argc, argv))
+    exit(1);
 
-  if(Config::NoSpecials())
+  if (chdir(Config::DataDir().c_str()) < 0) {
+    std::cout << format("Failed to chdir to lib directory '%s'\n") % Config::DataDir();
+    perror("chdir");
+    exit(1);
+  }
+
+  vlogf(LOG_MISC, format("Using %s as data directory.") % Config::DataDir());
+
+  if (Config::NoSpecials())
     vlogf(LOG_MISC, "Suppressing assignment of special routines.");
 
   Uptime = time(0);
+  srand(Uptime);
 
   vlogf(LOG_MISC, format("Running %s on port %d.") %  MUD_NAME_VERS % gamePort);
 
-  if (chdir(Config::DataDir().c_str()) < 0) {
-    perror("chdir");
-    exit(0);
-  }
-  vlogf(LOG_MISC, format("Using %s as data directory.") % Config::DataDir());
-
-  srand(time(0));
-
-  WizLock = false;
-
-  if (gamePort == Config::Port::BETA) {
-    vlogf(LOG_MISC, "Running on beta test site.  Wizlocking by default.");
-    WizLock = TRUE;
-  }
+  WizLock = Config::WizLock();
+  if (WizLock)
+    vlogf(LOG_MISC, "Starting with wizlock enabled");
 
   vlogf(LOG_MISC, "Blanking denied hosts.");
   for (a = 0; a < MAX_BAN_HOSTS; a++) {

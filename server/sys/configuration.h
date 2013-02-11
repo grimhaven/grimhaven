@@ -111,13 +111,20 @@ class Config {
   // suppress assigning of special routines
   static bool no_specials;
 
-  // run as trimmed port
-
   // data directory to run in (eg "lib")
   static sstring data_dir;
 
+  // config file that options were loaded from
+  static sstring config_file;
+
   // turn off mail system
   static bool no_mail;
+
+  // deny the creation of new users
+  static bool wizlock;
+
+  // password to bypass wizlock
+  static sstring wizlock_password;
 
  public:
   static bool doConfiguration(int argc=0, char *argv[]=0);
@@ -144,7 +151,11 @@ class Config {
   static bool ThrowFormatExceptions(){ return throw_format_exceptions; }
   static bool NoSpecials(){ return no_specials; }
   static sstring DataDir(){ return data_dir; }
+  static sstring ConfigFile(){ return config_file; }
   static bool NoMail(){ return no_mail; }
+  static bool WizLock(){ return wizlock; }
+  static sstring WizLockPassword(){ return wizlock_password; }
+
 
   // defines the port of the running muds
   class Port {

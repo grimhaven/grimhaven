@@ -52,7 +52,6 @@ extern "C" {
 const int DONT_SEND = -1;
 const int FORCE_LOW_INVSTE = 1;
 
-static const char * const WIZLOCK_PASSWORD           = "motelvi";
 #define _MUD_NAME "Grimhaven"
 #define _MUD_VERS "v6.0"
 #define _MUD_NAME_VERS _MUD_NAME " " _MUD_VERS
@@ -3325,7 +3324,7 @@ int Descriptor::doAccountStuff(char *arg)
         return DELETE_THIS;
       break;
     case CON_WIZLOCKNEW:
-      if (!*arg || strcasecmp(arg, WIZLOCK_PASSWORD)) 
+      if (!*arg || strcasecmp(arg, Config::WizLockPassword().c_str())) 
         return DELETE_THIS;
 
       vlogf(LOG_MISC, "Person making new character after entering wizlock password.");
@@ -3334,7 +3333,7 @@ int Descriptor::doAccountStuff(char *arg)
       connected = CON_NEWLOG;
       break;
     case CON_WIZLOCK:
-      if (!*arg || strcasecmp(arg, WIZLOCK_PASSWORD)) 
+      if (!*arg || strcasecmp(arg, Config::WizLockPassword().c_str())) 
         return DELETE_THIS;
       
       vlogf(LOG_MISC, "Person entering game by entering wizlock password.");

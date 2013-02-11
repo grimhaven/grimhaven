@@ -31,7 +31,10 @@ bool Config::load_on_death;
 bool Config::throw_format_exceptions;
 bool Config::no_specials;
 sstring Config::data_dir;
+sstring Config::config_file;
 bool Config::no_mail;
+bool Config::wizlock;
+sstring Config::wizlock_password;
 
 const int Config::Port::PROD=7900;
 const int Config::Port::PROD_XML=7901;
@@ -41,13 +44,12 @@ const int Config::Port::BUILDER=8900;
 bool Config::doConfiguration(int argc, char *argv[])
 {
   using std::string;
-  string configFile="sneezy.cfg";
 
   // command line only options
-  po::options_description cmdline("Command line only");
-  cmdline.add_options()
-    ("help", "produce help message")
-    ("config,c", po::value<string>(&configFile)->default_value("sneezy.cfg"),
+  po::options_description cmdline_only("Command line only");
+  cmdline_only.add_options()
+    ("help,h", "produce help message")
+    ("config,c", po::value<string>(&config_file),
      "configuration file to use")
     ;
 
@@ -60,11 +62,15 @@ bool Config::doConfiguration(int argc, char *argv[])
      "suppress assignment of special routines")
     ("port,p", po::value<int>(&gamePort)->default_value(Config::Port::PROD),
      "game port")
+    ("wizlock,w", po::value<bool>(&wizlock)->default_value(false),
+     "wizlock game")
+    ("wizlock_password", po::value<string>(&wizlock_password)->default_value("superviii"),
+     "password to bypass wizlock")
     ;
 
   // config file only options
-  po::options_description configOnly("Configuration File Only");
-  configOnly.add_options()
+  po::options_description config_only("Configuration File Only");
+  config_only.add_options()
     ("item_damage_rate", 
      po::value<int>(&item_damage_rate)->default_value(1),
      "see configuration.h")
@@ -156,41 +162,38 @@ bool Config::doConfiguration(int argc, char *argv[])
     ;
 
   po::options_description cmdline_options;
-  cmdline_options.add(cmdline).add(config).add(databases);
+  cmdline_options.add(cmdline_only).add(config).add(databases);
 
   po::options_description config_options;
-  config_options.add(config).add(databases).add(configOnly);
+  config_options.add(config).add(databases).add(config_only);
 
-  po::options_description visible("Allowed options");
-  visible.add(cmdline).add(config).add(databases).add(configOnly);
+  po::options_description visible("Available options");
+  visible.add(cmdline_only).add(config).add(databases).add(config_only);
 
-
-  // first positional argument is port number
-  po::positional_options_description p;
-  p.add("port", -1);
-  
   po::variables_map vm;
 
-
-  if(argc){
-    po::store(po::command_line_parser(argc, argv).
-	      options(cmdline_options).positional(p).run(), vm);
-  }
+  po::store(po::command_line_parser(argc, argv).
+    options(cmdline_options).run(), vm);
   po::notify(vm);
-  std::ifstream ifs(configFile.c_str());
-  
-  if(!ifs.is_open()){
-    std::cout << format("Failed to open config file '%s'\n") % configFile;
-  }
 
-  po::store(parse_config_file(ifs, config_options), vm);
-  po::notify(vm);
-  
-  if(vm.count("help")){
-    std::cout << "Usage: sneezy [options] [port]" << std::endl;
+  if (vm.count("help")) {
+    std::cout << format("Usage: %s [options]\n") % argv[0];
     std::cout << visible;  
     return false;
   }
+
+  if (vm.count("config")) {
+    std::ifstream ifs(config_file.c_str());
+
+    if (!ifs.is_open()) {
+      std::cout << format("Failed to open config file '%s'\n") % config_file;
+      return false;
+    }
+
+    po::store(parse_config_file(ifs, config_options), vm);
+    po::notify(vm);
+  }
+
   return true;
 }
 
