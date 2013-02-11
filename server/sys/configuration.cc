@@ -38,11 +38,6 @@ const int Config::Port::PROD_XML=7901;
 const int Config::Port::BETA=5678;
 const int Config::Port::BUILDER=8900;
 
-void sendHelp(po::options_description desc){
-  std::cout << "Usage: sneezy [options] [port]" << std::endl;
-  std::cout << desc;  
-}
-
 bool Config::doConfiguration(int argc, char *argv[])
 {
   using std::string;
