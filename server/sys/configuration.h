@@ -130,6 +130,9 @@ class Config {
   static sstring wizlock_password;
 
  public:
+  // TCP port which speaks the XML network protocol rather than raw telnet
+  static int xml_port;
+
   static bool doConfiguration(int argc=0, char *argv[]=0);
   
   static int ItemDamageRate(){ return item_damage_rate; }
@@ -166,9 +169,7 @@ class Config {
   private:
     Port();
   public:
-    static const int PROD;
-    static const int PROD_XML;
-    static const int BUILDER;
+    static const int PROD = 7900;
   };
 };
 

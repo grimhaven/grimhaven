@@ -173,7 +173,6 @@ const char * const File::SOCMESS   ="actions"; /* messgs for social acts     */
 const char * const File::HELP_PAGE ="help/general";  /* for HELP <CR> */
 const char * const File::WIZLIST   ="txt/wizlist";   /* for WIZLIST   */
 
-const char * const Path::DATA          = "lib";  /* default data directory     */
 const char * const Path::HELP	       ="help/";   /* for HELP <keywrd>          */
 const char * const Path::IMMORTAL_HELP ="help/_immortal";
 const char * const Path::BUILDER_HELP  ="help/_builder";

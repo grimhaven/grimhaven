@@ -483,7 +483,7 @@ int Descriptor::outputProcessing()
   while((c=output.takeFromQ())){
     if(m_bIsClient){
       commtype=Comm::CLIENT;
-    } else if(socket->port==Config::Port::PROD_XML){
+    } else if(socket->port==Config::xml_port){
       commtype=Comm::XML;
     } else {
       commtype=Comm::TEXT;
