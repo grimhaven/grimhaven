@@ -1,0 +1,49 @@
+#33270
+Peel - Amber Extensions~
+33299 25 2 1
+
+O 0 8882 1 33270  desk
+M 0 10550 1 33270 construction worker
+M 0 8876 1 33270 secretary
+M 0 33272 1 33270 pirate
+M 0 33273 1 33270 pirate
+
+M 0 92 1 33275          corporate registry assistant
+
+M 0 33270 5 33271       trash collectors
+M 0 33270 5 33271       trash collectors
+M 0 33270 5 33271       trash collectors
+M 0 33270 5 33271       trash collectors
+M 0 33270 5 33271       trash collectors
+
+
+M 0 33291 1 33291	butler
+O 0 14385 3 33291	lamp
+O 0 14365 1 33291	wardrobe
+O 0 185   1 33291	chest
+O 0 9059  1 33291	bed
+
+O 0 18689 1 33290	couch
+O 0 10934 1 33290	fireplace
+O 0 14385 3 33290	lamp
+
+O 0 14385 3 33292	lamp
+O 0 185   1 33292 	chest
+O 0 22404 1 33292	chest
+O 0 18695 1 33292 	chest
+
+D 0 33293 4 2		door from shop to faction room
+D 0 33294 5 2
+
+D 0 33294 0 2		secret from faction room to bedroom
+D 0 33295 2 2
+
+D 0 33270 4 2		door from overlords bedroom to hammer and fist
+D 0 33295 5 2
+
+O 0 33294 1 33294		serpent chest in serpent faction room
+O 0 33292 1 33295		bed in overlord bedroom
+
+S
+
+

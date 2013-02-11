@@ -1,0 +1,32 @@
+#300
+TB Sheldon Auditorium~
+349 25 2 1
+M 0 300 1 305 		Patron Male
+M 0 300 1 314 		Patron Male
+M 0 300 1 330 		Patron Male
+M 0 301 1 334 		Patron Female
+M 0 301 1 312 		Patron Female
+M 0 301 1 309 		Patron Female
+M 0 302 1 300 		Usher
+M 0 302 1 302 		Usher
+M 0 302 1 313 		Usher
+M 0 303 1 323 		Stage Hand
+M 0 303 1 321 		Stage Hand
+M 0 303 1 327 		Stage Hand
+M 0 304 1 317 		Actor
+M 0 304 1 324 		Actor
+M 0 305 1 318 		Actress
+M 0 305 1 315 		Actress
+M 0 306 1 319 		Director
+
+O 0 350 12 305        theater seats
+O 0 350 12 307      theater seats
+O 0 350 12 309      theater seats
+O 0 350 12 310      theater seats
+O 0 350 12 312      theater seats
+O 0 350 12 314      theater seats
+O 0 350 12 330      theater seats
+O 0 350 12 332     theater seats
+O 0 350 12 334      theater seats
+
+S

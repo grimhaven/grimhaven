@@ -1,0 +1,210 @@
+#16700
+Deirdre - Player Homes~
+16799 30 2 1
+D 0 16700 5 2        Cramped Attic (Sage's house) -> Tanni's Jewelry Store
+D 0 16701 5 2        Galek Armory (Sage's house) -> Magical Nexus
+D 0 16702 5 2        Gon's House -> Barracks
+D 0 16710 1 2        TheSaint's Door -> Gon's House
+D 0 16705 5 2        Raven's Nest -> Above a Treetop
+D 0 16708 5 2        Unfinished Bungalow On Stilts -> The Grimhaven City Dump
+D 0 16711 5 2        A Simple Apartment -> Jem and Perry's Self Defense Studio
+D 0 16712 5 2        Lord Deslok's Chamber -> Short Hallway
+D 0 16712 3 1        Lord Deslok's Chamber -> Spine's Chamber
+D 0 16713 1 1        Spine's Chamber -> Lord Deslok's Chamber
+
+* Sage's house in Grimhaven, above Tanni's
+O 0 16703 1 16700       a bright blue portal
+O 0 16701 1 16700       a plain looking chair
+O 0 16711 1 16700       a stiff bed
+O 0 16710 1 16700       a short dinner table
+O 0 16705 1 16700       a leaky wash basin
+O 0 16707 1 16700       a large black anvil
+O 0 16720 1 16700       a large forge
+O 0 16706 1 16700       a sturdy workbench
+O 0 16709 1 16700       a marble altar
+O 0 16708 1 16700       an operating table
+O 0 16721 1 16700       a pentagram inscribed with chalk
+O 0 16704 1 16700       an obsidian toolbox
+
+* Sage's house in Brightmoon
+O 0 16702 1 16701       a bright blue portal
+O 0 1200 1 16701        a wall lamp
+O 0 16701 1 16701       a plain looking chair
+O 0 16712 3 16701       an equipment rack
+O 0 16713 1 16701       a ranger's quiver
+O 0 16714 1 16701       a holy altar
+O 0 16715 1 16701       a medicine cabinet
+O 0 16716 1 16701       a bag of tricks
+O 0 16717 3 16701       a magic dispenser
+O 0 16718 1 16701       a shiny curio cabinet
+O 0 16719 1 16701       a waste basket
+
+* Gon's house, Foyer
+O 0 16722 1 16702       a wall-mounted lantern
+O 0 10209 1 16702       a fireplace
+O 0 16725 1 16702       a window
+O 0 16736 1 16702       doormat
+O 0 16737 1 16702       coat rack
+O 0 23171 1 16702       small table
+P 1 16738 1 23171       vase on a small table
+O 0 16740 1 16702       wastebasket
+
+* Gon's house, Bedroom
+O 0 16723 9 16703       a walnut wood wardrobe with lapis lazuli inlay
+O 0 16712 6 16703       an equipment rack
+O 0 16722 1 16703       a wall-mounted lantern
+O 0 9057 1 16703        a plush oak chair
+O 0 34619 1 16703       a wooden table
+O 0 8448 1 16703        a large fur covered bed
+O 0 10209 1 16703       a fireplace
+
+* Gon's house, Lounge
+O 0 16731 1 16704       a loveseat
+O 0 16732 1 16704       a glass coffee table
+P 1 31781 1 16732       a cookbook on the coffee table
+P 1 22407 1 16732       the gnome book of wisdom on the coffee table
+P 1 10712 1 16732       a book with an obsidian binding on the coffee table
+O 0 16733 1 16704       a telescope
+O 0 16739 1 16704       atelescope
+O 0 16734 1 16704       a keg of beer
+O 0 16735 3 16704       a blue and white striped hammock
+O 0 21 1 16704          a couch
+O 0 16745 1 16704       a steel ice chest
+P 1 13879 5 16745       a chunk of ice in the ice chest up to 5
+P 1 13879 5 16745       a chunk of ice in the ice chest up to 5
+P 1 13879 5 16745       a chunk of ice in the ice chest up to 5
+P 1 13879 5 16745       a chunk of ice in the ice chest up to 5
+P 1 13879 5 16745       a chunk of ice in the ice chest up to 5
+P 1 11430 12 16745      an ice cream bar in the ice chest up to 12
+P 1 11430 12 16745      an ice cream bar in the ice chest up to 12
+P 1 11430 12 16745      an ice cream bar in the ice chest up to 12
+P 1 11430 12 16745      an ice cream bar in the ice chest up to 12
+P 1 11430 12 16745      an ice cream bar in the ice chest up to 12
+P 1 11430 12 16745      an ice cream bar in the ice chest up to 12
+P 1 11430 12 16745      an ice cream bar in the ice chest up to 12
+P 1 11430 12 16745      an ice cream bar in the ice chest up to 12
+P 1 11430 12 16745      an ice cream bar in the ice chest up to 12
+P 1 11430 12 16745      an ice cream bar in the ice chest up to 12
+P 1 11430 12 16745      an ice cream bar in the ice chest up to 12
+P 1 11430 12 16745      an ice cream bar in the ice chest up to 12
+P 1 19080 12 16745      a paper cup in the ice chest up to 12
+P 1 19080 12 16745      a paper cup in the ice chest up to 12
+P 1 19080 12 16745      a paper cup in the ice chest up to 12
+P 1 19080 12 16745      a paper cup in the ice chest up to 12
+P 1 19080 12 16745      a paper cup in the ice chest up to 12
+P 1 19080 12 16745      a paper cup in the ice chest up to 12
+P 1 19080 12 16745      a paper cup in the ice chest up to 12
+P 1 19080 12 16745      a paper cup in the ice chest up to 12
+P 1 19080 12 16745      a paper cup in the ice chest up to 12
+P 1 19080 12 16745      a paper cup in the ice chest up to 12
+P 1 19080 12 16745      a paper cup in the ice chest up to 12
+P 1 19080 12 16745      a paper cup in the ice chest up to 12
+O 0 10209 1 16704       a fireplace
+
+* Gon's house (TheSaint's Room)
+O 0 16723 1 16710       a walnut lapis wardrobe
+O 0 16712 1 16710       an equipment rack
+O 0 22 1 16710          a bed
+O 0 23 1 16710          a table
+O 0 20 1 16710          a chair
+O 0 16730 1 16710       a small wooden chest
+O 0 16722 1 16710       a wall mounted lantern
+
+* Raven's nest (in Grimhaven Park)
+O 0 16744 1 16705       a large bird bath
+O 0 16743 1 16705       a branch bench
+O 0 16742 1 16705       a slightly cracked egg
+O 0 16746 1 16705       a slightly cracked egg
+O 0 16747 1 16705       a slightly cracked egg
+
+* October Critter Quest prize rent-room (A Comfortable Barn)
+O 0 16750 1 16706       a softly glowing portal
+
+* Ragamuffin's house in the Mage Academy
+O 0 26857 1 16707       a wooden desk
+O 0 20 1 16707          a chair
+O 0 16722 1 16707       a wall mounted lantern
+O 0 16751 3 16707       a large clothing trunk
+O 0 16752 1 16707       bed - a large pile of newspaper rags
+O 0 16753 1 16707       stack of books - anvil item
+O 0 16754 1 16707       a chained salamander - forge item
+O 0 15982 1 16707       an oak bookshelf
+
+*Staffa's house above the dump
+O 0 9058 1 16708        a stiff bed
+O 0 16730 3 16708       a solid wooden chest
+O 0 16704 1 16708       an obsidian toolbox
+O 0 16714 1 16708       a holy altar
+O 0 16712 3 16708       an equipment rack
+O 0 16757 1 16708       a metal weapons rack
+O 0 16717 1 16708       a magic dispenser
+O 0 16718 1 16708       a shiny curio cabinet
+O 0 16715 1 16708       a medicine cabinet
+
+*Vorian's house in Northern Haon-Dor
+O 0 16756 1 16709      a blackened chest
+O 0 16766 1 10135      a portal doorway to enter from haon-dor
+O 0 16764 1 16709      a portal doorway to exit trunk
+O 0 16722 1 16709      a lantern
+O 0 16712 1 16709      an equipment rack
+O 0 16729 1 16709      a cedar cabinet
+O 0 16704 1 16709      an obsidian toolbox
+O 0 16715 1 16709      a medicine cabinet
+O 0 16718 1 16709      a curio cabinet
+O 0 16757 1 16709      a metal weapons rack
+O 0 16719 1 16709      a metal wastebasket
+
+*Cronus's house above Self Defense Studio outside east gate
+O 0 16706 1 16711       a sturdy workbench
+O 0 16707 1 16711       a large black anvil
+O 0 16720 1 16711       a large forge
+O 0 1200 1 16711        a lamp light_10
+O 0 9058 1 16711        a stiff bed
+O 0 21 1 16711          a couch
+O 0 16730 3 16711       a solid wooden chest
+O 0 16757 1 16711       a metal weapons rack
+O 0 16717 1 16711       a magic dispenser
+O 0 16718 1 16711       a shiny curio cabinet
+O 0 16715 1 16711       a medicine cabinet
+
+*Rock's Serpent Faction house above Janica's Exotic Imports
+O 0 16706 1 16714       a sturdy workbench
+O 0 16707 1 16714       a large black anvil
+O 0 16720 1 16714       a large forge
+O 0 16730 3 16712       a solid wooden chest
+O 0 16730 3 16713       a solid wooden chest
+O 0 16730 3 16714       a solid wooden chest
+O 0 21 1 16713          a couch
+O 0 9058 1 16712        a stiff bed
+O 0 9058 1 16713        a stiff bed
+O 0 16722 1 16712       a wall mounted lantern
+O 0 16722 1 16713       a wall mounted lantern
+O 0 16722 1 16714       a wall mounted lantern
+O 0 16704 1 16714       an obsidian toolbox
+O 0 16769 2 16712       a coil bound serpents chest
+O 0 16769 1 16713       a coil bound serpents chest
+M 0 16709 1 16712       a coiled serpent
+***********
+* Butlers *
+***********
+
+* Sage's Butler
+M 0 16700 1 16700       a latchkey kid 
+* Gon's Butler
+M 0 16701 1 16702       a penguin
+* Raven's Butler
+M 0 16702 1 16705       a baby bird 
+* October Critter Quest's Butler
+M 0 16703 1 16706       a jovial farmer
+* Ragamuffin's Butler
+M 0 16704 1 16707       an opal statue
+* Staffa's Butler
+M 0 16705 1 16708       a greasy garbageman
+* Vorian's Butler
+M 0 16706 1 16709       Duncan
+* Cronus's Butler
+M 0 16707 1 16711       slacker roommate butler
+* Rock's Butler
+M 0 16708 1 16712       a serpent spy
+
+S

@@ -1,0 +1,91 @@
+#550
+Market Place~
+599 25 2 1
+
+* apartment above Weston's
+D 0 559 4 2
+D 0 580 5 2
+D 0 580 3 1
+D 0 581 1 1
+
+* apartment above Tanni's
+D 0 565 4 2          Tanni's Jewelry Store -> Cramped Attic
+
+* Newbie training stuff:
+* Training room above the inn:
+M 0 7600 1 584       Aunt Dee, the newbie trainer
+
+* A tiny mouse in surplus:
+M 0 7601 1 563       A tiny mouse
+
+* windows
+O 0 624 1 580
+O 0 625 1 580
+O 0 626 1 580
+
+O 0 630 1 580 * bench
+
+O 0 631 1 581
+O 0 632 1 581
+
+O 0 633 1 582
+O 0 634 1 582
+O 0 635 1 582
+
+M 0 34183 1 580 * white cat
+M 0 34182 1 580 * kitten
+M 0 16218 1 582 * baby
+
+* windows
+O 0 627 1 581
+O 0 628 1 581
+O 0 629 1 581
+
+
+
+
+***
+
+D 0 573 2 2           Gate/Grate from barn to lot
+D 0 575 0 2
+
+O 0 104 1 564        Window for pet room
+V 1 0 566
+
+O 0 132 1 556      Window from Pub South to Market
+V 1 0 239
+O 0 133 1 556      Window from Pub West to Branish
+V 1 0 242
+O 0 130 1 553      Window from Tavern North to W. Kings
+V 1 0 112
+O 0 131 1 553      Window from Tavern East to S. Main
+V 1 0 175
+O 0 130 1 574      Window from Stable Loft North to Market
+V 1 0 240
+
+M 0 553 1 574         Jessup - Roaring Lion Stableboy
+G 1 150 9999                    ball pien hammer (smythe tool)   
+
+M 0 554 1 573         Roth - Roaring Lion Stablemaster
+G 1 150 9999                    ball pien hammer (smythe tool)   
+
+M 0 555 1 575         Broken-Down Pony in Lot
+M 0 555 2 575         Broken-Down Pony in Lot
+
+M 0 556 1 575         Broken-Down Mule in Lot
+M 0 556 2 575         Broken-Down Mule in Lot
+
+M 0 557 1 575         Old Mare in Lot
+M 0 557 2 575         Old Mare in Lot
+
+M 0 558 1 575         Old Plow-horse in Lot
+M 0 558 2 575         Old Plow-horse in Lot
+
+M 0 559 1 575         Black Stallion in Lot
+M 0 559 2 575         Black Stallion in Lot
+
+M 0 33274 1 558		pirate chef - commodity trader
+K 1 33275 1 558		giant pig, mount/protector
+
+S
+
