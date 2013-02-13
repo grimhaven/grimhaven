@@ -28,18 +28,12 @@ static const char* helpCategory[DB_MAX] = {
   NULL,
   NULL,
   NULL,
-  NULL,
-  NULL,
-  NULL,
   "Help_files", // mortal
   "Buildhelp", // builder
   "Wizhelp", // admin
 };
 
 static const char* defaultPage[DB_MAX] = {
-  NULL,
-  NULL,
-  NULL,
   NULL,
   NULL,
   NULL,

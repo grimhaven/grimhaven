@@ -156,8 +156,7 @@ void TBeing::doWho(const char *argument)
   int which2 = 0;
 
   sstring stmp;
-  size_t pos;
-	 	 
+
   for (; isspace(*argument); argument++);
 
   sb += "Players: (Add -? for online help)\n\r--------\n\r";
@@ -250,63 +249,6 @@ void TBeing::doWho(const char *argument)
           desc->page_string(sb, SHOWNOW_NO, ALLOWREP_YES);
         return;
       }
-
-      if(strchr(arg, 'c') && isImmortal()){
-	
-	buf = format("%sList may not be accurate for ports that are not currently running.\n\r") % buf;
-	buf = format("%s------------------------------------------------------------------\n\r") % buf;
-        buf = format("%sProduction (Port 7900)\n\r") % buf;
-        buf = format("%s------------------------------------------------------------------\n\r") % buf;
-
-
-	TDatabase db(DB_SNEEZYPROD);
-        db.query("select title, port, name from wholist order by port");
-
-	while(db.fetchRow()){
-	  stmp=db["title"];
-	  
-	  if((pos=stmp.find("<n>")) != sstring::npos)
-	    stmp.replace(pos,3,db["name"]);
-
-	  if((pos=stmp.find("<N>")) != sstring::npos)
-	    stmp.replace(pos,3,db["name"]);
-
-	  
-	  buf = format("%s[%s] %s<1>\n\r") % buf %
-		   db["port"] % stmp;
-	}
-	
-        buf = format("%s------------------------------------------------------------------\n\r") % buf;
-        buf = format("%sTesting (Other Ports)\n\r") % buf;
-        buf = format("%s------------------------------------------------------------------\n\r") % buf;
-
-
-        TDatabase db3(DB_SNEEZYBETA);
-        db3.query("select title, port, name from wholist order by port");
-
-        while(db3.fetchRow()){
-          stmp=db3["title"];
-
-          if((pos=stmp.find("<n>")) != sstring::npos)
-            stmp.replace(pos,3,db3["name"]);
-
-          if((pos=stmp.find("<N>")) != sstring::npos)
-            stmp.replace(pos,3,db3["name"]);
-
-
-          buf = format("%s[%s] %s<1>\n\r") % buf %
-                   db3["port"] % stmp;
-        }
-
-
-	sb += buf;
-	
-        if (desc)
-          desc->page_string(sb, SHOWNOW_NO, ALLOWREP_YES);
-
-	return;
-      }
-      
 
       bool level, statsx, iPoints, quest, idle, align, group;
       for (p = character_list; p; p = p->next) {

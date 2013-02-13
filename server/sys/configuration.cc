@@ -152,21 +152,12 @@ bool Config::doConfiguration(int argc, char *argv[])
     ("sneezy_db",
       po::value<string>(&db_hosts[DB_SNEEZY]),
       "host for sneezy database")
-    ("sneezybeta_db",
-      po::value<string>(&db_hosts[DB_SNEEZYBETA]),
-      "host for sneezybeta database (unused)")
     ("immortal_db",
       po::value<string>(&db_hosts[DB_IMMORTAL]),
       "host for immortal database")
     ("sneezyglobal_db",
       po::value<string>(&db_hosts[DB_SNEEZYGLOBAL]),
       "host for sneezyglobal database")
-    ("sneezyprod_db",
-      po::value<string>(&db_hosts[DB_SNEEZYPROD]),
-      "host for sneezyprod database (unused)")
-    ("sneezybuilder_db",
-      po::value<string>(&db_hosts[DB_SNEEZYBUILDER]),
-      "host for sneezybuilder database (unused)")
     ("wiki_mortal_db",
       po::value<string>(&db_hosts[DB_WIKI_MORTAL]),
       "host for mortal wiki database")

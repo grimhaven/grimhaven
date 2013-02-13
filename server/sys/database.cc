@@ -15,11 +15,8 @@ std::vector <std::string> db_hosts(DB_MAX);
 
 const char * db_connect[DB_MAX] = {
   NULL, // depends on game port
-  "sneezybeta",
   "immortal",
   "sneezyglobal",
-  "sneezy", 
-  "sneezybuilder",
   "wikidb",
   "builder_wikidb",
   "mudadmin_wikidb",
@@ -38,7 +35,7 @@ const char *TDatabaseConnection::getConnectParam(dbTypeT type)
   const char *ret = db_connect[type];
   if (ret)
     return ret;
-  return db_connect[DB_SNEEZYPROD];
+  return db_connect[DB_SNEEZY];
 }
 
 

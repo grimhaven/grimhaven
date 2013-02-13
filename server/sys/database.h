@@ -92,11 +92,8 @@ class sstring;
 
 enum dbTypeT {
   DB_SNEEZY,
-  DB_SNEEZYBETA,
   DB_IMMORTAL,
   DB_SNEEZYGLOBAL,
-  DB_SNEEZYPROD,
-  DB_SNEEZYBUILDER,
   DB_WIKI_MORTAL,
   DB_WIKI_BUILDER,
   DB_WIKI_ADMIN,
@@ -151,8 +148,6 @@ class TDatabaseConnection
 
   // shortcuts - not sure if they are really needed...
   MYSQL *getSneezyDB() { return getDB(DB_SNEEZY); }
-  MYSQL *getSneezyProdDB() { return getDB(DB_SNEEZYPROD); }
-  MYSQL *getSneezyBetaDB() { return getDB(DB_SNEEZYBETA); }
   MYSQL *getImmoDB() { return getDB(DB_IMMORTAL); }
   MYSQL *getSneezyGlobalDB() { return getDB(DB_SNEEZYGLOBAL); }
 
