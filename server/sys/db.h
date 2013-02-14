@@ -41,32 +41,32 @@ class File {
   File();
   
  public:
-  static const char * const CREDITS     = "txt/credits";    // for the credits command
-  static const char * const HELP_PAGE   = "help/general";   // for HELP <CR>
-  static const char * const MOTD        = "txt/motd";       // messages of today
-  static const char * const NEWS        = "txt/news";       // for the 'news' command
-  static const char * const SOCMESS     = "txt/actions";    // messgs for social acts
-  static const char * const STATS       = "txt/stats";      // economy stats savefile
-  static const char * const STATS_BAK   = "txt/stats.bak";  // backup of econ save
-  static const char * const TIPS        = "txt/tips";       // backup of econ save
-  static const char * const VERSION     = "txt/version";    // mud version timestamp
-  static const char * const WIZLIST     = "txt/wizlist";    // for WIZLIST
-  static const char * const WIZNEWS     = "txt/wiznews";
-  static const char * const WIZMOTD     = "txt/wizmotd";    // MOTD for immorts
+  static const char * const CREDITS;
+  static const char * const HELP_PAGE;
+  static const char * const MOTD;
+  static const char * const NEWS;
+  static const char * const SOCMESS;
+  static const char * const STATS;
+  static const char * const STATS_BAK;
+  static const char * const TIPS;
+  static const char * const VERSION;
+  static const char * const WIZLIST;
+  static const char * const WIZNEWS;
+  static const char * const WIZMOTD;
 
-  static const char * const ANSI_MENU_1 = "txt/ansi/login1.ans";
-  static const char * const ANSI_MENU_2 = "txt/ansi/login2.ans";
-  static const char * const ANSI_MENU_3 = "txt/ansi/login3.ans";
-  static const char * const NORM_MENU_1 = "txt/vt/login1.vt";
-  static const char * const NORM_MENU_2 = "txt/vt/login2.vt";
-  static const char * const NORM_MENU_3 = "txt/vt/login3.vt";
-  static const char * const ANSI_OPEN   = "txt/ansi/title.ans";
-  static const char * const NORM_OPEN   = "txt/vt/title.vt";
+  static const char * const ANSI_MENU_1;
+  static const char * const ANSI_MENU_2;
+  static const char * const ANSI_MENU_3;
+  static const char * const ANSI_OPEN;
+  static const char * const NORM_MENU_1;
+  static const char * const NORM_MENU_2;
+  static const char * const NORM_MENU_3;
+  static const char * const NORM_OPEN;
 
-  static const char * const FACTIONS     = "factions/factions";
-  static const char * const FACTIONS_BAK = "factions/factions.bak";
-  static const char * const GUILDS       = "factions/guilds";
-  static const char * const GUILDS_BAK   = "factions/guilds.bak";
+  static const char * const FACTIONS;
+  static const char * const FACTIONS_BAK;
+  static const char * const GUILDS;
+  static const char * const GUILDS_BAK;
 };
 
 class Path {
@@ -74,11 +74,11 @@ class Path {
   Path();
 
  public:
-  static const char * const Path::HELP	        = "help/";
-  static const char * const Path::IMMORTAL_HELP = "help/_immortal";
-  static const char * const Path::BUILDER_HELP  = "help/_builder";
-  static const char * const Path::SKILL_HELP    = "help/_skills";
-  static const char * const Path::SPELL_HELP    = "help/_spells";
+  static const char * const HELP;
+  static const char * const IMMORTAL_HELP;
+  static const char * const BUILDER_HELP;
+  static const char * const SKILL_HELP;
+  static const char * const SPELL_HELP;
 };  
 
 const char * const MUDADMIN_EMAIL   ="mudadmin@sneezymud.com";
