@@ -1,5 +1,3 @@
-// base_clothing.cc
-
 #include <stdio.h>
 
 #include <cmath>

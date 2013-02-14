@@ -1,11 +1,3 @@
-//////////////////////////////////////////////////////////////////////////
-//
-// SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//
-//    "colorstring.cc" - the colorstring function
-//                                                                      //
-//////////////////////////////////////////////////////////////////////////
-
 #include "extern.h"
 #include "colorstring.h"
 #include "being.h"

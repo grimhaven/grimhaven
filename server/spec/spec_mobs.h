@@ -1,16 +1,4 @@
-//////////////////////////////////////////////////////////////////////////
-//
-// SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//
-//////////////////////////////////////////////////////////////////////////
-
-
 /************************************************************************
-
-      SneezyMUD - All rights reserved, SneezyMUD Coding Team
-      spec_mobs.h : interface for calling mobiles special procedures
-
-  ----------------------------------------------------------------------
 
   Special procedures for mobiles may be called under a number of different
   conditions.  These conditions are defined in this file with two

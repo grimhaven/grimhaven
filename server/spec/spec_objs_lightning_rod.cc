@@ -1,11 +1,6 @@
 /*****************************************************************************
 
-  SneezyMUD++ - All rights reserved, SneezyMUD Coding Team.
-
-  "spec_objs_lightning_rod.cc"
-  All functions and routines related to the Lightning Rod Prock
-
-  Created 10/30/99 - Lapsos(William A. Perrotto III)
+  All functions and routines related to the Lightning Rod Proc
 
 ******************************************************************************/
 

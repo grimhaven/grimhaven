@@ -1,5 +1,3 @@
-// discipline.cc
-
 #include <stdio.h>
 
 #include <cmath>

@@ -1,14 +1,3 @@
-///////////////////////////////////////////////////////////////////////////////
-//                                                                           //
-//      SneezyMUD++ - All rights reserved, SneezyMUD Coding Team         //
-//      "gin.cc." - All functions and routines related to the gin game       //
-//                                                                           //
-//      The SneezyMUD gin table was coded by Russ Russell, April 1994.       //
-//      Changed to c++ October 1994                                          //
-//      Last revision, October 13th, 1994.                                   //
-//                                                                           //
-///////////////////////////////////////////////////////////////////////////////
-
 #include <stdio.h>
 
 #include "monster.h"

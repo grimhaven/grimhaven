@@ -1,11 +1,6 @@
 /*****************************************************************************
 
-  SneezyMUD++ - All rights reserved, SneezyMUD Coding Team.
-
-  "spec_mobs_doppleganger.cc"
   All functions and routines related to the Doppleganger Monster Routines.
-
-  Created 10/20/99 - Lapsos(William A. Perrotto III)
 
 ******************************************************************************/
 

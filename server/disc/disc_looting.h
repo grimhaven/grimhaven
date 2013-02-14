@@ -1,25 +1,3 @@
-//////////////////////////////////////////////////////////////////////////
-//
-// SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//
-// $Log: disc_looting.h,v $
-// Revision 5.2  2003/01/16 23:35:07  peel
-// Added poison arrow skill for rangers
-// Added template for plant skill for thieves
-//
-// Revision 5.1.1.1  1999/10/16 04:32:20  batopr
-// new branch
-//
-// Revision 5.1  1999/10/16 04:31:17  batopr
-// new branch
-//
-// Revision 1.1  1999/09/12 17:24:04  sneezy
-// Initial revision
-//
-//
-//////////////////////////////////////////////////////////////////////////
-
-
 #ifndef __DISC_LOOTING_H
 #define __DISC_LOOTING_H
 

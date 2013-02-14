@@ -1,35 +1,3 @@
-//////////////////////////////////////////////////////////////////////////
-//
-// SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//
-// $Log: disc_warrior.h,v $
-// Revision 5.4  2004/12/06 18:39:47  peel
-// renamed smythe to blacksmithing
-// renamed hand to hand to dueling
-// renamed physical to soldiering
-// added weapon retention and brawl avoidance skill stubs
-//
-// Revision 5.3  2002/11/12 00:14:33  peel
-// added isBasic() and isFast() to CDiscipline
-// added isBasic() return true to each discipline that is a basic disc
-// added isFast() return true for fast discs, weapon specs etc
-//
-// Revision 5.2  2002/11/07 04:02:37  jesus
-// Added a trip skill for warriors
-//
-// Revision 5.1.1.1  1999/10/16 04:32:20  batopr
-// new branch
-//
-// Revision 5.1  1999/10/16 04:31:17  batopr
-// new branch
-//
-// Revision 1.1  1999/09/12 17:24:04  sneezy
-// Initial revision
-//
-//
-//////////////////////////////////////////////////////////////////////////
-
-
 #ifndef __DISC_WARRIOR_H
 #define __DISC_WARRIOR_H
 

@@ -1,7 +1,3 @@
-// Immunities.cc
-//
-// Class for Immunity Data.
-
 #include "being.h"
 #include "immunity.h"
 #include "extern.h"

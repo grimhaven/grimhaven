@@ -1,14 +1,3 @@
-/*****************************************************************************
-
-  SneezyMUD++ - All rights reserved, SneezyMUD Coding Team.
-
-  "drawpoker.cc"
-  All functions and routines related to the draw poker card game.
-
-  Created 4/24/99 - Lapsos(William A. Perrotto III)
-
-******************************************************************************/
-
 #include <stdio.h>
 
 #include "being.h"

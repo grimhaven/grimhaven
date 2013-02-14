@@ -1,14 +1,3 @@
-//////////////////////////////////////////////////////////////////////////
-//
-//      SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//      "blackjack.c" - All functions and routines related to blackjack
-//
-//      The blackjack table coded by Russ Russell, January 1993,
-//      Changed to c++ October 1994
-//      Last revision, October 13th, 1994.
-//
-//////////////////////////////////////////////////////////////////////////
-
 #include <stdio.h>
 
 #include "being.h"

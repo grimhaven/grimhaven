@@ -1,5 +1,3 @@
-// organic.cc
-
 #include "handler.h"
 #include "room.h"
 #include "being.h"

@@ -1,12 +1,4 @@
-//////////////////////////////////////////////////////////////////////////
-//
-// SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//
-//      "spec_mobs.cc" - Special procedures for mobiles.
-//
-///////////////////////////////////////////////////////////////////////////
-
-#if 0
+/*
     CMD_GENERIC_PULSE, CMD_MOB_ALIGN_PULSE, CMD_MOB_COMBAT:
       two formal TBeings are identical
       if it dies, do not delete and just return DELETE_THIS
@@ -31,7 +23,7 @@
     Generic Commands:
       return DELETE_VICT if first TBeing gone
       return DELETE_THIS if second TBeing gone
-#endif
+*/
 
 #include <stdio.h>
 

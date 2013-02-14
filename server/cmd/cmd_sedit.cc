@@ -1,14 +1,3 @@
-/*****************************************************************************
-
-  SneezyMUD++ - All rights reserved, SneezyMUD Coding Team.
-
-  "cmd_sedit.cc"
-  All functions and routines related to the Script Editor.
-
-  Created 6/12/99 - Lapsos(William A. Perrotto III)
-
-******************************************************************************/
-
 extern "C" {
 #include <unistd.h>
 #include <sys/stat.h>

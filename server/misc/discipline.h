@@ -1,7 +1,6 @@
 #ifndef __DISCIPLINE_H
 #define __DISCIPLINE_H
 
-
 #include "sstring.h"
 #include "spells.h"
 #include "structs.h"

@@ -1,11 +1,6 @@
 /*****************************************************************************
 
-  SneezyMUD++ - All rights reserved, SneezyMUD Coding Team.
-
-  "spec_mobs_earthquake_digger.cc"
   All functions and routines related to the Tunneler/Earthquake code.
-
-  Created 10/21/99 - Lapsos(William A. Perrotto III)
 
 ******************************************************************************/
 

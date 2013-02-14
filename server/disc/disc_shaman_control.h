@@ -1,7 +1,5 @@
-
 #ifndef __DISC_SHAMAN_CONTROL_H
 #define __DISC_SHAMAN_CONTROL_H
-
 
 #include "discipline.h"
 #include "skills.h"

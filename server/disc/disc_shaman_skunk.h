@@ -1,8 +1,5 @@
-
-
 #ifndef __DISC_SHAMAN_SKUNK_H
 #define __DISC_SHAMAN_SKUNK_H
-
 
 #include "discipline.h"
 #include "skills.h"

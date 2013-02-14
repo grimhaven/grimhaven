@@ -1,10 +1,3 @@
-/*************************************************************************
-
-      SneezyMUD++ - All rights reserved, SneezyMUD Coding Team
-      "cmd_rename.cc" - the rename command and related things
-
-*************************************************************************/
-
 #include <unistd.h>
 #include <errno.h>
 #include <stdio.h>

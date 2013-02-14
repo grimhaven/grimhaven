@@ -1,16 +1,8 @@
-//////////////////////////////////////////////////////////////////////////
-//
-// SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//
-//
-//////////////////////////////////////////////////////////////////////////
-
 #ifndef __OBJ_SPELLBAG_H
 #define __OBJ_SPELLBAG_H
 
 #include "obj_expandable_container.h"
 
-// The actual item
 class TSpellBag : public TExpandableContainer {
   private:
   public:

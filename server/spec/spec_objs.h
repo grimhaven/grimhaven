@@ -1,10 +1,5 @@
 /*************************************************************************
 
-      SneezyMUD - All rights reserved, SneezyMUD Coding Team
-      spec_objs.h : interface for calling objects special procedures
-
-  ----------------------------------------------------------------------
-
   Special procedures for objects may be called under a number of different
   conditions.  These conditions are defined in this file with two
   exceptions:  when cmd >= 0, a command is triggering the spec_proc, and

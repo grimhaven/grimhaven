@@ -1,14 +1,6 @@
-//////////////////////////////////////////////////////////////////////////
-//
-// SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//
-// race.h
-//
 // The basic design for the handling of Races is the Flyweight Pattern as
 // explained in Design Patterns: Elements of Reusable Object-Oriented Software
 // ISBN 0-201-63361-2
-//
-//////////////////////////////////////////////////////////////////////////
 
 #ifndef __RACE_H
 #define __RACE_H

@@ -1,12 +1,3 @@
-///////////////////////////////////
-//
-//  SneezyMUD++ - All rights reserved, SneezyMUD Coding Team.
-//
-//  "cmd_visible.cc"
-//  All functions and routines related to mortal invisibility control.
-//
-///////////////////////////////////
-
 #include "being.h"
 #include "person.h"
 

@@ -1,13 +1,3 @@
-///////////////////////////////////////////////////////////////////////////
-//
-//      SneezyMUD++ - All rights reserved, SneezyMUD Coding Team
-//      "craps.cc" - All functions and routines related to the craps table
-//
-//      Craps table coded by Russ Russell, January 1993. Last revision
-//      December 12, 1997.
-//
-///////////////////////////////////////////////////////////////////////////
-
 #include <stdio.h>
 
 #include "room.h"

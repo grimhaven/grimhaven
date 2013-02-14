@@ -1,5 +1,3 @@
-// key.cc
-
 #include <stdio.h>
 
 #include "monster.h"

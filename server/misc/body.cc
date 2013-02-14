@@ -1,6 +1,3 @@
-// -*- coding: utf-8 -*-
-// vim:set sta ai et ts=8 sw=2 sts=2 tw=79:
-
 #include <fstream>
 #include "extern.h"
 #include "body.h"

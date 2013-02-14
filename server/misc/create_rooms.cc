@@ -1,15 +1,3 @@
-/*****************************************************************************
- **                                                                         **
- ** SneezyMUD  - All rights reserved, SneezyMUD Coding Team.                **
- **                                                                         **
- ** Original edit code from Silly, May 1992                                 **
- **                                                                         **
- ** Updated originally by Russ(Brutius)                                     **
- **                                                                         **
- ** Handles the creation/saving/loading of rooms for builders               **
- **                                                                         **
- *****************************************************************************/
-
 #include <stdio.h>
 
 #include "room.h"

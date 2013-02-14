@@ -1,14 +1,3 @@
-//////////////////////////////////////////////////////////////////////////
-//
-// SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//
-//    dissect.cc : procedures related to dissecting
-//
-//    Copyright 1998, SneezyMUD Development Team
-//    All Rights Reserved.
-//
-//////////////////////////////////////////////////////////////////////////
-
 #include <stdio.h>
 
 #include "handler.h"

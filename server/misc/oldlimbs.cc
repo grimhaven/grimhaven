@@ -1,10 +1,3 @@
-/*************************************************************************
-
-      SneezyMUD - All rights reserved, SneezyMUD Coding Team
-      "oldlimbs.c" - Procedures related to limbs
-
-*************************************************************************/
-
 #include <stdio.h>
 
 #include "extern.h"

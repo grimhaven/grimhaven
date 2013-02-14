@@ -1,11 +1,3 @@
-
-//
-// SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//
-//      "combat.cc" - All functions and routines related to combat
-//
-//////////////////////////////////////////////////////////////////////////
-
 #include <stdio.h>
 
 #include <cmath>

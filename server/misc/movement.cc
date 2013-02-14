@@ -1,12 +1,3 @@
-//////////////////////////////////////////////////////////////////////////
-//
-// SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//
-//      "movement.cc" - All functions and routines related to movement
-//         or changing position
-//
-///////////////////////////////////////////////////////////////////////////
-
 // NOTE ON MOVEMENT:
 
 // rawMove() actually handles moving the tbeing from room to room.

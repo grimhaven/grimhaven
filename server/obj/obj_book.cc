@@ -1,5 +1,3 @@
-// book.cc
-
 #include <stdio.h>
 
 #include "client.h"

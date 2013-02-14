@@ -1,13 +1,3 @@
-//////////////////////////////////////////////////////////////////////////
-//
-//      SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//      "cards.cc" - All functions and routines related to general card games
-//
-//      The SneezyMUD card games were coded by Russ Russell, April 1994,
-//      Last revision, June 1996
-//
-//////////////////////////////////////////////////////////////////////////
-
 #include <stdio.h>
 
 #include "being.h"

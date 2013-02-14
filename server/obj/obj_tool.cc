@@ -1,5 +1,3 @@
-// tool.cc
-
 #include <stdio.h>
 
 #include "monster.h"

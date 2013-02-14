@@ -1,11 +1,6 @@
 /*****************************************************************************
 
-  SneezyMUD++ - All rights reserved, SneezyMUD Coding Team.
-
-  "spec_rooms_sleeptag.cc"
   All functions and routines related to the sleeptag automated game.
-
-  Created 12/05/99 - Lapsos(William A. Perrotto III)
 
 ******************************************************************************/
 

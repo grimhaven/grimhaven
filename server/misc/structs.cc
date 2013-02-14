@@ -1,12 +1,3 @@
-//////////////////////////////////////////////////////////////////////////
-//
-//      SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//      "structs.cc" - Various class destructors, constructors and operators
-//
-//      Last major revision : November 1996
-//
-//////////////////////////////////////////////////////////////////////////
-
 #include <cstdio>
 #include "extern.h"
 #include "room.h"

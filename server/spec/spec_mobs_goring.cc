@@ -1,8 +1,5 @@
 /*****************************************************************************
 
-  SneezyMUD++ - All rights reserved, SneezyMUD Coding Team.
-
-  "spec_mobs_goring.cc"
   All functions and routines related to the Boar/Tusk Goring code.
 
 ******************************************************************************/

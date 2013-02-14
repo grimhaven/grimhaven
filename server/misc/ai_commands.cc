@@ -1,14 +1,3 @@
-//////////////////////////////////////////////////////////////////////////
-//
-//      SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//      "ai_commands.cc" - handles the actual responses to all commands
-//        a user can do for use with the mob AI routines.
-//
-//      The SneezyMUD mob AI was coded by Jeff Bennett, August 1994.
-//      Last revision, December 24th, 1994.
-//
-//////////////////////////////////////////////////////////////////////////
-
 //  return DELETE_THIS if this dies, or DELETE_VICT if doer dies
 
 #include "room.h"

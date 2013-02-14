@@ -1,13 +1,3 @@
-
-// limbs.h
-//
-// The Limb class will define how we use limbs in Sneezy.
-//
-// What I'd like to do is have an array of limb types with some defaults
-// setup.  When you make a body, you initialize the limb with one of the
-// defined limbs from the array.  Adding the limb will setup limb hps based
-// on the body's hp.
-
 #ifndef __LIMBS_H
 #define __LIMBS_H
 

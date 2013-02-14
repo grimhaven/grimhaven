@@ -1,4 +1,4 @@
-#if 0
+/*
  Some quickie Documentation on the different functions.
  CSkill holds two values, natural and actual.  Natural reflects a straight-up
  value based on practicing and training.  actual is modified by equipment..
@@ -12,7 +12,7 @@
   on the range returned.  For instance, they keep it less than max and
   forced unlearned to return 0.  These two functions manipulate the above
   "Raw" functions.
-#endif
+*/
 
 #include "being.h"
 #include "disc_mage.h"
@@ -66,13 +66,6 @@
 #include "disc_combat.h"
 #include "disc_adventuring.h"
 #include "disc_adv_adventuring.h"
-#if 0
-#include "disc_jumando.h"
-#include "disc_kararki.h"
-#include "disc_zinra.h"
-#include "disc_yofu.h"
-#include "disc_akodi.h"
-#endif
 #include "disc_wizardry.h"
 #include "disc_lore.h"
 #include "disc_theology.h"

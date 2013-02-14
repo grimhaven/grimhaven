@@ -1,5 +1,3 @@
-// vial.cc
-
 #include "monster.h"
 #include "obj_vial.h"
 #include "materials.h"

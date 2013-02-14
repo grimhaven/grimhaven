@@ -1,16 +1,4 @@
-//////////////////////////////////////////////////////////////////////////
-//
-// SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//
-//////////////////////////////////////////////////////////////////////////
-
-
 /*************************************************************************
-
-      SneezyMUD - All rights reserved, SneezyMUD Coding Team
-      task.h : interface for mob/player tasks
-
-  ----------------------------------------------------------------------
 
   Tasks provide a mechanism for delayed/sequenced/periodic mob actions.
   Basically, they function a lot like spec_procs.  They tie up the

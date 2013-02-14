@@ -6,7 +6,6 @@
 // this is a good example of how not to write code
 // no need to thank me - peel
 
-
 HoldemGame gHoldem;
 
 

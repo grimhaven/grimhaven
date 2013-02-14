@@ -1,11 +1,3 @@
-/*************************************************************************
-
-      SneezyMUD - All rights reserved, SneezyMUD Coding Team
-
-      "parse.h" - defines and headers related to player commands
-
-*************************************************************************/
-
 #ifndef __PARSE_H
 #define __PARSE_H
 

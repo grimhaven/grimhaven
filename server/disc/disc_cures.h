@@ -1,27 +1,3 @@
-//////////////////////////////////////////////////////////////////////////
-//
-// SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//
-// $Log: disc_cures.h,v $
-// Revision 5.3  2002/11/29 20:03:36  peel
-// fixed a few incorrect prototypes
-//
-// Revision 5.2  2002/11/28 22:43:17  peel
-// fixed a bad a prototype
-//
-// Revision 5.1.1.1  1999/10/16 04:32:20  batopr
-// new branch
-//
-// Revision 5.1  1999/10/16 04:31:17  batopr
-// new branch
-//
-// Revision 1.1  1999/09/12 17:24:04  sneezy
-// Initial revision
-//
-//
-//////////////////////////////////////////////////////////////////////////
-
-
 #ifndef __DISC_CURES_H
 #define __DISC_CURES_H
 

@@ -1,5 +1,3 @@
-// armor.cc
-
 #include "comm.h"
 #include "obj_armor.h"
 #include "obj_base_clothing.h"

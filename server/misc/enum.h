@@ -1,16 +1,3 @@
-//////////////////////////////////////////////////////////////////////////
-//
-// SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//
-//////////////////////////////////////////////////////////////////////////
-
-
-// enum.h
-// Copyright (c), SneezyMUD Development Team
-// All Rights Reserved.
-//
-// Contains definitions of all global enums used in the mud
-
 #ifndef __ENUM_H
 #define __ENUM_H
 

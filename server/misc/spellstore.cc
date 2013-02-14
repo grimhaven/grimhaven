@@ -1,13 +1,6 @@
-//////////////////////////////////////////////////////////////////////////
-//
-// SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//
-//////////////////////////////////////////////////////////////////////////
-
 #include "being.h"
 
-#if 0
-
+/*
 doCast -> doDiscipline -> flamingSword -> start_cast
 
 --
@@ -29,9 +22,7 @@ public:
   spellTaskData *spelltask;
   bool storing;
 };
-
-
-#endif
+*/
 
 
 

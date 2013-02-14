@@ -1,14 +1,3 @@
-/*****************************************************************************
-
-  SneezyMUD++ - All rights reserved, SneezyMUD Coding Team.
-
-  "task_whittle.cc"
-  All functions and routines related to the whittle task.
-
-  Created 5/24/99 - Lapsos(William A. Perrotto III)
-
-******************************************************************************/
-
 #include "handler.h"
 #include "being.h"
 #include "task_whittle.h"

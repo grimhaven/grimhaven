@@ -1,14 +1,3 @@
-/*************************************************************************
-
-      SneezyMUD++ - All rights reserved, SneezyMUD Coding Team
-      "hearts.cc" - All functions and routines related to the hearts game
-
-      The SneezyMUD hearts table was coded by Russ Russell, April 1994.
-      Changed to c++ October 1994
-      Last revision, October 26th, 1994.
-
-*************************************************************************/
-
 #include <stdio.h>
 
 #include "room.h"

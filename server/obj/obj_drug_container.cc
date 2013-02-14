@@ -1,12 +1,3 @@
-///////////////////////////////////////////////////////////////////////////
-//
-//      SneezyMUD++ 4.5 - All rights reserved, SneezyMUD Coding Team
-//      "drugs_container.cc" - Methods for TDrugContainer class
-//
-//      Last revision December 18, 1997.
-//
-///////////////////////////////////////////////////////////////////////////
-
 #include <stdio.h>
 
 #include "comm.h"

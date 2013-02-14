@@ -1,4 +1,3 @@
-
 #ifndef __DISC_SHAMAN_SPIDER_H
 #define __DISC_SHAMAN_SPIDER_H
 

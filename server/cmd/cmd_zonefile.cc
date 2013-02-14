@@ -1,14 +1,3 @@
-/*****************************************************************************
-
-  SneezyMUD++ - All rights reserved, SneezyMUD Coding Team.
-
-  "cmd_zonefile.cc"
-  Primary functions and routines used for builder online creation of zonefiles.
-
-  Created 1/1/00 - Lapsos(William A. Perrotto III)
-
- *****************************************************************************/
-
 #include <stdio.h>
 
 #include "extern.h"

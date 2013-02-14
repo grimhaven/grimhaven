@@ -1,14 +1,3 @@
-/*****************************************************************************
-
-  SneezyMUD++ - All rights reserved, SneezyMUD Coding Team.
-
-  "game_crazyeights.cc"
-  All functions and routines related to the crazy eights card game.
-
-  Created 4/24/99 - Lapsos(William A. Perrotto III)
-
-******************************************************************************/
-
 #include <stdio.h>
 
 #include "being.h"

@@ -1,12 +1,3 @@
-/////////////////////////////////////////////////////////////////////////
-//
-//      SneezyMUD  - All rights reserved, SneezyMUD Coding Team
-//      "range.cc" - All functions and routines related to ranged combat
-//
-//      Ranged systems coded by Russ Russell and Benjamin Youngdahl
-//
-/////////////////////////////////////////////////////////////////////////
-
 #include <stdio.h>
 
 #include <cmath>

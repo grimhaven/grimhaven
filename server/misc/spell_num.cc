@@ -1,15 +1,4 @@
-//////////////////////////////////////////////////////////////////////////
-//
-// SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//
-// spell_num : conversion between internal enums and external ints for
-//    spell numbers
-//
-//////////////////////////////////////////////////////////////////////////
-
-
 #include "extern.h"
-
 
 #if 0
     case SPELL_FIND_FAMILIAR:

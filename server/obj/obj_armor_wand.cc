@@ -1,15 +1,5 @@
-//////////////////////////////////////////////////////////////////////////
-//
-// SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//
-//////////////////////////////////////////////////////////////////////////
-
-
-// armor_wand.cc
-//
 // armorwand is essentially a virtual object class derived from TArmor and
 // TWand.  It is possible since TArmor uses no 4-values
-//
 
 #include <stdio.h>
 

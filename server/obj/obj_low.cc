@@ -1,10 +1,3 @@
-
-//
-//      SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//      "obj_LOW.cc" - routines related to checking stats on objects.
-//
-//////////////////////////////////////////////////////////////////////////
-
 #include <cmath>
 #include <algorithm>
 

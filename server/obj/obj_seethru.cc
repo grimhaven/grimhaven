@@ -1,5 +1,3 @@
-// see_thru.cc
-
 #include "room.h"
 #include "low.h"
 #include "obj_seethru.h"

@@ -1,24 +1,3 @@
-//////////////////////////////////////////////////////////////////////////
-//
-// SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//
-// $Log: disc_stealth.h,v $
-// Revision 5.2  2004/08/24 19:00:26  peel
-// moved concealment and track to thief and stealth discs, respectively
-//
-// Revision 5.1.1.1  1999/10/16 04:32:20  batopr
-// new branch
-//
-// Revision 5.1  1999/10/16 04:31:17  batopr
-// new branch
-//
-// Revision 1.1  1999/09/12 17:24:04  sneezy
-// Initial revision
-//
-//
-//////////////////////////////////////////////////////////////////////////
-
-
 #ifndef __DISC_STEALTH_H
 #define __DISC_STEALTH_H
 

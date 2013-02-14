@@ -1,14 +1,3 @@
-//////////////////////////////////////////////////////////////////////////
-//
-// SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//
-//     spell_info.cc : All functions related to SpellInfo class
-//
-//     Copyright (c) 1998, SneezyMUD Development Team
-//     All Rights reserved.
-//
-/////////////////////////////////////////////////////////////////
-
 #include "extern.h"
 #include "spell2.h"
 #include "toggle.h"

@@ -1,10 +1,3 @@
-
-//
-//      SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//      "LOW.cc" - routines related to checking stats.
-//
-//////////////////////////////////////////////////////////////////////////
-
 #include <cmath>
 #include <algorithm>
 #include <stdio.h>

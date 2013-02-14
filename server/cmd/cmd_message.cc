@@ -1,12 +1,3 @@
-/////////////////////////////////////////
-//
-//  SneezyMUD++ - All rights reserved, SneezyMUD Coding Team.
-//
-//  "cmd_message.cc"
-//  All functions and routines related to the various message modifiers.
-//
-/////////////////////////////////////////
-
 #include <unistd.h>
 #include <stdio.h>
 

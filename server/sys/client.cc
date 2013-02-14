@@ -1,13 +1,3 @@
-//////////////////////////////////////////////////////////////////////////
-//
-// SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//
-//      "client.cc" - All functions and routines related to client/server
-//
-//      The client/server protocol coded by Russ Russell
-//
-//////////////////////////////////////////////////////////////////////////
-
 #include <stdio.h>
 #include <cstdarg>
 #include <sys/stat.h>

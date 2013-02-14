@@ -1,5 +1,3 @@
-// bed.cc
-
 #include <stdio.h>
 
 #include "low.h"

@@ -1,12 +1,11 @@
 #ifndef __DISC_SHAMAN_FROG_H
 #define __DISC_SHAMAN_FROG_H
 
-const int LAST_TRANSFORM_LIMB = 6;
-extern struct TransformLimbType TransformLimbList[LAST_TRANSFORM_LIMB];
-
-
 #include "discipline.h"
 #include "skills.h"
+
+const int LAST_TRANSFORM_LIMB = 6;
+extern struct TransformLimbType TransformLimbList[LAST_TRANSFORM_LIMB];
 
 class CDShamanFrog : public CDiscipline
 {

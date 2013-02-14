@@ -1,11 +1,3 @@
-//////////////////////////////////////////////////////////////////////////
-//
-// SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//
-//    "info.cc" - All informative functions and routines                //
-//                                                                      //
-//////////////////////////////////////////////////////////////////////////
-
 #include <stdio.h>
 
 #include "handler.h"

@@ -1,17 +1,3 @@
-//////////////////////////////////////////////////////////////////////////
-//
-// SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//
-//      "ai_reactions.cc" - containing "packets" of reactions for use
-//         by other ai-code.  These packets are meant to add some randomness
-//         to how the mob will react to various stimuli.  ie, it won't always
-//         say same thing over and over.
-//
-//      The SneezyMUD mob AI was coded by Jeff Bennett, August 1994.
-//      Last revision, February 15th, 1995.
-//
-//////////////////////////////////////////////////////////////////////////
-
 //  return values are unimportant.  if char(s) are lost, return a -1
 
 #include <stdio.h>

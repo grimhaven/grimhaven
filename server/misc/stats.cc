@@ -1,5 +1,3 @@
-// stats.cc
-
 #include "extern.h"
 #include "being.h"
 #include "stats.h"

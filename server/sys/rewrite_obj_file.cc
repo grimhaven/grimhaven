@@ -1,13 +1,8 @@
-//////////////////////////////////////////////////////////////////////////
-//
-//      SneezyMUD - All rights reserved, SneezyMUD Coding Team
 //      "rewrite_obj_file.cc" - Some optional tack on code that
 //       loads all the objects, and saves tehm out.
 //
 //       The assumption here is that something was "corrected" during the
 //       loading, and now we are saving it.
-//
-//////////////////////////////////////////////////////////////////////////
 
 #include <stdio.h>
 

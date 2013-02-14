@@ -1,16 +1,8 @@
-//////////////////////////////////////////////////////////////////////////
-//
-// SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//
-//
-//////////////////////////////////////////////////////////////////////////
-
 #ifndef __OBJ_WAGON_H
 #define __OBJ_WAGON_H
 
 #include "obj_open_container.h"
 
-// The actual item
 class TWagon : public TOpenContainer {
   private:
   public:

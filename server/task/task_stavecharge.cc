@@ -1,21 +1,3 @@
-//////////////////////////////////////////////////////////////////////////
-//
-// SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//
-//////////////////////////////////////////////////////////////////////////
-
-
-/*****************************************************************************
-
-  SneezyMUD++ - All rights reserved, SneezyMUD Coding Team.
-
-  "task_stavecharge.cc"
-  All functions and routines related to the stave charging task.
-
-  Created 7/20/99 - Lapsos(William A. Perrotto III)
-
-******************************************************************************/
-
 #include <stdio.h>
 
 #include "room.h"

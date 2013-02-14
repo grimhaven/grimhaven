@@ -1,11 +1,4 @@
-//////////////////////////////////////////////////////////////////////////
-//
-//      SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//      "task.cc" - All functions related to tasks that keep mobs/PCs busy
-//
-//////////////////////////////////////////////////////////////////////////
-
-#if 0
+/*
     Batopr 8-10-96:
   to start a task, do:
   start_task(this, obj, rp, TASK_MEDITATE, arg, 0, in_room, 1, 0, 40);
@@ -47,7 +40,7 @@
       ch->task->nextUpdate = pulse + xxxx
     - this leads to the status trick defined above.
     - SO BASICALLY, THIS VALUE IS WORTHLESS
-#endif
+*/
 
 #include "being.h"
 

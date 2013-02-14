@@ -1,63 +1,56 @@
+/*
+  cmd = CMD_OBJ_HITTING : a pre-hit spec, for denying, or overriding oneHit
+    returning TRUE prevents the hit from happening
+    ch parm is the victim, use obj->equippedBy for caster
+    if victim dies, return DELETE_VICT
+    if object gone, return DELETE_ITEM
 
-//
-//      SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//      "spec_objs.cc" - Special procedures for Objects
-//
-/////////////////////////////////////////////////////////////////////////
+  cmd = CMD_OBJ_HIT : a post-hit spec, extra damage, etc.
+    cast arg to a wearSlotT to get part hit
+    ch parm is the victim
+    obj2 is also the wielder, but you have to cast it up/down to get it
+    obj->equippedBy is alternative to above method for getting wielder
+    if victim dies, return DELETE_VICT
+    if object gone, return DELETE_ITEM
 
+  cmd = CMD_OBJ_MISS : a post-hit spec, extra damage, etc.
+    ch parm is the victim
+    cast obj2 to a Being and it is the hitter : hopefully same me->equippedBy
+    if victim dies, return DELETE_THIS
+    if object gone, return DELETE_ITEM
+    if obj2 gone, return DELETE_VICT
 
-//  cmd = CMD_OBJ_HITTING : a pre-hit spec, for denying, or overriding oneHit
-//    returning TRUE prevents the hit from happening
-//    ch parm is the victim, use obj->equippedBy for caster
-//    if victim dies, return DELETE_VICT
-//    if object gone, return DELETE_ITEM
+  cmd = CMD_OBJ_BEEN_HIT : spec for an object that has been hit
+    if victim (the hitter) dies, return DELETE_VICT
+    if object (the hitter's weapon) gone, return DELETE_ITEM
+    if the person being hit dies, return DELETE_THIS
 
-//  cmd = CMD_OBJ_HIT : a post-hit spec, extra damage, etc.
-//    cast arg to a wearSlotT to get part hit
-//    ch parm is the victim
-//    obj2 is also the wielder, but you have to cast it up/down to get it
-//    obj->equippedBy is alternative to above method for getting wielder
-//    if victim dies, return DELETE_VICT
-//    if object gone, return DELETE_ITEM
-//
-//  cmd = CMD_OBJ_MISS : a post-hit spec, extra damage, etc.
-//    ch parm is the victim
-//    cast obj2 to a Being and it is the hitter : hopefully same me->equippedBy
-//    if victim dies, return DELETE_THIS
-//    if object gone, return DELETE_ITEM
-//    if obj2 gone, return DELETE_VICT
-//
-//  cmd = CMD_OBJ_BEEN_HIT : spec for an object that has been hit
-//    if victim (the hitter) dies, return DELETE_VICT
-//    if object (the hitter's weapon) gone, return DELETE_ITEM
-//    if the person being hit dies, return DELETE_THIS
-//
-//  cmd == CMD_OBJ_MOVEMENT
-//    called whenever anyone in my room moves out of room
-//    arg can be cast to a dirTypeT
-//
-//  cmd == CMD_GENERIC_PULSE
-//    if obj gone, return DELETE_THIS
-//    other parms are null
-//    return TRUE if something happened
-//
-//  cmd == CMD_OBJ_STUCK_IN
-//     if ch dies, return DELETE_VICT
-//
-//  cmd == CMD_OBJ_HAVING_SOMETHING_PUT_INTO, CMD_OBJ_PUT_INSIDE_SOMETHING,
-//    if obj2 goes poof, return DELETE_ITEM
-//
-//  cmd == CMD_OBJ_GOTTEN
-//    item has already been picked up, me = item gotten, obj2 = bag
-//
-//  cmd == CMD_OBJ_WEATHER_TIME
-//    return DELETE_THIS if item2 goes bye, everyting else is NULL
-//
-//  cmd otherwise
-//    if victim (1st parm) dies
-//        leave it valid (do not delete) and return DELETE_VICT
-//    if item1 goes poof, return DELETE_THIS
-//
+  cmd == CMD_OBJ_MOVEMENT
+    called whenever anyone in my room moves out of room
+    arg can be cast to a dirTypeT
+
+  cmd == CMD_GENERIC_PULSE
+    if obj gone, return DELETE_THIS
+    other parms are null
+    return TRUE if something happened
+
+  cmd == CMD_OBJ_STUCK_IN
+     if ch dies, return DELETE_VICT
+
+  cmd == CMD_OBJ_HAVING_SOMETHING_PUT_INTO, CMD_OBJ_PUT_INSIDE_SOMETHING,
+    if obj2 goes poof, return DELETE_ITEM
+
+  cmd == CMD_OBJ_GOTTEN
+    item has already been picked up, me = item gotten, obj2 = bag
+
+  cmd == CMD_OBJ_WEATHER_TIME
+    return DELETE_THIS if item2 goes bye, everyting else is NULL
+
+  cmd otherwise
+    if victim (1st parm) dies
+        leave it valid (do not delete) and return DELETE_VICT
+    if item1 goes poof, return DELETE_THIS
+*/
 
 #include <stdio.h>
 

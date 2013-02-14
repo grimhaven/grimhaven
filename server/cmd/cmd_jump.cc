@@ -1,14 +1,3 @@
-/*****************************************************************************
-
-  SneezyMUD++ - All rights reserved, SneezyMUD Coding Team.
-
-  "task_stavecharge.cc"
-  All functions and routines related to the stave charging task.
-
-  Created 7/20/99 - Lapsos(William A. Perrotto III)
-
-******************************************************************************/
-
 struct tJumpCmdInformation
 {
   int  tFromRoom, // Room they have to be in to trigger this.

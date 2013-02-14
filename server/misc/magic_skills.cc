@@ -1,12 +1,3 @@
-//////////////////////////////////////////////////////////////////////////
-//
-// SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//
-//   File containing all skills for spell casters, and classes with
-//    casting derivatives. - Russ Russell
-//
-///////////////////////////////////////////////////////////////////////////
-
 #include "handler.h"
 #include "extern.h"
 #include "room.h"

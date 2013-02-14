@@ -1,11 +1,3 @@
-//
-//      SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//      "ansi.cc" - Various color functions.
-//
-//      Last major revision : April 1997
-//
-//////////////////////////////////////////////////////////////////////////
-
 #include "being.h"
 #include "connect.h"
 

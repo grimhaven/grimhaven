@@ -1,11 +1,3 @@
-//////////////////////////////////////////////////////////////////////////
-//
-// SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//
-//    "show.cc" - Functions related to showing something
-//                                                                      //
-//////////////////////////////////////////////////////////////////////////
-
 #include <stdio.h>
 
 #include <dirent.h>

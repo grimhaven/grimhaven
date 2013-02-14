@@ -1,14 +1,3 @@
-/*****************************************************************************
-
-  SneezyMUD++ - All rights reserved, SneezyMUD Coding Team.
-
-  "cmd_save.cc"
-  Primary function and rountines used by the save command.
-
-  Created 5/17/?? - ??(??)
-
-******************************************************************************/
-
 #include <stdio.h>
 
 #include "handler.h"

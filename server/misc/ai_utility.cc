@@ -1,12 +1,3 @@
-//////////////////////////////////////////////////////////////////////////
-//
-// SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//
-//      "ai_utility.cc" - handles utility routines needed by the mob AI
-//        code.
-//
-//////////////////////////////////////////////////////////////////////////
-
 // A general note on AI:  This is designed so that NPC's interact with PC's
 //   hence at this time we are NOT allowing (except accidentally) for
 //   opinions.target to be an NPC.  It might be interesting later to allow

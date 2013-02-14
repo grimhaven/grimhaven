@@ -1,15 +1,4 @@
-//////////////////////////////////////////////////////////////////////////
-//
-// SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//
-//      "disease.h" - interface to disease.c
-//
-//////////////////////////////////////////////////////////////////////////
-
-
 /**************************************************************************
-
-      SneezyMUD - All rights reserved, SneezyMUD Coding Team
 
  A note on diseases in SneezyMUD ...  Diseases are simply periodically
  activated affects.  I.e., every so often, if a mob/player is affected by

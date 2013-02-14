@@ -1,24 +1,3 @@
-//////////////////////////////////////////////////////////////////////////
-//
-// SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//
-// $Log: disc_hand_of_god.h,v $
-// Revision 5.1.1.2  2001/04/26 20:42:28  peel
-// portal changes
-//
-// Revision 5.1.1.1  1999/10/16 04:32:20  batopr
-// new branch
-//
-// Revision 5.1  1999/10/16 04:31:17  batopr
-// new branch
-//
-// Revision 1.1  1999/09/12 17:24:04  sneezy
-// Initial revision
-//
-//
-//////////////////////////////////////////////////////////////////////////
-
-
 #ifndef __DISC_HAND_OF_GOD_H
 #define __DISC_HAND_OF_GOD_H
 

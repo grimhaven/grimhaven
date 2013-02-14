@@ -1,11 +1,3 @@
-////////////////////////////////////////////////////////////////////////
-//                                                                      //
-//    SneezyMUD++ - All rights reserved, SneezyMUD Coding Team      //
-//                                                                      //
-//    "attribute.cc" - the attribute command
-//                                                                      //
-//////////////////////////////////////////////////////////////////////////
-
 #include <stdio.h>
 
 #include "being.h"

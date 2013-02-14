@@ -1,5 +1,3 @@
-// magic_item.cc
-
 #include <stdio.h>
 
 #include "monster.h"

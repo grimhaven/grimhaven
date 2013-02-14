@@ -1,27 +1,3 @@
-//////////////////////////////////////////////////////////////////////////
-//
-// SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//
-// $Log: disc_air.h,v $
-// Revision 5.3  2003/01/13 17:37:21  peel
-// fixed feathery descent function for potions
-//
-// Revision 5.2  2002/11/29 20:03:24  peel
-// added prototype for weightCorrectDuration
-//
-// Revision 5.1.1.1  1999/10/16 04:32:20  batopr
-// new branch
-//
-// Revision 5.1  1999/10/16 04:31:17  batopr
-// new branch
-//
-// Revision 1.1  1999/09/12 17:24:04  sneezy
-// Initial revision
-//
-//
-//////////////////////////////////////////////////////////////////////////
-
-
 #ifndef __DISC_AIR_H
 #define __DISC_AIR_H
 

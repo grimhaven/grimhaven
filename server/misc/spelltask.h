@@ -1,27 +1,4 @@
-//////////////////////////////////////////////////////////////////////////
-//
-// SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//
-// $Log: spelltask.h,v $
-// Revision 5.1.1.1  1999/10/16 04:32:20  batopr
-// new branch
-//
-// Revision 5.1  1999/10/16 04:31:17  batopr
-// new branch
-//
-// Revision 1.1  1999/09/12 17:24:04  sneezy
-// Initial revision
-//
-//
-//////////////////////////////////////////////////////////////////////////
-
-
 /*************************************************************************
-
-      SneezyMUD - All rights reserved, SneezyMUD Coding Team
-      spelltask.h : interface for mob/player spell casting tasks
-
-  ----------------------------------------------------------------------
 
   Tasks provide a mechanism for delayed/sequenced/periodic mob actions.
   Basically, they function a lot like spec_procs.  They tie up the

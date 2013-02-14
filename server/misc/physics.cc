@@ -1,10 +1,3 @@
-/*************************************************************************
-
-      SneezyMUD - All rights reserved, SneezyMUD Coding Team
-      physics.cc : functions to add gravity/reality to the game :)
-
-*************************************************************************/
-
 #include "room.h"
 #include "extern.h"
 #include "being.h"

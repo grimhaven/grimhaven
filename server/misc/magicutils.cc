@@ -1,5 +1,3 @@
-// magicutils.cc
-
 #include <stdio.h>
 
 #include <cmath>

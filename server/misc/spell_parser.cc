@@ -1,12 +1,3 @@
-/////////////////////////////////////////////////////////////////
-//
-//     spell_parser.cc : All functions related to spell parsing
-//
-//     Copyright (c) 1998, SneezyMUD Development Team
-//     All Rights reserved.
-//
-/////////////////////////////////////////////////////////////////
-
 #include "handler.h"
 #include "extern.h"
 #include "room.h"
