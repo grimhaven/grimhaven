@@ -89,7 +89,7 @@ int init_game_stats(void)
   stats.damage_modifier = 0.65;
   //stats.damage_modifier = 0.86;
 
-  if (!(fp = fopen(STATS_FILE,"r"))) {
+  if (!(fp = fopen(File::STATS,"r"))) {
     vlogf(LOG_BUG, "Unable to open txt/stat file");
     return FALSE;
   } else {
@@ -198,7 +198,7 @@ int init_game_stats(void)
     }
     fclose(fp);
 
-    sprintf(buf, "cp %s %s", STATS_FILE, STATS_BAK);
+    sprintf(buf, "cp %s %s", File::STATS, File::STATS_BAK);
     vsystem(buf);
     return TRUE;
   }
@@ -209,7 +209,7 @@ void save_game_stats(void)
   FILE *fp;
   int i, j;
 
-  if ((fp = fopen(STATS_FILE,"w+")) != NULL) {
+  if ((fp = fopen(File::STATS,"w+")) != NULL) {
     fprintf(fp, "%ld\n", stats.logins);
  
     fprintf(fp, "%d %d\n", repair_number, total_help_number);
@@ -281,7 +281,7 @@ void save_game_stats(void)
  
     fclose(fp);
   } else {
-    vlogf(LOG_BUG, format("Error writing %s") %  STATS_FILE);
+    vlogf(LOG_BUG, format("Error writing %s") %  File::STATS);
   }
 }
 

@@ -816,15 +816,6 @@ int Descriptor::read_client(char *str2)
           writeToQ("The game is currently wiz-locked.\n\r^G^G^G^G^G");
           if (!lockmess.empty()) {
             page_string(lockmess, SHOWNOW_YES);
-          } else {
-            FILE *signFile;
-  
-            if ((signFile = fopen(File::SIGN_MESS, "r"))) {
-              fclose(signFile);
-              sstring iosstring;
-              file_to_sstring(File::SIGN_MESS, iosstring);
-              page_string(iosstring, SHOWNOW_YES);
-            }
           }
           // we ought to allow for them to enter the password here, but oh well
 

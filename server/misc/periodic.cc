@@ -2450,7 +2450,7 @@ procAutoTips::procAutoTips(const int &p)
 void procAutoTips::run(const TPulse &) const
 {
   // first, get a tip...
-  FILE *fp = fopen("tipsfile", "r");
+  FILE *fp = fopen(File::TIPS, "r");
   if (!fp) {
     vlogf(LOG_SILENT, "Failed opening tipsfile.");
     return;

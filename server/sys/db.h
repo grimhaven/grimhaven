@@ -18,36 +18,55 @@
 
 #include <map>
 
-// Strings for the mud name
-// also: WELC_MESSG needs to be updated if these change
-// also: SNEEZY_ADMIN
-extern const char * const MUD_NAME;
-extern const char * const MUD_NAME_VERS;
-extern bool bootTime;
+#define MUD_NAME          "Grimhaven"
+#define MUD_VERS          "6.0"
+#define MUD_NAME_VERS     MUD_NAME " v" MUD_VERS
+#define WELCOME_MSG       "\n\rWelcome to " MUD_NAME_VERS "! " \
+                          "May your journeys be enjoyable!\n\r\n\r"
 
-const int MAX_OBJ_AFFECT = 5;
+#define MUD_DOMAIN        "grimhaven.org"
+#define MUD_EMAIL         "mud@" MUD_DOMAIN
+#define MUD_URL           "http://" MUD_DOMAIN
+#define SOUNDS_URL        MUD_URL "/sounds/"
+#define CLIENT_URL        MUD_URL "/client/"
+
+#define WORLD_SIZE        50000
+#define ZONE_ROOM_RANDOM  -99
+#define MAX_OBJ_AFFECT    5
+
+extern bool bootTime;
 
 class File {
   private:
   File();
   
  public:
-  static const char * const SIGN_MESS;
-  static const char * const MOB;
-  static const char * const ZONE;
-  static const char * const CREDITS;
-  static const char * const NEWS;
-  static const char * const STORY;
-  static const char * const WIZNEWS;
-  static const char * const MOTD;
-  static const char * const WIZMOTD;
-  static const char * const TIME;
-  static const char * const IDEA;
-  static const char * const TYPO;
-  static const char * const BUG;
-  static const char * const SOCMESS;
-  static const char * const HELP_PAGE;
-  static const char * const WIZLIST;
+  static const char * const CREDITS     = "txt/credits";    // for the credits command
+  static const char * const HELP_PAGE   = "help/general";   // for HELP <CR>
+  static const char * const MOTD        = "txt/motd";       // messages of today
+  static const char * const NEWS        = "txt/news";       // for the 'news' command
+  static const char * const SOCMESS     = "txt/actions";    // messgs for social acts
+  static const char * const STATS       = "txt/stats";      // economy stats savefile
+  static const char * const STATS_BAK   = "txt/stats.bak";  // backup of econ save
+  static const char * const TIPS        = "txt/tips";       // backup of econ save
+  static const char * const VERSION     = "txt/version";    // mud version timestamp
+  static const char * const WIZLIST     = "txt/wizlist";    // for WIZLIST
+  static const char * const WIZNEWS     = "txt/wiznews";
+  static const char * const WIZMOTD     = "txt/wizmotd";    // MOTD for immorts
+
+  static const char * const ANSI_MENU_1 = "txt/ansi/login1.ans";
+  static const char * const ANSI_MENU_2 = "txt/ansi/login2.ans";
+  static const char * const ANSI_MENU_3 = "txt/ansi/login3.ans";
+  static const char * const NORM_MENU_1 = "txt/vt/login1.vt";
+  static const char * const NORM_MENU_2 = "txt/vt/login2.vt";
+  static const char * const NORM_MENU_3 = "txt/vt/login3.vt";
+  static const char * const ANSI_OPEN   = "txt/ansi/title.ans";
+  static const char * const NORM_OPEN   = "txt/vt/title.vt";
+
+  static const char * const FACTIONS     = "factions/factions";
+  static const char * const FACTIONS_BAK = "factions/factions.bak";
+  static const char * const GUILDS       = "factions/guilds";
+  static const char * const GUILDS_BAK   = "factions/guilds.bak";
 };
 
 class Path {
@@ -55,12 +74,11 @@ class Path {
   Path();
 
  public:
-  static const char * const HELP;
-  static const char * const DATA;
-  static const char * const IMMORTAL_HELP;
-  static const char * const BUILDER_HELP;
-  static const char * const SKILL_HELP;
-  static const char * const SPELL_HELP;
+  static const char * const Path::HELP	        = "help/";
+  static const char * const Path::IMMORTAL_HELP = "help/_immortal";
+  static const char * const Path::BUILDER_HELP  = "help/_builder";
+  static const char * const Path::SKILL_HELP    = "help/_skills";
+  static const char * const Path::SPELL_HELP    = "help/_spells";
 };  
 
 const char * const MUDADMIN_EMAIL   ="mudadmin@sneezymud.com";

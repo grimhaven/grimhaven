@@ -22,10 +22,6 @@ const unsigned int SHOPACCESS_ACCESS  = (1<<5);
 const unsigned int SHOPACCESS_LOGS    = (1<<6);
 const unsigned int SHOPACCESS_DIVIDEND= (1<<7);
 
-const char * const SHOP_FILE =     "tinyworld.shp";
-//const char * const SHOPFILE_PATH = "mobdata/shops";
-const char * const SHOP_PRICING  = "shop_pricing.dat";
-
 const unsigned int SHOP_FLAG_RECYCLE             = (1<<0);
 const unsigned int SHOP_FLAG_MAT_RESTRICTED      = (1<<1);
 

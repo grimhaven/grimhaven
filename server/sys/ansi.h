@@ -40,15 +40,6 @@ const unsigned int PLR_COLOR_ALL        = (1<<10);
 
 const unsigned int MAX_PLR_COLOR        = 11;
 
-const char * const ANSI_MENU_1    = "txt/ansi/login1.ans";
-const char * const ANSI_MENU_2    = "txt/ansi/login2.ans";
-const char * const ANSI_MENU_3    = "txt/ansi/login3.ans";
-const char * const NORM_MENU_1    = "txt/vt/login1.vt";
-const char * const NORM_MENU_2    = "txt/vt/login2.vt";
-const char * const NORM_MENU_3    = "txt/vt/login3.vt";
-const char * const ANSI_OPEN      = "txt/ansi/title.ans";
-const char * const NORM_OPEN      = "txt/vt/title.vt";
-
 enum colorSubT {
      COLOR_SUB_NONE,     //         = 0;
      COLOR_SUB_BLACK,     //        = 1;

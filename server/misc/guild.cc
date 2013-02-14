@@ -1324,7 +1324,7 @@ int load_guilds() {
   char c1[80];
   int line = 0;
 
-  if (!(fp = fopen(GUILD_FILE, "r"))) {
+  if (!(fp = fopen(File::GUILDS, "r"))) {
     vlogf(LOG_FILE, "Couldn't open guildlist file in function load_guilds()!");
     return FALSE;
   }
@@ -1334,7 +1334,7 @@ int load_guilds() {
   while(fp) {
     TGuild *f = new TGuild;
     if(fgets(buf, 256, fp) == NULL) {
-      vlogf(LOG_FILE,format("ERROR: bogus line in GUILD_FILE: %d") %  line);
+      vlogf(LOG_FILE,format("ERROR: bogus line in File::GUILDS: %d") %  line);
       fclose(fp);
       return FALSE;
     }
@@ -1344,7 +1344,7 @@ int load_guilds() {
     sscanf(buf, "#%d\n\r", &i1);
     f->ID = i1;
     if(fgets(buf, 256, fp) == NULL) {
-      vlogf(LOG_FILE,format("ERROR: bogus line in GUILD_FILE: %d") %  line);
+      vlogf(LOG_FILE,format("ERROR: bogus line in File::GUILDS: %d") %  line);
 
       fclose(fp);
       return FALSE;
@@ -1356,7 +1356,7 @@ int load_guilds() {
     sscanf(buf, "keywords: %[a-zA-Z '<>]\n\r", c1);
     f->keywords = mud_str_dup(c1);
     if(fgets(buf, 256, fp) == NULL) {
-      vlogf(LOG_FILE,format("ERROR: bogus line in GUILD_FILE: %d") %  line);
+      vlogf(LOG_FILE,format("ERROR: bogus line in File::GUILDS: %d") %  line);
 
       fclose(fp);
       return FALSE;
@@ -1367,7 +1367,7 @@ int load_guilds() {
     sscanf(buf, "name: %[a-zA-Z '<>]\n\r", c1);
     f->proper_name = mud_str_dup(c1);
     if(fgets(buf, 256, fp) == NULL) {
-      vlogf(LOG_FILE,format("ERROR: bogus line in GUILD_FILE: %d") %  line);
+      vlogf(LOG_FILE,format("ERROR: bogus line in File::GUILDS: %d") %  line);
 
       fclose(fp);
       return FALSE;
@@ -1379,7 +1379,7 @@ int load_guilds() {
     sscanf(buf, "shortname: %[a-zA-Z '<>]\n\r", c1);
     f->slang_name = mud_str_dup(c1);
     if(fgets(buf, 256, fp) == NULL) {
-      vlogf(LOG_FILE,format("ERROR: bogus line in GUILD_FILE: %d") %  line);
+      vlogf(LOG_FILE,format("ERROR: bogus line in File::GUILDS: %d") %  line);
 
       fclose(fp);
       return FALSE;
@@ -1388,7 +1388,7 @@ int load_guilds() {
     sscanf(buf, "password: %s\n\r", c1);
     f->password = mud_str_dup(c1);
     if(fgets(buf, 256, fp) == NULL) {
-      vlogf(LOG_FILE,format("ERROR: bogus line in GUILD_FILE: %d") %  line);
+      vlogf(LOG_FILE,format("ERROR: bogus line in File::GUILDS: %d") %  line);
 
       fclose(fp);
       return FALSE;
@@ -1400,7 +1400,7 @@ int load_guilds() {
     f->flags = (unsigned int)(i3);
     f->power = f1;
     if(fgets(buf, 256, fp) == NULL) {
-      vlogf(LOG_FILE,format("ERROR: bogus line in GUILD_FILE: %d") %  line);
+      vlogf(LOG_FILE,format("ERROR: bogus line in File::GUILDS: %d") %  line);
 
       fclose(fp);
       return FALSE;
@@ -1414,7 +1414,7 @@ int load_guilds() {
     f->acty = i4;
 
     if(fgets(buf, 256, fp) == NULL) {
-      vlogf(LOG_FILE,format("ERROR: bogus line in GUILD_FILE: %d") %  line);
+      vlogf(LOG_FILE,format("ERROR: bogus line in File::GUILDS: %d") %  line);
 
       fclose(fp);
       return FALSE;
@@ -1427,7 +1427,7 @@ int load_guilds() {
     f->colors[2] = i3;
 
     if(fgets(buf, 256, fp) == NULL) {
-      vlogf(LOG_FILE,format("ERROR: bogus line in GUILD_FILE: %d") %  line);
+      vlogf(LOG_FILE,format("ERROR: bogus line in File::GUILDS: %d") %  line);
 
       fclose(fp);
       return FALSE;
@@ -1438,7 +1438,7 @@ int load_guilds() {
     f->patron = deityTypeT(i1);
 
     if(fgets(buf, 256, fp) == NULL) {
-      vlogf(LOG_FILE,format("ERROR: bogus line in GUILD_FILE: %d") %  line);
+      vlogf(LOG_FILE,format("ERROR: bogus line in File::GUILDS: %d") %  line);
 
       fclose(fp);
       return FALSE;
@@ -1452,7 +1452,7 @@ int load_guilds() {
 
     for(int j = 0; j < NUM_MAX_RANK; j++) {
       if(fgets(buf, 256, fp) == NULL) {
-	vlogf(LOG_FILE,format("ERROR: bogus line in GUILD_FILE: %d") %  line);
+	vlogf(LOG_FILE,format("ERROR: bogus line in File::GUILDS: %d") %  line);
 
 	fclose(fp);
 	return FALSE;
@@ -1466,7 +1466,7 @@ int load_guilds() {
     }
     TRelation *r;
     if(fgets(buf, 256, fp) == NULL) {
-      vlogf(LOG_FILE,format("ERROR: bogus line in GUILD_FILE: %d") %  line);
+      vlogf(LOG_FILE,format("ERROR: bogus line in File::GUILDS: %d") %  line);
 
       fclose(fp);
       return FALSE;
@@ -1481,7 +1481,7 @@ int load_guilds() {
       r->relation = i2;
       f->relations.push_back(r);
       if(fgets(buf, 256, fp) == NULL) {
-	vlogf(LOG_FILE,format("ERROR: bogus line in GUILD_FILE: %d") %  line);
+	vlogf(LOG_FILE,format("ERROR: bogus line in File::GUILDS: %d") %  line);
 
         fclose(fp);
         return FALSE;
@@ -1493,7 +1493,7 @@ int load_guilds() {
   }
   fclose(fp);
 
-  sprintf(buf, "cp %s %s", GUILD_FILE, GUILD_BAK);
+  sprintf(buf, "cp %s %s", File::GUILDS, File::GUILDS_BAK);
   vsystem(buf);
 
   return TRUE;
@@ -1503,7 +1503,7 @@ void save_guilds()
 {
   FILE *fp;
   
-  if (!(fp = fopen(GUILD_FILE, "w+"))) {
+  if (!(fp = fopen(File::GUILDS, "w+"))) {
     vlogf(LOG_FILE, "Couldn't open guilds datafile in save_guilds()");
     return;
   }

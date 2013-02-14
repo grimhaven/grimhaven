@@ -62,13 +62,13 @@ int load_factions()
   long ln;
   float num1, num2;
 
-  if (!(fp = fopen(FACTION_FILE, "r"))) {
+  if (!(fp = fopen(File::FACTIONS, "r"))) {
     vlogf(LOG_FILE, "Couldn't open factionlist file in function load_factions()!");
     return FALSE;
   }
   for (factionTypeT i = MIN_FACTION;i < MAX_FACTIONS;i++) {
     if (fgets(buf,256,fp) == NULL) {
-      vlogf(LOG_FILE,"ERROR: bogus line in FACTION_FILE");
+      vlogf(LOG_FILE,"ERROR: bogus line in File::FACTIONS");
       fclose(fp);
       return FALSE;
     }
@@ -76,7 +76,7 @@ int load_factions()
       break;
     if (sscanf(buf,"#%d\n\r",&num) == 1) {   //   new faction
       if (fgets(buf,256,fp) == NULL) {
-        vlogf(LOG_FILE,format("ERROR: bogus line in FACTION_FILE: faction %d") % num);
+        vlogf(LOG_FILE,format("ERROR: bogus line in File::FACTIONS: faction %d") % num);
         fclose(fp);
         return FALSE;
       }
@@ -92,7 +92,7 @@ int load_factions()
 
       for (j = 0; j < FACT_LEADER_SLOTS;j++) {
         if (fgets(buf,256,fp) == NULL) {
-          vlogf(LOG_FILE,format("ERROR: bogus line in FACTION_FILE: faction %d") % num);
+          vlogf(LOG_FILE,format("ERROR: bogus line in File::FACTIONS: faction %d") % num);
           fclose(fp);
           return FALSE;
         }
@@ -102,7 +102,7 @@ int load_factions()
         strcpy(FactionInfo[i].leader[j],buf);
       }
       if (fgets(buf,256,fp) == NULL) {
-        vlogf(LOG_FILE,format("ERROR: bogus line in FACTION_FILE: faction %d") % num);
+        vlogf(LOG_FILE,format("ERROR: bogus line in File::FACTIONS: faction %d") % num);
         fclose(fp);
         return FALSE;
       }
@@ -158,7 +158,7 @@ int load_factions()
   fclose(fp);
 
   // data read was all ok, save this in case of corruption
-  sprintf(buf, "cp %s %s", FACTION_FILE, FACTION_BAK);
+  sprintf(buf, "cp %s %s", File::FACTIONS, File::FACTIONS_BAK);
   vsystem(buf);
 
   return TRUE;
@@ -170,7 +170,7 @@ void save_factions()
   FILE *fp;
   int j;
 
-  if (!(fp = fopen(FACTION_FILE, "w+"))) {
+  if (!(fp = fopen(File::FACTIONS, "w+"))) {
     vlogf(LOG_FILE, "Couldn't open factionlist file in function load_factions()!");
     return;
   }

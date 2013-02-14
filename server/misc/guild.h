@@ -102,10 +102,6 @@ class TGuild {
   }
 };
 
-const char * const GUILD_FILE      = "faction/newfactions";
-const char * const GUILD_BAK       = "faction/newfactions.bak";
-
-
 extern int load_guilds();
 extern void save_guilds();
 extern int get_unused_ID();

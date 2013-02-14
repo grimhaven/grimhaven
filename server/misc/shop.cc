@@ -2601,39 +2601,6 @@ bool safe_to_save_shop_stuff(TMonster *ch)
 }
 
 
-/*void processShopFile(const char *cFname)
-{
-  char fileName[128];
-  FILE *fp;
-  unsigned char ucVersion;
-
-  if (!cFname) {
-    vlogf(LOG_BUG, "  processShopFile called with NULL filename!");
-    return;
-  }
-  sprintf(fileName, "%s/%s", SHOPFILE_PATH, cFname);
-  if (!(fp = fopen(fileName, "r"))) {
-    vlogf(LOG_BUG, format("  Error opening the shop file for shop #%s") %  cFname);
-    return;
-  }
-  if (fread(&ucVersion, sizeof(ucVersion), 1, fp) != 1) {
-    vlogf(LOG_BUG, format("Error reading version from %s.") %  fileName);
-    fclose(fp);
-    return;
-  }
-
-  if (!noteLimitedItems(fp, fileName, ucVersion, FALSE))
-    vlogf(LOG_BUG, format("  Unable to count limited items in file  %s") %  fileName);
-  fclose(fp);
-}
-
-
-void processShopFiles(void)
-{
-   dirwalk(SHOPFILE_PATH, processShopFile);
-}*/
-
-
 // adjusts the shop price based on structure
 int TObj::adjPrice() const
 {

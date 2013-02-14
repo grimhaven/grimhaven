@@ -3091,15 +3091,6 @@ int Descriptor::sendLogin(const sstring &arg)
       writeToQ("The game is currently wiz-locked.\n\r");
       if (!lockmess.empty()) {
         page_string(lockmess, SHOWNOW_YES);
-      } else {
-        FILE *signFile;
-
-        if ((signFile = fopen(File::SIGN_MESS, "r"))) {
-          fclose(signFile);
-          sstring iosstring;
-          file_to_sstring(File::SIGN_MESS, iosstring);
-          page_string(iosstring, SHOWNOW_YES);
-        }
       }
       output.putInQ(new LoginComm("wizlock", "Wiz-Lock password: "));
 
@@ -3341,11 +3332,11 @@ int Descriptor::doAccountStuff(char *arg)
       if (!IS_SET(account->flags, TAccount::BOSS)) {
         if (account->term != TERM_ANSI) {
           screen_size = 40;  // adjust for the size of the menu bar temporarily
-          start_page_file(NORM_OPEN, "");
+          start_page_file(File::NORM_OPEN, "");
           screen_size = tss;
         } else {
           screen_size = 40;  // adjust for the size of the menu bar temporarily
-          start_page_file(ANSI_OPEN, "");
+          start_page_file(File::ANSI_OPEN, "");
           screen_size = tss;
           writeToQ(ANSI_NORMAL);
         }
@@ -3393,25 +3384,6 @@ int Descriptor::doAccountStuff(char *arg)
         writeToQ("The game is currently wiz-locked.\n\r");
         if (!lockmess.empty()) {
           page_string(lockmess, SHOWNOW_YES);
-        } else {
-#if 0
-          ifstream op(File::SIGN_MESS, ios::in | ios::nocreate);
-          if (op) {
-            op.close();
-            sstring iosstring;
-            file_to_sstring(File::SIGN_MESS, iosstring);
-            page_string(iosstring, SHOWNOW_YES);
-          }
-#else
-          FILE *signFile;
-
-          if ((signFile = fopen(File::SIGN_MESS, "r"))) {
-            fclose(signFile);
-            sstring iosstring;
-            file_to_sstring(File::SIGN_MESS, iosstring);
-            page_string(iosstring, SHOWNOW_YES);
-          }
-#endif
         }
         writeToQ("Wiz-Lock password: ");
         connected = CON_WIZLOCK;
@@ -3421,36 +3393,17 @@ int Descriptor::doAccountStuff(char *arg)
         writeToQ("The game is currently wiz-locked.\n\r");
         if (!lockmess.empty()) {
           page_string(lockmess, SHOWNOW_YES);
-        } else {
-#if 0
-          ifstream opp(File::SIGN_MESS, ios::in | ios::nocreate);
-          if (opp) {
-            opp.close();
-            sstring iosstring;
-            file_to_sstring(File::SIGN_MESS, iosstring);
-            page_string(iosstring, SHOWNOW_YES);
-          }
-#else
-          FILE *signFile;
-
-          if ((signFile = fopen(File::SIGN_MESS, "r"))) {
-            fclose(signFile);
-            sstring iosstring;
-            file_to_sstring(File::SIGN_MESS, iosstring);
-            page_string(iosstring, SHOWNOW_YES);
-          }
-#endif
         }
       }
       account->status = TRUE;
       if (!IS_SET(account->flags, TAccount::BOSS)) {
         if (account->term != TERM_ANSI) {
           screen_size = 40;  // adjust for the size of the menu bar temporarily
-          start_page_file(NORM_OPEN, "");
+          start_page_file(File::NORM_OPEN, "");
           screen_size = tss;
         } else {
           screen_size = 40;  // adjust for the size of the menu bar temporarily
-          start_page_file(ANSI_OPEN, "");
+          start_page_file(File::ANSI_OPEN, "");
           screen_size = tss;
           writeToQ(ANSI_NORMAL);
         }
@@ -3816,13 +3769,13 @@ int Descriptor::doAccountMenu(const char *arg)
           screen_size = 40;  // adjust for the size of the menu bar temporarily
          
           if (count == 1)
-            start_page_file(ANSI_MENU_1, "");
+            start_page_file(File::ANSI_MENU_1, "");
           else if (count == 2)
-            start_page_file(ANSI_MENU_2, "");
+            start_page_file(File::ANSI_MENU_2, "");
           else {
-//            start_page_file(ANSI_MENU_3, "");
+//            start_page_file(File::ANSI_MENU_3, "");
             sstring fileBuf;
-            if (file_to_sstring(ANSI_MENU_3, fileBuf)) {
+            if (file_to_sstring(File::ANSI_MENU_3, fileBuf)) {
                fileBuf += "\n\r";
                page_string(fileBuf);
             }
@@ -3832,11 +3785,11 @@ int Descriptor::doAccountMenu(const char *arg)
         } else {
           screen_size = 40;  // adjust for the size of the menu bar temporarily
           if (count == 1)
-            start_page_file(NORM_MENU_1, "");
+            start_page_file(File::NORM_MENU_1, "");
           else if (count == 2)
-            start_page_file(NORM_MENU_2, "");
+            start_page_file(File::NORM_MENU_2, "");
           else 
-            start_page_file(NORM_MENU_3, "");
+            start_page_file(File::NORM_MENU_3, "");
           screen_size = tss;
         }
       } else {
