@@ -428,13 +428,11 @@ int Descriptor::read_client(char *str2)
     case CLIENT_IDEA:
     case CLIENT_TYPO:
     case CLIENT_BUG: {
-
       sstring buffer = str2;
       buffer.inlineReplaceString("^", "\r\n");
-      send_feedback(name, buffer.c_str());
+      send_feedback();
 
-      character->sendTo("Thanks for the report. It will be looked at soon!\n\r");
-      character->sendTo("If necessary, a mudmail will be sent to you to inform you of any changes or possible explanations.\n\r");
+      character->sendTo("Thanks for the report. We'll get to it soon!\n\r");
       break;
     }
 

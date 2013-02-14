@@ -1658,7 +1658,7 @@ class TBeing : public TThing {
     void doPrayers(const sstring &);
     void sendSkillsList(discNumT);
     void doPractice(const char *);
-    virtual void doFeedback(const sstring &type, int clientCmd, const sstring &arg);
+    virtual void doFeedback(const int cmd, const sstring &subject);
     virtual void doColor(const char *);
     void setColor(setColorFieldT, setColorKolorT);
     int doQuaff(sstring);

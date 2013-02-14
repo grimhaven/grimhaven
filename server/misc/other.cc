@@ -222,9 +222,6 @@ int TBeing::doNoJunk(const char *argument, TObj *obj)
   return FALSE;
 }
 
-
-
-
 int TBeing::doJunk(const char *argument, TObj *obj)
 {
   char arg[100], newarg[100];
@@ -1498,47 +1495,6 @@ void TBeing::doPracDisc(const char *arg, int classNum)
   sendTo("Syntax: practice discipline <discipline> <class>.\n\r");
 }
 
-
-void TBeing::doFeedback(const sstring &type, int clientCmd, const sstring &arg)
-{
-  sendTo("This command is unavailable for you.\n\r");
-}
-
-// sends bugs, etc via mail feedback using Descriptor::send_feedback
-void TPerson::doFeedback(const sstring &type, int clientCmd, const sstring &arg)
-{
-  sstring subject = arg;
-
-  if (fight())
-  {
-    sendTo("You cannot perform that action while fighting!\n\r");
-    return;
-  }
-
-  // if the subject is standard (they didnt pass an arg), add in something to identify it
-  if (subject.length() <= 0)
-  {
-    time_t now = time(0);
-    subject = format("%s at %s") % getName() % ctime(&now);
-  }
-
-  subject.inlineReplaceString("\n", "");
-  subject.inlineReplaceString("\r", "");
-  strncpy(desc->name, ((sstring)(format("%s: %s") % type % subject)).c_str(), cElements(desc->name));
-
-  if (!desc->m_bIsClient)
-  {
-    sendTo(format("Write your %s report. Use ~ when done, or ` to cancel.\n\r") % type.lower());
-    addPlayerAction(PLR_BUGGING);
-    desc->connected = CON_WRITING;
-    desc->str = new const char *('\0');
-    desc->max_str = MAX_MAIL_SIZE;
-  }
-  else
-  {
-    desc->clientf(format("%d") % clientCmd);
-  }
-}
 
 void TBeing::doGroup(const char *argument, bool silent)
 {
@@ -4068,14 +4024,12 @@ void TBeing::doDrag(const sstring &arg)
   return;
 }
 
-
 void TBeing::doResetMargins()
 {
   cls();
   fullscreen();
   sendTo("Margins reset.  Use CLS to restore old settings.\n\r");
 }
-
 
 void TBeing::doEmail(const char *arg)
 {
@@ -4103,133 +4057,6 @@ void TBeing::doList(const char *arg)
 {
   doNotHere();
   return;
-}
-
-void Descriptor::add_comment(const char *who, const char *msg) 
-{
-  time_t ct;
-  char *tmstr;
-  char buf[MAX_STRING_LENGTH];
-  FILE *fp;
-  int i, j;
-  char cmd_buf[256];
-  struct tm * lt;
-
-  ct = time(0);
-  lt = localtime(&ct);
-  tmstr = asctime(lt);
-  *(tmstr + strlen(tmstr) - 1) = '\0';
-
-  sprintf(buf, "****** Comment from %s on %s:\n",
-       character->getName(), tmstr);
-
-  for (i= 0, j=strlen(buf); msg[i];i++) {
-    if ((strlen(buf) < (MAX_STRING_LENGTH - 1)) && msg[i] != '\r') {
-      // all \r skipped, concat to 1 line
-      buf[j++] = ((msg[i] == '\n') ? ' ' : msg[i]);
-    }
-  }
-  buf[j] = '\0';
-
-  sprintf(cmd_buf, "account/%c/%s/comment", LOWER(who[0]), sstring(who).lower().c_str());
-
-  if (!(fp = fopen(cmd_buf, "a+"))) {
-    perror("doComment");
-    character->sendTo("Could not open the comment-file.\n\r");
-    return;
-  }
-
-  fputs(buf, fp);
-  fputs("\n", fp);
-  fclose(fp);
-
-
-
-  i=0;
-  while(buf[i++]!='\n');
-
-  char *notebuf=(char *)malloc(strlen(&buf[i]));
-  strcpy(notebuf, &buf[i]);
-  TNote *mynote=createNote(notebuf);
-  if (!mynote) {
-    character->sendTo("Could not create a note in add_comment, please tell a god.\n\r");
-    return;
-  }
-  sprintf(buf, "****** Comment on %s", sstring(who).lower().c_str());
-  
-  *character += *mynote;
-
-  character->doAt(((sstring)(format("8 post note %s") % buf)).c_str(), false);
-
-  //  mynote->postMe(character, buf, FindBoardInRoom(8, "board"));
-
-}
-
-const char * g_smfPrefix = "smf_a_";
-const int g_smfboardId = 11;
-
-// send feedback directly to SMF forum
-// TODO move this into a single txn?
-void Descriptor::send_feedback(const char *subject, const char *msg)
-{
-  // params = prefix (str), boardid (int), subject (str), body (str), poster (str), email (str), time (int)
-  static const char * addPostQuery = "INSERT INTO %smessages (ID_BOARD, ID_TOPIC, subject, body, \
-                                     posterName, posterEmail, posterIP, posterTime, modifiedName) \
-                                     VALUES (%i, -1, '%s', '%s',  '%s', '%s', '', %i, '')";
-
-  // params = prefix (str), boardid (int), postId (int), postId (int)
-  static const char * addTopicQuery = "INSERT INTO %stopics (ID_BOARD, ID_FIRST_MSG, ID_LAST_MSG) VALUES (%i, %i, %i)";
-
-  TBeing *player = (dynamic_cast<TMonster *>(character) && original) ? original : character;
-  sstring message;
-  time_t now = time(0);
-  TDatabase db(DB_FORUMS_ADMIN);
-  int postId = 0, topicId = 0;
-
-  // standard info
-  message += format("Account Name: %s\n") % account->name;
-  message += format("Character Name: %s\n") % player->getName();
-  message += format("Account Email: %s\n") % account->email;
-  message += format("Time: %s") % ctime(&now); // ctime adds a \n
-  message += format("Room: %i\n") % (player->roomp ? player->roomp->number : -1);
-  message += format("%s\n") % subject;
-
-  // actual message from user to appear in the forum
-  message += format("\n[quote]%s[/quote]\n") % msg;
-
-  // clean up the message to remove any badness
-  message.ascify();
-  message.inlineReplaceString("\r\n", "\n");
- 
-  // add post
-  if (!db.query(addPostQuery, g_smfPrefix, g_smfboardId, subject, message.c_str(), player->getName(), account->email.c_str(), (int)now) ||
-      0 == (postId = db.lastInsertId()))
-  {
-    vlogf(LOG_BUG, format("Player feedback failed when posting message for %s.") % player->name);
-    player->sendTo("There was an error filing your feedback.  Please try agian using http://www.sneezymud.com/Contact_Us.html");
-    return;
-  }
-
-  // add topic
-  if (!db.query(addTopicQuery, g_smfPrefix, g_smfboardId, postId, postId) ||
-      0 == (topicId = db.lastInsertId()))
-  {
-    db.query("DELETE FROM %smessages WHERE ID_MSG = %i LIMIT 1", g_smfPrefix, postId);
-    vlogf(LOG_BUG, format("Player feedback failed when posting topic for %s.") % player->name);
-    player->sendTo("There was an error filing your feedback.  Please try agian using http://www.sneezymud.com/Contact_Us.html");
-    return;
-  }
-
-	// join msg to topic
-	db.query("UPDATE %smessages SET ID_TOPIC = %i, ID_MSG_MODIFIED = %i WHERE ID_MSG = %i LIMIT 1", g_smfPrefix, topicId, postId, postId);
-
-	// update post count for the board
-	db.query("UPDATE %sboards SET numPosts = numPosts + 1, numTopics = numTopics + 1 WHERE ID_BOARD = %i LIMIT 1", g_smfPrefix, g_smfboardId);
-
-  // message all gods that someone has submitted a feedback
-  vlogf(LOG_MISC, format("FEEDBACK from player %s has been submitted with the subject '%s'.") % player->getName() % subject);
-
-	return;
 }
 
 void TBeing::doAfk()

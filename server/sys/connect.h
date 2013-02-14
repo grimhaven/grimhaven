@@ -538,6 +538,7 @@ class Descriptor
     Descriptor *next;             // link to next descriptor    
     char *pagedfile;              // what file is getting paged 
     char name[80];                // dummy field (idea, bug, mail use it)
+    char subject[80];             // dummy field (idea, bug, mail use it)
     int amount;                   // dummy field (mail uses it)
     TObj *obj;                    // for object editor
     TMonster *mob;                // for monster editor 
@@ -622,8 +623,7 @@ class Descriptor
     void updateScreenAnsi(unsigned int update);
     void updateScreenVt100(unsigned int update);
     int move(int, int);
-    void add_comment(const char *, const char *);
-    void send_feedback(const char *subject, const char *msg);
+    void send_feedback();
     void cleanUpStr();
     bool getHostResolved();
     void setHostResolved(bool, const sstring &);

@@ -167,9 +167,6 @@ bool Config::doConfiguration(int argc, char *argv[])
     ("wiki_admin_db",
       po::value<string>(&db_hosts[DB_WIKI_ADMIN]),
       "host for admin wiki database")
-    ("forums_admin_db",
-      po::value<string>(&db_hosts[DB_FORUMS_ADMIN]),
-      "host for admin forums database")
     ;
 
   po::options_description cmdline_options;

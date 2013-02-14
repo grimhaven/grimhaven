@@ -719,9 +719,7 @@ Descriptor::~Descriptor()
 void Descriptor::cleanUpStr()
 {
   if (str) {
-    if (character && 
-          (character->isPlayerAction(PLR_MAILING) ||
-           character->isPlayerAction(PLR_BUGGING))) {
+    if (character && character->isPlayerAction(PLR_MAILING | PLR_BUGGING)) {
       delete [] *str;
       *str = NULL;
       delete [] str;
@@ -2144,14 +2142,6 @@ void Descriptor::sstring_add(char *s)
         }
       } else {
         // not a bug/idea
-#if 0
-        char *t = *str;
-        *str = new char[strlen(t) + strlen(s) + 3];
-        mud_assert(*str != NULL, "sstring_add(): Bad sstring memory");
-        strcpy(*str, t);
-        strcat(*str, s);
-        delete [] t;
-#else
         // fix it up so that it all fits on one line
         unsigned int loop = 0;
         while (strlen(s) > 80) {
@@ -2193,7 +2183,6 @@ void Descriptor::sstring_add(char *s)
         delete [] t;
         if (loop > 1)
           delete [] s;
-#endif
       }
     }
   }
@@ -2245,10 +2234,7 @@ void Descriptor::sstring_add(char *s)
         if (!*t) 
           writeToQ("Blank message entered.  Ignoring!\n\r");
         else {
-          if (!strcmp(name, "Comment"))
-            add_comment(delname, t);
-          else
-            send_feedback(name, t);
+          send_feedback();
           writeToQ(name);
           writeToQ(" sent!\n\r");
         }
