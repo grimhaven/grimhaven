@@ -44,41 +44,41 @@ int task_brew(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, TObj *
       if (ch->task->timeLeft) {
         if (ch->task->timeLeft < (how_many * 2)) {
           ch->sendTo(format("You continue brewing your potion%s.\n\r") %
-		     (how_many <= 5 ? "" : "s"));
-	  ch->addToLifeforce(-resulting);
+                     (how_many <= 5 ? "" : "s"));
+          ch->addToLifeforce(-resulting);
         } else {
 
           // brewing has finished
-	  for (i = MIN_WEAR; i < MAX_WEAR; i++) {
-	    if ((t = ch->equipment[i])) {
-	      if(!potion_obj){
-		if((potion_obj=dynamic_cast<TPotion *>(t)) &&
-		   potion_obj->getDrinkType() != LIQ_MAGICAL_ELIXIR)
-		  potion_obj=NULL;
-	      }
-	    }
-	  }
-	  for(StuffIter it=ch->stuff.begin();it!=ch->stuff.end() && (t=*it);++it) {
-	    if(!potion_obj){
-	      if((potion_obj=dynamic_cast<TPotion *>(t)) &&
-		 potion_obj->getDrinkType() != LIQ_MAGICAL_ELIXIR)
-		potion_obj=NULL;
-	    }
-	  }
+          for (i = MIN_WEAR; i < MAX_WEAR; i++) {
+            if ((t = ch->equipment[i])) {
+              if(!potion_obj){
+                if((potion_obj=dynamic_cast<TPotion *>(t)) &&
+                   potion_obj->getDrinkType() != LIQ_MAGICAL_ELIXIR)
+                  potion_obj=NULL;
+              }
+            }
+          }
+          for(StuffIter it=ch->stuff.begin();it!=ch->stuff.end() && (t=*it);++it) {
+            if(!potion_obj){
+              if((potion_obj=dynamic_cast<TPotion *>(t)) &&
+                 potion_obj->getDrinkType() != LIQ_MAGICAL_ELIXIR)
+                potion_obj=NULL;
+            }
+          }
 
-	  if(!potion_obj){
-	    ch->sendTo("You can't brew without a flask of magical elixir!\n\r");
-	    ch->stopTask();
-	    return FALSE;
-	  }
+          if(!potion_obj){
+            ch->sendTo("You can't brew without a flask of magical elixir!\n\r");
+            ch->stopTask();
+            return FALSE;
+          }
 
           if (ch->bSuccess(knowledge, SKILL_BREW)) {
             // successful brew, set learnedness to knowledge in the skill
             ch->sendTo(format("You successfully create your potion%s.\n\r") %
-		       (how_many <= 5 ? "" : "s"));
-	    
-	    potion_obj->setDrinkUnits(how_many);
-	    potion_obj->setDrinkType(spell_to_liq(which));
+                       (how_many <= 5 ? "" : "s"));
+
+            potion_obj->setDrinkUnits(how_many);
+            potion_obj->setDrinkType(spell_to_liq(which));
             ch->sendTo(format("You now have a potion of %s.\n\r") %
                        discArray[which]->name);
           } else {
@@ -88,7 +88,7 @@ int task_brew(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, TObj *
             else
               ch->sendTo("Your brewing incompetence results in unusable potion.\n\r");
             potion_obj->setDrinkUnits(::number(0, 5));
-	    potion_obj->setDrinkType(LIQ_LEMONADE);
+            potion_obj->setDrinkType(LIQ_LEMONADE);
           }
 
           act("$n finishes brewing.", FALSE, ch, 0, 0, TO_ROOM);

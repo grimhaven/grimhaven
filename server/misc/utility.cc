@@ -71,10 +71,10 @@ bool TBeing::canSeeWho(const TBeing *o) const
       return TRUE;
   }
   if ((GetMaxLevel() < o->getInvisLevel()) && (o->isImmortal()))
-    return FALSE;   // invis gods 
+    return FALSE;   // invis gods
 
   if (!isImmortal() && (o->getInvisLevel() >= GOD_LEVEL1))
-    return FALSE;   // link deads 
+    return FALSE;   // link deads
 
   if (o->isAffected(AFF_INVISIBLE) || (illum < 14 && o->isAffected(AFF_SHADOW_WALK))) {
     if (o->isImmortal())
@@ -110,16 +110,16 @@ int TMonster::mobVnum() const
   return (mob_index[getMobIndex()].virt);
 }
 
-// creates a random number in interval [from;to] 
+// creates a random number in interval [from;to]
 int number(int from, int to)
 {
-  if (to - from + 1) 
+  if (to - from + 1)
     return ((rand() % (to - from + 1)) + from);
   else
     return (from);
 }
 
-// simulates dice roll 
+// simulates dice roll
 int dice(int number, int size)
 {
   int r;
@@ -132,9 +132,9 @@ int dice(int number, int size)
   if (!size)
     return (0);
 
-  for (r = 1; r <= number; r++) 
+  for (r = 1; r <= number; r++)
     sum += ((rand() % size) + 1);
-  
+
   return (sum);
 }
 
@@ -175,8 +175,8 @@ time_info_data *TBeing::age() const
 
 bool TBeing::inGroup(const TBeing &tbt) const
 {
-  if ((this == &tbt) || 
-      (&tbt == dynamic_cast<const TBeing *>(riding)) || 
+  if ((this == &tbt) ||
+      (&tbt == dynamic_cast<const TBeing *>(riding)) ||
       (&tbt == dynamic_cast<const TBeing *>(rider)))
     return TRUE;
 
@@ -226,7 +226,7 @@ bool getall(const char *name, char *newname)
 
   *arg = *tmpname = *otname = '\0';
 
-  sscanf(name, "%79s ", otname);	
+  sscanf(name, "%79s ", otname);
   if (strlen(otname) < 5)
     return FALSE;
 
@@ -272,19 +272,19 @@ int getabunch(const char *name, char *newname)
 
 int TMonster::standUp()
 {
-  if (((getPosition() < POSITION_STANDING) && 
-         (getPosition() > POSITION_STUNNED)) || 
-          ((getPosition() > POSITION_STUNNED) && riding && 
+  if (((getPosition() < POSITION_STANDING) &&
+         (getPosition() > POSITION_STUNNED)) ||
+          ((getPosition() > POSITION_STUNNED) && riding &&
                 !dynamic_cast<TBeing *>(riding))) {
     if (isFourLegged()) {
       if (getHit() > (hitLimit() / 2))
-        act("$n quickly rolls over and leaps to $s feet.", 
+        act("$n quickly rolls over and leaps to $s feet.",
                TRUE, this, 0, 0, TO_ROOM);
       else if (getHit() > (hitLimit() / 6))
-        act("$n slowly rolls over and leaps to $s feet.", 
+        act("$n slowly rolls over and leaps to $s feet.",
                TRUE, this, 0, 0, TO_ROOM);
       else
-        act("$n rolls over and gets to $s feet very slowly.", 
+        act("$n rolls over and gets to $s feet very slowly.",
                TRUE, this, 0, 0, TO_ROOM);
     } else if (riding && !dynamic_cast<TBeing *> (riding)) {
       if (getHit() > (hitLimit() / 2))
@@ -431,7 +431,7 @@ bool TBeing::nomagic(const sstring &msg_ch, const sstring &msg_rm) const
 int MobCountInRoom(const StuffList list)
 {
   int i=0;
-  
+
   for(StuffIter it=list.begin();it!=list.end();++it){
     if (dynamic_cast<const TBeing *>(*it))
       i++;
@@ -446,12 +446,12 @@ int GetApprox(int num, int perc)
 
 double GetApprox(double num, int perc)
 {
-// perc is 0-100 represents how well elarned 
-// num is actual number 
+// perc is 0-100 represents how well elarned
+// num is actual number
 
   float adj = 100.0 - perc;
   adj = max((float) 5.0, adj);
-  // the better learned they are, the closer adj will be to 0 
+  // the better learned they are, the closer adj will be to 0
 
   // we should be +- 20% at most
   // adj is in range [5-100]
@@ -464,7 +464,7 @@ double GetApprox(double num, int perc)
   // number can't do double, so scale by 100
   max_adj *= 100.0;
   double act_adj = ::number((int) -max_adj, (int) max_adj);
-  act_adj /= 100.0; 
+  act_adj /= 100.0;
 
   double fnum = num + act_adj;
 
@@ -531,24 +531,24 @@ sstring getLogType(logTypeT tError)
     case LOG_LOW:
       buf = "L.O.W. Error";
       break;
-    case LOG_MISC: 
+    case LOG_MISC:
       buf = "Misc";
       break;
     case LOG_FILE:
       buf = "File I/O";
-      break; 
+      break;
     case LOG_BUG:
       buf = "BUG";
-      break;  
+      break;
     case LOG_PROC:
       buf = "Proc";
-      break; 
+      break;
     case LOG_PIO:
       buf = "Player I/O";
-      break;  
+      break;
     case LOG_IIO:
       buf = "Imm I/O";
-      break;   
+      break;
     case LOG_CLIENT:
       buf = "Client";
       break;
@@ -557,10 +557,10 @@ sstring getLogType(logTypeT tError)
       break;
     case LOG_FACT:
       buf = "Faction";
-      break;  
+      break;
     case LOG_MOB:
       buf = "Mob";
-      break;   
+      break;
     case LOG_MOB_AI:
       buf = "Mob AI";
       break;
@@ -569,10 +569,10 @@ sstring getLogType(logTypeT tError)
       break;
     case LOG_OBJ:
       buf = "Object";
-      break;   
+      break;
     case LOG_EDIT:
       buf = "Editor";
-      break;  
+      break;
     case LOG_CHEAT:
       buf = "Cheating";
       break;
@@ -631,24 +631,24 @@ sstring getLogPlayer(logTypeT tError)
     case LOG_LOW:
       buf = "L.O.W. Error";
       break;
-    case LOG_MISC: 
+    case LOG_MISC:
       buf = "Misc";
       break;
     case LOG_FILE:
       buf = "File I/O";
-      break; 
+      break;
     case LOG_BUG:
       buf = "BUG";
-      break;  
+      break;
     case LOG_PROC:
       buf = "Proc";
-      break; 
+      break;
     case LOG_PIO:
       buf = "Player I/O";
-      break;  
+      break;
     case LOG_IIO:
       buf = "Imm I/O";
-      break;   
+      break;
     case LOG_CLIENT:
       buf = "Client";
       break;
@@ -657,10 +657,10 @@ sstring getLogPlayer(logTypeT tError)
       break;
     case LOG_FACT:
       buf = "Faction";
-      break;  
+      break;
     case LOG_MOB:
       buf = "Mob";
-      break;   
+      break;
     case LOG_MOB_AI:
       buf = "Mob AI";
       break;
@@ -669,10 +669,10 @@ sstring getLogPlayer(logTypeT tError)
       break;
     case LOG_OBJ:
       buf = "Object";
-      break;   
+      break;
     case LOG_EDIT:
       buf = "Editor";
-      break;  
+      break;
     case LOG_CHEAT:
       buf = "Cheating";
       break;
@@ -746,7 +746,7 @@ void vlogf(logTypeT tError, const sstring &errorMsg)
   fprintf(stderr, "%4.4d|%2.2d%2.2d|%2.2d:%2.2d:%2.2d :: %s\n",
           this_time->tm_year + 1900, this_time->tm_mon + 1, this_time->tm_mday,
           this_time->tm_hour, this_time->tm_min, this_time->tm_sec, buf.c_str());
-  
+
   if (tError >= 0) {
     for (i = descriptor_list; i; i = i->next) {
       if (i->connected)
@@ -760,7 +760,7 @@ void vlogf(logTypeT tError, const sstring &errorMsg)
 
       // if (tError == LOG_LOW && !i->character->hasWizPower(POWER_SETSEV_IMM))
       //   continue;
-      
+
       if (!IS_SET(i->severity, 1<<tError))
         continue;
 
@@ -769,7 +769,7 @@ void vlogf(logTypeT tError, const sstring &errorMsg)
 
       if (i->character->isPlayerAction(PLR_MAILING | PLR_BUGGING))
         continue;
- 
+
       i->output.putInQ(new SystemLogComm(lt, tError, errorMsg));
     }
   }
@@ -780,7 +780,7 @@ sstring SystemLogComm::getText(){
 }
 
 sstring SystemLogComm::getClientText(){
-  return format("\200%d|%d|%s: %s\n") % CLIENT_LOG % logtype % 
+  return format("\200%d|%d|%s: %s\n") % CLIENT_LOG % logtype %
     getLogType(logtype) % text;
 }
 
@@ -866,7 +866,7 @@ bool TBeing::canSeeMe(const TBeing *ch, infraTypeT infra) const
   TRoom *r;
 
   if (!(r = roomp)) {
-    if (parent) 
+    if (parent)
       r = parent->roomp;
     else {
       vlogf(LOG_BUG, format("Thing (%s) has no rp pointer in TBeing::canSeeMe") % name);
@@ -875,7 +875,7 @@ bool TBeing::canSeeMe(const TBeing *ch, infraTypeT infra) const
   }
 
   // hide imms with invis level set, and linkdeads (L51)
-  if (ch->GetMaxLevel() < getInvisLevel()) 
+  if (ch->GetMaxLevel() < getInvisLevel())
     return FALSE;
 
   if (ch->isImmortal())
@@ -964,9 +964,9 @@ bool TObj::canSeeMe(const TBeing *ch, infraTypeT) const
   if (room == Room::NOWHERE)
     room = ch->in_room;
 
-  if (!(rp = real_roomp(room))) 
+  if (!(rp = real_roomp(room)))
     return FALSE;
-  
+
   if (ch->isAffected(AFF_TRUE_SIGHT))
     return TRUE;
 
@@ -983,8 +983,8 @@ bool TObj::canSeeMe(const TBeing *ch, infraTypeT) const
     return TRUE;
 
   int s = ch->eyeSight(rp);
-  int mod = (((dynamic_cast<const TBeing *>(equippedBy) == ch) ? -7 : 
-         ((dynamic_cast<const TBeing *>(parent) == ch) ? -4 : 
+  int mod = (((dynamic_cast<const TBeing *>(equippedBy) == ch) ? -7 :
+         ((dynamic_cast<const TBeing *>(parent) == ch) ? -4 :
          ((dynamic_cast<const TBeing *>(stuckIn) == ch) ? -7 : 0))));
   if (s >= (canBeSeen + mod))
     return TRUE;
@@ -1057,7 +1057,7 @@ bool can_see_char_other_room(const TBeing *ch, TBeing *victim, TRoom *)
 }
 
 // disallow any bogus characters in automated system requests.
-//   this is intented to prevent 'hacking' 
+//   this is intented to prevent 'hacking'
 bool safe_to_be_in_system(const sstring &cp)
 {
   return (cp.find_first_of("\"';`", 0) == sstring::npos);
@@ -1072,7 +1072,7 @@ bool TBeing::makesNoise() const
 
   n = noise(this);
 
-  // The higher the noise, the better chance <= 80 fails. - Russ 
+  // The higher the noise, the better chance <= 80 fails. - Russ
   if (n <= 1)
     return FALSE;
 
@@ -1082,9 +1082,9 @@ bool TBeing::makesNoise() const
     return TRUE;
 }
 
-// vsystem - do a system command without duplicating the core image. 
+// vsystem - do a system command without duplicating the core image.
 //   This should save a lot of CPU time considering the mud can be
-//  over 10 megs in size.  - SG                                    
+//  over 10 megs in size.  - SG
 int vsystem(const sstring &buf)
 {
   extern char **environ;
@@ -1160,7 +1160,7 @@ bool should_be_logged(const TBeing *ch)
   return true;
 }
 
-// I hate typing > x && < y  -  Russ 
+// I hate typing > x && < y  -  Russ
 bool in_range(int num, int low, int high)
 {
   if ((num < low) || (num > high))
@@ -1186,7 +1186,7 @@ bool thingsInRoomVis(TThing *ch, TRoom *rp)
 
 // can_get - Russ Russell c June 1994. last editted June 96
 // can_get returns TRUE if the ch can get the thing
-// passed to it. If the ch can't get it, it sends to  
+// passed to it. If the ch can't get it, it sends to
 // the ch why it can't get it, and then returns FALSE.
 
 bool TBeing::canGet(const TThing *t, silentTypeT silent) const
@@ -1202,7 +1202,7 @@ bool TObj::canGetMe(const TBeing *ch, silentTypeT silent) const
     return false;
   }
 
-  if (!ch->canSee(this)) 
+  if (!ch->canSee(this))
     return FALSE;
 
   // This is a safty bit, mostly auto-done by the storage
@@ -1216,7 +1216,7 @@ bool TObj::canGetMe(const TBeing *ch, silentTypeT silent) const
     return FALSE;
   }
 
-  if (ch->isImmortal() || 
+  if (ch->isImmortal() ||
       (canWear(ITEM_TAKE) && !isObjStat(ITEM_PROTOTYPE))) {
     // flat out deny
     if (canGetMeDeny(ch, silent))
@@ -1228,7 +1228,7 @@ bool TObj::canGetMe(const TBeing *ch, silentTypeT silent) const
       return FALSE;
     }
 
-    // attached items 
+    // attached items
     if (isObjStat(ITEM_ATTACHED)) {
       if (!ch->isImmortal()) {
         if (canWear(ITEM_TAKE)) {
@@ -1236,7 +1236,7 @@ bool TObj::canGetMe(const TBeing *ch, silentTypeT silent) const
             ch->sendTo(COLOR_OBJECTS, format("%s is attached to %s and is not currently getable.\n\r") % getName() % riding->getName());
           } else {
             ch->sendTo(COLOR_OBJECTS, format("%s is attached and is not currently getable.\n\r") % getName());
-          
+
           }
         } else {
           ch->sendTo(COLOR_OBJECTS, format("%s : You can't take that.\n\r") % getName());
@@ -1326,7 +1326,7 @@ bool TBeing::tooManyFollowers(const TBeing *pet, newFolTypeT type) const
   //  max_followers += plotStat(STAT_CURRENT, STAT_CHA, 1, 19, 9);
   //  int max_count = GetMaxLevel() / 5;
 
-  max_followers = (GetMaxLevel() + plotStat(STAT_CURRENT, STAT_CHA, -20, 20, 0)) / 30 + 1; 
+  max_followers = (GetMaxLevel() + plotStat(STAT_CURRENT, STAT_CHA, -20, 20, 0)) / 30 + 1;
   max_followers = max(1, (min(3,max_followers)));
 
   for(k = followers, count = 0; k; k = k->next) {
@@ -1394,8 +1394,8 @@ int TThing::visibility() const
     for (j = MIN_WEAR; j < MAX_WEAR; j++) {
       TThing *tt = tbt->equipment[j];
       if((to=dynamic_cast<TObj *>(tt)) && to->isObjStat(ITEM_SHADOWY)){
-	// silly to use getVolume; that'd make ogres sneakier than elves
-	eqbonus+=(int)(race_vol_constants[j+1]*70.0);
+        // silly to use getVolume; that'd make ogres sneakier than elves
+        eqbonus+=(int)(race_vol_constants[j+1]*70.0);
       }
     }
     if(tbt->isAffected(AFF_SNEAK) || tbt->isAffected(AFF_HIDE))
@@ -1423,15 +1423,15 @@ int TBeing::eyeSight(TRoom *rp) const
 
   vision = visionBonus;
   vision += getMyRace()->visionBonus;
-  
-  // this is here so that items carried (!rp) are treated as being in room i 
+
+  // this is here so that items carried (!rp) are treated as being in room i
   // am looking from
   if (!rp)
     rp = roomp;
 
-  if ((isAffected(AFF_TRUE_SIGHT)) || (isAffected(AFF_CLARITY))) 
+  if ((isAffected(AFF_TRUE_SIGHT)) || (isAffected(AFF_CLARITY)))
     vision += 25;
-  
+
   if (rp) {
     int light = rp->getLight();
     vision += light;
@@ -1442,7 +1442,7 @@ int TBeing::eyeSight(TRoom *rp) const
       vision -= 2;
     else if (Weather::getWeather(*rp) == Weather::LIGHTNING)
       vision -= 1;
-  
+
     // if they are indoors, the lighting of the room should be "subdued"
     if (rp->isRoomFlag(ROOM_INDOORS))
       vision -= light / 2;
@@ -1472,7 +1472,7 @@ bool TBeing::willBumpHeadDoor(roomDirData *exitp, int *height) const
     return FALSE;
 
   if (exitp->door_type != DOOR_NONE)
-    *height = 9 * *height / 10;   //  doors are 90% size of room 
+    *height = 9 * *height / 10;   //  doors are 90% size of room
 
   return (willBump(*height));
 }
@@ -1493,9 +1493,9 @@ int TBeing::bumpHeadDoor(roomDirData *exitp, int *height)
   doorbuf=exitp->getName();
   if (::number(1, 300) > plotStat(STAT_CURRENT, STAT_AGI, 30, 180, 110)) {
     sendTo(format("You bump your head as you go through the %s.  OUCH!\n\r") %
-	   doorbuf.uncap());
+           doorbuf.uncap());
     buf = format("$n bumps $s head on the %s.  That had to hurt.") %
-	     doorbuf.uncap();
+             doorbuf.uncap();
     act(buf,TRUE, this, 0,0,TO_ROOM);
     // Lets do some head-gear checks to see if gear can absorb or negate damage
     // Very simple to start - Brutius - 12-31-95
@@ -1511,11 +1511,11 @@ int TBeing::bumpHeadDoor(roomDirData *exitp, int *height)
       // no helm, just take damage
       if (reconcileDamage(this,::number(1,3),DAMAGE_NORMAL) == -1)
         return DELETE_THIS;
-    } 
-  } else 
+    }
+  } else
     sendTo(format("You duck down as you go through the %s.\n\r") %
-	   doorbuf.uncap());
-  
+           doorbuf.uncap());
+
   return FALSE;
 }
 
@@ -1588,7 +1588,7 @@ void TPerson::addToWait(int orig_amt)
   if (desc && !isImmortal()) {
     if (orig_amt >= 1)
       desc->wait += max(1,amt);
-    else 
+    else
       desc->wait += max(0,amt);
   }
 }
@@ -1684,10 +1684,10 @@ void TBeing::giveMoney(TBeing *ch, int money, moneyTypeT type)
 {
   if(money < 0){
     vlogf(LOG_BUG, format("%s just tried to give negative money (%i) to %s") %
-	  getName() % money % ch->getName());
+          getName() % money % ch->getName());
     return;
   }
-    
+
 
   addToMoney(-money, type);
   ch->addToMoney(money, type);
@@ -1702,10 +1702,10 @@ void TBeing::addToMoney(int money, moneyTypeT type, bool allowTithe)
 
   if(money && !bootTime)
     vlogf(LOG_SILENT, format("%s talens changed by %i.") %
-	  getName() % money);
+          getName() % money);
 
   points.money += money;
- 
+
   // due to the way the stats are set up, don't try to change this 60 to
   // a #define value
   if (isPc() && ((lev = GetMaxLevel()) <= 60)) {
@@ -1726,16 +1726,16 @@ void TBeing::addToMoney(int money, moneyTypeT type, bool allowTithe)
           gold_positive[GOLD_INCOME][(lev-1)] -= max(amount, 0);
 
           FactionInfo[getFaction()].addToMoney(amount);
-	  TCorporation corp(FactionInfo[getFaction()].corp_id);
-	  if(amount!=0)
-	    corp.corpLog(getName(), "tithe", amount);
+          TCorporation corp(FactionInfo[getFaction()].corp_id);
+          if(amount!=0)
+            corp.corpLog(getName(), "tithe", amount);
 
           gold_statistics[GOLD_TITHE][(lev-1)] += amount;
           gold_positive[GOLD_TITHE][(lev-1)] += max(amount, 0);
           reconcileHelp(NULL, amount * TITHE_FACTOR);
 
-	  if(amount>0)
-	    sendTo(format("You tithe %i talens.\n\r") % amount);
+          if(amount>0)
+            sendTo(format("You tithe %i talens.\n\r") % amount);
         }
         break;
       case GOLD_TITHE:
@@ -1747,13 +1747,13 @@ void TBeing::addToMoney(int money, moneyTypeT type, bool allowTithe)
         reconcileHelp(NULL, -money * TITHE_FACTOR);
         break;
       case GOLD_GAMBLE:
-	db.query("select 1 from gamblers where getPlayerName(player_id)='%s'", getName());
-	if(!db.fetchRow()){
-	  db.query("insert into gamblers values (getPlayerID('%s'), %i)", getName(), money);
-	} else {
-	  db.query("update gamblers set money=money+%i where getPlayerName(player_id)='%s'", money, getName());
-	}
-	// fall through
+        db.query("select 1 from gamblers where getPlayerName(player_id)='%s'", getName());
+        if(!db.fetchRow()){
+          db.query("insert into gamblers values (getPlayerID('%s'), %i)", getName(), money);
+        } else {
+          db.query("update gamblers set money=money+%i where getPlayerName(player_id)='%s'", money, getName());
+        }
+        // fall through
       case GOLD_REPAIR:
       case GOLD_SHOP:
       case GOLD_COMM:
@@ -1787,23 +1787,23 @@ bool TThing::outside() const
 bool TBeing::isSimilar(const TThing *t) const
 {
   const TBeing *tb = dynamic_cast<const TBeing *>(t);
- 
+
   if (!tb)
     return FALSE;
 
-  
+
    if ((tb->number == number) && (tb->getPosition() == getPosition()) &&
      (tb->specials.affectedBy == specials.affectedBy) &&
      // if they have spells on them, prevent being similar
      !affected && !tb->affected &&
      (tb->fight() == fight())) {
-     
+
      if (tb->name && name) {
        if (is_exact_name(tb->name, name)) {
           return TRUE;
        }
      }
-  }   
+  }
   return FALSE;
 }
 
@@ -1817,7 +1817,7 @@ bool TObj::isShopSimilar(const TThing *t) const
   const TObj *obj = dynamic_cast<const TObj *>(t);
   if (!obj)
     return FALSE;
-  
+
   if (getStructPoints() != obj->getStructPoints())
     return false;
 
@@ -1930,7 +1930,7 @@ int TBeing::getVolume() const
   // since we want V for a 70 inch human to = 42500 (sum of limb volumes)
   // this becomes a k of 0.2
   // we have set corpse_const on all races equivalent to k
- 
+
 
   int vol;
 
@@ -1951,7 +1951,7 @@ char UPPER(char c)
   return ((c >= 'a' && c <= 'z') ? (c+('A'-'a')) : c );
 }
 
-char ISNEWL(char ch) 
+char ISNEWL(char ch)
 {
   return (ch == '\n' || ch == '\r');
 }
@@ -1979,10 +1979,10 @@ bool TBeing::checkBusy(const sstring &buf)
     sendTo("You are still busy orienting yourself.");
   }
 #if 0
-  int tmpnum = (hitsPerRound ? (int) (cantHit/hitsPerRound + 1) : 1000000); 
+  int tmpnum = (hitsPerRound ? (int) (cantHit/hitsPerRound + 1) : 1000000);
   sendTo(format(" (Roughly %d round%s to go)\n\r") % tmpnum % (tmpnum > 1) ? "s" : "");
 #else
-  float tmpnum = (hitsPerRound ? (cantHit/hitsPerRound) : 1000000); 
+  float tmpnum = (hitsPerRound ? (cantHit/hitsPerRound) : 1000000);
   tmpnum *= Pulse::COMBAT;
   tmpnum /= Pulse::ONE_SECOND;
 
@@ -2073,13 +2073,13 @@ sstring talenDisplay(int talens)
 sstring volumeDisplay(int volume)
 {
   volume = ((volume >= 100) ? volume/100 * 100 :
-	    ((volume >= 10) ? volume/10 * 10 : volume));
-    
+            ((volume >= 10) ? volume/10 * 10 : volume));
+
   int volumeTmp, yards = 0;
   int feet = 0;
   int inches;
   sstring volumeBuf;
-  
+
   volumeTmp = volume;
   if (volumeTmp > CUBIC_INCHES_PER_YARD) {
     yards = volume/CUBIC_INCHES_PER_YARD;

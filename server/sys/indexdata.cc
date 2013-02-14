@@ -218,7 +218,7 @@ void generate_obj_index()
       perror("indexData");
       exit(0);
     }
-    
+
     tmpi->virt=convertTo<int>(db["vnum"]);
     tmpi->name=mud_str_dup(db["name"]);
     tmpi->short_desc=mud_str_dup(db["short_desc"]);
@@ -232,7 +232,7 @@ void generate_obj_index()
     }
     if (tmpi->max_exist)
       tmpi->max_exist = max(tmpi->max_exist, (short int) (Config::ModeBeta() ? 9999 : 1));
-    
+
 
     tmpi->spec=convertTo<int>(db["spec_proc"]);
     tmpi->weight=convertTo<float>(db["weight"]);
@@ -249,7 +249,7 @@ void generate_obj_index()
     }
 
     while(!extra_db["vnum"].empty() &&
-	  convertTo<int>(extra_db["vnum"])==tmpi->virt){
+          convertTo<int>(extra_db["vnum"])==tmpi->virt){
       new_descr = new extraDescription();
       new_descr->keyword = mud_str_dup(extra_db["name"]);
       new_descr->description = mud_str_dup(extra_db["description"]);
@@ -260,24 +260,24 @@ void generate_obj_index()
     }
 
     while(!affect_db["vnum"].empty() &&
-	  convertTo<int>(affect_db["vnum"]) < tmpi->virt){
+          convertTo<int>(affect_db["vnum"]) < tmpi->virt){
       affect_db.fetchRow();
     }
 
     i=0;
     while(!affect_db["vnum"].empty() &&
-	  convertTo<int>(affect_db["vnum"])==tmpi->virt){
+          convertTo<int>(affect_db["vnum"])==tmpi->virt){
       tmpi->affected[i].location = mapFileToApply(convertTo<int>(affect_db["type"]));
 
       if (tmpi->affected[i].location == APPLY_SPELL)
-	tmpi->affected[i].modifier = mapFileToSpellnum(convertTo<int>(affect_db["mod1"]));
+        tmpi->affected[i].modifier = mapFileToSpellnum(convertTo<int>(affect_db["mod1"]));
       else
-	tmpi->affected[i].modifier = convertTo<int>(affect_db["mod1"]);
-      
+        tmpi->affected[i].modifier = convertTo<int>(affect_db["mod1"]);
+
       tmpi->affected[i].modifier2 = convertTo<int>(affect_db["mod2"]);
       tmpi->affected[i].type = TYPE_UNDEFINED;
       tmpi->affected[i].level = 0;
-      tmpi->affected[i].bitvector = 0;      
+      tmpi->affected[i].bitvector = 0;
 
       affect_db.fetchRow();
       i++;
@@ -292,12 +292,12 @@ void generate_obj_index()
 
 
 
-// generate index table for monster file 
+// generate index table for monster file
 void generate_mob_index()
 {
   mobIndexData *tmpi = NULL;
   TDatabase db(DB_SNEEZY);
-  
+
   // to prevent constant resizing (slows boot), declare an appropriate initial
   // size.  Should be smallest power of 2 that will hold everything
   mob_index.reserve(8192);
@@ -318,44 +318,44 @@ void generate_mob_index()
       perror("mobIndexData");
       exit(0);
     }
-    
+
     tmpi->virt = convertTo<int>(db["vnum"]);
-    
+
     // read the sstrings
     tmpi->name = mud_str_dup(db["name"]);
     tmpi->short_desc = mud_str_dup(db["short_desc"]);
     tmpi->long_desc = mud_str_dup(db["long_desc"]);
     tmpi->description = mud_str_dup(db["description"]);
-    
+
     long fac=convertTo<int>(db["faction"]);
-    
+
     tmpi->faction = fac;
-    
+
     long Class=convertTo<int>(db["class"]);
     long lev=convertTo<int>(db["level"]);
     float arm=convertTo<int>(db["ac"]);
     float hp=convertTo<int>(db["hpbonus"]);
     float daml=convertTo<int>(db["damage_level"]);
-    
+
     lev = (long)((arm + hp + daml) / 3);
-    
+
     tmpi->Class = Class;
     tmpi->level = lev;
-    
+
     long race=convertTo<int>(db["race"]);
     long wgt=convertTo<int>(db["weight"]);
-    
+
     tmpi->race = race;
     tmpi->weight = wgt;
-    
+
     long spec=convertTo<int>(db["spec_proc"]);
-    
+
     tmpi->spec = spec;
-        
+
     long maxe=convertTo<int>(db["max_exist"]);
-    
+
     tmpi->max_exist = Config::ModeBeta() ? 9999 : maxe;
-    
+
     // handle some stat counters
     if (lev <= 5) {
       stats.mobs_1_5++;
@@ -390,7 +390,7 @@ void generate_mob_index()
     mob_index.push_back(*tmpi);
     delete tmpi;
   }
-  
+
 
   return;
 }

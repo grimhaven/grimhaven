@@ -115,7 +115,7 @@ int Body::addLimb(sstring name, sstring targetname) {
   Limb *limb = new Limb(name, targetname, name.lower());
   int target = limb->connectsTo;
 
-  if (target == LIMB_BODY) 
+  if (target == LIMB_BODY)
     return join(limb);
 
   Limb *connector = search(target, LIMB_NOSUBLIMB);
@@ -135,9 +135,9 @@ Limb *Body::search(int target, int status)
     while(notFound) {
       found=notFound->search(target,status);
       if(found)
-	return found;
+        return found;
       else
-	notFound = notFound->next;
+        notFound = notFound->next;
     }
   }
   return found;

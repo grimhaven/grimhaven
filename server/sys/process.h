@@ -7,7 +7,7 @@
 #include "timing.h"
 
 class TPulse {
-public:  
+public:
   int pulse;
   bool every, teleport, combat, drowning, special_procs, update_stuff;
   bool pulse_mudhour, mobstuff, pulse_tick, wayslowpulse;
@@ -52,7 +52,7 @@ public:
   }
 
   TPulse & operator=(const TPulse &a){
-    if (this == &a) return *this;    
+    if (this == &a) return *this;
     pulse=a.pulse;
     every=a.every;
     teleport=a.teleport;
@@ -77,7 +77,7 @@ class TBaseProcess {
 
   // in general, you shouldn't have to override should_run()
   virtual bool should_run(int) const;
-  
+
   virtual ~TBaseProcess(){}
 };
 
@@ -89,7 +89,7 @@ class TProcess : public TBaseProcess {
 
 class TObjProcess : public TBaseProcess {
   double timing;
-  
+
  public:
   friend class TScheduler;
 

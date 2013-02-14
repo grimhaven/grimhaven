@@ -15,7 +15,7 @@
 using std::min;
 using std::max;
 
-int TBeing::doBerserk() 
+int TBeing::doBerserk()
 {
   int rc;
 
@@ -56,7 +56,7 @@ int berserk(TBeing * caster)
   }
 
   if (caster->checkPeaceful("This room is too tranquil to go berserk in.\n\r"))
-    return FALSE;    
+    return FALSE;
 
   if (!caster->isPc())
     return FALSE;
@@ -71,7 +71,7 @@ int berserk(TBeing * caster)
     if(caster->getHit() > (caster->hitLimit()/2)){
       af.type = SKILL_BERSERK;
       af.modifier = ::number(caster->getSkillValue(SKILL_BERSERK),
-			     caster->getSkillValue(SKILL_BERSERK)*2);
+                             caster->getSkillValue(SKILL_BERSERK)*2);
       af.level = level;
       //      af.duration = caster->getSkillValue(SKILL_BERSERK);
       af.duration = PERMANENT_DURATION;

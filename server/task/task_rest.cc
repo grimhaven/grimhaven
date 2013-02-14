@@ -27,21 +27,21 @@ int task_rest(TBeing *ch, cmdTypeT cmd, const char *arg, int pulse, TRoom *, TOb
         if (!ch->roomp->isRoomFlag(ROOM_NO_HEAL)) {
           ch->addToMana(1);
           ch->addToPiety(.10);
-	  if (ch->hasClass(CLASS_SHAMAN) && !ch->affectedBySpell(SPELL_SHAPESHIFT)
+          if (ch->hasClass(CLASS_SHAMAN) && !ch->affectedBySpell(SPELL_SHAPESHIFT)
         && !ch->isImmortal()) {
-	    if (ch->GetMaxLevel() > 5) {
-	      if (1 > ch->getLifeforce()) {
-		ch->updateHalfTickStuff();
-	      } else {
-		ch->addToLifeforce(-1);
-		ch->sendTo("Your lack of activity drains your precious lifeforce.\n\r");
-	      }
-	    } else {
-	      ch->addToHit(1);
-	    }
-	  } else {
-	    ch->addToHit(1);
-	  }
+            if (ch->GetMaxLevel() > 5) {
+              if (1 > ch->getLifeforce()) {
+                ch->updateHalfTickStuff();
+              } else {
+                ch->addToLifeforce(-1);
+                ch->sendTo("Your lack of activity drains your precious lifeforce.\n\r");
+              }
+            } else {
+              ch->addToHit(1);
+            }
+          } else {
+            ch->addToHit(1);
+          }
           if (ch->getMove() < ch->moveLimit())
             ch->addToMove(1);
           if (ch->desc && ch->ansi()) {

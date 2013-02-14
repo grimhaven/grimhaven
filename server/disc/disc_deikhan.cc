@@ -106,7 +106,7 @@ int synostodweomer(TBeing *caster, TBeing *v)
     return FALSE;
   }
 
-  if (!caster->isImmortal() && 
+  if (!caster->isImmortal() &&
           caster->checkForSkillAttempt(SPELL_SYNOSTODWEOMER)) {
     act("You are not prepared to try to Snyostodweomer again so soon.",
         FALSE, caster, NULL, NULL, TO_CHAR);

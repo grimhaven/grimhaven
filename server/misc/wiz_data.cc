@@ -54,14 +54,14 @@ void TBeing::wizFileRead()
   if (!fp) {
     buf2 = format("immortals/%s") % getName();
     fp = fopen(buf2.c_str(), "r");
-    if (!fp) {	// no immort directory 
+    if (!fp) {        // no immort directory
       if (mkdir(buf2.c_str(), 0770)) {
-	sendTo("Unable to create a wizard directory for you.\n\r");
-	vlogf(LOG_FILE, format("Unable to create a wizard directory for %s.") %  getName());
+        sendTo("Unable to create a wizard directory for you.\n\r");
+        vlogf(LOG_FILE, format("Unable to create a wizard directory for %s.") %  getName());
       } else
-	sendTo("Wizard directory created...\n\r");
+        sendTo("Wizard directory created...\n\r");
     } else
-      fclose(fp);	// player has no wizard data, but has immort directory 
+      fclose(fp);        // player has no wizard data, but has immort directory
 
     return;
   }
@@ -69,7 +69,7 @@ void TBeing::wizFileRead()
     vlogf(LOG_BUG, format("Corrupt wiz save file for %s") %  getName());
     fclose(fp);
     return;
-  } 
+  }
   fclose(fp);
 
   d->severity    = saveData.setsev;
@@ -117,13 +117,13 @@ void TPerson::wizFileSave()
   unlink(buf.c_str());
   if (!(fp = fopen(buf.c_str(), "wa+"))) {
     buf = format("immortals/%s") % getName();
-    if (!(fp = fopen(buf.c_str(), "r"))) {	// no immort directory 
+    if (!(fp = fopen(buf.c_str(), "r"))) {        // no immort directory
       if (mkdir(buf.c_str(), 0770))
-	sendTo("Unable to create a wizard directory for you.  Tell Brutius or Batopr.\n\r");
+        sendTo("Unable to create a wizard directory for you.  Tell Brutius or Batopr.\n\r");
       else
-	sendTo("Wizard directory created... type 'save' again.\n\r");
+        sendTo("Wizard directory created... type 'save' again.\n\r");
     } else
-      fclose(fp);	// player has no wizard data, but has immort directory 
+      fclose(fp);        // player has no wizard data, but has immort directory
 
     return;
   }
@@ -135,7 +135,7 @@ void TPerson::wizFileSave()
   saveData.blockbstart = d->blockbstart;
   saveData.blockbend   = d->blockbend;
 
-  fwrite(&saveData, sizeof(wizSaveData), 1, fp);   
+  fwrite(&saveData, sizeof(wizSaveData), 1, fp);
   fclose(fp);
 }
 
@@ -159,14 +159,14 @@ void TBeing::doOffice(sstring arg)
   buf = format("immortals/%s/wizdata") % arg;
   fp = fopen(buf.c_str(), "r");
   if (!fp) {
-	  sendTo(format("Unable to open file for %s (case sensitive!).\n\r") % arg);
+          sendTo(format("Unable to open file for %s (case sensitive!).\n\r") % arg);
     return;
   }
   if (fread(&saveData, sizeof(saveData), 1, fp) != 1) {
     vlogf(LOG_BUG, format("Corrupt wiz save file for %s") % arg);
     fclose(fp);
     return;
-  } 
+  }
   fclose(fp);
   buf3 = format("The office of %s is %d.\n\r") % arg % saveData.office;
   sendTo(buf3);

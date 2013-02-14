@@ -59,7 +59,7 @@ void setCombatStats(TBeing *ch, TBeing *mob, PolyType shape, spellNumT skill)
     vlogf(LOG_BUG, "in setCombatStats, couldn't cast as TMonster, getting out!");
     return;
   }
-  
+
   // get effective level = (skill_learn) * min(mob level, mage level)
   int level = min(shape.level, (int) ch->GetMaxLevel());
   int polySkill = ch->getSkillValue(skill);
@@ -73,7 +73,7 @@ void setCombatStats(TBeing *ch, TBeing *mob, PolyType shape, spellNumT skill)
   float newHit = (float) ch->hitLimit();
   newHit /= ch->getConHpModifier();
   newHit *= critter->getConHpModifier();
-  critter->setMaxHit((int) newHit); 
+  critter->setMaxHit((int) newHit);
 
   // set current hp
   critter->setHit(ch->getHit() * critter->hitLimit() / ch->hitLimit());
@@ -85,7 +85,7 @@ void setCombatStats(TBeing *ch, TBeing *mob, PolyType shape, spellNumT skill)
   float damagemod = 1.9 / critter->getMult(); // increase damage, since NPCs generally do 2-fold less
   critter->setDamLevel(level * damagemod);
   critter->setDamPrecision(20);
-  
+
   // set hit adjustment
   critter->setHitroll(0);
 
@@ -100,7 +100,7 @@ void setDisguiseCombatStats(TBeing *ch, TBeing *mob)
     vlogf(LOG_BUG, "in setDisguiseCombatStats, couldn't cast as TMonster, getting out!");
     return;
   }
-  
+
   int level = 1;
 
   // set AC
@@ -108,7 +108,7 @@ void setDisguiseCombatStats(TBeing *ch, TBeing *mob)
   critter->setACFromACLevel();
 
   // set max hp and hp
-  critter->setMaxHit(ch->hitLimit()); 
+  critter->setMaxHit(ch->hitLimit());
   critter->setHit(ch->getHit());
 
   // set number of attacks
@@ -118,7 +118,7 @@ void setDisguiseCombatStats(TBeing *ch, TBeing *mob)
   float damagemod = 2 / critter->getMult(); // increase damage, since NPCs generally do 2-fold less
   critter->setDamLevel(level * damagemod);
   critter->setDamPrecision(20);
-  
+
   // set hit adjustment
   critter->setHitroll(0);
 
@@ -138,15 +138,15 @@ void appendPlayerName(TBeing *ch, TBeing *mob)
     mob->name = mud_str_dup(tStNewNameList);
   } else vlogf (LOG_BUG, "Entered appendPlayerName with ch->name undefined");
 }
-  
+
 void switchStat(statTypeT stat, TBeing *giver, TBeing *taker)
 {
 // assumes mob age mod is zero
-  taker->setStat(STAT_CHOSEN, stat, 
+  taker->setStat(STAT_CHOSEN, stat,
       giver->getStat(STAT_TERRITORY, stat) -
-      taker->getStat(STAT_TERRITORY, stat) +
+      taker->getStat(STAT_TERRITORY, stat)
       giver->getStat(STAT_RACE, stat) -
-      taker->getStat(STAT_RACE, stat) +
+      taker->getStat(STAT_RACE, stat)
       giver->getStat(STAT_CHOSEN, stat) );
   taker->setStat(STAT_CURRENT, stat, taker->getStat(STAT_NATURAL, stat));
 }
@@ -166,7 +166,7 @@ void SwitchStuff(TBeing *giver, TBeing *taker, bool setStats)
     if (taker->hasQuestBit(tmpnum) && !giver->hasQuestBit(tmpnum))
       taker->remQuestBit(tmpnum);
   }
-  
+
   // resolve riding
   TBeing *tbr;
   if ((tbr =  dynamic_cast<TBeing *>(giver->riding) )) {
@@ -186,7 +186,7 @@ void SwitchStuff(TBeing *giver, TBeing *taker, bool setStats)
 
   for(StuffIter it=giver->stuff.begin();it!=giver->stuff.end();){
     t=*(it++);
-    --(*t); 
+    --(*t);
     *taker += *t;
   }
   taker->setMoney(giver->getMoney());
@@ -216,21 +216,21 @@ void SwitchStuff(TBeing *giver, TBeing *taker, bool setStats)
     taker->setMaxMove(giver->getMaxMove() / 2);
     // note that the getMaxMove function is different for the mob
     // and the pc
-    
+
     taker->setMaxMana(giver->manaLimit());
 
     if (setStats)
     {
       // can only change chosen... SO:
-     
+
       // for physical (most) stats, keep chosens and territory adjustments
       // charisma and perception are included here, rightly or wrongly
       statTypeT iStat;
       for (iStat=MIN_STAT;iStat<MAX_STATS;iStat++) {
         if (iStat == STAT_INT || iStat == STAT_WIS || iStat == STAT_FOC ||
-            iStat == STAT_KAR ) continue; 
-        taker->setStat(STAT_CHOSEN, iStat, giver->getStat(STAT_CHOSEN, iStat) +
-          giver->getStat(STAT_TERRITORY, iStat) - 
+            iStat == STAT_KAR ) continue;
+        taker->setStat(STAT_CHOSEN, iStat, giver->getStat(STAT_CHOSEN, iStat)
+          giver->getStat(STAT_TERRITORY, iStat) -
           taker->getStat(STAT_TERRITORY, iStat));
         taker->setStat(STAT_CURRENT, iStat, STAT_NATURAL);
       }
@@ -269,7 +269,7 @@ void SwitchStuff(TBeing *giver, TBeing *taker, bool setStats)
 
   // transfer spells and skills and oddball effects (disease, drunk, ...)
   giver->polyAffectJoin(taker);
-                        
+
 }
 
 void DisguiseStuff(TBeing *giver, TBeing *taker)
@@ -303,8 +303,8 @@ void TBeing::failSleep(TBeing *ch)
 {
   sendTo("You feel sleepy for a moment, but then you recover.\n\r");
   if (dynamic_cast<TMonster *>(this))
-    if (toggleInfo[TOG_SLEEP]->toggle && !fight() && 
-	(getPosition() > POSITION_SLEEPING))
+    if (toggleInfo[TOG_SLEEP]->toggle && !fight() &&
+        (getPosition() > POSITION_SLEEPING))
       setCharFighting(ch);
 }
 
@@ -342,9 +342,9 @@ void TBeing::spellWearOffSoon(spellNumT s)
     act("$n's teeth begin to chatter.", TRUE, this, 0, 0, TO_ROOM);
   }
 
-  if (discArray[s]->fadeAwaySoon) 
+  if (discArray[s]->fadeAwaySoon)
     sendTo(format("%s\n\r") % discArray[s]->fadeAwaySoon);
-  
+
   if (discArray[s]->fadeAwaySoonRoom)
     act(discArray[s]->fadeAwaySoonRoom, TRUE, this, 0, 0, TO_ROOM);
 }
@@ -377,9 +377,9 @@ int TBeing::spellWearOff(spellNumT s, safeTypeT safe)
     act("$n begins to shiver violently, and looks pale.", TRUE, this, 0, 0, TO_ROOM);
   }
 
-  if (discArray[s]->fadeAway) 
+  if (discArray[s]->fadeAway)
     sendTo(format("%s\n\r") % discArray[s]->fadeAway);
-  
+
   if (discArray[s]->fadeAwayRoom)
     act(discArray[s]->fadeAwayRoom, TRUE, this, 0, 0, TO_ROOM);
 
@@ -419,14 +419,14 @@ int TBeing::checkDecharm(forceTypeT force, safeTypeT safe)
   bool release = FALSE;
   TBeing *m;
 
-  if (!(m = master) && !force) {  
+  if (!(m = master) && !force) {
     return FALSE;
   } else if (m) {
     mastLevel = m->GetMaxLevel();
   }
   mastLevel = 0 - mastLevel;
 
-  stopFollower(FALSE);	// stop following the master 
+  stopFollower(FALSE);        // stop following the master
 
   if (!isPc()) {
     int  mVn         = mobVnum();
@@ -504,8 +504,8 @@ TComponent *comp_from_object(TThing *item, spellNumT spell)
   if (trc && trc->isClosed())
     return ret;
 
-  // item is wrong component or spellbag 
-  for(StuffIter it=item->stuff.begin();it!=item->stuff.end();++it) 
+  // item is wrong component or spellbag
+  for(StuffIter it=item->stuff.begin();it!=item->stuff.end();++it)
     (*it)->findComp(&ret, spell);
 
   return ret;
@@ -531,7 +531,7 @@ TComponent *TBeing::findComponent(spellNumT spell) const
   if (hasClass(CLASS_RANGER)) {
     if (fight())
       wizlevel = WIZ_LEV_COMP_EITHER;
-    else 
+    else
       wizlevel = WIZ_LEV_COMP_BELT;
   } else {
     if (hasClass(CLASS_SHAMAN)) {
@@ -543,58 +543,58 @@ TComponent *TBeing::findComponent(spellNumT spell) const
   if (hasClass(CLASS_SHAMAN)) {
     if (isPc()) {
       if (ritlevel <= RIT_LEV_COMP_PRIM_OTHER_FREE) {
-	if (primary)
-	  return comp_from_object(primary, spell);
-	else
-	  return NULL;
+        if (primary)
+          return comp_from_object(primary, spell);
+        else
+          return NULL;
       }
       if (ritlevel <= RIT_LEV_COMP_EITHER) {
-	if (primary || secondary) {
-	  if (primary)
-	    item = comp_from_object(primary, spell);
-	  if (!item && secondary)
-	    item = comp_from_object(secondary, spell);
-	  return item;
-	} else
-	  return NULL;
+        if (primary || secondary) {
+          if (primary)
+            item = comp_from_object(primary, spell);
+          if (!item && secondary)
+            item = comp_from_object(secondary, spell);
+          return item;
+        } else
+          return NULL;
       }
       if (ritlevel <= RIT_LEV_NO_MANTRA) {
-	if (primary || secondary || !stuff.empty()) {
-	  if (primary)
-	    item = comp_from_object(primary, spell);
-	  if (!item && secondary)
-	    item = comp_from_object(secondary, spell);
-	  if (!item && !stuff.empty()) {
-	    for(StuffIter it=stuff.begin();it!=stuff.end() && !item;++it) {
-	      TObj *o = dynamic_cast<TObj *>(*it);
-	      if(o)
-		item = comp_from_object(o, spell);
-	    }
-	  }
-	  return item;
-	} else
-	  return NULL;
+        if (primary || secondary || !stuff.empty()) {
+          if (primary)
+            item = comp_from_object(primary, spell);
+          if (!item && secondary)
+            item = comp_from_object(secondary, spell);
+          if (!item && !stuff.empty()) {
+            for(StuffIter it=stuff.begin();it!=stuff.end() && !item;++it) {
+              TObj *o = dynamic_cast<TObj *>(*it);
+              if(o)
+                item = comp_from_object(o, spell);
+            }
+          }
+          return item;
+        } else
+          return NULL;
       }
     }
     if (primary || secondary || belt || juju || wristpouchL || wristpouchR || !stuff.empty()) {
       if (primary)
-	item = comp_from_object(primary, spell);
+        item = comp_from_object(primary, spell);
       if (!item && secondary)
-	item = comp_from_object(secondary, spell);
+        item = comp_from_object(secondary, spell);
       if (!item && belt)
-	item = comp_from_object(belt, spell);
+        item = comp_from_object(belt, spell);
       if (!item && juju)
-	item = comp_from_object(juju, spell);
+        item = comp_from_object(juju, spell);
       if (!item && wristpouchL)
-	item = comp_from_object(wristpouchL, spell);
+        item = comp_from_object(wristpouchL, spell);
       if (!item && wristpouchR)
         item = comp_from_object(wristpouchR, spell);
       if (!item && !stuff.empty()) {
-	for(StuffIter it=stuff.begin();it!=stuff.end() && !item;++it) {
-	  TObj *o = dynamic_cast<TObj *>(*it);
-	  if (o)
-	    item = comp_from_object(o, spell);
-	}
+        for(StuffIter it=stuff.begin();it!=stuff.end() && !item;++it) {
+          TObj *o = dynamic_cast<TObj *>(*it);
+          if (o)
+            item = comp_from_object(o, spell);
+        }
       }
       return item;
     } else
@@ -602,58 +602,58 @@ TComponent *TBeing::findComponent(spellNumT spell) const
   } else {
     if (isPc()) {
       if (wizlevel <= WIZ_LEV_COMP_PRIM_OTHER_FREE) {
-	if (primary)
-	  return comp_from_object(primary, spell);
-	else
-	  return NULL;
+        if (primary)
+          return comp_from_object(primary, spell);
+        else
+          return NULL;
       }
       if (wizlevel <= WIZ_LEV_COMP_EITHER) {
-	if (primary || secondary) {
-	  if (primary)
-	    item = comp_from_object(primary, spell);
-	  if (!item && secondary)
-	    item = comp_from_object(secondary, spell);
-	  return item;
-	} else
-	  return NULL;
+        if (primary || secondary) {
+          if (primary)
+            item = comp_from_object(primary, spell);
+          if (!item && secondary)
+            item = comp_from_object(secondary, spell);
+          return item;
+        } else
+          return NULL;
       }
       if (wizlevel <= WIZ_LEV_NO_MANTRA) {
-	if (primary || secondary || !stuff.empty()) {
-	  if (primary)
-	    item = comp_from_object(primary, spell);
-	  if (!item && secondary)
-	    item = comp_from_object(secondary, spell);
-	  if (!item && !stuff.empty()) {
-	    for(StuffIter it=stuff.begin();it!=stuff.end() && !item;++it) {
-	      TObj *o = dynamic_cast<TObj *>(*it);
-	      if (o)
-		item = comp_from_object(o, spell);
-	    }
-	  }
-	  return item;
-	} else
-	  return NULL;
+        if (primary || secondary || !stuff.empty()) {
+          if (primary)
+            item = comp_from_object(primary, spell);
+          if (!item && secondary)
+            item = comp_from_object(secondary, spell);
+          if (!item && !stuff.empty()) {
+            for(StuffIter it=stuff.begin();it!=stuff.end() && !item;++it) {
+              TObj *o = dynamic_cast<TObj *>(*it);
+              if (o)
+                item = comp_from_object(o, spell);
+            }
+          }
+          return item;
+        } else
+          return NULL;
       }
     }
     if (primary || secondary || belt || juju || wristpouchL || wristpouchR || !stuff.empty()) {
       if (primary)
-	item = comp_from_object(primary, spell);
+        item = comp_from_object(primary, spell);
       if (!item && secondary)
-	item = comp_from_object(secondary, spell);
+        item = comp_from_object(secondary, spell);
       if (!item && belt)
-	item = comp_from_object(belt, spell);
+        item = comp_from_object(belt, spell);
       if (!item && juju)
-	item = comp_from_object(juju, spell);
+        item = comp_from_object(juju, spell);
       if (!item && wristpouchL)
-	item = comp_from_object(wristpouchL, spell);
+        item = comp_from_object(wristpouchL, spell);
       if (!item && wristpouchR)
         item = comp_from_object(wristpouchR, spell);
       if (!item && !stuff.empty()) {
-	for(StuffIter it=stuff.begin();it!=stuff.end() && !item;++it) {
-	  TObj *o = dynamic_cast<TObj *>(*it);
-	  if (o)
-	    item = comp_from_object(o, spell);
-	}
+        for(StuffIter it=stuff.begin();it!=stuff.end() && !item;++it) {
+          TObj *o = dynamic_cast<TObj *>(*it);
+          if (o)
+            item = comp_from_object(o, spell);
+        }
       }
       return item;
     } else
@@ -682,42 +682,42 @@ int TBeing::useComponent(TComponent *o, TBeing *vict, checkOnlyT checkOnly)
   if (isImmortal() && isPlayerAction(PLR_NOHASSLE))
     return TRUE;
 
-  // Until a better solution, mobs dont need components. - Russ 
+  // Until a better solution, mobs dont need components. - Russ
   if (!isPc())
     return TRUE;
 
 // has already used component
-  if (spelltask && spelltask->component) 
+  if (spelltask && spelltask->component)
     return TRUE;
 
   if (!o) {
     missingComponent(this);
     return FALSE;
   }
-  if (checkOnly) 
+  if (checkOnly)
     return TRUE;
-     
+
   for (i=0; (i<CompInfo.size()) && (o->getComponentSpell() != CompInfo[i].spell_num);i++);
 
   if (i>= CompInfo.size()) {
-    vlogf(LOG_BUG,format("useComponent had problem finding component for %s") % 
+    vlogf(LOG_BUG,format("useComponent had problem finding component for %s") %
         o->getName());
     sendTo("Uh oh, something bogus happened.\n\r");
     return FALSE;
   }
   if (o->isPersonalized() && !isname(getName(), o->name)) {
-    vlogf(LOG_MISC, format("Mage %s using component %s that was personalized but not theirs!!! Reprimand at once.") %  getName() % o->name); 
+    vlogf(LOG_MISC, format("Mage %s using component %s that was personalized but not theirs!!! Reprimand at once.") %  getName() % o->name);
     sendTo("You can't use a component that is personalized for someone else!");
     return FALSE;
   }
   if (vict && vict != this) {
-    if (*CompInfo[i].to_caster && 
+    if (*CompInfo[i].to_caster &&
         *CompInfo[i].to_vict &&
         *CompInfo[i].to_other) {
       act(CompInfo[i].to_caster, TRUE, this, o, vict, TO_CHAR);
       act(CompInfo[i].to_vict, TRUE, this, o, vict, TO_VICT);
       act(CompInfo[i].to_other, TRUE, this, o, vict, TO_NOTVICT);
-    } else if (*CompInfo[i].to_self && 
+    } else if (*CompInfo[i].to_self &&
                *CompInfo[i].to_room) {
       act(CompInfo[i].to_self, TRUE, this, o, 0, TO_CHAR);
       act(CompInfo[i].to_room, TRUE, this, o, 0, TO_ROOM);
@@ -725,7 +725,7 @@ int TBeing::useComponent(TComponent *o, TBeing *vict, checkOnlyT checkOnly)
       vlogf(LOG_BUG, format("Bad component sstring.  component %d  (1)") %  i);
     }
   } else {
-    if (*CompInfo[i].to_self && 
+    if (*CompInfo[i].to_self &&
         *CompInfo[i].to_room) {
       act(CompInfo[i].to_self, TRUE, this, o, 0, TO_CHAR);
       act(CompInfo[i].to_room, TRUE, this, o, 0, TO_ROOM);
@@ -778,18 +778,18 @@ int TBeing::useComponentObj(TComponent *o, TObj *targ, checkOnlyT checkOnly)
   for (i=0; (i<CompInfo.size()) && (o->getComponentSpell() != CompInfo[i].spell_num);i++);
 
   if (i>= CompInfo.size()) {
-    vlogf(LOG_BUG,format("useComponent had problem finding component for %s") % 
+    vlogf(LOG_BUG,format("useComponent had problem finding component for %s") %
         o->shortDescr);
     sendTo("Uh oh, something bogus happened.\n\r");
     return FALSE;
   }
 
   if (targ) {
-    if (*CompInfo[i].to_self_object && 
+    if (*CompInfo[i].to_self_object &&
         *CompInfo[i].to_room_object) {
       act(CompInfo[i].to_self_object, TRUE, this, o, targ, TO_CHAR);
       act(CompInfo[i].to_room_object, TRUE, this, o, targ, TO_NOTVICT);
-    } else if (*CompInfo[i].to_caster && 
+    } else if (*CompInfo[i].to_caster &&
                *CompInfo[i].to_other) {
       act(CompInfo[i].to_caster, TRUE, this, o, targ, TO_CHAR);
       act(CompInfo[i].to_other, TRUE, this, o, targ, TO_ROOM);
@@ -810,9 +810,9 @@ int TBeing::useComponentObj(TComponent *o, TObj *targ, checkOnlyT checkOnly)
     o = NULL;
   }
 // Set it so that for chanting purposes the component has been used
-  if (spelltask) 
+  if (spelltask)
     spelltask->component = TRUE;
-  
+
   return 1;
 }
 
@@ -949,16 +949,16 @@ const char *what_does_it_open(const TKey *o)
   roomDirData *ex;
 
   vnum = o->objVnum();
-  for (i = 0; i < WORLD_SIZE; i++) {	// check if it opens a door 
+  for (i = 0; i < WORLD_SIZE; i++) {        // check if it opens a door
     if ((rp = real_roomp(i))) {
       for (x = 0; x < 10; x++) {
 
-	if ((ex = rp->dir_option[x]) && (ex->key == vnum)) {
-	  if (IS_SET(ex->condition, EX_SECRET))
-	    return "a secret door";
-	  else
-	    return "a door";
-	}
+        if ((ex = rp->dir_option[x]) && (ex->key == vnum)) {
+          if (IS_SET(ex->condition, EX_SECRET))
+            return "a secret door";
+          else
+            return "a door";
+        }
       }
     }
   }
@@ -966,7 +966,7 @@ const char *what_does_it_open(const TKey *o)
     TOpenContainer *trc = dynamic_cast<TOpenContainer *>(*iter);
     if (trc) {
       if (trc->getKeyNum() == vnum)
-	return "a container";
+        return "a container";
     }
   }
 
@@ -982,7 +982,7 @@ int TBeing::rawSummon(TBeing *v)
   int i, rc;
   wearSlotT j;
 
-  act("You hear a small \"pop\" as $n disappears.", 
+  act("You hear a small \"pop\" as $n disappears.",
             FALSE, v, NULL, NULL, TO_ROOM);
   --(*v);
   *roomp += *v;
@@ -994,8 +994,8 @@ int TBeing::rawSummon(TBeing *v)
 
   if (!v->isPc() && (v->GetMaxLevel() > GetMaxLevel())) {
     act("$N struggles, and all of $S items are destroyed!", TRUE, this, NULL, v, TO_CHAR);
-    for (j = MIN_WEAR; j < MAX_WEAR; j++) {    // remove objects from victim 
-      if (v->equipment[j] && 
+    for (j = MIN_WEAR; j < MAX_WEAR; j++) {    // remove objects from victim
+      if (v->equipment[j] &&
           !dynamic_cast<TKey *>(v->equipment[j])) {
         TThing *t_o = v->unequip(j);
         delete t_o;
@@ -1024,7 +1024,7 @@ int TBeing::rawSummon(TBeing *v)
     rc = t->fallOffMount(v, POSITION_STANDING);
     if (IS_SET_DELETE(rc, DELETE_THIS)) {
       delete t;
-      t = NULL; 
+      t = NULL;
     }
   }
 
@@ -1039,7 +1039,7 @@ int TBeing::rawSummon(TBeing *v)
   act("$n is exhausted from interplanar travel.", FALSE, v, NULL, NULL, TO_ROOM);
 
   // summon newbie to aggro zone far from GH, allow us to check for it
-  vlogf(LOG_SILENT, format("%s summoned %s to %s (%d)") % 
+  vlogf(LOG_SILENT, format("%s summoned %s to %s (%d)") %
           getName() % v->getName() % roomp->getName() % inRoom());
 
   if (v->riding) {
@@ -1063,7 +1063,7 @@ int TBeing::rawSummon(TBeing *v)
       i = ::number(0, 6);
       if (i || 1) {  // make fairly guaranteed
         act("$n sneers at you.", 1, tmp, NULL, this, TO_VICT);
-        act("$n sneers at $N. Uh oh...there's gonna be a RUMBLE!", 
+        act("$n sneers at $N. Uh oh...there's gonna be a RUMBLE!",
              1, tmp, NULL, this, TO_NOTVICT);
 
         rc = dynamic_cast<TMonster *>(tmp)->takeFirstHit(*this);
@@ -1127,13 +1127,13 @@ int TThing::genericTeleport(silentTypeT silent, bool keepZone, bool unsafe)
 
     if(!unsafe){
       if (rp->isRoomFlag(ROOM_PRIVATE))
-	continue;
+        continue;
       if (rp->isRoomFlag(ROOM_HAVE_TO_WALK))
-	continue;
+        continue;
       if (rp->isRoomFlag(ROOM_DEATH))
-	continue;
+        continue;
       if (rp->isFlyingSector())
-	continue;
+        continue;
     }
 
     break;
@@ -1148,7 +1148,7 @@ int TThing::genericTeleport(silentTypeT silent, bool keepZone, bool unsafe)
     rc = t->fallOffMount(this, POSITION_STANDING);
     if (IS_SET_DELETE(rc, DELETE_THIS)) {
       delete t;
-      t = NULL; 
+      t = NULL;
     }
   }
 
@@ -1389,7 +1389,7 @@ int TBeing::rawSleep(int level, int duration, int crit, saveTypeT save)
     if (ch->fight() == this)
       ch->stopFighting();
   }
- 
+
   return FALSE;
 }
 
@@ -1473,7 +1473,7 @@ int TBeing::rawBruise(wearSlotT pos, int duration, silentTypeT silent, checkImmu
   disease_start(this, &aff);
 
   if (!silent) {
-    sendTo(format("%sYour %s is bruised!%s\n\r") % 
+    sendTo(format("%sYour %s is bruised!%s\n\r") %
         red() % describeBodySlot(pos) % norm());
     sprintf(buf, "$n's %s has been bruised!", describeBodySlot(pos).c_str());
     act(buf, TRUE, this, NULL, NULL, TO_ROOM);
@@ -1523,7 +1523,7 @@ int TBeing::rawBleed(wearSlotT pos, int duration, silentTypeT silent, checkImmun
   dropBloodLimb(pos);
 
   if (!silent) {
-    sendTo(format("%sYour %s has started to bleed!%s\n\r") % 
+    sendTo(format("%sYour %s has started to bleed!%s\n\r") %
         red() % describeBodySlot(pos) % norm());
     sprintf(buf, "$n's %s has begun to bleed!", describeBodySlot(pos).c_str());
     act(buf, TRUE, this, NULL, NULL, TO_ROOM);
@@ -1603,17 +1603,17 @@ int TBeing::rawGangrene(wearSlotT pos, int duration, silentTypeT silent, checkIm
   aff.bitvector = 0;
   aff.modifier2 = level; // important to pass onto the infection that this will cause
 
-	if (aff.duration != PERMANENT_DURATION) {
-	  // we've already applied a raw immunity check to prevent entirely
-	  // however, let immunities also decrease duration
-	  aff.duration *= (100 - getImmunity(IMMUNE_DISEASE));
-	  aff.duration /= 100;
-	} 
+        if (aff.duration != PERMANENT_DURATION) {
+          // we've already applied a raw immunity check to prevent entirely
+          // however, let immunities also decrease duration
+          aff.duration *= (100 - getImmunity(IMMUNE_DISEASE));
+          aff.duration /= 100;
+        }
   affectTo(&aff);
   disease_start(this, &aff);
 
   if (!silent) {
-	  // start message handled in disease_gangrene()
+          // start message handled in disease_gangrene()
   }
   return TRUE;
 }
@@ -1632,9 +1632,9 @@ void TBeing::spellMessUp(spellNumT spell)
            (discArray[spell]->typ == SPELL_RANGER) ||
            (discArray[spell]->typ == SPELL_SHAMAN)) {
     type = 0;
-  } else if ((discArray[spell]->typ == SPELL_CLERIC) || 
+  } else if ((discArray[spell]->typ == SPELL_CLERIC) ||
            (discArray[spell]->typ == SPELL_DEIKHAN)) {
-    type = 1;       
+    type = 1;
   }
 #if 0
   switch (getDisciplineNumber(spell, FALSE)) {
@@ -1668,30 +1668,30 @@ void TBeing::spellMessUp(spellNumT spell)
     case 2:
       if (type == 1)
         act("Your brain is jumbled and confused, and you flub the prayer.",
-             FALSE, this, 0, 0, TO_CHAR); 
+             FALSE, this, 0, 0, TO_CHAR);
       else
         act("Your brain is jumbled and confused.",
-             FALSE, this, 0, 0, TO_CHAR); 
+             FALSE, this, 0, 0, TO_CHAR);
       act("$n must have done something wrong.",
-              FALSE, this, 0, 0, TO_ROOM); 
+              FALSE, this, 0, 0, TO_ROOM);
       break;
     case 3:
       if (getWizardryLevel() < WIZ_LEV_NO_GESTURES &&
           IS_SET(discArray[spell]->comp_types, COMP_GESTURAL)) {
         // requires gestures
         act("Darn it!  You mess up one of the intricate gestures.",
-              FALSE, this, 0, 0, TO_CHAR); 
+              FALSE, this, 0, 0, TO_CHAR);
         act("$n must have done something wrong.",
-              FALSE, this, 0, 0, TO_ROOM); 
+              FALSE, this, 0, 0, TO_ROOM);
         break;
       } // otherwise drop through for different text
       if (getRitualismLevel() < RIT_LEV_NO_GESTURES &&
           IS_SET(discArray[spell]->comp_types, COMP_GESTURAL)) {
         // requires gestures
         act("Darn it!  You mess up one of the intricate gestures.",
-              FALSE, this, 0, 0, TO_CHAR); 
+              FALSE, this, 0, 0, TO_CHAR);
         act("$n must have done something wrong.",
-              FALSE, this, 0, 0, TO_ROOM); 
+              FALSE, this, 0, 0, TO_ROOM);
         break;
       } // otherwise drop through for different text
     case 4:
@@ -1700,20 +1700,20 @@ void TBeing::spellMessUp(spellNumT spell)
         // requires gestures
         if (type == 1)
           act("You clumsily perform the prayer's gestures, and things seem to have gone wrong.",
-              FALSE, this, 0, 0, TO_CHAR); 
+              FALSE, this, 0, 0, TO_CHAR);
         else
           act("You clumsily perform the spell's gestures, and things seem to have gone wrong.",
-              FALSE, this, 0, 0, TO_CHAR); 
+              FALSE, this, 0, 0, TO_CHAR);
         act("$n must have done something wrong.",
-              FALSE, this, 0, 0, TO_ROOM); 
+              FALSE, this, 0, 0, TO_ROOM);
         break;
       } // otherwise drop through for different text
       if (getRitualismLevel() < RIT_LEV_NO_GESTURES &&
           IS_SET(discArray[spell]->comp_types, COMP_GESTURAL)) {
-	act("You pathetic excuse for a houngan....Grrrrrr!!!",
-	    FALSE, this, 0, 0, TO_CHAR); 
+        act("You pathetic excuse for a houngan....Grrrrrr!!!",
+            FALSE, this, 0, 0, TO_CHAR);
         act("$n must have done something wrong.",
-	    FALSE, this, 0, 0, TO_ROOM); 
+            FALSE, this, 0, 0, TO_ROOM);
         break;
       } // otherwise drop through for different text
     case 5:
@@ -1721,18 +1721,18 @@ void TBeing::spellMessUp(spellNumT spell)
           IS_SET(discArray[spell]->comp_types, COMP_VERBAL)) {
         // requires incantation
         act("Oops...  You mis-spoke part of the incantation.",
-              FALSE, this, 0, 0, TO_CHAR); 
+              FALSE, this, 0, 0, TO_CHAR);
         act("$n must have done something wrong.",
-              FALSE, this, 0, 0, TO_ROOM); 
+              FALSE, this, 0, 0, TO_ROOM);
         break;
       } // otherwise drop through for different text
       if (getRitualismLevel() < RIT_LEV_NO_MANTRA &&
           IS_SET(discArray[spell]->comp_types, COMP_VERBAL)) {
         // requires incantation
         act("Oops...  You messed that one up....",
-              FALSE, this, 0, 0, TO_CHAR); 
+              FALSE, this, 0, 0, TO_CHAR);
         act("$n must have done something wrong.",
-              FALSE, this, 0, 0, TO_ROOM); 
+              FALSE, this, 0, 0, TO_ROOM);
         break;
       } // otherwise drop through for different text
     case 6:
@@ -1740,25 +1740,25 @@ void TBeing::spellMessUp(spellNumT spell)
           IS_SET(discArray[spell]->comp_types, COMP_VERBAL)) {
         // requires incantation
         act("You trip over your tongue and mis-speak the incantation.",
-              FALSE, this, 0, 0, TO_CHAR); 
+              FALSE, this, 0, 0, TO_CHAR);
         act("$n must have done something wrong.",
-              FALSE, this, 0, 0, TO_ROOM); 
+              FALSE, this, 0, 0, TO_ROOM);
         break;
       } // otherwise drop through for different text
       if (getRitualismLevel() < RIT_LEV_NO_MANTRA &&
           IS_SET(discArray[spell]->comp_types, COMP_VERBAL)) {
         // requires incantation
         act("You trip over your own feet trying to dance for the loa!",
-              FALSE, this, 0, 0, TO_CHAR); 
+              FALSE, this, 0, 0, TO_CHAR);
         act("$n must have done something wrong.",
-              FALSE, this, 0, 0, TO_ROOM); 
+              FALSE, this, 0, 0, TO_ROOM);
         break;
       } // otherwise drop through for different text
     default:
       act("You aren't sure what, but something seems to have gone wrong.",
-            FALSE, this, 0, 0, TO_CHAR); 
+            FALSE, this, 0, 0, TO_CHAR);
       act("$n must have done something wrong.",
-            FALSE, this, 0, 0, TO_ROOM); 
+            FALSE, this, 0, 0, TO_ROOM);
   }
   return;
 }
@@ -1784,177 +1784,177 @@ void TBeing::nothingHappens(silentTypeT silent_caster) const
     switch(num) {
       default:
       case 0:
-	if (!silent_caster)
-	  sendTo("Nothing seems to happen.\n\r");
-	act("Nothing seems to happen.", TRUE, this, 0, 0, TO_ROOM);
-	break;
+        if (!silent_caster)
+          sendTo("Nothing seems to happen.\n\r");
+        act("Nothing seems to happen.", TRUE, this, 0, 0, TO_ROOM);
+        break;
       case 1:
-	if (!silent_caster)
-	  sendTo("Nothing happens.\n\r");
-	act("Nothing happens.", TRUE, this, 0, 0, TO_ROOM);
-	break;
+        if (!silent_caster)
+          sendTo("Nothing happens.\n\r");
+        act("Nothing happens.", TRUE, this, 0, 0, TO_ROOM);
+        break;
       case 2:
-	if (!silent_caster)
-	  act("Uh oh, maybe you ought to try that again.",
-	      FALSE, this, NULL, NULL, TO_CHAR);
-	act("Make like it worked.....shhhhhhhhhhh.",
-	    FALSE, this, NULL, NULL, TO_ROOM);
-	break;
+        if (!silent_caster)
+          act("Uh oh, maybe you ought to try that again.",
+              FALSE, this, NULL, NULL, TO_CHAR);
+        act("Make like it worked.....shhhhhhhhhhh.",
+            FALSE, this, NULL, NULL, TO_ROOM);
+        break;
       case 3:
-	if (!silent_caster)
-	  act("That didn't work...",
-	      FALSE, this, NULL, NULL, TO_CHAR);
-	act("$n's invokation didn't work.",
-	    FALSE, this, NULL, NULL, TO_ROOM);
-	break;
+        if (!silent_caster)
+          act("That didn't work...",
+              FALSE, this, NULL, NULL, TO_CHAR);
+        act("$n's invokation didn't work.",
+            FALSE, this, NULL, NULL, TO_ROOM);
+        break;
       case 4:
-	if (!silent_caster)
-	  act("Nope, nuh uh, nada, zip.",
-	      FALSE, this, NULL, NULL, TO_CHAR);
-	act("Chant, dance, do the bugaloo...whatever, shaman suck.",
-	    FALSE, this, NULL, NULL, TO_ROOM);
-	break;
+        if (!silent_caster)
+          act("Nope, nuh uh, nada, zip.",
+              FALSE, this, NULL, NULL, TO_CHAR);
+        act("Chant, dance, do the bugaloo...whatever, shaman suck.",
+            FALSE, this, NULL, NULL, TO_ROOM);
+        break;
       case 5:
-	if (!silent_caster)
-	  act("Damn!  Missed again.",
-	      FALSE, this, NULL, NULL, TO_CHAR);
-	act("No luck here! Maybe something more simple for a shaman?",
-	    FALSE, this, NULL, NULL, TO_ROOM);
-	break;
+        if (!silent_caster)
+          act("Damn!  Missed again.",
+              FALSE, this, NULL, NULL, TO_CHAR);
+        act("No luck here! Maybe something more simple for a shaman?",
+            FALSE, this, NULL, NULL, TO_ROOM);
+        break;
       case 6:
-	if (!silent_caster)
-	  act("The power of your ancestors is not there.",
-	      FALSE, this, NULL, NULL, TO_CHAR);
-	act("I feel like dancin'....YEAH!",
-	    FALSE, this, NULL, NULL, TO_ROOM);
-	break;
+        if (!silent_caster)
+          act("The power of your ancestors is not there.",
+              FALSE, this, NULL, NULL, TO_CHAR);
+        act("I feel like dancin'....YEAH!",
+            FALSE, this, NULL, NULL, TO_ROOM);
+        break;
     }
   } else {
     int num = ::number(0,17);
     switch(num) {
       default:
       case 0:
-	if (!silent_caster)
-	  sendTo("Nothing seems to happen.\n\r");
-	act("Nothing seems to happen.", TRUE, this, 0, 0, TO_ROOM);
-	break;
+        if (!silent_caster)
+          sendTo("Nothing seems to happen.\n\r");
+        act("Nothing seems to happen.", TRUE, this, 0, 0, TO_ROOM);
+        break;
       case 1:
-	if (!silent_caster)
-	  sendTo("Nothing happens.\n\r");
-	act("Nothing happens.", TRUE, this, 0, 0, TO_ROOM);
-	break;
+        if (!silent_caster)
+          sendTo("Nothing happens.\n\r");
+        act("Nothing happens.", TRUE, this, 0, 0, TO_ROOM);
+        break;
       case 2:
-	if (!silent_caster)
-	  act("Uh oh, maybe you ought to try that again.",
-	      FALSE, this, NULL, NULL, TO_CHAR);
-	act("Humor the little mage and pretend the spell worked.",
-	    FALSE, this, NULL, NULL, TO_ROOM);
-	break;
+        if (!silent_caster)
+          act("Uh oh, maybe you ought to try that again.",
+              FALSE, this, NULL, NULL, TO_CHAR);
+        act("Humor the little mage and pretend the spell worked.",
+            FALSE, this, NULL, NULL, TO_ROOM);
+        break;
       case 3:
-	if (!silent_caster)
-	  act("That didn't work...ONE MORE TIME!",
-	      FALSE, this, NULL, NULL, TO_CHAR);
-	act("$n's spell didn't work.",
-	    FALSE, this, NULL, NULL, TO_ROOM);
-	break;
+        if (!silent_caster)
+          act("That didn't work...ONE MORE TIME!",
+              FALSE, this, NULL, NULL, TO_CHAR);
+        act("$n's spell didn't work.",
+            FALSE, this, NULL, NULL, TO_ROOM);
+        break;
       case 4:
-	if (!silent_caster)
-	  act("Nope, nuh uh, nada, zip, the big mage fizzle.",
-	      FALSE, this, NULL, NULL, TO_CHAR);
-	act("Chant, chant, wave hands, wave hands, mages suck.",
-	    FALSE, this, NULL, NULL, TO_ROOM);
-	break;
+        if (!silent_caster)
+          act("Nope, nuh uh, nada, zip, the big mage fizzle.",
+              FALSE, this, NULL, NULL, TO_CHAR);
+        act("Chant, chant, wave hands, wave hands, mages suck.",
+            FALSE, this, NULL, NULL, TO_ROOM);
+        break;
       case 5:
-	if (!silent_caster)
-	  act("Damn!  Missed again.",
-	      FALSE, this, NULL, NULL, TO_CHAR);
-	act("The mage casts and misses!",
-	    FALSE, this, NULL, NULL, TO_ROOM);
-	break;
+        if (!silent_caster)
+          act("Damn!  Missed again.",
+              FALSE, this, NULL, NULL, TO_CHAR);
+        act("The mage casts and misses!",
+            FALSE, this, NULL, NULL, TO_ROOM);
+        break;
       case 6:
-	if (!silent_caster)
-	  act("The forces of magic fail to come forth.",
-	      FALSE, this, NULL, NULL, TO_CHAR);
-	act("The forces of magic fail to come forth.",
-	    FALSE, this, NULL, NULL, TO_ROOM);
-	break;
+        if (!silent_caster)
+          act("The forces of magic fail to come forth.",
+              FALSE, this, NULL, NULL, TO_CHAR);
+        act("The forces of magic fail to come forth.",
+            FALSE, this, NULL, NULL, TO_ROOM);
+        break;
       case 7:
-	if (!silent_caster)
-	  act("Try as you might, your magic fails you.",
-	      FALSE, this, NULL, NULL, TO_CHAR);
-  	  act("Try as $n might, the magic fails.",
-	      FALSE, this, NULL, NULL, TO_ROOM);
-	  break;
+        if (!silent_caster)
+          act("Try as you might, your magic fails you.",
+              FALSE, this, NULL, NULL, TO_CHAR);
+            act("Try as $n might, the magic fails.",
+              FALSE, this, NULL, NULL, TO_ROOM);
+          break;
       case 8:
-	if (!silent_caster)
-	  act("Your attempt at magic is unsuccessful.",
-	      FALSE, this, NULL, NULL, TO_CHAR);
-	act("$n's attempt at magic is unsuccessful.",
-	    FALSE, this, NULL, NULL, TO_ROOM);
-	break;
+        if (!silent_caster)
+          act("Your attempt at magic is unsuccessful.",
+              FALSE, this, NULL, NULL, TO_CHAR);
+        act("$n's attempt at magic is unsuccessful.",
+            FALSE, this, NULL, NULL, TO_ROOM);
+        break;
       case 9:
-	if (!silent_caster)
-	  act("Your spell dissipates without effect.",
-	      FALSE, this, NULL, NULL, TO_CHAR);
-	act("$n's magic dissipates without any effect.",
-	    FALSE, this, NULL, NULL, TO_ROOM);
-	break;
+        if (!silent_caster)
+          act("Your spell dissipates without effect.",
+              FALSE, this, NULL, NULL, TO_CHAR);
+        act("$n's magic dissipates without any effect.",
+            FALSE, this, NULL, NULL, TO_ROOM);
+        break;
       case 10:
-	if (!silent_caster)
-	  act("Your mind lacks the focus to control the magic.",
-	      FALSE, this, NULL, NULL, TO_CHAR);
-	act("$n's magic starts to form, but then collapses.",
-	    FALSE, this, NULL, NULL, TO_ROOM);
-	break;
+        if (!silent_caster)
+          act("Your mind lacks the focus to control the magic.",
+              FALSE, this, NULL, NULL, TO_CHAR);
+        act("$n's magic starts to form, but then collapses.",
+            FALSE, this, NULL, NULL, TO_ROOM);
+        break;
       case 11:
-	if (!silent_caster)
-	  act("Your thoughts go awry, and the magic fades harmlessly.",
-	      FALSE, this, NULL, NULL, TO_CHAR);
-	act("$n looks perplexed and $s magic fades harmlessly.",
-	    FALSE, this, NULL, NULL, TO_ROOM);
-	break;
+        if (!silent_caster)
+          act("Your thoughts go awry, and the magic fades harmlessly.",
+              FALSE, this, NULL, NULL, TO_CHAR);
+        act("$n looks perplexed and $s magic fades harmlessly.",
+            FALSE, this, NULL, NULL, TO_ROOM);
+        break;
       case 12:
-	if (!silent_caster)
-	  act("You're pretty sure that should have worked, but no such luck.",
-	      FALSE, this, NULL, NULL, TO_CHAR);
-	act("$n blinks in bewilderment.  Perhaps $e was expecting something to happen...?",
-	    FALSE, this, NULL, NULL, TO_ROOM);
-	break;
+        if (!silent_caster)
+          act("You're pretty sure that should have worked, but no such luck.",
+              FALSE, this, NULL, NULL, TO_CHAR);
+        act("$n blinks in bewilderment.  Perhaps $e was expecting something to happen...?",
+            FALSE, this, NULL, NULL, TO_ROOM);
+        break;
       case 13:
-	if (!silent_caster)
-	  act("Dang, you forgot part of the incantation and cease casting.",
-	      FALSE, this, NULL, NULL, TO_CHAR);
-	act("$n throws $s hands up in disgust.",
-	    FALSE, this, NULL, NULL, TO_ROOM);
-	break;
+        if (!silent_caster)
+          act("Dang, you forgot part of the incantation and cease casting.",
+              FALSE, this, NULL, NULL, TO_CHAR);
+        act("$n throws $s hands up in disgust.",
+            FALSE, this, NULL, NULL, TO_ROOM);
+        break;
       case 14:
-	if (!silent_caster)
-	  act("Something seems amiss, and you give up on your spell.",
-	      FALSE, this, NULL, NULL, TO_CHAR);
-	act("$n acts like $s spell is finished, but the magic ain't there.",
-	    FALSE, this, NULL, NULL, TO_ROOM);
-	break;
+        if (!silent_caster)
+          act("Something seems amiss, and you give up on your spell.",
+              FALSE, this, NULL, NULL, TO_CHAR);
+        act("$n acts like $s spell is finished, but the magic ain't there.",
+            FALSE, this, NULL, NULL, TO_ROOM);
+        break;
       case 15:
-	if (!silent_caster)
-	  act("You slip up and manage to fill the air with goose feathers.",
-	      FALSE, this, NULL, NULL, TO_CHAR);
-	act("$n fills the air with goose feathers.  Neat!",
-	    FALSE, this, NULL, NULL, TO_ROOM);
-	break;
+        if (!silent_caster)
+          act("You slip up and manage to fill the air with goose feathers.",
+              FALSE, this, NULL, NULL, TO_CHAR);
+        act("$n fills the air with goose feathers.  Neat!",
+            FALSE, this, NULL, NULL, TO_ROOM);
+        break;
       case 16:
-	if (!silent_caster)
-	  act("You make an error and sparks seem to surround you.",
-	      FALSE, this, NULL, NULL, TO_CHAR);
-	act("$n makes a mistake, and becomes surrounded by magical sparks.",
-	    FALSE, this, NULL, NULL, TO_ROOM);
-	break;
+        if (!silent_caster)
+          act("You make an error and sparks seem to surround you.",
+              FALSE, this, NULL, NULL, TO_CHAR);
+        act("$n makes a mistake, and becomes surrounded by magical sparks.",
+            FALSE, this, NULL, NULL, TO_ROOM);
+        break;
       case 17:
-	if (!silent_caster)
-	  act("DAMN! Screwed up again!",
-	      FALSE, this, NULL, NULL, TO_CHAR);
-	act("Chant...Chant...Wave hands...Wave hands...Mages suck!",
-	    FALSE, this, NULL, NULL, TO_ROOM);
-	break;
+        if (!silent_caster)
+          act("DAMN! Screwed up again!",
+              FALSE, this, NULL, NULL, TO_CHAR);
+        act("Chant...Chant...Wave hands...Wave hands...Mages suck!",
+            FALSE, this, NULL, NULL, TO_ROOM);
+        break;
     }
   }
 }
@@ -2031,17 +2031,17 @@ bool genericDisease(TBeing *caster, TBeing *vict, int level)
   aff.bitvector = 0;
   aff.duration = level * Pulse::UPDATES_PER_MUDHOUR / 3;
   aff.modifier2 = level;
-	
+
   std::vector <diseaseTypeT> diseases; // possible disease types
   // starting with most potent... order matters
   if(!vict->hasDisease(DISEASE_GANGRENE) && level >= 50)
     diseases.push_back(DISEASE_GANGRENE);
   if(!vict->hasDisease(DISEASE_LEPROSY) && level >= 40)
-	diseases.push_back(DISEASE_LEPROSY);
+        diseases.push_back(DISEASE_LEPROSY);
   if(!vict->hasDisease(DISEASE_PNEUMONIA) && level >= 30)
-	diseases.push_back(DISEASE_PNEUMONIA);
+        diseases.push_back(DISEASE_PNEUMONIA);
   if(!vict->hasDisease(DISEASE_FLU) && level >= 20)
-	diseases.push_back(DISEASE_FLU);
+        diseases.push_back(DISEASE_FLU);
   if(!vict->hasDisease(DISEASE_DYSENTERY) && level >= 10)
     diseases.push_back(DISEASE_DYSENTERY);
   if (!vict->hasDisease(DISEASE_COLD))
@@ -2078,7 +2078,7 @@ bool genericDisease(TBeing *caster, TBeing *vict, int level)
   // vlogf(LOG_MISC, format("%d of %d for %s.") % roll % roll_size % DiseaseInfo[diseases[step]].name);
   if (aff.modifier == DISEASE_GANGRENE) {
     // find a random slot for it
-  	wearSlotT slot;
+          wearSlotT slot;
     bool found = false; // need to make sure this doesn't loop 4ever, right?
     for (int i = 0; i < 20; ++i) {
       slot = pickRandomLimb();
@@ -2094,8 +2094,8 @@ bool genericDisease(TBeing *caster, TBeing *vict, int level)
       break;
     }
     if (!found)
-	    return FALSE;
-	  aff.level = slot;
+            return FALSE;
+          aff.level = slot;
   }
 
   // make leprosy & gangrene permanent
@@ -2172,10 +2172,10 @@ int lycanthropeTransform(TBeing *ch)
   if (!ch->isPc() || IS_SET(ch->specials.act, ACT_POLYSELF) ||
       ch->polyed != POLY_TYPE_NONE){
     act("You are already transformed into another shape.",
-	TRUE, ch, NULL, NULL, TO_CHAR);
+        TRUE, ch, NULL, NULL, TO_CHAR);
     return FALSE;
   }
-  
+
   if (!(mob = read_mobile(23204, VIRTUAL))) {
     return FALSE;
   }
@@ -2189,19 +2189,19 @@ int lycanthropeTransform(TBeing *ch)
 
 
   DisguiseStuff(ch, mob);
-  
+
   --(*mob);
   *ch->roomp += *mob;
   --(*ch);
   thing_to_room(ch, Room::POLY_STORAGE);
-  
+
   // stop following whoever you are following.
   if (ch->master)
     ch->stopFollower(TRUE);
 
   mob->setQuestBit(TOG_TRANSFORMED_LYCANTHROPE);
-  
-  // switch ch into mobile 
+
+  // switch ch into mobile
   ch->desc->character = mob;
   ch->desc->original = dynamic_cast<TPerson *>(ch);
 
@@ -2219,7 +2219,7 @@ int lycanthropeTransform(TBeing *ch)
   REMOVE_BIT(mob->specials.act, ACT_NOCTURNAL);
 
   appendPlayerName(ch, mob);
- 
+
   mob->setHeight(ch->getHeight());
   mob->setWeight(ch->getWeight());
 

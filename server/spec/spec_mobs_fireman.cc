@@ -17,7 +17,7 @@ int goToFirehouse(TBeing *myself)
 
   if (myself->in_room != room) {
     if((dir=path.findPath(myself->in_room, findRoom(room))) < 0){
-      // unable to find a path 
+      // unable to find a path
       if (room >= 0) {
         myself->doSay("Time for my coffee break");
         act("$n has left into the void.",0, myself, 0, 0, TO_ROOM);
@@ -61,7 +61,7 @@ static int findAFire(TMonster *myself)
     TRoom *rp;
     for(unsigned int zone = 0; zone < zone_table.size(); zone++) {
       if((rp=real_roomp(zone_table[zone].top)) && rp->inGrimhaven()){
-	zone_table[zone].sendTo("<R>The firebells in the distance stop clanging.<1>\n\r", 4673);
+        zone_table[zone].sendTo("<R>The firebells in the distance stop clanging.<1>\n\r", 4673);
       }
     }
     if((rp=real_roomp(4673))){
@@ -111,31 +111,31 @@ int fireman(TBeing *ch, cmdTypeT cmd, const char *, TMonster *myself, TObj *)
   if(myself->inRoom() != firehouse){
     for(StuffIter it=myself->roomp->stuff.begin();it!=myself->roomp->stuff.end();){
       t=*(it++);
-      
-      if(!(obj = dynamic_cast<TObj *>(t)))
-	continue;
-      
-      if (obj->isObjStat(ITEM_BURNING)){
-	// this might seem silly, but if you've got like 10 firemen in a
-	// room, it looks dumb to have them extinguish 10 fires at the
-        // same time.
-	if(::number(0,4))
-	  return FALSE;
 
-	if(myself->getRace() == RACE_CANINE){
-	  act("$n barks excitedly at the fire and runs around in circles.", 
-	      0, myself, 0, 0, TO_ROOM);
-	} else {
-	  t->extinguishMe(myself);
-	  firemanSay(myself);
-	}
-	return TRUE;
+      if(!(obj = dynamic_cast<TObj *>(t)))
+        continue;
+
+      if (obj->isObjStat(ITEM_BURNING)){
+        // this might seem silly, but if you've got like 10 firemen in a
+        // room, it looks dumb to have them extinguish 10 fires at the
+        // same time.
+        if(::number(0,4))
+          return FALSE;
+
+        if(myself->getRace() == RACE_CANINE){
+          act("$n barks excitedly at the fire and runs around in circles.",
+              0, myself, 0, 0, TO_ROOM);
+        } else {
+          t->extinguishMe(myself);
+          firemanSay(myself);
+        }
+        return TRUE;
       }
     }
 
     if(myself->roomp->isRoomFlag(ROOM_ON_FIRE)){
       act("$n extinguishes the burning room.",
-	  0, myself, 0, 0, TO_ROOM);
+          0, myself, 0, 0, TO_ROOM);
       myself->roomp->removeRoomFlagBit(ROOM_ON_FIRE);
       firemanSay(myself);
     }
@@ -145,11 +145,11 @@ int fireman(TBeing *ch, cmdTypeT cmd, const char *, TMonster *myself, TObj *)
 
   if(!rc){
     rc = goToFirehouse(myself);
-    
+
     if (IS_SET_DELETE(rc, DELETE_THIS)) {
       return DELETE_THIS;
     }
-    
+
     return TRUE;
   } else {
     if (IS_SET_DELETE(rc, DELETE_THIS)) {

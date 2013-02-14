@@ -61,24 +61,24 @@ bool TMonster::addHated(TBeing *hatee)
     return FALSE;
 
   if (hatee) {
-    if (Hates(hatee, NULL))	/* hate someone only once - SG */
+    if (Hates(hatee, NULL))        /* hate someone only once - SG */
       return FALSE;
     // so it won't add someone to the hate list if they have other reasons (racial, etc) to hate
 
     bool silent_multi_hate = TRUE;
     if (this->in_room == hatee->in_room)
       silent_multi_hate = FALSE;
-    
+
     if (multiHates(hatee, silent_multi_hate)) {
       // mob is hating a new player from the same account as an existing hatee
       // checking room in case hate has other causes, like a god setting hatred
       // player can probably work around this using a ranged weapon, but whatever
-      
+
       if (!silent_multi_hate) {
         doAction(fname(hatee->name), CMD_ACCUSE);
       }
     }
-    
+
     if (!awake())               /* don't add to the list if mob is !awake */
       return FALSE;
 
@@ -118,7 +118,7 @@ int TMonster::addHatred(zoneHateT parm_type, int parm)
       break;
     case OP_RACE:
       if (!IS_SET(hatefield, HATE_RACE))
-	SET_BIT(hatefield, HATE_RACE);
+        SET_BIT(hatefield, HATE_RACE);
       if (parm < RACE_NORACE || parm >= MAX_RACIAL_TYPES) {
         vlogf(LOG_BUG, format("Bad parm to addHatred-race for %s : %d") %  getName() % parm);
         parm = 0;
@@ -128,23 +128,23 @@ int TMonster::addHatred(zoneHateT parm_type, int parm)
 #if 0
     case OP_GOOD:
       if (!IS_SET(hatefield, HATE_GOOD))
-	SET_BIT(hatefield, HATE_GOOD);
+        SET_BIT(hatefield, HATE_GOOD);
       hates.good = parm;
       break;
     case OP_EVIL:
       if (!IS_SET(hatefield, HATE_EVIL))
-	SET_BIT(hatefield, HATE_EVIL);
+        SET_BIT(hatefield, HATE_EVIL);
       hates.evil = parm;
       break;
 #endif
     case OP_CLASS:
       if (!IS_SET(hatefield, HATE_CLASS))
-	SET_BIT(hatefield, HATE_CLASS);
+        SET_BIT(hatefield, HATE_CLASS);
       hates.Class = parm;
       break;
     case OP_VNUM:
       if (!IS_SET(hatefield, HATE_VNUM))
-	SET_BIT(hatefield, HATE_VNUM);
+        SET_BIT(hatefield, HATE_VNUM);
       hates.vnum = parm;
       break;
     case OP_UNUSED:
@@ -174,16 +174,16 @@ bool TMonster::multiHates(const TBeing *v, bool silent)
 {
   if (!hatefield)
     return FALSE;
-    
+
   if (isPc() || !v->isPc())
-    return FALSE;    
- 
+    return FALSE;
+
   if (this == v)
     return FALSE;
-  
+
   if (!v->player.account_id || !v->player.player_id)
     return FALSE;
-    
+
   bool multi = FALSE;
   // loop over the hated list, looking for matching account id
   if (IS_SET(hatefield, HATE_CHAR)) {
@@ -197,7 +197,7 @@ bool TMonster::multiHates(const TBeing *v, bool silent)
             if (m)
               m->doShout(format("%s smells so much like %s it's creepy.") % v->getName() % i->name);
           }
-          
+
           vlogf(LOG_CHEAT, format("MULTIPLAY: Players %s and %s are both hated by %s.") % v->getName() % i->name % getName());
           multi = TRUE;
         }
@@ -214,7 +214,7 @@ bool TMonster::Hates(const TBeing *v, const char *n) const
 
   sstring namebuf;
 
-  if (!v) 
+  if (!v)
     namebuf = n;
   else {
     if(dynamic_cast<const TMonster *>(v)){
@@ -226,7 +226,7 @@ bool TMonster::Hates(const TBeing *v, const char *n) const
 
   if (namebuf.empty())
     return FALSE;
- 
+
   if (this == v)
     return FALSE;
 
@@ -244,7 +244,7 @@ bool TMonster::Hates(const TBeing *v, const char *n) const
   if (IS_SET(hatefield, HATE_RACE) && v)
     if (hates.race != -1)
       if (hates.race == v->getRace())
-	return TRUE;
+        return TRUE;
 
   if (IS_SET(hatefield, HATE_SEX) && v)
     if (hates.sex == v->getSex())
@@ -306,7 +306,7 @@ bool TMonster::Fears(const TBeing *v, const char *s) const
   if (IS_SET(fearfield, FEAR_RACE))
     if (fears.race != -1)
       if (fears.race == v->getRace())
-	return TRUE;
+        return TRUE;
 
   if (IS_SET(fearfield, FEAR_SEX))
     if (fears.sex == v->getSex())
@@ -342,7 +342,7 @@ int TMonster::remFeared(const TBeing *hatee, const char *n)
     strcpy(buf, hatee->getName());
   else
     strcpy(buf, n);
- 
+
   if (!IS_SET(specials.act, ACT_AFRAID))
     return FALSE;
 
@@ -370,13 +370,13 @@ int TMonster::remFeared(const TBeing *hatee, const char *n)
 
 int TMonster::addFeared(TBeing *hatee)
 {
-  if (hatee == specials.hunting) {	/* dont' hunt someone we fear */
+  if (hatee == specials.hunting) {        /* dont' hunt someone we fear */
     persist = 0;
     specials.hunting = 0;
     hunt_dist = 0;
   }
   if (hatee) {
-    if (Fears(hatee, NULL))	// fear only once
+    if (Fears(hatee, NULL))        // fear only once
       return FALSE;
 
     charList *list = new charList();
@@ -399,7 +399,7 @@ int TMonster::addFears(zoneHateT parm_type, int parm)
   switch (parm_type) {
     case OP_SEX:
       if (!IS_SET(fearfield, FEAR_SEX))
-	SET_BIT(fearfield, FEAR_SEX);
+        SET_BIT(fearfield, FEAR_SEX);
       if (parm != SEX_MALE && parm != SEX_FEMALE && parm != SEX_NEUTER) {
         vlogf(LOG_BUG, format("bad parm to addFears-sex for %s : %d") %  getName() % parm);
         parm = 0;
@@ -408,7 +408,7 @@ int TMonster::addFears(zoneHateT parm_type, int parm)
       break;
     case OP_RACE:
       if (!IS_SET(fearfield, FEAR_RACE))
-	SET_BIT(fearfield, FEAR_RACE);
+        SET_BIT(fearfield, FEAR_RACE);
       if (parm < RACE_NORACE || parm >= MAX_RACIAL_TYPES) {
         vlogf(LOG_BUG, format("Bad parm to addFears-race for %s : %d") %  getName() % parm);
         parm = 0;
@@ -418,23 +418,23 @@ int TMonster::addFears(zoneHateT parm_type, int parm)
 #if 0
     case OP_GOOD:
       if (!IS_SET(fearfield, FEAR_GOOD))
-	SET_BIT(fearfield, FEAR_GOOD);
+        SET_BIT(fearfield, FEAR_GOOD);
       fears.good = parm;
       break;
     case OP_EVIL:
       if (!IS_SET(fearfield, FEAR_EVIL))
-	SET_BIT(fearfield, FEAR_EVIL);
+        SET_BIT(fearfield, FEAR_EVIL);
       fears.evil = parm;
       break;
 #endif
     case OP_CLASS:
       if (!IS_SET(fearfield, FEAR_CLASS))
-	SET_BIT(fearfield, FEAR_CLASS);
+        SET_BIT(fearfield, FEAR_CLASS);
       fears.Class = parm;
       break;
     case OP_VNUM:
       if (!IS_SET(fearfield, FEAR_VNUM))
-	SET_BIT(fearfield, FEAR_VNUM);
+        SET_BIT(fearfield, FEAR_VNUM);
       fears.vnum = parm;
       break;
     case OP_UNUSED:
@@ -460,7 +460,7 @@ TBeing * TMonster::findAHatee(void)
     if (!tmp_ch)
       continue;
     if (Hates(tmp_ch, NULL) && canSee(tmp_ch) && (this != tmp_ch) &&
-         !(tmp_ch->isImmortal() && 
+         !(tmp_ch->isImmortal() &&
                tmp_ch->isPlayerAction(PLR_NOHASSLE))) {
       return (tmp_ch);
     }
@@ -548,7 +548,7 @@ void TMonster::developHatred(TBeing *v)
     diff = 100;
   else if (lev > 5)  // killable, but onyl with 2-3 people
     diff = 75;
-  
+
 
   // set patience to the critters %health
   int hl = hitLimit();

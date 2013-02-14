@@ -84,7 +84,7 @@ bool Config::doConfiguration(int argc, char *argv[])
   // config file only options
   po::options_description config_only("Configuration File Only");
   config_only.add_options()
-    ("item_damage_rate", 
+    ("item_damage_rate",
       po::value<int>(&item_damage_rate)->default_value(1),
       "see configuration.h")
     ("rent_credit_val",
@@ -177,7 +177,7 @@ bool Config::doConfiguration(int argc, char *argv[])
 
   if (vm.count("help")) {
     std::cout << format("Usage: %s [options]\n") % argv[0];
-    std::cout << visible;  
+    std::cout << visible;
     return false;
   }
 

@@ -100,8 +100,8 @@ void MakeNoise(int room, const char *local_snd, const char *distant_snd)
         if (!ch) {
           continue;
         }
-	if (ch->desc && !IS_SET(ch->desc->autobits, AUTO_NOSHOUT) && ch->awake()) {
-	  ch->sendTo(COLOR_BASIC, distant_snd);
+        if (ch->desc && !IS_SET(ch->desc->autobits, AUTO_NOSHOUT) && ch->awake()) {
+          ch->sendTo(COLOR_BASIC, distant_snd);
         }
       }
     }
@@ -114,7 +114,7 @@ int noise(const TBeing *ch)
   affectedData *af;
 
   for (i = MIN_WEAR; i < MAX_WEAR; i++) {
-    if ((i == WEAR_FINGER_L) || (i == WEAR_FINGER_R) || 
+    if ((i == WEAR_FINGER_L) || (i == WEAR_FINGER_R) ||
         (i == HOLD_RIGHT) || (i == HOLD_LEFT))
       continue;
 
@@ -164,7 +164,7 @@ int TBeing::applySoundproof() const
 {
   if (checkSoundproof() && !isImmortal()) {
     sendTo("You are in a silence zone, you can't make a sound!\n\r");
-    return TRUE;		/* for shouts, emotes, etc */
+    return TRUE;                /* for shouts, emotes, etc */
   }
   return FALSE;
 }
@@ -229,8 +229,8 @@ void TBeing::playmusic(musicNumT music, const sstring &type, int vol, int cont, 
       // defaults (to lessen spam)
 
       sendTo(new SoundComm("music", "", musicStruct[music], type,
-			   vol, -1, loop, cont));
-      
+                           vol, -1, loop, cont));
+
     }
   }
 }
@@ -453,12 +453,12 @@ void TBeing::playsound(soundNumT sound, const sstring &type, int vol, int prior,
       // the other options should only get sent if they differ from the
       // defaults (to lessen spam)
 
-      // This is done so that the client message isn't somehow combined 
+      // This is done so that the client message isn't somehow combined
       // with other text and missed by the client interpreter - Russ 061299
       desc->outputProcessing();
 
       sendTo(new SoundComm("sound", "", soundStruct[sound], type,
-			   vol, prior, loop, -1));
+                           vol, prior, loop, -1));
     }
   }
 }
@@ -497,7 +497,7 @@ sstring SoundComm::getText(){
   sstring buf="";
 
   buf+=format("!!%s(%s") % soundtype.upper()% text;
-  
+
   if(type!="")
     buf+=format(" T=%s") % type;
 

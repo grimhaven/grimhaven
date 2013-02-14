@@ -63,7 +63,7 @@ public:
       skBeastSoother(a.skBeastSoother),
       skBefriendBeast(a.skBefriendBeast),
       skBeastSummon(a.skBeastSummon),
-      skBarkskin(a.skBarkskin), 
+      skBarkskin(a.skBarkskin),
       skRepairRanger(a.skRepairRanger) {
     }
     CDRanger & operator=(const CDRanger &a) {

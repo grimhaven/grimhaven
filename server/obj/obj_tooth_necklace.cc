@@ -39,9 +39,9 @@ sstring teeth_count_desc(int count)
   for (unsigned int mobnum = 0; mobnum < mob_index.size(); mobnum++) {
     for (unsigned int zone = 0; zone < zone_table.size(); zone++) {
       if(mob_index[mobnum].virt <= zone_table[zone].top){
-	if(zone_table[zone].enabled)
-	  activemobcount++;
-	break;
+        if(zone_table[zone].enabled)
+          activemobcount++;
+        break;
       }
     }
   }
@@ -101,7 +101,7 @@ void TToothNecklace::updateDesc()
 
   delete [] shortDescr;
   shortDescr=mud_str_dup(format("<W>a necklace with %s <1><r>bloody<1><W> teeth<1>")%
-			 teeth_count_desc(count));
+                         teeth_count_desc(count));
 }
 
 void TToothNecklace::describeObjectSpecifics(const TBeing *ch) const

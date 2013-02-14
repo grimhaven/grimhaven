@@ -48,11 +48,11 @@ const int PROMPT_DONT_SEND = -1;
 
 SystemTask *systask;
 
-// local globals 
+// local globals
 
-time_t Uptime;			// time that the game has been up 
+time_t Uptime;                        // time that the game has been up
 
-char hostlist[MAX_BAN_HOSTS][40];	// list of sites to ban
+char hostlist[MAX_BAN_HOSTS][40];        // list of sites to ban
 char hostLogList[MAX_BAN_HOSTS][40];
 int numberhosts;
 int numberLogHosts;
@@ -104,7 +104,7 @@ const int Pulse::UPDATES_PER_MUDHOUR = (Pulse::MUDHOUR/Pulse::COMBAT);
 
 
 
-// Init sockets, run game, and cleanup sockets 
+// Init sockets, run game, and cleanup sockets
 int run_the_game()
 {
 
@@ -145,7 +145,7 @@ void zoneData::nukeMobs()
   TThing *t;
   TBeing *mob, *mob2;
   wearSlotT i;
-  
+
   if(!Config::NukeInactiveMobs())
     return;
 
@@ -181,7 +181,7 @@ void zoneData::nukeMobs()
   }
 }
 
-void TBeing::sendTo(Comm *c) const 
+void TBeing::sendTo(Comm *c) const
 {
   if (!desc)
     return;
@@ -370,7 +370,7 @@ void sendrpf(int tslevel, TRoom *rp, const char *msg,...)
   char messageBuffer[MAX_STRING_LENGTH];
   va_list ap;
   TThing *i=NULL;
-  
+
   if (rp && msg) {
     va_start(ap, msg);
     vsnprintf(messageBuffer, cElements(messageBuffer), msg, ap);
@@ -418,7 +418,7 @@ void colorAct(colorTypeT colorLevel, const sstring &str, bool hide, const TThing
     return;
   }
 
-  if (!t1->roomp) 
+  if (!t1->roomp)
     return;
 
   if (!t3) {
@@ -444,7 +444,7 @@ void colorAct(colorTypeT colorLevel, const sstring &str, bool hide, const TThing
     to = t1->roomp->stuff.front();
   }
 
-  if (!to->desc && ((type == TO_VICT) || (type == TO_CHAR))) 
+  if (!to->desc && ((type == TO_VICT) || (type == TO_CHAR)))
     return;
 
   if (which) {
@@ -465,11 +465,11 @@ void colorAct(colorTypeT colorLevel, const sstring &str, bool hide, const TThing
         }
         break;
       case COLOR_OBJECTS:
-        if (!(IS_SET(to->desc->plr_color, PLR_COLOR_OBJECTS))) 
+        if (!(IS_SET(to->desc->plr_color, PLR_COLOR_OBJECTS)))
            colorize = FALSE;
-        else 
+        else
           colorize = TRUE;
-        
+
         break;
       case COLOR_MOBS:
         if (!(IS_SET(to->desc->plr_color, PLR_COLOR_MOBS))) {
@@ -530,15 +530,15 @@ void colorAct(colorTypeT colorLevel, const sstring &str, bool hide, const TThing
 // Doesnt work well if there are substitutes but if none its ok
     for(StuffIter it=t1->roomp->stuff.begin();it!=t1->roomp->stuff.end();++it){
       const TBeing *tbto = dynamic_cast<const TBeing *>(*it);
-      if (!tbto || !tbto->desc || tbto->GetMaxLevel() <= tslevel) 
+      if (!tbto || !tbto->desc || tbto->GetMaxLevel() <= tslevel)
         continue;
-    
-      if (tbto == t1) 
+
+      if (tbto == t1)
         continue;
-     
-      if (tbto == t3 && type == TO_NOTVICT) 
+
+      if (tbto == t3 && type == TO_NOTVICT)
         continue;
-    
+
       colorAct(colorLevel, str, hide, t1, obj, tbto, TO_VICT, color, tslevel);
     }
   }
@@ -586,7 +586,7 @@ void act(const sstring &str, bool hide, const TThing *t1, const TThing *obj, con
       vlogf(LOG_MISC, format("%s") %  str);
     }
   }
-  
+
   StuffListConst list;
 
   if (type == TO_VICT) {
@@ -615,7 +615,7 @@ void act(const sstring &str, bool hide, const TThing *t1, const TThing *obj, con
           ((to != t3 || (t1 == t3 && type == TO_CHAR)) ||
                (type == TO_VICT) || (type == TO_ROOM)) &&
         (to->canSee(t1) || !hide) &&
-	to->awake() && (to->desc->connected < MAX_CON_STATUS) && 
+        to->awake() && (to->desc->connected < MAX_CON_STATUS) &&
         !(to->isPlayerAction(PLR_MAILING | PLR_BUGGING))) {
       x = 0; // used to determine whether or not to capitalize the substitution at start of line
       for (strp = str.c_str(), point = buf;;) {
@@ -629,10 +629,10 @@ void act(const sstring &str, bool hide, const TThing *t1, const TThing *obj, con
               lastColor[2] = '>';
           }
         }
-	if (*strp == '$') {
+        if (*strp == '$') {
           const TBeing * tbtt;
-	  switch (*(++strp)) {
-	    case 'n':
+          switch (*(++strp)) {
+            case 'n':
               tbtt = dynamic_cast<const TBeing *>(t1);
               i = tbtt ? to->pers(t1) : to->objs(t1);
               if (x == 1 || (x == 4 && *lastColor)) {
@@ -640,11 +640,11 @@ void act(const sstring &str, bool hide, const TThing *t1, const TThing *obj, con
                 strncpy(namebuf, sstring(namebuf).cap().c_str(), cElements(namebuf));
                 i = namebuf;
               }
-	      strncpy(ibuf, colorString(to, to->desc, i, NULL, tbtt ? COLOR_MOBS : COLOR_OBJECTS, FALSE).c_str(), cElements(ibuf));
-	      i=ibuf;
-	      break;
-	    case 'P':
-	    case 'N':
+              strncpy(ibuf, colorString(to, to->desc, i, NULL, tbtt ? COLOR_MOBS : COLOR_OBJECTS, FALSE).c_str(), cElements(ibuf));
+              i=ibuf;
+              break;
+            case 'P':
+            case 'N':
               if (!t3) {
                 vlogf(LOG_BUG, format("Bad act P or N. '%s'") %  str);
                 return;
@@ -682,33 +682,33 @@ void act(const sstring &str, bool hide, const TThing *t1, const TThing *obj, con
                 }
               }
               strncpy(ibuf,colorString(to, to->desc, i, NULL, tbtt ? COLOR_MOBS : COLOR_OBJECTS, FALSE).c_str(), cElements(ibuf));
-	      i=ibuf;
-              
-	      break;
-	    case 'g':
-              strncpy(ibuf, t1->roomp->describeGround().c_str(), cElements(ibuf));
-	      i=ibuf;
+              i=ibuf;
+
               break;
-	    case 'G':
+            case 'g':
+              strncpy(ibuf, t1->roomp->describeGround().c_str(), cElements(ibuf));
+              i=ibuf;
+              break;
+            case 'G':
               if (!t3) {
                 vlogf(LOG_BUG, format("Bad act G. '%s'") %  str);
                 return;
               }
               strncpy(ibuf, t3->roomp->describeGround().c_str(), cElements(ibuf));
-	      i=ibuf;
+              i=ibuf;
               break;
-	    case 'd': 
+            case 'd':
               per = ((to == t1) ? FIRST_PERSON : (!strlen(buf) ? THIRD_PERSON : SECOND_PERSON));
               strncpy(ibuf, t1->yourDeity(your_deity_val, per, (per == THIRD_PERSON) ? to : NULL).c_str(), cElements(ibuf));
-	      i=ibuf;
+              i=ibuf;
               break;
-	    case 'D':
+            case 'D':
               if (!t3) {
                 vlogf(LOG_BUG, format("Bad act D. '%s'") %  str);
                 return;
               }
               strncpy(ibuf, t3->yourDeity(your_deity_val, ((to == t3) ? FIRST_PERSON : (strlen(buf) == 0 ? THIRD_PERSON : SECOND_PERSON))).c_str(), cElements(ibuf));
-	      i=ibuf;
+              i=ibuf;
               break;
             case 'q':
               // is/are based on plurality of $o, $p
@@ -758,31 +758,31 @@ void act(const sstring &str, bool hide, const TThing *t1, const TThing *obj, con
               else
                 i = "s";
               break;
-	    case 'm':
+            case 'm':
               if (to->canSee(t1))
                 i = t1->hmhr();
               else
                 i = "someone";
-	      break;
-	    case 'M':
+              break;
+            case 'M':
               if (!t3) {
                 vlogf(LOG_BUG, format("Bad act M. '%s'") %  str);
                 return;
               }
-              if ((type == TO_CHAR) && (t1 == t3)) 
+              if ((type == TO_CHAR) && (t1 == t3))
                 i = "yourself";
               else if (to->canSee(t3))
                 i = t3->hmhr();
               else
                 i = "someone";
-	      break;
-	    case 's':
+              break;
+            case 's':
               if (to->canSee(t1))
                 i = t1->hshr();
               else
                 i = "their";
-	      break;
-	    case 'S':
+              break;
+            case 'S':
               if (!t3) {
                 vlogf(LOG_BUG, format("Bad act S. '%s'") %  str);
                 return;
@@ -791,14 +791,14 @@ void act(const sstring &str, bool hide, const TThing *t1, const TThing *obj, con
                 i = t3->hshr();
               else
                 i = "their";
-	      break;
-	    case 'e':
+              break;
+            case 'e':
               if (to->canSee(t1))
                 i = t1->hssh();
               else
                 i = "it";
-	      break;
-	    case 'E':
+              break;
+            case 'E':
               if (!t3) {
                 vlogf(LOG_BUG, format("Bad act E. '%s'") %  str);
                 return;
@@ -807,24 +807,24 @@ void act(const sstring &str, bool hide, const TThing *t1, const TThing *obj, con
                 i = t3->hssh();
               else
                 i = "it";
-	      break;
-	    case 'o':
+              break;
+            case 'o':
               if (!obj) {
                 vlogf(LOG_BUG, format("Bad act o. '%s'") %  str);
                 return;
               }
-	      strncpy(ibuf, dynamic_cast<const TBeing *>(obj) ? to->persfname(obj).c_str() : to->objn(obj).c_str(), cElements(ibuf));
-	      i=ibuf;
-	      break;
-	    case 'O':
+              strncpy(ibuf, dynamic_cast<const TBeing *>(obj) ? to->persfname(obj).c_str() : to->objn(obj).c_str(), cElements(ibuf));
+              i=ibuf;
+              break;
+            case 'O':
               if (!t3) {
                 vlogf(LOG_BUG, format("Bad act O. '%s'") %  str);
                 return;
               }
-	      strncpy(ibuf, dynamic_cast<const TBeing *>(t3) ? to->persfname(t3).c_str() : to->objn(t3).c_str(), cElements(ibuf));
-	      i=ibuf;
-	      break;
-	    case 'p':
+              strncpy(ibuf, dynamic_cast<const TBeing *>(t3) ? to->persfname(t3).c_str() : to->objn(t3).c_str(), cElements(ibuf));
+              i=ibuf;
+              break;
+            case 'p':
               if (!obj) {
                 vlogf(LOG_BUG, format("Bad act p. '%s'") %  str);
                 return;
@@ -837,42 +837,42 @@ void act(const sstring &str, bool hide, const TThing *t1, const TThing *obj, con
                 i = namebuf;
               }
               strncpy(ibuf, colorString(to, to->desc, i, NULL, tbtt ? COLOR_MOBS : COLOR_OBJECTS, FALSE).c_str(), cElements(ibuf));
-	      i=ibuf;
-	      break;
-	    case 'a':
+              i=ibuf;
+              break;
+            case 'a':
               if (!obj) {
                 vlogf(LOG_BUG, format("Bad act a. '%s'") %  str);
                 return;
               }
-	      i = obj->sana();
-	      break;
-	    case 'A':
+              i = obj->sana();
+              break;
+            case 'A':
               if (!t3) {
                 vlogf(LOG_BUG, format("Bad act A. '%s'") %  str);
                 return;
               }
-	      i = t3->sana();
-	      break;
-	    case 'T':
+              i = t3->sana();
+              break;
+            case 'T':
               if (!t3) {
                 vlogf(LOG_BUG, format("Bad act T. '%s'") %  str);
                 return;
               }
-	      i = (const char *) t3;
-	      break;
-	    case 'F':
+              i = (const char *) t3;
+              break;
+            case 'F':
               if (!t3) {
                 vlogf(LOG_BUG, format("Bad act F. '%s'") %  str);
                 return;
               }
-	      i = fname((const char *) t3).c_str();
-	      break;
-	    case '$':
-	      i = "$";
-	      break;
-	    default:
+              i = fname((const char *) t3).c_str();
+              break;
+            case '$':
               i = "$";
-	      break;
+              break;
+            default:
+              i = "$";
+              break;
           }
           // color in the replacement sstring may reset existing color
           // to get around this, lets tack on any existing color
@@ -880,14 +880,14 @@ void act(const sstring &str, bool hide, const TThing *t1, const TThing *obj, con
             catstr = i;
             catstr += to->ansi_color(color);
             strncpy(ibuf, catstr.c_str(), cElements(ibuf));
-	    i=ibuf;
+            i=ibuf;
           }
-	  while ((*point = *(i++)) != 0)
-	    ++point;
-	  ++strp;
+          while ((*point = *(i++)) != 0)
+            ++point;
+          ++strp;
 
         } else if (!(*(point++) = *(strp++)))
-	  break;
+          break;
       }
 
       // we used to put the \n\r pad on here, but this causes the optional
@@ -895,7 +895,7 @@ void act(const sstring &str, bool hide, const TThing *t1, const TThing *obj, con
       // problems for the client
       *(--point) = '\0';
 
-      if (!((to->GetMaxLevel() > MAX_MORT) && 
+      if (!((to->GetMaxLevel() > MAX_MORT) &&
           (IS_SET(to->desc->plr_color, PLR_COLOR_CODES)))) {
         snprintf(buf, cElements(buf), "%s", colorString(to, to->desc, buf, NULL, COLOR_BASIC, FALSE).c_str());
       }
@@ -909,10 +909,10 @@ void act(const sstring &str, bool hide, const TThing *t1, const TThing *obj, con
         if (str.empty())
           to->desc->output.putInQ(new UncategorizedComm(format("%s\n\r") %s.cap()));
         else {
-	  to->desc->output.putInQ(new UncategorizedComm(format("%s%s%s\n\r") %
-							str % s.cap() % 
-							to->norm()));
-        } 
+          to->desc->output.putInQ(new UncategorizedComm(format("%s%s%s\n\r") %
+                                                        str % s.cap() %
+                                                        to->norm()));
+        }
       }
     }
     if ((type == TO_VICT) || (type == TO_CHAR))
@@ -980,8 +980,8 @@ void Descriptor::updateScreenVt100(unsigned int update)
     } else {
 #if FACTIONS_IN_USE
       if (update & CHANGED_PERC) {
-	sprintf(buf + strlen(buf), VT_CURSPOS, ch->getScreen() - 1, 7);
-	sprintf(buf + strlen(buf), "%3.4f", ch->getPerc());
+        sprintf(buf + strlen(buf), VT_CURSPOS, ch->getScreen() - 1, 7);
+        sprintf(buf + strlen(buf), "%3.4f", ch->getPerc());
       }
 #endif
     }
@@ -1008,10 +1008,10 @@ void Descriptor::updateScreenVt100(unsigned int update)
 
         ratio = fname(f->name).length() + strlen(prompt_mesg[ratio]);
 
-	while (ratio < 25) {
+        while (ratio < 25) {
           strncat(buf, " ", cElements(buf));
           ratio++;
-	}
+        }
       }
     } else {
       if (last.fighting) {
@@ -1023,22 +1023,22 @@ void Descriptor::updateScreenVt100(unsigned int update)
 
     if (IS_SET(update, CHANGED_MUD)) {
       snprintf(buf + strlen(buf), cElements(buf) - strlen(buf), VT_CURSPOS, ch->getScreen(), 35);
-      snprintf(buf + strlen(buf), cElements(buf) - strlen(buf), " %s ", 
-	       GameTime::hmtAsString(GameTime::hourminTime()).c_str());
+      snprintf(buf + strlen(buf), cElements(buf) - strlen(buf), " %s ",
+               GameTime::hmtAsString(GameTime::hourminTime()).c_str());
     }
 
     if (IS_SET(update, CHANGED_TIME)) {
       time_t t1;
       struct tm *tptr;
       if ((t1 = time(0)) != -1) {
-	tptr = localtime(&t1);
+        tptr = localtime(&t1);
 
-	// adjust time for users local site
-	tptr->tm_hour += account->time_adjust;
-	if (tptr->tm_hour < 0) {
-	  tptr->tm_hour += 24;
-	} else if (tptr->tm_hour > 23)
-	  tptr->tm_hour -= 24;
+        // adjust time for users local site
+        tptr->tm_hour += account->time_adjust;
+        if (tptr->tm_hour < 0) {
+          tptr->tm_hour += 24;
+        } else if (tptr->tm_hour > 23)
+          tptr->tm_hour -= 24;
 
         snprintf(buf + strlen(buf), cElements(buf) - strlen(buf), VT_CURSPOS, ch->getScreen(), 62);
         snprintf(buf + strlen(buf), cElements(buf) - strlen(buf), "%2d:%02d %2s",
@@ -1136,7 +1136,7 @@ void Descriptor::updateScreenVt100(unsigned int update)
 
         if (f && (f != ch) && ch->sameRoom(*f)) {
           char StTemp[120];
-	  int ratio = min(10, max(0, ((f->getHit() * 9) / f->hitLimit())));
+          int ratio = min(10, max(0, ((f->getHit() * 9) / f->hitLimit())));
 
           memset(&StTemp, 0, sizeof(StTemp));
           snprintf(StTemp, cElements(StTemp), "<%s=%s>", fname(f->name).c_str(), prompt_mesg[ratio]);
@@ -1189,9 +1189,9 @@ void Descriptor::updateScreenVt100(unsigned int update)
 
         snprintf(buf + strlen(buf), cElements(buf) - strlen(buf), VT_CURSPOS, ch->getScreen(), 15);
         snprintf(buf + strlen(buf), cElements(buf) - strlen(buf), "   %2d:%02d %2s   ",
-	        (!(tptr->tm_hour%12) ? 12 : tptr->tm_hour%12),
-	        tptr->tm_min,
-	        (tptr->tm_hour >= 12) ? "PM" : "AM");
+                (!(tptr->tm_hour%12) ? 12 : tptr->tm_hour%12),
+                tptr->tm_min,
+                (tptr->tm_hour >= 12) ? "PM" : "AM");
       }
     }
 
@@ -1266,9 +1266,9 @@ void Descriptor::updateScreenAnsi(unsigned int update)
 
   current_hit = (int) (10 * ((double) ch->getHit() / (double) ch->hitLimit()));
 
-  if (ch->hasClass(CLASS_DEIKHAN) || ch->hasClass(CLASS_CLERIC)) 
+  if (ch->hasClass(CLASS_DEIKHAN) || ch->hasClass(CLASS_CLERIC))
     current_mana = (int) (10 * ch->getPiety() / 100.0);
-  else if (ch->hasClass(CLASS_SHAMAN)) 
+  else if (ch->hasClass(CLASS_SHAMAN))
     current_mana = (int) (10 * ((double) ch->getLifeforce()));
   else
     current_mana = (int) (10 * ((double) ch->getMana() / (double) ch->manaLimit()));
@@ -1276,9 +1276,9 @@ void Descriptor::updateScreenAnsi(unsigned int update)
   current_moves = (int) (10 * ((double) ch->getMove() / (double) ch->moveLimit()));
   current_hit = max(0, min(10, current_hit));
 
-  if (ch->hasClass(CLASS_DEIKHAN) || ch->hasClass(CLASS_CLERIC)) 
+  if (ch->hasClass(CLASS_DEIKHAN) || ch->hasClass(CLASS_CLERIC))
     current_mana = (int) max(0., min(10., (double) current_mana));
-  else if (ch->hasClass(CLASS_SHAMAN)) 
+  else if (ch->hasClass(CLASS_SHAMAN))
     current_mana = max(0, min(10, current_mana));
   else
     current_mana = max(0, min(10, current_mana));
@@ -1442,9 +1442,9 @@ void Descriptor::updateScreenAnsi(unsigned int update)
     if (IS_SET(update, CHANGED_MANA) || IS_SET(update, CHANGED_PIETY) || IS_SET(update, CHANGED_LIFEFORCE)) {
       buf += format(VT_CURSPOS) % (ch->getScreen() - 2) % 34;
 
-      if (ch->hasClass(CLASS_DEIKHAN) || ch->hasClass(CLASS_CLERIC)) 
+      if (ch->hasClass(CLASS_DEIKHAN) || ch->hasClass(CLASS_CLERIC))
         buf += format("%s%-5.1f ") % (current_mana ? VT_BOLDTEX : ANSI_RED) % ch->getPiety();
-      else if (ch->hasClass(CLASS_SHAMAN)) 
+      else if (ch->hasClass(CLASS_SHAMAN))
         buf += format("%s%-5d ") % (current_mana ? VT_BOLDTEX : ANSI_RED) % ch->getLifeforce();
       else
         buf += format("%s%-5d ") % (current_mana ? VT_BOLDTEX : ANSI_RED) % ch->getMana();
@@ -1677,8 +1677,8 @@ RoomExitComm::RoomExitComm(){
 
 
 // WhoListComm
-WhoListComm::WhoListComm(const sstring &w, bool o, int l, int i, bool ld, 
-			 const sstring &p, const sstring &t){
+WhoListComm::WhoListComm(const sstring &w, bool o, int l, int i, bool ld,
+                         const sstring &p, const sstring &t){
   who=w;
   online=o;
   level=l;
@@ -1702,14 +1702,14 @@ sstring CmdMsgComm::getClientText(){
 }
 
 sstring CmdMsgComm::getXML(){
-  return format("<cmdmsg cmd=\"%s\">%s</cmdmsg>") % 
+  return format("<cmdmsg cmd=\"%s\">%s</cmdmsg>") %
     cmd.escape(sstring::XML) % text.escape(sstring::XML);
 }
 
 
 // TellComm
-TellFromComm::TellFromComm(const sstring &tt, const sstring &f, 
-			   const sstring &t, bool d, bool m){
+TellFromComm::TellFromComm(const sstring &tt, const sstring &f,
+                           const sstring &t, bool d, bool m){
   to=tt;
   from=f;
   text=t;

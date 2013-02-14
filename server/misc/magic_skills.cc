@@ -81,39 +81,39 @@ int TBeing::doTurn(const char *argument, TBeing *vict)
       act("The loa send $N reeling backwards!", FALSE, this, 0, victim, TO_CHAR);
 
       if ((percent < 5) || (GetMaxLevel() > 50)) {
-	act("$N is blasted into oblivion!", FALSE, this, 0, victim, TO_NOTVICT);
-	act("$N is blasted into oblivion!", FALSE, this, 0, victim, TO_VICT);
-	act("$N is blasted into oblivion!", FALSE, this, 0, victim, TO_CHAR);
-	victim->rawKill(SKILL_TURN, this);
+        act("$N is blasted into oblivion!", FALSE, this, 0, victim, TO_NOTVICT);
+        act("$N is blasted into oblivion!", FALSE, this, 0, victim, TO_VICT);
+        act("$N is blasted into oblivion!", FALSE, this, 0, victim, TO_CHAR);
+        victim->rawKill(SKILL_TURN, this);
         if (vict)
           return DELETE_VICT;
         delete victim;
         victim = NULL;
-	return FALSE;
+        return FALSE;
       } else {
-	if (percent < 10) {
-	  act("$N is blinded!", FALSE, this, 0, victim, TO_NOTVICT);
-	  act("$N is blinded!", FALSE, this, 0, victim, TO_VICT);
-	  act("$N is blinded!", FALSE, this, 0, victim, TO_CHAR);
+        if (percent < 10) {
+          act("$N is blinded!", FALSE, this, 0, victim, TO_NOTVICT);
+          act("$N is blinded!", FALSE, this, 0, victim, TO_VICT);
+          act("$N is blinded!", FALSE, this, 0, victim, TO_CHAR);
 
           victim->rawBlind(GetMaxLevel(), GetMaxLevel() * Pulse::UPDATES_PER_MUDHOUR, SAVE_YES);
 
-	  if (reconcileDamage(victim, (4 * getLevel(SHAMAN_LEVEL_IND)),DMG_DISINT) == -1) {
+          if (reconcileDamage(victim, (4 * getLevel(SHAMAN_LEVEL_IND)),DMG_DISINT) == -1) {
             if (vict)
               return DELETE_VICT;
             delete victim;
             victim = NULL
-	    return FALSE;
+            return FALSE;
           }
           if (!victim->isLucky(spellLuckModifier(SKILL_TURN)))
-	    victim->addFeared(this);
-	} else {
-	  if (percent < 20) {
-	    act("$N is stunned!", FALSE, this, 0, victim, TO_NOTVICT);
-	    act("$N is stunned!", FALSE, this, 0, victim, TO_VICT);
-	    act("$N is stunned!", FALSE, this, 0, victim, TO_CHAR);
-	    victim->setPosition(POSITION_STUNNED);
-	    if (reconcileDamage(victim, (2 * getLevel(SHAMAN_LEVEL_IND)),SKILL_TURN) == -1) {
+            victim->addFeared(this);
+        } else {
+          if (percent < 20) {
+            act("$N is stunned!", FALSE, this, 0, victim, TO_NOTVICT);
+            act("$N is stunned!", FALSE, this, 0, victim, TO_VICT);
+            act("$N is stunned!", FALSE, this, 0, victim, TO_CHAR);
+            victim->setPosition(POSITION_STUNNED);
+            if (reconcileDamage(victim, (2 * getLevel(SHAMAN_LEVEL_IND)),SKILL_TURN) == -1) {
               if (vict)
                 return DELETE_VICT;
               delete victim;
@@ -123,8 +123,8 @@ int TBeing::doTurn(const char *argument, TBeing *vict)
 
             if (!victim->isLucky(spellLuckModifier(SKILL_TURN)))
               victim->addFeared(this);
-	  } else {
-	    if (reconcileDamage(victim, (getLevel(CLERIC_LEVEL_IND)),SKILL_TURN) == -1) {
+          } else {
+            if (reconcileDamage(victim, (getLevel(CLERIC_LEVEL_IND)),SKILL_TURN) == -1) {
               if (vict)
                 return DELETE_VICT;
               delete victim;
@@ -133,14 +133,14 @@ int TBeing::doTurn(const char *argument, TBeing *vict)
             }
             if (!victim->isLucky(spellLuckModifier(SKILL_TURN)))
               victim->addFeared(this);
-	  }
-	}
+          }
+        }
       }
     } else {
       if (isEvil()) {
-	act("$N becomes enthralled by $n!", FALSE, this, 0, victim, TO_NOTVICT);
-	act("You are helpless but to submit to $n!", FALSE, this, 0, victim, TO_VICT);
-	act("$N becomes enthralled by you!", FALSE, this, 0, victim, TO_CHAR);
+        act("$N becomes enthralled by $n!", FALSE, this, 0, victim, TO_NOTVICT);
+        act("You are helpless but to submit to $n!", FALSE, this, 0, victim, TO_VICT);
+        act("$N becomes enthralled by you!", FALSE, this, 0, victim, TO_CHAR);
       }
     }
 #endif
@@ -215,7 +215,7 @@ void TBeing::doMeditate()
      return;
     }
     if (!getCond(FULL)) {
-      sendTo("You are too hungry to meditate.\n\r"); 
+      sendTo("You are too hungry to meditate.\n\r");
       return;
     }
     if (!getCond(THIRST)) {
@@ -249,7 +249,7 @@ void TBeing::doMeditate()
     if (task->task == TASK_MEDITATE) {
       sendTo("You sink deeper into your meditation.\n\r");
       return;
-    } else if (getPosition() <= POSITION_SITTING) 
+    } else if (getPosition() <= POSITION_SITTING)
       stopTask();
   }
   sendTo("You rest and begin to meditate.\n\r");
@@ -298,7 +298,7 @@ void TBeing::doYoginsa()
     if (task->task == TASK_YOGINSA) {
       sendTo("You meditate harder and harder.\n\r");
       return;
-    } else if (getPosition() <= POSITION_SITTING) 
+    } else if (getPosition() <= POSITION_SITTING)
       stopTask();
   }
   sendTo("You relax and begin meditating.\n\r");

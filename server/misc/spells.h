@@ -323,11 +323,11 @@ enum spellNumT {
      SPELL_EARTHQUAKE_DEIKHAN,
      SPELL_CALL_LIGHTNING_DEIKHAN,
      // end of deikhan
-     
+
 
      //  END OF SPELLS, START OF SKILLS
 
-     
+
      // start of warrior
 // KEEP KICK AS FIRST SKILL, OR MODIFY MIN_SKILL AND MAX_SPELL BELOW
      SKILL_KICK,
@@ -365,11 +365,11 @@ enum spellNumT {
      SKILL_SCRIBE,
      SKILL_REPAIR_MAGE,
      // end of mage
-     
+
      // start of cleric
      SKILL_REPAIR_CLERIC,
      // end of cleric
-     
+
      // start of ranger
      SKILL_TRANSFORM_LIMB,
      SKILL_BEAST_SOOTHER,
@@ -493,9 +493,9 @@ enum spellNumT {
      SKILL_BREW,
      SKILL_TURN,
      SKILL_REPAIR_SHAMAN,
-     
+
      // end of shaman
-  
+
      // start of psionics
      SKILL_PSITELEPATHY,
      SKILL_TELE_SIGHT,
@@ -503,7 +503,7 @@ enum spellNumT {
      SKILL_MIND_FOCUS,
      SKILL_PSI_BLAST,
      SKILL_MIND_THRUST,
-     SKILL_PSYCHIC_CRUSH, 
+     SKILL_PSYCHIC_CRUSH,
      SKILL_KINETIC_WAVE,
      SKILL_MIND_PRESERVATION,
      SKILL_TELEKINESIS,
@@ -620,7 +620,7 @@ enum spellNumT {
      TYPE_SHRED,
 
      // keep this as the last of the "weapon" damage types
-     TYPE_MAX_HIT,  
+     TYPE_MAX_HIT,
 
      // FIRST_TRANFORMED_LIMB defines as the first one here
      AFFECT_TRANSFORMED_HANDS,

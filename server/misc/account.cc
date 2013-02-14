@@ -106,12 +106,12 @@ bool TAccount::write(const sstring &aname)
 
   if(!db.fetchRow()){
     res=db.query("insert into account (email, passwd, name, birth, term, time_adjust, flags, last_logon) values ('%s', '%s', lower('%s'), %i, %i, %i, %i, %i)",
-	     email.c_str(), passwd.c_str(), name.c_str(), birth, term,
-	     time_adjust, flags, last_logon);
+             email.c_str(), passwd.c_str(), name.c_str(), birth, term,
+             time_adjust, flags, last_logon);
   } else {
     res=db.query("update account set email='%s', passwd='%s', birth=%i, term=%i, time_adjust=%i, flags=%i, last_logon=%i where name=lower('%s')",
-	     email.c_str(), passwd.c_str(), birth, term,
-	     time_adjust, flags, last_logon, name.c_str());
+             email.c_str(), passwd.c_str(), birth, term,
+             time_adjust, flags, last_logon, name.c_str());
   }
   return res;
 }

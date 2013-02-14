@@ -29,40 +29,40 @@ int task_spell_friends(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom 
       switch (ch->task->timeLeft) {
 
       case 5:
-	//          ch->sendCastingMessage(CASTING_ROUND5, status);
-	//          general roll for failure
-	//          check for change in position -- use status in bash or combat
-	//          where if a successful spell distraction status goes to > 0
-	//          thus in each spell continue, it checks for distraction set
-	//          to anything.  The code does a roll for 1. total fail, 2. time added
-	//          or nothing then clears distraction bit.
-	//          distractions will be bash, or skills or big w lloping hits
+        //          ch->sendCastingMessage(CASTING_ROUND5, status);
+        //          general roll for failure
+        //          check for change in position -- use status in bash or combat
+        //          where if a successful spell distraction status goes to > 0
+        //          thus in each spell continue, it checks for distraction set
+        //          to anything.  The code does a roll for 1. total fail, 2. time added
+        //          or nothing then clears distraction bit.
+        //          distractions will be bash, or skills or big w lloping hits
 
           ch->sendTo("Casting Round 1\n\r");
           ch->task->timeLeft--;
           break;
       case 4:
-	//          ch->sendCastingMessage(buf2, CASTING_ROUND4, status);
+        //          ch->sendCastingMessage(buf2, CASTING_ROUND4, status);
           ch->sendTo("Casting Round 2\n\r");
           ch->task->timeLeft--;
           break;
       case 3:
-	//          ch->sendCastingMessage(buf2, CASTING_ROUND3, status);
+        //          ch->sendCastingMessage(buf2, CASTING_ROUND3, status);
           ch->sendTo("Casting Round 1\n\r");
           ch->task->timeLeft--;
           break;
       case 2:
-	//          ch->sendCastingMessage(buf2, CASTING_ROUND2, status);
+        //          ch->sendCastingMessage(buf2, CASTING_ROUND2, status);
           ch->sendTo("Casting Round 2\n\r");
           ch->task->timeLeft--;
           break;
       case 1:
-	//          ch->sendCastingMessage(buf2, CASTING_ROUND_LAST, status);
+        //          ch->sendCastingMessage(buf2, CASTING_ROUND_LAST, status);
           ch->sendTo("Casting Round 3\n\r");
           ch->task->timeLeft--;
           break;
       case 0:
-	//          ch->sendCastingMessage(buf2, CASTING_ROUND_DONE, 4);
+        //          ch->sendCastingMessage(buf2, CASTING_ROUND_DONE, 4);
       act("You finish casting.", FALSE, ch, 0, 0, TO_CHAR);
       act("$n finishes casting.", FALSE, ch, 0, 0, TO_ROOM);
       ch->stopTask();

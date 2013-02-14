@@ -29,7 +29,7 @@ const int    MAT_CORAL           =14;
 const int    MAT_HORSEHAIR       =15;
 const int    MAT_HAIR            =16;
 const int    MAT_POWDER          =17;
-const int    MAT_PUMICE	         =18;
+const int    MAT_PUMICE                 =18;
 const int    MAT_LAMINATED       =19;
 
 const int    MAX_MAT_GENERAL     =20;     // Move and change
@@ -94,7 +94,7 @@ const int    MAT_JET             =125;
 const int    MAT_CORUNDUM        =126;
 const int    MAX_MAT_MINERAL     =27;     // Move and change  (max+1 - 100)
 
-//const int    MAT_GEN_METAL       =150;  
+//const int    MAT_GEN_METAL       =150;
 const int    MAT_COPPER          =151;
 //const int    MAT_SCALE_MAIL      =152;
 //const int    MAT_BANDED_MAIL     =153;

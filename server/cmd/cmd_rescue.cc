@@ -21,7 +21,7 @@ static int rescue(TBeing * caster, TBeing * victim, spellNumT skill)
     caster->sendTo("You are berserking! You can't focus enough to rescue anyone!\n\r");
     return FALSE;
   }
- 
+
   if (caster->checkPeaceful("No one should need rescuing here.\n\r"))
     return FALSE;
 
@@ -34,7 +34,7 @@ static int rescue(TBeing * caster, TBeing * victim, spellNumT skill)
     return FALSE;
   }
   if (victim->riding) {
-    caster->sendTo(COLOR_MOBS, format("You can't rescue %s off of %s!\n\r") % 
+    caster->sendTo(COLOR_MOBS, format("You can't rescue %s off of %s!\n\r") %
          victim->getName() % victim->riding->getName());
     return FALSE;
   }
@@ -49,12 +49,12 @@ static int rescue(TBeing * caster, TBeing * victim, spellNumT skill)
   }
 #if 0
   if (!caster->inGroup(*victim)) {
-    act("You need to be a part of $S group to rescue $N.", 
+    act("You need to be a part of $S group to rescue $N.",
              FALSE, caster, 0, victim, TO_CHAR);
     return FALSE;
   }
 #endif
-  
+
 
   for(StuffIter it=victim->roomp->stuff.begin();
       it!=victim->roomp->stuff.end();++it, tmp_ch=NULL){

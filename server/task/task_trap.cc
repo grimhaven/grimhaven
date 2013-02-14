@@ -25,7 +25,7 @@ static int trapGuardCheck(TBeing *ch)
     TMonster *guard = dynamic_cast<TMonster *>(t);
     if (!guard)
       continue;
-    if (!guard->isPolice() || 
+    if (!guard->isPolice() ||
         !guard->canSee(ch) ||
         !guard->awake())
       continue;
@@ -53,7 +53,7 @@ int task_trap_door(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, T
   int learning;
   TRoom *rp2;
   roomDirData *back = NULL, *exitp = NULL;
-  int rc; 
+  int rc;
 
   half_chop(ch->task->orig_arg, buf1, buf2);
 
@@ -70,7 +70,7 @@ int task_trap_door(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, T
                  TRUE, ch, 0, 0, TO_ROOM);
     }
     ch->stopTask();
-    return FALSE; // returning FALSE lets command be interpreted 
+    return FALSE; // returning FALSE lets command be interpreted
   }
 
   if (ch->utilityTaskCommand(cmd) ||
@@ -85,7 +85,7 @@ int task_trap_door(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, T
     return FALSE;
 
   if (ch->task->timeLeft < 0)  {
-    // Made it to end, set trap 
+    // Made it to end, set trap
     SET_BIT(exitp->condition, EX_TRAPPED);
     exitp->trap_info = ch->task->status;
 
@@ -93,7 +93,7 @@ int task_trap_door(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, T
     int trapdamage = ch->getDoorTrapDam(doorTrapT(ch->task->status));
     exitp->trap_dam = trapdamage;
 
-    // and now for other side 
+    // and now for other side
     if ((rp2 = real_roomp(exitp->to_room)) &&
            (back = rp2->dir_option[rev_dir[ch->task->flags]]) &&
            back->to_room == ch->in_room) {
@@ -109,26 +109,26 @@ int task_trap_door(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, T
   switch (cmd) {
     case CMD_TASK_CONTINUE:
       learning = ch->getDoorTrapLearn(doorTrapT(ch->task->status));
-      ch->task->calcNextUpdate(pulse, 
+      ch->task->calcNextUpdate(pulse,
                  Pulse::MOBACT * (5 + ((100 - learning)/3)));
 
       switch (ch->task->timeLeft) {
-	case 3:
-	  ch->sendTrapMessage(buf2, TRAP_TARG_DOOR, 1);
-	  ch->task->timeLeft--;
-	  break;
-	case 2:
-	  ch->sendTrapMessage(buf2, TRAP_TARG_DOOR, 2);
-	  ch->task->timeLeft--;
-	  break;
-	case 1:
-	  ch->sendTrapMessage(buf2, TRAP_TARG_DOOR, 3);
-	  ch->task->timeLeft--;
-	  break;
-	case 0:
-	  ch->sendTrapMessage(buf2, TRAP_TARG_DOOR, 4);
-	  ch->task->timeLeft--;
-	  break;
+        case 3:
+          ch->sendTrapMessage(buf2, TRAP_TARG_DOOR, 1);
+          ch->task->timeLeft--;
+          break;
+        case 2:
+          ch->sendTrapMessage(buf2, TRAP_TARG_DOOR, 2);
+          ch->task->timeLeft--;
+          break;
+        case 1:
+          ch->sendTrapMessage(buf2, TRAP_TARG_DOOR, 3);
+          ch->task->timeLeft--;
+          break;
+        case 0:
+          ch->sendTrapMessage(buf2, TRAP_TARG_DOOR, 4);
+          ch->task->timeLeft--;
+          break;
       }
 
       // test for failure
@@ -137,9 +137,9 @@ int task_trap_door(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, T
           !ch->doesKnowSkill(SKILL_SET_TRAP_DOOR)) {
         if (!ch->bSuccess(learning, SKILL_SET_TRAP_DOOR)) {
           // trigger trap
-  
+
           rc = ch->goofUpTrap(doorTrapT(ch->task->status), TRAP_TARG_DOOR);
-	  ch->sendTo("Your attempt to set the trap has failed.\n\r");
+          ch->sendTo("Your attempt to set the trap has failed.\n\r");
           if (IS_SET_DELETE(rc, DELETE_THIS))
             return DELETE_THIS;
           ch->stopTask();
@@ -159,8 +159,8 @@ int task_trap_door(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, T
       break;
     default:
       if (cmd < MAX_CMD_LIST)
-	warn_busy(ch);
-      break;			// eat the command 
+        warn_busy(ch);
+      break;                        // eat the command
   }
   return TRUE;
 }
@@ -168,7 +168,7 @@ int task_trap_door(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, T
 int task_trap_container(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, TObj *obj)
 {
   int learning;
-  int rc; 
+  int rc;
   TOpenContainer *cont = NULL;
 
   if (ch->isLinkdead() || (ch->in_room != ch->task->wasInRoom) ||
@@ -185,7 +185,7 @@ int task_trap_container(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom
                  TRUE, ch, 0, 0, TO_ROOM);
     }
     ch->stopTask();
-    return FALSE; // returning FALSE lets command be interpreted 
+    return FALSE; // returning FALSE lets command be interpreted
   }
 
   if (ch->utilityTaskCommand(cmd) ||
@@ -200,7 +200,7 @@ int task_trap_container(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom
     return FALSE;
 
   if (ch->task->timeLeft < 0)  {
-    // Made it to end, set trap 
+    // Made it to end, set trap
     cont->addContainerFlag(CONT_TRAPPED);
     cont->setContainerTrapType(doorTrapT(ch->task->status));
 
@@ -216,26 +216,26 @@ int task_trap_container(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom
   switch (cmd) {
     case CMD_TASK_CONTINUE:
       learning = ch->getContainerTrapLearn(doorTrapT(ch->task->status));
-      ch->task->calcNextUpdate(pulse, 
+      ch->task->calcNextUpdate(pulse,
                  Pulse::MOBACT * (5 + ((100 - learning)/3)));
 
       switch (ch->task->timeLeft) {
-	case 3:
-	  ch->sendTrapMessage(ch->task->orig_arg, TRAP_TARG_CONT, 1);
-	  ch->task->timeLeft--;
-	  break;
-	case 2:
-	  ch->sendTrapMessage(ch->task->orig_arg, TRAP_TARG_CONT, 2);
-	  ch->task->timeLeft--;
-	  break;
-	case 1:
-	  ch->sendTrapMessage(ch->task->orig_arg, TRAP_TARG_CONT, 3);
-	  ch->task->timeLeft--;
-	  break;
-	case 0:
-	  ch->sendTrapMessage(ch->task->orig_arg, TRAP_TARG_CONT, 4);
-	  ch->task->timeLeft--;
-	  break;
+        case 3:
+          ch->sendTrapMessage(ch->task->orig_arg, TRAP_TARG_CONT, 1);
+          ch->task->timeLeft--;
+          break;
+        case 2:
+          ch->sendTrapMessage(ch->task->orig_arg, TRAP_TARG_CONT, 2);
+          ch->task->timeLeft--;
+          break;
+        case 1:
+          ch->sendTrapMessage(ch->task->orig_arg, TRAP_TARG_CONT, 3);
+          ch->task->timeLeft--;
+          break;
+        case 0:
+          ch->sendTrapMessage(ch->task->orig_arg, TRAP_TARG_CONT, 4);
+          ch->task->timeLeft--;
+          break;
       }
 
       // test for failure
@@ -245,7 +245,7 @@ int task_trap_container(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom
         if (!ch->bSuccess(learning, SKILL_SET_TRAP_CONT)) {
           // trigger trap
           rc = ch->goofUpTrap(doorTrapT(ch->task->status), TRAP_TARG_CONT);
-	  ch->sendTo("Your attempt to set the trap has failed.\n\r");
+          ch->sendTo("Your attempt to set the trap has failed.\n\r");
           if (IS_SET_DELETE(rc, DELETE_ITEM)) {
             delete cont;
             cont = NULL;
@@ -270,8 +270,8 @@ int task_trap_container(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom
       break;
     default:
       if (cmd < MAX_CMD_LIST)
-	warn_busy(ch);
-      break;			// eat the command 
+        warn_busy(ch);
+      break;                        // eat the command
   }
   return TRUE;
 }
@@ -310,7 +310,7 @@ void TTrap::makeTrapLand(TBeing *ch, doorTrapT status, const char *args)
 int task_trap_mine(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, TObj *)
 {
   int learning;
-  int rc; 
+  int rc;
   TObj *obj;
 
   if (ch->isLinkdead() || (ch->in_room != ch->task->wasInRoom) ||
@@ -324,7 +324,7 @@ int task_trap_mine(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, T
                  TRUE, ch, 0, 0, TO_ROOM);
     }
     ch->stopTask();
-    return FALSE; // returning FALSE lets command be interpreted 
+    return FALSE; // returning FALSE lets command be interpreted
   }
 
   if (ch->utilityTaskCommand(cmd) ||
@@ -339,7 +339,7 @@ int task_trap_mine(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, T
     return FALSE;
 
   if (ch->task->timeLeft < 0)  {
-    // Made it to end, set trap 
+    // Made it to end, set trap
     if (!(obj = read_object(Obj::ST_LANDMINE, VIRTUAL))) {
       vlogf(LOG_BUG, "Unable to load mine for mine creation");
       ch->sendTo("Serious problem, contact a god.\n\r");
@@ -353,26 +353,26 @@ int task_trap_mine(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, T
   switch (cmd) {
     case CMD_TASK_CONTINUE:
       learning = ch->getMineTrapLearn(doorTrapT(ch->task->status));
-      ch->task->calcNextUpdate(pulse, 
+      ch->task->calcNextUpdate(pulse,
                  Pulse::MOBACT * (5 + ((100 - learning)/3)));
 
       switch (ch->task->timeLeft) {
-	case 3:
-	  ch->sendTrapMessage(ch->task->orig_arg, TRAP_TARG_MINE, 1);
-	  ch->task->timeLeft--;
-	  break;
-	case 2:
-	  ch->sendTrapMessage(ch->task->orig_arg, TRAP_TARG_MINE, 2);
-	  ch->task->timeLeft--;
-	  break;
-	case 1:
-	  ch->sendTrapMessage(ch->task->orig_arg, TRAP_TARG_MINE, 3);
-	  ch->task->timeLeft--;
-	  break;
-	case 0:
-	  ch->sendTrapMessage(ch->task->orig_arg, TRAP_TARG_MINE, 4);
-	  ch->task->timeLeft--;
-	  break;
+        case 3:
+          ch->sendTrapMessage(ch->task->orig_arg, TRAP_TARG_MINE, 1);
+          ch->task->timeLeft--;
+          break;
+        case 2:
+          ch->sendTrapMessage(ch->task->orig_arg, TRAP_TARG_MINE, 2);
+          ch->task->timeLeft--;
+          break;
+        case 1:
+          ch->sendTrapMessage(ch->task->orig_arg, TRAP_TARG_MINE, 3);
+          ch->task->timeLeft--;
+          break;
+        case 0:
+          ch->sendTrapMessage(ch->task->orig_arg, TRAP_TARG_MINE, 4);
+          ch->task->timeLeft--;
+          break;
       }
 
       // test for failure
@@ -382,10 +382,10 @@ int task_trap_mine(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, T
         if (!ch->bSuccess(learning, SKILL_SET_TRAP_MINE)) {
           // trigger trap
           rc = ch->goofUpTrap(doorTrapT(ch->task->status), TRAP_TARG_MINE);
-	  ch->sendTo("Your attempt to set the trap has failed.\n\r");
+          ch->sendTo("Your attempt to set the trap has failed.\n\r");
           if (IS_SET_DELETE(rc, DELETE_THIS))
             return DELETE_THIS;
-  
+
           ch->stopTask();
           return FALSE;
         }
@@ -403,8 +403,8 @@ int task_trap_mine(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, T
       break;
     default:
       if (cmd < MAX_CMD_LIST)
-	warn_busy(ch);
-      break;			// eat the command 
+        warn_busy(ch);
+      break;                        // eat the command
   }
   return TRUE;
 }
@@ -413,7 +413,7 @@ int task_trap_mine(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, T
 int task_trap_arrow(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, TObj *obj)
 {
   int learning;
-  int rc; 
+  int rc;
   TArrow *arrow;
 
   if (ch->isLinkdead() || (ch->in_room != ch->task->wasInRoom) ||
@@ -427,7 +427,7 @@ int task_trap_arrow(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, 
                  TRUE, ch, 0, 0, TO_ROOM);
     }
     ch->stopTask();
-    return FALSE; // returning FALSE lets command be interpreted 
+    return FALSE; // returning FALSE lets command be interpreted
   }
 
   if (ch->utilityTaskCommand(cmd) ||
@@ -436,25 +436,25 @@ int task_trap_arrow(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, 
 
   if(!(arrow=dynamic_cast<TArrow *>(obj))){
     act("You can't put an arrow trap on a non-arrow.",
-	FALSE, ch, 0, 0, TO_CHAR);
+        FALSE, ch, 0, 0, TO_CHAR);
     act("$n stops trapping and looks about confused and embarrassed.",
-	TRUE, ch, 0, 0, TO_ROOM);
+        TRUE, ch, 0, 0, TO_ROOM);
     ch->stopTask();
     return FALSE;
   }
 
   if (ch->task->timeLeft < 0)  {
-    // Made it to end, set trap 
+    // Made it to end, set trap
     arrow->setTrapLevel(ch->getArrowTrapDam(doorTrapT(ch->task->status)));
     arrow->setTrapDamType(doorTrapT(ch->task->status));
 
     ch->sendTo("You have successfully constructed an arrow trap!\n\r");
     int price;
     ch->hasTrapComps(ch->task->orig_arg, TRAP_TARG_CONT, -1, &price);
-    
+
     // set price on the trap to that of the components
     arrow->obj_flags.cost = price;
-    
+
     ch->stopTask();
 
     return FALSE;
@@ -463,26 +463,26 @@ int task_trap_arrow(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, 
   switch (cmd) {
     case CMD_TASK_CONTINUE:
       learning = ch->getArrowTrapLearn(doorTrapT(ch->task->status));
-      ch->task->calcNextUpdate(pulse, 
+      ch->task->calcNextUpdate(pulse,
                  Pulse::MOBACT * (5 + ((100 - learning)/3)));
 
       switch (ch->task->timeLeft) {
-	case 3:
-	  ch->sendTrapMessage(ch->task->orig_arg, TRAP_TARG_CONT, 1);
-	  ch->task->timeLeft--;
-	  break;
-	case 2:
-	  ch->sendTrapMessage(ch->task->orig_arg, TRAP_TARG_CONT, 2);
-	  ch->task->timeLeft--;
-	  break;
-	case 1:
-	  ch->sendTrapMessage(ch->task->orig_arg, TRAP_TARG_CONT, 3);
-	  ch->task->timeLeft--;
-	  break;
-	case 0:
-	  ch->sendTrapMessage(ch->task->orig_arg, TRAP_TARG_CONT, 4);
-	  ch->task->timeLeft--;
-	  break;
+        case 3:
+          ch->sendTrapMessage(ch->task->orig_arg, TRAP_TARG_CONT, 1);
+          ch->task->timeLeft--;
+          break;
+        case 2:
+          ch->sendTrapMessage(ch->task->orig_arg, TRAP_TARG_CONT, 2);
+          ch->task->timeLeft--;
+          break;
+        case 1:
+          ch->sendTrapMessage(ch->task->orig_arg, TRAP_TARG_CONT, 3);
+          ch->task->timeLeft--;
+          break;
+        case 0:
+          ch->sendTrapMessage(ch->task->orig_arg, TRAP_TARG_CONT, 4);
+          ch->task->timeLeft--;
+          break;
       }
 
       // test for failure
@@ -492,10 +492,10 @@ int task_trap_arrow(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, 
         if (!ch->bSuccess(learning, SKILL_SET_TRAP_ARROW)) {
           // trigger trap
           rc = ch->goofUpTrap(doorTrapT(ch->task->status), TRAP_TARG_ARROW);
-	  ch->sendTo("Your attempt to set the trap has failed.\n\r");
+          ch->sendTo("Your attempt to set the trap has failed.\n\r");
           if (IS_SET_DELETE(rc, DELETE_THIS))
             return DELETE_THIS;
-  
+
           ch->stopTask();
           return FALSE;
         }
@@ -513,8 +513,8 @@ int task_trap_arrow(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, 
       break;
     default:
       if (cmd < MAX_CMD_LIST)
-	warn_busy(ch);
-      break;			// eat the command 
+        warn_busy(ch);
+      break;                        // eat the command
   }
   return TRUE;
 }
@@ -546,7 +546,7 @@ void TTrap::makeTrapGrenade(TBeing *ch, doorTrapT status, const char *args)
 int task_trap_grenade(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, TObj *)
 {
   int learning;
-  int rc; 
+  int rc;
   TObj *obj;
 
   if (ch->isLinkdead() || (ch->in_room != ch->task->wasInRoom) ||
@@ -560,7 +560,7 @@ int task_trap_grenade(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *
                  TRUE, ch, 0, 0, TO_ROOM);
     }
     ch->stopTask();
-    return FALSE; // returning FALSE lets command be interpreted 
+    return FALSE; // returning FALSE lets command be interpreted
   }
 
   if (ch->utilityTaskCommand(cmd) ||
@@ -575,7 +575,7 @@ int task_trap_grenade(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *
     return FALSE;
 
   if (ch->task->timeLeft < 0)  {
-    // Made it to end, set trap 
+    // Made it to end, set trap
     if (!(obj = read_object(Obj::ST_GRENADE, VIRTUAL))) {
       vlogf(LOG_BUG, "Unable to load grenade for grenade creation");
       ch->sendTo("Serious problem, contact a god.\n\r");
@@ -590,26 +590,26 @@ int task_trap_grenade(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *
   switch (cmd) {
     case CMD_TASK_CONTINUE:
       learning = ch->getGrenadeTrapLearn(doorTrapT(ch->task->status));
-      ch->task->calcNextUpdate(pulse, 
+      ch->task->calcNextUpdate(pulse,
                  Pulse::MOBACT * (5 + ((100 - learning)/3)));
 
       switch (ch->task->timeLeft) {
-	case 3:
-	  ch->sendTrapMessage(ch->task->orig_arg, TRAP_TARG_GRENADE, 1);
-	  ch->task->timeLeft--;
-	  break;
-	case 2:
-	  ch->sendTrapMessage(ch->task->orig_arg, TRAP_TARG_GRENADE, 2);
-	  ch->task->timeLeft--;
-	  break;
-	case 1:
-	  ch->sendTrapMessage(ch->task->orig_arg, TRAP_TARG_GRENADE, 3);
-	  ch->task->timeLeft--;
-	  break;
-	case 0:
-	  ch->sendTrapMessage(ch->task->orig_arg, TRAP_TARG_GRENADE, 4);
-	  ch->task->timeLeft--;
-	  break;
+        case 3:
+          ch->sendTrapMessage(ch->task->orig_arg, TRAP_TARG_GRENADE, 1);
+          ch->task->timeLeft--;
+          break;
+        case 2:
+          ch->sendTrapMessage(ch->task->orig_arg, TRAP_TARG_GRENADE, 2);
+          ch->task->timeLeft--;
+          break;
+        case 1:
+          ch->sendTrapMessage(ch->task->orig_arg, TRAP_TARG_GRENADE, 3);
+          ch->task->timeLeft--;
+          break;
+        case 0:
+          ch->sendTrapMessage(ch->task->orig_arg, TRAP_TARG_GRENADE, 4);
+          ch->task->timeLeft--;
+          break;
       }
 
       // test for failure
@@ -619,10 +619,10 @@ int task_trap_grenade(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *
         if (!ch->bSuccess(learning, SKILL_SET_TRAP_GREN)) {
           // trigger trap
           rc = ch->goofUpTrap(doorTrapT(ch->task->status), TRAP_TARG_GRENADE);
-	  ch->sendTo("Your attempt to set the trap has failed.\n\r");
+          ch->sendTo("Your attempt to set the trap has failed.\n\r");
           if (IS_SET_DELETE(rc, DELETE_THIS))
             return DELETE_THIS;
-  
+
           ch->stopTask();
           return FALSE;
         }
@@ -640,8 +640,8 @@ int task_trap_grenade(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *
       break;
     default:
       if (cmd < MAX_CMD_LIST)
-	warn_busy(ch);
-      break;			// eat the command 
+        warn_busy(ch);
+      break;                        // eat the command
   }
   return TRUE;
 }

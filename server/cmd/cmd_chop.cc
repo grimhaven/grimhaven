@@ -37,7 +37,7 @@ static int chopHit(TBeing *c, TBeing *v, int score)
     if ((c->isRightHanded()) && (v->hasPart(WEAR_ARM_L))) {
       pos = WEAR_ARM_L;
       slot = 1;
-    } 
+    }
     else if(!c->isRightHanded() && v->hasPart(WEAR_ARM_R)) {
       pos = WEAR_ARM_R;
       slot = 1;
@@ -49,17 +49,17 @@ static int chopHit(TBeing *c, TBeing *v, int score)
     slot = 2;                     // body shot
   else if (temp < 90)
     slot = 3;                     // neck shot
-  else 
+  else
     slot = 4;                     // head shot
   if (!v->isHumanoid())
     slot = 5;                     // non-human side shot
-  
+
   // Set default damage
   int dam = c->getSkillDam(v, SKILL_CHOP, c->getSkillLevel(SKILL_CHOP), c->getAdvLearning(SKILL_CHOP));
 
   // Default lag
   //  c->cantHit += c->loseRound(1);
-  
+
   switch (slot) {
     case 1:         // ARM SHOT
       act("$n slams $s chop into $N's arm.", FALSE, c, 0, v, TO_NOTVICT);
@@ -70,7 +70,7 @@ static int chopHit(TBeing *c, TBeing *v, int score)
       item = dynamic_cast<TObj *>(v->equipment[pos]);
       if (!item) {
         v->sendTo("You should think about wearing armor on your arms!\n\r");
-	//        v->cantHit += v->loseRound(1);
+        //        v->cantHit += v->loseRound(1);
         rc = c->damageLimb(v, pos, NULL, &limb_dam);
         if (IS_SET_DELETE(rc, DELETE_VICT))
           return DELETE_VICT;
@@ -86,7 +86,7 @@ static int chopHit(TBeing *c, TBeing *v, int score)
       item = dynamic_cast<TObj *>(v->equipment[WEAR_BODY]);
       if (!item) {
         v->sendTo("You should think about wearing armor on your body!\n\r");
-	//        v->cantHit += v->loseRound(1);
+        //        v->cantHit += v->loseRound(1);
         dam += 3;
       } else if (c->dentItem(v, item, 1, c->getPrimaryHand()) == DELETE_ITEM) {
         delete item;
@@ -102,7 +102,7 @@ static int chopHit(TBeing *c, TBeing *v, int score)
       item = dynamic_cast<TObj *>(v->equipment[WEAR_NECK]);
       if (!item) {
         v->sendTo("You should think about wearing armor on your neck!\n\r");
-	v->cantHit += v->loseRound(1);
+        v->cantHit += v->loseRound(1);
         dam += 4;
       } else if (c->dentItem(v, item, 1, c->getPrimaryHand()) == DELETE_ITEM) {
         delete item;
@@ -118,19 +118,19 @@ static int chopHit(TBeing *c, TBeing *v, int score)
       item = dynamic_cast<TObj *>(v->equipment[WEAR_HEAD]);
       if (!item) {
         v->sendTo("You should think about wearing armor on your head!\n\r");
-	//        v->cantHit += v->loseRound(1);
+        //        v->cantHit += v->loseRound(1);
         dam += 2;
       } else if (c->dentItem(v, item, 1, c->getPrimaryHand()) == DELETE_ITEM) {
         delete item;
         item = NULL;
-      }     
+      }
       break;
     case 5:    // SIDE SHOT
     default:
       act("$n hits $N in the side with a mighty chop!", 0, c, 0, v, TO_NOTVICT);
       act("You're hit in the side by $n's mighty chop!", FALSE, c, 0,v,TO_VICT);
       act("Your chop lands square on $N's side!", FALSE, c, 0, v, TO_CHAR);
-      break; 
+      break;
   }
 
   item = dynamic_cast<TObj *>(c->equipment[c->getPrimaryHand()]);
@@ -142,7 +142,7 @@ static int chopHit(TBeing *c, TBeing *v, int score)
       act("The spikes on $n's $o sink into you.", FALSE, c, item, v, TO_VICT);
 
       if (c->reconcileDamage(v, (int)(dam*0.15), TYPE_STAB) == -1)
-	return DELETE_VICT;
+        return DELETE_VICT;
     }
 
   if (c->reconcileDamage(v, dam, SKILL_CHOP) == -1)
@@ -188,7 +188,7 @@ static int chop(TBeing *c, TBeing *v)
     c->sendTo("You can't use that attack on a mounted person!\n\r");
     return FALSE;
   } else if (v->riding) {
-    c->sendTo(COLOR_MOBS, format("You can't use that attack while %s is on %s!\n\r") %	      v->getName() % v->riding->getName());
+    c->sendTo(COLOR_MOBS, format("You can't use that attack while %s is on %s!\n\r") %              v->getName() % v->riding->getName());
     return FALSE;
   }
 

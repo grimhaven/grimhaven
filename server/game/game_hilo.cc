@@ -35,10 +35,10 @@ void HiLoGame::BetHi(TBeing *ch, const Card *new_card)
   if(new_card->getValAceHi() > card->getValAceHi()){
     win_perc*=2;
     ch->sendTo(format("You win!  Your winnings are now at %i talens.\n\r") %
-	       (int)((float)bet * (1.0 + win_perc)));
+               (int)((float)bet * (1.0 + win_perc)));
     buf = format("$n wins!  $n's winnings are now at %i talens.") %
-	       (int)((float)bet * (1.0 + win_perc));
-    act(buf, TRUE, ch, 0, 0, TO_ROOM);    
+               (int)((float)bet * (1.0 + win_perc));
+    act(buf, TRUE, ch, 0, 0, TO_ROOM);
     observerReaction(ch, GAMBLER_HILO_BET);
 
     if(win_perc > 25){
@@ -62,10 +62,10 @@ void HiLoGame::BetLo(TBeing *ch, const Card *new_card)
   if(new_card->getValAceHi() < card->getValAceHi()){
     win_perc*=2;
     ch->sendTo(format("You win!  Your winnings are now at %i talens.\n\r") %
-	       (int)((float)bet * (1.0 + win_perc)));
+               (int)((float)bet * (1.0 + win_perc)));
     buf = format("$n wins!  $n's winnings are now at %i talens.") %
-	       (int)((float)bet * (1.0 + win_perc));
-    act(buf, TRUE, ch, 0, 0, TO_ROOM);    
+               (int)((float)bet * (1.0 + win_perc));
+    act(buf, TRUE, ch, 0, 0, TO_ROOM);
     observerReaction(ch, GAMBLER_HILO_BET);
 
     if(win_perc > 25){
@@ -124,28 +124,28 @@ void HiLoGame::Bet(TBeing *ch, const sstring &arg)
     }
     if (bet > 0) {
       if(arg=="hi" || arg=="lo"){
-	new_card=deck.draw();
-	//	vlogf(LOG_PEEL, format("drew %s") %  new_card->getName());
-	
-	buf = format("$n bets %s.") % arg;
-	act(buf, TRUE, ch, 0, 0, TO_ROOM);
-	
-	ch->sendTo(COLOR_BASIC,format("You are dealt:\n\r%s\n\r") %new_card->getName());
-	
-	log_msg = format("$n is dealt:\n\r%s") % new_card->getName();
-	act(log_msg, TRUE, ch, 0, 0, TO_ROOM);
-	
-	if(arg=="hi"){
-	  BetHi(ch, new_card);
-	} else if(arg=="lo"){
-	  BetLo(ch, new_card);
-	}
-	card=new_card;
-	return;
+        new_card=deck.draw();
+        //        vlogf(LOG_PEEL, format("drew %s") %  new_card->getName());
+
+        buf = format("$n bets %s.") % arg;
+        act(buf, TRUE, ch, 0, 0, TO_ROOM);
+
+        ch->sendTo(COLOR_BASIC,format("You are dealt:\n\r%s\n\r") %new_card->getName());
+
+        log_msg = format("$n is dealt:\n\r%s") % new_card->getName();
+        act(log_msg, TRUE, ch, 0, 0, TO_ROOM);
+
+        if(arg=="hi"){
+          BetHi(ch, new_card);
+        } else if(arg=="lo"){
+          BetLo(ch, new_card);
+        }
+        card=new_card;
+        return;
       } else {
-	ch->sendTo("You can't change your bet now.\n\r");
-	ch->sendTo("You must either bet 'hi' or 'lo' for the next card.\n\r");
-	return;
+        ch->sendTo("You can't change your bet now.\n\r");
+        ch->sendTo("You must either bet 'hi' or 'lo' for the next card.\n\r");
+        return;
       }
     }
     coin_str=arg.word(0);

@@ -56,7 +56,7 @@ sstring TFruit::statObjInfo() const
   char buf[256];
 
   sprintf(buf, "Makes full : %d\n\rPoisoned : %d\n\rSeed vnum : %d",
-	  getFoodFill(), getFoodFlags(), getSeedVNum());
+          getFoodFill(), getFoodFlags(), getSeedVNum());
 
   sstring a(buf);
   return a;
@@ -85,28 +85,28 @@ void TFruit::createSeeds(){
       vlogf(LOG_BUG, format("failed to load seed %i") % getSeedVNum());
       return;
     }
-    
+
     if(!(seed=dynamic_cast<TTool *>(obj))){
       vlogf(LOG_BUG, format("seed %i is not a tool") % getSeedVNum());
       delete obj;
       return;
     }
-    
+
     seed->setToolMaxUses(nseeds);
     seed->setToolUses(nseeds);
     seed->obj_flags.decay_time = 50;
-    
+
     seed->addObjStat(ITEM_STRUNG);
     seed->ex_description = NULL;
     seed->action_description = NULL;
-    
+
     // apple -> seeds handful apple
     seed->name = mud_str_dup(format("seeds handful %s") % name);
     // An apple lies here. -> A handful of apple seeds lie here.
     seed->setDescr(mud_str_dup(format("A handful of %s seeds lie here.") % sstring(shortDescr).word(1)));
     // an apple -> a handful of apple seeds
     seed->shortDescr = mud_str_dup(format("a handful of %s seeds") % sstring(shortDescr).word(1));
-    
+
     if(equippedBy){
       *equippedBy += *seed;
     } else if(parent){

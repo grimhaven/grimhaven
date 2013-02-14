@@ -37,12 +37,12 @@ sstring TCorpse::statObjInfo() const
 {
   char buf[256];
 
-  sprintf(buf, "Corpse Flags: %d, Corpse race: %d:%s\n\r", 
+  sprintf(buf, "Corpse Flags: %d, Corpse race: %d:%s\n\r",
        getCorpseFlags(), getCorpseRace(), RaceNames[getCorpseRace()]);
-  sprintf(buf + strlen(buf), "Corpse Level: %d, Corpse Vnum: %d\n\r", 
+  sprintf(buf + strlen(buf), "Corpse Level: %d, Corpse Vnum: %d\n\r",
        getCorpseLevel(), getCorpseVnum());
   sprintf(buf + strlen(buf), "Lootable: %s\n\r",
-	  (isCorpseFlag(CORPSE_DENY_LOOT) ? "no" : "yes"));
+          (isCorpseFlag(CORPSE_DENY_LOOT) ? "no" : "yes"));
 
   sstring a(buf);
   return a;

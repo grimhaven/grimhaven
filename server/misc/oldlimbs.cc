@@ -32,7 +32,7 @@ void TBeing::addCurLimbHealth(wearSlotT slot, int num)
     body_parts[slot].setHealth(getMaxLimbHealth(slot));
   else if (tmp < 0)
     body_parts[slot].setHealth(0);
-  else 
+  else
     body_parts[slot].addHealth(num);
 }
 
@@ -84,7 +84,7 @@ unsigned short TBeing::getMaxLimbHealth(wearSlotT limb) const
   health /= 10;
   health *= sc;
   health /= slotChance(WEAR_BODY);
-  health += plotStat(STAT_CURRENT, STAT_CON, 3, 18, 13); 
+  health += plotStat(STAT_CURRENT, STAT_CON, 3, 18, 13);
 
   if (getRace() == RACE_HOBBIT) {
     if (limb == WEAR_FOOT_R || limb == WEAR_FOOT_L)
@@ -126,7 +126,7 @@ bool TBeing::eitherLegHurt() const
   if (!isFourLegged())
     return (!canUseLeg(LEG_PRIMARY) || !canUseLeg(LEG_SECONDARY));
   else
-    return (!canUseLeg(LEG_PRIMARY) || !canUseLeg(LEG_SECONDARY) || 
+    return (!canUseLeg(LEG_PRIMARY) || !canUseLeg(LEG_SECONDARY) ||
             !canUseLeg(LEG_PRIMARY_BACK) || !canUseLeg(LEG_SECONDARY_BACK));
 }
 
@@ -148,8 +148,8 @@ bool TBeing::canUseLeg(primLegT primary) const
               canUseLimb(getSecondaryFoot()) &&
               (canUseLimb(WEAR_WAIST) || isFourLegged()));
     case LEG_PRIMARY:
-      return (canUseLimb(getPrimaryLeg()) && 
-              canUseLimb(getPrimaryFoot()) && 
+      return (canUseLimb(getPrimaryLeg()) &&
+              canUseLimb(getPrimaryFoot()) &&
               (canUseLimb(WEAR_WAIST) || isFourLegged()));
     case LEG_SECONDARY_BACK:
       return (canUseLimb(WEAR_EX_LEG_R) &&
@@ -165,13 +165,13 @@ bool TBeing::canUseLeg(primLegT primary) const
 
 bool TBeing::canUseArm(primaryTypeT primary) const
 {
-  if (primary) 
+  if (primary)
     return (canUseLimb(getPrimaryArm()) &&
             canUseLimb(getPrimaryWrist()) &&
             canUseLimb(getPrimaryHand()) &&
             canUseLimb(getPrimaryHold()) &&
             canUseLimb(getPrimaryFinger()));
-  else 
+  else
     return (canUseLimb(getSecondaryArm()) &&
             canUseLimb(getSecondaryWrist()) &&
             canUseLimb(getSecondaryHand()) &&
@@ -186,11 +186,11 @@ bool TBeing::bothArmsHurt() const
 
 bool TBeing::canUseHand(bool primary) const
 {
-  if (primary) 
+  if (primary)
     return (canUseLimb(getPrimaryHand()) &&
             canUseLimb(getPrimaryHold()) &&
             canUseLimb(getPrimaryFinger()));
-  else 
+  else
     return (canUseLimb(getSecondaryHand()) &&
             canUseLimb(getSecondaryHold()) &&
             canUseLimb(getSecondaryFinger()));
@@ -337,21 +337,21 @@ void TBeing::makeBodyPart(wearSlotT pos, TBeing *opp)
     v_vnum = vmob->number >= 0 ? mob_index[vmob->getMobIndex()].virt : -1;
   else
     v_vnum = -2;
-    
+
   corpse = new TCorpse();
   if (opp && opp->isPc())
     sbuf = format("%s lost limb %s [q] [%s] [%d] [%d] [%s]") % describeBodySlot(pos) % name % describeBodySlot(pos).replaceString(" ", "-") % (int) pos % v_vnum % opp->getName();
   else
     sbuf = format("%s lost limb %s") % describeBodySlot(pos) % name;
-  
+
   corpse->name = mud_str_dup(sbuf);
-  
+
   if (getMaterial(pos) > MAT_GEN_MINERAL) {
     // made of mineral or metal
-    sprintf(buf, "the mangled %s of %s", 
+    sprintf(buf, "the mangled %s of %s",
           describeBodySlot(pos).c_str(), getName());
   } else {
-    sprintf(buf, "the bloody, mangled %s of %s", 
+    sprintf(buf, "the bloody, mangled %s of %s",
           describeBodySlot(pos).c_str(), getName());
   }
   corpse->shortDescr = mud_str_dup(buf);
@@ -384,20 +384,20 @@ void TBeing::makeOtherPart(const char *single, const char *part, TBeing *opp)
   sstring sbuf;
   int v_vnum;
   TMonster *vmob;
-  
+
   if ((vmob = dynamic_cast<TMonster *>(this)))
     v_vnum = vmob->number >= 0 ? mob_index[vmob->getMobIndex()].virt : -1;
   else
     v_vnum = -2;
-    
+
   corpse = new TCorpse();
 
-  
+
   if (opp && opp->isPc())
     sbuf = format("%s lost limb %s [q] [eyeballs] [0] [%d] [%s]") % (single ? single : part) % name % v_vnum % opp->getName();
-  else 
+  else
     sbuf = format("%s lost limb %s") % (single ? single : part) % name;
-  
+
   corpse->name = mud_str_dup(sbuf);
 
   sprintf(buf, "%s's bloody %s", getName(), single ? single : part);
@@ -422,7 +422,7 @@ void TBeing::makeDiseasedPart(wearSlotT pos)
 {
   TCorpse *corpse;
   char buf[256];
- 
+
   corpse = new TCorpse();
   sprintf(buf, "%s lost limb %s", describeBodySlot(pos).c_str(), name);
   corpse->name = mud_str_dup(buf);
@@ -472,7 +472,7 @@ bool TBeing::hasTransformedLimb() const
   wearSlotT slot;
   int found = FALSE;
 
-  if (affectedBySpell(AFFECT_TRANSFORMED_ARMS) || 
+  if (affectedBySpell(AFFECT_TRANSFORMED_ARMS) ||
       affectedBySpell(AFFECT_TRANSFORMED_HANDS) ||
       affectedBySpell(AFFECT_TRANSFORMED_LEGS) ||
       affectedBySpell(AFFECT_TRANSFORMED_HEAD) ||
@@ -491,7 +491,7 @@ bool TBeing::hasTransformedLimb() const
   return found;
 }
 
-bool TBeing::isTransformableLimb(wearSlotT limb, int paired) 
+bool TBeing::isTransformableLimb(wearSlotT limb, int paired)
 {
   wearSlotT slot;
 
@@ -501,13 +501,13 @@ bool TBeing::isTransformableLimb(wearSlotT limb, int paired)
         continue;
       if (!slotChance(slot))
         continue;
-      if (isLimbFlags(slot, PART_MISSING | PART_PARALYZED | PART_BROKEN | PART_BLEEDING | PART_INFECTED | PART_USELESS | PART_LEPROSED | PART_TRANSFORMED | PART_GANGRENOUS)) { 
+      if (isLimbFlags(slot, PART_MISSING | PART_PARALYZED | PART_BROKEN | PART_BLEEDING | PART_INFECTED | PART_USELESS | PART_LEPROSED | PART_TRANSFORMED | PART_GANGRENOUS)) {
         switch (limb) {
           case WEAR_ARM_R:
           case WEAR_ARM_L:
-            if ((slot == WEAR_ARM_R) || (slot == WEAR_ARM_L) || 
-                (slot == WEAR_WRIST_R) ||(slot == WEAR_WRIST_L) || 
-                (slot == WEAR_HAND_R) || (slot == WEAR_HAND_L) || 
+            if ((slot == WEAR_ARM_R) || (slot == WEAR_ARM_L) ||
+                (slot == WEAR_WRIST_R) ||(slot == WEAR_WRIST_L) ||
+                (slot == WEAR_HAND_R) || (slot == WEAR_HAND_L) ||
                 (slot == WEAR_FINGER_R) || (slot ==WEAR_FINGER_L)) {
               return FALSE;
             } else {
@@ -515,8 +515,8 @@ bool TBeing::isTransformableLimb(wearSlotT limb, int paired)
             }
           case WEAR_HAND_R:
           case WEAR_HAND_L:
-            if ((slot ==  WEAR_HAND_R) || (slot == WEAR_HAND_L) || 
-                (slot == WEAR_WRIST_R) || (slot == WEAR_WRIST_L) || 
+            if ((slot ==  WEAR_HAND_R) || (slot == WEAR_HAND_L) ||
+                (slot == WEAR_WRIST_R) || (slot == WEAR_WRIST_L) ||
                 (slot == WEAR_FINGER_R) || (slot == WEAR_FINGER_L)) {
                return FALSE;
             } else {
@@ -524,7 +524,7 @@ bool TBeing::isTransformableLimb(wearSlotT limb, int paired)
             }
           case WEAR_LEG_R:
           case WEAR_LEG_L:
-            if ((slot == WEAR_LEG_R) || (slot == WEAR_LEG_L) || 
+            if ((slot == WEAR_LEG_R) || (slot == WEAR_LEG_L) ||
                 (slot == WEAR_FOOT_R) || (slot ==WEAR_FOOT_L)) {
               return FALSE;
             } else {
@@ -532,7 +532,7 @@ bool TBeing::isTransformableLimb(wearSlotT limb, int paired)
             }
           case WEAR_FOOT_R:
           case WEAR_FOOT_L:
-            if ((slot == WEAR_FOOT_R) || (slot == WEAR_FOOT_L) || 
+            if ((slot == WEAR_FOOT_R) || (slot == WEAR_FOOT_L) ||
                 (slot == WEAR_LEG_R) || (slot == WEAR_LEG_L)) {
               return FALSE;
             } else {
@@ -559,10 +559,10 @@ bool TBeing::isTransformableLimb(wearSlotT limb, int paired)
           default:
             break;
           }
-        continue;  
+        continue;
         }
-    } 
-    return TRUE; 
+    }
+    return TRUE;
   } else {
     vlogf(LOG_BUG, "isTransformable called unpaired.");
     return FALSE;
@@ -586,7 +586,7 @@ bool TBeing::hasLegs() const
 
 bool TBeing::hasHands() const
 {
-  // transformed into bear-claws(hand) or eagles-wings(arm) 
+  // transformed into bear-claws(hand) or eagles-wings(arm)
   if (isLimbFlags(WEAR_HAND_R, PART_TRANSFORMED) ||
       isLimbFlags(WEAR_HAND_L, PART_TRANSFORMED))
     return false;
@@ -604,7 +604,7 @@ bool TBeing::hasHands() const
 
 const sstring TBeing::describeTransBodySlot(wearSlotT i) const
 {
-  mud_assert(i >= MIN_WEAR && i < MAX_WEAR, 
+  mud_assert(i >= MIN_WEAR && i < MAX_WEAR,
          "Bad limb slot, %s %d", getName(), i);
 
   if (!slotChance(i)) {
@@ -622,7 +622,7 @@ const sstring TBeing::describeTransBodySlot(wearSlotT i) const
       } else {
         vlogf(LOG_BUG, format("There is a bad case 1 in describeTransBodySlot, %s") %  getName());
         return "bogus transformed body part";
-      } 
+      }
     case WEAR_FINGER_L:
       if (isLimbFlags(WEAR_HAND_L, PART_TRANSFORMED)) {
         if (isLimbFlags(WEAR_ARM_L, PART_TRANSFORMED)) {
@@ -824,7 +824,7 @@ const sstring TBeing::describeTransLimb(wearSlotT i) const
      return "In place of a hand, you see a bear's paw";
     case WEAR_HAND_L:
       if (isLimbFlags(WEAR_ARM_L, PART_TRANSFORMED)) {
-        return "Bogus-Tranformed Slot-Bug Cosmo"; 
+        return "Bogus-Tranformed Slot-Bug Cosmo";
      }
       return "In place of a hand, you see a bear's paw";
     case WEAR_ARM_R:
@@ -872,17 +872,17 @@ const sstring TBeing::describeTransEquipSlot(wearSlotT i) const
       vlogf(LOG_BUG, "There is a bad case in hand in describeTransEquipSlot");
       return "Worn on BOGUS Transformed slot -- bug Cosmo";
      }
-     return "In place of a hand, you see a bear's paw"; 
+     return "In place of a hand, you see a bear's paw";
     case WEAR_HAND_L:
      if (isLimbFlags(WEAR_ARM_L, PART_TRANSFORMED)) {
       vlogf(LOG_BUG, "There is a bad case in hand in describeTransEquipSlot");
       return "Worn on BOGUS Transformed slot -- bug Cosmo";
      }
-     return "In place of a hand, you see a bear's paw";     
+     return "In place of a hand, you see a bear's paw";
     case WEAR_ARM_R:
-     return "In place of an arm, you see a wing";     
+     return "In place of an arm, you see a wing";
     case WEAR_ARM_L:
-     return "In place of an arm, you see a wing"; 
+     return "In place of an arm, you see a wing";
     case WEAR_BACK:
       vlogf(LOG_BUG, "There is a bad case in describeTransEquipSlot");
       return "Worn on BOGUS Transformed slot -- bug Cosmo";
@@ -935,7 +935,7 @@ wearSlotT TBeing::getPartHit(TBeing *hitter, bool allowHold)
   // this compar stuff disallows some slots based on height
   if (hitter) {
     double compar = (double) hitter->getPosHeight() / (double) getPosHeight();
-    
+
     if (compar > 1.5) {
       real_slot_chance[WEAR_FOOT_L] = 0;
       real_slot_chance[WEAR_FOOT_R] = 0;
@@ -994,7 +994,7 @@ wearSlotT TBeing::getPartHit(TBeing *hitter, bool allowHold)
     if (!allowHold && (i == HOLD_RIGHT || i == HOLD_LEFT))
       continue;
 
-    if (d <= (ct += real_slot_chance[i])) 
+    if (d <= (ct += real_slot_chance[i]))
       return i;
   }
   vlogf(LOG_BUG, format("Warning!  get_part_hit error on %s.") %  getName());
@@ -1032,7 +1032,7 @@ int TBeing::getPartMinHeight(int part) const
   int midline;
 
   // getPosHeight takes into account riding where appropriate
-  // so what we want to do is take this height, adjust it up/down 
+  // so what we want to do is take this height, adjust it up/down
   // based on what they are sitting on
   // and then figure out where the limb is in relation
   int hgt = getPosHeight();

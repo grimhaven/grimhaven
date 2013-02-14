@@ -39,7 +39,7 @@ class Stats {
 
    int add;
 
-  public: 
+  public:
     Stats() {
       str = brawn = dex = agility = speed = con = hardiness = 150;
       intel = focus = wis = luck = karma = perception = add = 150;

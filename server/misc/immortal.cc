@@ -3,7 +3,7 @@
 // SneezyMUD - All rights reserved, SneezyMUD Coding Team
 //
 //      "immortal.cc" - All commands reserved for wizards
-//  
+//
 //////////////////////////////////////////////////////////////////////////
 
 #include <stdio.h>
@@ -101,7 +101,7 @@ void togInfoT::loadToggles()
     toggles[tog_id] = new togEntry(toggle, testcode, db["name"], db["descr"]);
   }
   loaded=true;
-}  
+}
 
 
 togEntry::togEntry(bool t, bool t2, const sstring n, const sstring d) :
@@ -243,7 +243,7 @@ void TBeing::doChangeOutfit(const char *argument)
   getChangePos(NULL);
 
 
-  // swap clothes  
+  // swap clothes
   TThing *removed, *first=NULL, *t;
   wearSlotT pos;
   for(StuffIter it=suitcase->stuff.begin();it!=suitcase->stuff.end();){
@@ -273,7 +273,7 @@ void TBeing::doChangeOutfit(const char *argument)
     removed = unequip(WEAR_LEG_R);
     *suitcase += *removed;
     sendTo(COLOR_OBJECTS, format("You stash %s in %s.\n\r") %
-     removed->getName() % suitcase->getName()); 
+     removed->getName() % suitcase->getName());
   } else if(pos==WEAR_LEG_R && equipment[WEAR_LEG_L]){
     removed = unequip(WEAR_LEG_L);
     *suitcase += *removed;
@@ -287,7 +287,7 @@ void TBeing::doChangeOutfit(const char *argument)
     if(!first && removed){
       first=removed;
     }
-    
+
     wear(o, o->getWearKey(), this);
   }
 }
@@ -315,7 +315,7 @@ void TPerson::doChange(const char *argument)
       return;
     }
   }
-  
+
 
   if (is_abbrev(argument, "questvar1")) {
     argument = one_argument(argument, buf, cElements(buf));
@@ -369,7 +369,7 @@ void TPerson::doChange(const char *argument)
       if (strcmp(getName(), "Batopr")) {
         sendTo("That command is too high for you to change.\n\r");
         return;
-      } else 
+      } else
         sendTo(format("It was set to level %d.\n\r") %  commandArray[cmd]->minLevel);
     }
     if (cmd >= 0) {
@@ -592,9 +592,9 @@ int TBeing::doEmote(const sstring &argument)
         continue;
       if (ch->desc && ch->desc->ignored.isIgnored(desc))
         continue;
-      if (roomp && ch->desc && 
-                      (ch->canSee(this)) && ch->awake() && 
-                      (ch->desc->connected <= 20) && 
+      if (roomp && ch->desc &&
+                      (ch->canSee(this)) && ch->awake() &&
+                      (ch->desc->connected <= 20) &&
                       !(ch->isPlayerAction(PLR_MAILING | PLR_BUGGING))) {
         sstring garbledTo = garble(ch, garbled, Garble::SPEECH_EMOTE, Garble::SCOPE_INDIVIDUAL);
         garbledTo = format("$n %s<z>") % garbledTo;
@@ -646,7 +646,7 @@ void TBeing::doFlag(const char *argument)
     sendTo("Flag whom? Flag what?\n\r");
     return;
   }
-  if (!(victim = get_pc_world(this, buf, EXACT_YES)) && 
+  if (!(victim = get_pc_world(this, buf, EXACT_YES)) &&
       !(victim = get_pc_world(this, buf, EXACT_NO)))
     sendTo("No one by that name on!\n\r");
   else if (victim->GetMaxLevel() > GetMaxLevel()) {
@@ -709,7 +709,7 @@ TO_CHAR);
          victim->hasQuestBit(TOG_MONK_PURPLE_LEPER_KILLED2) ||
          victim->hasQuestBit(TOG_MONK_PURPLE_LEPER_KILLED3) ||
          victim->hasQuestBit(TOG_MONK_PURPLE_LEPER_KILLED4) ||
-         victim->hasQuestBit(TOG_MONK_PURPLE_FINISHED) 
+         victim->hasQuestBit(TOG_MONK_PURPLE_FINISHED)
         ) &&
            victim->isPlayerAction(PLR_SOLOQUEST)) {
       sendTo("NOTICE: that person is currently involved in a quest.\n\r");
@@ -852,7 +852,7 @@ const char *getSockOptString(int s, int opt)
 
   if (opt == SO_LINGER) {
     size = sizeof(ld);
-    ld.l_onoff = -1;        // serious error checking 
+    ld.l_onoff = -1;        // serious error checking
 
     if (getsockopt(s, SOL_SOCKET, opt, &ld, (unsigned *) &size) == -1) {
       perror("getsockopt 5");
@@ -911,7 +911,7 @@ void TBeing::doSystem(const sstring &argument)
   } else {
     buf=format("%s\n\r") % argument;
     descriptor_list->worldSend(buf, this);
-  } 
+  }
 }
 
 void TBeing::doTrans(const char *)
@@ -952,7 +952,7 @@ void TPerson::doTrans(const char *argument)
         victim->sendTo(COLOR_MOBS, format("%s just tried to transfer you!\n\r") % getName());
         return;
       }
-      if (!victim->isPc() && victim->number == -1 && 
+      if (!victim->isPc() && victim->number == -1 &&
           !hasWizPower(POWER_MEDIT_LOAD_ANYWHERE)) {
         sendTo("You lack the power to load anywhere, therefore you can't transfer MEdit Mobs.\n\r");
         return;
@@ -980,7 +980,7 @@ void TPerson::doTrans(const char *argument)
       victim->doLook("", CMD_LOOK);
       sendTo("Ok.\n\r");
     }
-  } else {            // Trans All 
+  } else {            // Trans All
     for (i = descriptor_list; i; i = i->next) {
       if (i->character != this && !i->connected) {
     victim = i->character;
@@ -1071,7 +1071,7 @@ int TBeing::doAt(const char *argument, bool isFarlook)
 
   // if they are in a casino now, prevent
   if ((checkBlackjack(true) && gBj.index(this) >= 0) ||
-      (gGin.check(this) && gGin.index(this) >= 0) || 
+      (gGin.check(this) && gGin.index(this) >= 0) ||
       (checkCrazyEights() && gEights.index(this) >= 0) ||
       (checkDrawPoker() && gDrawPoker.index(this) >= 0) ||
       (checkHearts(true) && gHearts.index(this) >= 0)) {
@@ -1089,7 +1089,7 @@ int TBeing::doAt(const char *argument, bool isFarlook)
 
     if (!is_abbrev(tStString, "yes")) {
       sendTo("That room, or the creature's room you chose, is a particular room.\n\r");
-      sendTo(format("To do this, do this: at %s yes %s %s %s\n\r") % 
+      sendTo(format("To do this, do this: at %s yes %s %s %s\n\r") %
              loc % tStString % tStBuffer % tStArgument);
       return FALSE;
     }
@@ -1148,7 +1148,7 @@ int TBeing::doGoto(const sstring & argument)
     return FALSE;
   }
 
-  if (!isImmortal()) 
+  if (!isImmortal())
     return doMortalGoto(argument);
 
   if (powerCheck(POWER_GOTO))
@@ -1253,7 +1253,7 @@ int TBeing::doGoto(const sstring & argument)
       real_roomp(location)->isRoomFlag(ROOM_PRIVATE)) {
     i=0;
     for(StuffIter it=real_roomp(location)->stuff.begin();
-	it!=real_roomp(location)->stuff.end();++it)
+        it!=real_roomp(location)->stuff.end();++it)
       if (dynamic_cast<TBeing *>(*it))
         i++;
 
@@ -1392,14 +1392,14 @@ void TBeing::doShutdown(const char *)
 sstring shutdown_or_reboot()
 {
   int rc = system("ps aux | grep reboot | grep -v grep");
- 
+
   // if there is an entry, this will return 0
   if (rc == 0)
     return "Reboot";
   else
     return "Shutdown";
 }
- 
+
 void TPerson::doShutdown(const char *argument)
 {
   char buf[1000], arg[256];
@@ -1426,7 +1426,7 @@ void TPerson::doShutdown(const char *argument)
         sendTo("Illegal number of minutes.\n\r");
         sendTo("Syntax : shutdown <minutes until shutdown>\n\r");
         return;
-      } 
+      }
       if (!timeTill)
         timeTill = time(0) + (num * SECS_PER_REAL_MIN);
       else if (timeTill < (time(0) + (num * SECS_PER_REAL_MIN))) {
@@ -1436,10 +1436,10 @@ void TPerson::doShutdown(const char *argument)
       } else {
         timeTill = time(0) + (num * SECS_PER_REAL_MIN);
       }
-      sprintf(buf, "<r>******* SYSTEM MESSAGE *******\n\r%s in %d minute%s by %s.<z>\n\r<c>Use the TIME command at any point to see time until %s.<z>\n\r", 
+      sprintf(buf, "<r>******* SYSTEM MESSAGE *******\n\r%s in %d minute%s by %s.<z>\n\r<c>Use the TIME command at any point to see time until %s.<z>\n\r",
        shutdown_or_reboot().c_str(), num, (num == 1 ? "" : "s"),getName(),
        shutdown_or_reboot().c_str());
-      descriptor_list->worldSend(buf, this); 
+      descriptor_list->worldSend(buf, this);
     } else if (is_abbrev(arg, "abort")) {
       if (!timeTill) {
         sendTo("No shutdown has been scheduled.\n\r");
@@ -1452,7 +1452,7 @@ void TPerson::doShutdown(const char *argument)
       sendTo("Syntax : shutdown <minutes until shutdown>\n\r");
       return;
     }
-  } 
+  }
 }
 
 void TBeing::doSnoop(const char *)
@@ -1480,7 +1480,7 @@ void TPerson::doSnoop(const char *argument)
 
   // we use get_char here rather than get_pc so we can snoop switched imm's
   if (!(victim = get_pc_world(this, arg, EXACT_YES)) &&
-      !(victim = get_pc_world(this, arg, EXACT_NO)) && 
+      !(victim = get_pc_world(this, arg, EXACT_NO)) &&
       !(victim = get_char_vis_world(this, arg, NULL, EXACT_YES)) &&
       !(victim = get_char_vis_world(this, arg, NULL, EXACT_NO))) {
     sendTo("No such person around.\n\r");
@@ -1546,14 +1546,14 @@ void TPerson::doSwitch(const char *argument)
   TThing *switchProcObj = equipment[WEAR_NECK];
   bool hasSwiO = switchProcObj && switchProcObj->spec == 139;
   // see spec_objs.cc
-  
-  if ((!isImmortal() && !hasSwiO) || 
+
+  if ((!isImmortal() && !hasSwiO) ||
       (isImmortal() && powerCheck(POWER_SWITCH)))
   {
     sendTo(format("%sIncorrect%s command. Please see help files if you need assistance!\n\r") % red() % norm());
     return;
   }
-  
+
   tStMobile=tStArg.word(0);
   tStBuffer=tStArg.word(1);
 
@@ -1660,7 +1660,7 @@ void TBeing::makeLimbTransformed(TBeing * victim, wearSlotT limb, bool paired)
   if (paired) {
     switch (limb) {
       case WEAR_ARM_R:
-      case WEAR_ARM_L: 
+      case WEAR_ARM_L:
         otherLimb = WEAR_ARM_R;
           doTransformDrop(otherLimb);
           victim->addToLimbFlags(otherLimb, PART_TRANSFORMED);
@@ -1794,8 +1794,8 @@ void TBeing::doTransformDrop(wearSlotT slot)
                TRUE,this,0,0,TO_ROOM);
           if (!tmp->makeScraps()){
             delete tmp;
-	    tmp = NULL;
-	  }
+            tmp = NULL;
+          }
           return;
         default:
           dam = ::number(1,4);
@@ -1807,8 +1807,8 @@ void TBeing::doTransformDrop(wearSlotT slot)
                  TRUE,this,0,0,TO_ROOM);
             if (!tmp->makeScraps()){
               delete tmp;
-	      tmp = NULL;
-	    }
+              tmp = NULL;
+            }
           } else {
             act("You hear a small grinding sound coming from your new limb as something drops to the $g.", TRUE,this,0,0,TO_CHAR);
             act("You hear a grinding sound coming from $n and something drops to the $g.", TRUE,this,0,0,TO_ROOM);
@@ -1883,7 +1883,7 @@ void TBeing::transformLimbsBack(const char * buffer, wearSlotT limb, bool cmd)
       return;
     }
   } else {
-    if (!isLimbFlags(limb, PART_TRANSFORMED) && 
+    if (!isLimbFlags(limb, PART_TRANSFORMED) &&
         !affectedBySpell(spell)) {
       sendTo("Those limbs don't appear to be transformed.\n\r");
       return;
@@ -1927,7 +1927,7 @@ void TBeing::transformLimbsBack(const char * buffer, wearSlotT limb, bool cmd)
       break;
     case (WEAR_ARM_R):
       slot = WEAR_FINGER_R;
-      if (isLimbFlags(slot, PART_TRANSFORMED)) 
+      if (isLimbFlags(slot, PART_TRANSFORMED))
         remLimbFlags(slot, PART_TRANSFORMED);
       slot = WEAR_FINGER_L;
       if (isLimbFlags(slot, PART_TRANSFORMED))
@@ -2018,7 +2018,7 @@ void TBeing::transformLimbsBack(const char * buffer, wearSlotT limb, bool cmd)
       if (affectedBySpell(AFFECT_TRANSFORMED_HEAD)) {
         found = TRUE;
         affectFrom(AFFECT_TRANSFORMED_HEAD);
-          if (affectedBySpell(AFFECT_TRANSFORMED_HEAD)) 
+          if (affectedBySpell(AFFECT_TRANSFORMED_HEAD))
             affectFrom(AFFECT_TRANSFORMED_HEAD);
       }
       if (affectedBySpell(AFFECT_TRANSFORMED_NECK)) {
@@ -2127,7 +2127,7 @@ void TBeing::doReturn(const char * buffer, wearSlotT limb, bool tell, bool delet
 
     desc->character->desc = desc;
     desc = NULL;
-    
+
     if (IS_SET(specials.act, ACT_POLYSELF) && tell && deleteMob ) {
       delete mob;
       mob = NULL;
@@ -2136,7 +2136,7 @@ void TBeing::doReturn(const char * buffer, wearSlotT limb, bool tell, bool delet
       rp = real_roomp(Room::POLY_STORAGE);
       *rp += *mob;
     }
-      
+
     per->polyed = POLY_TYPE_NONE;
 
     // POLYSELF idetifies a TMonster as an isPc
@@ -2166,7 +2166,7 @@ void TPerson::doForce(const char *argument)
 
   if (!*name_buf || !*to_force)
     sendTo("Whom do you wish to force to do what?\n\r");
-  else if (strcmp("all", name_buf) && 
+  else if (strcmp("all", name_buf) &&
            strcmp("mobs", name_buf) &&
            strcmp("room", name_buf)) {
     // force specific critter
@@ -2200,7 +2200,7 @@ void TPerson::doForce(const char *argument)
       }
     }
   } else if (!strcmp("all", name_buf)) {
-    // force all 
+    // force all
     vlogf(LOG_MISC, format("%s just forced all to '%s'") %  getName() % to_force);
     for (i = descriptor_list; i; i = i->next) {
       if ((vict = i->character) && (i->character != this) && !i->connected) {
@@ -2290,9 +2290,9 @@ void TPerson::doLoad(const char *argument)
           break;
       if (numx >= (signed int) mob_index.size())
         numx = -1;
-    } else 
+    } else
       numx = real_mobile(numx);
-    
+
     if (numx < 0 || numx >= (signed int) mob_index.size()) {
       sendTo("There is no such monster.\n\r");
       return;
@@ -2468,7 +2468,7 @@ void TPerson::doCutlink(const char *argument)
           }
           if (d->character->roomp)  // necessary check due to canSeeMe
             act("You cut $S link.", TRUE, this, 0, d->character, TO_CHAR);
-          else 
+          else
             act("You cut someone's link.", TRUE, this, 0, 0, TO_CHAR);
 
           TPerson *p = dynamic_cast<TPerson *>(d->character);
@@ -2537,7 +2537,7 @@ void nukeLdead(TBeing *vict)
 
         delete t;
       }
-  
+
       vict->logItem(obj, CMD_NE);  // purge ldead
 
       // since the item is technically still in rent, it is accounted
@@ -2609,7 +2609,7 @@ void genericPurgeLdead(TBeing *ch)
   }
 }
 
-// clean a room of all mobiles and objects 
+// clean a room of all mobiles and objects
 void TBeing::doPurge(const char *)
 {
   return;
@@ -2628,7 +2628,7 @@ void TPerson::doPurge(const char *argument)
 
   argument = one_argument(argument, name_buf, cElements(name_buf));
 
-  if (*name_buf) {    // argument supplied. destroy single object or char 
+  if (*name_buf) {    // argument supplied. destroy single object or char
     if (!strcmp(name_buf, "links") && hasWizPower(POWER_PURGE_LINKS)) {
       for (d = descriptor_list; d; d = dn) {
         dn = d->next;
@@ -2661,11 +2661,11 @@ void TPerson::doPurge(const char *argument)
       if (is_abbrev(argument, "all")) {
         int oldnum = mobCount;
         for (zone = 1; zone < zone_table.size(); zone++) {
-          if (zone_table[zone].zone_value > 0 && 
-	      zone_table[zone].isEmpty()) {
-	    //	    nuke_inactive_mobs=true;
+          if (zone_table[zone].zone_value > 0 &&
+              zone_table[zone].isEmpty()) {
+            //            nuke_inactive_mobs=true;
             zone_table[zone].nukeMobs();
-	    //	    nuke_inactive_mobs=old_nuke_inactive_mobs;
+            //            nuke_inactive_mobs=old_nuke_inactive_mobs;
             zone_table[zone].zone_value = 0;
           }
         }
@@ -2689,19 +2689,19 @@ void TPerson::doPurge(const char *argument)
     }
     TThing *t_obj;
     if ((vict = get_char_room_vis(this, name_buf))) {
-      if (vict->isShopkeeper()) {    // shopkeeper 
+      if (vict->isShopkeeper()) {    // shopkeeper
         sendTo("Be glad Brutius put this catch in for shopkeepers.\n\r");
         vlogf(LOG_MISC, format("%s just tried to purge a shopkeeper.") %  getName());
         return;
       }
-      if (vict->isPc() && 
+      if (vict->isPc() &&
             (!hasWizPower(POWER_PURGE_PC) ||  // prevent until this level
              vict->GetMaxLevel() >= GetMaxLevel())) { // prevent over my lev
        sendTo("I can't let you do that.\n\r");
        return;
       }
-                            
-      if (dynamic_cast<TMonster *>(vict) && 
+
+      if (dynamic_cast<TMonster *>(vict) &&
         (vict->desc || IS_SET(vict->specials.act, ACT_POLYSELF))) {
         sendTo("Sorry, you can't directly purge a poly'ed mob, you made them return.\n\r");
          vict->remQuestBit(TOG_TRANSFORMED_LYCANTHROPE);
@@ -2795,7 +2795,7 @@ void TPerson::doPurge(const char *argument)
           delete obj;
           obj = NULL;
         }
-      } else if (vict) 
+      } else if (vict)
         vict->dropItemsToRoom(SAFE_YES, DROP_IN_ROOM);
 
       delete t_obj;
@@ -2819,7 +2819,7 @@ void TPerson::doPurge(const char *argument)
           range[1] = convertTo<int>(name_buf);
         else
           range[1] = range[0];
-    
+
         if (!*range || !range[1]) {
           sendTo("usage: purge room start [end]\n\r");
           return;
@@ -2838,7 +2838,7 @@ void TPerson::doPurge(const char *argument)
       }
     }
     sendTo("Ok.\n\r");
-  } else {            // no argument. clean out the room 
+  } else {            // no argument. clean out the room
     act(msgVariables(MSG_PURGE, (TThing *)NULL), TRUE, this, 0, 0, TO_ROOM);
     sendToRoom("The World seems a little cleaner.\n\r", in_room);
 
@@ -2967,7 +2967,7 @@ void TPerson::doStart()
   static unsigned int defaultPrompt = PROMPT_HIT | PROMPT_MOVE | PROMPT_EXP | PROMPT_OPPONENT | PROMPT_TANK;
   static unsigned int prompts[MAX_CLASSES] = { PROMPT_MANA, PROMPT_PIETY, 0, 0, PROMPT_LIFEFORCE, PROMPT_PIETY, PROMPT_MANA, 0, 0 };
 
-  if (desc->account->term == TERM_VT100) 
+  if (desc->account->term == TERM_VT100)
     doToggle("term vt100");
   else
     doToggle("term none");
@@ -2975,12 +2975,12 @@ void TPerson::doStart()
   // I'm leaving rooms off this list intentionally - bat
   // I'm using = here (rather than set_bit) since I want to know
   // that PLR_COLOR_CODES and PLR_COLOR_LOGS are off
-  desc->plr_color = PLR_COLOR_BASIC | PLR_COLOR_ALL | 
+  desc->plr_color = PLR_COLOR_BASIC | PLR_COLOR_ALL |
     PLR_COLOR_BASIC | PLR_COLOR_COMM | PLR_COLOR_OBJECTS | PLR_COLOR_MOBS |
     PLR_COLOR_ROOM_NAME | PLR_COLOR_SHOUTS | PLR_COLOR_SPELLS;
   addPlayerAction(PLR_COLOR);
   SET_BIT(desc->prompt_d.type, PROMPT_COLOR);
-  
+
   if (!discs)
     assignDisciplinesClass();
 
@@ -3036,7 +3036,7 @@ void TPerson::doStart()
   } else {
     if (!desc->m_bIsClient) {
       sendTo("Setting various autobits with recommended newbie configuration.\n\r");
-      if (IS_SET(desc->plr_color, PLR_COLOR_BASIC)) 
+      if (IS_SET(desc->plr_color, PLR_COLOR_BASIC))
         sendTo("Setting color to all available color options.\n\r");
     }
   }
@@ -3045,15 +3045,15 @@ void TPerson::doStart()
 
   classIndT Class;
   for (Class = MIN_CLASS_IND; Class < MAX_CLASSES; Class++) {
-    
+
     if(!getLevel(Class))
       continue;
-    
+
     float pracs = pracsPerLevel(Class, false);
     int prac_gain = (int)pracs;
     if (::number(0,100) < (int)(((float)pracs - prac_gain) * 100))
       prac_gain++;
-    
+
     addPracs(prac_gain, Class);
     // we need to do first level pracs this way even with the new system - dash
   }
@@ -3076,13 +3076,13 @@ void TPerson::doStart()
 
   if ((r_num = real_object(1458)) >= 0) {
     obj = read_object(r_num, REAL);
-    *this += *obj;    // newbie book 
+    *this += *obj;    // newbie book
   }
 #ifdef NOGUIDE
   // Damescena wants this to NOT load
   if ((r_num = real_object(1459)) >= 0) {
     obj = read_object(r_num, REAL);
-    *this += *obj;    // conversion book 
+    *this += *obj;    // conversion book
   }
 #endif
   // give a weapon
@@ -3099,7 +3099,7 @@ void TPerson::doStart()
   } else {
     if ((r_num = real_object(Obj::WEAPON_T_STAFF)) >= 0) {
       obj = read_object(r_num, REAL);
-      *this += *obj;    // newbie staff 
+      *this += *obj;    // newbie staff
     }
   }
 
@@ -3132,7 +3132,7 @@ void TPerson::doStart()
   setMove(moveLimit());
   setLifeforce(50);
 
-  // Ripped from the level gain functions to give classes a variant 
+  // Ripped from the level gain functions to give classes a variant
   // from the standard 25 hp based on con etc. Brutius 06/18/1999
   classIndT cit;
   for (cit = MIN_CLASS_IND; cit < MAX_CLASSES; cit++) {
@@ -3189,7 +3189,7 @@ void TBeing::doWiznews()
   if (isImmortal() || IS_SET(desc->account->flags, TAccount::IMMORTAL)) {
     wiznews_used_num++;
     desc->start_page_file(File::WIZNEWS, "No news for the immorts!\n\r");
-  } else 
+  } else
     sendTo("This command is for immortals only.\n\r");
 }
 
@@ -3211,7 +3211,7 @@ int TBeing::genericRestore(restoreTypeT partial)
     setCond(THIRST, -1);
   }
   if (partial == RESTORE_FULL) {
-    // heal all limbs and cure all diseases - Russ 
+    // heal all limbs and cure all diseases - Russ
     wearSlotT ij;
     for (ij = MIN_WEAR; ij < MAX_WEAR; ij++) {
       setCurLimbHealth(ij, getMaxLimbHealth(ij));
@@ -3283,9 +3283,9 @@ void TBeing::doRestore(const char *argument)
     pracs =  pracs2  = 0;
     char name2[60],name[60];
     char buf[60];
-    
+
     FILE *fp, *fp2;
-    
+
     if (!(fp = fopen("reimburse.list","r"))) {
       vlogf(LOG_FILE, "Couldn't open reimbursement list for restore pracs.");
       return;
@@ -3300,7 +3300,7 @@ void TBeing::doRestore(const char *argument)
       return;
     }
     fprintf(fp2,"%s", buf);
-    
+
     while(strcmp(buf, "END")) {
       if (fgets(buf,60,fp) == NULL) {
   vlogf(LOG_FILE,"ERROR: bad format of reimbursement list");
@@ -3319,7 +3319,7 @@ void TBeing::doRestore(const char *argument)
   strncpy(name2, name, sizeof(name));
   pracs2 = pracs;
       } else {
-	fprintf(fp2,"%s", buf);
+        fprintf(fp2,"%s", buf);
       }
     }
     strncpy(name, name2, sizeof(name2));
@@ -3341,7 +3341,7 @@ void TBeing::doRestore(const char *argument)
     victim->sendTo(format("Congratulations, you've been reimbursed %d practices!\n\r") %pracs);
     sendTo(format("Reimbursing %s %d practices.\n\r") %victim->getName() %pracs);
 
-    
+
   } else {
     sendTo("Syntax : restore <character> <partial | full | pracs>\n\r");
     return;
@@ -3353,7 +3353,7 @@ void TBeing::doRestore(const char *argument)
     victim = NULL;
     return;
   }
-    
+
 
   if (partial == RESTORE_FULL) {
     rc = generic_dispel_magic(this, victim, GetMaxLevel(), isImmortal());
@@ -3494,7 +3494,7 @@ int TBeing::doExits(const char *argument, cmdTypeT cmd)
     int rc = portalLeaveCheck(buf, cmd);
     if (IS_SET_DELETE(rc, DELETE_THIS))
       return DELETE_THIS;
-    if (rc)  
+    if (rc)
       return TRUE;
   }
   *buf = '\0';
@@ -3522,7 +3522,7 @@ int TBeing::doExits(const char *argument, cmdTypeT cmd)
         if (isImmortal()) {
           sendTo(format("%s - swirling chaos of #%d\n\r") % exits[door] % exitdata->to_room);
           found = TRUE;
-        }  
+        }
       } else if (exitdata->to_room != Room::NOWHERE &&
                      (canSeeThruDoor(exitdata) || isImmortal())) {
         if (rp->pitchBlackDark() &&
@@ -3533,19 +3533,19 @@ int TBeing::doExits(const char *argument, cmdTypeT cmd)
               found = TRUE;
           }
         } else {
-	  if (door != DIR_UP && door != DIR_DOWN){
-	    if ((exitdata->condition & EX_SLOPED_UP))
-	      slopedData += " (ascending)";
-	    else if ((exitdata->condition & EX_SLOPED_DOWN))
-	      slopedData += " (descending)";
-	  }
-	  
-	  if(rp->isIndoorSector() ||
-	     rp->isRoomFlag(ROOM_INDOORS))
-	    slopedData += " (indoors)";
-	  else
-	    slopedData += " (outside)";
-	  
+          if (door != DIR_UP && door != DIR_DOWN){
+            if ((exitdata->condition & EX_SLOPED_UP))
+              slopedData += " (ascending)";
+            else if ((exitdata->condition & EX_SLOPED_DOWN))
+              slopedData += " (descending)";
+          }
+
+          if(rp->isIndoorSector() ||
+             rp->isRoomFlag(ROOM_INDOORS))
+            slopedData += " (indoors)";
+          else
+            slopedData += " (outside)";
+
 
 
           if (IS_SET(desc->plr_color, PLR_COLOR_ROOM_NAME)) {
@@ -3564,7 +3564,7 @@ int TBeing::doExits(const char *argument, cmdTypeT cmd)
               } else {
                 sendTo(COLOR_ROOM_NAME, format("%s - %s%s%s%s\n\r") % exits[door] % addColorRoom(rp, 1) % rp->name % norm() % slopedData);
                 found = TRUE;
-              }        
+              }
             }
           } else {
             if (isImmortal()) {
@@ -3598,7 +3598,7 @@ int TBeing::doExits(const char *argument, cmdTypeT cmd)
 // check for portals and add it if one is enterable
   TThing *t;
   for(StuffIter it=roomp->stuff.begin();it!=roomp->stuff.end() && (t=*it);++it) {
-    TPortal *tp = dynamic_cast<TPortal *>(t);  
+    TPortal *tp = dynamic_cast<TPortal *>(t);
     if (!tp)
       continue;
     if (tp->isPortalFlag(EX_CLOSED | EX_NOENTER))
@@ -3643,7 +3643,7 @@ void TBeing::doWipe(const char *argument)
     sprintf(buf + strlen(buf), "%s cackles in triumph as he utterly annihilates %s.\n\r", getName(), victim->getName());
     descriptor_list->worldSend(buf, this);
     victim->sendTo("We're like closed or something.  Go away.\n\r");
-  
+
     // this handles droping items to ground
     // it use to be in ~TPerson, but do it here since the one in ~TPerson is
     // now an error handler, while this is a known good case.
@@ -3652,12 +3652,12 @@ void TBeing::doWipe(const char *argument)
       tper->dropItemsToRoom(SAFE_YES, DROP_IN_ROOM);
 
     victim->wipeChar(FALSE);
-    d->outputProcessing();    // tell them why they suck 
+    d->outputProcessing();    // tell them why they suck
     delete d;
     d = NULL;
     delete victim;
     victim = NULL;
-  } else 
+  } else
     sendTo("Player not online.  Hope you know what you are doing...\n\r");
 
   if (!load_char(sstring(namebuf).lower(), &st)) {
@@ -3776,7 +3776,7 @@ void TPerson::doAccess(const sstring &arg)
         strncpy(pass, crypted, 10);
         *(pass + 10) = '\0';
         strcpy(st.pwd, pass);
-      
+
         if (!raw_save_char(arg1.lower().c_str(), &st)) {
           vlogf(LOG_MISC, "Ran into problems (#1) saving file in doAccess()");
           return;
@@ -3816,7 +3816,7 @@ void TPerson::doAccess(const sstring &arg)
     }
   } else {
     tmpbuf=format("Name : <p>%s<1>, Sex : <c>%d<1>, Screensize : <c>%d<1>, Weight <c>%.2f<1>, Height <c>%d<1>\n\r") %
-      st.name % (int)st.sex % (int)st.screen % 
+      st.name % (int)st.sex % (int)st.screen %
       (int)st.weight % (int)st.height;
     buf+=tmpbuf;
     birth = asctime(localtime(&(st.birth)));
@@ -3860,7 +3860,7 @@ void TPerson::doAccess(const sstring &arg)
     buf+=tmpbuf;
 
     db.query("select sum(sob.talens) as bankmoney from shopownedbank sob, player p where sob.player_id=p.id and lower(p.name)=lower('%s')", st.name);
-    
+
     if(db.fetchRow()){
       st.bankmoney=convertTo<int>(db["bankmoney"]);
     }
@@ -3883,7 +3883,7 @@ void TPerson::doAccess(const sstring &arg)
 
     if(!account.read(st.aname)){
       buf+="Cannot open account for player! Tell a coder!\n\r";
-    } 
+    }
     if ((account.flags & TAccount::IMMORTAL) &&
           !hasWizPower(POWER_VIEW_IMM_ACCOUNTS)) {
       buf+="Account name: ***, Account email address : ***\n\r";
@@ -3923,7 +3923,7 @@ void TBeing::doReplace(const sstring &argument)
     sendTo("Syntax : replace <playername> <player | rent | account> <today | yesterday>\n\r");
     return;
   }
-  
+
   arg1=argument.word(0);
   arg2=argument.word(1);
   arg3=argument.word(2);
@@ -3946,9 +3946,9 @@ void TBeing::doReplace(const sstring &argument)
 
     strcpy(dir2, "player");
     dontMove = TRUE;
-  } else if (is_abbrev(arg2, "account")) 
+  } else if (is_abbrev(arg2, "account"))
     strcpy(dir2, "account");
-  else if (is_abbrev(arg2, "rent")) 
+  else if (is_abbrev(arg2, "rent"))
     strcpy(dir2, "rent");
   else {
     sendTo("Syntax : replace <playername> <player | rent | account> <today | yesterday>\n\r");
@@ -3966,10 +3966,10 @@ void TBeing::doReplace(const sstring &argument)
     fclose(fp);
 
     // log this event so we can see if item duplication (etc.) is caused by it.
-    vlogf(LOG_FILE, format("%s replacing %s's %s file.") % 
+    vlogf(LOG_FILE, format("%s replacing %s's %s file.") %
        getName() % arg1 % dir2);
 
-    sprintf(buf, "cp -r %s/%s/%c/%s %s/%c/%s", 
+    sprintf(buf, "cp -r %s/%s/%c/%s %s/%c/%s",
       dir, dir2, arg1[0], arg1.c_str(), dir2, arg1[0], arg1.c_str());
     vsystem(buf);
     // Make sure that the player file hard link is still intact, if
@@ -3988,7 +3988,7 @@ void TBeing::doReplace(const sstring &argument)
       sprintf(buf, "account/%c/%s/%s", LOWER(st.aname[0]),sstring(st.aname).lower().c_str(),arg1.c_str());
       sprintf(dir2, "player/%c/%s",  arg1[0], arg1.c_str());
       if(link(buf, dir2))
-	vlogf(LOG_BUG, format("link failed in doReplace() for %s") % arg1);
+        vlogf(LOG_BUG, format("link failed in doReplace() for %s") % arg1);
       sendTo("Done.\n\r");
     }
     if (!dontMove) {
@@ -4183,45 +4183,45 @@ void TBeing::doInfo(const char *arg)
   } else {
     if(is_abbrev(arg1, "commodity")){
       char arg2[80];
-      
+
       arg = one_argument(arg,arg2, cElements(arg2));
 
       TDatabase db(DB_SNEEZY);
-      
-      db.query("select shop_nr from shoptype where type=%i", 
-	       ITEM_RAW_MATERIAL);
+
+      db.query("select shop_nr from shoptype where type=%i",
+               ITEM_RAW_MATERIAL);
       int total=0;
       sstring name=arg2;
-      
+
       while(db.fetchRow()){
-	unsigned int shop_nr=convertTo<int>(db["shop_nr"]);
-	TShopOwned tso(shop_nr, this);
-	TCommodity *commod=NULL;
-	TDatabase db2(DB_SNEEZY);
+        unsigned int shop_nr=convertTo<int>(db["shop_nr"]);
+        TShopOwned tso(shop_nr, this);
+        TCommodity *commod=NULL;
+        TDatabase db2(DB_SNEEZY);
 
-	db2.query("select r.rent_id as rent_id from rent r, rent_strung rs, obj o where owner_type='shop' and owner=%i and r.rent_id=rs.rent_id and o.vnum=r.vnum and o.type=%i and rs.name like '%s%s%s'", shop_nr, ITEM_RAW_MATERIAL, "%", arg2, "%");
+        db2.query("select r.rent_id as rent_id from rent r, rent_strung rs, obj o where owner_type='shop' and owner=%i and r.rent_id=rs.rent_id and o.vnum=r.vnum and o.type=%i and rs.name like '%s%s%s'", shop_nr, ITEM_RAW_MATERIAL, "%", arg2, "%");
 
-	while(db2.fetchRow()){
-	  if(!tso.getKeeper())
-	    continue;
-	  TObj *t=tso.getKeeper()->loadItem(shop_nr, convertTo<int>(db2["rent_id"]));
-	  *tso.getKeeper() += *t;
+        while(db2.fetchRow()){
+          if(!tso.getKeeper())
+            continue;
+          TObj *t=tso.getKeeper()->loadItem(shop_nr, convertTo<int>(db2["rent_id"]));
+          *tso.getKeeper() += *t;
 
-	  if((commod=dynamic_cast<TCommodity *>(t)) &&
-	     isname(arg2, commod->name)){
-	    sendTo(format("Shop %i: %i units of %s at %i talens per unit.\n\r")%
-		   shop_nr % commod->numUnits() % 
-		   material_nums[commod->getMaterial()].mat_name %
-		   commod->shopPrice(1, shop_nr, -1, this));
-	    total+=commod->numUnits();
-	    name=material_nums[commod->getMaterial()].mat_name;
-	  }
-	  --*t;
-	  delete t;
-	}
+          if((commod=dynamic_cast<TCommodity *>(t)) &&
+             isname(arg2, commod->name)){
+            sendTo(format("Shop %i: %i units of %s at %i talens per unit.\n\r")%
+                   shop_nr % commod->numUnits() %
+                   material_nums[commod->getMaterial()].mat_name %
+                   commod->shopPrice(1, shop_nr, -1, this));
+            total+=commod->numUnits();
+            name=material_nums[commod->getMaterial()].mat_name;
+          }
+          --*t;
+          delete t;
+        }
       }
       sendTo(format("-- Total amount of %s available: %i units.\n\r") %
-	     name % total);
+             name % total);
 
 
     } else if (is_abbrev(arg1, "commands")) {
@@ -4236,81 +4236,81 @@ void TBeing::doInfo(const char *arg)
       sendTo(format("  Idea file accessed %d times.\n\r") % idea_used_num);
     } else if (is_abbrev(arg1, "objects")) {
       int count[MAX_OBJ_TYPES], i=0, li=0, total=0;
-      
+
       for(i=0;i<MAX_OBJ_TYPES;++i)
-	count[i]=0;
-      
+        count[i]=0;
+
       for(TObjIter iter=object_list.begin();iter!=object_list.end();++iter)
-	count[(*iter)->itemType()]++;
-      
+        count[(*iter)->itemType()]++;
+
       // BUBBLESORT IS L33T!!!
       while(1){
-	for(i=0;i<MAX_OBJ_TYPES;++i){
-	  if(count[i]>count[li])
-	    li=i;
-	}
-	
-	if(count[li]==-1)
-	  break;
-	
-	buf = format("%s[%6i] %-17s\n\r") %
-	  buf % count[li] % ItemInfo[li]->name;
-	total += count[li];
-	count[li]=-1;
+        for(i=0;i<MAX_OBJ_TYPES;++i){
+          if(count[i]>count[li])
+            li=i;
+        }
+
+        if(count[li]==-1)
+          break;
+
+        buf = format("%s[%6i] %-17s\n\r") %
+          buf % count[li] % ItemInfo[li]->name;
+        total += count[li];
+        count[li]=-1;
       }
-      
+
       buf = format("%s[%6i] %-17s\n\r") %
-	buf % total % "Total";
-      
+        buf % total % "Total";
+
       desc->page_string(buf);
     }
     else if(is_abbrev(arg1, "unlinked")){
       TObj *obj;
       int i=1;
       sstring tbuf;
-      
+
       for(TObjIter iter=object_list.begin();iter!=object_list.end();++iter){
-	obj=*iter;
-	if(obj->in_room == Room::NOWHERE && !obj->parent &&
-	   !obj->equippedBy && !obj->stuckIn && !obj->riding){
-	  tbuf=format("[%6i] %-17s\n\r") %
-	    i++ % obj->getNameNOC(this);
-	  buf+=tbuf;
-	}
+        obj=*iter;
+        if(obj->in_room == Room::NOWHERE && !obj->parent &&
+           !obj->equippedBy && !obj->stuckIn && !obj->riding){
+          tbuf=format("[%6i] %-17s\n\r") %
+            i++ % obj->getNameNOC(this);
+          buf+=tbuf;
+        }
       }
-      
+
       TBeing *tb;
-      
+
       for(tb=character_list;tb;tb=tb->next){
-	if(tb->in_room == Room::NOWHERE && !tb->parent &&
-	   !tb->equippedBy && !tb->stuckIn && !tb->riding){
-	  tbuf =format("[%6i] %-17s\n\r") %
-	    i++ % tb->getNameNOC(this);
-	  buf+=tbuf;
-	} 
+        if(tb->in_room == Room::NOWHERE && !tb->parent &&
+           !tb->equippedBy && !tb->stuckIn && !tb->riding){
+          tbuf =format("[%6i] %-17s\n\r") %
+            i++ % tb->getNameNOC(this);
+          buf+=tbuf;
+        }
       }
-      
+
       desc->page_string(buf);
     }
     else if (is_abbrev(arg1, "tweak")) {
       if (!hasWizPower(POWER_INFO_TRUSTED)) {
         sendTo("You should not attempt to change that.\n\r");
-	return;
+        return;
       }
       char arg2[80];
       arg = one_argument(arg,arg2, cElements(arg2));
       if (is_abbrev(arg2, "loadrate")) {
         char opt[80];
-	arg = one_argument(arg,opt, cElements(opt));
-	if (is_abbrev(opt, "up"))
-	  stats.equip += .05;
-	else
-	  stats.equip -= .05;
-	save_game_stats();
+        arg = one_argument(arg,opt, cElements(opt));
+        if (is_abbrev(opt, "up"))
+          stats.equip += .05;
+        else
+          stats.equip -= .05;
+        save_game_stats();
       } else {
-	sendTo(format("loadrate is %f\n\r") % stats.equip);
+        sendTo(format("loadrate is %f\n\r") % stats.equip);
       }
-    } 
+    }
     else if (is_abbrev(arg1, "deaths")) {
       if (!hasWizPower(POWER_INFO_TRUSTED)) {
         sendTo("You cannot access that information.\n\r");
@@ -4355,8 +4355,8 @@ void TBeing::doInfo(const char *arg)
         if (ch->discs)
           ci++;
       }
-      sendTo(format("  Beings with initialized disciplines: %d of %d (%d%c)\n\r") % 
-	     ci % j %  (ci * 100/ j) % '%');
+      sendTo(format("  Beings with initialized disciplines: %d of %d (%d%c)\n\r") %
+             ci % j %  (ci * 100/ j) % '%');
 
     } else if (is_abbrev(arg1, "gold")) {
       buf.erase();
@@ -4405,20 +4405,20 @@ void TBeing::doInfo(const char *arg)
       float tot_drain = tot_gold - net_gold;
 
       sprintf(buf2, "Shop  : modifier: %.2f        (factor  : %.2f%%)\n\r",
-	      gold_modifier[GOLD_SHOP].getVal(),
-	      100.0 * (tot_gold_allshops - net_gold_allshops) / tot_gold_allshops);
+              gold_modifier[GOLD_SHOP].getVal(),
+              100.0 * (tot_gold_allshops - net_gold_allshops) / tot_gold_allshops);
       buf += buf2;
       sprintf(buf2, "Income: modifier: %.2f        (factor  : %.2f%%)\n\r",
-	      gold_modifier[GOLD_INCOME].getVal(),
-	      100.0 * net_gold_budget / tot_gold_budget);
+              gold_modifier[GOLD_INCOME].getVal(),
+              100.0 * net_gold_budget / tot_gold_budget);
       buf += buf2;
       sprintf(buf2, "Repair: modifier: %.2f        (factor  : %.2f%%)\n\r",
-	      gold_modifier[GOLD_REPAIR].getVal(),
-	      100.0 * (tot_gold_budget - net_gold_budget) / tot_drain);
+              gold_modifier[GOLD_REPAIR].getVal(),
+              100.0 * (tot_gold_budget - net_gold_budget) / tot_drain);
       buf += buf2;
       sprintf(buf2, "Equip: modifier: %.2f        (factor  : %.2f%%)\n\r",
-	      stats.equip,
-	      100.0 * (tot_gold_shop_weap + tot_gold_shop_arm) / tot_gold);
+              stats.equip,
+              100.0 * (tot_gold_shop_weap + tot_gold_shop_arm) / tot_gold);
       buf += buf2;
       buf += "\n\r";
 
@@ -4478,110 +4478,110 @@ void TBeing::doInfo(const char *arg)
 #elif 0
       buf += "\n\rGold Income/Outlay statistics:\n\r\n\r";
       for (j=0; j < MAX_IMMORT; j++ ) {
-        long amount = gold_statistics[GOLD_INCOME][j] + 
-	  gold_statistics[GOLD_COMM][j] +
-	  gold_statistics[GOLD_GAMBLE][j] +
-	  gold_statistics[GOLD_REPAIR][j] +
-	  gold_statistics[GOLD_SHOP][j] +
-	  gold_statistics[GOLD_DUMP][j] +
-	  gold_statistics[GOLD_SHOP_ARMOR][j] +
-	  gold_statistics[GOLD_SHOP_WEAPON][j] +
-	  gold_statistics[GOLD_SHOP_PET][j] +
-	  gold_statistics[GOLD_SHOP_COMPONENTS][j] +
-	  gold_statistics[GOLD_SHOP_FOOD][j] +
-	  gold_statistics[GOLD_SHOP_RESPONSES][j] +
-	  gold_statistics[GOLD_SHOP_SYMBOL][j] +
-	  gold_statistics[GOLD_RENT][j] +
-	  gold_statistics[GOLD_HOSPITAL][j] +
-	  gold_statistics[GOLD_TITHE][j];
-        unsigned long pos = gold_positive[GOLD_INCOME][j] + 
-	  gold_positive[GOLD_COMM][j] +
-	  gold_positive[GOLD_GAMBLE][j] +
-	  gold_positive[GOLD_REPAIR][j] +
-	  gold_positive[GOLD_SHOP][j] +
-	  gold_positive[GOLD_DUMP][j] +
-	  gold_positive[GOLD_SHOP_SYMBOL][j] +
-	  gold_positive[GOLD_SHOP_ARMOR][j] +
-	  gold_positive[GOLD_SHOP_WEAPON][j] +
-	  gold_positive[GOLD_SHOP_PET][j] +
-	  gold_positive[GOLD_SHOP_RESPONSES][j] +
-	  gold_positive[GOLD_SHOP_COMPONENTS][j] +
-	  gold_positive[GOLD_SHOP_FOOD][j] +
-	  gold_positive[GOLD_RENT][j] +
-	  gold_positive[GOLD_HOSPITAL][j] +
-	  gold_positive[GOLD_TITHE][j];
+        long amount = gold_statistics[GOLD_INCOME][j] +
+          gold_statistics[GOLD_COMM][j]
+          gold_statistics[GOLD_GAMBLE][j]
+          gold_statistics[GOLD_REPAIR][j]
+          gold_statistics[GOLD_SHOP][j]
+          gold_statistics[GOLD_DUMP][j]
+          gold_statistics[GOLD_SHOP_ARMOR][j]
+          gold_statistics[GOLD_SHOP_WEAPON][j]
+          gold_statistics[GOLD_SHOP_PET][j]
+          gold_statistics[GOLD_SHOP_COMPONENTS][j]
+          gold_statistics[GOLD_SHOP_FOOD][j]
+          gold_statistics[GOLD_SHOP_RESPONSES][j]
+          gold_statistics[GOLD_SHOP_SYMBOL][j]
+          gold_statistics[GOLD_RENT][j]
+          gold_statistics[GOLD_HOSPITAL][j]
+          gold_statistics[GOLD_TITHE][j];
+        unsigned long pos = gold_positive[GOLD_INCOME][j] +
+          gold_positive[GOLD_COMM][j]
+          gold_positive[GOLD_GAMBLE][j]
+          gold_positive[GOLD_REPAIR][j]
+          gold_positive[GOLD_SHOP][j]
+          gold_positive[GOLD_DUMP][j]
+          gold_positive[GOLD_SHOP_SYMBOL][j]
+          gold_positive[GOLD_SHOP_ARMOR][j]
+          gold_positive[GOLD_SHOP_WEAPON][j]
+          gold_positive[GOLD_SHOP_PET][j]
+          gold_positive[GOLD_SHOP_RESPONSES][j]
+          gold_positive[GOLD_SHOP_COMPONENTS][j]
+          gold_positive[GOLD_SHOP_FOOD][j]
+          gold_positive[GOLD_RENT][j]
+          gold_positive[GOLD_HOSPITAL][j]
+          gold_positive[GOLD_TITHE][j];
         sprintf(buf2, "   %sLevel %2d:%s\n\r",
-		cyan(),j+1, norm());
+                cyan(),j+1, norm());
         buf += buf2;
         sprintf(buf2, "         %sPos  : %9ld%s  (%.2f%% of total)\n\r",
-		cyan(), pos, norm(),
-		100.0 * pos / tot_gold);
+                cyan(), pos, norm(),
+                100.0 * pos / tot_gold);
         buf += buf2;
         sprintf(buf2, "         %sNet  : %9ld%s  (%.2f%% of total)\n\r",
-		cyan(), amount, norm(),
-		100.0 * amount / net_gold);
+                cyan(), amount, norm(),
+                100.0 * amount / net_gold);
         buf += buf2;
         sprintf(buf2, "         %sDrain: %9ld%s  (%.2f%% of total)\n\r",
-		cyan(), pos - amount, norm(),
-		100.0 * (pos - amount) / (tot_gold - net_gold));
+                cyan(), pos - amount, norm(),
+                100.0 * (pos - amount) / (tot_gold - net_gold));
         buf += buf2;
 
         sprintf(buf2, "      income     : %8ld, comm       : %8ld, gamble     : %8ld\n\r",
-		gold_statistics[GOLD_INCOME][j], 
-		gold_statistics[GOLD_COMM][j], 
-		gold_statistics[GOLD_GAMBLE][j]);
+                gold_statistics[GOLD_INCOME][j],
+                gold_statistics[GOLD_COMM][j],
+                gold_statistics[GOLD_GAMBLE][j]);
         buf += buf2;
 
         sprintf(buf2, "      shop       : %8ld, respon shop: %8ld, repair     : %8ld\n\r",
-		gold_statistics[GOLD_SHOP][j], 
-		gold_statistics[GOLD_SHOP_RESPONSES][j], 
-		gold_statistics[GOLD_REPAIR][j]);
+                gold_statistics[GOLD_SHOP][j],
+                gold_statistics[GOLD_SHOP_RESPONSES][j],
+                gold_statistics[GOLD_REPAIR][j]);
         buf += buf2;
 
         sprintf(buf2, "      armor shop : %8ld, weapon shop: %8ld, pet shop   : %8ld\n\r",
-		gold_statistics[GOLD_SHOP_ARMOR][j], 
-		gold_statistics[GOLD_SHOP_WEAPON][j], 
-		gold_statistics[GOLD_SHOP_PET][j]);
+                gold_statistics[GOLD_SHOP_ARMOR][j],
+                gold_statistics[GOLD_SHOP_WEAPON][j],
+                gold_statistics[GOLD_SHOP_PET][j]);
         buf += buf2;
 
         sprintf(buf2, "      symbol shop: %8ld, compon shop: %8ld, food shop  : %8ld\n\r",
-		gold_statistics[GOLD_SHOP_SYMBOL][j],
-		gold_statistics[GOLD_SHOP_COMPONENTS][j],
-		gold_statistics[GOLD_SHOP_FOOD][j]);
+                gold_statistics[GOLD_SHOP_SYMBOL][j],
+                gold_statistics[GOLD_SHOP_COMPONENTS][j],
+                gold_statistics[GOLD_SHOP_FOOD][j]);
         buf += buf2;
 
         sprintf(buf2, "      rent       : %8ld, hospit     : %8ld, tithe      : %8ld\n\r",
-		gold_statistics[GOLD_RENT][j], 
-		gold_statistics[GOLD_HOSPITAL][j], 
-		gold_statistics[GOLD_TITHE][j]);
+                gold_statistics[GOLD_RENT][j],
+                gold_statistics[GOLD_HOSPITAL][j],
+                gold_statistics[GOLD_TITHE][j]);
         buf += buf2;
 
         sprintf(buf2, "      dump       : %8ld\n\r",
-		gold_statistics[GOLD_DUMP][j]);
+                gold_statistics[GOLD_DUMP][j]);
         buf += buf2;
       }
       desc->page_string(buf);
 #elif 1
       unsigned int tTotalGold[MAX_MONEY_TYPE],
-	tTotalGlobal = getPosGoldGlobal(),
-	tTotalShops  = getPosGoldShops(),
-	tTotalRent   = getPosGold(GOLD_RENT),
-	tTotalBudget = getPosGoldBudget();
+        tTotalGlobal = getPosGoldGlobal(),
+        tTotalShops  = getPosGoldShops(),
+        tTotalRent   = getPosGold(GOLD_RENT),
+        tTotalBudget = getPosGoldBudget();
       int tNetGold[MAX_MONEY_TYPE],
-	tNetGlobal   = getNetGoldGlobal(),
-	tNetShops    = getNetGoldShops(),
-	tNetBudget   = getNetGoldBudget(),
-	tNetRent     = getNetGold(GOLD_RENT);
+        tNetGlobal   = getNetGoldGlobal(),
+        tNetShops    = getNetGoldShops(),
+        tNetBudget   = getNetGoldBudget(),
+        tNetRent     = getNetGold(GOLD_RENT);
       int tTotalDrain  = tTotalGlobal - tNetGlobal;
 
       if (!arg || !*arg) {
         char tNames[MAX_MONEY_TYPE][20] =
-	  { "X-Fer"         , "Income"  , "Repair"     , "Shop",
-	    "Commodities"   , "Hospital", "Gamble"     , "Rent",
-	    "Dump"          , "Tithe"   , "Shop-Symbol", "Shop-Weapon",
-	    "Shop-Armor"    , "Shop-Pet", "Shop-Food"  , "Shop-Components",
-	    "Shop-Responses"
-	  };
+          { "X-Fer"         , "Income"  , "Repair"     , "Shop",
+            "Commodities"   , "Hospital", "Gamble"     , "Rent",
+            "Dump"          , "Tithe"   , "Shop-Symbol", "Shop-Weapon",
+            "Shop-Armor"    , "Shop-Pet", "Shop-Food"  , "Shop-Components",
+            "Shop-Responses"
+          };
 
         sprintf(buf2, "Modifier: Shop  : %2.2f (Factor: %6.2f%%)\n\r",
                 gold_modifier[GOLD_SHOP].getVal(),
@@ -4642,7 +4642,7 @@ void TBeing::doInfo(const char *arg)
           break;
 
         unsigned long tPosTotal = 0;
-	long tStaTotal = 0;
+        long tStaTotal = 0;
 
         for (moneyTypeT tMoney = GOLD_INCOME; tMoney < MAX_MONEY_TYPE; tMoney++) {
           tPosTotal += gold_positive[tMoney][j];
@@ -4740,20 +4740,20 @@ void TBeing::doInfo(const char *arg)
       int tot_drain = tot_gold - net_gold;
 
       sprintf(buf2, "Shop  : modifier: %.2f        (factor  : %.2f%%)\n\r",
-	      gold_modifier[GOLD_SHOP].getVal(),
-	      100.0 * (tot_gold_allshops - net_gold_allshops) / tot_gold_allshops);
+              gold_modifier[GOLD_SHOP].getVal(),
+              100.0 * (tot_gold_allshops - net_gold_allshops) / tot_gold_allshops);
       buf += buf2;
       sprintf(buf2, "Income: modifier: %.2f        (factor  : %.2f%%)\n\r",
-	      gold_modifier[GOLD_INCOME].getVal(),
-	      100.0 * net_gold_budget / tot_gold_budget);
+              gold_modifier[GOLD_INCOME].getVal(),
+              100.0 * net_gold_budget / tot_gold_budget);
       buf += buf2;
       sprintf(buf2, "Repair: modifier: %.2f        (factor  : %.2f%%)\n\r",
-	      gold_modifier[GOLD_REPAIR].getVal(),
-	      100.0 * (tot_gold_budget - net_gold_budget) / tot_drain);
+              gold_modifier[GOLD_REPAIR].getVal(),
+              100.0 * (tot_gold_budget - net_gold_budget) / tot_drain);
       buf += buf2;
       sprintf(buf2, "Equip: modifier: %.2f        (factor  : %.2f%%)\n\r",
-	      stats.equip,
-	      100.0 * (tot_gold_shop_weap + tot_gold_shop_arm) / tot_gold);
+              stats.equip,
+              100.0 * (tot_gold_shop_weap + tot_gold_shop_arm) / tot_gold);
       buf += buf2;
       buf += "\n\r";
 
@@ -4811,86 +4811,86 @@ void TBeing::doInfo(const char *arg)
 
       buf += "\n\rGold Income/Outlay statistics:\n\r\n\r";
       for (j=0; j < MAX_IMMORT; j++ ) {
-        long amount = gold_statistics[GOLD_INCOME][j] + 
-	  gold_statistics[GOLD_COMM][j] +
-	  gold_statistics[GOLD_GAMBLE][j] +
-	  gold_statistics[GOLD_REPAIR][j] +
-	  gold_statistics[GOLD_SHOP][j] +
-	  gold_statistics[GOLD_DUMP][j] +
-	  gold_statistics[GOLD_SHOP_ARMOR][j] +
-	  gold_statistics[GOLD_SHOP_WEAPON][j] +
-	  gold_statistics[GOLD_SHOP_PET][j] +
-	  gold_statistics[GOLD_SHOP_COMPONENTS][j] +
-	  gold_statistics[GOLD_SHOP_FOOD][j] +
-	  gold_statistics[GOLD_SHOP_RESPONSES][j] +
-	  gold_statistics[GOLD_SHOP_SYMBOL][j] +
-	  gold_statistics[GOLD_RENT][j] +
-	  gold_statistics[GOLD_HOSPITAL][j] +
-	  gold_statistics[GOLD_TITHE][j];
-        unsigned long pos = gold_positive[GOLD_INCOME][j] + 
-	  gold_positive[GOLD_COMM][j] +
-	  gold_positive[GOLD_GAMBLE][j] +
-	  gold_positive[GOLD_REPAIR][j] +
-	  gold_positive[GOLD_SHOP][j] +
-	  gold_positive[GOLD_DUMP][j] +
-	  gold_positive[GOLD_SHOP_SYMBOL][j] +
-	  gold_positive[GOLD_SHOP_ARMOR][j] +
-	  gold_positive[GOLD_SHOP_WEAPON][j] +
-	  gold_positive[GOLD_SHOP_PET][j] +
-	  gold_positive[GOLD_SHOP_RESPONSES][j] +
-	  gold_positive[GOLD_SHOP_COMPONENTS][j] +
-	  gold_positive[GOLD_SHOP_FOOD][j] +
-	  gold_positive[GOLD_RENT][j] +
-	  gold_positive[GOLD_HOSPITAL][j] +
-	  gold_positive[GOLD_TITHE][j];
+        long amount = gold_statistics[GOLD_INCOME][j] +
+          gold_statistics[GOLD_COMM][j]
+          gold_statistics[GOLD_GAMBLE][j]
+          gold_statistics[GOLD_REPAIR][j]
+          gold_statistics[GOLD_SHOP][j]
+          gold_statistics[GOLD_DUMP][j]
+          gold_statistics[GOLD_SHOP_ARMOR][j]
+          gold_statistics[GOLD_SHOP_WEAPON][j]
+          gold_statistics[GOLD_SHOP_PET][j]
+          gold_statistics[GOLD_SHOP_COMPONENTS][j]
+          gold_statistics[GOLD_SHOP_FOOD][j]
+          gold_statistics[GOLD_SHOP_RESPONSES][j]
+          gold_statistics[GOLD_SHOP_SYMBOL][j]
+          gold_statistics[GOLD_RENT][j]
+          gold_statistics[GOLD_HOSPITAL][j]
+          gold_statistics[GOLD_TITHE][j];
+        unsigned long pos = gold_positive[GOLD_INCOME][j] +
+          gold_positive[GOLD_COMM][j]
+          gold_positive[GOLD_GAMBLE][j]
+          gold_positive[GOLD_REPAIR][j]
+          gold_positive[GOLD_SHOP][j]
+          gold_positive[GOLD_DUMP][j]
+          gold_positive[GOLD_SHOP_SYMBOL][j]
+          gold_positive[GOLD_SHOP_ARMOR][j]
+          gold_positive[GOLD_SHOP_WEAPON][j]
+          gold_positive[GOLD_SHOP_PET][j]
+          gold_positive[GOLD_SHOP_RESPONSES][j]
+          gold_positive[GOLD_SHOP_COMPONENTS][j]
+          gold_positive[GOLD_SHOP_FOOD][j]
+          gold_positive[GOLD_RENT][j]
+          gold_positive[GOLD_HOSPITAL][j]
+          gold_positive[GOLD_TITHE][j];
         sprintf(buf2, "   %sLevel %2d:%s\n\r",
-		cyan(),j+1, norm());
+                cyan(),j+1, norm());
         buf += buf2;
         sprintf(buf2, "         %sPos  : %9ld%s  (%.2f%% of total)\n\r",
-		cyan(), pos, norm(),
-		100.0 * pos / tot_gold);
+                cyan(), pos, norm(),
+                100.0 * pos / tot_gold);
         buf += buf2;
         sprintf(buf2, "         %sNet  : %9ld%s  (%.2f%% of total)\n\r",
-		cyan(), amount, norm(),
-		100.0 * amount / net_gold);
+                cyan(), amount, norm(),
+                100.0 * amount / net_gold);
         buf += buf2;
         sprintf(buf2, "         %sDrain: %9ld%s  (%.2f%% of total)\n\r",
-		cyan(), pos - amount, norm(),
-		100.0 * (pos - amount) / (tot_gold - net_gold));
+                cyan(), pos - amount, norm(),
+                100.0 * (pos - amount) / (tot_gold - net_gold));
         buf += buf2;
 
         sprintf(buf2, "      income     : %8ld, comm       : %8ld, gamble     : %8ld\n\r",
-		gold_statistics[GOLD_INCOME][j], 
-		gold_statistics[GOLD_COMM][j], 
-		gold_statistics[GOLD_GAMBLE][j]);
+                gold_statistics[GOLD_INCOME][j],
+                gold_statistics[GOLD_COMM][j],
+                gold_statistics[GOLD_GAMBLE][j]);
         buf += buf2;
 
         sprintf(buf2, "      shop       : %8ld, respon shop: %8ld, repair     : %8ld\n\r",
-		gold_statistics[GOLD_SHOP][j], 
-		gold_statistics[GOLD_SHOP_RESPONSES][j], 
-		gold_statistics[GOLD_REPAIR][j]);
+                gold_statistics[GOLD_SHOP][j],
+                gold_statistics[GOLD_SHOP_RESPONSES][j],
+                gold_statistics[GOLD_REPAIR][j]);
         buf += buf2;
 
         sprintf(buf2, "      armor shop : %8ld, weapon shop: %8ld, pet shop   : %8ld\n\r",
-		gold_statistics[GOLD_SHOP_ARMOR][j], 
-		gold_statistics[GOLD_SHOP_WEAPON][j], 
-		gold_statistics[GOLD_SHOP_PET][j]);
+                gold_statistics[GOLD_SHOP_ARMOR][j],
+                gold_statistics[GOLD_SHOP_WEAPON][j],
+                gold_statistics[GOLD_SHOP_PET][j]);
         buf += buf2;
 
         sprintf(buf2, "      symbol shop: %8ld, compon shop: %8ld, food shop  : %8ld\n\r",
-		gold_statistics[GOLD_SHOP_SYMBOL][j],
-		gold_statistics[GOLD_SHOP_COMPONENTS][j],
-		gold_statistics[GOLD_SHOP_FOOD][j]);
+                gold_statistics[GOLD_SHOP_SYMBOL][j],
+                gold_statistics[GOLD_SHOP_COMPONENTS][j],
+                gold_statistics[GOLD_SHOP_FOOD][j]);
         buf += buf2;
 
         sprintf(buf2, "      rent       : %8ld, hospit     : %8ld, tithe      : %8ld\n\r",
-		gold_statistics[GOLD_RENT][j], 
-		gold_statistics[GOLD_HOSPITAL][j], 
-		gold_statistics[GOLD_TITHE][j]);
+                gold_statistics[GOLD_RENT][j],
+                gold_statistics[GOLD_HOSPITAL][j],
+                gold_statistics[GOLD_TITHE][j]);
         buf += buf2;
 
         sprintf(buf2, "      dump       : %8ld\n\r",
-		gold_statistics[GOLD_DUMP][j]);
+                gold_statistics[GOLD_DUMP][j]);
         buf += buf2;
       }
       desc->page_string(buf);
@@ -4915,15 +4915,15 @@ void TBeing::doInfo(const char *arg)
         if (!(discArray[snt]->disc == which))
           continue;
         sprintf(buf2,"%-20.20s: %5d %6.2f %6.2f %5d %6.2f %3d/%-3d %4d/%-4d %3d\n\r",
-		discArray[snt]->name,
-		discArray[snt]->uses,
-		(float) (discArray[snt]->uses == 0 ? 0 : (float) discArray[snt]->levels/(float) discArray[snt]->uses),
-		(float) (discArray[snt]->victims == 0 ? 0 : (float) discArray[snt]->damage/(float) discArray[snt]->victims),
-		discArray[snt]->victims,
-		(float) (discArray[snt]->uses == 0 ? 0 : (float) discArray[snt]->learned/(float) discArray[snt]->uses),
-		discArray[snt]->crits,discArray[snt]->critf,
-		discArray[snt]->success,discArray[snt]->fail,
-		discArray[snt]->saves);
+                discArray[snt]->name,
+                discArray[snt]->uses,
+                (float) (discArray[snt]->uses == 0 ? 0 : (float) discArray[snt]->levels/(float) discArray[snt]->uses),
+                (float) (discArray[snt]->victims == 0 ? 0 : (float) discArray[snt]->damage/(float) discArray[snt]->victims),
+                discArray[snt]->victims,
+                (float) (discArray[snt]->uses == 0 ? 0 : (float) discArray[snt]->learned/(float) discArray[snt]->uses),
+                discArray[snt]->crits,discArray[snt]->critf,
+                discArray[snt]->success,discArray[snt]->fail,
+                discArray[snt]->saves);
         buf += buf2;
       }
       desc->page_string(buf);
@@ -4969,35 +4969,35 @@ void TBeing::doInfo(const char *arg)
       buf += buf2;
       sprintf(buf2, "DIFFICULTY: %s\tLAG: %d rounds\n\r", displayDifficulty(which).c_str(),  discArray[which]->lag);
       buf += buf2;
-      sprintf(buf2, "USES:     %d\tMOBUSES: %d\tIMMUSES: %d\n\r", 
-	      discArray[which]->uses,
-	      discArray[which]->mobUses,
-	      discArray[which]->immUses);
+      sprintf(buf2, "USES:     %d\tMOBUSES: %d\tIMMUSES: %d\n\r",
+              discArray[which]->uses,
+              discArray[which]->mobUses,
+              discArray[which]->immUses);
       buf += buf2;
-      sprintf(buf2, "LEVEL:    %.2f\tMOBLVL:  %.2f\tIMMLVL:  %.2f\n\r", 
-	      discArray[which]->uses ? (float) discArray[which]->levels / discArray[which]->uses : 0,
-	      discArray[which]->mobUses ? (float) discArray[which]->mobLevels / discArray[which]->mobUses : 0,
-	      discArray[which]->immUses ? (float) discArray[which]->immLevels / discArray[which]->immUses : 0);
+      sprintf(buf2, "LEVEL:    %.2f\tMOBLVL:  %.2f\tIMMLVL:  %.2f\n\r",
+              discArray[which]->uses ? (float) discArray[which]->levels / discArray[which]->uses : 0,
+              discArray[which]->mobUses ? (float) discArray[which]->mobLevels / discArray[which]->mobUses : 0,
+              discArray[which]->immUses ? (float) discArray[which]->immLevels / discArray[which]->immUses : 0);
       buf += buf2;
-      sprintf(buf2, "LEARN:    %.2f\tMOBLRN:  %.2f\tIMMLRN:  %.2f\n\r", 
-	      discArray[which]->uses ? (float) discArray[which]->learned / discArray[which]->uses : 0,
-	      discArray[which]->mobUses ? (float) discArray[which]->mobLearned / discArray[which]->mobUses : 0,
-	      discArray[which]->immUses ? (float) discArray[which]->immLearned / discArray[which]->immUses : 0);
+      sprintf(buf2, "LEARN:    %.2f\tMOBLRN:  %.2f\tIMMLRN:  %.2f\n\r",
+              discArray[which]->uses ? (float) discArray[which]->learned / discArray[which]->uses : 0,
+              discArray[which]->mobUses ? (float) discArray[which]->mobLearned / discArray[which]->mobUses : 0,
+              discArray[which]->immUses ? (float) discArray[which]->immLearned / discArray[which]->immUses : 0);
       buf += buf2;
-      sprintf(buf2, "SUCCESS:  %d\tMOBSUCC: %d\tIMMSUCC: %d\n\r", 
-	      discArray[which]->success,
-	      discArray[which]->mobSuccess,
-	      discArray[which]->immSuccess);
+      sprintf(buf2, "SUCCESS:  %d\tMOBSUCC: %d\tIMMSUCC: %d\n\r",
+              discArray[which]->success,
+              discArray[which]->mobSuccess,
+              discArray[which]->immSuccess);
       buf += buf2;
-      sprintf(buf2, "FAILS:    %d\tMOBFAIL: %d\tIMMFAIL: %d\n\r", 
-	      discArray[which]->fail,
-	      discArray[which]->mobFail,
-	      discArray[which]->immFail);
+      sprintf(buf2, "FAILS:    %d\tMOBFAIL: %d\tIMMFAIL: %d\n\r",
+              discArray[which]->fail,
+              discArray[which]->mobFail,
+              discArray[which]->immFail);
       buf += buf2;
-      sprintf(buf2, "POTIONS:  %d\tMOB-POT: %d\tIMM-POT: %d\n\r", 
-	      discArray[which]->potSuccess,
-	      discArray[which]->potSuccessMob,
-	      discArray[which]->potSuccessImm);
+      sprintf(buf2, "POTIONS:  %d\tMOB-POT: %d\tIMM-POT: %d\n\r",
+              discArray[which]->potSuccess,
+              discArray[which]->potSuccessMob,
+              discArray[which]->potSuccessImm);
       buf += buf2;
       // we will keep the potion successes out of this calculation
       // as we basically want to use it to look at if a naturally used skill
@@ -5005,71 +5005,71 @@ void TBeing::doInfo(const char *arg)
       int tot = discArray[which]->success + discArray[which]->fail;
       int mobtot = discArray[which]->mobSuccess + discArray[which]->mobFail;
       int immtot = discArray[which]->immSuccess + discArray[which]->immFail;
-      sprintf(buf2, "RATE :    %.1f%%\tMOBRATE: %.1f%%\tIMMRATE: %.1f%%\n\r", 
-	      tot ? discArray[which]->success * 100.0 / tot : 0,
-	      mobtot ? discArray[which]->mobSuccess * 100.0 / mobtot : 0,
-	      immtot ? discArray[which]->immSuccess * 100.0 / immtot : 0);
+      sprintf(buf2, "RATE :    %.1f%%\tMOBRATE: %.1f%%\tIMMRATE: %.1f%%\n\r",
+              tot ? discArray[which]->success * 100.0 / tot : 0,
+              mobtot ? discArray[which]->mobSuccess * 100.0 / mobtot : 0,
+              immtot ? discArray[which]->immSuccess * 100.0 / immtot : 0);
       buf += buf2;
-      sprintf(buf2, "SAVES:    %d\tMOBSAVE: %d\tIMMSAVE: %d\n\r", 
-	      discArray[which]->saves,
-	      discArray[which]->mobSaves,
-	      discArray[which]->immSaves);
+      sprintf(buf2, "SAVES:    %d\tMOBSAVE: %d\tIMMSAVE: %d\n\r",
+              discArray[which]->saves,
+              discArray[which]->mobSaves,
+              discArray[which]->immSaves);
       buf += buf2;
-      sprintf(buf2, "CRIT-SUC: %d\tMOBCSUC: %d\tIMMCSUC: %d\n\r", 
-	      discArray[which]->crits,
-	      discArray[which]->mobCrits,
-	      discArray[which]->immCrits);
+      sprintf(buf2, "CRIT-SUC: %d\tMOBCSUC: %d\tIMMCSUC: %d\n\r",
+              discArray[which]->crits,
+              discArray[which]->mobCrits,
+              discArray[which]->immCrits);
       buf += buf2;
-      sprintf(buf2, "CRIT-FAI: %d\tMOBCFAI: %d\tIMMCFAI: %d\n\r", 
-	      discArray[which]->critf,
-	      discArray[which]->mobCritf,
-	      discArray[which]->immCritf);
+      sprintf(buf2, "CRIT-FAI: %d\tMOBCFAI: %d\tIMMCFAI: %d\n\r",
+              discArray[which]->critf,
+              discArray[which]->mobCritf,
+              discArray[which]->immCritf);
       buf += buf2;
-      sprintf(buf2, "VICTIMS:  %d\tMOBVICT: %d\tIMMVICT: %d\n\r", 
-	      discArray[which]->victims,
-	      discArray[which]->mobVictims,
-	      discArray[which]->immVictims);
+      sprintf(buf2, "VICTIMS:  %d\tMOBVICT: %d\tIMMVICT: %d\n\r",
+              discArray[which]->victims,
+              discArray[which]->mobVictims,
+              discArray[which]->immVictims);
       buf += buf2;
-      sprintf(buf2, "DAMAGE:   %.2f\tMOBDAM:  %.2f\tIMMDAM:  %.2f\n\r", 
-	      discArray[which]->victims ? (float) discArray[which]->damage / discArray[which]->victims : 0,
-	      discArray[which]->mobVictims ? (float) discArray[which]->mobDamage / discArray[which]->mobVictims : 0,
-	      discArray[which]->immVictims ? (float) discArray[which]->immDamage / discArray[which]->immVictims : 0);
+      sprintf(buf2, "DAMAGE:   %.2f\tMOBDAM:  %.2f\tIMMDAM:  %.2f\n\r",
+              discArray[which]->victims ? (float) discArray[which]->damage / discArray[which]->victims : 0,
+              discArray[which]->mobVictims ? (float) discArray[which]->mobDamage / discArray[which]->mobVictims : 0,
+              discArray[which]->immVictims ? (float) discArray[which]->immDamage / discArray[which]->immVictims : 0);
       buf += buf2;
-      sprintf(buf2, "FOCUS:    %.2f\n\r", 
-	      discArray[which]->uses ? (float) discArray[which]->focusValue / discArray[which]->uses : 0);
+      sprintf(buf2, "FOCUS:    %.2f\n\r",
+              discArray[which]->uses ? (float) discArray[which]->focusValue / discArray[which]->uses : 0);
       buf += buf2;
-      sprintf(buf2, "Potential Victims:  %ld, Potential Damage %.2f, Potential Level %.2f\n\r", 
-	      discArray[which]->pot_victims,
-	      discArray[which]->pot_victims ? (float) discArray[which]->pot_damage / discArray[which]->pot_victims : 0,
-	      discArray[which]->pot_victims ? (float) discArray[which]->pot_level / discArray[which]->pot_victims : 0);
+      sprintf(buf2, "Potential Victims:  %ld, Potential Damage %.2f, Potential Level %.2f\n\r",
+              discArray[which]->pot_victims,
+              discArray[which]->pot_victims ? (float) discArray[which]->pot_damage / discArray[which]->pot_victims : 0,
+              discArray[which]->pot_victims ? (float) discArray[which]->pot_level / discArray[which]->pot_victims : 0);
       buf += buf2;
 
       buf += "\n\rAttempts Breakdown:\n\r";
       sprintf(buf2, "New: %d, low: %d, mid: %d, good: %d, high: %d\n\r",
-	      discArray[which]->newAttempts,
-	      discArray[which]->lowAttempts,
-	      discArray[which]->midAttempts,
-	      discArray[which]->goodAttempts,
-	      discArray[which]->highAttempts);
+              discArray[which]->newAttempts,
+              discArray[which]->lowAttempts,
+              discArray[which]->midAttempts,
+              discArray[which]->goodAttempts,
+              discArray[which]->highAttempts);
       buf += buf2;
 
       buf += "Failure Breakdown:\n\r";
       sprintf(buf2, "General: %d, Focus: %d, Engage: %d\n\r",
-	      discArray[which]->genFail,
-	      discArray[which]->focFail,
-	      discArray[which]->focFail);
+              discArray[which]->genFail,
+              discArray[which]->focFail,
+              discArray[which]->focFail);
       buf += buf2;
 
       buf += "Learning Info:\n\r";
       sprintf(buf2, "Attempts: %ld, Successes: %d, Fails: %d\n\rLearning: %d, Level: %d, Boost: %ld\n\rDisc Success: %d, Adv Success: %d\n\r",
-	      discArray[which]->learnAttempts,
-	      discArray[which]->learnSuccess,
-	      discArray[which]->learnFail,
-	      discArray[which]->learnLearn,
-	      discArray[which]->learnLevel,
-	      discArray[which]->learnBoost,
-	      discArray[which]->learnDiscSuccess,
-	      discArray[which]->learnAdvDiscSuccess);
+              discArray[which]->learnAttempts,
+              discArray[which]->learnSuccess,
+              discArray[which]->learnFail,
+              discArray[which]->learnLearn,
+              discArray[which]->learnLevel,
+              discArray[which]->learnBoost,
+              discArray[which]->learnDiscSuccess,
+              discArray[which]->learnAdvDiscSuccess);
       buf += buf2;
 
       one_argument(arg, arg1, cElements(arg1));
@@ -5104,15 +5104,15 @@ void TBeing::doInfo(const char *arg)
         if (!(discArray[snt]->disc == which))
           continue;
         sprintf(buf2,"%-20.20s: %5d %6.2f %6.2f %5d %6.2f %3d/%-3d %4d/%-4d %3d\n\r",
-		discArray[snt]->name,
-		discArray[snt]->mobUses,
-		(float) (discArray[snt]->mobUses == 0 ? 0 : (float) discArray[snt]->mobLevels/(float) discArray[snt]->mobUses),
-		(float) (discArray[snt]->mobVictims == 0 ? 0 : (float) discArray[snt]->mobDamage/(float) discArray[snt]->mobVictims),
-		discArray[snt]->mobVictims,
-		(float) (discArray[snt]->mobUses == 0 ? 0 : (float) discArray[snt]->mobLearned/(float) discArray[snt]->mobUses),
-		discArray[snt]->mobCrits, discArray[snt]->mobCritf,
-		discArray[snt]->mobSuccess, discArray[snt]->mobFail,
-		discArray[snt]->mobSaves);
+                discArray[snt]->name,
+                discArray[snt]->mobUses,
+                (float) (discArray[snt]->mobUses == 0 ? 0 : (float) discArray[snt]->mobLevels/(float) discArray[snt]->mobUses),
+                (float) (discArray[snt]->mobVictims == 0 ? 0 : (float) discArray[snt]->mobDamage/(float) discArray[snt]->mobVictims),
+                discArray[snt]->mobVictims,
+                (float) (discArray[snt]->mobUses == 0 ? 0 : (float) discArray[snt]->mobLearned/(float) discArray[snt]->mobUses),
+                discArray[snt]->mobCrits, discArray[snt]->mobCritf,
+                discArray[snt]->mobSuccess, discArray[snt]->mobFail,
+                discArray[snt]->mobSaves);
         buf += buf2;
       }
       desc->page_string(buf);
@@ -5136,16 +5136,16 @@ void TBeing::doInfo(const char *arg)
         if (!(discArray[snt]->disc == which))
           continue;
         sprintf(buf2,"%-20.20s: %5d %6.2f %6.2f %5d %6.2f %3d/%-3d %4d/%-4d %3d\n\r",
-		discArray[snt]->name,
-		discArray[snt]->immUses,
-		(float) (discArray[snt]->immUses == 0 ? 0 : (float) discArray[snt]->immLevels/(float) discArray[snt]->immUses),
-		(float) (discArray[snt]->immVictims == 0 ? 0 : (float) discArray[snt]->immDamage/(float) discArray[snt]->immVictims),
-		discArray[snt]->immVictims,
-		(float) (discArray[snt]->immUses == 0 ? 0 : (float) discArray[snt]->immLearned/(float) discArray[snt]->immUses),
-		discArray[snt]->immCrits,discArray[snt]->immCritf,
-		discArray[snt]->immSuccess,discArray[snt]->immFail,
-		discArray[snt]->immSaves);
-	buf += buf2;
+                discArray[snt]->name,
+                discArray[snt]->immUses,
+                (float) (discArray[snt]->immUses == 0 ? 0 : (float) discArray[snt]->immLevels/(float) discArray[snt]->immUses),
+                (float) (discArray[snt]->immVictims == 0 ? 0 : (float) discArray[snt]->immDamage/(float) discArray[snt]->immVictims),
+                discArray[snt]->immVictims,
+                (float) (discArray[snt]->immUses == 0 ? 0 : (float) discArray[snt]->immLearned/(float) discArray[snt]->immUses),
+                discArray[snt]->immCrits,discArray[snt]->immCritf,
+                discArray[snt]->immSuccess,discArray[snt]->immFail,
+                discArray[snt]->immSaves);
+        buf += buf2;
       }
       desc->page_string(buf);
     } else {
@@ -5195,10 +5195,10 @@ static void TimeTravel(const char *ch)
     h.last_update = time(0);
     unsigned int amt = h.total_cost * delta / SECS_PER_REAL_DAY;
     h.gold_left += amt;
-    vlogf(LOG_SILENT, format("Crediting %s with %u gold for downtime. (left=%d)") % 
+    vlogf(LOG_SILENT, format("Crediting %s with %u gold for downtime. (left=%d)") %
         ch % amt % h.gold_left);
   } else
-    vlogf(LOG_SILENT, format("TimeTravel for %s done as update-advance only. (left=%d)") % 
+    vlogf(LOG_SILENT, format("TimeTravel for %s done as update-advance only. (left=%d)") %
         ch % h.gold_left);
 
   rewind(fp);
@@ -5221,7 +5221,7 @@ void TBeing::doTimeshift(const char *arg)
     return;
   if (powerCheck(POWER_TIMESHIFT))
     return;
-  
+
   if(!(deltatime=convertTo<int>(arg))){
     sendTo("Syntax: timeshift <minutes>\n\r");
     return;
@@ -5348,9 +5348,9 @@ void TBeing::doLog(const char *argument)
           }
         }
       }
-      if (!found) 
+      if (!found)
         sendTo("No one logged in is currently logged.\n\r");
-    } else 
+    } else
       sendTo("Syntax : log <name> -(w)\n\r");
 
     return;
@@ -5490,15 +5490,15 @@ void TBeing::doQuest(const char *argument)
   return;
 }
 
-void TBeing::doFindEmail(const char *arg) 
+void TBeing::doFindEmail(const char *arg)
 {
-  if (!isImmortal()) 
+  if (!isImmortal())
     return;
 
   if (powerCheck(POWER_FINDEMAIL))
     return;
 
-  for (; isspace(*arg); arg++);    // pass all those spaces 
+  for (; isspace(*arg); arg++);    // pass all those spaces
   if (!*arg) {
     sendTo("Syntax: findemail \"email\"\n\r");
     return;
@@ -5510,15 +5510,15 @@ void TBeing::doFindEmail(const char *arg)
   systask->AddTask(this, SYSTEM_FIND_EMAIL, argument);
 }
 
-void TBeing::doSysMid() 
+void TBeing::doSysMid()
 {
-  if (!isImmortal()) 
+  if (!isImmortal())
     return;
 
   systask->AddTask(this, SYSTEM_MAIL_IMMORT_DIR, NULL);
 }
 
-void TBeing::doSysTraceroute(const sstring &arg) 
+void TBeing::doSysTraceroute(const sstring &arg)
 {
   if (powerCheck(POWER_TRACEROUTE))
     return;
@@ -5534,7 +5534,7 @@ void TBeing::doSysTraceroute(const sstring &arg)
   systask->AddTask(this, SYSTEM_TRACEROUTE, arg.c_str());
 }
 
-void TBeing::doSysTasks(const sstring &arg) 
+void TBeing::doSysTasks(const sstring &arg)
 {
   if (!isImmortal())
     return;
@@ -5623,18 +5623,18 @@ void TBeing::doSysChecklog(const sstring &arg)
   // There is a tendency for people to see what bad things folks have said
   // about them using checklog.  Obviously, not good, so we log the event
   // and watch for imms blindly checking logs on other imms, etc.
- 
+
   // If we don't trust these people why even have the command?
   if (!hasWizPower(POWER_WIZARD))
     vlogf(LOG_MISC, format("%s checklogging: '%s'") %  getName() % tString);
 }
 
-void TBeing::doSysViewoutput() 
+void TBeing::doSysViewoutput()
 {
   char  file[32];
   sprintf(file, "tmp/%s.output", getName());
 
-  if (!desc->m_bIsClient) 
+  if (!desc->m_bIsClient)
     desc->start_page_file( file, "There is nothing to read.\n\r");
   else {
     sstring sb = "";
@@ -5642,7 +5642,7 @@ void TBeing::doSysViewoutput()
     sb += "\n\r";
     processStringForClient(sb);
     desc->clientf(format("%d") % CLIENT_NOTE);
-    sendTo(format("%s") % sb);  
+    sendTo(format("%s") % sb);
     desc->clientf(format("%d") % CLIENT_NOTE_END);
   }
 }
@@ -5653,7 +5653,7 @@ int TBeing::doExec()
   TObj *script;
   const char *lptr = NULL;
   char lbuf[4096];
-  const char *invalidcmds[] = {"exec", "oedit", "medit", "redit", 
+  const char *invalidcmds[] = {"exec", "oedit", "medit", "redit",
    "bug", "idea", "typo", "description", "comment", 0};
   int  i, broken = FALSE, rc;
 
@@ -5710,7 +5710,7 @@ int TBeing::doExec()
     }
 
     lptr = strchr(lptr, '\r');
-    if (lptr) 
+    if (lptr)
       ++lptr;
   }
   return 0;
@@ -5724,7 +5724,7 @@ void TBeing::doResize(const char *arg)
   sstring buf, feedback;
   int race = 0;
   int height = 0;
-  
+
   if (!hasWizPower(POWER_RESIZE)) {
     sendTo("You don't have that power.\n\r");
     return;
@@ -5738,7 +5738,7 @@ void TBeing::doResize(const char *arg)
   sendTo("        resize <object> height <height>\n\r");
     return;
   }
-  
+
   if (!strcmp(arg_type, "race")) {
     // they are resizing for a specific race
     arg = one_argument(arg, arg_type_val, cElements(arg_type_val));
@@ -5767,7 +5767,7 @@ void TBeing::doResize(const char *arg)
     sendTo(format("You do not seem to have the %s.\n\r") % arg_obj);
     return;
   }
-  
+
 #if 0
   // i don't see the point of this...
   if (obj->objVnum() != -1 &&
@@ -5780,7 +5780,7 @@ void TBeing::doResize(const char *arg)
   if (dynamic_cast<TBaseClothing *>(obj)) {
     wearSlotT slot = slot_from_bit(obj->obj_flags.wear_flags);
     int new_volume;
-  
+
     if (race_vol_constants[mapSlotToFile(slot)]) {
     if (race) {
     // if average height for each race is aleady stored someplace, i missed it
@@ -5809,11 +5809,11 @@ void TBeing::doResize(const char *arg)
     vlogf(LOG_BUG, format("Missing race_vol_constant[] while resizing %s.") % obj->getName());
     return;
   }
-    
+
     // disassociate from global memory
     obj->swapToStrung();
 
-    //  flag the object as having been resized for an individual 
+    //  flag the object as having been resized for an individual
     if (targ && obj->objVnum() != -1) {
       buf = format("%s [resized]") % obj->name;
       delete [] obj->name;
@@ -5853,7 +5853,7 @@ void TBeing::doHeaven(const sstring &arg)
   if (powerCheck(POWER_HEAVEN))
     return;
 
-  one_argument(arg, buf); 
+  one_argument(arg, buf);
   if (buf.empty() || !(num = convertTo<int>(buf))) {
     sendTo("Syntax: heaven <hours>\n\r");
     return;
@@ -5946,14 +5946,14 @@ void TBeing::doAccount(const sstring &arg)
         sendTo(format("You have set the %s account email-banished.\n\r") % account.name);
         vlogf(LOG_MISC, format("%s email-banished account '%s'") % getName() % account.name);
       }
-      
+
       account.write(namebuf);
       return;
     } else if (is_abbrev(my_arg, "double")) {
       if (powerCheck(POWER_FLAG_IMP_POWER)) {
         return;
       }
-  
+
       if (IS_SET(account.flags, TAccount::ALLOW_DOUBLECLASS)) {
         REMOVE_BIT(account.flags, TAccount::ALLOW_DOUBLECLASS);
         sendTo(format("You revoke the %s account's ability to double-class.\n\r") % account.name);
@@ -5961,14 +5961,14 @@ void TBeing::doAccount(const sstring &arg)
         SET_BIT(account.flags, TAccount::ALLOW_DOUBLECLASS);
         sendTo(format("You grant the %s account the ability to double-class.\n\r") % account.name);
       }
-      
+
       account.write(namebuf);
       return;
     } else if (is_abbrev(my_arg, "triple")) {
       if (powerCheck(POWER_FLAG_IMP_POWER)) {
         return;
       }
-  
+
       if (IS_SET(account.flags, TAccount::ALLOW_TRIPLECLASS)) {
         REMOVE_BIT(account.flags, TAccount::ALLOW_TRIPLECLASS);
         sendTo(format("You revoke the %s account's ability to triple-class.\n\r") % account.name);
@@ -5980,7 +5980,7 @@ void TBeing::doAccount(const sstring &arg)
       account.write(namebuf);
       return;
     } else if (is_abbrev(my_arg, "immortal")) {
-      // this is not something that should be done (manually) unless a 
+      // this is not something that should be done (manually) unless a
       // god has left immortality entirely
 
       if (powerCheck(POWER_FLAG_IMP_POWER)) {
@@ -6006,7 +6006,7 @@ void TBeing::doAccount(const sstring &arg)
         sendTo("Sorry you suck too much to do this.\n\r");
         return;
       }
-  
+
       if (IS_SET(account.flags, TAccount::IMMORTAL)) {
         REMOVE_BIT(account.flags, TAccount::IMMORTAL);
         sendTo(format("You un-flag the %s account immortal.\n\r") % account.name);
@@ -6030,7 +6030,7 @@ void TBeing::doAccount(const sstring &arg)
   sstring tmpbuf = format("Last login : %s%s%s\n\r") %
     green() % tmstr % norm();
   str += tmpbuf;
-  
+
 
   if ((account.flags & TAccount::IMMORTAL) && !hasWizPower(POWER_VIEW_IMM_ACCOUNTS)) {
     str += "This account belongs to an immortal.\n\r";
@@ -6080,7 +6080,7 @@ void TBeing::doClients()
               (!(tDesc->host.empty()) ? tDesc->host : "Host Unknown");
     }
 
-  if (tString.empty()) 
+  if (tString.empty())
     sendTo("Noone currently logged in with a client.\n\r");
   else
     sendTo(tString);
@@ -6119,7 +6119,7 @@ int TBeing::doCrit(sstring arg)
       return FALSE;
     }
     mod = convertTo<int>(name_buf);
-  } else 
+  } else
     mod = convertTo<int>(arg);
 
   if (vict->isImmortal() && (vict->GetMaxLevel() >= GetMaxLevel()) &&
@@ -6140,7 +6140,7 @@ int TBeing::doCrit(sstring arg)
     wtype = getAttackType(weap, HAND_PRIMARY);
   else
     wtype = TYPE_HIT;
-  
+
   rc = critSuccessChance(vict, weap, &part, wtype, &dam, mod);
   if (IS_SET_DELETE(rc, DELETE_VICT)) {
     delete vict;
@@ -6290,7 +6290,7 @@ int TBeing::doAs(const char *arg)
   arg = one_argument(arg, namebuf, cElements(namebuf));
   // theoretically, we could insure that they are As'ing as right char
   // but lets just ignore that
-  
+
   // for a switched, desc->original->desc == NULL
   // output will be hosed unless we change this
   desc->original->desc = desc;
@@ -6310,7 +6310,7 @@ int TBeing::doAs(const char *arg)
   // this is event where rc == DELETE_THIS
   // handle this by forcing a return
   if (IS_SET_DELETE(rc, DELETE_THIS)) {
-    vlogf(LOG_BUG, format("doAs(): %s somehow killed self: %s") % 
+    vlogf(LOG_BUG, format("doAs(): %s somehow killed self: %s") %
             desc->original->getName() % arg);
     sendTo("Please don't do things that will cause your original character to be destroyed.\n\r");
     remQuestBit(TOG_TRANSFORMED_LYCANTHROPE);
@@ -6385,35 +6385,35 @@ void TBeing::doBestow(const sstring &argument)
 
 void TPerson::doBestow(const sstring &argument)
 {
-  /* to do: 
+  /* to do:
    * deal with immortal vs regular monogramming in the rest of the code
    * immortal exchange computer
    */
-  
+
   if (!isImmortal()) {
     incorrectCommand();
     return;
   }
-  
+
   if (!desc) {
     // this seems unlikely, eh?
     vlogf(LOG_MISC, format("How did %s get to doBestow without a desc?") % getName());
     return;
   }
-  
+
   if (!hasWizPower(POWER_SET_IMP_POWER)) {
     sendTo("No can do.\n\r");
     return;
   }
-  
+
   sstring tmp_arg, arg1, arg2, arg3, arg4;
-  
+
   // argument parsing
   tmp_arg = argument;
   tmp_arg = one_argument(tmp_arg, arg1);
   tmp_arg = one_argument(tmp_arg, arg2);
   tmp_arg = one_argument(tmp_arg, arg3);
-  
+
   // and stuff anything left into arg4
   sstring whitespace = " \n\r\t";
   size_t start = tmp_arg.find_first_not_of(whitespace);
@@ -6423,20 +6423,20 @@ void TPerson::doBestow(const sstring &argument)
   } else {
     arg4 = "";
   }
-  
+
   if (argument.empty() || arg1.empty() || arg2.empty()) {
     sendTo("Usage :\n\r");
     sendTo("        bestow coins <name> <number>\n\r");
     sendTo("        bestow redeem <name> <number>\n\r");
     sendTo("        bestow demonogram <item>\n\r");
-    sendTo("        bestow deimm <item>\n\r");    
+    sendTo("        bestow deimm <item>\n\r");
     sendTo("        bestow tattoo <name> <body-part> <tattoo>\n\r");
     return;
   }
 
   TBeing *ch = NULL;
   TObj *obj = NULL;
-  
+
   // find target when a person is needed
   if (!(is_abbrev(arg1, "demonogram") || arg1 == "deimm")) {
     if (!(ch = get_pc_world(this, arg2, EXACT_YES))) {
@@ -6454,16 +6454,16 @@ void TPerson::doBestow(const sstring &argument)
       return;
     }
   }
-  
+
   // target looks ok, now go over the command switches
-  
+
   int number_needed = 0;
   int number_tried = 0;
   int number_done = 0;
   int coin_uid = 0;
   TTreasure *coin = NULL;
   TDatabase db(DB_SNEEZY);
-  
+
   if (is_abbrev(arg1, "coins")) {
     /*** make coins ***/
     if (!(is_number(arg3) && (number_needed = convertTo<int>(arg3)) && number_needed > 0)) {
@@ -6471,7 +6471,7 @@ void TPerson::doBestow(const sstring &argument)
       sendTo("        bestow coins <name> <number>\n\r");
       return;
     }
-    
+
     while (number_tried < number_needed) {
       number_tried++;
       if ((obj = read_object(Obj::IMMORTAL_EXCHANGE_COIN, VIRTUAL))){
@@ -6493,9 +6493,9 @@ void TPerson::doBestow(const sstring &argument)
           sendTo("You tried to mint a coin, but the clay wouldn't take the stamp.\n\r");
           continue;
         }
-        
+
         coin->setSerialNumber(coin_uid);
-        
+
         act("$n mints $p.", TRUE, this, coin, NULL, TO_ROOM);
         act(format("You mint $p, serial number %i.") % coin->getSerialNumber(), TRUE, this, coin, NULL, TO_CHAR);
         *this += *coin;
@@ -6514,7 +6514,7 @@ void TPerson::doBestow(const sstring &argument)
     if (number_done)
       doSave(SILENT_NO);
     return;
-    
+
   } else if (is_abbrev(arg1, "redeem")) {
     /*** redeem coins ***/
     if (!(is_number(arg3) && (number_needed = convertTo<int>(arg3)) && number_needed > 0)) {
@@ -6522,7 +6522,7 @@ void TPerson::doBestow(const sstring &argument)
       sendTo("        bestow redeem <name> <number>\n\r");
       return;
     }
-    
+
     TThing *t;
     bool redeem = TRUE;
     /* iterate over inventory to find coins */
@@ -6550,13 +6550,13 @@ void TPerson::doBestow(const sstring &argument)
             redeem = FALSE;
           }
         }
-        
+
         if (redeem) {
           db.query("update immortal_exchange_coin set redeemed_by = %i, redeemed_for = %i, date_redeemed = CURRENT_TIMESTAMP where k_coin = %i", getPlayerID(), ch->getPlayerID(), coin->getSerialNumber());
           sendTo(format("Coin number %i crumbles with immortal redemption.\n\r") % coin->getSerialNumber());
           number_done++;
         }
-        
+
         // no matter what happened, we're getting rid of the coin
         delete coin;
         coin = NULL;
@@ -6565,7 +6565,7 @@ void TPerson::doBestow(const sstring &argument)
           break;
       }
     }
-    
+
     if (number_tried == 0) {
       sendTo("Well, you don't have any coins...\n\r");
     } else if (number_done < number_needed) {
@@ -6576,7 +6576,7 @@ void TPerson::doBestow(const sstring &argument)
     if (number_tried)
       doSave(SILENT_NO);
     return;
-    
+
   } else if (is_abbrev(arg1, "demonogram") || arg1 == "deimm") {
     /*** remove object monogramming/engraving/personalization ***/
     if (obj->isMonogrammed()) {
@@ -6593,14 +6593,14 @@ void TPerson::doBestow(const sstring &argument)
       act("$p was not monogrammed, so you leave it as you found it.", TRUE, this, obj, NULL, TO_CHAR);
       return;
     }
-    
+
     if (obj->deMonogram(TRUE)) {
       act("You remove the monogram from $p.", TRUE, this, obj, NULL, TO_CHAR);
     } else {
       act("You fail to remove the monogram from $p.", TRUE, this, obj, NULL, TO_CHAR);
     }
     return;
-    
+
   } else if (is_abbrev(arg1, "tattoo")) {
     /*** add/remove tattoos ***/
     if (arg3.empty()) {
@@ -6608,7 +6608,7 @@ void TPerson::doBestow(const sstring &argument)
       sendTo("        bestow tattoo <name> <body-part> <tattoo>\n\r");
       return;
     }
-    
+
     // figure out what body part we're dealing with
     int tmp_slot = search_block(arg3, bodyParts, FALSE);
     if (tmp_slot < 1) {
@@ -6620,7 +6620,7 @@ void TPerson::doBestow(const sstring &argument)
       sendTo("Unavailable body part!\n\r");
       return;
     }
-    
+
     // form the possessive
     sstring name_buffer;
     if (this == ch)
@@ -6629,7 +6629,7 @@ void TPerson::doBestow(const sstring &argument)
       name_buffer = ch->getName();
       name_buffer += format("'%s") % (name_buffer.at(name_buffer.size() - 1) == 's' ? "" : "s");
     }
-    
+
     // are we adding or removing a tattoo?
     if (ch->applyTattoo(slot, arg4, SILENT_NO)) {
       if (arg4.length() > 0) {
@@ -6648,9 +6648,9 @@ void TPerson::doBestow(const sstring &argument)
     } else {
       sendTo("Well, that didn't work...\n\r");
     }
-    
+
     return;
-    
+
   } else {
     sendTo("Usage :\n\r");
     sendTo("        bestow coins <name> <number>\n\r");

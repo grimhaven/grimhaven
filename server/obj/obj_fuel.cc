@@ -79,8 +79,8 @@ void TFuel::describeObjectSpecifics(const TBeing *ch) const
   if (getMaxFuel()) {
     diff = (double) ((double) getCurFuel() / (double) getMaxFuel());
     ch->sendTo(COLOR_OBJECTS,
-	       format("You can tell that %s has %s of its fuel left.\n\r") %
-	       sstring(getName()).uncap() %
+               format("You can tell that %s has %s of its fuel left.\n\r") %
+               sstring(getName()).uncap() %
           ((diff < .20) ? "very little" : ((diff < .50) ? "some" :
           ((diff < .75) ? "a good bit of" : "almost all of its"))));
   }
@@ -207,7 +207,7 @@ int TFuel::chiMe(TBeing *tLunatic)
     act("You must be more cautious to chi something so volatile.", FALSE, tLunatic, this, NULL, TO_CHAR);
     return FALSE;
   }
-  
+
   if (!tLunatic->bSuccess(bKnown, SKILL_CHI)) {
     act("You fail to affect $p in any way.",
         FALSE, tLunatic, this, NULL, TO_CHAR);

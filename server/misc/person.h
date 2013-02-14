@@ -23,7 +23,7 @@ class TPerson : public TBeing {
   public:
     FILE *tLogFile;
     char lastHost[40];
-    char *title; 
+    char *title;
     int last_rent;
     //    bool toggles[MAX_TOG_INDEX];
     bool wizPowers[MAX_POWER_INDEX];
@@ -48,17 +48,17 @@ class TPerson : public TBeing {
         return desc->wait;
       return 0;
     }
-    virtual void setWait(int num) { 
+    virtual void setWait(int num) {
       if (desc)
         desc->wait = num;
     }
     virtual unsigned int getTimer() const {
       return timer;
     }
-    virtual void setTimer(unsigned int num) { 
+    virtual void setTimer(unsigned int num) {
       timer = num;
     }
-    virtual void addToTimer(unsigned int num) { 
+    virtual void addToTimer(unsigned int num) {
       timer += num;
     }
 

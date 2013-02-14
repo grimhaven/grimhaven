@@ -39,18 +39,18 @@ bool TBeing::limitPowerCheck(cmdTypeT cmd, int vnum) {
     case CMD_GIVE:
     case CMD_OUTFIT:
     case CMD_STEAL:
-      if ((vnum >= as && vnum <= ae) || (vnum >= bs && vnum <= be)) 
-	return TRUE;
+      if ((vnum >= as && vnum <= ae) || (vnum >= bs && vnum <= be))
+        return TRUE;
       break;
     case CMD_GOTO:
       if ((vnum >= as && vnum <= ae) || (vnum >= bs && vnum <= be) ||
-	  vnum == o || (vnum >= 0 && vnum <= 100))
-	return TRUE;
+          vnum == o || (vnum >= 0 && vnum <= 100))
+        return TRUE;
       break;
     case CMD_EDIT:
     case CMD_REDIT:
       if ((vnum >= as && vnum <= ae) || (vnum >= bs && vnum <= be) ||
-	  vnum == o)
+          vnum == o)
         return TRUE;
       break;
     case CMD_STAT:
@@ -75,8 +75,8 @@ bool TBeing::limitPowerCheck(cmdTypeT cmd, int vnum) {
         return TRUE;
       break;
     default:
-      vlogf(LOG_DASH, format("%s called limits check with undefined command type (%d)") % 
-	    getName() % (int)cmd);
+      vlogf(LOG_DASH, format("%s called limits check with undefined command type (%d)") %
+            getName() % (int)cmd);
       break;
   }
   return FALSE;
@@ -131,7 +131,7 @@ void setWizPowers(const TBeing *doer, TBeing *ch, const sstring &arg)
     ch->remWizPower(POWER_IMMORTAL_HELP);
     ch->remWizPower(POWER_SETSEV);
   } else if (is_abbrev(arg, "rooms")) {
-    ch->setWizPower(POWER_REDIT);  
+    ch->setWizPower(POWER_REDIT);
     ch->setWizPower(POWER_RSAVE);
     ch->setWizPower(POWER_EDIT);
     ch->setWizPower(POWER_RLOAD);
@@ -139,7 +139,7 @@ void setWizPowers(const TBeing *doer, TBeing *ch, const sstring &arg)
     ch->setWizPower(POWER_SHOW);
     ch->setWizPower(POWER_PURGE);
   } else if (is_abbrev(arg, "remrooms")) {
-    ch->remWizPower(POWER_REDIT);  
+    ch->remWizPower(POWER_REDIT);
     ch->remWizPower(POWER_RSAVE);
     ch->remWizPower(POWER_EDIT);
     ch->remWizPower(POWER_RLOAD);
@@ -153,7 +153,7 @@ void setWizPowers(const TBeing *doer, TBeing *ch, const sstring &arg)
     ch->setWizPower(POWER_SEDIT);
     ch->setWizPower(POWER_IMMORTAL_OUTFIT);
     ch->setWizPower(POWER_WIZNET_ALWAYS);
-    ch->setWizPower(POWER_LOAD);  // load rooms backdoor   
+    ch->setWizPower(POWER_LOAD);  // load rooms backdoor
   } else if (is_abbrev(arg, "remmobs")) {
     ch->remWizPower(POWER_MEDIT);
     ch->remWizPower(POWER_STAT_MOBILES);
@@ -161,7 +161,7 @@ void setWizPowers(const TBeing *doer, TBeing *ch, const sstring &arg)
     ch->remWizPower(POWER_SEDIT);
     ch->remWizPower(POWER_IMMORTAL_OUTFIT);
     ch->remWizPower(POWER_WIZNET_ALWAYS);
-    ch->remWizPower(POWER_LOAD);  // load rooms backdoor   
+    ch->remWizPower(POWER_LOAD);  // load rooms backdoor
   } else if (is_abbrev(arg, "objs")) {
     ch->setWizPower(POWER_LOAD_SET);
     ch->setWizPower(POWER_STAT_OBJECT);
@@ -402,8 +402,8 @@ void TPerson::loadWizPowers()
   TDatabase db(DB_SNEEZY);
 
   db.query("select wizpower from wizpower where player_id=%i",
-	   getPlayerID());
-  
+           getPlayerID());
+
   while(db.fetchRow()) {
     setWizPower(mapFileToWizPower(convertTo<int>(db["wizpower"])));
     wizPowersOriginal[mapFileToWizPower(convertTo<int>(db["wizpower"]))] |= 0x1;
@@ -449,9 +449,9 @@ void TPerson::doPowers(const sstring &argument) const
       if(db.fetchRow()){
         sendTo("Player not logged in but file found.  Reading in...\n\r");
 
-	do {
+        do {
           wizPowerList[mapFileToWizPower(convertTo<int>(db["wizpower"]))]|=0x1;
-	} while(db.fetchRow());
+        } while(db.fetchRow());
       } else {
         sendTo("Unable to locate them anywhere in the world or in the files.\n\r");
         return;
@@ -495,7 +495,7 @@ void TPerson::doPowers(const sstring &argument) const
   if ((tWizPower % 2))
     tStString += "\n\r";
 
-  desc->page_string(tStString, SHOWNOW_NO, ALLOWREP_YES);  
+  desc->page_string(tStString, SHOWNOW_NO, ALLOWREP_YES);
 }
 
 const sstring getWizPowerName(wizPowerT wpt)

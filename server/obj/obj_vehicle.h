@@ -50,7 +50,7 @@ class TVehicle : public TPortal {
   void driveLook(TBeing *ch, bool silent=false);
 
   void lookObj(TBeing *ch, int) const;
-  
+
   TVehicle();
   TVehicle(const TVehicle &a);
   TVehicle & operator=(const TVehicle &a);

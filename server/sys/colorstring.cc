@@ -16,13 +16,13 @@ sstring stripColorCodes(const sstring &s)
   unsigned int len;
 
   len = s.length();
-  
+
   for(unsigned int i=0;i<len;++i){
     if(s[i] == '<') {
       i+=2;
       continue;
     }
-    
+
     buf += s[i];
   }
 
@@ -111,7 +111,7 @@ bool hasColorStrings(const TBeing *mob, const sstring &arg, int field)
 // takes the sstring given by arg, replaces any <m> or <M> in it with
 // ting's name.  Colorizes as appropriate for me/ch.  Undoes any color
 // changes that were made by insertion of ting's name sstring also.
-sstring addNameToBuf(const TBeing *me, const Descriptor *ch, const TThing *ting, const sstring &arg, colorTypeT lev) 
+sstring addNameToBuf(const TBeing *me, const Descriptor *ch, const TThing *ting, const sstring &arg, colorTypeT lev)
 {
   unsigned int s;
   unsigned int len;
@@ -130,9 +130,9 @@ sstring addNameToBuf(const TBeing *me, const Descriptor *ch, const TThing *ting,
     if ((arg[s] == '<') && (arg[s + 2] == '>')) {
       // two sequential << chars treat this as desiring to write "<"
       // we already wrote the first, so just skip this char
-      if (s > 0 && arg[s-1] == '<') 
+      if (s > 0 && arg[s-1] == '<')
         continue;
-      
+
       switch (arg[(s+1)]) {
         case 'm':
         case 'M':
@@ -140,11 +140,11 @@ sstring addNameToBuf(const TBeing *me, const Descriptor *ch, const TThing *ting,
           if ((s == 0) || (y && (s == 3))) {
             strcpy(tmp, sstring(tmp).cap().c_str());
           }
-          if (lev != COLOR_NONE) 
+          if (lev != COLOR_NONE)
             buf += colorString(me, ch, tmp, NULL, lev, FALSE);
-          else 
+          else
             buf += tmp;
-          
+
           if (y) {
             // Adding back in last colorString
             buf += arg[x];
@@ -202,18 +202,18 @@ sstring addNameToBuf(const TBeing *me, const Descriptor *ch, const TThing *ting,
         case 'H':
           // if there is a color sstring, it will pick it up after <m>
           y = TRUE;
-          x = s; 
+          x = s;
         // pass through
         default:
           buf += arg[s];
           break;
       }
-    } else 
+    } else
       buf += arg[s];
   }
-  while(s < len) 
+  while(s < len)
     buf += arg[s++];
-  
+
   return buf;
 }
 
@@ -221,7 +221,7 @@ sstring nameColorString(TBeing *me, Descriptor *ch, const sstring &arg, int *fla
 {
   unsigned int len, s;
   sstring buf;
-          
+
   len = arg.length();
 
   for(s = 0;len > 2 && s < (len-2); s++) {
@@ -236,30 +236,30 @@ sstring nameColorString(TBeing *me, Descriptor *ch, const sstring &arg, int *fla
         case 'N':
           if (me) {
             buf += sstring(me->getName()).cap();
-	    if(me->isPkChar())
-	      buf+=" (PK)";
+            if(me->isPkChar())
+              buf+=" (PK)";
 
             if (flag)
               *flag = TRUE;
             s += 2;
-          } else 
+          } else
             buf += arg[s];
-          
+
           break;
         default:
           buf += arg[s];
           break;
-      }   
-    } else 
+      }
+    } else
       buf += arg[s];
   }
-  while(s < len) 
+  while(s < len)
     buf += arg[s++];
-  
+
     // force a nice termination
   buf += "<z>";
 
-  if (noret) 
+  if (noret)
     buf += "\n\r";
 
   return buf;
@@ -269,7 +269,7 @@ const sstring colorString(const TBeing *me, const Descriptor *ch, const sstring 
 {
 // (me = who to, ch is the desc, arg = arg, flag = ?, int lev = desired color
 //  level, end = whether to send terminator at end of sstring..false if in
-//  middle of senstence (color a mob or something).. used in act() 
+//  middle of senstence (color a mob or something).. used in act()
 //  noret is overloaded to add a \n\r to the end of the buf, it defaults
 //  to no so if you dont pass anything, it will not return -Cos
   int len, s;
@@ -289,43 +289,43 @@ const sstring colorString(const TBeing *me, const Descriptor *ch, const sstring 
   switch (lev) {
     case COLOR_ALWAYS:
     case COLOR_BASIC:   //allows for basic ansi
-      colorize = TRUE; 
+      colorize = TRUE;
       break;
     case COLOR_NONE:
     case COLOR_NEVER:
       colorize = FALSE;
       break;
     case COLOR_COMM:
-      if (!(IS_SET(ch->plr_color, PLR_COLOR_COMM))) 
+      if (!(IS_SET(ch->plr_color, PLR_COLOR_COMM)))
          colorize = FALSE;
-      else 
+      else
         colorize = TRUE;
-      
+
       break;
     case COLOR_OBJECTS:
-      if (!(IS_SET(ch->plr_color, PLR_COLOR_OBJECTS))) 
+      if (!(IS_SET(ch->plr_color, PLR_COLOR_OBJECTS)))
          colorize = FALSE;
-      else 
-        colorize = TRUE; 
-      
+      else
+        colorize = TRUE;
+
       break;
     case COLOR_MOBS:
-      if (!(IS_SET(ch->plr_color, PLR_COLOR_MOBS))) 
+      if (!(IS_SET(ch->plr_color, PLR_COLOR_MOBS)))
          colorize = FALSE;
-      else 
+      else
         colorize = TRUE;
-      
+
       break;
     case COLOR_ROOMS:
-      if (!(IS_SET(ch->plr_color, PLR_COLOR_ROOMS))) 
+      if (!(IS_SET(ch->plr_color, PLR_COLOR_ROOMS)))
          colorize = FALSE;
-      else { 
+      else {
         addNorm = TRUE;
         colorize = TRUE;
       }
       break;
     case COLOR_ROOM_NAME:
-      if (!(IS_SET(ch->plr_color, PLR_COLOR_ROOM_NAME))) 
+      if (!(IS_SET(ch->plr_color, PLR_COLOR_ROOM_NAME)))
          colorize = FALSE;
       else {
         addNorm = TRUE;
@@ -333,25 +333,25 @@ const sstring colorString(const TBeing *me, const Descriptor *ch, const sstring 
       }
       break;
     case COLOR_SHOUTS:
-      if (!(IS_SET(ch->plr_color, PLR_COLOR_SHOUTS))) 
+      if (!(IS_SET(ch->plr_color, PLR_COLOR_SHOUTS)))
          colorize = FALSE;
-      else 
+      else
         colorize = TRUE;
-      
+
       break;
     case COLOR_SPELLS:
-      if (!(IS_SET(ch->plr_color, PLR_COLOR_SPELLS))) 
+      if (!(IS_SET(ch->plr_color, PLR_COLOR_SPELLS)))
          colorize = FALSE;
-      else 
+      else
         colorize = TRUE;
-      
+
       break;
     case COLOR_LOGS:
-      if (!(IS_SET(ch->plr_color, PLR_COLOR_LOGS))) 
+      if (!(IS_SET(ch->plr_color, PLR_COLOR_LOGS)))
          colorize = FALSE;
-      else 
+      else
         colorize = TRUE;
-      
+
       break;
     default:
       vlogf(LOG_BUG,"Colorsstring with a default COLOR setting");
@@ -383,34 +383,34 @@ const sstring colorString(const TBeing *me, const Descriptor *ch, const sstring 
             s += 2;
             break;
           case 'r':
-            if (addNorm) 
+            if (addNorm)
               buf += ch->norm();
-            
+
             buf += ch->red();
             s += 2;
-            break; 
+            break;
           case 'G':
             buf += ch->greenBold();
             s += 2;
             break;
           case 'g':
-            if (addNorm) 
+            if (addNorm)
               buf += ch->norm();
-            
+
             buf += ch->green();
             s += 2;
             break;
           case 'y':
           case 'Y':
-            // yellow 
+            // yellow
             buf += ch->orangeBold();
             s += 2;
             break;
           case 'O':
           case 'o':
-            if (addNorm) 
+            if (addNorm)
               buf += ch->norm();
-            
+
             buf += ch->orange();
             s += 2;
             break;
@@ -419,9 +419,9 @@ const sstring colorString(const TBeing *me, const Descriptor *ch, const sstring 
             s += 2;
             break;
           case 'b':
-            if (addNorm) 
+            if (addNorm)
               buf += ch->norm();
-            
+
             buf += ch->blue();
             s += 2;
             break;
@@ -430,9 +430,9 @@ const sstring colorString(const TBeing *me, const Descriptor *ch, const sstring 
             s += 2;
             break;
           case 'p':
-            if (addNorm) 
+            if (addNorm)
               buf += ch->norm();
-            
+
             buf += ch->purple();
             s += 2;
             break;
@@ -441,9 +441,9 @@ const sstring colorString(const TBeing *me, const Descriptor *ch, const sstring 
             s += 2;
             break;
           case 'c':
-            if (addNorm) 
+            if (addNorm)
               buf += ch->norm();
-            
+
             buf += ch->cyan();
             s += 2;
             break;
@@ -452,9 +452,9 @@ const sstring colorString(const TBeing *me, const Descriptor *ch, const sstring 
             s += 2;
             break;
           case 'w':
-            if (addNorm) 
+            if (addNorm)
               buf += ch->norm();
-            
+
             buf += ch->white();
             s += 2;
             break;
@@ -464,9 +464,9 @@ const sstring colorString(const TBeing *me, const Descriptor *ch, const sstring 
             s += 2;
             break;
           case 'K':
-            if (addNorm) 
+            if (addNorm)
               buf += ch->norm();
-            
+
             buf += ch->black();
             s += 2;
             break;
@@ -488,9 +488,9 @@ const sstring colorString(const TBeing *me, const Descriptor *ch, const sstring 
             if (me && me->isImmortal()) {
               buf += ch->flash();
               s += 2;
-            } else 
+            } else
               buf += arg[s];
-            
+
             break;
           case 'i':
           case 'I':
@@ -502,72 +502,72 @@ const sstring colorString(const TBeing *me, const Descriptor *ch, const sstring 
             if (me && me->isImmortal()) {
               buf += ch->BlackOnWhite();
               s += 2;
-            } else 
+            } else
               buf += arg[s];
-            
+
             break;
           case 'j':
           case 'J':
             if (me && me->isImmortal()) {
               buf += ch->BlackOnBlack();
               s += 2;
-            } else 
+            } else
               buf += arg[s];
-            
+
             break;
           case 'l':
           case 'L':
             if (me && me->isImmortal()) {
               buf += ch->WhiteOnRed();
               s += 2;
-            } else 
+            } else
               buf += arg[s];
-            
+
             break;
           case 'q':
           case 'Q':
             if (me && me->isImmortal()) {
               buf += ch->WhiteOnGreen();
               s += 2;
-            } else 
+            } else
               buf += arg[s];
-            
+
             break;
           case 't':
           case 'T':
             if (me && me->isImmortal()) {
               buf += ch->WhiteOnOrange();
               s += 2;
-            } else 
+            } else
               buf += arg[s];
-            
+
             break;
           case 'u':
           case 'U':
             if (me && me->isImmortal()) {
               buf += ch->WhiteOnBlue();
               s += 2;
-            } else 
+            } else
               buf += arg[s];
-            
+
             break;
           case 'v':
           case 'V':
             if (me && me->isImmortal()) {
               buf += ch->WhiteOnPurple();
               s += 2;
-            } else 
+            } else
               buf += arg[s];
-            
+
             break;
           case 'x':
           case 'X':
             if (me && me->isImmortal()) {
               buf += ch->WhiteOnCyan();
               s += 2;
-            } else 
+            } else
               buf += arg[s];
-            
+
             break;
           case 'z':
           case 'Z':
@@ -579,15 +579,15 @@ const sstring colorString(const TBeing *me, const Descriptor *ch, const sstring 
             buf += arg[s];
             break;
         }
-      } else 
+      } else
         buf += arg[s];
-    }   
+    }
     // copy the last 1 or 2 characters into buf.
     while(s < len) {
       // strip terminations, added again below if requested
-      if (arg[s]) 
+      if (arg[s])
         buf += arg[s];
-      
+
       s++;
     }
   } else {
@@ -608,9 +608,9 @@ const sstring colorString(const TBeing *me, const Descriptor *ch, const sstring 
               if (flag)
                 *flag = TRUE;
               s += 2;
-            } else 
+            } else
               buf += arg[s];
-            
+
             break;
           case 'R':
           case 'r':
@@ -665,14 +665,14 @@ const sstring colorString(const TBeing *me, const Descriptor *ch, const sstring 
             buf += arg[s];
             break;
         }
-      } else 
+      } else
         buf += arg[s];
     }
     // copy the last 1 or 2 characters into buf.
     while(s < len) {
-      if (arg[s]) 
+      if (arg[s])
         buf += arg[s];
-      
+
       s ++;
     }
   }
@@ -680,11 +680,11 @@ const sstring colorString(const TBeing *me, const Descriptor *ch, const sstring 
 
   // force a nice termination
   if (colorize) {
-    if (end) 
+    if (end)
       buf += ch->norm();
   }
 
-  if (noret) 
+  if (noret)
     buf += "\n\r";
 
   return buf;

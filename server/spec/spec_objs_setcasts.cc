@@ -284,26 +284,26 @@ int comboEQCast(TBeing *vict, cmdTypeT cmd, const char *arg, TObj *o, TObj *) {
     if (!::number(0,39)) {
       int which = ::number(1,3);
       switch (which) {
-	case 1:
-	  if (!ch->affectedBySpell(SPELL_FERAL_WRATH)) {
-	    doFeralEQCast(ch, o);
-	  }
-	  break;
-	case 2:
-	  if (!ch->affectedBySpell(SPELL_LEVITATE) && !ch->affectedBySpell(SPELL_FLY)) {
-	    doFlyingEQCast(ch, o);
-	  }	  
-	  break;
-	case 3:
-	  if (!ch->affectedBySpell(SPELL_ARMOR) && !ch->affectedBySpell(SPELL_SANCTUARY)) {
-	    doACEQCast(ch, o);
-	  }
-	  break;
+        case 1:
+          if (!ch->affectedBySpell(SPELL_FERAL_WRATH)) {
+            doFeralEQCast(ch, o);
+          }
+          break;
+        case 2:
+          if (!ch->affectedBySpell(SPELL_LEVITATE) && !ch->affectedBySpell(SPELL_FLY)) {
+            doFlyingEQCast(ch, o);
+          }
+          break;
+        case 3:
+          if (!ch->affectedBySpell(SPELL_ARMOR) && !ch->affectedBySpell(SPELL_SANCTUARY)) {
+            doACEQCast(ch, o);
+          }
+          break;
       }
       return true;
     }
     return true;
-  }  
+  }
   return false;
 }
 

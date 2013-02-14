@@ -60,10 +60,10 @@ void TChest::lowCheck()
 #if 0
   // this is retarded
   if (canWear(ITEM_TAKE)) {
-    vlogf(LOG_LOW, format("Chest (%s:%d) set takeable.  Removing take flag.") % 
-           getName() % objVnum());                             
+    vlogf(LOG_LOW, format("Chest (%s:%d) set takeable.  Removing take flag.") %
+           getName() % objVnum());
     remObjStat(ITEM_TAKE);
-  }                                                           
+  }
 #endif
-  TOpenContainer::lowCheck();                                     
+  TOpenContainer::lowCheck();
 }

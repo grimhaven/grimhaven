@@ -29,10 +29,10 @@ TTrophy::TTrophy(TBeing *p) :
 
 sstring TTrophy::getMyName(){
   if(parent){
-  
+
     if (parent->specials.act & ACT_POLYSELF) {
       return parent->desc->original->getName();
-    } else { 
+    } else {
       return parent->getName();
     }
   } else {
@@ -61,7 +61,7 @@ void procTrophyDecay::run(const TPulse &) const
   for(TBeing *tb=character_list;tb;tb=tb->next){
     if(tb->isPc()){
       db.query("update trophy set count=count-%f where player_id=%i and count > %f",
-	       dec, tb->getPlayerID(), dec);
+               dec, tb->getPlayerID(), dec);
     }
   }
 }
@@ -79,7 +79,7 @@ void TTrophy::addToCount(int vnum, double add){
     db->query("insert into trophy values (%i, %i, %f, %f)",
         player_id, vnum, add, (add>0 ? add : 0));
   }
-  
+
   db->query("update trophyplayer set total=total+%f where player_id=%i",
      add, player_id);
 }
@@ -88,20 +88,20 @@ void TTrophy::addToCount(int vnum, double add){
 float TTrophy::getCount(int vnum)
 {
   db->query("select count from trophy where player_id=%i and mobvnum=%i",
-	   parent->getPlayerID(), vnum);
+           parent->getPlayerID(), vnum);
   if(db->fetchRow())
     return convertTo<float>((*db)["count"]);
-  else 
+  else
     return 0.0;
 }
 
 float TTrophy::getTotalCount(int vnum)
 {
   db->query("select totalcount from trophy where player_id=%i and mobvnum=%i",
-	   parent->getPlayerID(), vnum);
+           parent->getPlayerID(), vnum);
   if(db->fetchRow())
     return convertTo<float>((*db)["totalcount"]);
-  else 
+  else
     return 0.0;
 }
 
@@ -139,9 +139,9 @@ const char *TTrophy::getExpModDescr(float count, int mobvnum)
   float f=getExpModVal(count, mobvnum);
 
   return((f == 1.0) ? "<Y>full<1>" :
-	 ((f >= 0.90) ? "<o>much<1>" :
-	  ((f >= 0.80) ? "a fair amount of" :
-	   ((f >= 0.70) ? "<w>some<1>" : "<k>little<1>"))));
+         ((f >= 0.90) ? "<o>much<1>" :
+          ((f >= 0.80) ? "a fair amount of" :
+           ((f >= 0.70) ? "<w>some<1>" : "<k>little<1>"))));
 }
 
 // this function is a little messy, I apologize
@@ -163,7 +163,7 @@ void TBeing::doTrophy(const sstring &arg)
   if (specials.act & ACT_POLYSELF)
     per = desc->original;
   else per = this;
-  
+
   TTrophy trophy(per->getName());
 
   arg1=arg.word(0);
@@ -186,67 +186,67 @@ void TBeing::doTrophy(const sstring &arg)
 
   for (zone = 0; zone < zone_table.size(); zone++) {
     zoneData &zd = zone_table[zone];
-    
+
     while(1){
       if(processrow){
-	if(!db.fetchRow()){
-	  break;
-	}
+        if(!db.fetchRow()){
+          break;
+        }
       }
 
       // sometimes we get an entry of 0 for med mobs I think
       vnum=convertTo<int>(db["mobvnum"]);
       if(vnum==0){
-	continue;
+        continue;
       }
 
       // this mob doesn't belong to this zone, so break out to the zone loop
       if(vnum>zd.top){
-	processrow=0; // don't get the next row yet
-	break;
+        processrow=0; // don't get the next row yet
+        break;
       } else {
-	processrow=1;
+        processrow=1;
       }
 
       int rnum = real_mobile(convertTo<int>(db["mobvnum"]));
       if (rnum < 0) {
-	vlogf(LOG_BUG, format("DoTrophy detected bad mobvnum=%d for name='%s'") %  
-	      convertTo<int>(db["mobvnum"]) % per->getName());
-	continue;
+        vlogf(LOG_BUG, format("DoTrophy detected bad mobvnum=%d for name='%s'") %
+              convertTo<int>(db["mobvnum"]) % per->getName());
+        continue;
       }
 
       if(zonesearch==-1){
-	if(!isname(arg1, zd.name))
-	  continue;
+        if(!isname(arg1, zd.name))
+          continue;
       } else if(zonesearch>0){
-	if(zonesearch!=zd.zone_nr)
-	  continue;
+        if(zonesearch!=zd.zone_nr)
+          continue;
       } else if(!summary){
-	if(!arg1.empty() && !isname(arg1, mob_index[rnum].name))
-	  continue;
+        if(!arg1.empty() && !isname(arg1, mob_index[rnum].name))
+          continue;
       }
 
       // print the zone header if we haven't already
       // we do it here, so we can prevent printing headers for empty zones
       if(!header){
-	buf = format("\n--%s\n") % zd.name;
-	sb += buf; 
-	header=1;
+        buf = format("\n--%s\n") % zd.name;
+        sb += buf;
+        header=1;
       }
 
       count=convertTo<float>(db["count"]);
 
       if(!summary){
-	buf = format("You will gain %s experience when fighting %s.\n\r") %
-		trophy.getExpModDescr(count,vnum) % mob_index[rnum].short_desc;
-	sb += buf;
+        buf = format("You will gain %s experience when fighting %s.\n\r") %
+                trophy.getExpModDescr(count,vnum) % mob_index[rnum].short_desc;
+        sb += buf;
       }
 
       ++mcount;
       ++zcount;
 
       if(mob_index[rnum].doesLoad)
-	++active_zcount;
+        ++active_zcount;
 
       processrow=1; // ok to get the next row
     }
@@ -258,11 +258,11 @@ void TBeing::doTrophy(const sstring &arg)
 
       unsigned int objnx;
       for (objnx = 0; objnx < mob_index.size(); objnx++) {
-	if(mob_index[objnx].virt >= bottom &&
-	   mob_index[objnx].virt <= zd.top &&
-	   mob_index[objnx].doesLoad){
-	  ++zcountt;
-	}
+        if(mob_index[objnx].virt >= bottom &&
+           mob_index[objnx].virt <= zd.top &&
+           mob_index[objnx].doesLoad){
+          ++zcountt;
+        }
       }
 
       buf = format("You have killed %1.2f%c of mobs in this zone.\n\r") %((float)((float)active_zcount/(float)zcountt)*100.0) % '%';
@@ -279,10 +279,10 @@ void TBeing::doTrophy(const sstring &arg)
   for (unsigned int mobnum = 0; mobnum < mob_index.size(); mobnum++) {
     for (unsigned int zone = 0; zone < zone_table.size(); zone++) {
       if(mob_index[mobnum].virt <= zone_table[zone].top &&
-	 mob_index[mobnum].doesLoad){
-	if(zone_table[zone].enabled)
-	  activemobcount++;
-	break;
+         mob_index[mobnum].doesLoad){
+        if(zone_table[zone].enabled)
+          activemobcount++;
+        break;
       }
     }
   }
@@ -298,7 +298,7 @@ void TBeing::doTrophy(const sstring &arg)
 
   if (desc)
     desc->page_string(sb, SHOWNOW_NO, ALLOWREP_YES);
-    
+
 
   return;
 }
@@ -307,7 +307,7 @@ void TBeing::doTrophy(const sstring &arg)
 
 void TTrophy::wipe(){
   db->query("select id from player where name='%s'", getMyName().c_str());
-  
+
   if(db->fetchRow())
     db->query("delete from trophy where player_id=%i", convertTo<int>((*db)["id"]));
 

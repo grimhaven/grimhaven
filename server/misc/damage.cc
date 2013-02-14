@@ -39,7 +39,7 @@ int TBeing::reconcileDamage(TBeing *v, int dam, spellNumT how)
 
   if (desc && !fight()) {
     SET_BIT(specials.affectedBy, AFF_AGGRESSOR);
-    if (checkEngagementStatus()) 
+    if (checkEngagementStatus())
       SET_BIT(specials.affectedBy, AFF_ENGAGER);
   }
 
@@ -107,7 +107,7 @@ int TBeing::reconcileDamage(TBeing *v, int dam, spellNumT how)
   // later on, but with some other quirks
   int dam2 = min(dam, 11 + v->getHit());
 
-  if (how2 >= MIN_SPELL && how2 < MAX_SKILL && this != v) 
+  if (how2 >= MIN_SPELL && how2 < MAX_SKILL && this != v)
     LogDam(this, how2, dam2);
 
   TMonster *tmons = dynamic_cast<TMonster *>(v);
@@ -174,7 +174,7 @@ int TBeing::applyDamage(TBeing *v, int dam, spellNumT dmg_type)
 
   // account for protection (sanct, etc)
   int protection = v->getProtection();
-  dam *= 100 - protection; 
+  dam *= 100 - protection;
   dam = (dam + 50) / 100;  // the 50 is here to round appropriately
 
   if (this != v) {
@@ -184,7 +184,7 @@ int TBeing::applyDamage(TBeing *v, int dam, spellNumT dmg_type)
       act("Something bogus about this fight.  Tell a god!", TRUE, this, 0, v, TO_CHAR);
       return 0;
     }
-    if (dam <= 0) 
+    if (dam <= 0)
       return FALSE;
 
     // special code for quest mobs
@@ -232,21 +232,21 @@ int TBeing::applyDamage(TBeing *v, int dam, spellNumT dmg_type)
                 tbt->remQuestBit(TOG_VINDICATOR_HUNTING_2);
                 tbt->setQuestBit(TOG_VINDICATOR_CHEAT_2);
                 break;
-  	      case Mob::JOHN_RUSTLER:
-		sendTo("You have failed to kill the rustler without aid, you must try again, but without assistance.\n\r");
-		break;
-	      case Mob::ORC_MAGI:
-		sendTo("<c>You realize you did not follow the guidelines of your quest, so this fight will be for naught.<1>\n\r");
-		tbt->setQuestBit(TOG_FAILED_TO_KILL_MAGI);
-		break;
-       	      case Mob::CLERIC_VOLCANO:
-	        sendTo("<c>You realize you did not follow the guidelines of your quest, so this fight will be for naught.<1>\n\r");
-	        tbt->setQuestBit(TOG_FAILED_CLERIC_V);
-	        break;
-	      case Mob::CLERIC_ARDEN:
-	        sendTo("<c>You realize you did not follow the guidelines of your quest, so this fight will be for naught.<1>\n\r");
-	        tbt->setQuestBit(TOG_FAILED_CLERIC_A);
-	        break;
+                case Mob::JOHN_RUSTLER:
+                sendTo("You have failed to kill the rustler without aid, you must try again, but without assistance.\n\r");
+                break;
+              case Mob::ORC_MAGI:
+                sendTo("<c>You realize you did not follow the guidelines of your quest, so this fight will be for naught.<1>\n\r");
+                tbt->setQuestBit(TOG_FAILED_TO_KILL_MAGI);
+                break;
+                     case Mob::CLERIC_VOLCANO:
+                sendTo("<c>You realize you did not follow the guidelines of your quest, so this fight will be for naught.<1>\n\r");
+                tbt->setQuestBit(TOG_FAILED_CLERIC_V);
+                break;
+              case Mob::CLERIC_ARDEN:
+                sendTo("<c>You realize you did not follow the guidelines of your quest, so this fight will be for naught.<1>\n\r");
+                tbt->setQuestBit(TOG_FAILED_CLERIC_A);
+                break;
               default:
                 break;
             }
@@ -280,9 +280,9 @@ int TBeing::applyDamage(TBeing *v, int dam, spellNumT dmg_type)
       // count number of people in the group that are in the
       // same room as the leader (includes leader)
       for (f = k->followers; f; f = f->next) {
-	if (inGroup(*f->follower) && sameRoom(*f->follower)) {
-	  groupcount++;
-	}
+        if (inGroup(*f->follower) && sameRoom(*f->follower)) {
+          groupcount++;
+        }
       }
 
       // get the percentage of damage done to the mobs total hit points
@@ -291,18 +291,18 @@ int TBeing::applyDamage(TBeing *v, int dam, spellNumT dmg_type)
 
       // add that percentage to the leaders trophy count
       if(!isImmortal())
-	k->trophy->addToCount(v->mobVnum(), trophyperc);
+        k->trophy->addToCount(v->mobVnum(), trophyperc);
 
       // add that percentage to each group members trophy count
       for (f = k->followers; f; f = f->next) {
-	if (f->follower->isPc() && inGroup(*f->follower) && 
-	    sameRoom(*f->follower) && !isImmortal()) {
-	  f->follower->trophy->addToCount(v->mobVnum(), trophyperc);
-	}
-      }      
+        if (f->follower->isPc() && inGroup(*f->follower) &&
+            sameRoom(*f->follower) && !isImmortal()) {
+          f->follower->trophy->addToCount(v->mobVnum(), trophyperc);
+        }
+      }
     }
 
-    
+
     percent = ((double) dam / (double) (v->getHit() + 11));
 
     if (percent < 0)
@@ -314,8 +314,8 @@ int TBeing::applyDamage(TBeing *v, int dam, spellNumT dmg_type)
 
     if (willKill(v, dam, dmg_type, TRUE)) {
       // Mages can no longer kill themselves with crit failures...Russ 09/28/98
-      if (hasClass(CLASS_MAGE) && (dmg_type >= 0) && (dmg_type <= 125)) 
-        dam = v->getHit() - ::number(1, 10);  
+      if (hasClass(CLASS_MAGE) && (dmg_type >= 0) && (dmg_type <= 125))
+        dam = v->getHit() - ::number(1, 10);
       else
         dam = 11 + v->getHit();
     }
@@ -324,13 +324,13 @@ int TBeing::applyDamage(TBeing *v, int dam, spellNumT dmg_type)
   // doDamage erases flight, needed later to do crash landings by tellStatus
   bool flying = v->isFlying();
 
-  if (dmg_type == DAMAGE_NORMAL || 
+  if (dmg_type == DAMAGE_NORMAL ||
      (dmg_type >= TYPE_MIN_HIT && dmg_type <= TYPE_MAX_HIT)) {
     stats.combat_damage[v->isPc() ? PC_STAT : MOB_STAT] += dam;
   }
   if (desc) {
     desc->career.dam_done[getCombatMode()] += dam;
-    if (dmg_type == DAMAGE_NORMAL || 
+    if (dmg_type == DAMAGE_NORMAL ||
        (dmg_type >= TYPE_MIN_HIT && dmg_type <= TYPE_MAX_HIT))
       desc->session.combat_dam_done[getCombatMode()] += dam;
     else
@@ -394,11 +394,11 @@ int TBeing::applyDamage(TBeing *v, int dam, spellNumT dmg_type)
       tmons->DS(8);
       // hey, look at all this cool gear in the corpse!
       tmons->UG(60);   // spiked high, but will drop off quickly
-      
+
       if (tmons->inGrimhaven()) {
-	// complete newbie protection
-	tmons->setAnger(0);
-	tmons->setMalice(0);
+        // complete newbie protection
+        tmons->setAnger(0);
+        tmons->setMalice(0);
       }
     }
   }
@@ -457,7 +457,7 @@ int TBeing::damageEpilog(TBeing *v, spellNumT dmg_type)
     TBeing *tb = dynamic_cast<TBeing *>(t);
     // force a doubly failed rideCheck for riders of victim
     if (tb &&
-        !tb->rideCheck(-3) && 
+        !tb->rideCheck(-3) &&
         !tb->rideCheck(-3)) {
       rc = tb->fallOffMount(v, POSITION_SITTING);
       tb->addToWait(combatRound(2));
@@ -524,7 +524,7 @@ int TBeing::damageEpilog(TBeing *v, spellNumT dmg_type)
   // catch linkdead player killers
   if (v->isPc() && !v->desc) {
     if (this != v && !v->affectedBySpell(AFFECT_PLAYERKILL) &&
-	!v->affectedBySpell(AFFECT_PLAYERLOOT)){
+        !v->affectedBySpell(AFFECT_PLAYERLOOT)){
       catchLostLink(v);
       return FALSE;
     }
@@ -540,7 +540,7 @@ int TBeing::damageEpilog(TBeing *v, spellNumT dmg_type)
   }
 
   // set pkilling flag on pkillers
-  if(isPc() && v->isPc() && this!=v && this->roomp && 
+  if(isPc() && v->isPc() && this!=v && this->roomp &&
 
      !this->roomp->isRoomFlag(ROOM_ARENA) &&
      !this->inPkZone() && v->isValidPkTarget(this)){
@@ -577,7 +577,7 @@ int TBeing::damageEpilog(TBeing *v, spellNumT dmg_type)
     SET_BIT(specials.act, ACT_HIT_BY_PK);
     setExp(0);
   }
-  
+
 
   // this save was moved from gain_exp()
   doSave(SILENT_YES);
@@ -597,7 +597,7 @@ int TBeing::damageEpilog(TBeing *v, spellNumT dmg_type)
     v->sendTo(COLOR_BASIC, "<k>You thirst... for <1><r>blood<1>.\n\r");
 
     act("$n rises from the dead!",
-	FALSE, v, NULL, NULL, TO_ROOM);
+        FALSE, v, NULL, NULL, TO_ROOM);
 
 
     if(v->fight())
@@ -710,27 +710,27 @@ int TBeing::damageEpilog(TBeing *v, spellNumT dmg_type)
         }
         break;
       case Mob::ORC_MAGI:
-	if (hasQuestBit(TOG_SEEKING_ORC_MAGI) &&
-	    !hasQuestBit(TOG_FAILED_TO_KILL_MAGI) &&
-	    !hasQuestBit(TOG_PROVING_SELF)){
-	  sendTo("<c>You realize you did not follow the guidelines of your quest, so this fight will be for naught.<1>\n\r");
-	  setQuestBit(TOG_FAILED_TO_KILL_MAGI);
-	}
-	break;
+        if (hasQuestBit(TOG_SEEKING_ORC_MAGI) &&
+            !hasQuestBit(TOG_FAILED_TO_KILL_MAGI) &&
+            !hasQuestBit(TOG_PROVING_SELF)){
+          sendTo("<c>You realize you did not follow the guidelines of your quest, so this fight will be for naught.<1>\n\r");
+          setQuestBit(TOG_FAILED_TO_KILL_MAGI);
+        }
+        break;
       case Mob::CLERIC_VOLCANO:
         if (hasQuestBit(TOG_STARTED_RANGER_L21) &&
-	    !hasQuestBit(TOG_FAILED_CLERIC_V) &&
-	    !hasQuestBit(TOG_PENANCE_R21_1)){
-	  sendTo("<c>You realize you did not follow the guidelines of your quest, so this fight will be for naught.<1>\n\r");
-  	  setQuestBit(TOG_FAILED_CLERIC_V);
+            !hasQuestBit(TOG_FAILED_CLERIC_V) &&
+            !hasQuestBit(TOG_PENANCE_R21_1)){
+          sendTo("<c>You realize you did not follow the guidelines of your quest, so this fight will be for naught.<1>\n\r");
+            setQuestBit(TOG_FAILED_CLERIC_V);
         }
         break;
       case Mob::CLERIC_ARDEN:
         if (hasQuestBit(TOG_SEEKING_CLERIC_A) &&
-	    !hasQuestBit(TOG_FAILED_CLERIC_A) &&
-	    !hasQuestBit(TOG_PENANCE_R21_2)){
-	  sendTo("<c>You realize you did not follow the guidelines of your quest, so this fight will be for naught.<1>\n\r");
- 	  setQuestBit(TOG_FAILED_CLERIC_A);
+            !hasQuestBit(TOG_FAILED_CLERIC_A) &&
+            !hasQuestBit(TOG_PENANCE_R21_2)){
+          sendTo("<c>You realize you did not follow the guidelines of your quest, so this fight will be for naught.<1>\n\r");
+           setQuestBit(TOG_FAILED_CLERIC_A);
         }
         break;
       default:
@@ -740,24 +740,24 @@ int TBeing::damageEpilog(TBeing *v, spellNumT dmg_type)
 
   if ((v->getPosition() < POSITION_STUNNED) && !v->isPc()) {
     if (specials.fighting == v)
-      if (desc && !(desc->autobits & AUTO_KILL)) 
+      if (desc && !(desc->autobits & AUTO_KILL))
         stopFighting();
   }
 
   if (v->getPosition() == POSITION_DEAD) {
-    if (specials.fighting == v) 
+    if (specials.fighting == v)
       stopFighting();
 
     reconcileHurt(v, 0.03);
 
-    if (dmg_type >= MIN_SPELL && (dmg_type < MAX_SKILL) && 
+    if (dmg_type >= MIN_SPELL && (dmg_type < MAX_SKILL) &&
         discArray[dmg_type]) {
       strcpy(buf2, discArray[dmg_type]->name);
     } else if (dmg_type >= TYPE_MIN_HIT && dmg_type <= TYPE_MAX_HIT) {
       if (toggleInfo[TOG_TWINK]->toggle) {
-	strcpy(buf2, attack_hit_text_twink[(dmg_type - TYPE_MIN_HIT)].singular);
+        strcpy(buf2, attack_hit_text_twink[(dmg_type - TYPE_MIN_HIT)].singular);
       } else {
-	strcpy(buf2, attack_hit_text[(dmg_type - TYPE_MIN_HIT)].singular);
+        strcpy(buf2, attack_hit_text[(dmg_type - TYPE_MIN_HIT)].singular);
       }
     } else {
       switch (dmg_type) {
@@ -797,13 +797,13 @@ int TBeing::damageEpilog(TBeing *v, spellNumT dmg_type)
         case DAMAGE_KNEESTRIKE_CHIN:
         case DAMAGE_KNEESTRIKE_FACE:
           strcpy(buf2, "kneestrike");
-	  break;
+          break;
         case DAMAGE_CAVED_SKULL:
           strcpy(buf2, "caved-in skull");
           break;
-	case DAMAGE_RIPPED_OUT_HEART:
-	  strcpy(buf2, "ripped out heart");
-	  break;
+        case DAMAGE_RIPPED_OUT_HEART:
+          strcpy(buf2, "ripped out heart");
+          break;
         case DAMAGE_BEHEADED:
           strcpy(buf2, "behead");
           break;
@@ -836,59 +836,59 @@ int TBeing::damageEpilog(TBeing *v, spellNumT dmg_type)
           // killed by a mob
           // for sanity, check if the killer mob was a pet, etc
           if (master)
-            vlogf(LOG_MISC, format("%s killed by %s at %s (%d).  Method: %s -- master was %s") %  
+            vlogf(LOG_MISC, format("%s killed by %s at %s (%d).  Method: %s -- master was %s") %
                  v->getName() % getName() % v->roomp->name % v->inRoom() % buf2 % master->getName());
           else if (rider)
-            vlogf(LOG_MISC, format("%s killed by %s at %s (%d).  Method: %s -- rider was %s") %  
+            vlogf(LOG_MISC, format("%s killed by %s at %s (%d).  Method: %s -- rider was %s") %
                  v->getName() % getName() % v->roomp->name % v->inRoom() % buf2 % rider->getName());
           else
-            vlogf(LOG_MISC, format("%s killed by %s at %s (%d).  Method: %s") %  
+            vlogf(LOG_MISC, format("%s killed by %s at %s (%d).  Method: %s") %
                  v->getName() % getName() % v->roomp->name % v->inRoom() % buf2);
-	  // taunting shout
-	  // added for information to other players that haven't died but
-	  // didn't want to write an information channel etc
-	  // should be fun to come up with new shouts
-	  int chance = ::number(1,26);
-	  if (chance == 1) {
-	    taunt_buf=format("WOO! And %s goes down! HA!") % v->getName();
-	  } else if (chance == 2) {
-	    taunt_buf=format("Yeah! That moron %s just had to push it!") % v->getName();
-	  } else if (chance == 3) {
-	    taunt_buf=format("Someone help %s regen some hitpoints! *snort*") % v->getName();
-	  } else if (chance == 4) {
-	    taunt_buf=format("I didn't kill %s! Really!!") % v->getName();
-	  } else if (chance == 5) {
-	    taunt_buf=format("Creatures killed : Alone 45,687! Looks like %s makes that 45,688!") % v->getName();
-	  } else if (chance == 6) {
-	    taunt_buf=format("HAHAHA! Hey %s! How much to next level NOW?!?") % v->getName();
-	  } else if (chance == 7) {
-	    taunt_buf=format("It's time to remind %s that SneezyMUD is... Aw hell, can't remind the dead!") % v->getName();
-	  } else if (chance == 8) {
-	    taunt_buf=format("SneezyMUD is WAY too easy! Everytime losers like %s try to kill me they die! No challenge at all...") % v->getName();
-	  } else if (chance == 9) {
-	    taunt_buf=format("There once was a player named %s... once...") % v->getName();
-	  } else if (chance == 10) {
-	    taunt_buf=format("Dime a dozen, %s failed, who's next to die to my hand?") % v->getName();
-	  } else if (chance == 11) {
-	    taunt_buf=format("Told %s once, Told %s twice, did %s listen to my advice? R.I.P.") % v->getName() % v->getName() % v->getName();
-	  } else if (chance == 12) {
-	    taunt_buf=format("Did %s bring a scroll of recall? Oooops, guess not!") % v->getName();
-	  } else if (chance == 13) {
-	    taunt_buf=format("Hey %s, it's time to go back to scrabbling in the dirt, it can't KILL you like I did!") % v->getName();
-	  } else if (chance == 14) {
-	    taunt_buf=format("I'm walkin' on Sunshine, oooh yeah, and %s is dead, oooh yeah...") % v->getName();
-	  } else if (chance == 15) {
-	    taunt_buf=format("Mama always said, \"Life is like a box of chocolate, you never know what you're gonna get unless you're fighting %s.\"") % v->getName();
-	  } else if (chance == 16) {
-	    taunt_buf=format("Let us contemplate for a moment the very brave and often foolish deeds of %s. R.I.P.") % v->getName();
-	  } else if (chance == 17) {
-	    taunt_buf=format("No, now go away %s or I shall kill you a second time.") % v->getName();
-	  } else if (chance == 18) {
-	    taunt_buf=format("Sometimes I think I'd be better off dead. No, wait. Not me, %s.") % v->getName();
-	  } else if (chance == 19) {
-	    taunt_buf=format("Please! This is supposed to be a happy occasion. Let's not bicker and argue over who killed %s.") % v->getName();
-	  } else if (chance == 20) {
-	    taunt_buf=format("This %s is no more. It has ceased to be. It's expired and gone to meet its maker. This is a late %s.") % v->getName() % v->getName();
+          // taunting shout
+          // added for information to other players that haven't died but
+          // didn't want to write an information channel etc
+          // should be fun to come up with new shouts
+          int chance = ::number(1,26);
+          if (chance == 1) {
+            taunt_buf=format("WOO! And %s goes down! HA!") % v->getName();
+          } else if (chance == 2) {
+            taunt_buf=format("Yeah! That moron %s just had to push it!") % v->getName();
+          } else if (chance == 3) {
+            taunt_buf=format("Someone help %s regen some hitpoints! *snort*") % v->getName();
+          } else if (chance == 4) {
+            taunt_buf=format("I didn't kill %s! Really!!") % v->getName();
+          } else if (chance == 5) {
+            taunt_buf=format("Creatures killed : Alone 45,687! Looks like %s makes that 45,688!") % v->getName();
+          } else if (chance == 6) {
+            taunt_buf=format("HAHAHA! Hey %s! How much to next level NOW?!?") % v->getName();
+          } else if (chance == 7) {
+            taunt_buf=format("It's time to remind %s that SneezyMUD is... Aw hell, can't remind the dead!") % v->getName();
+          } else if (chance == 8) {
+            taunt_buf=format("SneezyMUD is WAY too easy! Everytime losers like %s try to kill me they die! No challenge at all...") % v->getName();
+          } else if (chance == 9) {
+            taunt_buf=format("There once was a player named %s... once...") % v->getName();
+          } else if (chance == 10) {
+            taunt_buf=format("Dime a dozen, %s failed, who's next to die to my hand?") % v->getName();
+          } else if (chance == 11) {
+            taunt_buf=format("Told %s once, Told %s twice, did %s listen to my advice? R.I.P.") % v->getName() % v->getName() % v->getName();
+          } else if (chance == 12) {
+            taunt_buf=format("Did %s bring a scroll of recall? Oooops, guess not!") % v->getName();
+          } else if (chance == 13) {
+            taunt_buf=format("Hey %s, it's time to go back to scrabbling in the dirt, it can't KILL you like I did!") % v->getName();
+          } else if (chance == 14) {
+            taunt_buf=format("I'm walkin' on Sunshine, oooh yeah, and %s is dead, oooh yeah...") % v->getName();
+          } else if (chance == 15) {
+            taunt_buf=format("Mama always said, \"Life is like a box of chocolate, you never know what you're gonna get unless you're fighting %s.\"") % v->getName();
+          } else if (chance == 16) {
+            taunt_buf=format("Let us contemplate for a moment the very brave and often foolish deeds of %s. R.I.P.") % v->getName();
+          } else if (chance == 17) {
+            taunt_buf=format("No, now go away %s or I shall kill you a second time.") % v->getName();
+          } else if (chance == 18) {
+            taunt_buf=format("Sometimes I think I'd be better off dead. No, wait. Not me, %s.") % v->getName();
+          } else if (chance == 19) {
+            taunt_buf=format("Please! This is supposed to be a happy occasion. Let's not bicker and argue over who killed %s.") % v->getName();
+          } else if (chance == 20) {
+            taunt_buf=format("This %s is no more. It has ceased to be. It's expired and gone to meet its maker. This is a late %s.") % v->getName() % v->getName();
     } else if (chance == 21) {
       taunt_buf=format("This is what it sounds like, when %s dies!") % v->getName();
     } else if (chance == 22) {
@@ -901,30 +901,30 @@ int TBeing::damageEpilog(TBeing *v, spellNumT dmg_type)
       taunt_buf=format("%s-lite, now with 100%% less hitpoints!") % v->getName();
     } else if (chance == 26) {
       taunt_buf=format("Ouch! Does someone have a relive for %s?") % v->getName();
-	  } else {
-	    taunt_buf=format("WOO! And %s goes down! HA!") % v->getName();
-	  }
-	  doShout(taunt_buf);
+          } else {
+            taunt_buf=format("WOO! And %s goes down! HA!") % v->getName();
+          }
+          doShout(taunt_buf);
         } else {
 #if 1
           if (v == this && isPc())
-            vlogf(LOG_COMBAT, format("%s killed %sself at %s (%d) Method: %s -- <%sSuicide>") % 
+            vlogf(LOG_COMBAT, format("%s killed %sself at %s (%d) Method: %s -- <%sSuicide>") %
                   getName() % hmhr() % roomp->name % inRoom() % buf2 %
                   ((GetMaxLevel() <= 5) ? "NEWBIE " : ""));
           else if (GetMaxLevel() > MAX_MORT && isPc() && v->isPc()) {
             if (v->GetMaxLevel() > MAX_MORT)
-              vlogf(LOG_COMBAT, format("%s killed by %s at %s (%d) Method: %s -- <God VS God>") % 
+              vlogf(LOG_COMBAT, format("%s killed by %s at %s (%d) Method: %s -- <God VS God>") %
                     v->getName() % getName() % v->roomp->name % v->inRoom() % buf2);
             else
-              vlogf(LOG_COMBAT, format("%s killed by %s at %s (%d) Method: %s -- <Immortal Kill>") % 
+              vlogf(LOG_COMBAT, format("%s killed by %s at %s (%d) Method: %s -- <Immortal Kill>") %
                     v->getName() % getName() % v->roomp->name % v->inRoom() % buf2);
           } else
-            vlogf(LOG_COMBAT, format("%s killed by %s at %s (%d) Method: %s -- <%sPlayer kill>") % 
+            vlogf(LOG_COMBAT, format("%s killed by %s at %s (%d) Method: %s -- <%sPlayer kill>") %
                   v->getName() % getName() % v->roomp->name % v->inRoom() % buf2 %
                   ((v->GetMaxLevel() <= 5) ? "NEWBIE " : ""));
 
 #else
-          vlogf(LOG_MISC, format("%s killed by %s at %s (%d) Method: %s -- <%sPlayer kill>") % 
+          vlogf(LOG_MISC, format("%s killed by %s at %s (%d) Method: %s -- <%sPlayer kill>") %
                 v->getName() % getName() % v->roomp->name % v->inRoom() %
                 buf2 %
                 ((v->GetMaxLevel() <= 5 && v != this) ? "NEWBIE " : ""));
@@ -951,7 +951,7 @@ int TBeing::damageEpilog(TBeing *v, spellNumT dmg_type)
             sstring graveDesc = "Here lies ";
             graveDesc += v->getName();
             graveDesc += ".\n\rKilled ";
-  
+
             graveDesc += "by ";
             graveDesc += getName();
             graveDesc += format(" this %s day of %s, Year %d P.S.\n\r") %
@@ -970,12 +970,12 @@ int TBeing::damageEpilog(TBeing *v, spellNumT dmg_type)
             *v->roomp += *grave;
           }
         }
-      } else 
+      } else
         vlogf(LOG_MISC, format("%s killed by %s at Nowhere  Method: %s.") %  v->getName() % getName() % buf2);
     }
     // Mark an actual kill for the person giving the final blow
     if (desc) {
-      if (roomp->isRoomFlag(ROOM_ARENA) || inPkZone()) 
+      if (roomp->isRoomFlag(ROOM_ARENA) || inPkZone())
         desc->career.arena_victs++;
       else {
         desc->session.kills++;
@@ -1010,9 +1010,9 @@ int TBeing::damageEpilog(TBeing *v, spellNumT dmg_type)
       }
       for (f = k->followers; f; f = f->next) {
         if (f->follower->isAffected(AFF_GROUP) && canSee(f->follower)) {
-          if (sameRoom(*f->follower)) { 
+          if (sameRoom(*f->follower)) {
             if (f->follower->desc) {
-	      ngroup++;
+              ngroup++;
               f->follower->desc->session.groupKills++;
               f->follower->desc->career.group_kills++;
             }
@@ -1029,7 +1029,7 @@ int TBeing::damageEpilog(TBeing *v, spellNumT dmg_type)
     // theoretically possible, but I don't believe situation will
     // have it occur realistically, JIC though
     if (IS_SET_DELETE(rc, DELETE_THIS)) {
-      vlogf(LOG_BUG, format("Bad result from PkRespawn (%s at %d).  Multiple deaths??") % 
+      vlogf(LOG_BUG, format("Bad result from PkRespawn (%s at %d).  Multiple deaths??") %
           v->getName() % v->inRoom());
     }
 
@@ -1065,52 +1065,52 @@ int TBeing::damageEpilog(TBeing *v, spellNumT dmg_type)
     if (sameRoom(*v)) {
       // use auto-bit settings to do appropriate looting
       // let masters loot the kills of a follower
-      if (desc && (desc->autobits & AUTO_LOOT_MONEY) && 
+      if (desc && (desc->autobits & AUTO_LOOT_MONEY) &&
           !(desc->autobits & AUTO_LOOT_NOTMONEY)) {
         sprintf(buf, "get all.talen %s-corpse-autoloot", buf2);
         addCommandToQue(buf);
-      } else if ((dynamic_cast<TMonster *>(this) && !v->isPc())|| 
-		 (desc && (desc->autobits & AUTO_LOOT_NOTMONEY))) {
+      } else if ((dynamic_cast<TMonster *>(this) && !v->isPc())||
+                 (desc && (desc->autobits & AUTO_LOOT_NOTMONEY))) {
         sprintf(buf, "get all %s-corpse-autoloot", buf2);
         addCommandToQue(buf);
       }
 
       if(desc && IS_SET(desc->autobits, AUTO_TROPHY)){
-	sendTo(COLOR_BASIC,format("You will gain %s experience when fighting %s.\n\r") %
-	       trophy->getExpModDescr(trophy->getCount(v->mobVnum()), v->mobVnum()) %
-	       v->getName());
+        sendTo(COLOR_BASIC,format("You will gain %s experience when fighting %s.\n\r") %
+               trophy->getExpModDescr(trophy->getCount(v->mobVnum()), v->mobVnum()) %
+               v->getName());
       }
 
       if (dynamic_cast<TMonster*>(v))
-	rc = dynamic_cast<TMonster*>(v)->checkResponses(this, 0, "", CMD_RESP_KILLED);
+        rc = dynamic_cast<TMonster*>(v)->checkResponses(this, 0, "", CMD_RESP_KILLED);
       // more quest stuff
       if (!rc) {
 
-	tp=dynamic_cast<TPerson *>(this);
-	if (tp && v->mobVnum()==Mob::LEPER) {
-	  if(tp->hasQuestBit(TOG_MONK_PURPLE_LEPER_KILLED4)) {
-	    tp->remQuestBit(TOG_MONK_PURPLE_LEPER_KILLED4);
-	    tp->setQuestBit(TOG_MONK_PURPLE_FINISHED);
-	  } else if(tp->hasQuestBit(TOG_MONK_PURPLE_LEPER_KILLED3)) {
-	    tp->remQuestBit(TOG_MONK_PURPLE_LEPER_KILLED3);
-	    tp->setQuestBit(TOG_MONK_PURPLE_LEPER_KILLED4);
-	  } else if(tp->hasQuestBit(TOG_MONK_PURPLE_LEPER_KILLED2)) {
-	    tp->remQuestBit(TOG_MONK_PURPLE_LEPER_KILLED2);
-	    tp->setQuestBit(TOG_MONK_PURPLE_LEPER_KILLED3);
-	  } else if(tp->hasQuestBit(TOG_MONK_PURPLE_LEPER_KILLED1)) {
-	    tp->remQuestBit(TOG_MONK_PURPLE_LEPER_KILLED1);
-	    tp->setQuestBit(TOG_MONK_PURPLE_LEPER_KILLED2);
-	  } else if(tp->hasQuestBit(TOG_MONK_PURPLE_STARTED)) {
-	    tp->setQuestBit(TOG_MONK_PURPLE_LEPER_KILLED1);
-	    tp->remQuestBit(TOG_MONK_PURPLE_STARTED);
-	  }
-	}
+        tp=dynamic_cast<TPerson *>(this);
+        if (tp && v->mobVnum()==Mob::LEPER) {
+          if(tp->hasQuestBit(TOG_MONK_PURPLE_LEPER_KILLED4)) {
+            tp->remQuestBit(TOG_MONK_PURPLE_LEPER_KILLED4);
+            tp->setQuestBit(TOG_MONK_PURPLE_FINISHED);
+          } else if(tp->hasQuestBit(TOG_MONK_PURPLE_LEPER_KILLED3)) {
+            tp->remQuestBit(TOG_MONK_PURPLE_LEPER_KILLED3);
+            tp->setQuestBit(TOG_MONK_PURPLE_LEPER_KILLED4);
+          } else if(tp->hasQuestBit(TOG_MONK_PURPLE_LEPER_KILLED2)) {
+            tp->remQuestBit(TOG_MONK_PURPLE_LEPER_KILLED2);
+            tp->setQuestBit(TOG_MONK_PURPLE_LEPER_KILLED3);
+          } else if(tp->hasQuestBit(TOG_MONK_PURPLE_LEPER_KILLED1)) {
+            tp->remQuestBit(TOG_MONK_PURPLE_LEPER_KILLED1);
+            tp->setQuestBit(TOG_MONK_PURPLE_LEPER_KILLED2);
+          } else if(tp->hasQuestBit(TOG_MONK_PURPLE_STARTED)) {
+            tp->setQuestBit(TOG_MONK_PURPLE_LEPER_KILLED1);
+            tp->remQuestBit(TOG_MONK_PURPLE_STARTED);
+          }
+        }
       }
 
       // make mob-killed corpses un-dissectable
       if (!isPc() && !isAffected(AFF_CHARM)) {
         TBaseCorpse *corpse = NULL;
-	      sprintf(buf, "%s-corpse", buf2);
+              sprintf(buf, "%s-corpse", buf2);
         if ((t2 = searchLinkedList(((sstring)(format("%s-corpse") % buf2)).c_str(), roomp->stuff)) &&
             (corpse = dynamic_cast<TBaseCorpse *>(t2)))
         {
@@ -1123,7 +1123,7 @@ int TBeing::damageEpilog(TBeing *v, spellNumT dmg_type)
         int comp, amt;
         TBaseCorpse *corpse = NULL;
 
-	sprintf(buf, "%s-corpse", buf2);
+        sprintf(buf, "%s-corpse", buf2);
 
         if ((t2 = searchLinkedListVis(this, buf, roomp->stuff)) &&
             (corpse = dynamic_cast<TBaseCorpse *>(t2))) {
@@ -1172,7 +1172,7 @@ void TBeing::doDamage(int dam, spellNumT dmg_type)
 
  if (desc) {
     desc->career.dam_received[getCombatMode()] += dam;
-    if (dmg_type == DAMAGE_NORMAL || 
+    if (dmg_type == DAMAGE_NORMAL ||
        (dmg_type >= TYPE_MIN_HIT && dmg_type <= TYPE_MAX_HIT))
       desc->session.combat_dam_received[getCombatMode()] += dam;
     else

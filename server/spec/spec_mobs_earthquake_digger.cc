@@ -69,7 +69,7 @@ int tunnelerEarthquake(TBeing *ch, cmdTypeT tCmd, const char *tArg, TMonster *tM
               tBeing = NULL;
             } else
               tFighters++;
-	  }
+          }
         }
       }
     }

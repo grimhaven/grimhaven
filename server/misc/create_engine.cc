@@ -418,7 +418,7 @@ int task_createEngine(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *
               --(*asJob->tObjList[(curComp + 1)]);
               delete asJob->tObjList[(curComp + 1)];
               asJob->tObjList[(curComp + 1)] = NULL;
-	    }
+            }
 
             if (ch->task->flags < 5 && !AppliedCreate[ch->task->flags]->ceMessages[curMesg]) {
               if (asJob->tObjList[curComp] && asJob->tObjList[(curComp + 1)]) {

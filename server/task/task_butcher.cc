@@ -148,14 +148,14 @@ int TThing::butcherPulse(TBeing *ch, TBaseCorpse *corpse)
 
 #ifdef WEIGHT
   if (compareWeights(item->getTotalWeight(TRUE),
-		     (ch->carryWeightLimit() - ch->getCarriedWeight())) == -1) {
+                     (ch->carryWeightLimit() - ch->getCarriedWeight())) == -1) {
     act("The weight of the meat gets too much for you, so you drop it.",
         FALSE, ch, 0, 0, TO_CHAR);
     act("The weight of $s meat gets to be too much for $n to handle.",
         FALSE, ch, 0, NULL, TO_ROOM);
     //    *corpse->roomp += *item;
   } else if (ch->getCarriedVolume() + (item->getTotalVolume()
-				       -item->getReducedVolume(NULL)) > ch->carryVolumeLimit()) {
+                                       -item->getReducedVolume(NULL)) > ch->carryVolumeLimit()) {
     act("You struggle to hold onto the steak but it slips from your grasp.",
         FALSE, ch, 0, 0, TO_CHAR);
     act("$n struggles to hold onto the steak but it slips from $s grasp.",
@@ -192,7 +192,7 @@ int TThing::butcherPulse(TBeing *ch, TBaseCorpse *corpse)
       strcpy(namebuf, tpc->getOwner().c_str());
       namebuf[0]=toupper(namebuf[0]);
     }
-    
+
     int FoodUnits = max(0,min(100,(maxUnitsP/Ceffect)));
     steak->setFoodFill(FoodUnits);
     steak->setWeight((float)FoodUnits / 10.0);

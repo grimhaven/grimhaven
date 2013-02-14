@@ -17,7 +17,7 @@
  called.   There may be other places where affects are checked for and
  called.  These will vary from disease to disease.  The important thing
  to remember when creating/thinking of diseases is that the goal is not
- to burden the player but to enrich playing.  That wount stop me from 
+ to burden the player but to enrich playing.  That wount stop me from
  writing disease_herpes, however.
                                             - Stargazer   9/93
 
@@ -31,7 +31,7 @@
    sbyte level;        <-- state data for the disease
    short duration;    <-- updates until disease wears off
    sbyte modifier;     <-- type of disease (note this is signed, but only
-                           use 0 -> 127.  I think 127 diseases is plenty.) 
+                           use 0 -> 127.  I think 127 diseases is plenty.)
    byte location;      <-- this should be APPLY_NONE
    long bitvector;     <-- this should be 0
 */
@@ -79,15 +79,15 @@ diseaseTypeT affToDisease(affectedData &);
 /* spec procs should (for now) always return FALSE from a message call   */
 
 /* note, if message > 0, then it represents a "command triggered" message.
-   This is similar to mobile/object/room special procedures, in that 
+   This is similar to mobile/object/room special procedures, in that
    the message # will be the command # that triggered the spec_proc.     */
 const int DISEASE_PULSE  =0;    /* spec_proc is getting called for its periodic
                                update.  Update time is defined in comm.c */
 const int DISEASE_DONE  =-1;   /* spec_proc is getting called for the last
-                               time on the victim .  The affect will be 
+                               time on the victim .  The affect will be
                                removed following spec_proc execution.i
                                Use stop_disease(). */
-const int DISEASE_BEGUN =-2;   /* spec_proc is getting called for the first 
+const int DISEASE_BEGUN =-2;   /* spec_proc is getting called for the first
                               time on the victim.   Use start_disease(). */
 
 /* disease function prototypes */
@@ -98,7 +98,7 @@ void spread_affect(TBeing *ch, int chance_to_spread, bool race, bool not_race, a
 typedef struct {
   int (*code)(TBeing *, int, affectedData *);
   char name[40];
-  int cure_cost;  
+  int cure_cost;
 } DISEASEINFO;
 
 extern DISEASEINFO DiseaseInfo[MAX_DISEASE];

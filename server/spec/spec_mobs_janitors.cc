@@ -25,8 +25,8 @@ bool okForJanitor(TMonster *myself, TObj *obj)
     return false;
 
   // don't let them pick up 3000 pound wagons because that's retarded
-  if(compareWeights(obj->getTotalWeight(TRUE), 
-	      (myself->carryWeightLimit() - myself->getCarriedWeight()))==-1)
+  if(compareWeights(obj->getTotalWeight(TRUE),
+              (myself->carryWeightLimit() - myself->getCarriedWeight()))==-1)
     return false;
 
   TBaseCorpse *corpse = dynamic_cast<TBaseCorpse *>(obj);
@@ -215,12 +215,12 @@ int janitor(TBeing *ch, cmdTypeT cmd, const char *, TMonster *myself, TObj *)
   TThing *t;
   TObj *obj = NULL;
   int rc;
-  char buf[256];  
+  char buf[256];
   bool trashpile=false;
 
   if (cmd == CMD_GENERIC_DESTROYED) {
     delete static_cast<TPathFinder *>(myself->act_ptr);
-    myself->act_ptr=NULL;    
+    myself->act_ptr=NULL;
     return FALSE;
   }
 
@@ -264,7 +264,7 @@ int janitor(TBeing *ch, cmdTypeT cmd, const char *, TMonster *myself, TObj *)
 
       TThing *t;
       for(StuffIter it=obj->stuff.begin();it!=obj->stuff.end();){
-	t=*(it++);
+        t=*(it++);
         (*t)--;
         *myself += *t;
       }
@@ -272,9 +272,9 @@ int janitor(TBeing *ch, cmdTypeT cmd, const char *, TMonster *myself, TObj *)
     } else if (!obj->isObjStat(ITEM_PROTOTYPE) && !obj->getNumRiders(obj)) {
       act("$n picks up $p.", FALSE, myself, obj, 0, TO_ROOM);
       --(*obj);
-      *myself += *obj; 
+      *myself += *obj;
       if(obj->objVnum() == Obj::PILE_OFFAL)
-	delete obj;
+        delete obj;
     }
     return TRUE;
   }
@@ -305,7 +305,7 @@ int prisonJanitor(TBeing *ch, cmdTypeT cmd, const char *, TMonster *myself, TObj
   TThing *t;
   TObj *obj = NULL;
   int rc;
-  char buf[256];  
+  char buf[256];
   int DUMP=31905;
   bool trashpile=false;
 
@@ -352,9 +352,9 @@ int prisonJanitor(TBeing *ch, cmdTypeT cmd, const char *, TMonster *myself, TObj
     } else if (!obj->isObjStat(ITEM_PROTOTYPE) && !obj->getNumRiders(obj)) {
       act("$n picks up $p.", FALSE, myself, obj, 0, TO_ROOM);
       --(*obj);
-      *myself += *obj; 
+      *myself += *obj;
       if(obj->objVnum() == Obj::PILE_OFFAL)
-	delete obj;
+        delete obj;
     }
     return TRUE;
   }
@@ -385,7 +385,7 @@ int amberJanitor(TBeing *ch, cmdTypeT cmd, const char *, TMonster *myself, TObj 
   TThing *t;
   TObj *obj = NULL;
   int rc;
-  char buf[256];  
+  char buf[256];
   int DUMP=33281;
   bool trashpile=false;
 
@@ -429,9 +429,9 @@ int amberJanitor(TBeing *ch, cmdTypeT cmd, const char *, TMonster *myself, TObj 
     } else if (!obj->isObjStat(ITEM_PROTOTYPE) && !obj->getNumRiders(obj)) {
       act("$n picks up $p.", FALSE, myself, obj, 0, TO_ROOM);
       --(*obj);
-      *myself += *obj; 
+      *myself += *obj;
       if(obj->objVnum() == Obj::PILE_OFFAL)
-	delete obj;
+        delete obj;
     }
     return TRUE;
   }
@@ -460,7 +460,7 @@ int brightmoonJanitor(TBeing *ch, cmdTypeT cmd, const char *, TMonster *myself, 
   TThing *t;
   TObj *obj = NULL;
   int rc;
-  char buf[256];  
+  char buf[256];
   int DUMP=1385;
   bool trashcan=false;
   bool trashpile=false;
@@ -513,9 +513,9 @@ int brightmoonJanitor(TBeing *ch, cmdTypeT cmd, const char *, TMonster *myself, 
     } else if (!obj->isObjStat(ITEM_PROTOTYPE) && !obj->getNumRiders(obj)) {
       act("$n picks up $p.", FALSE, myself, obj, 0, TO_ROOM);
       --(*obj);
-      *myself += *obj; 
+      *myself += *obj;
       if(obj->objVnum() == Obj::PILE_OFFAL)
-	delete obj;
+        delete obj;
     }
     return TRUE;
   }
@@ -540,7 +540,7 @@ int brightmoonJanitor(TBeing *ch, cmdTypeT cmd, const char *, TMonster *myself, 
 }
 
 
-// for use by janitors to drop stuff in donation 
+// for use by janitors to drop stuff in donation
 // returns DELETE_THIS
 int TBeing::doDonate(int room)
 {
@@ -550,7 +550,7 @@ int TBeing::doDonate(int room)
 
   if (in_room != room) {
     if((dir=path.findPath(in_room, findRoom(room))) < 0){
-      // unable to find a path 
+      // unable to find a path
       if (room >= 0) {
         doSay("Time for my coffee break");
         act("$n has left into the void.",0, this, 0, 0, TO_ROOM);
@@ -641,7 +641,7 @@ TObj *findCart(TMonster *mob)
   }
   return cart;
 }
-  
+
 
 
 int garbageConvoy(TBeing *, cmdTypeT cmd, const char *, TMonster *myself, TObj *)
@@ -709,7 +709,7 @@ int garbageConvoy(TBeing *, cmdTypeT cmd, const char *, TMonster *myself, TObj *
     return FALSE;
   }
 
-  if ((cmd != CMD_GENERIC_PULSE && cmd != CMD_GENERIC_QUICK_PULSE) 
+  if ((cmd != CMD_GENERIC_PULSE && cmd != CMD_GENERIC_QUICK_PULSE)
       || !myself->awake() || myself->fight())
     return FALSE;
 
@@ -749,169 +749,169 @@ int garbageConvoy(TBeing *, cmdTypeT cmd, const char *, TMonster *myself, TObj *
     case STATE_NONE:
       job->cur_path=0;
       job->cur_pos=0;
-      job->state=STATE_TO_CS; 
+      job->state=STATE_TO_CS;
       break;
     case STATE_TO_CS:
       if(!myself->walk_path(garbage_convoy_path[job->cur_path], job->cur_pos)){
-	if(cart->stuff.empty()){
-	  switch(::number(0,3)){
-	    case 0:
-	      job->cur_pos=0;
-	      job->state=STATE_TROLLEY_TO;
-	      break;
-	    case 1:
-	      job->cur_path=4;
-	      job->cur_pos=0;
-	      job->state=STATE_TO_AMBER_DUMP;
-	      break;
-	    case 2:
-	      job->cur_path=3;
-	      job->cur_pos=0;
-	      job->state=STATE_TO_GH_SURPLUS;
-	      break;
-	    case 3:
-	      job->cur_path=6;
-	      job->cur_pos=0;
-	      job->state=STATE_TO_LOGRUS_DUMP;
-	      break;
-	  }
-	} else {
-	  job->cur_path=8;
-	  job->cur_pos=0;
-	  job->state=STATE_TO_GH_DUMP;
-	}
+        if(cart->stuff.empty()){
+          switch(::number(0,3)){
+            case 0:
+              job->cur_pos=0;
+              job->state=STATE_TROLLEY_TO;
+              break;
+            case 1:
+              job->cur_path=4;
+              job->cur_pos=0;
+              job->state=STATE_TO_AMBER_DUMP;
+              break;
+            case 2:
+              job->cur_path=3;
+              job->cur_pos=0;
+              job->state=STATE_TO_GH_SURPLUS;
+              break;
+            case 3:
+              job->cur_path=6;
+              job->cur_pos=0;
+              job->state=STATE_TO_LOGRUS_DUMP;
+              break;
+          }
+        } else {
+          job->cur_path=8;
+          job->cur_pos=0;
+          job->state=STATE_TO_GH_DUMP;
+        }
       } else
-	moveCart(myself, cart);
+        moveCart(myself, cart);
       break;
     case STATE_TO_GH_DUMP:
       if(!myself->walk_path(garbage_convoy_path[job->cur_path], job->cur_pos)){
-	dropAllCart(myself, cart);
+        dropAllCart(myself, cart);
 
-	job->cur_path=9;
-	job->cur_pos=0;
-	job->state=STATE_DUMP_TO_CS;
+        job->cur_path=9;
+        job->cur_pos=0;
+        job->state=STATE_DUMP_TO_CS;
       } else
-	moveCart(myself, cart);
+        moveCart(myself, cart);
       break;
     case STATE_DUMP_TO_CS:
       if(!myself->walk_path(garbage_convoy_path[job->cur_path], job->cur_pos)){
-	job->cur_path=0;
-	job->cur_pos=0;
-	job->state=STATE_TO_CS;
+        job->cur_path=0;
+        job->cur_pos=0;
+        job->state=STATE_TO_CS;
       } else
-	moveCart(myself, cart);
+        moveCart(myself, cart);
       break;
     case STATE_TO_LOGRUS_DUMP:
       if(!myself->walk_path(garbage_convoy_path[job->cur_path], job->cur_pos)){
-	putAllCart(myself, cart);
+        putAllCart(myself, cart);
 
-	job->cur_path=7;
-	job->cur_pos=0;
-	job->state=STATE_LOGRUS_TO_CS;
+        job->cur_path=7;
+        job->cur_pos=0;
+        job->state=STATE_LOGRUS_TO_CS;
       } else
-	moveCart(myself, cart);
+        moveCart(myself, cart);
       break;
     case STATE_LOGRUS_TO_CS:
       if(!myself->walk_path(garbage_convoy_path[job->cur_path], job->cur_pos)){
-	job->cur_path=0;
-	job->cur_pos=0;
-	job->state=STATE_TO_CS;
+        job->cur_path=0;
+        job->cur_pos=0;
+        job->state=STATE_TO_CS;
       } else
-	moveCart(myself, cart);
+        moveCart(myself, cart);
       break;
     case STATE_TO_AMBER_DUMP:
       if(!myself->walk_path(garbage_convoy_path[job->cur_path], job->cur_pos)){
-	putAllCart(myself, cart);
+        putAllCart(myself, cart);
 
-	job->cur_path=5;
-	job->cur_pos=0;
-	job->state=STATE_AMBER_TO_CS;
+        job->cur_path=5;
+        job->cur_pos=0;
+        job->state=STATE_AMBER_TO_CS;
       } else
-	moveCart(myself, cart);      
+        moveCart(myself, cart);
       break;
     case STATE_AMBER_TO_CS:
       if(!myself->walk_path(garbage_convoy_path[job->cur_path], job->cur_pos)){
-	job->cur_path=0;
-	job->cur_pos=0;
-	job->state=STATE_TO_CS;
+        job->cur_path=0;
+        job->cur_pos=0;
+        job->state=STATE_TO_CS;
       } else
-	moveCart(myself, cart);
+        moveCart(myself, cart);
       break;
     case STATE_TROLLEY_TO:
       if(myself->inRoom()==Room::TROLLEY){
         exitp = myself->roomp->exitDir(DIR_NORTH);
 
-	if(exitp->to_room == 1303){
-	  rc=myself->goDirection(garbage_convoy_path[job->cur_path][job->cur_pos + 1].direction);
-	  if (IS_SET_DELETE(rc, DELETE_THIS)) {
-	    return DELETE_THIS;
-	  }
-	  
-	  job->cur_pos=0;
-	  job->cur_path=1;
-	  job->state=STATE_BM_DELIVERING;
-	}
+        if(exitp->to_room == 1303){
+          rc=myself->goDirection(garbage_convoy_path[job->cur_path][job->cur_pos + 1].direction);
+          if (IS_SET_DELETE(rc, DELETE_THIS)) {
+            return DELETE_THIS;
+          }
+
+          job->cur_pos=0;
+          job->cur_path=1;
+          job->state=STATE_BM_DELIVERING;
+        }
       } else {
-	for(StuffIter it=myself->roomp->stuff.begin();it!=myself->roomp->stuff.end() && (t=*it);++it){
-	  if((o=dynamic_cast<TObj *>(t)) && o->objVnum()==15344){
-	    myself->doEnter("trolley", NULL);
-	    break;
-	  }
-	}
+        for(StuffIter it=myself->roomp->stuff.begin();it!=myself->roomp->stuff.end() && (t=*it);++it){
+          if((o=dynamic_cast<TObj *>(t)) && o->objVnum()==15344){
+            myself->doEnter("trolley", NULL);
+            break;
+          }
+        }
       }
       moveCart(myself, cart);
       break;
     case STATE_BM_DELIVERING:
       if(!myself->walk_path(garbage_convoy_path[job->cur_path], job->cur_pos)){
-	putAllCart(myself, cart);
+        putAllCart(myself, cart);
 
-	job->cur_path=2;
-	job->cur_pos=0;
-	job->state=STATE_BM_RETURNING;
+        job->cur_path=2;
+        job->cur_pos=0;
+        job->state=STATE_BM_RETURNING;
       } else
-	moveCart(myself, cart);
+        moveCart(myself, cart);
       break;
     case STATE_BM_RETURNING:
       if(!myself->walk_path(garbage_convoy_path[job->cur_path], job->cur_pos)){
-	job->cur_path=3;
-	job->cur_pos=0;
-	job->state=STATE_TROLLEY_RET;
+        job->cur_path=3;
+        job->cur_pos=0;
+        job->state=STATE_TROLLEY_RET;
       } else
-	moveCart(myself, cart);
+        moveCart(myself, cart);
       break;
     case STATE_TROLLEY_RET:
       if(myself->inRoom()==Room::TROLLEY){
         exitp = myself->roomp->exitDir(DIR_NORTH);
 
-	if(exitp->to_room == Room::CS){
-	  rc=myself->goDirection(DIR_NORTH);
-	  if (IS_SET_DELETE(rc, DELETE_THIS)) {
-	    return DELETE_THIS;
-	  }
-	  
-	  job->cur_pos=0;
-	  job->cur_path=0;
-	  job->state=STATE_TO_CS;
-	}
+        if(exitp->to_room == Room::CS){
+          rc=myself->goDirection(DIR_NORTH);
+          if (IS_SET_DELETE(rc, DELETE_THIS)) {
+            return DELETE_THIS;
+          }
+
+          job->cur_pos=0;
+          job->cur_path=0;
+          job->state=STATE_TO_CS;
+        }
       } else {
-	for(StuffIter it=myself->roomp->stuff.begin();it!=myself->roomp->stuff.end() && (t=*it);++it){
-	  if((o=dynamic_cast<TObj *>(t)) && o->objVnum()==15344){
-	    myself->doEnter("trolley", NULL);
-	    break;
-	  }
-	}
+        for(StuffIter it=myself->roomp->stuff.begin();it!=myself->roomp->stuff.end() && (t=*it);++it){
+          if((o=dynamic_cast<TObj *>(t)) && o->objVnum()==15344){
+            myself->doEnter("trolley", NULL);
+            break;
+          }
+        }
       }
       moveCart(myself, cart);
       break;
     case STATE_TO_GH_SURPLUS:
       if(!myself->walk_path(garbage_convoy_path[job->cur_path], job->cur_pos)){
-	putAllCart(myself, cart);
+        putAllCart(myself, cart);
 
-	job->cur_pos=0;
-	job->cur_path=0;
-	job->state=STATE_TO_CS;
+        job->cur_pos=0;
+        job->cur_path=0;
+        job->state=STATE_TO_CS;
       } else
-	moveCart(myself, cart);
+        moveCart(myself, cart);
       break;
   }
 
@@ -920,76 +920,76 @@ int garbageConvoy(TBeing *, cmdTypeT cmd, const char *, TMonster *myself, TObj *
 
 int fruitScavenger(TBeing *, cmdTypeT cmd, const char *, TMonster *myself, TObj *)
 {
-	if ((cmd != CMD_GENERIC_PULSE) || !myself->awake() || myself->fight())
-		return FALSE;
+        if ((cmd != CMD_GENERIC_PULSE) || !myself->awake() || myself->fight())
+                return FALSE;
 
-	if (::number(0, 25))
-		return FALSE;
+        if (::number(0, 25))
+                return FALSE;
 
-	int seek_tree = 13; // candy heart tree type
-	int seek_fruit = 29405; // candy heart seed
-	
-	TPlant *tree;
-	TObj *fruit;
-	TThing *t=NULL, *t2=NULL;
-	
-	for(StuffIter it=myself->roomp->stuff.begin();it!=myself->roomp->stuff.end() && (t=*it);++it) {
+        int seek_tree = 13; // candy heart tree type
+        int seek_fruit = 29405; // candy heart seed
 
-		fruit = dynamic_cast<TObj *>(t);
-		if (fruit && fruit->objVnum() == seek_fruit) {
-			// eat it and return
-			act("$n eats $p.", TRUE, myself, fruit, 0, TO_ROOM);
-			act("You eat $p.", FALSE, myself, fruit, 0, TO_CHAR);
-			delete fruit;
-			return TRUE;
-		}
-		
-		tree = dynamic_cast<TPlant *>(t);
-		if (tree && tree->getType() == seek_tree) {
-			// find fruit inside and eat it
-			for(StuffIter it=tree->stuff.begin();it!=tree->stuff.end() && (t2=*it);++it) {
-				fruit = dynamic_cast<TObj *>(t2);
-				if (fruit && fruit->objVnum() == seek_fruit) {
-					act(format("$n eats %s from $p.") % fruit->getName(), TRUE, myself, tree, 0, TO_ROOM);
-					act(format("You eat %s from a $p.") % fruit->getName(), FALSE, myself, tree, 0, TO_CHAR);
-					tree->setVerminated(tree->getVerminated() + 1);
-					delete fruit;
-					return TRUE;
-				}
-			}
-		}
-	}
-	
-	// find nearby trees or fruits and go to them
-	std::vector <dirTypeT> possible_exits;
-	TRoom *rp;
-	dirTypeT use_dir;
-	for(use_dir = MIN_DIR; use_dir < MAX_DIR; use_dir++){
-		if (myself->roomp->exitDir(use_dir) && !IS_SET(myself->roomp->exitDir(use_dir)->condition, EX_CLOSED)) {
-			rp = real_roomp(myself->roomp->exitDir(use_dir)->to_room);
-			if (!rp)
-				continue;
-			for(StuffIter it=rp->stuff.begin();it!=rp->stuff.end() && (t=*it);++it) {
-				fruit = dynamic_cast<TObj *>(t);
-				if (fruit && fruit->objVnum() == seek_fruit) {
-					possible_exits.push_back(use_dir);
-					break;
-				}
-				tree = dynamic_cast<TPlant *>(t);
-				if (tree && tree->getType() == seek_tree) {
-					possible_exits.push_back(use_dir);
-					break;
-				}
-			}
-		}
-	}
-	
-	if (!possible_exits.size()){
-		act("$n lifts its nose and sniffs.", TRUE, myself, 0, 0, TO_ROOM);
-		act("You lift your nose and sniff, but can't smell any candy.", FALSE, myself, 0, 0, TO_CHAR);
-		return TRUE;
-	}
-	myself->doMove(possible_exits[::number(0, possible_exits.size() - 1)]);
-	return TRUE;
+        TPlant *tree;
+        TObj *fruit;
+        TThing *t=NULL, *t2=NULL;
+
+        for(StuffIter it=myself->roomp->stuff.begin();it!=myself->roomp->stuff.end() && (t=*it);++it) {
+
+                fruit = dynamic_cast<TObj *>(t);
+                if (fruit && fruit->objVnum() == seek_fruit) {
+                        // eat it and return
+                        act("$n eats $p.", TRUE, myself, fruit, 0, TO_ROOM);
+                        act("You eat $p.", FALSE, myself, fruit, 0, TO_CHAR);
+                        delete fruit;
+                        return TRUE;
+                }
+
+                tree = dynamic_cast<TPlant *>(t);
+                if (tree && tree->getType() == seek_tree) {
+                        // find fruit inside and eat it
+                        for(StuffIter it=tree->stuff.begin();it!=tree->stuff.end() && (t2=*it);++it) {
+                                fruit = dynamic_cast<TObj *>(t2);
+                                if (fruit && fruit->objVnum() == seek_fruit) {
+                                        act(format("$n eats %s from $p.") % fruit->getName(), TRUE, myself, tree, 0, TO_ROOM);
+                                        act(format("You eat %s from a $p.") % fruit->getName(), FALSE, myself, tree, 0, TO_CHAR);
+                                        tree->setVerminated(tree->getVerminated() + 1);
+                                        delete fruit;
+                                        return TRUE;
+                                }
+                        }
+                }
+        }
+
+        // find nearby trees or fruits and go to them
+        std::vector <dirTypeT> possible_exits;
+        TRoom *rp;
+        dirTypeT use_dir;
+        for(use_dir = MIN_DIR; use_dir < MAX_DIR; use_dir++){
+                if (myself->roomp->exitDir(use_dir) && !IS_SET(myself->roomp->exitDir(use_dir)->condition, EX_CLOSED)) {
+                        rp = real_roomp(myself->roomp->exitDir(use_dir)->to_room);
+                        if (!rp)
+                                continue;
+                        for(StuffIter it=rp->stuff.begin();it!=rp->stuff.end() && (t=*it);++it) {
+                                fruit = dynamic_cast<TObj *>(t);
+                                if (fruit && fruit->objVnum() == seek_fruit) {
+                                        possible_exits.push_back(use_dir);
+                                        break;
+                                }
+                                tree = dynamic_cast<TPlant *>(t);
+                                if (tree && tree->getType() == seek_tree) {
+                                        possible_exits.push_back(use_dir);
+                                        break;
+                                }
+                        }
+                }
+        }
+
+        if (!possible_exits.size()){
+                act("$n lifts its nose and sniffs.", TRUE, myself, 0, 0, TO_ROOM);
+                act("You lift your nose and sniff, but can't smell any candy.", FALSE, myself, 0, 0, TO_CHAR);
+                return TRUE;
+        }
+        myself->doMove(possible_exits[::number(0, possible_exits.size() - 1)]);
+        return TRUE;
 
 }

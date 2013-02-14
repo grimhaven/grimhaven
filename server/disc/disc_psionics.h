@@ -25,7 +25,7 @@ public:
   CSkill skMindPreservation;
   CSkill skTelekinesis;
   CSkill skPsiDrain;
-  
+
     CDPsionics();
     CDPsionics(const CDPsionics &a);
     CDPsionics & operator=(const CDPsionics &a);

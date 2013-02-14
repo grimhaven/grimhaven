@@ -62,7 +62,7 @@ class rentObject
     int max_struct_points;
     ubyte material_points;
     int volume;
-    int cost; 
+    int cost;
     byte depreciation;
 
     rentObject();
@@ -92,7 +92,7 @@ class ItemLoad {
   bool fileExists(const sstring &);
   void setFile(FILE *);
   void setVersion(unsigned char);
-  
+
   bool readVersion();
   bool readHeader();
 

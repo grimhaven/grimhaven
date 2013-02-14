@@ -17,7 +17,7 @@
 
 
 #ifndef __DISC_FOCUSED_ATTACKS_H
-#define __DISC_FOCUSED_ATTACKS_H 
+#define __DISC_FOCUSED_ATTACKS_H
 
 
 #include "discipline.h"

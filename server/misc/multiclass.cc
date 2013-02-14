@@ -106,7 +106,7 @@ bool TBeing::isSingleClass() const
 bool TBeing::isDoubleClass() const
 {
   return NumClasses(getClass()) == 2;
-} 
+}
 
 bool TBeing::isTripleClass() const
 {
@@ -120,21 +120,21 @@ int TBeing::getClassNum(const char *arg, exactTypeT exact)
   if (exact) {
     for(classIndT i=MIN_CLASS_IND;i<MAX_CLASSES;i++){
       if(!strcmp(arg, classInfo[i].name.c_str())){
-	which=classInfo[i].class_num;
-	break;
+        which=classInfo[i].class_num;
+        break;
       }
     }
-      
+
     if(!which)
       return FALSE;
   } else {
     for(classIndT i=MIN_CLASS_IND;i<MAX_CLASSES;i++){
       if(is_abbrev(arg, classInfo[i].name)){
-	which=classInfo[i].class_num;
-	break;
+        which=classInfo[i].class_num;
+        break;
       }
     }
-      
+
     if(!which)
       return FALSE;
   }
@@ -158,7 +158,7 @@ classIndT TBeing::getClassIndNum(const char *arg, exactTypeT exact)
       break;
     }
   }
-      
+
   if(res==MIN_CLASS_IND) {
     vlogf(LOG_BUG, "unknown class result");
   }
@@ -177,7 +177,7 @@ classIndT TBeing::getClassIndNum(unsigned short which, exactTypeT exact)
       break;
     }
   }
-      
+
   if(res==MIN_CLASS_IND) {
     vlogf(LOG_BUG, "unknown class result");
   }
@@ -193,21 +193,21 @@ bool TBeing::hasClass(const char *arg, exactTypeT exact) const
   if (exact) {
     for(classIndT i=MIN_CLASS_IND;i<MAX_CLASSES;i++){
       if(!strcmp(arg, classInfo[i].name.c_str())){
-	which=classInfo[i].class_num;
-	break;
+        which=classInfo[i].class_num;
+        break;
       }
     }
-      
+
     if(!which)
       return FALSE;
   } else {
     for(classIndT i=MIN_CLASS_IND;i<MAX_CLASSES;i++){
       if(is_abbrev(arg, classInfo[i].name)){
-	which=classInfo[i].class_num;
-	break;
+        which=classInfo[i].class_num;
+        break;
       }
     }
-      
+
     if(!which)
       return FALSE;
   }
@@ -222,13 +222,13 @@ bool TBeing::hasClass(const char *arg, exactTypeT exact) const
 bool TBeing::hasClass(unsigned short bit, exactTypeT exact) const
 {
   if (!exact) {
-    if (getClass() & bit) 
+    if (getClass() & bit)
       return true;
   } else {
     if ((getClass() & bit) == bit)
       return true;
   }
-  
+
   return false;
 }
 
@@ -259,7 +259,7 @@ void TBeing::calcMaxLevel()
     if (getLevel(i) > riMax)
       riMax = getLevel(i);
   }
-  setMaxLevel(riMax);  
+  setMaxLevel(riMax);
 }
 
 int TBeing::GetTotLevel() const

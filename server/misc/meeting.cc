@@ -124,7 +124,7 @@ static bool checkForSay(TBeing *ch, TMonster *myself, cmdTypeT cmd, const char *
       // otherwise, skip to next speaker.
       // immorts are also able to dump to next speaker
       if (!job->speech_list.empty()) {
-	if(job->speech_list[0] != ch->name &&
+        if(job->speech_list[0] != ch->name &&
             !ch->isImmortal())
           return false;
       } else {
@@ -182,14 +182,14 @@ static bool checkForSay(TBeing *ch, TMonster *myself, cmdTypeT cmd, const char *
   } else {
     // we didn't say mother may I...
 
-    // We only want to log says, so this seems like good choice of 
+    // We only want to log says, so this seems like good choice of
     // place to put this.
     // log only says that would actually go through... (immortal, or speaker)
     // open_debate is logged elsewhere
     if (job->logging &&
          (ch->isImmortal() ||
            (!job->speech_list.empty() &&
-	    job->speech_list[0] == ch->name))){
+            job->speech_list[0] == ch->name))){
       FILE *fp;
       fp = fopen("meeting.log", "a+");
       if (fp) {
@@ -206,7 +206,7 @@ int meeting_organizer(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *mysel
   int rc = 0;
 
   organizer_struct *job;
- 
+
   if (cmd == CMD_GENERIC_DESTROYED) {
     job = static_cast<organizer_struct *>(myself->act_ptr);
     if (!job)
@@ -281,7 +281,7 @@ int meeting_organizer(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *mysel
        cmd == CMD_EMOTE3)) {
     // silly bastards that aliased emote to work like a say should be shot
     // it screws up meeting logs, so deny such activity
-    
+
     myself->doTell(fname(ch->name), "Emotting is disabled at the moment.");
     return TRUE;
   }

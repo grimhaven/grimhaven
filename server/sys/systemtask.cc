@@ -23,16 +23,16 @@ extern "C" {
 const char TMPFILE[] = "/mud/prod/lib/tmp/task.output";
 
 class _task {
-  public: 
+  public:
     TBeing *owner;
     char tsk;
     char *cmd;
-    int	pid;
+    int        pid;
     _task *next;
     _task *prev;
 
-    _task(TBeing *m, char t)	{ owner=m; tsk=t; cmd=0;  pid = 0; next = 0; prev = 0; }
-    ~_task()			{ delete [] cmd; }
+    _task(TBeing *m, char t)        { owner=m; tsk=t; cmd=0;  pid = 0; next = 0; prev = 0; }
+    ~_task()                        { delete [] cmd; }
 };
 
 //
@@ -40,8 +40,8 @@ class _task {
 //
 void SystemTask::AddTask(TBeing *own, char tsk, const char *opt)
 {
-  char	lbuf[128], opt1[128];
-  _task	*tmp;
+  char        lbuf[128], opt1[128];
+  _task        *tmp;
 
   //  Check if the task system is enabled.
   if (!taskstatus) {
@@ -66,14 +66,14 @@ void SystemTask::AddTask(TBeing *own, char tsk, const char *opt)
     bot->next = tmp;
     tmp->prev = bot;
     bot = tmp;
-  } else 
+  } else
     top = bot = tmp;
-  
+
   //  Create the command that is send to the shell.
   switch(tmp->tsk) {
     case SYSTEM_MAIL_IMMORT_DIR:
 #if 0
-      if (opt && top->owner->GetMaxLevel()) 
+      if (opt && top->owner->GetMaxLevel())
         *opt = toupper(*opt);
       else
         sprintf(lbuf, "bin/mid %s", top->owner->getName());
@@ -116,13 +116,13 @@ void SystemTask::AddTask(TBeing *own, char tsk, const char *opt)
 //
 // SystemTask::CheckTask()
 //
-void SystemTask::CheckTask() 
+void SystemTask::CheckTask()
 {
   char file[32];
   int pstatus;
   struct stat fstatus;
 
-  if (!top) 
+  if (!top)
     return;
 
   //  Check if the top task is running and start it if it isn't.
@@ -134,7 +134,7 @@ void SystemTask::CheckTask()
       vlogf(LOG_SILENT, format("INFO: task '%s' completed.") %  top->cmd);
       //  Process the output.
       memset((char *) &fstatus, 0, sizeof(struct stat));
-      if (stat(TMPFILE, &fstatus) < 0) 
+      if (stat(TMPFILE, &fstatus) < 0)
         vlogf(LOG_BUG, "WARNING: SystemTask::CheckTask(): stat()");
 
       // there's no real technical reason we couldn't shove all the
@@ -148,11 +148,11 @@ void SystemTask::CheckTask()
         // Create a note and put the output in it.
         TNote * note = createNote(mud_str_dup(str));
         // Inform the requester and give them the note.
-	if (note) {
+        if (note) {
           *(top->owner) += *note;
           top->owner->sendTo("Your task has completed.  A note with your output is in your inventory.\n\r");
         } else {
-	  top->owner->sendTo("There was a problem making a note, please tell a god.\n\r");
+          top->owner->sendTo("There was a problem making a note, please tell a god.\n\r");
         }
       } else if (fstatus.st_size > maxnotesize) {
         sprintf(file, "tmp/%s.output", top->owner->getName());
@@ -160,7 +160,7 @@ void SystemTask::CheckTask()
         top->owner->sendTo("Your task has completed but is to large to be loaded into a note.  Use\n\rviewoutput to read it.\n\r");
       } else
         top->owner->sendTo("Your task has completed.  You have no output.\n\r");
-      
+
       remove(top);
     }
   }
@@ -170,9 +170,9 @@ void SystemTask::CheckTask()
 //  SystemTask::Tasks(TBeing *, char *)
 //
 
-sstring SystemTask::Tasks(TBeing *ch, const char *args) 
+sstring SystemTask::Tasks(TBeing *ch, const char *args)
 {
-  _task	*tsk;
+  _task        *tsk;
 
   if (is_abbrev(args, "enabled") && ch->hasWizPower(POWER_WIZARD)) {
     taskstatus = true;
@@ -200,13 +200,13 @@ sstring SystemTask::Tasks(TBeing *ch, const char *args)
 //
 //  SystemTask::remove(_task)
 //
-void SystemTask::remove(_task *tsk) 
+void SystemTask::remove(_task *tsk)
 {
   if (!tsk) {
     vlogf(LOG_BUG, "WARNING: SystemTask::remove(): trying to remove NULL task");
     return;
   }
-  if (tsk == top) 
+  if (tsk == top)
     top = tsk->next;
 
   if (tsk == bot)
@@ -215,7 +215,7 @@ void SystemTask::remove(_task *tsk)
   if (tsk->prev)
      tsk->prev->next = tsk->next;
 
-  if (tsk->next) 
+  if (tsk->next)
     tsk->next->prev = tsk->prev;
 
   delete tsk;
@@ -223,10 +223,10 @@ void SystemTask::remove(_task *tsk)
 
 //
 // SystemTask::start_task()
-//  
+//
 void SystemTask::start_task()
 {
-  if (!top) 
+  if (!top)
     return;
 
   if (top->pid) {
@@ -260,7 +260,7 @@ int SystemTask::forktask(_task *tsk)
   }
   vlogf(LOG_SILENT, format("INFO: task '%s' started.") %  tsk->cmd);
   top->owner->sendTo("Your task has started.\n\r");
-  
+
   sscanf(tsk->cmd, "%s", cmd);
   char tmp[9];
   strcpy(tmp, "-c");

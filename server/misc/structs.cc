@@ -41,7 +41,7 @@ TBeing::TBeing() :
   race(NULL),
   body(NULL),
   points(),
-  chosenStats(), 
+  chosenStats(),
   curStats(),
   multAtt(1.0),
   heroNum(0),
@@ -52,7 +52,7 @@ TBeing::TBeing() :
   my_garbleFlags(0),
   faction(),
   discs(NULL),
-  inPraying(0), 
+  inPraying(0),
   inQuaffUse(0),
   attackers(0),
   visionBonus(0),
@@ -81,7 +81,7 @@ TBeing::TBeing() :
 {
   // change the default value here
   number = -1;
-  
+
   for (int i = 1; i< MAX_TOG_INDEX; i++) {
     toggles[i] = 0;
   }
@@ -91,7 +91,7 @@ TBeing::TBeing() :
   trophy = new TTrophy(this);
 }
 
-TBeing::~TBeing() 
+TBeing::~TBeing()
 {
   affectedData *af = NULL, *af2 = NULL;
   skillApplyData *tempApply = NULL, *temp2Apply = NULL;
@@ -108,7 +108,7 @@ TBeing::~TBeing()
       if (eq_stuck > WEAR_NOWHERE) {
         stuckIn->setStuckIn(eq_stuck, NULL);
       } else {
-        vlogf(LOG_BUG, format("Extract on stuck in items %s in slot -1 on %s") %  name % 
+        vlogf(LOG_BUG, format("Extract on stuck in items %s in slot -1 on %s") %  name %
                stuckIn->name);
         return;
       }
@@ -116,11 +116,11 @@ TBeing::~TBeing()
       if (eq_pos > WEAR_NOWHERE) {
         dynamic_cast<TBeing *>(equippedBy)->unequip(eq_pos);
       } else {
-        vlogf(LOG_BUG, format("Extract on equipped item %s in slot -1 on %s") %  name % 
+        vlogf(LOG_BUG, format("Extract on equipped item %s in slot -1 on %s") %  name %
                 equippedBy->name);
         return;
       }
-    } else if (riding) 
+    } else if (riding)
       dismount(getPosition());
 
     // put um somewhere, we use to warn here but I see no good reason for
@@ -133,7 +133,7 @@ TBeing::~TBeing()
   delete m_craps;
   m_craps = NULL;
 
-  if (task) 
+  if (task)
     stopTask();
 
   delete task;
@@ -149,13 +149,13 @@ TBeing::~TBeing()
 
   // stopFighting sometimes does stuff (quests, bezerk), do before name delete
   // Call AUTO_LIMBS stuff to show followers tanks limbs - Brutius 11/10/98
-  if (fight()) 
+  if (fight())
     stopFighting();
 
   removeFromPeelPk(this);
 
   affectFrom(SKILL_BERSERK);
-  
+
   for (k = gCombatList; k; k = next_char) {
     next_char = k->next_fighting;
     if (k->fight() == this)
@@ -226,11 +226,11 @@ TBeing::~TBeing()
       // hates/fears on others need to be handled BEFORE my name is deleted
       if (tmons->Hates(this, NULL))
         tmons->remHated(this, NULL);
- 
+
       if (tmons->Fears(this, NULL))
         tmons->remFeared(this, NULL);
 #endif
- 
+
       if (tmons->targ() == this)
         tmons->setTarg(NULL);
 
@@ -245,10 +245,10 @@ TBeing::~TBeing()
   if (getCaptiveOf())
     (getCaptiveOf())->remCaptive(this);
 
-  while(getCaptive()) 
+  while(getCaptive())
     remCaptive(getCaptive());
 
-  if (riding) 
+  if (riding)
     dismount(POSITION_STANDING);
 
   if (desc) {
@@ -311,7 +311,7 @@ TBeing::~TBeing()
     desc->character = NULL;
     rc = desc->doAccountMenu("");
     if (IS_SET_DELETE(rc, DELETE_THIS)) {
-      delete desc; 
+      delete desc;
       desc = NULL;
     }
   }
@@ -348,7 +348,7 @@ TBeing::~TBeing()
 
 TObj::TObj() :
   TThing(),
-  obj_flags(), 
+  obj_flags(),
   action_description(NULL),
   owners(NULL),
   isTasked(false),
@@ -361,7 +361,7 @@ TObj::TObj() :
   object_list.push_front(this);
 }
 
-TObj::~TObj() 
+TObj::~TObj()
 {
   TThing *t = NULL;
 
@@ -389,7 +389,7 @@ TObj::~TObj()
     if (eq_stuck > WEAR_NOWHERE) {
       stuckIn->setStuckIn(eq_stuck, NULL);
     } else {
-      vlogf(LOG_BUG, format("Extract on stuck in items %s in slot -1 on %s") %  name % 
+      vlogf(LOG_BUG, format("Extract on stuck in items %s in slot -1 on %s") %  name %
              stuckIn->name);
       return;
     }
@@ -397,7 +397,7 @@ TObj::~TObj()
     if (eq_pos > WEAR_NOWHERE) {
       dynamic_cast<TBeing *>(equippedBy)->unequip(eq_pos);
     } else {
-      vlogf(LOG_BUG, format("Extract on equipped item %s in slot -1 on %s") %  name % 
+      vlogf(LOG_BUG, format("Extract on equipped item %s in slot -1 on %s") %  name %
               equippedBy->name);
       return;
     }
@@ -443,7 +443,7 @@ TObj::~TObj()
     mud_assert(number < (signed int) obj_index.size(), "~TObj: range (%d) beyond obj_index size (%d).  obj=[%s]", number, obj_index.size(), name);
     obj_index[number].addToNumber(-1);
   }
-  
+
   objCount--;
 
 
@@ -474,10 +474,10 @@ TObj::~TObj()
 
 TRoom::TRoom(int r) :
   TThing(),
-  sectorType(MIN_SECTOR_TYPE), 
+  sectorType(MIN_SECTOR_TYPE),
   riverDir(DIR_NONE),
   riverSpeed(0),
-  hasWindow(FALSE), 
+  hasWindow(FALSE),
   teleLook(0),
   zone(NULL),
   teleTime(0),
@@ -550,7 +550,7 @@ TRoom::~TRoom()
   }
 }
 
-TThing& TObj::operator += (TThing& t) 
+TThing& TObj::operator += (TThing& t)
 {
   TThing::operator += (t);
 
@@ -563,7 +563,7 @@ TThing& TObj::operator += (TThing& t)
 
 
 // tables dont hold stuff, they just 'mount' it
-TThing& TTable::operator += (TThing& t) 
+TThing& TTable::operator += (TThing& t)
 {
   if (t.parent)
     --t;
@@ -589,7 +589,7 @@ bool TObj::checkOwnersList(const TPerson *ch, bool tPreserve)
     tmpbuf = one_argument(tmpbuf, indiv, cElements(indiv));
     if (!*indiv)
       continue;
-    
+
     // don't bother to check if it got given to myself
     if (!strcmp(indiv, ch->getName())) {
       iHaveOwned = true;
@@ -598,14 +598,14 @@ bool TObj::checkOwnersList(const TPerson *ch, bool tPreserve)
 
     if (ch->hasWizPower(POWER_WIZARD))
       continue;
-    
+
     charFile st;
     if (!load_char(indiv, &st))
       continue;
-    
-    if (ch->desc && ch->desc->account && 
-	!strcmp(ch->desc->account->name.c_str(), st.aname)) {
-      isCheat = true;      
+
+    if (ch->desc && ch->desc->account &&
+        !strcmp(ch->desc->account->name.c_str(), st.aname)) {
+      isCheat = true;
     }
   }
 
@@ -633,7 +633,7 @@ bool TObj::checkOwnersList(const TPerson *ch, bool tPreserve)
   return isCheat;
 }
 
-TThing& TPerson::operator += (TThing& t) 
+TThing& TPerson::operator += (TThing& t)
 {
   // make recursive
   TBeing::operator += (t);
@@ -645,7 +645,7 @@ TThing& TPerson::operator += (TThing& t)
   return *this;
 }
 
-TThing& TBeing::operator += (TThing& t) 
+TThing& TBeing::operator += (TThing& t)
 {
   // make recursive
   TThing::operator += (t);
@@ -664,7 +664,7 @@ TThing& TBeing::operator += (TThing& t)
   return *this;
 }
 
-TThing& TThing::operator += (TThing& t) 
+TThing& TThing::operator += (TThing& t)
 {
   // I commented these out. We can log later if we want, but there is really
   // no need to assert and abort the MUD when these things happen.
@@ -690,10 +690,10 @@ TThing& TThing::operator += (TThing& t)
   if(tm){
     for(StuffIter it=stuff.begin();it!=stuff.end();++it){
       TMergeable *tMerge=dynamic_cast<TMergeable *>(*it);
-      
+
       if(tMerge && tm!=tMerge && tm->willMerge(tMerge)){
-	tm->doMerge(tMerge);
-	break;
+        tm->doMerge(tMerge);
+        break;
       }
     }
   }
@@ -701,7 +701,7 @@ TThing& TThing::operator += (TThing& t)
   return *this;
 }
 
-TThing& TRoom::operator += (TThing& t) 
+TThing& TRoom::operator += (TThing& t)
 {
   // make recursive
   TThing::operator += (t);
@@ -713,7 +713,7 @@ TThing& TRoom::operator += (TThing& t)
   stuff.push_front(&t);
   t.in_room = in_room;
   t.roomp = this;
-    
+
   addToLight(t.getLight());
 
   TSeeThru *tst = dynamic_cast<TSeeThru *>(&t);
@@ -730,7 +730,7 @@ TThing& TRoom::operator += (TThing& t)
     }
     curr = tst->getLightFromOutside();
     if (curr > best) {
-      // light must increase by curr-best 
+      // light must increase by curr-best
       addToLight(curr-best);
     }
     incrementWindow();
@@ -753,7 +753,7 @@ TThing& TRoom::operator += (TThing& t)
 #if 1
     if (zone_table[getZoneNum()].enabled) {
       TThing *tThing   = NULL,
-	*tObj     = NULL;
+        *tObj     = NULL;
       TBeing *tBeing   = NULL;
       TObj   *tObjTemp, *tObjTemp2 = NULL;
 
@@ -780,12 +780,12 @@ TThing& TRoom::operator += (TThing& t)
               }
             }
           }
-	}
+        }
       }
-      
+
       for(StuffIter it=t.stuff.begin();it!=t.stuff.end();){
         tObj=*(it++);
-	
+
         if ((tObjTemp = dynamic_cast<TObj *>(tObj)) &&
             tObjTemp->isObjStat(ITEM_PROTOTYPE)) {
           --(*tObj);
@@ -839,10 +839,10 @@ TThing& TThing::operator -- ()
     // obj from obj
     mud_assert(!t_in->stuff.empty(), "TThing -- : parent had no stuff");
     mud_assert(roomp == NULL, "TThing -- : had roomp and parent simultaneously");
-    mud_assert(inRoom() == Room::NOWHERE || inRoom() == Room::AUTO_RENT, 
+    mud_assert(inRoom() == Room::NOWHERE || inRoom() == Room::AUTO_RENT,
             "TThing -- : had parent and in room simultaneously");
 
-    if (t_in->stuff.front() == this)       
+    if (t_in->stuff.front() == this)
       t_in->stuff.pop_front();
     else {
       t_in->stuff.remove(this);
@@ -851,7 +851,7 @@ TThing& TThing::operator -- ()
       tmp->addToLight(-light_mod);
 
       // subtract light from corpses and notify things above to also reduce
-      if (dynamic_cast<TBaseCorpse *>(tmp)) 
+      if (dynamic_cast<TBaseCorpse *>(tmp))
         light_mod += getLight();
 
       tmp->addToLight(-light_mod);
@@ -862,7 +862,7 @@ TThing& TThing::operator -- ()
     }
 
     if (t_in->roomp &&
-	t_in->roomp->isRoomFlag(ROOM_SAVE_ROOM)){
+        t_in->roomp->isRoomFlag(ROOM_SAVE_ROOM)){
       roomsave_db.push_back(t_in->roomp);
     }
 
@@ -870,7 +870,7 @@ TThing& TThing::operator -- ()
     // obj from room
     // char from room
 
-    if (this == rp->stuff.front())   // head of list 
+    if (this == rp->stuff.front())   // head of list
       rp->stuff.pop_front();
     else {
       rp->stuff.remove(this);
@@ -881,11 +881,11 @@ TThing& TThing::operator -- ()
       tied_to=NULL;
     }
 
-    // adjust room light levels 
+    // adjust room light levels
     rp->addToLight(-getLight());
 
     // if this object was the last 'window' in the room providing outside
-    // light, be sure we decrement the rooms light value accordingly.     
+    // light, be sure we decrement the rooms light value accordingly.
     // these should only apply to objs, beings don't give light from outside
     TSeeThru *tst = dynamic_cast<TSeeThru *>(this);
     if (tst && tst->givesOutsideLight()) {
@@ -900,13 +900,13 @@ TThing& TThing::operator -- ()
       }
       curr = tst->getLightFromOutside();
 
-      // light must dim by curr-best 
-      if (curr > best) 
+      // light must dim by curr-best
+      if (curr > best)
         rp->addToLight(-(curr-best));
-      
+
       rp->decrementWindow();
     }
-  
+
     if (dynamic_cast<TObj *>(this) &&
         !dynamic_cast<TObj *>(this)->isObjStat(ITEM_NORENT) &&
         rp->isRoomFlag(ROOM_SAVE_ROOM))
@@ -917,7 +917,7 @@ TThing& TThing::operator -- ()
     vlogf_trace(LOG_BUG, format("Bogus call to TThing operator--, %s") %  getName());
   }
 
-  // set the obj 
+  // set the obj
   equippedBy = NULL;
   stuckIn = NULL;
   parent = NULL;
@@ -931,7 +931,7 @@ TPerson::TPerson(Descriptor *thedesc) :
   TBeing(),
   base_age(0),
   tLogFile(NULL),
-  title(NULL), 
+  title(NULL),
   last_rent(0),
   timer(0)
 {
@@ -960,7 +960,7 @@ TPerson::TPerson(const TPerson &a) :
   TBeing(a),
   base_age(a.base_age),
   tLogFile(a.tLogFile),
-  last_rent(a.last_rent), 
+  last_rent(a.last_rent),
   timer(a.timer)
 {
   title = mud_str_dup(a.title);
@@ -975,7 +975,7 @@ TPerson::TPerson(const TPerson &a) :
 
 TPerson & TPerson::operator=(const TPerson &a)
 {
-  if (this == &a) return *this;  
+  if (this == &a) return *this;
   TBeing::operator=(a);
   base_age = a.base_age;
   last_rent = a.last_rent;
@@ -1010,7 +1010,7 @@ TPerson::~TPerson()
   // We use to let this be a handler for quit
   // however, if we accidentally delete a player (bad return code?)
   // this gets called and duplicates items
-  // quit should now have similar code to what was here, so regard 
+  // quit should now have similar code to what was here, so regard
   // getting here as an error.
   dropItemsToRoom(SAFE_NO, DROP_IN_ROOM);
 
@@ -1026,7 +1026,7 @@ TPerson::~TPerson()
   }
 }
 
-TThing::~TThing() 
+TThing::~TThing()
 {
   extraDescription *exd = NULL, *next_one = NULL;
 
@@ -1047,7 +1047,7 @@ TThing::~TThing()
   }
 
   if (act_ptr) {
-    vlogf(LOG_BUG, format("Memory leaked: act_ptr on %s") %  getName()); 
+    vlogf(LOG_BUG, format("Memory leaked: act_ptr on %s") %  getName());
 #if 0
     delete act_ptr;
     act_ptr = NULL;
@@ -1075,7 +1075,7 @@ TThing::TThing() :
   light(0),
   material_type(MAT_UNDEFINED),
   carried_weight(0.0),
-  carried_volume(0), 
+  carried_volume(0),
   the_caster(NULL),
   descr(NULL),
   stuckIn(NULL),
@@ -1088,7 +1088,7 @@ TThing::TThing() :
   in_room(Room::NOWHERE),
   spec(0),
   snum(-1),
-  number(0), 
+  number(0),
   height(0),
   canBeSeen(0),
   name(NULL),
@@ -1096,7 +1096,7 @@ TThing::TThing() :
   parent(NULL),
   nextBorn(NULL),
   roomp(NULL),
-  desc(NULL), 
+  desc(NULL),
   ex_description(NULL),
   rider(NULL),
   riding(NULL),
@@ -1118,7 +1118,7 @@ A NOTE ON compareWeights
   In essence, we first add a small amount (.2) beyond the precision we care
   about so that if the imprecision is low, we round the number up.  eg,
   if we want precisoion out to 0.01, we add .002 to all values.
-  
+
   Next, multiply the result by a power of 10 sufficient to move the precision
   to the LHS of the decimal point.  eg, precision to the hundredths place means
   multiply by 100.
@@ -1141,7 +1141,7 @@ int compareWeights(const float x1, const float x2)
   b = 1000.0 * (x2 + .0002);
   // int x = (int) a;
   // int y = (int) b;
-  
+
   if (a > b)
     return -1;
   else if (a < b)
@@ -1185,7 +1185,7 @@ specialData & specialData::operator=(const specialData &a)
 {
   if (this == &a) return *this;
 
-  fighting = a.fighting; 
+  fighting = a.fighting;
   hunting = a.hunting;
   was_in_room = a.was_in_room;
   position = a.position;
@@ -1223,9 +1223,9 @@ void TThing::mount(TThing *ch)
     else if (ttab->parent && dynamic_cast<TBeing *>(ttab->parent)) {
       // damn gods screwing around!
       // light on a table held by a person.  Do nothing for this case
-      vlogf(LOG_BUG, format("Possible lighting error due to table being mounted in bad state.  (Room=%d, heldBy=%s)") %  
+      vlogf(LOG_BUG, format("Possible lighting error due to table being mounted in bad state.  (Room=%d, heldBy=%s)") %
               ttab->parent->inRoom() % ttab->parent->getName());
-    } else 
+    } else
       vlogf(LOG_BUG, "Potential lighting screw up involving tables.");
   }
 }
@@ -1235,7 +1235,7 @@ TBeing::TBeing(const TBeing &a) :
   race(a.race),
   body(a.body),
   points(a.points),
-  chosenStats(a.chosenStats), 
+  chosenStats(a.chosenStats),
   curStats(a.curStats),
   multAtt(a.multAtt),
   heroNum(a.heroNum),
@@ -1349,7 +1349,7 @@ TBeing & TBeing::operator=(const TBeing &a)
   chosenStats = a.chosenStats;
   curStats = a.curStats;
 
-  multAtt = a.multAtt; 
+  multAtt = a.multAtt;
   faction = a.faction;
   heroNum = a.heroNum;
   m_craps = a.m_craps;
@@ -1400,7 +1400,7 @@ TBeing & TBeing::operator=(const TBeing &a)
   else
     affected = NULL;
 
-  master = a.master; 
+  master = a.master;
   orig = a.orig;
   next = a.next;
   next_fighting = a.next_fighting;
@@ -1445,14 +1445,14 @@ TThing::TThing(const TThing &a) :
     stuckIn(a.stuckIn),
     equippedBy(a.equippedBy),
     tied_to(a.tied_to),
-    eq_pos(a.eq_pos), 
+    eq_pos(a.eq_pos),
     eq_stuck(a.eq_stuck), act_ptr(a.act_ptr),
     max_exist(a.max_exist), in_room(a.in_room), spec(a.spec),
     number(a.number), height(a.height),
     canBeSeen(a.canBeSeen), name(a.name), shortDescr(a.shortDescr),
-    parent(a.parent), 
+    parent(a.parent),
     nextBorn(a.nextBorn),
-    roomp(a.roomp), desc(a.desc), 
+    roomp(a.roomp), desc(a.desc),
     ex_description(a.ex_description),
     rider(a.rider), riding(a.riding),
     nextRider(a.nextRider)
@@ -1508,9 +1508,9 @@ TObj::TObj(const TObj &a) :
 {
   int i;
 
-  for (i = 0; i < MAX_OBJ_AFFECT; i++) 
+  for (i = 0; i < MAX_OBJ_AFFECT; i++)
     affected[i] = a.affected[i];
-  
+
   if (a.isObjStat(ITEM_STRUNG) || (a.number == -1)) {
     name = mud_str_dup(a.name);
     shortDescr = mud_str_dup(a.shortDescr);
@@ -1521,7 +1521,7 @@ TObj::TObj(const TObj &a) :
       ex_description = new extraDescription(*a.ex_description);
     else
       ex_description = NULL;
-  } else 
+  } else
     action_description = a.action_description;
 
   objCount++;
@@ -1759,8 +1759,8 @@ cBetData::cBetData()
 }
 
 cBetData::cBetData(const cBetData &a)
-  : crapsOptions(a.crapsOptions), 
-    oneRoll(a.oneRoll), 
+  : crapsOptions(a.crapsOptions),
+    oneRoll(a.oneRoll),
     roulOptions(a.roulOptions)
 {
 }
@@ -1802,7 +1802,7 @@ lastChangeData::~lastChangeData()
 {
 }
 
-objAffData::objAffData() : 
+objAffData::objAffData() :
   type(TYPE_UNDEFINED),
   level(0),
   duration(0),
@@ -1978,7 +1978,7 @@ affectedData::affectedData(const affectedData &a) :
   else
     next = NULL;
 
-  if ((type == AFFECT_PET) || 
+  if ((type == AFFECT_PET) ||
       (type == AFFECT_CHARM) ||
       (type == AFFECT_THRALL) ||
       (type == AFFECT_ORPHAN_PET) ||
@@ -2032,7 +2032,7 @@ affectedData & affectedData::operator=(const affectedData &a)
   else
     next = NULL;
 
-  if ((type == AFFECT_PET) || 
+  if ((type == AFFECT_PET) ||
       (type == AFFECT_CHARM) ||
       (type == AFFECT_THRALL) ||
       (type == AFFECT_ORPHAN_PET) ||
@@ -2050,7 +2050,7 @@ affectedData::~affectedData()
 {
   // we redefined "TThing * be" to be a "char *" for AFFECT_PET
   // clean up our memory we allocated when we did this
-  if ((type == AFFECT_PET) || 
+  if ((type == AFFECT_PET) ||
       (type == AFFECT_CHARM) ||
       (type == AFFECT_THRALL) ||
       (type == AFFECT_ORPHAN_PET) ||

@@ -22,7 +22,7 @@ const char *limbNames[MAX_LIMB_TYPES] = {
 // params.
 
 Limb::Limb(sstring typeOfLimb, sstring connector, sstring desc)
-  : limbType(toInt(typeOfLimb)), 
+  : limbType(toInt(typeOfLimb)),
   name(desc),
   connectsTo(toInt(connector))
 {
@@ -137,9 +137,9 @@ int TBeing::hurtLimb(unsigned int dam, wearSlotT part_hit)
     addCurLimbHealth(part_hit, -std::min(dam, limHlt));
     if (getCurLimbHealth(part_hit) <= 0) {
       sendTo(COLOR_BASIC, format("%sYour %s has become totally useless!%s\n\r") %
-	     red() % describeBodySlot(part_hit) % norm());
+             red() % describeBodySlot(part_hit) % norm());
       buf=format("$n's %s has become completely useless!") %
-	describeBodySlot(part_hit);
+        describeBodySlot(part_hit);
       act(buf, TRUE, this, NULL, NULL, TO_ROOM, ANSI_ORANGE);
       addToLimbFlags(part_hit, PART_USELESS);
 

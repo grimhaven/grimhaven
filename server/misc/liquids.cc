@@ -151,7 +151,7 @@ liqInfoT::liqInfoT()
   liquids[LIQ_URINE] = new liqEntry(0,1,-5,false, false, "<Y>golden<1>", "<Y>urine<1>", 0);
   liquids[LIQ_POT_HEALING_GRASP]               = new liqEntry(100,  0,  1, true, false, "<p>light purple<1>", "<y>a light purple potion<1>", 0);
   liquids[LIQ_POT_CLEANSE]               = new liqEntry(100,  0,  1, true, false, "clear with clumps", "a clear potion with clumps", 0);
-  liquids[LIQ_POT_QUICKSILVER]            = new liqEntry(-1,  -1,  -1, true, false, "shiny silver", "a shiny silver potion", 9999);  
+  liquids[LIQ_POT_QUICKSILVER]            = new liqEntry(-1,  -1,  -1, true, false, "shiny silver", "a shiny silver potion", 9999);
   liquids[LIQ_POT_MYSTERY]                = new liqEntry(-1,-1,1, true, false, "<G>bright glowing green<1>", "<G>mystery potion<1>", 20000);
   liquids[LIQ_MUD] = new liqEntry(-1,-1,1,false, false, "<o>brown<1>", "<o>mud<1>", 0);
   liquids[LIQ_POT_FILTH] = new liqEntry(-1,-1,1,true, false, "<o>filthy<1>", "<o>filth<1>", 0);
@@ -172,7 +172,7 @@ liqEntry::liqEntry(int d, int h, int t, bool p, bool x, const char *col, const c
 {
 }
 
-liqEntry & liqEntry::operator = (const liqEntry &a) 
+liqEntry & liqEntry::operator = (const liqEntry &a)
 {
   if (this == &a) return *this;
 

@@ -75,12 +75,12 @@ class TShopOwned {
 
   // accounting stuff
   void giveStatements(sstring);
-  void journalize(const sstring &, const sstring &, transactionTypeT, 
-		  int, int, int, int, int num=1);
+  void journalize(const sstring &, const sstring &, transactionTypeT,
+                  int, int, int, int, int num=1);
   void journalize_debit(int post_ref, const sstring &customer,
-			const sstring &name, int amt, bool new_id=false);
+                        const sstring &name, int amt, bool new_id=false);
   void journalize_credit(int post_ref, const sstring &customer,
-			 const sstring &name, int amt, bool new_id=false);
+                         const sstring &name, int amt, bool new_id=false);
   void COGS_add(const sstring &name, int amt, int num);
   void COGS_remove(const sstring &name, int num);
   int COGS_get(const sstring &name, int num);

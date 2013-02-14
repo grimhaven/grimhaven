@@ -14,38 +14,38 @@ void payout(TBeing *ch, int talens, int chip_vnum)
   while(talens>0){
     if(!chip_vnum){
       if(talens >= 1000000){
-	chip=read_object(CHIP_1000000, VIRTUAL);
+        chip=read_object(CHIP_1000000, VIRTUAL);
       } else if(talens >= 500000){
-	chip=read_object(CHIP_500000, VIRTUAL);
+        chip=read_object(CHIP_500000, VIRTUAL);
       } else if(talens >= 100000){
-	chip=read_object(CHIP_100000, VIRTUAL);
+        chip=read_object(CHIP_100000, VIRTUAL);
       } else if(talens >= 50000){
-	chip=read_object(CHIP_50000, VIRTUAL);
+        chip=read_object(CHIP_50000, VIRTUAL);
       } else if(talens >= 10000){
-	chip=read_object(CHIP_10000, VIRTUAL);
+        chip=read_object(CHIP_10000, VIRTUAL);
       } else if(talens >= 5000){
-	chip=read_object(CHIP_5000, VIRTUAL);
+        chip=read_object(CHIP_5000, VIRTUAL);
       } else if(talens >= 1000){
-	chip=read_object(CHIP_1000, VIRTUAL);
+        chip=read_object(CHIP_1000, VIRTUAL);
       } else if(talens >= 500){
-	chip=read_object(CHIP_500, VIRTUAL);
+        chip=read_object(CHIP_500, VIRTUAL);
       } else if(talens >= 100){
-	chip=read_object(CHIP_100, VIRTUAL);
+        chip=read_object(CHIP_100, VIRTUAL);
       } else {
-	buf = format("You receive %i talens.") % talens;
-	act(buf, TRUE, ch, 0, 0, TO_CHAR);
-	buf = format("$n receives %i talens.") % talens;
-	act(buf, TRUE, ch, 0, 0, TO_ROOM);
-	ch->addToMoney(talens, GOLD_GAMBLE);
-	break;
+        buf = format("You receive %i talens.") % talens;
+        act(buf, TRUE, ch, 0, 0, TO_CHAR);
+        buf = format("$n receives %i talens.") % talens;
+        act(buf, TRUE, ch, 0, 0, TO_ROOM);
+        ch->addToMoney(talens, GOLD_GAMBLE);
+        break;
       }
     } else {
       chip=read_object(chip_vnum, VIRTUAL);
 
       if((talens-chip->obj_flags.cost) < 0){
-	delete chip;
-	chip_vnum=0;
-	continue;
+        delete chip;
+        chip_vnum=0;
+        continue;
       }
     }
 
@@ -65,10 +65,10 @@ void payout(TBeing *ch, int talens, int chip_vnum)
   for(iter=chipout.begin();iter!=chipout.end();++iter){
     if((*iter).second > 1){
       buf = format("You receive %s. [%i]") %
-	       (*iter).first % (*iter).second;
+               (*iter).first % (*iter).second;
       act(buf, FALSE, ch, 0, 0, TO_CHAR);
       buf = format("$n receives %s. [%i]") %
-	       (*iter).first % (*iter).second;
+               (*iter).first % (*iter).second;
       act(buf, FALSE, ch, 0, 0, TO_ROOM);
     } else {
       buf = format("You receive %s.") % (*iter).first;
@@ -88,7 +88,7 @@ TObj *find_chip(TBeing *ch, const int &chip)
     if((o=dynamic_cast<TObj *>(*it)) && dynamic_cast<TCasinoChip *>(o) &&
        o->objVnum()==chip)
       return o;
-  
+
   return NULL;
 }
 
@@ -101,7 +101,7 @@ TObj *find_chip(TBeing *ch, const sstring &coin_str)
      !(dynamic_cast<TCasinoChip *>(chip))){
     return NULL;
   }
-  
+
   return chip;
 }
 
@@ -140,7 +140,7 @@ void react_gambler_lost(TBeing *ch, TMonster *tm)
       tm->doSay("Please enjoy your stay at the casino.");
       *ch += *(read_object(3503, VIRTUAL)); // chips
       return;
-  }      
+  }
 
 
   switch(::number(0,5)){
@@ -235,21 +235,21 @@ void observerReaction(TBeing *ch, int what)
     if((tm=dynamic_cast<TMonster *>(*it)) &&
        isname("gambler", tm->name) && !::number(0,9)){
       switch(what){
-	case GAMBLER_WON:
-	  react_gambler_won(ch, tm);
-	  break;
-	case GAMBLER_LOST:
-	  react_gambler_lost(ch, tm);
-	  break;
-	case GAMBLER_BET:
-	  react_gambler_bet(ch, tm);
-	  break;
-	case GAMBLER_HILO_BET:
-	  react_gambler_hilo_bet(ch, tm);
-	  break;
-	case GAMBLER_BLACKJACK_BET:
-	  react_gambler_blackjack_bet(ch, tm);
-	  break;
+        case GAMBLER_WON:
+          react_gambler_won(ch, tm);
+          break;
+        case GAMBLER_LOST:
+          react_gambler_lost(ch, tm);
+          break;
+        case GAMBLER_BET:
+          react_gambler_bet(ch, tm);
+          break;
+        case GAMBLER_HILO_BET:
+          react_gambler_hilo_bet(ch, tm);
+          break;
+        case GAMBLER_BLACKJACK_BET:
+          react_gambler_blackjack_bet(ch, tm);
+          break;
       }
     }
   }

@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////////
 //
 //      SneezyMUD - All rights reserved, SneezyMUD Coding Team
-//      "cards.cc" - All functions and routines related to general card games 
+//      "cards.cc" - All functions and routines related to general card games
 //
-//      The SneezyMUD card games were coded by Russ Russell, April 1994, 
+//      The SneezyMUD card games were coded by Russ Russell, April 1994,
 //      Last revision, June 1996
 //
 //////////////////////////////////////////////////////////////////////////
@@ -92,7 +92,7 @@ CardDeck::CardDeck()
       deck.push_back(new Card(suit, card));
     }
   }
-  
+
   shuffle();
 }
 
@@ -110,7 +110,7 @@ unsigned char CARD_NUM(unsigned char card)
 unsigned char CARD_NUM_ACEHI(unsigned char card)
 {
   int c = (card & 0x0f);
-  
+
   if(c==1)
     return 14;
   else
@@ -128,18 +128,18 @@ void CardGame::setup_deck()
     for (j = 1; j <= 13; j++) {
       deck[k] = j;
       switch (i) {
-	case 0:
-	  deck[k] |= CARD_WATER;
-	  break;
-	case 1:
-	  deck[k] |= CARD_FIRE;
-	  break;
-	case 2:
-	  deck[k] |= CARD_EARTH;
-	  break;
-	case 3:
-	  deck[k] |= CARD_ETHER;
-	  break;
+        case 0:
+          deck[k] |= CARD_WATER;
+          break;
+        case 1:
+          deck[k] |= CARD_FIRE;
+          break;
+        case 2:
+          deck[k] |= CARD_EARTH;
+          break;
+        case 3:
+          deck[k] |= CARD_ETHER;
+          break;
       }
       k++;
     }
@@ -172,7 +172,7 @@ bool CardGame::is_heart(int card)
   return (card & CARD_FIRE);
 }
 
-bool CardGame::is_queen_of_spades(int card) 
+bool CardGame::is_queen_of_spades(int card)
 {
   return ((card & CARD_ETHER) && (CARD_NUM(card) == 12));
 }
@@ -292,7 +292,7 @@ void TBeing::doPeek() const
 
 void TBeing::doDeal(const char *tArg)
 {
-  if (gGin.check(this)) 
+  if (gGin.check(this))
     gGin.deal(this);
   else if (checkHearts())
     gHearts.deal(this);
@@ -422,7 +422,7 @@ void TBeing::doSort(const char *arg) const
         for (i = 0; i < 11; tmp[i] = gGin.hands[index_num][i], i++);
         tmp[11] = 999999;
         qsort(tmp, 12, 4, cardnumComparAscend);
-        for (i = 0; i < 11; gGin.hands[index_num][i] = tmp[i], i++); 
+        for (i = 0; i < 11; gGin.hands[index_num][i] = tmp[i], i++);
       } else
         qsort(gGin.hands[index_num], gGin.count(index_num), 4, cardnumComparAscend);
     } else {
@@ -507,7 +507,7 @@ void TBeing::doSort(const char *arg) const
   sendTo("You must be playing a card game to use this command!\n\r");
   return;
 }
-  
+
 CardGame::CardGame() :
   game(false),
   bet(0)

@@ -29,167 +29,167 @@ const sstring sstring::escape(stringEscapeT escape_type) const
     for(;m!=end;++m){
       oBuf.append((*m).prefix());
       oBuf.append((*m)[1]);
-      
+
       if((*m)[0].str()[1]=='<')
-	code=(*m)[0].str()[2];
+        code=(*m)[0].str()[2];
       else
-	code=(*m)[0].str()[1];
+        code=(*m)[0].str()[1];
 
 
       switch(code){
-	case 'h':
-	  oBuf.append(MUD_NAME);
-	  break;
-	case 'H':
-	  oBuf.append(MUD_NAME_VERS);
-	  break;
-	case 'R':
-	  oBuf.append(ANSI_RED_BOLD);
-	  break;
-	case 'r':
-	  oBuf.append(ANSI_NORMAL);
-	  oBuf.append(ANSI_RED);
-	  break;
-	case 'G':
-	  oBuf.append(ANSI_GREEN_BOLD);
-	  break;
-	case 'g':
-	  oBuf.append(ANSI_NORMAL);
-	  oBuf.append(ANSI_GREEN);
-	  break;
-	case 'y':
-	  oBuf.append(ANSI_ORANGE_BOLD);
-	  break;
-	case 'Y':
-	  oBuf.append(ANSI_ORANGE_BOLD);
-	  break;
-	case 'o':
-	  oBuf.append(ANSI_NORMAL);
-	  oBuf.append(ANSI_ORANGE);
-	  break;
-	case 'O':
-	  oBuf.append(ANSI_NORMAL);
-	  oBuf.append(ANSI_ORANGE);
-	  break;
-	case 'B':
-	  oBuf.append(ANSI_BLUE_BOLD);
-	  break;
-	case 'b':
-	  oBuf.append(ANSI_NORMAL);
-	  oBuf.append(ANSI_BLUE);
-	  break;
-	case 'P':
-	  oBuf.append(ANSI_PURPLE_BOLD);
-	  break;
-	case 'p':
-	  oBuf.append(ANSI_NORMAL);
-	  oBuf.append(ANSI_PURPLE);
-	  break;
-	case 'C':
-	  oBuf.append(ANSI_CYAN_BOLD);
-	  break;
-	case 'c':
-	  oBuf.append(ANSI_NORMAL);
-	  oBuf.append(ANSI_CYAN);
-	  break;
-	case 'W':
-	  oBuf.append(ANSI_WHITE_BOLD);
-	  break;
-	case 'w':
-	  oBuf.append(ANSI_NORMAL);
-	  oBuf.append(ANSI_WHITE);
-	  break;
-	case 'k':
-	  oBuf.append(VT_BOLDTEX);
-	  oBuf.append(ANSI_BLACK);
-	  break;
-	case 'K':
-	  oBuf.append(ANSI_NORMAL);
-	  oBuf.append(ANSI_BLACK);
-	  break;
-	case 'A':
-	  oBuf.append(VT_BOLDTEX);
-	  oBuf.append(ANSI_UNDER);
-	  break;
-	case 'a':
-	  oBuf.append(ANSI_UNDER);
-	  break;
-	case 'D':
-	  oBuf.append(VT_BOLDTEX);
-	  break;
-	case 'd':
-	  oBuf.append(VT_BOLDTEX);
-	  break;
-	case 'F':
-	  oBuf.append(ANSI_FLASH);
-	  break;
-	case 'f':
-	  oBuf.append(ANSI_FLASH);
-	  break;
-	case 'i':
-	  oBuf.append(VT_INVERTT);
-	  break;
-	case 'I':
-	  oBuf.append(VT_INVERTT);
-	  break;
-	case 'e':
-	  oBuf.append(ANSI_BK_ON_WH);
-	  break;
-	case 'E':
-	  oBuf.append(ANSI_BK_ON_WH);
-	  break;
-	case 'j':
-	  oBuf.append(ANSI_BK_ON_BK);
-	  break;
-	case 'J':
-	  oBuf.append(ANSI_BK_ON_BK);
-	  break;
-	case 'l':
-	  oBuf.append(ANSI_WH_ON_RD);
-	  break;
-	case 'L':
-	  oBuf.append(ANSI_WH_ON_RD);
-	  break;
-	case 'q':
-	  oBuf.append(ANSI_WH_ON_GR);
-	  break;
-	case 'Q':
-	  oBuf.append(ANSI_WH_ON_GR);
-	  break;
-	case 't':
-	  oBuf.append(ANSI_WH_ON_OR);
-	  break;
-	case 'T':
-	  oBuf.append(ANSI_WH_ON_OR);
-	  break;
-	case 'u':
-	  oBuf.append(ANSI_WH_ON_BL);
-	  break;
-	case 'U':
-	  oBuf.append(ANSI_WH_ON_BL);
-	  break;
-	case 'v':
-	  oBuf.append(ANSI_WH_ON_PR);
-	  break;
-	case 'V':
-	  oBuf.append(ANSI_WH_ON_PR);
-	  break;
-	case 'x':
-	  oBuf.append(ANSI_WH_ON_CY);
-	  break;
-	case 'X':
-	  oBuf.append(ANSI_WH_ON_CY);
-	  break;
-	case 'z':
-	  oBuf.append(ANSI_NORMAL);
-	  break;
-	case 'Z':
-	  oBuf.append(ANSI_NORMAL);
-	  break;
-	case '1':
-	  oBuf.append(ANSI_NORMAL);    
-	  break;
-      }      
+        case 'h':
+          oBuf.append(MUD_NAME);
+          break;
+        case 'H':
+          oBuf.append(MUD_NAME_VERS);
+          break;
+        case 'R':
+          oBuf.append(ANSI_RED_BOLD);
+          break;
+        case 'r':
+          oBuf.append(ANSI_NORMAL);
+          oBuf.append(ANSI_RED);
+          break;
+        case 'G':
+          oBuf.append(ANSI_GREEN_BOLD);
+          break;
+        case 'g':
+          oBuf.append(ANSI_NORMAL);
+          oBuf.append(ANSI_GREEN);
+          break;
+        case 'y':
+          oBuf.append(ANSI_ORANGE_BOLD);
+          break;
+        case 'Y':
+          oBuf.append(ANSI_ORANGE_BOLD);
+          break;
+        case 'o':
+          oBuf.append(ANSI_NORMAL);
+          oBuf.append(ANSI_ORANGE);
+          break;
+        case 'O':
+          oBuf.append(ANSI_NORMAL);
+          oBuf.append(ANSI_ORANGE);
+          break;
+        case 'B':
+          oBuf.append(ANSI_BLUE_BOLD);
+          break;
+        case 'b':
+          oBuf.append(ANSI_NORMAL);
+          oBuf.append(ANSI_BLUE);
+          break;
+        case 'P':
+          oBuf.append(ANSI_PURPLE_BOLD);
+          break;
+        case 'p':
+          oBuf.append(ANSI_NORMAL);
+          oBuf.append(ANSI_PURPLE);
+          break;
+        case 'C':
+          oBuf.append(ANSI_CYAN_BOLD);
+          break;
+        case 'c':
+          oBuf.append(ANSI_NORMAL);
+          oBuf.append(ANSI_CYAN);
+          break;
+        case 'W':
+          oBuf.append(ANSI_WHITE_BOLD);
+          break;
+        case 'w':
+          oBuf.append(ANSI_NORMAL);
+          oBuf.append(ANSI_WHITE);
+          break;
+        case 'k':
+          oBuf.append(VT_BOLDTEX);
+          oBuf.append(ANSI_BLACK);
+          break;
+        case 'K':
+          oBuf.append(ANSI_NORMAL);
+          oBuf.append(ANSI_BLACK);
+          break;
+        case 'A':
+          oBuf.append(VT_BOLDTEX);
+          oBuf.append(ANSI_UNDER);
+          break;
+        case 'a':
+          oBuf.append(ANSI_UNDER);
+          break;
+        case 'D':
+          oBuf.append(VT_BOLDTEX);
+          break;
+        case 'd':
+          oBuf.append(VT_BOLDTEX);
+          break;
+        case 'F':
+          oBuf.append(ANSI_FLASH);
+          break;
+        case 'f':
+          oBuf.append(ANSI_FLASH);
+          break;
+        case 'i':
+          oBuf.append(VT_INVERTT);
+          break;
+        case 'I':
+          oBuf.append(VT_INVERTT);
+          break;
+        case 'e':
+          oBuf.append(ANSI_BK_ON_WH);
+          break;
+        case 'E':
+          oBuf.append(ANSI_BK_ON_WH);
+          break;
+        case 'j':
+          oBuf.append(ANSI_BK_ON_BK);
+          break;
+        case 'J':
+          oBuf.append(ANSI_BK_ON_BK);
+          break;
+        case 'l':
+          oBuf.append(ANSI_WH_ON_RD);
+          break;
+        case 'L':
+          oBuf.append(ANSI_WH_ON_RD);
+          break;
+        case 'q':
+          oBuf.append(ANSI_WH_ON_GR);
+          break;
+        case 'Q':
+          oBuf.append(ANSI_WH_ON_GR);
+          break;
+        case 't':
+          oBuf.append(ANSI_WH_ON_OR);
+          break;
+        case 'T':
+          oBuf.append(ANSI_WH_ON_OR);
+          break;
+        case 'u':
+          oBuf.append(ANSI_WH_ON_BL);
+          break;
+        case 'U':
+          oBuf.append(ANSI_WH_ON_BL);
+          break;
+        case 'v':
+          oBuf.append(ANSI_WH_ON_PR);
+          break;
+        case 'V':
+          oBuf.append(ANSI_WH_ON_PR);
+          break;
+        case 'x':
+          oBuf.append(ANSI_WH_ON_CY);
+          break;
+        case 'X':
+          oBuf.append(ANSI_WH_ON_CY);
+          break;
+        case 'z':
+          oBuf.append(ANSI_NORMAL);
+          break;
+        case 'Z':
+          oBuf.append(ANSI_NORMAL);
+          break;
+        case '1':
+          oBuf.append(ANSI_NORMAL);
+          break;
+      }
       last_m=m;
     }
     if(last_m!=m)
@@ -198,7 +198,7 @@ const sstring sstring::escape(stringEscapeT escape_type) const
       oBuf=*this;
 
     oBuf.inlineReplaceString("<<", "<");
-    
+
     // escape for xml
     oBuf.inlineReplaceString("&", "&#38;");
     oBuf.inlineReplaceString("<", "&#60;");
@@ -221,40 +221,40 @@ const sstring sstring::escape(stringEscapeT escape_type) const
     oBuf.inlineReplaceString(ANSI_PURPLE, "<font color=\"purple\" />");
 
     // colors with styles
-    oBuf.inlineReplaceString(ANSI_RED_BOLD, 
-			    "<font style=\"bold\" color=\"red\" />");
-    oBuf.inlineReplaceString(ANSI_GREEN_BOLD, 
-			    "<font style=\"bold\" color=\"green\" />");
-    oBuf.inlineReplaceString(ANSI_ORANGE_BOLD, 
-			    "<font style=\"bold\" color=\"orange\" />");
-    oBuf.inlineReplaceString(ANSI_YELLOW_BOLD, 
-			    "<font style=\"bold\" color=\"yellow\" />");
-    oBuf.inlineReplaceString(ANSI_BLUE_BOLD, 
-			    "<font style=\"bold\" color=\"blue\" />");
-    oBuf.inlineReplaceString(ANSI_PURPLE_BOLD, 
-			    "<font style=\"bold\" color=\"purple\" />");
-    oBuf.inlineReplaceString(ANSI_CYAN_BOLD, 
-			    "<font style=\"bold\" color=\"cyan\" />");
-    oBuf.inlineReplaceString(ANSI_WHITE_BOLD, 
-			    "<font style=\"bold\" color=\"white\" />");
+    oBuf.inlineReplaceString(ANSI_RED_BOLD,
+                            "<font style=\"bold\" color=\"red\" />");
+    oBuf.inlineReplaceString(ANSI_GREEN_BOLD,
+                            "<font style=\"bold\" color=\"green\" />");
+    oBuf.inlineReplaceString(ANSI_ORANGE_BOLD,
+                            "<font style=\"bold\" color=\"orange\" />");
+    oBuf.inlineReplaceString(ANSI_YELLOW_BOLD,
+                            "<font style=\"bold\" color=\"yellow\" />");
+    oBuf.inlineReplaceString(ANSI_BLUE_BOLD,
+                            "<font style=\"bold\" color=\"blue\" />");
+    oBuf.inlineReplaceString(ANSI_PURPLE_BOLD,
+                            "<font style=\"bold\" color=\"purple\" />");
+    oBuf.inlineReplaceString(ANSI_CYAN_BOLD,
+                            "<font style=\"bold\" color=\"cyan\" />");
+    oBuf.inlineReplaceString(ANSI_WHITE_BOLD,
+                            "<font style=\"bold\" color=\"white\" />");
 
     // colors with background
-    oBuf.inlineReplaceString(ANSI_BK_ON_BK, 
-			    "<font bgcolor=\"black\" color=\"black\" />");
-    oBuf.inlineReplaceString(ANSI_BK_ON_WH, 
-			    "<font bgcolor=\"white\" color=\"black\" />");
-    oBuf.inlineReplaceString(ANSI_WH_ON_BL, 
-			    "<font bgcolor=\"blue\" color=\"white\" />");
-    oBuf.inlineReplaceString(ANSI_WH_ON_CY, 
-			    "<font bgcolor=\"cyan\" color=\"white\" />");
-    oBuf.inlineReplaceString(ANSI_WH_ON_GR, 
-			    "<font bgcolor=\"green\" color=\"white\" />");
-    oBuf.inlineReplaceString(ANSI_WH_ON_OR, 
-			    "<font bgcolor=\"orange\" color=\"white\" />");
-    oBuf.inlineReplaceString(ANSI_WH_ON_PR, 
-			    "<font bgcolor=\"purple\" color=\"white\" />");
-    oBuf.inlineReplaceString(ANSI_WH_ON_RD, 
-			    "<font bgcolor=\"red\" color=\"white\" />");
+    oBuf.inlineReplaceString(ANSI_BK_ON_BK,
+                            "<font bgcolor=\"black\" color=\"black\" />");
+    oBuf.inlineReplaceString(ANSI_BK_ON_WH,
+                            "<font bgcolor=\"white\" color=\"black\" />");
+    oBuf.inlineReplaceString(ANSI_WH_ON_BL,
+                            "<font bgcolor=\"blue\" color=\"white\" />");
+    oBuf.inlineReplaceString(ANSI_WH_ON_CY,
+                            "<font bgcolor=\"cyan\" color=\"white\" />");
+    oBuf.inlineReplaceString(ANSI_WH_ON_GR,
+                            "<font bgcolor=\"green\" color=\"white\" />");
+    oBuf.inlineReplaceString(ANSI_WH_ON_OR,
+                            "<font bgcolor=\"orange\" color=\"white\" />");
+    oBuf.inlineReplaceString(ANSI_WH_ON_PR,
+                            "<font bgcolor=\"purple\" color=\"white\" />");
+    oBuf.inlineReplaceString(ANSI_WH_ON_RD,
+                            "<font bgcolor=\"red\" color=\"white\" />");
   }
 
   if(oBuf.length() == MY_MAX_STRING_LENGTH - 1){
@@ -262,7 +262,7 @@ const sstring sstring::escape(stringEscapeT escape_type) const
 
     // avoid formatting just to be safe
     vlogf(LOG_BUG, sstring("sstring::escape(): buffer=")+
-	  oBuf.substr(70));
+          oBuf.substr(70));
   }
 
   return oBuf;
@@ -281,7 +281,7 @@ const sstring sstring::comify() const
 
   for (; charIndex < strCount; charIndex++) {
     // put commas every 3rd char EXCEPT if next char is '-'
-    // that is, want "123456" to become "123,456" 
+    // that is, want "123456" to become "123,456"
     // but don't want "-123" to become "-,123"
     if (!((strCount - charIndex) % 3) && charIndex != 0 &&
         !(charIndex == 1 && (*this)[0] == '-'))
@@ -355,7 +355,7 @@ const sstring sstring::cap() const
     for(sstring::size_type i=0;i<s.length();++i){
       if (s[i] == '<')
         counter = 0;
-      else 
+      else
         counter++;
 
       if (counter == 3) {
@@ -384,12 +384,12 @@ const sstring sstring::uncap() const
     // Accounting for Items with color sstrings and % as first character
     for(sstring::size_type i=0;i<s.length();++i){
       if (s[i] == '<')
-	      counter = 0;
+              counter = 0;
       else
-	      counter++;
-      
+              counter++;
+
       if (counter == 3) {
-	      s[i] = tolower(s[i]);
+              s[i] = tolower(s[i]);
         return s;
       }
     }
@@ -420,18 +420,18 @@ const sstring sstring::word(int i) const
 {
   size_t copy_begin=0, copy_end=0;
   sstring whitespace=" \f\n\r\t\v"; // taken from isspace() man page
-  
+
   while(1){
     // find first non-whitespace past our last working point
     copy_begin=find_first_not_of(whitespace, copy_end);
-    
+
     // if nothing found, no more words, return
     if(copy_begin == sstring::npos)
       return "";
-    
+
     // find our first whitespace past last non-whitespace
     copy_end=find_first_of(whitespace, copy_begin);
-    
+
     if(!i--){
       // if nothing found, we're on the last word, no trailing whitespace
       if(copy_end == sstring::npos)
@@ -484,7 +484,7 @@ const bool sstring::startsVowel() const
     return isvowel((*this)[i]);
   }
   return false;
-} 
+}
 
 const sstring sstring::replaceString(sstring find, sstring replace) const
 {
@@ -722,17 +722,17 @@ void sstring::convertStringColor(const sstring replacement)
   // <z> at the end
   sstring repl = "<tmpi>";
   repl += replacement;
- 
-  while (find("<z>") != sstring::npos)  
+
+  while (find("<z>") != sstring::npos)
     replace(find("<z>"), 3, repl);
 
-  while (find("<Z>") != sstring::npos)  
+  while (find("<Z>") != sstring::npos)
     replace(find("<Z>"), 3, repl);
 
-  while (find("<1>") != sstring::npos)  
+  while (find("<1>") != sstring::npos)
     replace(find("<1>"), 3, repl);
 
-  while (find("<tmpi>") != sstring::npos)  
+  while (find("<tmpi>") != sstring::npos)
     replace(find("<tmpi>"), 6, "<z>");
 }
 

@@ -90,15 +90,15 @@ static bool enforceVerbal(TBeing *ch, spellNumT spell)
   if (ch->isPc()) {
     if (!canDoVerbal(ch) ) {
       if (ch->hasClass(CLASS_MAGE)) {
-	if (ch->getWizardryLevel() >= WIZ_LEV_NO_MANTRA) {
-	  act("Your skill at wizardry allows you to merely think the incantation.",TRUE,ch,0,0,TO_CHAR);
-	  return TRUE;
-	}
+        if (ch->getWizardryLevel() >= WIZ_LEV_NO_MANTRA) {
+          act("Your skill at wizardry allows you to merely think the incantation.",TRUE,ch,0,0,TO_CHAR);
+          return TRUE;
+        }
       } else {
-	if (ch->getRitualismLevel() >= RIT_LEV_NO_MANTRA) {
-	  act("Your superior channel to the ancestors enables you to conduct the ritual in silence.",TRUE,ch,0,0,TO_CHAR);
-	  return TRUE;
-	}
+        if (ch->getRitualismLevel() >= RIT_LEV_NO_MANTRA) {
+          act("Your superior channel to the ancestors enables you to conduct the ritual in silence.",TRUE,ch,0,0,TO_CHAR);
+          return TRUE;
+        }
       }
       act("$n opens $s mouth as if to say something.", TRUE, ch, 0, 0, TO_ROOM);
       ch->sendTo("You are unable to chant the incantation!\n\r");
@@ -106,26 +106,26 @@ static bool enforceVerbal(TBeing *ch, spellNumT spell)
     }
     if (ch->hasClass(CLASS_MAGE)) {
       if (ch->getWizardryLevel() >= WIZ_LEV_NO_MANTRA) {
-	act("$n begins to chant a mysterious and melodic incantation.", TRUE, ch, 0, 0, TO_ROOM, ANSI_CYAN);
-	act("Although you no longer need to, you begin an incantation to facilitate your spell.", TRUE, ch, 0, 0, TO_CHAR, ANSI_CYAN);
-	return TRUE;
+        act("$n begins to chant a mysterious and melodic incantation.", TRUE, ch, 0, 0, TO_ROOM, ANSI_CYAN);
+        act("Although you no longer need to, you begin an incantation to facilitate your spell.", TRUE, ch, 0, 0, TO_CHAR, ANSI_CYAN);
+        return TRUE;
       } else {
-	act("$n begins to chant a mysterious and melodic incantation.", TRUE, ch, 0, 0, TO_ROOM, ANSI_CYAN);
-	act("You begin to chant a mysterious and melodic incantation.", TRUE, ch, 0, 0, TO_CHAR, ANSI_CYAN);
-	return TRUE;
-      } 
+        act("$n begins to chant a mysterious and melodic incantation.", TRUE, ch, 0, 0, TO_ROOM, ANSI_CYAN);
+        act("You begin to chant a mysterious and melodic incantation.", TRUE, ch, 0, 0, TO_CHAR, ANSI_CYAN);
+        return TRUE;
+      }
     } else {
       if (ch->getRitualismLevel() >= RIT_LEV_NO_MANTRA) {
-	act("$n begins to dance and sing in an unfamiliar tongue.", TRUE, ch, 0, 0, TO_ROOM, ANSI_RED);
-	act("You begin the rada song in the ancient tongue.", TRUE, ch, 0, 0, TO_CHAR, ANSI_RED);
-	return TRUE;
+        act("$n begins to dance and sing in an unfamiliar tongue.", TRUE, ch, 0, 0, TO_ROOM, ANSI_RED);
+        act("You begin the rada song in the ancient tongue.", TRUE, ch, 0, 0, TO_CHAR, ANSI_RED);
+        return TRUE;
       } else {
-	act("$n begins to dance and sing in an unfamiliar tongue.", TRUE, ch, 0, 0, TO_ROOM, ANSI_RED);
-	act("You begin to dance and sing your rada in the ancient tongue.", TRUE, ch, 0, 0, TO_CHAR, ANSI_RED);
-	return TRUE;
+        act("$n begins to dance and sing in an unfamiliar tongue.", TRUE, ch, 0, 0, TO_ROOM, ANSI_RED);
+        act("You begin to dance and sing your rada in the ancient tongue.", TRUE, ch, 0, 0, TO_CHAR, ANSI_RED);
+        return TRUE;
       }
     }
-  } else 
+  } else
     return TRUE;
 }
 
@@ -149,13 +149,13 @@ static bool enforceGestural(TBeing *ch, spellNumT spell)
       // wizardry level still requries gestures, make generic checks
       //////////////////////////////////////////////////////////////
       if (ch->isPc() && (!ch->hasHands() || ch->eitherArmHurt())) {
-	act("You cannot perform the ritual's gestures without arms and hands!", FALSE, ch, NULL, NULL, TO_CHAR);
-	act("Nothing seems to happen.", FALSE, ch, NULL, NULL, TO_ROOM);
-	return FALSE;
+        act("You cannot perform the ritual's gestures without arms and hands!", FALSE, ch, NULL, NULL, TO_CHAR);
+        act("Nothing seems to happen.", FALSE, ch, NULL, NULL, TO_ROOM);
+        return FALSE;
       }
       ///////////////////////////////////////////////////////////////
       // min position in discArray defines absolute minimum level
-      // however, check some positions to see if restricted movement 
+      // however, check some positions to see if restricted movement
       // affects ability to make gestures
       // higher nums are more likely to cause restriction
       ///////////////////////////////////////////////////////////////
@@ -164,15 +164,15 @@ static bool enforceGestural(TBeing *ch, spellNumT spell)
       // sit, crawl use normal num.  raise it further for resting
       ///////////////////////////////////////////////////////////
       if (ch->getPosition() == POSITION_RESTING)
-	num += 4 * num / 10;
-      
+        num += 4 * num / 10;
+
       if ((ch->getPosition() == POSITION_RESTING || ch->getPosition() == POSITION_SITTING || ch->getPosition() == POSITION_CRAWLING) && (num > ch->getSkillValue(SKILL_WIZARDRY))) {
-	////////////////////////////////////////////////////////////
-	// we know that wizradry is < 60 from getWizardryLevel check
-	////////////////////////////////////////////////////////////
-	ch->sendTo(format("Restricted movement while %s causes you to mess up the ritual's gestures.\n\r") % sstring(position_types[ch->getPosition()]).uncap());
-	act("Nothing seems to happen.", FALSE, ch, NULL, NULL, TO_ROOM);
-	return FALSE;
+        ////////////////////////////////////////////////////////////
+        // we know that wizradry is < 60 from getWizardryLevel check
+        ////////////////////////////////////////////////////////////
+        ch->sendTo(format("Restricted movement while %s causes you to mess up the ritual's gestures.\n\r") % sstring(position_types[ch->getPosition()]).uncap());
+        act("Nothing seems to happen.", FALSE, ch, NULL, NULL, TO_ROOM);
+        return FALSE;
       }
     }
   } else {
@@ -181,13 +181,13 @@ static bool enforceGestural(TBeing *ch, spellNumT spell)
       // wizardry level still requries gestures, make generic checks
       //////////////////////////////////////////////////////////////
       if (ch->isPc() && (!ch->hasHands() || ch->eitherArmHurt())) {
-	act("You cannot invoke the ritual without arms and hands!",  FALSE, ch, NULL, NULL, TO_CHAR);
-	act("Nothing seems to happen.", FALSE, ch, NULL, NULL, TO_ROOM);
-	return FALSE;
+        act("You cannot invoke the ritual without arms and hands!",  FALSE, ch, NULL, NULL, TO_CHAR);
+        act("Nothing seems to happen.", FALSE, ch, NULL, NULL, TO_ROOM);
+        return FALSE;
       }
       ///////////////////////////////////////////////////////////////
       // min position in discArray defines absolute minimum level
-      // however, check some positions to see if restricted movement 
+      // however, check some positions to see if restricted movement
       // affects ability to make gestures
       // higher nums are more likely to cause restriction
       ///////////////////////////////////////////////////////////////
@@ -196,55 +196,55 @@ static bool enforceGestural(TBeing *ch, spellNumT spell)
       // sit, crawl use normal num.  raise it further for resting
       ///////////////////////////////////////////////////////////
       if (ch->getPosition() == POSITION_RESTING)
-	num += 4 * num / 10;
-      
+        num += 4 * num / 10;
+
       if ((ch->getPosition() == POSITION_RESTING || ch->getPosition() == POSITION_SITTING || ch->getPosition() == POSITION_CRAWLING) && (num > ch->getSkillValue(SKILL_RITUALISM))) {
-	////////////////////////////////////////////////////////////////
-	// we know that ritualism is < 60 from getRitualismLevel check
-	///////////////////////////////////////////////////////////////
-	ch->sendTo(format("Restricted movement while %s causes you to mess up the ritual's gestures.\n\r") % sstring(position_types[ch->getPosition()]).uncap());
-	act("Nothing seems to happen.", FALSE, ch, NULL, NULL, TO_ROOM);
-	return FALSE;
+        ////////////////////////////////////////////////////////////////
+        // we know that ritualism is < 60 from getRitualismLevel check
+        ///////////////////////////////////////////////////////////////
+        ch->sendTo(format("Restricted movement while %s causes you to mess up the ritual's gestures.\n\r") % sstring(position_types[ch->getPosition()]).uncap());
+        act("Nothing seems to happen.", FALSE, ch, NULL, NULL, TO_ROOM);
+        return FALSE;
       }
     }
   }
   if (!ch->isPc()) {
     if (ch->hasClass(CLASS_MAGE)) {
       if (ch->getWizardryLevel() >= WIZ_LEV_NO_GESTURES) {
-	act("You concentrate intently upon the magical task at hand...", FALSE, ch, NULL, NULL, TO_CHAR, ANSI_CYAN);
-	act("$n stares off into space, concentrating on something...", FALSE, ch, NULL, NULL, TO_ROOM, ANSI_CYAN);
-	return TRUE;
+        act("You concentrate intently upon the magical task at hand...", FALSE, ch, NULL, NULL, TO_CHAR, ANSI_CYAN);
+        act("$n stares off into space, concentrating on something...", FALSE, ch, NULL, NULL, TO_ROOM, ANSI_CYAN);
+        return TRUE;
       }
     } else {
       if (ch->getRitualismLevel() >= RIT_LEV_NO_GESTURES) {
-	act("You focus your thoughts upon the ancestors and their swift movements...", FALSE, ch, NULL, NULL, TO_CHAR, ANSI_RED);
-	act("$n concentrates deeply upon $s task...", FALSE, ch, NULL, NULL, TO_ROOM, ANSI_RED);
-	return TRUE;
+        act("You focus your thoughts upon the ancestors and their swift movements...", FALSE, ch, NULL, NULL, TO_CHAR, ANSI_RED);
+        act("$n concentrates deeply upon $s task...", FALSE, ch, NULL, NULL, TO_ROOM, ANSI_RED);
+        return TRUE;
       }
     }
     if (ch->hasClass(CLASS_MAGE)) {
       if (ch->hasHands()) {
-	sprintf(msg, "$n performs magical gestures with both of $s hands.");
-	act(msg, FALSE, ch, NULL, NULL, TO_ROOM, ANSI_PURPLE);
-	sprintf(msg, "You perform magical gestures with both of your hands.");
-	act(msg, FALSE, ch, NULL, NULL, TO_CHAR, ANSI_PURPLE);
-	return TRUE;
+        sprintf(msg, "$n performs magical gestures with both of $s hands.");
+        act(msg, FALSE, ch, NULL, NULL, TO_ROOM, ANSI_PURPLE);
+        sprintf(msg, "You perform magical gestures with both of your hands.");
+        act(msg, FALSE, ch, NULL, NULL, TO_CHAR, ANSI_PURPLE);
+        return TRUE;
       } else {
-	act("You hop and wiggle about while creating the magical runes in the air...", FALSE, ch, NULL, NULL, TO_CHAR, ANSI_CYAN);
-	act("$n hops and wiggles about while creating the magical runes in the air...", FALSE, ch, NULL, NULL, TO_ROOM, ANSI_CYAN);
-	return TRUE;
+        act("You hop and wiggle about while creating the magical runes in the air...", FALSE, ch, NULL, NULL, TO_CHAR, ANSI_CYAN);
+        act("$n hops and wiggles about while creating the magical runes in the air...", FALSE, ch, NULL, NULL, TO_ROOM, ANSI_CYAN);
+        return TRUE;
       }
     } else {
       if (ch->hasHands()) {
-	sprintf(msg, "$n performs ritualistic gestures with $s hands.");
-	act(msg, FALSE, ch, NULL, NULL, TO_ROOM, ANSI_RED);
-	sprintf(msg, "You perform ritualistic gestures with both hands.");
-	act(msg, FALSE, ch, NULL, NULL, TO_CHAR, ANSI_RED);
-	return TRUE;
+        sprintf(msg, "$n performs ritualistic gestures with $s hands.");
+        act(msg, FALSE, ch, NULL, NULL, TO_ROOM, ANSI_RED);
+        sprintf(msg, "You perform ritualistic gestures with both hands.");
+        act(msg, FALSE, ch, NULL, NULL, TO_CHAR, ANSI_RED);
+        return TRUE;
       } else {
-	act("You hop and wiggle about while creating the magical runes in the air...", FALSE, ch, NULL, NULL, TO_CHAR, ANSI_CYAN);
-	act("$n hops and wiggles about while creating the magical runes in the air...", FALSE, ch, NULL, NULL, TO_ROOM, ANSI_CYAN);
-	return TRUE;
+        act("You hop and wiggle about while creating the magical runes in the air...", FALSE, ch, NULL, NULL, TO_CHAR, ANSI_CYAN);
+        act("$n hops and wiggles about while creating the magical runes in the air...", FALSE, ch, NULL, NULL, TO_ROOM, ANSI_CYAN);
+        return TRUE;
       }
     }
     return TRUE;
@@ -261,133 +261,133 @@ static bool enforceGestural(TBeing *ch, spellNumT spell)
 
     if (ch->hasClass(CLASS_MAGE)) {
       if (ch->getWizardryLevel() >= WIZ_LEV_COMP_EITHER) {
-	if (sec_okay || prim_okay) {
-	  if (sec_okay)
-	    sprintf(buf, "%s", (ch->isRightHanded() ? "left" : "right"));
-	  else
-	    sprintf(buf, "%s", (ch->isRightHanded() ? "right" : "left"));
-	  sprintf(msg, "$n traces a magical rune in the air with $s %s hand.", buf);
-	  act(msg, FALSE, ch, NULL, NULL, TO_ROOM, ANSI_PURPLE);
-	  if (ch->getWizardryLevel() >= WIZ_LEV_NO_GESTURES) {
-	    sprintf(msg, "While not absolutely necessary, you trace a rune with your %s hand to facilitate your spell in forming.", buf);
-	    act(msg, FALSE, ch, NULL, NULL, TO_CHAR, ANSI_PURPLE);
-	  } else {
-	    sprintf(msg, "You trace a magical rune in the air with your %s hand.", buf);
-	    act(msg, FALSE, ch, NULL, NULL, TO_CHAR, ANSI_PURPLE);
-	  }
-	  return TRUE;
-	} else {
-	  if (ch->getWizardryLevel() >= WIZ_LEV_NO_GESTURES) {
-	    act("You concentrate intently upon the magical task at hand...", FALSE, ch, NULL, NULL, TO_CHAR, ANSI_CYAN);
-	    act("$n stares off into space, concentrating on something...", FALSE, ch, NULL, NULL, TO_ROOM, ANSI_CYAN);
-	    return TRUE;
-	  }
-	  act("Nothing seems to happen.", FALSE, ch, NULL, NULL, TO_ROOM);
-	  act("You must have one hand free and usable to perform the ritual's gestures!", FALSE, ch, NULL, NULL, TO_CHAR);
-	  return FALSE;
-	}
+        if (sec_okay || prim_okay) {
+          if (sec_okay)
+            sprintf(buf, "%s", (ch->isRightHanded() ? "left" : "right"));
+          else
+            sprintf(buf, "%s", (ch->isRightHanded() ? "right" : "left"));
+          sprintf(msg, "$n traces a magical rune in the air with $s %s hand.", buf);
+          act(msg, FALSE, ch, NULL, NULL, TO_ROOM, ANSI_PURPLE);
+          if (ch->getWizardryLevel() >= WIZ_LEV_NO_GESTURES) {
+            sprintf(msg, "While not absolutely necessary, you trace a rune with your %s hand to facilitate your spell in forming.", buf);
+            act(msg, FALSE, ch, NULL, NULL, TO_CHAR, ANSI_PURPLE);
+          } else {
+            sprintf(msg, "You trace a magical rune in the air with your %s hand.", buf);
+            act(msg, FALSE, ch, NULL, NULL, TO_CHAR, ANSI_PURPLE);
+          }
+          return TRUE;
+        } else {
+          if (ch->getWizardryLevel() >= WIZ_LEV_NO_GESTURES) {
+            act("You concentrate intently upon the magical task at hand...", FALSE, ch, NULL, NULL, TO_CHAR, ANSI_CYAN);
+            act("$n stares off into space, concentrating on something...", FALSE, ch, NULL, NULL, TO_ROOM, ANSI_CYAN);
+            return TRUE;
+          }
+          act("Nothing seems to happen.", FALSE, ch, NULL, NULL, TO_ROOM);
+          act("You must have one hand free and usable to perform the ritual's gestures!", FALSE, ch, NULL, NULL, TO_CHAR);
+          return FALSE;
+        }
       }
     } else {
       if (ch->getRitualismLevel() >= RIT_LEV_COMP_EITHER) {
-	if (sec_okay || prim_okay) {
-	  if (sec_okay)
-	    sprintf(buf, "%s", (ch->isRightHanded() ? "left" : "right"));
-	  else
-	    sprintf(buf, "%s", (ch->isRightHanded() ? "right" : "left"));
-	  sprintf(msg, "$n stretches $s %s arm skyward as $e asks for ritual blessing.", buf);
-	  act(msg, FALSE, ch, NULL, NULL, TO_ROOM, ANSI_RED);
-	  if (ch->getRitualismLevel() >= RIT_LEV_NO_GESTURES) {
-	    sprintf(msg, "While not absolutely necessary, you stretch your %s arm to the sky for the blessings of the loa.", buf);
-	    act(msg, FALSE, ch, NULL, NULL, TO_CHAR, ANSI_RED);
-	  } else {
-	    sprintf(msg, "You thrust your %s arm skyward as a symbol of ritualistic power.", buf);
-	    act(msg, FALSE, ch, NULL, NULL, TO_CHAR, ANSI_RED);
-	  }
-	  return TRUE;
-	} else {
-	  if (ch->getRitualismLevel() >= RIT_LEV_NO_GESTURES) {
-	    act("You chant the ancient rada song offering precious lifeforce to the spirits.", FALSE, ch, NULL, NULL, TO_CHAR, ANSI_YELLOW);
-	    act("$n groans as $s eyes roll back into $s head in deep concentration.", FALSE, ch, NULL, NULL, TO_ROOM, ANSI_YELLOW);
-	    return TRUE;
-	  }
-	  act("Nothing seems to happen.", FALSE, ch, NULL, NULL, TO_ROOM);
-	  act("You must have one hand free and usable to perform the ritual's gestures!", FALSE, ch, NULL, NULL, TO_CHAR);
-	  return FALSE;
-	}
+        if (sec_okay || prim_okay) {
+          if (sec_okay)
+            sprintf(buf, "%s", (ch->isRightHanded() ? "left" : "right"));
+          else
+            sprintf(buf, "%s", (ch->isRightHanded() ? "right" : "left"));
+          sprintf(msg, "$n stretches $s %s arm skyward as $e asks for ritual blessing.", buf);
+          act(msg, FALSE, ch, NULL, NULL, TO_ROOM, ANSI_RED);
+          if (ch->getRitualismLevel() >= RIT_LEV_NO_GESTURES) {
+            sprintf(msg, "While not absolutely necessary, you stretch your %s arm to the sky for the blessings of the loa.", buf);
+            act(msg, FALSE, ch, NULL, NULL, TO_CHAR, ANSI_RED);
+          } else {
+            sprintf(msg, "You thrust your %s arm skyward as a symbol of ritualistic power.", buf);
+            act(msg, FALSE, ch, NULL, NULL, TO_CHAR, ANSI_RED);
+          }
+          return TRUE;
+        } else {
+          if (ch->getRitualismLevel() >= RIT_LEV_NO_GESTURES) {
+            act("You chant the ancient rada song offering precious lifeforce to the spirits.", FALSE, ch, NULL, NULL, TO_CHAR, ANSI_YELLOW);
+            act("$n groans as $s eyes roll back into $s head in deep concentration.", FALSE, ch, NULL, NULL, TO_ROOM, ANSI_YELLOW);
+            return TRUE;
+          }
+          act("Nothing seems to happen.", FALSE, ch, NULL, NULL, TO_ROOM);
+          act("You must have one hand free and usable to perform the ritual's gestures!", FALSE, ch, NULL, NULL, TO_CHAR);
+          return FALSE;
+        }
       }
     }
     if (ch->hasClass(CLASS_MAGE)) {
       if (prim_okay && sec_okay) {
-	sprintf(msg, "$n traces a magical rune in the air with $s hands.");
-	act(msg, FALSE, ch, NULL, NULL, TO_ROOM, ANSI_PURPLE);
-	sprintf(msg, "You trace a magical rune in the air with your hands.");
-	act(msg, FALSE, ch, NULL, NULL, TO_CHAR, ANSI_PURPLE);
-	return TRUE;
+        sprintf(msg, "$n traces a magical rune in the air with $s hands.");
+        act(msg, FALSE, ch, NULL, NULL, TO_ROOM, ANSI_PURPLE);
+        sprintf(msg, "You trace a magical rune in the air with your hands.");
+        act(msg, FALSE, ch, NULL, NULL, TO_CHAR, ANSI_PURPLE);
+        return TRUE;
       } else {
-	sprintf(buf, "%s",  (ch->isRightHanded() ? "right" : "left"));
-	sprintf(buf2, "%s", (ch->isRightHanded() ? "left" : "right"));
-	
-	act("Nothing seems to happen.", FALSE, ch, NULL, NULL, TO_ROOM);
-	
-	if (ch->getWizardryLevel() < WIZ_LEV_COMP_EITHER_OTHER_FREE) {
-	  if (!(IS_SET(discArray[spell]->comp_types, COMP_MATERIAL))) {
-	    sprintf(msg, "Both of your hands must be free and usable to perform the ritual's gestures!");
-	  } else {
-	    if (!prim_okay && !sec_okay) {
-	      sprintf(msg, "Your component must be in your %s hand and your %s must be free and usable to perform the ritual's gestures!", buf, buf2);
-	    } else if (!prim_okay) {
-	      sprintf(msg, "Your component must be in your %s hand for you to be able to perform the ritual's gestures!", buf);
-	    } else {
-	      sprintf(msg, "Your %s hand must be free and usable to perform the ritual's gestures!", buf2);
-	    }
-	  }
-	} else {
-	  if (!prim_okay && !sec_okay) {
-	    sprintf(msg, "Your %s hand must hold the component and your %s must be free to perform the ritual!", buf2, buf);
-	  } else if (!prim_okay) {
-	    sprintf(msg, "Your %s hand must be holding the component for you to properly perform this spell!", buf);
-	  } else {
-	    sprintf(msg, "Your %s hand must be free and usable to perform the ritual's gestures!", buf2);
-	  }
-	}
-	act(msg, FALSE, ch, NULL, NULL, TO_CHAR);
-	return FALSE;
+        sprintf(buf, "%s",  (ch->isRightHanded() ? "right" : "left"));
+        sprintf(buf2, "%s", (ch->isRightHanded() ? "left" : "right"));
+
+        act("Nothing seems to happen.", FALSE, ch, NULL, NULL, TO_ROOM);
+
+        if (ch->getWizardryLevel() < WIZ_LEV_COMP_EITHER_OTHER_FREE) {
+          if (!(IS_SET(discArray[spell]->comp_types, COMP_MATERIAL))) {
+            sprintf(msg, "Both of your hands must be free and usable to perform the ritual's gestures!");
+          } else {
+            if (!prim_okay && !sec_okay) {
+              sprintf(msg, "Your component must be in your %s hand and your %s must be free and usable to perform the ritual's gestures!", buf, buf2);
+            } else if (!prim_okay) {
+              sprintf(msg, "Your component must be in your %s hand for you to be able to perform the ritual's gestures!", buf);
+            } else {
+              sprintf(msg, "Your %s hand must be free and usable to perform the ritual's gestures!", buf2);
+            }
+          }
+        } else {
+          if (!prim_okay && !sec_okay) {
+            sprintf(msg, "Your %s hand must hold the component and your %s must be free to perform the ritual!", buf2, buf);
+          } else if (!prim_okay) {
+            sprintf(msg, "Your %s hand must be holding the component for you to properly perform this spell!", buf);
+          } else {
+            sprintf(msg, "Your %s hand must be free and usable to perform the ritual's gestures!", buf2);
+          }
+        }
+        act(msg, FALSE, ch, NULL, NULL, TO_CHAR);
+        return FALSE;
       }
     } else {
       if (prim_okay && sec_okay) {
-	sprintf(msg, "$n stretches $s arms skyward as $e begs $s ancestors for a blessing.");
-	act(msg, FALSE, ch, NULL, NULL, TO_ROOM, ANSI_RED);
-	sprintf(msg, "You stretch your arms to the skies and beg the ancestors for a mighty blessing.");
-	act(msg, FALSE, ch, NULL, NULL, TO_CHAR, ANSI_RED);
-	return TRUE;
+        sprintf(msg, "$n stretches $s arms skyward as $e begs $s ancestors for a blessing.");
+        act(msg, FALSE, ch, NULL, NULL, TO_ROOM, ANSI_RED);
+        sprintf(msg, "You stretch your arms to the skies and beg the ancestors for a mighty blessing.");
+        act(msg, FALSE, ch, NULL, NULL, TO_CHAR, ANSI_RED);
+        return TRUE;
       } else {
-	sprintf(buf, "%s",  (ch->isRightHanded() ? "right" : "left"));
-	sprintf(buf2, "%s", (ch->isRightHanded() ? "left" : "right"));
-	act("Nothing seems to happen.", FALSE, ch, NULL, NULL, TO_ROOM);
-	
-	if (ch->getRitualismLevel() < RIT_LEV_COMP_EITHER_OTHER_FREE) {
-	  if (!(IS_SET(discArray[spell]->comp_types, COMP_MATERIAL))) {
-	    sprintf(msg, "Both of your hands must be free and usable to perform the ritual's gestures!");
-	  } else {
-	    if (!prim_okay && !sec_okay) {
-	      sprintf(msg, "Your component must be in your %s hand and your %s must be free and usable to perform the ritual's gestures!", buf, buf2);
-	    } else if (!prim_okay) {
-	      sprintf(msg, "Your component must be in your %s hand for you to be able to perform the ritual's gestures!", buf);
-	    } else {
-	      sprintf(msg, "Your %s hand must be free and usable to perform the ritual's gestures!", buf2);
-	    }
-	  }
-	} else {
-	  if (!prim_okay && !sec_okay) {
-	    sprintf(msg, "Your %s hand must hold the component and your %s must be free to perform the ritual!", buf2, buf);
-	  } else if (!prim_okay) {
-	    sprintf(msg, "Your %s hand must be holding the component for you to properly perform this spell!", buf);
-	  } else {
-	    sprintf(msg, "Your %s hand must be free and usable to perform the ritual's gestures!", buf2);
-	  }
-	}
-	act(msg, FALSE, ch, NULL, NULL, TO_CHAR);
-	return FALSE;
+        sprintf(buf, "%s",  (ch->isRightHanded() ? "right" : "left"));
+        sprintf(buf2, "%s", (ch->isRightHanded() ? "left" : "right"));
+        act("Nothing seems to happen.", FALSE, ch, NULL, NULL, TO_ROOM);
+
+        if (ch->getRitualismLevel() < RIT_LEV_COMP_EITHER_OTHER_FREE) {
+          if (!(IS_SET(discArray[spell]->comp_types, COMP_MATERIAL))) {
+            sprintf(msg, "Both of your hands must be free and usable to perform the ritual's gestures!");
+          } else {
+            if (!prim_okay && !sec_okay) {
+              sprintf(msg, "Your component must be in your %s hand and your %s must be free and usable to perform the ritual's gestures!", buf, buf2);
+            } else if (!prim_okay) {
+              sprintf(msg, "Your component must be in your %s hand for you to be able to perform the ritual's gestures!", buf);
+            } else {
+              sprintf(msg, "Your %s hand must be free and usable to perform the ritual's gestures!", buf2);
+            }
+          }
+        } else {
+          if (!prim_okay && !sec_okay) {
+            sprintf(msg, "Your %s hand must hold the component and your %s must be free to perform the ritual!", buf2, buf);
+          } else if (!prim_okay) {
+            sprintf(msg, "Your %s hand must be holding the component for you to properly perform this spell!", buf);
+          } else {
+            sprintf(msg, "Your %s hand must be free and usable to perform the ritual's gestures!", buf2);
+          }
+        }
+        act(msg, FALSE, ch, NULL, NULL, TO_CHAR);
+        return FALSE;
       }
     }
     return TRUE;
@@ -480,7 +480,7 @@ static bool enforcePrayer(TBeing *ch, spellNumT spell)
     act("$n chants mysterious and sacred words.", TRUE, ch, 0, NULL, TO_ROOM, ANSI_CYAN);
     act("You beseech $d for aid.", TRUE, ch, NULL, NULL, TO_CHAR, ANSI_CYAN);
     return TRUE;
-  } else 
+  } else
     return TRUE;
 }
 
@@ -531,11 +531,11 @@ bool enforceHolySym(const TBeing *ch, spellNumT spell, bool checkDamage)
       } else {
         sb = "$p suffers structural damage from the stress!";
       }
-    
+
       if (sym_stress > orig_strength) {
-        act("$n's $o starts to glow with power but the glow fades away!", 
+        act("$n's $o starts to glow with power but the glow fades away!",
             FALSE, ch, holy, NULL, TO_ROOM);
-        act("Your $o starts to glow with power but the glow fades away!", 
+        act("Your $o starts to glow with power but the glow fades away!",
             FALSE, ch, holy, NULL, TO_CHAR);
         act("You sense that $p is not strong enough for that prayer.",
             FALSE, ch, holy, NULL, TO_CHAR);
@@ -560,7 +560,7 @@ bool enforceHolySym(const TBeing *ch, spellNumT spell, bool checkDamage)
           holy = NULL;
           return FALSE;
         }
-      
+
         holy->addToSymbolCurStrength(-sym_stress);
         act(sb, false, ch, holy, NULL, TO_CHAR);
         return TRUE;
@@ -568,7 +568,7 @@ bool enforceHolySym(const TBeing *ch, spellNumT spell, bool checkDamage)
     } else {
       return FALSE;    // requires symbol, user didn't have one
     }
-  } 
+  }
   return TRUE;         // doesn't require holy symbol
 }
 
@@ -609,7 +609,7 @@ int CDiscipline::getLearnedness() const
 
 spellNumT TBeing::getSkillNum(spellNumT spell_num) const
 {
-  bool has_class = FALSE; 
+  bool has_class = FALSE;
   int num = 0;
   int num2 = 0;
 
@@ -619,7 +619,7 @@ spellNumT TBeing::getSkillNum(spellNumT spell_num) const
   }
 
   switch (spell_num) {
-    case SKILL_KICK: 
+    case SKILL_KICK:
       if (hasClass(CLASS_WARRIOR)) {
         if (!has_class) {
           spell_num = SKILL_KICK;
@@ -635,8 +635,8 @@ spellNumT TBeing::getSkillNum(spellNumT spell_num) const
           spell_num = SKILL_KICK_DEIKHAN;
         }
         if ((num2 = getSkillValue(SKILL_KICK_DEIKHAN)) > num) {
-          spell_num = SKILL_KICK_DEIKHAN;    
-          num = num2;  
+          spell_num = SKILL_KICK_DEIKHAN;
+          num = num2;
           has_class = TRUE;
         }
       }
@@ -660,7 +660,7 @@ spellNumT TBeing::getSkillNum(spellNumT spell_num) const
           has_class = TRUE;
         }
       }
-      return spell_num; 
+      return spell_num;
     case SKILL_BASH:
       if (hasClass(CLASS_WARRIOR)) {
         if (!has_class) {
@@ -1259,9 +1259,9 @@ spellNumT TBeing::getSkillNum(spellNumT spell_num) const
       return spell_num;
     case SPELL_CREATE_WATER:
       if (hasClass(CLASS_CLERIC)) {
-        if (!has_class) 
+        if (!has_class)
           spell_num = SPELL_CREATE_WATER;
-        
+
         if ((num2 = getSkillValue(SPELL_CREATE_WATER)) > num) {
           spell_num = SPELL_CREATE_WATER;
           num = num2;
@@ -1269,34 +1269,34 @@ spellNumT TBeing::getSkillNum(spellNumT spell_num) const
         }
       }
       if (hasClass(CLASS_DEIKHAN)) {
-        if (!has_class) 
+        if (!has_class)
           spell_num = SPELL_CREATE_WATER_DEIKHAN;
-        
+
         if ((num2 = getSkillValue(SPELL_CREATE_WATER_DEIKHAN)) > num) {
           spell_num = SPELL_CREATE_WATER_DEIKHAN;
-          num = num2; 
+          num = num2;
           has_class = TRUE;
         }
       }
       return spell_num;
     case SPELL_ARMOR:
       if (hasClass(CLASS_CLERIC)) {
-        if (!has_class) 
+        if (!has_class)
           spell_num = SPELL_ARMOR;
-        
-        if ((num2 = getSkillValue(SPELL_ARMOR)) > num) { 
+
+        if ((num2 = getSkillValue(SPELL_ARMOR)) > num) {
           spell_num = SPELL_ARMOR;
           num = num2;
           has_class = TRUE;
         }
       }
       if (hasClass(CLASS_DEIKHAN)) {
-        if (!has_class) 
+        if (!has_class)
           spell_num = SPELL_ARMOR_DEIKHAN;
-        
+
         if ((num2 = getSkillValue(SPELL_ARMOR_DEIKHAN)) > num) {
           spell_num = SPELL_ARMOR_DEIKHAN;
-          num = num2; 
+          num = num2;
           has_class = TRUE;
         }
       }
@@ -1306,7 +1306,7 @@ spellNumT TBeing::getSkillNum(spellNumT spell_num) const
         if (!has_class) {
           spell_num = SPELL_BLESS;
         }
-        if ((num2 = getSkillValue(SPELL_BLESS)) > num) { 
+        if ((num2 = getSkillValue(SPELL_BLESS)) > num) {
           spell_num = SPELL_BLESS;
           num = num2;
           has_class = TRUE;
@@ -1318,7 +1318,7 @@ spellNumT TBeing::getSkillNum(spellNumT spell_num) const
         }
         if ((num2 = getSkillValue(SPELL_BLESS_DEIKHAN)) > num) {
           spell_num = SPELL_BLESS_DEIKHAN;
-          num = num2; 
+          num = num2;
           has_class = TRUE;
         }
       }
@@ -1596,7 +1596,7 @@ spellNumT TBeing::getSkillNum(spellNumT spell_num) const
   return spell_num;
 }
 
-bool TBeing::isValidDiscClass(discNumT discNum, int classNum, int indNum) 
+bool TBeing::isValidDiscClass(discNumT discNum, int classNum, int indNum)
 {
   if (discNum >= MAX_DISCS)
     return FALSE;
@@ -1615,7 +1615,7 @@ bool TBeing::isValidDiscClass(discNumT discNum, int classNum, int indNum)
 
 discNumT getDisciplineNumber(spellNumT spell_num, int class_num)
 {
-  mud_assert(spell_num >= MIN_SPELL && spell_num < MAX_SKILL, 
+  mud_assert(spell_num >= MIN_SPELL && spell_num < MAX_SKILL,
           "Bad skill in getDisciplineNumber: %d", spell_num);
 
   if (!class_num) {
@@ -1647,7 +1647,7 @@ void CDiscipline::setLearnedness(int uNewValue)
 {
     if (uNewValue > MAX_DISC_LEARNEDNESS)
       uLearnedness = MAX_DISC_LEARNEDNESS;
-    else 
+    else
       uLearnedness = uNewValue;
 }
 
@@ -1706,7 +1706,7 @@ static void logSkillAttempts(const TBeing *caster, spellNumT spell, logSkillAtte
 #if 0
 // don't log if maxed?
   if (value >= MAX_SKILL_LEARNEDNESS)
-    return; 
+    return;
 #endif
 
   // count the number of immortal uses
@@ -1726,7 +1726,7 @@ static void logSkillAttempts(const TBeing *caster, spellNumT spell, logSkillAtte
         break;
     }
     return;
-  } 
+  }
 
   // count mob uses
   if (!caster->desc || !caster->isPc()) {
@@ -1805,7 +1805,7 @@ enum skillSuccessT {
 
 static void logSkillSuccess(const TBeing *caster, spellNumT spell, skillSuccessT type)
 {
-  // this is used to log skill success 
+  // this is used to log skill success
   // there is usually no need to call this directly as it sits inside bSuccess
   // however, it can be called directly if appropriate
 
@@ -1823,7 +1823,7 @@ static void logSkillSuccess(const TBeing *caster, spellNumT spell, skillSuccessT
       discArray[spell]->potSuccess++;
     return;
   }
-  
+
   if ((caster->GetMaxLevel() > MAX_MORT) && caster->desc) {
     discArray[spell]->immSuccess++;
     return;
@@ -1834,7 +1834,7 @@ static void logSkillSuccess(const TBeing *caster, spellNumT spell, skillSuccessT
 
   // mortal PCs only get here
   discArray[spell]->success++;
-  
+
   if (discArray[spell]->minMana) {
     caster->desc->session.spell_success_pass++;
     caster->desc->career.spell_success_pass++;
@@ -1859,7 +1859,7 @@ enum logSkillFailT {
 
 static void logSkillFail(const TBeing *caster, spellNumT spell, logSkillFailT type)
 {
-  // this is used to log skill fails 
+  // this is used to log skill fails
   // there is usually no need to call this directly as it sits inside bSuccess
   // however, it can be called directly if appropriate
 
@@ -1901,9 +1901,9 @@ static bool bSucCounter(TBeing *caster, skillUseClassT skillType, spellNumT spel
   // success counter
   if (caster->desc) {
     if (skillType == SPELL_MAGE ||
-        skillType == SPELL_CLERIC || 
+        skillType == SPELL_CLERIC ||
         skillType == SPELL_DEIKHAN ||
-        skillType == SPELL_SHAMAN || 
+        skillType == SPELL_SHAMAN ||
         skillType == SPELL_RANGER) {
       // Is a spell and not a skill
       if (((caster->fight() && !caster->isAffected(AFF_ENGAGER)) ||
@@ -1985,7 +1985,7 @@ static bool bSucCounter(TBeing *caster, skillUseClassT skillType, spellNumT spel
     logSkillSuccess(caster, spell, SKILL_SUCCESS_NORMAL);
     return TRUE;
   }
-  
+
   return FALSE;
 }
 
@@ -2002,8 +2002,8 @@ bool TBeing::bSuccess(int ubCompetence, double dPiety, spellNumT spell)
     int pietyNum;
     if ((skillType == SPELL_CLERIC) || (skillType == SPELL_DEIKHAN) ||
         (skillType == SKILL_CLERIC) || (skillType == SKILL_DEIKHAN)) {
-      pietyNum = min(95, (3 * GetMaxLevel())); 
-    } else { 
+      pietyNum = min(95, (3 * GetMaxLevel()));
+    } else {
       pietyNum = min(70, (2 * GetMaxLevel()));
     }
     pietyNum = min(0, (((int) dPiety) - pietyNum));
@@ -2028,7 +2028,7 @@ static void logLearnFail(TBeing *caster, spellNumT spell, int type)
 
   if (caster->GetMaxLevel() > MAX_MORT) {
     return;
-  } 
+  }
 
   if (!caster->desc) {
     vlogf(LOG_BUG,format("Something went into logLearnFail with no desc (%d)") %  spell);
@@ -2036,7 +2036,7 @@ static void logLearnFail(TBeing *caster, spellNumT spell, int type)
   }
 
 #if DISC_DEBUG
-  vlogf(LOG_BUG, format("%s Fail Spell %s (%d) ubComp < 0") %  caster->getName() % discArray[spell]->name % spell); 
+  vlogf(LOG_BUG, format("%s Fail Spell %s (%d) ubComp < 0") %  caster->getName() % discArray[spell]->name % spell);
 #endif
 
   if (type) {
@@ -2084,8 +2084,8 @@ bool TBeing::bSuccess(int ubCompetence, spellNumT spell)
     logSkillFail(this, spell, FAIL_GENERAL);
 #if DISC_DEBUG
     if (desc && isPc()) {
-      vlogf(LOG_BUG, format("%s Fail Spell %s (%d) ubComp < 0") %  
-	    getName() % discArray[spell]->name % spell);
+      vlogf(LOG_BUG, format("%s Fail Spell %s (%d) ubComp < 0") %
+            getName() % discArray[spell]->name % spell);
     }
 #endif
     return FALSE;
@@ -2144,7 +2144,7 @@ critSuccT critSuccess(TBeing *caster, spellNumT spell)
   if (::number(0,9))
     return CRIT_S_NONE;
 
-  int roll, adjusted, task = 100; 
+  int roll, adjusted, task = 100;
   discNumT das = getDisciplineNumber(spell, FALSE);
   CDiscipline *cd;
 
@@ -2226,16 +2226,16 @@ critFailT critFail(TBeing *caster, spellNumT spell)
   discNumT das = getDisciplineNumber(spell, FALSE);
   if (das == DISC_NONE) {
     vlogf(LOG_BUG, format("bad disc for spell %d") %  spell);
-    return CRIT_F_NONE; 
-  } 
+    return CRIT_F_NONE;
+  }
 // adjust for learnedness of caster
   adjusted = caster->getDiscipline(das)->getLearnedness() - discArray[spell]->start + 1;
 
-  adjusted *= 2;  
+  adjusted *= 2;
   adjusted += 100;
   adjusted=max(100, adjusted);
 
-  task *= adjusted;  
+  task *= adjusted;
   task /= 100;
 
   // Higher Focus gets better results
@@ -2286,7 +2286,7 @@ int checkMana(TBeing * caster, int mana)
     act("You can't seem to summon the magic energies...", FALSE, caster, 0, 0, TO_CHAR, ANSI_CYAN);
     act("$n begins to glow for a brief second, but it quickly fades.", FALSE, caster, NULL, NULL, TO_ROOM, ANSI_CYAN);
     return TRUE;
-  } else   
+  } else
     return FALSE;
 }
 
@@ -2297,7 +2297,7 @@ int checkLifeforce(TBeing * caster, int lifeforce)
     act("You don't seem to have enough lifeforce...", FALSE, caster, 0, 0, TO_CHAR, ANSI_ORANGE);
     act("$n's eyes glow fire red and then quickly fade back to normal.", FALSE, caster, NULL, NULL, TO_ROOM, ANSI_RED);
     return TRUE;
-  } else   
+  } else
     return FALSE;
 }
 // END LIFEFORCE
@@ -2309,7 +2309,7 @@ bool checkPerc(const TBeing * caster, double align)
     act("$d scoffs in your general direction!", FALSE, caster, NULL, NULL, TO_CHAR);
     act("$n blushes as $d falls down laughing at $s request!", FALSE, caster, NULL, NULL, TO_ROOM);
     return TRUE;
-  } else  
+  } else
     return FALSE;
 }
 #endif
@@ -2340,7 +2340,7 @@ TSymbol * TBeing::findHolySym(silentTypeT silent) const
         sym_faction = best->getSymbolFaction();
         attuned = 1;
         if ((sym_faction != FACT_UNDEFINED) || attuneCode) {
-          if ((getFaction() == sym_faction) || attuneCode) { 
+          if ((getFaction() == sym_faction) || attuneCode) {
             // symbol in primary
             if (secondary && dev_lev <= DEV_LEV_SYMB_EITHER_OTHER_FREE) {
               // 0 = prim + sec free
@@ -2427,10 +2427,10 @@ TSymbol * TBeing::findHolySym(silentTypeT silent) const
     }
   }
   if (!silent) {
-    act("$n frantically gropes for something that $e can't seem to find!", 
+    act("$n frantically gropes for something that $e can't seem to find!",
              FALSE, this, NULL, NULL, TO_ROOM);
     if (bad_faction > 1) {
-      act("Your deities do not recognize your choice of holy symbols!", 
+      act("Your deities do not recognize your choice of holy symbols!",
              FALSE, this, NULL, NULL, TO_CHAR);
     } else if (bad_faction == 1) {
       act("Your deities do not recognize your choice of holy symbols!", FALSE, this, NULL, NULL, TO_CHAR);
@@ -2466,7 +2466,7 @@ bool checkRoom(const TBeing * ch)
   return TRUE;
 }
 
-void checkFactionHurt(TBeing * caster, TBeing * victim) 
+void checkFactionHurt(TBeing * caster, TBeing * victim)
 {
   int dec_amt;
 
@@ -2480,7 +2480,7 @@ void checkFactionHurt(TBeing * caster, TBeing * victim)
   }
 }
 
-void checkFactionHelp(TBeing *caster, TBeing *victim) 
+void checkFactionHelp(TBeing *caster, TBeing *victim)
 {
   int dec_amt;
 
@@ -2582,7 +2582,7 @@ void TBeing::assignDisciplinesClass()
     discs->disc[DISC_ADVENTURING] = new CDAdventuring();
     discs->disc[DISC_ADVANCED_ADVENTURING] = new CDAdvAdventuring();
     discs->disc[DISC_DEFENSE] = new CDDefense();
- 
+
     discs->disc[DISC_PSIONICS] = new CDPsionics();
 
     discs->disc[DISC_COMMONER] = new CDCommoner();
@@ -2603,7 +2603,7 @@ void TBeing::assignDisciplinesClass()
   }
 
 
-    
+
   if (!player.Class) {
     vlogf(LOG_BUG,format("call to assignDisciplinesClass without a valid Class (%s)") %  getName());
     return;
@@ -2736,7 +2736,7 @@ void TBeing::assignDisciplinesClass()
 }
 
 
-void TBeing::initSkillsBasedOnDiscLearning(discNumT disc_num) 
+void TBeing::initSkillsBasedOnDiscLearning(discNumT disc_num)
 {
   int disc_learn = 0, boost = 0, max_amt = 0, value = 0;
   CDiscipline *cd;
@@ -2756,7 +2756,7 @@ void TBeing::initSkillsBasedOnDiscLearning(discNumT disc_num)
       if (!getSkill(i))
         continue;
 
-      if (disc_learn < discArray[i]->start) 
+      if (disc_learn < discArray[i]->start)
         continue;
 
       if (isPc()) {
@@ -2797,11 +2797,11 @@ void TBeing::initSkillsBasedOnDiscLearning(discNumT disc_num)
         if (i ==  SKILL_TACTICS){
           setNatSkillValue(SKILL_TACTICS,min(100, (GetMaxLevel() * 12)));
           setSkillValue(SKILL_TACTICS,min(100, (GetMaxLevel() * 12)));
-	}
+        }
         if (i == SKILL_RIDE){
           setNatSkillValue(SKILL_RIDE,min(100,5 + GetMaxLevel() * 2));
-          setSkillValue(SKILL_RIDE,min(100,5 + GetMaxLevel() * 2)); 
-	}
+          setSkillValue(SKILL_RIDE,min(100,5 + GetMaxLevel() * 2));
+        }
       }
     }
   }
@@ -2931,7 +2931,7 @@ int TBeing::isNotPowerful(TBeing *vict, int lev, spellNumT skill, silentTypeT si
     if (hideThisSpell(i)) continue;
     if (discArray[i]->assDisc != assDiscNum) continue;
     if (!getDiscipline(discArray[i]->assDisc)) continue;
-    if (discArray[i]->assDisc == assDiscNum 
+    if (discArray[i]->assDisc == assDiscNum
          && getDiscipline(discArray[i]->disc)->isBasic()) {
       basSum += getSkillValue(i);
       basCount++;
@@ -2952,15 +2952,15 @@ int TBeing::isNotPowerful(TBeing *vict, int lev, spellNumT skill, silentTypeT si
       bonus += advLearning;
 //      advLearning = getAdvDoLearning(skill);
 //      bonus += (level * advLearning) / 200;
-    }                      
-  } 
-  
+    }
+  }
+
   // make the chance at equal level 90%
   // still always works on something more than 3 levels lower than you
   double halfLev = 6;
   double startLev = 1;  // number of levels below current where this takes effect
   // same level = 85%, level + 10 = 16%
-  
+
   // add a bonus for training in skills
 
 /*  halfLev += basMean / 50 + advMean / 20; // add up to 6 levels to double time
@@ -2970,7 +2970,7 @@ int TBeing::isNotPowerful(TBeing *vict, int lev, spellNumT skill, silentTypeT si
   halfLev += bonus / 16.7; // up to 6
   startLev -= bonus / 25; // up to 4
 
-  
+
   double levelDiff = (double) vict->GetMaxLevel() - (double) lev + startLev;
   int chance = (int) (10000 * exp(-levelDiff / halfLev ));
   if (chance < 0) chance = 10001; //roll over of integer
@@ -3018,7 +3018,7 @@ int TBeing::getSkillLevel(spellNumT skill) const
     case DISC_SORCERY:
       lev = getClassLevel(CLASS_MAGE);
       break;
-    case DISC_RANGER: 
+    case DISC_RANGER:
     case DISC_PLANTS:
     case DISC_ANIMAL:
     case DISC_NATURE:
@@ -3099,7 +3099,7 @@ int TBeing::getSkillLevel(spellNumT skill) const
     case MAX_DISCS:
     case DISC_NONE:
     case MAX_SAVED_DISCS:
-      vlogf(LOG_BUG, format("bad disc (%d, %d) in getSkillLevel (%s).") % 
+      vlogf(LOG_BUG, format("bad disc (%d, %d) in getSkillLevel (%s).") %
                disc_num % skill % getName());
       lev = 0;
       break;
@@ -3164,7 +3164,7 @@ static void learnAttemptLog(const TBeing *caster, spellNumT spell)
 {
   if (caster->desc && caster->isPc()) {
     discArray[spell]->learnAttempts++;
-  } 
+  }
 }
 
 static void learnLearnednessLog(const TBeing *caster, spellNumT spell, int amt)
@@ -3264,7 +3264,7 @@ static void logLearnAttempts(TBeing *caster, spellNumT spell, logLearnAttemptT t
     case LEARN_ATT_ADD:
       discArray[spell]->learnAttempts++;
       discArray[spell]->learnLearn += caster->getSkillValue(spell);
-      discArray[spell]->learnLevel += caster->GetMaxLevel(); 
+      discArray[spell]->learnLevel += caster->GetMaxLevel();
       break;
     case LEARN_ATT_REM:
       discArray[spell]->learnAttempts -= 1;
@@ -3284,7 +3284,7 @@ enum logLearnSuccessT {
 
 static void logLearnSuccess(TBeing *caster, spellNumT spell, logLearnSuccessT type, int boost)
 {
-  // this is used to log learn success 
+  // this is used to log learn success
   // there is usually no need to call this directly as it sits inside i
   // learnFromDoing and learnFromDoingUnusual
 
@@ -3336,8 +3336,8 @@ int TPerson::learnFromDoingUnusual(learnUnusualTypeT type, spellNumT spell, int 
   switch (type) {
     case LEARN_UNUSUAL_PROFICIENCY:   // proficiencies
       if (w_type == TYPE_HIT) {
-          spell = SKILL_BAREHAND_PROF; 
-	  spell2 = SKILL_BAREHAND_SPEC;
+          spell = SKILL_BAREHAND_PROF;
+          spell2 = SKILL_BAREHAND_SPEC;
           amt *= 2;
       } else if (slashType(w_type)) {
         spell = SKILL_SLASH_PROF;
@@ -3354,7 +3354,7 @@ int TPerson::learnFromDoingUnusual(learnUnusualTypeT type, spellNumT spell, int 
       }
       if (amt && ::number(0,amt)) {
         // arbitrary dont let the skill increase
-        if (doesKnowSkill(spell) && 
+        if (doesKnowSkill(spell) &&
             (value = getRawNatSkillValue(spell)) < MAX_SKILL_LEARNEDNESS) {
           learnAttemptLog(this, spell);
           learnLearnednessLog(this, spell, value);
@@ -3376,10 +3376,10 @@ int TPerson::learnFromDoingUnusual(learnUnusualTypeT type, spellNumT spell, int 
               (getDiscipline(DISC_COMBAT)->getLearnedness() >= MAX_DISC_LEARNEDNESS) &&
               doesKnowSkill(spell2)) {
             return learnFromDoing(spell2, SILENT_NO, 0);
-          } else 
+          } else
             return FALSE;
-        } 
-      } 
+        }
+      }
       break;
     case LEARN_UNUSUAL_NORM_LEARN:
       if (amt && ::number(0, amt)) {
@@ -3440,8 +3440,8 @@ int TPerson::learnFromDoing(spellNumT sknum, silentTypeT silent, unsigned int fl
   }
 
 
-  if (!discArray[sknum] || 
-      !*discArray[sknum]->name || 
+  if (!discArray[sknum] ||
+      !*discArray[sknum]->name ||
       discArray[sknum]->startLearnDo == -1) {
     return FALSE;
   }
@@ -3489,17 +3489,17 @@ int TPerson::learnFromDoing(spellNumT sknum, silentTypeT silent, unsigned int fl
         discArray[sknum]->disc == DISC_RANGED ||
         discArray[sknum]->disc == DISC_BAREHAND) {
     chanceDisc = ::number(0,200);
-    chanceAss = ::number(0, 400);  
+    chanceAss = ::number(0, 400);
   } else if (discArray[sknum]->assDisc == discArray[sknum]->disc) {
     // advanced discipline here
     chanceDisc = ::number(0,150);
-    chanceAss = 1;  // no chance of learn 
+    chanceAss = 1;  // no chance of learn
   } else {
     chanceDisc = ::number(0, 200);
     chanceAss = ::number(0,400);
   }
 
-  if ((actual >= MAX_SKILL_LEARNEDNESS) || 
+  if ((actual >= MAX_SKILL_LEARNEDNESS) ||
       (actual >= getMaxSkillValue(sknum))) {
     chanceDisc = (max(0, chanceDisc - 25));
     chanceAss = (max(0, chanceAss - 25));
@@ -3513,14 +3513,14 @@ int TPerson::learnFromDoing(spellNumT sknum, silentTypeT silent, unsigned int fl
       vlogf(LOG_SILENT, format("(%s) has a skill (%d) but doesnt have the discipline") %  getName() % sknum);
 #endif
       return FALSE;
-    } 
+    }
     discLearn = discipline->getDoLearnedness();
     discLearn = max(1, discLearn);
     discLearn = min(100, discLearn + 1);
     if (discLearn < 100) {
       discipline->setDoLearnedness(discLearn);
 #if DISC_DEBUG
-      vlogf(LOG_SILENT, format("%s just learned something in %s, Learn = %d.") %  getName() % discNames[(discArray[sknum]->assDisc)].properName % discLearn); 
+      vlogf(LOG_SILENT, format("%s just learned something in %s, Learn = %d.") %  getName() % discNames[(discArray[sknum]->assDisc)].properName % discLearn);
 #endif
     }
   }
@@ -3537,7 +3537,7 @@ int TPerson::learnFromDoing(spellNumT sknum, silentTypeT silent, unsigned int fl
     if (discLearn < 100) {
       assDiscipline->setDoLearnedness(discLearn);
 #if DISC_DEBUG
-      vlogf(LOG_SILENT, format("%s just learned something in %s, Learn = %d.") %  getName() % discNames[(discArray[sknum]->assDisc)].properName % discLearn); 
+      vlogf(LOG_SILENT, format("%s just learned something in %s, Learn = %d.") %  getName() % discNames[(discArray[sknum]->assDisc)].properName % discLearn);
 #endif
     }
   }
@@ -3569,7 +3569,7 @@ int TPerson::learnFromDoing(spellNumT sknum, silentTypeT silent, unsigned int fl
   // C = 0 from f(0.0) = 0
   // A = 100% from f(1.0)
   // y = 100% * amount ^ (B)
-  // we desire B to be in range 1.0 (high wis) to 3.5 (low wis) 
+  // we desire B to be in range 1.0 (high wis) to 3.5 (low wis)
   // solving for a linear formula, gave slope of (-1/60) and intersect of 4
     float power;
     power = 4.0 - ( plotStat(STAT_NATURAL, STAT_WIS, 0.5, 3.0, 1.75, 1.0));
@@ -3607,9 +3607,9 @@ int TPerson::learnFromDoing(spellNumT sknum, silentTypeT silent, unsigned int fl
   // boost at this point is 1, now make it more it if appropriate
   if (discArray[sknum]->amtLearnDo > 1) {
     boost = discArray[sknum]->amtLearnDo;
-    if (actual >= 90) 
+    if (actual >= 90)
       boost = 1;
-    else if ((actual + boost) >= 90) 
+    else if ((actual + boost) >= 90)
       boost = 90 - actual;
   }
 #if DISC_DEBUG
@@ -3626,12 +3626,12 @@ int TPerson::learnFromDoing(spellNumT sknum, silentTypeT silent, unsigned int fl
       sendTo(COLOR_BASIC, "<c>You are now proficient enough with weapons to earn your red sash.<z>");
       setQuestBit(TOG_FINISHED_MONK_RED);
     } else if(getNatSkillValue(sknum) >= 20 &&
-	      (sknum == SKILL_SLASH_PROF || sknum == SKILL_BLUNT_PROF ||
-	       sknum == SKILL_PIERCE_PROF || sknum == SKILL_RANGED_PROF)){
+              (sknum == SKILL_SLASH_PROF || sknum == SKILL_BLUNT_PROF ||
+               sknum == SKILL_PIERCE_PROF || sknum == SKILL_RANGED_PROF)){
       sendTo(COLOR_BASIC, format("<c>You feel that you have enough knowledge of %s to please your guildmaster.<z>") % discArray[sknum]->name);
     }
   }
-  
+
   sk->lastUsed = time(0);
   learnSuccessLog(this, sknum, boost);
 
@@ -3680,7 +3680,7 @@ void TBeing::addSkillLag(spellNumT skill, int rc)
   lag_t lag_num = discArray[skill]->lag;
   float f_lag  = lagAdjust(lag_num),
         f_base = 1.0;
-#if 1 
+#if 1
   if (IS_SET_DELETE(rc, DELETE_VICT))
     f_lag = min(f_base, f_lag);
 #else
@@ -3739,7 +3739,7 @@ CDiscipline::CDiscipline() :
 }
 
 CDiscipline::CDiscipline(const CDiscipline &a) :
-  uNatLearnedness(a.uNatLearnedness), 
+  uNatLearnedness(a.uNatLearnedness),
   uLearnedness(a.uLearnedness),
   uDoLearnedness(a.uDoLearnedness),
   ok_for_class(a.ok_for_class)

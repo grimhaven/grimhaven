@@ -146,7 +146,7 @@ int TBed::putSomethingInto(TBeing *ch, TThing *tThing)
     ch->sendTo("It is already being used by somebody.\n\r");
     return 2;
   }
-  
+
   --(*tThing);
   *this->roomp += *tThing;
   tThing->mount(this);
@@ -318,7 +318,7 @@ void TBed::sitMe(TBeing *ch)
       break;
     case POSITION_RESTING:
       if (objVnum() == Obj::BATS_JACUZZI) {
-        act("You sit up, but still find $p comfortable.", 
+        act("You sit up, but still find $p comfortable.",
               FALSE, ch, this, 0, TO_CHAR);
         act("$n sits up in $p.", TRUE, ch, this, 0, TO_ROOM);
       } else {
@@ -340,7 +340,7 @@ void TBed::sitMe(TBeing *ch)
       ch->sendTo("Not while riding you don't!\n\r");
       break;
     default:
-      act("You stop floating around, and sit on the $o.", 
+      act("You stop floating around, and sit on the $o.",
              FALSE, ch, this, 0, TO_CHAR);
       act("$n stops floating around, and sits down on the $o.",
              TRUE, ch, this, 0, TO_ROOM);
@@ -380,12 +380,12 @@ void TBed::restMe(TBeing *ch)
       break;
     case POSITION_STANDING:
       if (objVnum() == Obj::BATS_JACUZZI) {
-        act("You climb into $p and allow yourself to relax.", 
+        act("You climb into $p and allow yourself to relax.",
                 FALSE, ch, this, 0, TO_CHAR);
-        act("$n climbs into $p and relaxes.", 
+        act("$n climbs into $p and relaxes.",
                TRUE, ch, this, 0, TO_ROOM);
       } else {
-        act("You sit down in the $o, lean back and rest your tired bones.", 
+        act("You sit down in the $o, lean back and rest your tired bones.",
                FALSE, ch, this, 0, TO_CHAR);
         act("$n sits down in the $o, leans back and rests.",
                TRUE, ch, this, 0, TO_ROOM);
@@ -400,11 +400,11 @@ void TBed::restMe(TBeing *ch)
       if (ch->checkBlackjack())
         gBj.exitGame(ch);
       if (objVnum() == Obj::BATS_JACUZZI) {
-        act("You sit back and allow yourself to relax.", 
+        act("You sit back and allow yourself to relax.",
                 FALSE, ch, this, 0, TO_CHAR);
         act("$n leans back in $p and relaxes.", TRUE, ch, this, 0, TO_ROOM);
       } else {
-        act("You lean back and rest your tired bones on the $o.", 
+        act("You lean back and rest your tired bones on the $o.",
                  FALSE, ch, this, 0, TO_CHAR);
         act("$n leans back and rests on the $o.", TRUE, ch, this, 0, TO_ROOM);
       }
@@ -427,7 +427,7 @@ void TBed::restMe(TBeing *ch)
     default:
       act("You stop floating around, and stop to rest your tired bones on the $o.",
                FALSE, ch, this, 0, TO_CHAR);
-      act("$n stops floating around, and rests on the $o.", 
+      act("$n stops floating around, and rests on the $o.",
                FALSE, ch, this, 0, TO_ROOM);
       ch->setPosition(POSITION_RESTING);
       if (ch->isPc())
@@ -495,7 +495,7 @@ void TBed::sleepMe(TBeing *ch)
       ch->sendTo("Not while riding you don't!\n\r");
       break;
     default:
-      act("You stop floating around, and lie down in the $o.", 
+      act("You stop floating around, and lie down in the $o.",
               FALSE, ch,this, 0, TO_CHAR);
       act("$n stops floating around, and lies down in the $o.",
               TRUE, ch,this, 0, TO_CHAR);
@@ -603,12 +603,12 @@ void TBed::lowCheck()
 {
   if (canWear(ITEM_TAKE) && getVolume() <= 3000 && getWeight() <= 10 &&
       getRegen() >= 3)
-    vlogf(LOG_LOW, format("Portable bed (%s) with excessive regen rates!") % 
+    vlogf(LOG_LOW, format("Portable bed (%s) with excessive regen rates!") %
              getName());
 
 #if 0
   if (canWear(ITEM_TAKE)) {
-    vlogf(LOG_LOW, format("Bed (%s) set to be portable.") % 
+    vlogf(LOG_LOW, format("Bed (%s) set to be portable.") %
                 getName());
   }
 #endif

@@ -31,7 +31,7 @@ void signalSetup(void)
   signal(SIGTERM, hupsig);
 
   // This stuff crashes on the Solaris machine
-  // set up the deadlock-protection 
+  // set up the deadlock-protection
   struct itimerval itime;
   struct timeval interval;
   interval.tv_sec = 1200;

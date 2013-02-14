@@ -29,16 +29,16 @@ enum statTypeT {
      STAT_EXT,
      MAX_STATS
 };
-const statTypeT MIN_STAT=	statTypeT(0);
-const statTypeT MAX_STATS_USED=	statTypeT(STAT_SPE+1);
+const statTypeT MIN_STAT=        statTypeT(0);
+const statTypeT MAX_STATS_USED=        statTypeT(STAT_SPE+1);
 extern statTypeT & operator++(statTypeT &c, int);
 
 extern int territory_adjustment(territoryT, statTypeT);
-	
-const int MAX_STAT_COMBAT=	5;
-const int MAX_STAT_LEARN=	3;
-const int MAX_STAT_UTIL	=4;
-const int MAX_STAT_EXTS	=2;
+
+const int MAX_STAT_COMBAT=        5;
+const int MAX_STAT_LEARN=        3;
+const int MAX_STAT_UTIL        =4;
+const int MAX_STAT_EXTS        =2;
 
 enum statSetT {
      STAT_CHOSEN,
@@ -57,7 +57,7 @@ class Stats {
   private:
     short values[MAX_STATS];
 
-  public: 
+  public:
     Stats();
     Stats(const Stats &);
     ~Stats();
@@ -65,7 +65,7 @@ class Stats {
 
   Stats operator+(const Stats &operand);
   Stats operator-(const Stats &operand);
-  
+
   short get(statTypeT stat) const;
   short set(statTypeT stat, short val);
   short add(statTypeT stat, short mod);

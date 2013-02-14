@@ -50,14 +50,14 @@ const sstring Weather::moonType()
 int Weather::moonTime(moonTimeT mtt)
 {
   int num;
-    
+
   switch (mtt) {
     case MOON_TIME_SET:
       // almanac: full    6:30  hour=26   moon=16
       // almanac: 3Q     12:30  hour=50   moon=24
       // almanac: new    18:30  hour=74   moon=0
       // almanac: 1Q      0:30  hour=2    moon=8
-    
+
       num = (96 * moontype/32) + 74;
       num %= 96;
 
@@ -67,7 +67,7 @@ int Weather::moonTime(moonTimeT mtt)
       // almanac: 3Q      0:00   hr=0    mn=24
       // almanac: new     6:00   hr=24   mn=0
       // almanac: 1Q     12:00   hr=48   mn=8
-    
+
       num = (96 * moontype/32) + 24;
       num %= 96;
 
@@ -112,7 +112,7 @@ void procWeatherAndTime::run(const TPulse &) const
 
 const sstring describeTime(void)
 {
-  if (GameTime::getHours() < 5) 
+  if (GameTime::getHours() < 5)
     return "evening";
   else if (GameTime::getHours() < 12)
     return "morning";
@@ -319,7 +319,7 @@ void Weather::sendWeatherMessage(weatherMessT num)
                 text="<B>The rain has stopped.<1>\n\r";
                 break;
               default:
-		text="<W>The snow has stopped.<1>\n\r";
+                text="<W>The snow has stopped.<1>\n\r";
             }
             break;
           case MESS_LIGHTNING_AWAY:
@@ -438,41 +438,41 @@ void Weather::AlterWeather(changeWeatherT *change)
   switch (getSky()) {
     case SKY_CLOUDLESS:
       if (getPressure() < 990)
-	*change = CHANGE_CLOUDS;
+        *change = CHANGE_CLOUDS;
       else if (getPressure() < 1010)
-	if (dice(1, 4) == 1)
-	  *change = CHANGE_CLOUDS;
+        if (dice(1, 4) == 1)
+          *change = CHANGE_CLOUDS;
       break;
     case SKY_CLOUDY:
       if (getPressure() < 970)
-	*change = CHANGE_RAIN;
+        *change = CHANGE_RAIN;
       else if (getPressure() < 990)
-	if (dice(1, 4) == 1)
-	  *change = CHANGE_RAIN;
-	else
-	  *change = CHANGE_NONE;
+        if (dice(1, 4) == 1)
+          *change = CHANGE_RAIN;
+        else
+          *change = CHANGE_NONE;
       else if (getPressure() > 1030)
-	if (dice(1, 4) == 1)
-	  *change = CHANGE_CLOUDS_AWAY;
+        if (dice(1, 4) == 1)
+          *change = CHANGE_CLOUDS_AWAY;
       break;
     case SKY_RAINING:
       if (getPressure() < 970)
-	if (dice(1, 4) == 1)
-	  *change = CHANGE_STORM;
-	else
-	  *change = CHANGE_NONE;
+        if (dice(1, 4) == 1)
+          *change = CHANGE_STORM;
+        else
+          *change = CHANGE_NONE;
       else if (getPressure() > 1030)
-	*change = CHANGE_RAIN_AWAY;
+        *change = CHANGE_RAIN_AWAY;
       else if (getPressure() > 1010)
-	if (dice(1, 4) == 1)
-	  *change = CHANGE_RAIN_AWAY;
+        if (dice(1, 4) == 1)
+          *change = CHANGE_RAIN_AWAY;
       break;
     case SKY_LIGHTNING:
       if (getPressure() > 1010)
-	*change = CHANGE_STORM_AWAY;
+        *change = CHANGE_STORM_AWAY;
       else if (getPressure() > 990)
-	if (dice(1, 4) == 1)
-	  *change = CHANGE_STORM_AWAY;
+        if (dice(1, 4) == 1)
+          *change = CHANGE_STORM_AWAY;
       break;
     default:
       *change = CHANGE_NONE;
@@ -518,7 +518,7 @@ Weather::weatherT Weather::getWeather(const TRoom &room)
     case SKY_CLOUDY:
       return CLOUDY;
     case SKY_CLOUDLESS:
-      return CLOUDLESS;     
+      return CLOUDLESS;
     default:
       return NONE;
   }
@@ -675,7 +675,7 @@ void Weather::sunriseAndSunset(void)
   TRoom *rp;
   int i;
 
-  for (i = 0; i < WORLD_SIZE; i++) 
+  for (i = 0; i < WORLD_SIZE; i++)
     if ((rp = real_roomp(i)) != NULL)
       rp->initLight();
 }
@@ -684,14 +684,14 @@ void TBeing::describeWeather(int room)
 {
   TRoom *rp;
   int wth;
- 
+
   rp = real_roomp(room);
   if (!rp) {
     vlogf(LOG_BUG, format("No roomp for room %d in describeWeather for %s") %  room % getName());
     return;
   }
   wth = Weather::getWeather(*rp);
- 
+
   if (wth == Weather::SNOWY)
     sendTo(COLOR_BASIC, "<W>Snow falls and covers the landscape.<1>\n\r");
   else if (wth == Weather::Weather::LIGHTNING)
@@ -754,9 +754,9 @@ void Weather::weatherChange()
   changeWeatherT change;
 
   // create nice fluxuating driven toward 1000
-  if (Weather::getPressure() > 1024)   
+  if (Weather::getPressure() > 1024)
     diff = -2;
-  else if (Weather::getPressure() > 1008)   
+  else if (Weather::getPressure() > 1008)
     diff = -1;
   else if (Weather::getPressure() > 992)
     diff = 0;
@@ -816,7 +816,7 @@ void Weather::weatherChange()
       Weather::addToPressure(-1);
   }
 
-  
+
 
   Weather::setPressure(min(Weather::getPressure(), 1040));
   Weather::setPressure(max(Weather::getPressure(), 960));
@@ -835,7 +835,7 @@ void Weather::calcNewSunRise()
   // calc new sunrise
   int day = (GameTime::getMonth()) * 28 + GameTime::getDay() + 1;
   int equinox = 3 * 28 + 1;  // april 1st
-  
+
   // treat whole year as sinusoidal with APR 1 as origin
   // sneezy year = 12 months of 28 days
   double x = sin( 2 * M_PI * ((double) (day-equinox))/(28.0 * 12.0));
@@ -844,7 +844,7 @@ void Weather::calcNewSunRise()
   // at solstices, there are +-3 hours of daylight
   // so move sunrise back by HALF that amount
   x *= -1.5;
-  
+
   // 6am  + seasonal value
   // the 0.5 is for proper rounding
   // convert our number into hourminTime
@@ -856,7 +856,7 @@ void Weather::calcNewSunSet()
   // calc new sunset
   int day = (GameTime::getMonth()) * 28 + GameTime::getDay() + 1;
   int equinox = 3 * 28 + 1;  // april 1st
- 
+
   // treat whole year as sinusoidal with APR 1 as origin
   // sneezy year = 12 months of 28 days
   double x = sin(2 * M_PI *((double) (day-equinox))/(28.0 * 12.0));
@@ -865,7 +865,7 @@ void Weather::calcNewSunSet()
   // at solstices, there are +-3 hours of daylight
   // so move sunset ahead by HALF that amount
   x *= 1.5;
-  
+
   // 6pm  + seasonal value
   // the 0.5 is for proper rounding
   // convert our number into hourminTime
@@ -956,8 +956,8 @@ int getRoomWetness(TBeing *ch, TRoom* room, sstring & better,  sstring & worse)
       worse += " and ";
     worse += "it is pouring rain";
   }
-  else if (Weather::getSunlight() == Weather::SUN_LIGHT && 
-	   Weather::getWeather(*room) == Weather::CLOUDLESS)
+  else if (Weather::getSunlight() == Weather::SUN_LIGHT &&
+           Weather::getWeather(*room) == Weather::CLOUDLESS)
   {
     wetness -= 10;
     if (!better.empty())
@@ -1020,20 +1020,20 @@ void Weather::getWet(TBeing *ch, TRoom* room)
       return;
 
     sstring wetShow;
-    
+
     if (wetness > 0 && oldWet <= 0){
       wetShow = format("You begin to get wet from staying %s %s") %
-	TerrainInfo[room->getSectorType()]->prep %
-	sstring(TerrainInfo[room->getSectorType()]->name).lower();
+        TerrainInfo[room->getSectorType()]->prep %
+        sstring(TerrainInfo[room->getSectorType()]->name).lower();
     } else if (newWet == 0){
       wetShow = "You feel completely dried off now";
     } else {
       wetShow = format("Your time %s %s means you %s") %
-	TerrainInfo[room->getSectorType()]->prep %
-	sstring(TerrainInfo[room->getSectorType()]->name).lower() %
-	(wetness > 0 ? "get wetter" : "dry off some");
+        TerrainInfo[room->getSectorType()]->prep %
+        sstring(TerrainInfo[room->getSectorType()]->name).lower() %
+        (wetness > 0 ? "get wetter" : "dry off some");
     }
-    
+
     if (!better.empty()){
       wetShow += (wetness < 0) ? ", in part because " : " even though ";
       wetShow += better;

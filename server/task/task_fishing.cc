@@ -17,7 +17,7 @@ void TBeing::doFish(sstring direction){
     rp=roomp;
   } else {
     if(!exitp->to_room || !(rp = real_roomp(exitp->to_room))){
-      rp=roomp;      
+      rp=roomp;
     }
   }
 
@@ -48,7 +48,7 @@ void TBeing::doFish(sstring direction){
 
     TRoom *room = real_roomp(ROOM_FISHING_SHACK);
     --(*this);
-    *room += *this;    
+    *room += *this;
   }
 
   start_task(this, NULL, rp, TASK_FISHING, "", 2, inRoom(), 0, 0, 5);
@@ -166,19 +166,19 @@ TObj *catch_a_fish(TRoom *rp)
   if(!::number(0,99)){  // 1 in 100
     // big one
     weightmod = 2 + ((float)::number(0,100)/100.0); // 2-3
-    
+
     if(!::number(0,99)){ // 1 in 10000
       // real big one
       weightmod = 3 + ((float)::number(0,100)/100.0); // 3-4
 
       if(!::number(0,99)){ // 1 in 1000000
-	// REAL big one
-	weightmod = 4 + ((float)::number(0,100)/100.0); // 4-5
+        // REAL big one
+        weightmod = 4 + ((float)::number(0,100)/100.0); // 4-5
 
-	if(!::number(0,99)){ // 1 in 100000000
-	  // freak of nature
-	  weightmod = 5 + ((float)::number(0,500)/100.0); // 5-10
-	}
+        if(!::number(0,99)){ // 1 in 100000000
+          // freak of nature
+          weightmod = 5 + ((float)::number(0,500)/100.0); // 5-10
+        }
       }
     }
   }
@@ -192,31 +192,31 @@ TObj *catch_a_fish(TRoom *rp)
 
   if(rp->getSectorType() == SECT_ICEFLOW){
     for(unsigned int i=0;i<icefish.size();++i)
-      fishlist.push_back(icefish[i]);    
+      fishlist.push_back(icefish[i]);
     for(unsigned int i=0;i<marinefish.size();++i)
-      fishlist.push_back(marinefish[i]);    
+      fishlist.push_back(marinefish[i]);
   } else if(rp->isOceanSector()){
     for(unsigned int i=0;i<marinefish.size();++i)
-      fishlist.push_back(marinefish[i]);    
+      fishlist.push_back(marinefish[i]);
   } else {
     for(unsigned int i=0;i<freshfish.size();++i)
-      fishlist.push_back(freshfish[i]);    
+      fishlist.push_back(freshfish[i]);
   }
 
 
   if(::number(0, 24)){
     num=::number(0, fishlist.size()-1);
     fish=read_object(fishlist[num], VIRTUAL);
-    
+
     if(num != 12445){ // don't do this for seaweed
       fish->setWeight(fish->getWeight()*weightmod);
       fish->setVolume((int)(fish->getWeight()*200));
       if (dynamic_cast<TFood*>(fish))
         dynamic_cast<TFood*>(fish)->setFoodFlags(FOOD_FISHED);
     }
-    
+
     rp->setFished(rp->getFished()+1);
-    
+
     if (mRoomsFished.find(rp->number) == mRoomsFished.end())
       mRoomsFished[rp->number] = true;
   } else {
@@ -231,9 +231,9 @@ TObj *catch_a_fish(TRoom *rp)
 
     for(StuffIter it=briny_deep->stuff.begin();it!=briny_deep->stuff.end();++it){
       if(!count-- && (fish=dynamic_cast<TObj *>(*it))){
-	sendrpf(briny_deep, "A fishing line with a hook attached descends from above and pulls up %s!\n\r", fish->getName());
-	--(*fish);
-	break;
+        sendrpf(briny_deep, "A fishing line with a hook attached descends from above and pulls up %s!\n\r", fish->getName());
+        --(*fish);
+        break;
       }
     }
   }
@@ -297,7 +297,7 @@ int task_fishing(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *rp, T
     ch->stopTask();
     return FALSE;
   }
-  
+
   // find our pole here
   if(!awesomeFisher && ((!(tpole=ch->heldInPrimHand()) && !(tpole = ch->heldInSecHand())) ||
      !isname("fishingpole", tpole->name))){
@@ -311,7 +311,7 @@ int task_fishing(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *rp, T
     ch->stopTask();
     return FALSE;
   }
-  if (awesomeFisher && NULL == pole && 
+  if (awesomeFisher && NULL == pole &&
     !ch->canUseHand(true) && (!ch->isAmbidextrous() || ch->bothHandsHurt()))
   {
     ch->sendTo(format("Fish with what?  Your %s is too damaged.\n\r") % ch->describeBodySlot(ch->getPrimaryHand()));
@@ -362,7 +362,7 @@ int task_fishing(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *rp, T
       ch->task->calcNextUpdate(pulse, Pulse::MOBACT * 5);
 
       switch (ch->task->timeLeft) {
-	case 2:
+        case 2:
     {
       // check for out of bait
       if (!awesomeFisher)
@@ -399,7 +399,7 @@ int task_fishing(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *rp, T
       act(toRoom, TRUE, ch, bait, 0, TO_ROOM);
       break;
     }
-	case 1:
+        case 1:
     {
       ch->task->timeLeft--;
 
@@ -426,7 +426,7 @@ int task_fishing(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *rp, T
       act(toRoom, TRUE, ch, NULL, 0, TO_ROOM);
       break;
     }
-	case 0:
+        case 0:
     if (awesomeFisher) {
       baitchance= ch->plotStat(STAT_CURRENT, STAT_PER, 0, 5, 2) + ch->plotStat(STAT_CURRENT, STAT_KAR, 0, 5, 3);
       polechance= ch->GetMaxLevel();
@@ -434,33 +434,33 @@ int task_fishing(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *rp, T
       baitchance=(int)(((float)((float)(bait->obj_flags.cost*2)/(float)baitmax))*25);
       polechance=(int)(((float)((float)(pole->obj_flags.cost*2)/(float)polemax))*25);
     }
-	  catchchance=::number(1,100);
-	  
+          catchchance=::number(1,100);
 
-	  //	  vlogf(LOG_PEEL, format("fishing: baitcost=%i, bait=%i, pole=%i, catch=%i") % 
-	  //	bait->obj_flags.cost % baitchance % polechance % catchchance);
-  
-	  if((ch->bSuccess(SKILL_FISHING) ||
-	      (!ch->doesKnowSkill(SKILL_FISHING) && !::number(0,99))) &&
-	     (catchchance<(baitchance+polechance)) &&
-	     (fish=catch_a_fish(rp)) &&
-	     (::number(5,10) > rp->getFished())){
+
+          //          vlogf(LOG_PEEL, format("fishing: baitcost=%i, bait=%i, pole=%i, catch=%i") %
+          //        bait->obj_flags.cost % baitchance % polechance % catchchance);
+
+          if((ch->bSuccess(SKILL_FISHING) ||
+              (!ch->doesKnowSkill(SKILL_FISHING) && !::number(0,99))) &&
+             (catchchance<(baitchance+polechance)) &&
+             (fish=catch_a_fish(rp)) &&
+             (::number(5,10) > rp->getFished())){
             *ch += *fish;
 
-	    //	    gain_exp(ch, fish->getWeight() * 10, -1);
-	    int lvl=ch->GetMaxLevel();
-	    if(lvl>15)
-	      lvl-=15;
-	    else
-	      lvl=1;
+            //            gain_exp(ch, fish->getWeight() * 10, -1);
+            int lvl=ch->GetMaxLevel();
+            if(lvl>15)
+              lvl-=15;
+            else
+              lvl=1;
 
-	    // 10% exp variance
-	    double exp=mob_exp(lvl);
-	    exp *= (1.0+((::number(0,20)-10)/100.0));
-	    
-	    gain_exp(ch, exp/50, -1);
+            // 10% exp variance
+            double exp=mob_exp(lvl);
+            exp *= (1.0+((::number(0,20)-10)/100.0));
 
-	    ch->doSave(SILENT_YES);
+            gain_exp(ch, exp/50, -1);
+
+            ch->doSave(SILENT_YES);
 
       if (awesomeFisher)
       {
@@ -473,20 +473,20 @@ int task_fishing(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *rp, T
         act("$n reels in $p!", TRUE, ch, fish, 0, TO_ROOM);
       }
 
-	  } else {
-	    if(fish)
-	      delete fish;
+          } else {
+            if(fish)
+              delete fish;
 
-	    act("You didn't catch anything.", FALSE, ch, NULL, 0, TO_CHAR);
-	    act("$n doesn't catch anything.", TRUE, ch, NULL, 0, TO_ROOM);
+            act("You didn't catch anything.", FALSE, ch, NULL, 0, TO_CHAR);
+            act("$n doesn't catch anything.", TRUE, ch, NULL, 0, TO_ROOM);
 
-	    if(rp->getFished()>10 && 
-	       ch->bSuccess(SKILL_FISHLORE) && ::number(0,99)<20){
-	      act("<c>This place seems all fished out.<1>",
-		  FALSE, ch, NULL, 0, TO_CHAR);
-	    }
-	  }
-	  ch->stopTask();
+            if(rp->getFished()>10 &&
+               ch->bSuccess(SKILL_FISHLORE) && ::number(0,99)<20){
+              act("<c>This place seems all fished out.<1>",
+                  FALSE, ch, NULL, 0, TO_CHAR);
+            }
+          }
+          ch->stopTask();
           break;
       }
       break;
@@ -500,11 +500,11 @@ int task_fishing(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *rp, T
       break;
     case CMD_TASK_FIGHTING:
       if(ch->bSuccess(SKILL_FISHLORE) && ::number(0,99)<20){
-	ch->sendTo(COLOR_BASIC, "You <c>focus your fishlore<1> and maintain your concentration.\n\r");
-	ch->sendTo("You continue fishing while fighting.\n\r");
+        ch->sendTo(COLOR_BASIC, "You <c>focus your fishlore<1> and maintain your concentration.\n\r");
+        ch->sendTo("You continue fishing while fighting.\n\r");
       } else {
-	ch->sendTo("You have not yet mastered the art of fighting while fishing.\n\r");
-	ch->stopTask();
+        ch->sendTo("You have not yet mastered the art of fighting while fishing.\n\r");
+        ch->stopTask();
       }
       break;
     default:
@@ -521,7 +521,7 @@ void initialize_fish_records()
   TDatabase db(DB_SNEEZY);
   unsigned int step;
   std::vector <int> fishious;
-  
+
   fishious = freshfishes();
   for (step = 0; step < fishious.size(); step++) {
     db.query("select vnum from fishlargest where vnum = %i", fishious[step]);
@@ -529,7 +529,7 @@ void initialize_fish_records()
       db.query("insert into fishlargest (name, vnum, weight) select 'no one', %i, 0.0", fishious[step]);
   }
   fishious.clear();
-  
+
   fishious = marinefishes();
   for (step = 0; step < fishious.size(); step++) {
     db.query("select vnum from fishlargest where vnum = %i", fishious[step]);
@@ -537,7 +537,7 @@ void initialize_fish_records()
       db.query("insert into fishlargest (name, vnum, weight) select 'no one', %i, 0.0", fishious[step]);
   }
   fishious.clear();
-  
+
   fishious = icefishes();
   for (step = 0; step < fishious.size(); step++) {
     db.query("select vnum from fishlargest where vnum = %i", fishious[step]);
@@ -545,7 +545,7 @@ void initialize_fish_records()
       db.query("insert into fishlargest (name, vnum, weight) select 'no one', %i, 0.0", fishious[step]);
   }
   fishious.clear();
-  
+
   fishious = fishworldfishes();
   for (step = 0; step < fishious.size(); step++) {
     db.query("select vnum from fishlargest where vnum = %i", fishious[step]);

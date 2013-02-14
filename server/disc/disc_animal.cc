@@ -65,7 +65,7 @@ int beastSoother(TBeing * caster, TBeing * victim, int tWand, short bKnown)
     if (critSuccess(caster, SKILL_BEAST_SOOTHER)) {
       CS(SKILL_BEAST_SOOTHER);
       if (IS_SET(tmons->specials.act, ACT_HATEFUL))
-	REMOVE_BIT(tmons->specials.act, ACT_HATEFUL);
+        REMOVE_BIT(tmons->specials.act, ACT_HATEFUL);
 
       act("$N seems to relax quite a bit.", FALSE, caster, NULL, tmons, TO_NOTVICT);
       act("$N seems to relax quite a bit.  Good job!", FALSE, caster, NULL, tmons, TO_CHAR);
@@ -84,11 +84,11 @@ int beastSoother(TBeing * caster, TBeing * victim, int tWand, short bKnown)
       act("$N turns towards you, infuriated!", FALSE, caster, NULL, victim, TO_CHAR);
       act("For some reason, you feel a deep hostility towards $n.", FALSE, caster, NULL, victim, TO_VICT);
       if (!caster->checkPeaceful("") && !victim->isPc()) {
-        if ((rc = victim->hit(caster)) == DELETE_VICT) 
+        if ((rc = victim->hit(caster)) == DELETE_VICT)
           return SPELL_CRIT_FAIL + CASTER_DEAD;
-        else if (rc == DELETE_THIS) 
+        else if (rc == DELETE_THIS)
           return SPELL_CRIT_FAIL + VICTIM_DEAD;
-        
+
         return SPELL_CRIT_FAIL;
       }
     } else {
@@ -194,7 +194,7 @@ int TBeing::doSkySpirit(const char *argument)
   TObj   *tObj    = NULL;
   TBeing *victim = NULL;
   sstring spirit;
-  
+
   if (checkBusy())
     return FALSE;
 
@@ -228,7 +228,7 @@ int TBeing::doSkySpirit(const char *argument)
 
   int lev = getSkillLevel(SPELL_SKY_SPIRIT);
   int bKnown= getSkillValue(SPELL_SKY_SPIRIT);
-  
+
   int percent = bKnown + ::number(-5,5);
 
   if (percent <= 0)
@@ -279,13 +279,13 @@ int TBeing::doSkySpirit(const char *argument)
   addToWait((int)combatRound(discArray[SPELL_SKY_SPIRIT]->lag));
   reconcileHurt(victim,discArray[SPELL_SKY_SPIRIT]->alignMod);
   if (bSuccess(bKnown, SPELL_SKY_SPIRIT)) {
-    
+
     if (critSuccess(this, SPELL_SKY_SPIRIT) == CRIT_S_DOUBLE) {
       CS(SPELL_SKY_SPIRIT);
       dam *= 2;
       spirit += " of incredible size";
     }
-    
+
     act("You summon a spirit of the sky!", FALSE, this, NULL, victim, TO_CHAR);
     act("$n summons a spirit of the sky!", FALSE, this, NULL, victim, TO_ROOM);
     char buf[256];
@@ -307,7 +307,7 @@ int TBeing::doSkySpirit(const char *argument)
     return SPELL_SUCCESS;
 
   } else {
-    
+
     act("You fail to summon a spirit of the sky.", FALSE, this, NULL, victim, TO_CHAR);
     act("$n fails to summon a spirit of the sky.", FALSE, this, NULL, victim, TO_ROOM);
 
@@ -485,23 +485,23 @@ int beastSummon(TBeing * caster, const char * arg, int level, short bKnown)
   if (caster->bSuccess(bKnown, caster->getPerc(), SKILL_BEAST_SUMMON)) {
     max_dist = caster->isImmortal() ? 1000 : level;
     max_num = caster->isImmortal() ? 100 : level / 2;
-  
+
 i=0;
     for (v = character_list; v; v = v->next) {
       if (!v->isPc() && v->awake() && isname(targ_name, v->name) &&
-	  !v->fight() && (caster->isImmortal() || v->isDumbAnimal()) &&
-	  !IS_SET(v->specials.act, ACT_HUNTING) && (v->in_room != -1) &&
-	  (caster->isImmortal() || (caster->roomp->getZoneNum() == v->roomp->getZoneNum()))) {
+          !v->fight() && (caster->isImmortal() || v->isDumbAnimal()) &&
+          !IS_SET(v->specials.act, ACT_HUNTING) && (v->in_room != -1) &&
+          (caster->isImmortal() || (caster->roomp->getZoneNum() == v->roomp->getZoneNum()))) {
         if (!v->isLucky(caster->spellLuckModifier(SKILL_BEAST_SUMMON))) {
           TMonster *tmons = dynamic_cast<TMonster *>(v);
-	  SET_BIT(tmons->specials.act, ACT_HUNTING);
-	  tmons->specials.hunting = caster;
-	  tmons->hunt_dist = max_dist;
-	  tmons->persist = max_dist + 5;
+          SET_BIT(tmons->specials.act, ACT_HUNTING);
+          tmons->specials.hunting = caster;
+          tmons->hunt_dist = max_dist;
+          tmons->persist = max_dist + 5;
           tmons->oldRoom = v->in_room;
         }
         if (++num_sum > max_num)
-	  break;
+          break;
       }
       i++;
     }

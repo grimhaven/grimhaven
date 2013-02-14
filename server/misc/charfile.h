@@ -69,7 +69,7 @@ class charFile {
    short spellHitroll;
    short hitroll;
    sbyte damroll;
-   short armor;   
+   short armor;
    // end of pointData data
    ubyte fatigue;
    int hero_num;
@@ -89,7 +89,7 @@ class charFile {
 
    byte disc_learning[MAX_SAVED_DISCS];
    byte skills[ABSOLUTE_MAX_SKILL];
-  
+
    char pColor;
 
    unsigned int plr_act;          /* ACT Flags                    */

@@ -61,7 +61,7 @@ class TTrophy {
   float getTotalCount(int);
 
   void wipe();
-  
+
   TTrophy(sstring);
   TTrophy(TBeing *);
 };

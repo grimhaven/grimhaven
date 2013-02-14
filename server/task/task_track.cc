@@ -136,8 +136,8 @@ int task_tracking(TBeing *ch, cmdTypeT cmd, const char *argument, int pulse, TRo
         ch->task->flags = min(-1, ch->task->flags - 1);
       if (exit_ok(Eroom, NULL))
         ch->addToMove(-(int) (110-
-			      ch->getSkillValue((isSW ? SKILL_SEEKWATER :
-						 (isTR ? SKILL_TRACK : SPELL_TRAIL_SEEK))))/20);
+                              ch->getSkillValue((isSW ? SKILL_SEEKWATER :
+                                                 (isTR ? SKILL_TRACK : SPELL_TRAIL_SEEK))))/20);
       return FALSE;
   case CMD_TELL:
   case CMD_WHISPER:
@@ -188,7 +188,7 @@ int task_tracking(TBeing *ch, cmdTypeT cmd, const char *argument, int pulse, TRo
         if (!ch->specials.hunting) {
           if (isSW){
             TPathFinder path(ch->hunt_dist);
-            
+
             code=path.findPath(ch->in_room, findWater());
             targetRm=path.getDest();
           } else {
@@ -239,7 +239,7 @@ int task_tracking(TBeing *ch, cmdTypeT cmd, const char *argument, int pulse, TRo
           if (code >= 0 && code <= 9) {
             ch->sendTo(format("%s###You track %s %s.%s\n\r") %
                    ch->purple() %
-		       (isSW ? "some water" : "your target") %
+                       (isSW ? "some water" : "your target") %
                    dirs_to_blank[code] % ch->norm());
             // Client check
             if (ch->desc && ch->desc->m_bIsClient)
@@ -252,7 +252,7 @@ int task_tracking(TBeing *ch, cmdTypeT cmd, const char *argument, int pulse, TRo
             // It's above 9, so it's a special exit.  Portal or something.
             int count = code - 9,
                 seen  = 0;
-	    TPortal *tp=NULL;
+            TPortal *tp=NULL;
             for(StuffIter it=ch->roomp->stuff.begin();it!=ch->roomp->stuff.end();++it) {
               tp = dynamic_cast<TPortal *>(*it);
               if (tp) {
@@ -289,7 +289,7 @@ int task_tracking(TBeing *ch, cmdTypeT cmd, const char *argument, int pulse, TRo
           ch->task->flags -= 2;
           ch->addToWait(combatRound(1));
           ch->addToMove((int) min(10, (-2-((110-ch->getSkillValue(
-		        (isSW ? SKILL_SEEKWATER : (isTR ? SKILL_TRACK : SPELL_TRAIL_SEEK))))/6))));
+                        (isSW ? SKILL_SEEKWATER : (isTR ? SKILL_TRACK : SPELL_TRAIL_SEEK))))/6))));
           if (ch->getMove() <= 0) {
             act("You just don't feel like you could go on right now.",
                 FALSE, ch, 0, 0, TO_CHAR);

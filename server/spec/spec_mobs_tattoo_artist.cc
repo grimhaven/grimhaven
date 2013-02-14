@@ -5,26 +5,26 @@
 int tattooArtist(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, TObj *)
 {
   const char *tattoos[]={"A tattoo of a <r>twisting oriental red dragon.<1>",
-			 "A tattoo of a <g>coiled serpent, fangs bared.<1>",
-			 "A tattoo of the word '<k>LOVE<1>'.",
-			 "A tattoo of the word '<k>HATE<1>'.",
-			 "A tattoo of an <p>elegant purple butterfly<1>.",
-			 "A tattoo of a <r>small rose<1>.",
-			 "A tattoo of a <k>ferocious black panther<1>.",
-			 "A tattoo of a <W>skull<1> with <r>red eyes<1>.",
-			 "A tattoo of a <W>beautiful naked angel.<1>",
-			 "A tattoo of the words '<k>property of Mezan<1>'.",
-			 "A tattoo of the underlying <w>skeleton<1>.",
-			 "A tattoo of a <k>cross<1>.",
-			 "A tattoo of an <k>upside down cross<1>.",
-			 "A tattoo of a dagger.",
-			 "A tattoo of a <k>bat with wings spread wide.<1>",
-			 "A tattoo of the word '<k>sinner<1>'.",
-			 "A tattoo of the word '<k>free<1>'.",
-			 "A tattoo of a <g>ring of thorns<1>.",
-			 "A tattoo of a <Y>lightning bolt<1>.",
-			 "A tattoo of the words '<k>untouched by man<1>'.",
-			 NULL};
+                         "A tattoo of a <g>coiled serpent, fangs bared.<1>",
+                         "A tattoo of the word '<k>LOVE<1>'.",
+                         "A tattoo of the word '<k>HATE<1>'.",
+                         "A tattoo of an <p>elegant purple butterfly<1>.",
+                         "A tattoo of a <r>small rose<1>.",
+                         "A tattoo of a <k>ferocious black panther<1>.",
+                         "A tattoo of a <W>skull<1> with <r>red eyes<1>.",
+                         "A tattoo of a <W>beautiful naked angel.<1>",
+                         "A tattoo of the words '<k>property of Mezan<1>'.",
+                         "A tattoo of the underlying <w>skeleton<1>.",
+                         "A tattoo of a <k>cross<1>.",
+                         "A tattoo of an <k>upside down cross<1>.",
+                         "A tattoo of a dagger.",
+                         "A tattoo of a <k>bat with wings spread wide.<1>",
+                         "A tattoo of the word '<k>sinner<1>'.",
+                         "A tattoo of the word '<k>free<1>'.",
+                         "A tattoo of a <g>ring of thorns<1>.",
+                         "A tattoo of a <Y>lightning bolt<1>.",
+                         "A tattoo of the words '<k>untouched by man<1>'.",
+                         NULL};
   int ntattoos=20;
   int i;
   char buf[256];
@@ -46,7 +46,7 @@ int tattooArtist(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, TO
     }
 
     one_argument(arg, buf, cElements(buf));
-    
+
     wearSlotT slot=WEAR_NOWHERE;
     int slot_i;
     if ((slot_i = old_search_block(buf, 0, strlen(buf), bodyParts, 0)) > 0) {
@@ -64,10 +64,10 @@ int tattooArtist(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, TO
       myself->doTell(ch->getName(), "It's not like you're gonna run around pantless to show it off anyway!");
       return FALSE;
     }
-    
+
     TDatabase db(DB_SNEEZY);
     db.query("select 1 from tattoos where name='%s' and location=%i",
-	     ch->getName(), slot);
+             ch->getName(), slot);
 
     if(db.fetchRow()){
       myself->doTell(ch->getName(), "You already have a tattoo there.");
@@ -88,7 +88,7 @@ int tattooArtist(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, TO
     db.query("insert into tattoos (name, tattoo, location) values ('%s', '%s', %i)", ch->getName(), tattoos[i-1], slot);
 
     myself->doSay("There you go, all set.");
-    
+
     return TRUE;
   }
 

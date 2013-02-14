@@ -24,8 +24,8 @@ int objCastFaerieFire(TObj *o, TBeing *targ)
   act("A faint pink outline puffs out around $N!",
       TRUE, targ, NULL, NULL, TO_ROOM);
   act("A faint pink outline puffs out around you!",
-      FALSE, targ, NULL, NULL, TO_CHAR);  
-  return TRUE;  
+      FALSE, targ, NULL, NULL, TO_CHAR);
+  return TRUE;
 }
 
 int objCastSorcGlobe(TObj *o, TBeing *targ)
@@ -51,7 +51,7 @@ int objCastSorcGlobe(TObj *o, TBeing *targ)
   act("You are instantly surrounded by a hardened wall of air!", \
       FALSE, targ, NULL, NULL, TO_CHAR);
 
-  return TRUE;  
+  return TRUE;
 }
 
 int marukalia(TBeing *targ, cmdTypeT cmd, const char *arg, TObj *o, TObj *)
@@ -74,9 +74,9 @@ int marukalia(TBeing *targ, cmdTypeT cmd, const char *arg, TObj *o, TObj *)
   int talens = 0;
   int dmg;
   int rc = 0;
-  
+
   // check what's on the item
-  // 
+  //
   for (t = table->rider; t; t = t->nextRider)
   {
     if ((mon = dynamic_cast<TMoney *>(t)))
@@ -84,7 +84,7 @@ int marukalia(TBeing *targ, cmdTypeT cmd, const char *arg, TObj *o, TObj *)
     else
       contents.push_back(t->getName()); // list of names of items (shortDescr)
   }
-  
+
   if (sarg.lower() == "sunday gravy")
   {
     act("<b>A faint blue aura flickers around $p.<z>", \
@@ -128,12 +128,12 @@ int marukalia(TBeing *targ, cmdTypeT cmd, const char *arg, TObj *o, TObj *)
     return DELETE_VICT;
   else
     return FALSE;
-  
+
 }
 
 /* The following proc is meant for a worn object that is personalized,
  * lest things get out of control
- * NOTE: the proc uses the the 4th value of 4 values, which works for 
+ * NOTE: the proc uses the the 4th value of 4 values, which works for
  * armor and worn object... check first for other types
  */
 int objWornAstralWalk(TBeing *targ, cmdTypeT cmd, const char *arg, TObj *o, TObj *)
@@ -145,7 +145,7 @@ int objWornAstralWalk(TBeing *targ, cmdTypeT cmd, const char *arg, TObj *o, TObj
   TRoom *room = NULL;
   sstring new_name, name_end, old_name;
   int i = 1;
-  
+
   if (!o or !(ch = dynamic_cast<TBeing *>(o->equippedBy)))
     return FALSE;
   if (!arg)
@@ -158,17 +158,17 @@ int objWornAstralWalk(TBeing *targ, cmdTypeT cmd, const char *arg, TObj *o, TObj
     if (!isname(buf, o->getName())) {
       return FALSE;
     }
- 
+
     act("$n wraps $s fingers around $p.", TRUE, ch,o,NULL,TO_ROOM,NULL);
     act("You wrap your fingers around $p.", TRUE, ch,o,NULL,TO_CHAR,NULL);
-    
+
 
     if (ch->checkForSkillAttempt(SPELL_ASTRAL_WALK)) {
       act("The $o's powers can only be used once per day.",
           TRUE,ch,o,NULL,TO_CHAR,NULL);
       return TRUE;
     }
-    
+
     old_name = sstring(o->name);
     while(old_name.word(i+1) != "") {
       i++;
@@ -179,7 +179,7 @@ int objWornAstralWalk(TBeing *targ, cmdTypeT cmd, const char *arg, TObj *o, TObj
       location = Room::TOP_OF_TREE;
     }
     room = real_roomp(location);
-    
+
     if (!room) {
       room = real_roomp(Room::TOP_OF_TREE);
       if (!room) {
@@ -216,14 +216,14 @@ int objWornAstralWalk(TBeing *targ, cmdTypeT cmd, const char *arg, TObj *o, TObj
       act("Nothing seems to happen.", FALSE, ch, NULL, NULL, TO_ROOM);
       return TRUE;
     }
-    
+
     // SKILL ATTEMPT (PREVENT IMMEDIATE RE-USE)
     aff.type = AFFECT_SKILL_ATTEMPT;
     aff.level = 0;
     aff.duration = 24*Pulse::UPDATES_PER_MUDHOUR;
     aff.location = APPLY_NONE;
     aff.modifier = SPELL_ASTRAL_WALK;
-    
+
     act("$n opens a door to another dimension and steps through.",
       TRUE, ch,o,NULL,TO_ROOM,NULL);
     act("You open a door to another dimension and step through.",
@@ -245,7 +245,7 @@ int objWornAstralWalk(TBeing *targ, cmdTypeT cmd, const char *arg, TObj *o, TObj
       }
     } else {
       rc = ch->genericMovedIntoRoom(room, -1);
-      if (IS_SET_DELETE(rc, DELETE_THIS)) 
+      if (IS_SET_DELETE(rc, DELETE_THIS))
       {
         ch->reformGroup();
         delete ch;
@@ -255,13 +255,13 @@ int objWornAstralWalk(TBeing *targ, cmdTypeT cmd, const char *arg, TObj *o, TObj
     }
 
     if (!(ch->isImmortal())) ch->affectTo(&aff);
-    
+
     ch->addToWait(combatRound(3));
-    
+
     return TRUE;
-    
+
   } else if (cmd == CMD_WHISPER) {
-    
+
     if (buf == "whence")
     {
 
@@ -275,17 +275,17 @@ int objWornAstralWalk(TBeing *targ, cmdTypeT cmd, const char *arg, TObj *o, TObj
         i++;
       }
       name_end = old_name.word(i);
-      
-        
+
+
       if (!(atoi(name_end.substr(1,name_end.length()-2).c_str())))
       {
         new_name += format(" %s") % name_end;
       }
-    
+
       location = ch->in_room;
-      
+
       room = real_roomp(location);
-      
+
       if (!room) {
         vlogf(LOG_BUG, "Attempt to astral to NULL room in objWornAstralWalk.");
         act("Something went wrong with the $o and you don't go anywhere. [BUG]",
@@ -319,27 +319,27 @@ int objWornAstralWalk(TBeing *targ, cmdTypeT cmd, const char *arg, TObj *o, TObj
         act("Nothing seems to happen.", FALSE, ch, NULL, NULL, TO_ROOM);
         return TRUE;
       }
-   
+
       o->swapToStrung();
       delete [] o->name;
       new_name += format(" [%d]") % location;
       o->name = mud_str_dup(new_name);
-      act("Your $o throbs.", 
+      act("Your $o throbs.",
           TRUE, ch,o,NULL,TO_CHAR,NULL);
       return TRUE;
     } else if (buf == "whither") {
 
       act("$n wraps $s fingers around $p.", TRUE, ch,o,NULL,TO_ROOM,NULL);
       act("You wrap your fingers around $p.", TRUE, ch,o,NULL,TO_CHAR,NULL);
-      
+
       old_name = sstring(o->name);
       while(old_name.word(i+1) != "") {
         i++;
       }
       name_end = old_name.word(i);
       location = atoi(name_end.substr(1,name_end.length()-2).c_str());
-      
-      act("Another place drifts across your perception...", 
+
+      act("Another place drifts across your perception...",
           TRUE, ch,o,NULL,TO_CHAR,NULL);
       if (location == 0)
         location = Room::TOP_OF_TREE;
@@ -356,7 +356,7 @@ int objWornAstralWalk(TBeing *targ, cmdTypeT cmd, const char *arg, TObj *o, TObj
 
 /* The following proc is meant for a worn object that is personalized,
  * lest things get out of control
- * NOTE: the proc uses the the 4th value of 4 values, which works for 
+ * NOTE: the proc uses the the 4th value of 4 values, which works for
  * armor and worn object... check first for other types
  */
 int objWornMinorAstralWalk(TBeing *targ, cmdTypeT cmd, const char *arg, TObj *o, TObj *)
@@ -367,7 +367,7 @@ int objWornMinorAstralWalk(TBeing *targ, cmdTypeT cmd, const char *arg, TObj *o,
   int location;
   TRoom *room = NULL;
   sstring new_name, name_end, old_name;
-  
+
   if (!o or !(ch = dynamic_cast<TBeing *>(o->equippedBy)))
     return FALSE;
   if (!arg)
@@ -380,20 +380,20 @@ int objWornMinorAstralWalk(TBeing *targ, cmdTypeT cmd, const char *arg, TObj *o,
     if (!isname(buf, o->getName())) {
       return FALSE;
     }
- 
+
     act("$n wraps $s fingers around $p.", TRUE, ch,o,NULL,TO_ROOM,NULL);
     act("You wrap your fingers around $p.", TRUE, ch,o,NULL,TO_CHAR,NULL);
-    
+
 
     if (ch->checkForSkillAttempt(SPELL_ASTRAL_WALK)) {
       act("The $o's powers can only be used once per day.",
           TRUE,ch,o,NULL,TO_CHAR,NULL);
       return TRUE;
     }
-    
+
     location = Room::TOP_OF_TREE;
     room = real_roomp(location);
-    
+
     if (!room) {
       vlogf(LOG_BUG, "Attempt to astral to NULL room in objWornMinorAstralWalk.");
       act("Something went wrong with the $o and you don't go anywhere. [BUG]",
@@ -427,14 +427,14 @@ int objWornMinorAstralWalk(TBeing *targ, cmdTypeT cmd, const char *arg, TObj *o,
       act("Nothing seems to happen.", FALSE, ch, NULL, NULL, TO_ROOM);
       return TRUE;
     }
-    
+
     // SKILL ATTEMPT (PREVENT IMMEDIATE RE-USE)
     aff.type = AFFECT_SKILL_ATTEMPT;
     aff.level = 0;
     aff.duration = 24*Pulse::UPDATES_PER_MUDHOUR;
     aff.location = APPLY_NONE;
     aff.modifier = SPELL_ASTRAL_WALK;
-    
+
     act("$n opens a door to another dimension and steps through.",
       TRUE, ch,o,NULL,TO_ROOM,NULL);
     act("You open a door to another dimension and step through.",
@@ -456,7 +456,7 @@ int objWornMinorAstralWalk(TBeing *targ, cmdTypeT cmd, const char *arg, TObj *o,
       }
     } else {
       rc = ch->genericMovedIntoRoom(room, -1);
-      if (IS_SET_DELETE(rc, DELETE_THIS)) 
+      if (IS_SET_DELETE(rc, DELETE_THIS))
       {
         ch->reformGroup();
         delete ch;
@@ -466,18 +466,18 @@ int objWornMinorAstralWalk(TBeing *targ, cmdTypeT cmd, const char *arg, TObj *o,
     }
 
     if (!(ch->isImmortal())) ch->affectTo(&aff);
-    
+
     ch->addToWait(combatRound(3));
-    
+
     return TRUE;
-  } 
+  }
   return FALSE;
 
 }
 
 /* The following proc is meant for a worn object that is personalized,
  * lest things get out of control
- * NOTE: the proc uses the the 4th value of 4 values, which works for 
+ * NOTE: the proc uses the the 4th value of 4 values, which works for
  * armor and worn object... check first for other types
  */
 int objWornPortal(TBeing *targ, cmdTypeT cmd, const char *arg, TObj *o, TObj *)
@@ -488,7 +488,7 @@ int objWornPortal(TBeing *targ, cmdTypeT cmd, const char *arg, TObj *o, TObj *)
   TRoom *room = NULL;
   sstring new_name, name_end, old_name;
   int i = 1;
-  
+
   if (!o or !(ch = dynamic_cast<TBeing *>(o->equippedBy)))
     return FALSE;
 
@@ -505,13 +505,13 @@ int objWornPortal(TBeing *targ, cmdTypeT cmd, const char *arg, TObj *o, TObj *)
 
     act("$n wraps $s fingers around $p.", TRUE, ch,o,NULL,TO_ROOM,NULL);
     act("You wrap your fingers around $p.", TRUE, ch,o,NULL,TO_CHAR,NULL);
-    
+
     if (ch->checkForSkillAttempt(SPELL_PORTAL)) {
       act("The $o's powers can only be used once per day.",
           TRUE,ch,o,NULL,TO_CHAR,NULL);
       return TRUE;
     }
-    
+
     old_name = sstring(o->name);
     while(old_name.word(i+1) != "") {
       i++;
@@ -522,7 +522,7 @@ int objWornPortal(TBeing *targ, cmdTypeT cmd, const char *arg, TObj *o, TObj *)
       location = Room::TOP_OF_TREE;
     }
     room = real_roomp(location);
-    
+
     if (!room) {
       room = real_roomp(Room::TOP_OF_TREE);
       if (!room) {
@@ -559,7 +559,7 @@ int objWornPortal(TBeing *targ, cmdTypeT cmd, const char *arg, TObj *o, TObj *)
       act("Nothing seems to happen.", FALSE, ch, NULL, NULL, TO_ROOM);
       return TRUE;
     }
-    
+
     // SKILL ATTEMPT (PREVENT IMMEDIATE RE-USE)
     aff.type = AFFECT_SKILL_ATTEMPT;
     aff.level = 0;
@@ -588,19 +588,19 @@ int objWornPortal(TBeing *targ, cmdTypeT cmd, const char *arg, TObj *o, TObj *)
     act("$p suddenly appears out of a swirling mist.", TRUE, ch, tmp_obj, NULL, TO_ROOM);
     act("$p suddenly appears out of a swirling mist.", TRUE, ch, tmp_obj, NULL, TO_CHAR);
 
-    buf2 = format("%s suddenly appears out of a swirling mist.\n\r") % 
+    buf2 = format("%s suddenly appears out of a swirling mist.\n\r") %
       sstring(next_tmp_obj->shortDescr).cap();
     sendToRoom(buf2.c_str(), location);
 
- 
+
     if (!(ch->isImmortal())) ch->affectTo(&aff);
-    
+
     ch->addToWait(combatRound(3));
-    
+
     return TRUE;
-    
+
   } else if (cmd == CMD_WHISPER) {
-    
+
     if (buf == "whence")
     {
 
@@ -614,17 +614,17 @@ int objWornPortal(TBeing *targ, cmdTypeT cmd, const char *arg, TObj *o, TObj *)
         i++;
       }
       name_end = old_name.word(i);
-      
-        
+
+
       if (!(atoi(name_end.substr(1,name_end.length()-2).c_str())))
       {
         new_name += format(" %s") % name_end;
       }
-    
+
       location = ch->in_room;
-      
+
       room = real_roomp(location);
-      
+
       if (!room) {
         vlogf(LOG_BUG, "Attempt to astral to NULL room in objPortalWalk.");
         act("Something went wrong with the $o and you don't go anywhere. [BUG]",
@@ -658,27 +658,27 @@ int objWornPortal(TBeing *targ, cmdTypeT cmd, const char *arg, TObj *o, TObj *)
         act("Nothing seems to happen.", FALSE, ch, NULL, NULL, TO_ROOM);
         return TRUE;
       }
-   
+
       o->swapToStrung();
       delete [] o->name;
       new_name += format(" [%d]") % location;
       o->name = mud_str_dup(new_name);
-      act("Your $o throbs.", 
+      act("Your $o throbs.",
           TRUE, ch,o,NULL,TO_CHAR,NULL);
       return TRUE;
     } else if (buf == "whither") {
 
       act("$n wraps $s fingers around $p.", TRUE, ch,o,NULL,TO_ROOM,NULL);
       act("You wrap your fingers around $p.", TRUE, ch,o,NULL,TO_CHAR,NULL);
-      
+
       old_name = sstring(o->name);
       while(old_name.word(i+1) != "") {
         i++;
       }
       name_end = old_name.word(i);
       location = atoi(name_end.substr(1,name_end.length()-2).c_str());
-      
-      act("Another place drifts across your perception...", 
+
+      act("Another place drifts across your perception...",
           TRUE, ch,o,NULL,TO_CHAR,NULL);
       if (location == 0)
         location = Room::TOP_OF_TREE;

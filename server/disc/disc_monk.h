@@ -17,7 +17,7 @@
 class CDMonk : public CDiscipline
 {
 public:
-    CSkill skYoginsa;	// Basic breathing and meditation.
+    CSkill skYoginsa;        // Basic breathing and meditation.
     CSkill skGroundfighting;
     CSkill skCintai;
     CSkill skOomlat;
@@ -59,7 +59,7 @@ public:
       skChop(),
       skChi(),
       skDisarmMonk(),
-      skCatfall(), 
+      skCatfall(),
       skRepairMonk(),
       skCatleap(){
     }

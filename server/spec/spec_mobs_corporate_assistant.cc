@@ -17,10 +17,10 @@ void corpListing(TBeing *ch, TMonster *me)
 
   for(unsigned int i=0;i<corp_list.size();++i){
     m.insert(std::pair<int,sstring>(corp_list[i].rank,
-		 format("%-2i| <r>%-38s<1> | %6s talens  %6s in assets\n\r") % 
-			       corp_list[i].corp_id % corp_list[i].name %
-			       talenDisplay(corp_list[i].gold) %
-			       talenDisplay(corp_list[i].assets)));
+                 format("%-2i| <r>%-38s<1> | %6s talens  %6s in assets\n\r") %
+                               corp_list[i].corp_id % corp_list[i].name %
+                               talenDisplay(corp_list[i].gold) %
+                               talenDisplay(corp_list[i].assets)));
   }
 
   me->doTell(ch->getName(), "I know about the following corporations:");
@@ -42,27 +42,27 @@ void corpLogs(TBeing *ch, TMonster *me, sstring arg, sstring corp_arg)
     corp_id=convertTo<int>(corp_arg);
   } else {
     db.query("select corp_id from corpaccess where lower(name)='%s'",
-	     sstring(ch->getName()).lower().c_str());
+             sstring(ch->getName()).lower().c_str());
 
     if(corp_arg.empty()){
       if(db.fetchRow())
-	corp_id=convertTo<int>(db["corp_id"]);
+        corp_id=convertTo<int>(db["corp_id"]);
 
       if(db.fetchRow()){
-	me->doTell(ch->getName(), "You must specify the ID of the corporation you wish to deposit the money for.");
-	return;
+        me->doTell(ch->getName(), "You must specify the ID of the corporation you wish to deposit the money for.");
+        return;
       }
     } else {
       if(convertTo<int>(corp_arg) == 0){
-	me->doTell(ch->getName(), "You must specify the ID of the corporation you wish look at the logs of.");
-	return;
+        me->doTell(ch->getName(), "You must specify the ID of the corporation you wish look at the logs of.");
+        return;
       }
 
       while(db.fetchRow()){
-	if(convertTo<int>(db["corp_id"]) == convertTo<int>(corp_arg)){
-	  corp_id=convertTo<int>(corp_arg);
-	  break;
-	}
+        if(convertTo<int>(db["corp_id"]) == convertTo<int>(corp_arg)){
+          corp_id=convertTo<int>(corp_arg);
+          break;
+        }
       }
     }
 
@@ -80,34 +80,34 @@ void corpLogs(TBeing *ch, TMonster *me, sstring arg, sstring corp_arg)
 
     while(db.fetchRow()){
       if(last_date != db["logtime"]){
-	if(!last_date.empty()){
-	  color_code=(color_code=="<b>")?"<r>":"<b>";
-	  buf=format("%16.16s  %20.20s %10s %10i<1>\n\r") %
-	    "" % "Total" % "" % total;
-	  sb += buf;
-	}
-	total=0;
-	last_date=db["logtime"];
+        if(!last_date.empty()){
+          color_code=(color_code=="<b>")?"<r>":"<b>";
+          buf=format("%16.16s  %20.20s %10s %10i<1>\n\r") %
+            "" % "Total" % "" % total;
+          sb += buf;
+        }
+        total=0;
+        last_date=db["logtime"];
       }
       total+=convertTo<int>(db["talens"]);
 
       buf = format("%s%16.16s  %20.20s %10s %10s  Total: %s<1>\n\r") %
-	color_code %
-	db["logtime"] % db["name"] % db["action"] %
-	db["talens"] % db["corptalens"];
+        color_code %
+        db["logtime"] % db["name"] % db["action"] %
+        db["talens"] % db["corptalens"];
       sb += buf;
     }
   } else {
     db.query("select name, action, talens, corptalens, logtime from corplog where corp_id = %i order by logtime desc", corp_id);
-    
+
     while(db.fetchRow()){
       buf = format("%16.16s  %20.20s %10s %10s  Total: %s\n\r") %
-	db["logtime"] % db["name"] % db["action"] %
-	db["talens"] % db["corptalens"];
+        db["logtime"] % db["name"] % db["action"] %
+        db["talens"] % db["corptalens"];
       sb += buf;
     }
   }
-  
+
   if (ch->desc)
     ch->desc->page_string(sb, SHOWNOW_NO, ALLOWREP_YES);
 }
@@ -124,7 +124,7 @@ void corpSummary(TBeing *ch, TMonster *me, int corp_id)
     me->doTell(ch->getName(), "I don't have any information for that corporation.");
     return;
   }
-  
+
   db.query("\
   select c.name, sum(so.gold) as gold, b.talens as banktalens, \
     count(s.shop_nr) as shops, bank, sob.corp_id as bankowner \
@@ -135,7 +135,7 @@ void corpSummary(TBeing *ch, TMonster *me, int corp_id)
     so.shop_nr=s.shop_nr \
   group by c.corp_id, c.name, b.talens, c.bank, sob.corp_id \
   order by c.corp_id", corp_id);
-  
+
   if(!db.fetchRow()){
     // they don't own any shops, so use a different query because I'm too
     // lazy to put more outer joins in the one above
@@ -148,7 +148,7 @@ void corpSummary(TBeing *ch, TMonster *me, int corp_id)
   }
 
   me->doTell(ch->getName(), "This is what I know about that corporation:");
-  
+
   ch->sendTo(COLOR_BASIC, format("%-3i| <r>%s<1>\n\r") % corp_id % db["name"]);
 
   bank=convertTo<int>(db["bank"]);
@@ -163,18 +163,18 @@ void corpSummary(TBeing *ch, TMonster *me, int corp_id)
     gold -= banktalens;
 
   ch->sendTo(COLOR_BASIC, format("<r>Bank Talens:<1> %12s\n\r") %
-  	     ((sstring)(format("%i") % banktalens)).comify());
-  ch->sendTo(COLOR_BASIC, format("<r>Talens:<1>      %12s\n\r") % 
-	     ((sstring)(format("%i") % gold)).comify());
-  ch->sendTo(COLOR_BASIC, format("<r>Assets:<1>      %12s\n\r") % 
-	     ((sstring)(format("%i") % value)).comify());
+               ((sstring)(format("%i") % banktalens)).comify());
+  ch->sendTo(COLOR_BASIC, format("<r>Talens:<1>      %12s\n\r") %
+             ((sstring)(format("%i") % gold)).comify());
+  ch->sendTo(COLOR_BASIC, format("<r>Assets:<1>      %12s\n\r") %
+             ((sstring)(format("%i") % value)).comify());
   ch->sendTo(COLOR_BASIC, format("<r>Total value:<1> %12s\n\r") %
-	     ((sstring)(format("%i") % (banktalens+gold+value))).comify());
+             ((sstring)(format("%i") % (banktalens+gold+value))).comify());
 
 
   // officers
   db.query("select name from corpaccess where corp_id=%i", corp_id);
-  
+
   buf="";
   while(db.fetchRow()){
     buf+=" ";
@@ -189,16 +189,16 @@ void corpSummary(TBeing *ch, TMonster *me, int corp_id)
     ch->sendTo(COLOR_BASIC, format("%-3i| <r>%s<1>\n\r") % bank % tr->getName());
   }
 
-  // shops    
+  // shops
   db.query("select s.shop_nr, s.in_room, so.gold from shop s, shopowned so where s.shop_nr=so.shop_nr and so.corp_id=%i order by so.gold desc", corp_id);
-  
+
   ch->sendTo(COLOR_BASIC, "The following shops are owned by this corporation:\n\r");
-  
+
   while(db.fetchRow()){
     if((tr=real_roomp(convertTo<int>(db["in_room"])))){
       gold=convertTo<int>(db["gold"]);
       ch->sendTo(COLOR_BASIC, format("%-3s| <r>%s<1> with %s talens.\n\r") %
-		 db["shop_nr"] % tr->getName() % talenDisplay(gold));
+                 db["shop_nr"] % tr->getName() % talenDisplay(gold));
     }
   }
 }
@@ -212,7 +212,7 @@ void corpDeposit(TBeing *ch, TMonster *me, int gold, sstring arg)
   TBeing *banker;
 
   db.query("select corp_id from corpaccess where lower(name)='%s'",
-	   sstring(ch->getName()).lower().c_str());
+           sstring(ch->getName()).lower().c_str());
 
   if(arg.empty()){
     if(db.fetchRow())
@@ -230,8 +230,8 @@ void corpDeposit(TBeing *ch, TMonster *me, int gold, sstring arg)
 
     while(db.fetchRow()){
       if(convertTo<int>(db["corp_id"]) == convertTo<int>(arg)){
-	corp_id=convertTo<int>(arg);
-	break;
+        corp_id=convertTo<int>(arg);
+        break;
       }
     }
   }
@@ -240,7 +240,7 @@ void corpDeposit(TBeing *ch, TMonster *me, int gold, sstring arg)
       me->doTell(ch->getName(), "You must specify the ID of the corporation you wish to deposit the money for.");
       return;
   }
-  
+
   TCorporation corp(corp_id);
 
   if(ch->getMoney() < gold){
@@ -266,7 +266,7 @@ void corpDeposit(TBeing *ch, TMonster *me, int gold, sstring arg)
 
   corp.setMoney(corp.getMoney() + gold);
   corp.corpLog(ch->getName(), "deposit", gold);
-  
+
   me->doTell(ch->getName(), format("Your balance is %i.") % corp.getMoney());
 
   TShopOwned tso(shop_nr, dynamic_cast<TMonster *>(banker), ch);
@@ -282,7 +282,7 @@ void corpWithdraw(TBeing *ch, TMonster *me, int gold, sstring arg)
   TBeing *banker;
 
   db.query("select corp_id from corpaccess where lower(name)='%s'",
-	   sstring(ch->getName()).lower().c_str());
+           sstring(ch->getName()).lower().c_str());
 
   if(arg.empty()){
     if(db.fetchRow())
@@ -300,8 +300,8 @@ void corpWithdraw(TBeing *ch, TMonster *me, int gold, sstring arg)
 
     while(db.fetchRow()){
       if(convertTo<int>(db["corp_id"]) == convertTo<int>(arg)){
-	corp_id=convertTo<int>(arg);
-	break;
+        corp_id=convertTo<int>(arg);
+        break;
       }
     }
   }
@@ -316,8 +316,8 @@ void corpWithdraw(TBeing *ch, TMonster *me, int gold, sstring arg)
   int tmp=corp.getMoney();
 
   if(tmp < gold){
-    me->doTell(ch->getName(), format("Your corporation only has %i talens.") % 
-	       tmp);
+    me->doTell(ch->getName(), format("Your corporation only has %i talens.") %
+               tmp);
     return;
   }
 
@@ -327,13 +327,13 @@ void corpWithdraw(TBeing *ch, TMonster *me, int gold, sstring arg)
     if(banker->number==shop_index[shop_nr].keeper)
       break;
   }
-  
+
   if(!banker){
     vlogf(LOG_BUG, format("couldn't find banker for shop_nr=%i!") % shop_nr);
     me->doTell(ch->getName(), "I couldn't find the bank, tell a god!");
     return;
   }
-  
+
   bank_amt=banker->getMoney();
 
   if(bank_amt < gold){
@@ -358,7 +358,7 @@ void corpBalance(TBeing *ch, TMonster *me, sstring arg)
   int corp_id=0;
 
   db.query("select corp_id from corpaccess where lower(name)='%s'",
-	   sstring(ch->getName()).lower().c_str());
+           sstring(ch->getName()).lower().c_str());
 
   if(arg.empty()){
     if(db.fetchRow())
@@ -376,8 +376,8 @@ void corpBalance(TBeing *ch, TMonster *me, sstring arg)
 
     while(db.fetchRow()){
       if(convertTo<int>(db["corp_id"]) == convertTo<int>(arg)){
-	corp_id=convertTo<int>(arg);
-	break;
+        corp_id=convertTo<int>(arg);
+        break;
       }
     }
   }
@@ -410,9 +410,9 @@ int corporateAssistant(TBeing *ch, cmdTypeT cmd, const char *argument, TMonster 
       corpListing(ch, me);
     } else if(arg.word(0) == "logs"){
       if(arg.word(1) == "daily"){
-	corpLogs(ch, me, arg.word(1), arg.word(2));
+        corpLogs(ch, me, arg.word(1), arg.word(2));
       } else {
-	corpLogs(ch, me, "", arg.word(1));
+        corpLogs(ch, me, "", arg.word(1));
       }
     } else if(!arg.empty()){
       // list details of a specific corporation

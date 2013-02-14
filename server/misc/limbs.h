@@ -15,32 +15,32 @@
 #include "sstring.h"
 #include "spells.h"
 
-const int LIMB_NONE	= -1;
+const int LIMB_NONE        = -1;
 
-const int LIMB_HEAD	= 0;
-const int LIMB_NECK	= 1;
-const int LIMB_BACK	= 2;
-const int LIMB_ARM	= 3;
-const int LIMB_WAIST	= 4;
-const int LIMB_LEG	= 5;
-const int LIMB_WINGS	= 6;
-const int LIMB_TAIL	= 7;
+const int LIMB_HEAD        = 0;
+const int LIMB_NECK        = 1;
+const int LIMB_BACK        = 2;
+const int LIMB_ARM        = 3;
+const int LIMB_WAIST        = 4;
+const int LIMB_LEG        = 5;
+const int LIMB_WINGS        = 6;
+const int LIMB_TAIL        = 7;
 
-const int LIMB_BODY	= 17;
-const int LIMB_FOREARM	= 18;
-const int LIMB_HAND	= 19;
-const int LIMB_FOOT	= 20;
+const int LIMB_BODY        = 17;
+const int LIMB_FOREARM        = 18;
+const int LIMB_HAND        = 19;
+const int LIMB_FOOT        = 20;
 
 const int MAX_MAIN_LIMBS = 8;
 const int MAX_LIMB_TYPES = 21;
 
 extern const char *limbNames[MAX_LIMB_TYPES];
 
-const int LIMB_USELESS	 = (1<<0);
-const int LIMB_BROKEN	 = (1<<1);
+const int LIMB_USELESS         = (1<<0);
+const int LIMB_BROKEN         = (1<<1);
 const int LIMB_PARALYZED = (1<<2);
-const int LIMB_CUT	 = (1<<3);
-const int LIMB_WITHERED	 = (1<<4);
+const int LIMB_CUT         = (1<<3);
+const int LIMB_WITHERED         = (1<<4);
 const int LIMB_NOSUBLIMB = (1<<5);
 
 const int MAX_STATUS  = 6;
@@ -126,14 +126,14 @@ private:
   TThing *jewelry;
   int wornWeight;
 
-  int flags;		//Characteristics
+  int flags;                //Characteristics
 
-  int connectsTo;	//Type of limb it can connect to.
-  int numSlots;		//Number of slots this limb accepts..normally just 1
-  int slotsFilled;	//Number of sublimbs connected so far.
+  int connectsTo;        //Type of limb it can connect to.
+  int numSlots;                //Number of slots this limb accepts..normally just 1
+  int slotsFilled;        //Number of sublimbs connected so far.
 
-  Limb *subLimb;	//If another limb can connect to this, put it here.
-  Limb *next;		//For the Body linked list.
+  Limb *subLimb;        //If another limb can connect to this, put it here.
+  Limb *next;                //For the Body linked list.
 
 };
 

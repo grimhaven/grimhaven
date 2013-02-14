@@ -15,7 +15,7 @@ TBandaid::TBandaid() :
 {
 }
 
-TBandaid::TBandaid(const TBandaid &a) : 
+TBandaid::TBandaid(const TBandaid &a) :
  TObj(a)
 {
 }

@@ -34,7 +34,7 @@ TNote * createNote(char *msg)
      vlogf(LOG_BUG, "Unable to load note in createNote");
      return NULL;
   }
-				  
+
   note = dynamic_cast<TNote *>(obj);
 
   //  Create the note with the output.
@@ -135,7 +135,7 @@ void TNote::junkMe(TBeing *ch)
       sprintf(buf, "mobdata/repairs/%d/%d", getRepairman(), tmpnum);
       int rc = unlink(buf);
       if (rc != 0) {
-        vlogf(LOG_BUG, format("%s junking apparent ticket (#%d) [%s] that failed to unlink: err=%d, rc=%d") % 
+        vlogf(LOG_BUG, format("%s junking apparent ticket (#%d) [%s] that failed to unlink: err=%d, rc=%d") %
             ch->getName() % tmpnum % buf % errno % rc);
       } else {
         // successfully unlinked the repair

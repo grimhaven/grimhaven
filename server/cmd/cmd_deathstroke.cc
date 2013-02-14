@@ -7,14 +7,14 @@ static int deathstroke(TBeing *caster, TBeing *victim)
 {
   int percent;
   int i = 0;
-  bool wasSuccess = FALSE; 
+  bool wasSuccess = FALSE;
   const int DEATHSTROKE_MOVE = 25;
   TBaseWeapon *tw;
   spellNumT sktype = SKILL_DEATHSTROKE;
-  
+
   if (caster->checkPeaceful("You feel too peaceful to contemplate violence.\n\r"))
     return FALSE;
-  
+
   if (caster->getCombatMode() == ATTACK_BERSERK) {
     caster->sendTo("You are berserking! You can't focus enough to deathstroke anyone!\n\r ");
     return FALSE;
@@ -43,17 +43,17 @@ static int deathstroke(TBeing *caster, TBeing *victim)
     caster->sendTo("You can only deathstroke fliers that are fighting you.\n\r");
     return FALSE;
   }
-  if (!caster->heldInPrimHand() || 
+  if (!caster->heldInPrimHand() ||
       !(tw=dynamic_cast<TBaseWeapon *>(caster->heldInPrimHand()))) {
     caster->sendTo("You need to hold a weapon in your primary hand to make this a success.\n\r");
     return FALSE;
   }
-  
+
   /* AC makes a big difference here ... */
   percent = ((10 - (victim->getArmor() / 50)) << 1);
   percent += caster->getDexReaction() * 5;
   percent -= victim->getAgiReaction() * 5;
-  
+
   if (!caster->isImmortal())
     caster->addToMove(-DEATHSTROKE_MOVE);
 
@@ -63,23 +63,23 @@ static int deathstroke(TBeing *caster, TBeing *victim)
   int dam = caster->getSkillDam(victim, SKILL_DEATHSTROKE, lev, caster->getAdvLearning(SKILL_DEATHSTROKE));
 
   if ((caster->bSuccess(bKnown+ percent, SKILL_DEATHSTROKE) &&
-         (i = caster->specialAttack(victim,SKILL_DEATHSTROKE)) && 
+         (i = caster->specialAttack(victim,SKILL_DEATHSTROKE)) &&
          (i != GUARANTEED_FAILURE)) ||
       !victim->awake()) {
     wasSuccess = TRUE;
     if (!dam) {
       act("$n's attempt at $N's vital area falls far short of hitting.",
                 FALSE, caster, 0, victim, TO_NOTVICT);
-      act("You fail to hit $N's vital area.", FALSE, caster, 0, victim, 
+      act("You fail to hit $N's vital area.", FALSE, caster, 0, victim,
                 TO_CHAR);
-      act("$n attempts to hit your vital area, but fails miserably.", 
+      act("$n attempts to hit your vital area, but fails miserably.",
                 FALSE, caster, 0, victim, TO_VICT);
     } else {
-      act("$n hits $N in $S vital organs!", FALSE, caster, 0, victim, 
+      act("$n hits $N in $S vital organs!", FALSE, caster, 0, victim,
                 TO_NOTVICT);
-      act("You hit $N in $S vital organs!", FALSE, caster, 0, victim, 
+      act("You hit $N in $S vital organs!", FALSE, caster, 0, victim,
                 TO_CHAR);
-      act("$n hits you in your vital organs!", FALSE, caster, 0, 
+      act("$n hits you in your vital organs!", FALSE, caster, 0,
                 victim, TO_VICT);
     }
     TThing *ob = caster->heldInPrimHand();
@@ -89,11 +89,11 @@ static int deathstroke(TBeing *caster, TBeing *victim)
       return DELETE_VICT;
   } else {
     if (victim->getPosition() > POSITION_DEAD) {
-      act("$n's attempt at $N's vital area falls far short of hitting.", 
+      act("$n's attempt at $N's vital area falls far short of hitting.",
                   FALSE, caster, 0, victim, TO_NOTVICT);
-      act("You fail to hit $N's vital area.", FALSE, caster, 0, victim, 
+      act("You fail to hit $N's vital area.", FALSE, caster, 0, victim,
                   TO_CHAR);
-      act("$n attempts to hit your vital area, but fails miserably.", 
+      act("$n attempts to hit your vital area, but fails miserably.",
                   FALSE, caster, 0, victim, TO_VICT);
       if (caster->reconcileDamage(victim, 0,sktype) == -1)
         return DELETE_VICT;
@@ -103,12 +103,12 @@ static int deathstroke(TBeing *caster, TBeing *victim)
     percent += caster->getDexReaction() * 5;
     percent -= victim->getAgiReaction() * 5;
     // what happens here is that the mob gets a shot at the players vitals
-    // ... fair is fair right? 
+    // ... fair is fair right?
     int bKnown2 = victim->getSkillValue(SKILL_DEATHSTROKE);
     if (bKnown2 > 0 &&
         victim->bSuccess(bKnown2 + 20, SKILL_DEATHSTROKE) &&
          (i = victim->specialAttack(caster,SKILL_DEATHSTROKE)) &&
-         i != GUARANTEED_FAILURE) 
+         i != GUARANTEED_FAILURE)
     {
       /* monster hits player vitals while player is exposed */
       CF(SKILL_DEATHSTROKE);
@@ -117,7 +117,7 @@ static int deathstroke(TBeing *caster, TBeing *victim)
                 FALSE, caster, 0, victim, TO_NOTVICT);
         act("While you are vulnerable, $N strikes you in the center of your torso.",
                 FALSE, caster, 0, victim, TO_CHAR);
-        act("You take advantage of $n's vulnerability for a cheap shot!", 
+        act("You take advantage of $n's vulnerability for a cheap shot!",
                FALSE, caster, 0, victim, TO_VICT);
 
         dam = 3*victim->GetMaxLevel();
@@ -171,7 +171,7 @@ static int deathstroke(TBeing *caster, TBeing *victim)
       caster->setVictFighting(victim);
       // do nothing here cept set victim fighting
     }
-  } else if (caster->sameRoom(*victim)) { 
+  } else if (caster->sameRoom(*victim)) {
     // again, check sameRoom in case victim fled when he was hit
     if (!cfight) {
       if (caster->getPosition() > POSITION_STUNNED) {
@@ -182,11 +182,11 @@ static int deathstroke(TBeing *caster, TBeing *victim)
       caster->setCharFighting(victim);
       if (::number(0,4) < 2) {  // chance of victim switching to you
         if (vfight) {
-          act("You turn your attention to $n.", 
+          act("You turn your attention to $n.",
               TRUE, caster, 0, victim, TO_VICT);
-          act("$N turns $S attention to $n.", 
+          act("$N turns $S attention to $n.",
               TRUE, caster, 0, victim, TO_NOTVICT);
-          act("$N turns $S attention to you.", 
+          act("$N turns $S attention to you.",
               TRUE, caster, 0, victim, TO_CHAR);
           victim->stopFighting();
           caster->setVictFighting(victim);
@@ -202,11 +202,11 @@ static int deathstroke(TBeing *caster, TBeing *victim)
           act("$N turns $S attention to you and you begin to fight.",
               TRUE, caster, 0, victim, TO_CHAR);
         } else if (caster->getPosition() > POSITION_STUNNED) {
-          act("You turn your attention to $N.", 
+          act("You turn your attention to $N.",
               TRUE, caster, 0, victim, TO_CHAR);
-          act("$n turns $s attention to $N.", 
+          act("$n turns $s attention to $N.",
               TRUE, caster, 0, victim, TO_NOTVICT);
-          act("$n turns $s attention to you.", 
+          act("$n turns $s attention to you.",
               TRUE, caster, 0, victim, TO_VICT);
         }
         caster->stopFighting();
@@ -229,7 +229,7 @@ int TBeing::doDeathstroke(const char *argument, TBeing *vict)
   int rc;
   TBeing *victim;
   char v_name[MAX_INPUT_LENGTH];
-  
+
   if (checkBusy()) {
     return FALSE;
   }
@@ -238,7 +238,7 @@ int TBeing::doDeathstroke(const char *argument, TBeing *vict)
     return FALSE;
   }
   strcpy(v_name, argument);
-  
+
   if (!(victim = vict)) {
 
     if (!(victim = get_char_room_vis(this, v_name))) {
@@ -264,7 +264,7 @@ int TBeing::doDeathstroke(const char *argument, TBeing *vict)
     victim = NULL;
     REM_DELETE(rc, DELETE_VICT);
   }
-  
+
   if (IS_SET_DELETE(rc, DELETE_THIS)) {
     return DELETE_THIS;
   }

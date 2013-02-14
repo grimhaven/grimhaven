@@ -491,7 +491,7 @@ void TRoom::operator >> (const TThing &tThing)
       if (tLast)
         tLast->nextBorn = tList->nextBorn;
       else
-	tBornInsideMe = tList->nextBorn;
+        tBornInsideMe = tList->nextBorn;
 
       tList->nextBorn = NULL;
 

@@ -48,7 +48,7 @@ public:
       return *this;
     }
     virtual ~CDUndead() {}
-    virtual CDUndead * cloneMe() { return new CDUndead(*this); } 
+    virtual CDUndead * cloneMe() { return new CDUndead(*this); }
 private:
 };
 

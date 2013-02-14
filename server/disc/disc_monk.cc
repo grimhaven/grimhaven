@@ -24,7 +24,7 @@ int TBeing::doLeap(const sstring &arg)
   if (checkBusy()) {
     return FALSE;
   }
-  
+
   if(arg.empty()){
     sendTo("Which way do you want to leap?\n\r");
     return FALSE;
@@ -106,77 +106,77 @@ int task_yoginsa(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, TOb
       ch->task->calcNextUpdate(pulse, 4 * Pulse::MOBACT);
       if (!ch->task->status) {
         if (!ch->roomp->isRoomFlag(ROOM_NO_HEAL)) {
-	  ch->learnFromDoingUnusual(LEARN_UNUSUAL_NORM_LEARN, SKILL_YOGINSA, 20);
-	  if(ch->doesKnowSkill(SKILL_WOHLIN))
-	    ch->learnFromDoingUnusual(LEARN_UNUSUAL_NORM_LEARN, SKILL_WOHLIN, 20);
+          ch->learnFromDoingUnusual(LEARN_UNUSUAL_NORM_LEARN, SKILL_YOGINSA, 20);
+          if(ch->doesKnowSkill(SKILL_WOHLIN))
+            ch->learnFromDoingUnusual(LEARN_UNUSUAL_NORM_LEARN, SKILL_WOHLIN, 20);
 
           learn = ch->getSkillValue(SKILL_YOGINSA);
           wohlin_learn = ch->getSkillValue(SKILL_WOHLIN);
-	  monk_level = ch->getLevel(MONK_LEVEL_IND);
+          monk_level = ch->getLevel(MONK_LEVEL_IND);
 
-          if (ch->bSuccess(learn, SKILL_YOGINSA) && 
-	      (::number(1,100) < (70+(wohlin_learn/4)))) {
-	    // this artifical roll to check for a success is so we can slowly
-	    // phase out the speed of hp recover without causing a ruckus.
-	    // lower the .85 lower down and raise the 80 above, keeping the
-	    // product of the two close to .65 (or whatever stats.damage_modifier is)
+          if (ch->bSuccess(learn, SKILL_YOGINSA) &&
+              (::number(1,100) < (70+(wohlin_learn/4)))) {
+            // this artifical roll to check for a success is so we can slowly
+            // phase out the speed of hp recover without causing a ruckus.
+            // lower the .85 lower down and raise the 80 above, keeping the
+            // product of the two close to .65 (or whatever stats.damage_modifier is)
             ch->sendTo(format("%sMeditating refreshes your inner harmonies!%s\n\r") %
                      ch->green() % ch->norm());
-            ch->setHit(min(ch->getHit() + 
-			   max(2,(int)(((double)ch->hitGain())*(.80))), (int) ch->hitLimit()));
+            ch->setHit(min(ch->getHit() +
+                           max(2,(int)(((double)ch->hitGain())*(.80))), (int) ch->hitLimit()));
             ch->setMove(min(ch->getMove() + ch->moveGain()/2, (int) ch->moveLimit()));
             ch->setMana(min(ch->getMana() + ch->manaGain()/2, (int) ch->manaLimit()));
 
-	    // salve 20
-	    if(wohlin_learn>20 && ::number(0, 100) <= (wohlin_learn-20)){
-	      salve(ch, ch, monk_level*wohlin_learn/400, 0, SKILL_WOHLIN);
-	    }
+            // salve 20
+            if(wohlin_learn>20 && ::number(0, 100) <= (wohlin_learn-20)){
+              salve(ch, ch, monk_level*wohlin_learn/400, 0, SKILL_WOHLIN);
+            }
 
-	    // cure poison 35
-	    if(wohlin_learn>35 && ::number(0, 100) <= (wohlin_learn-35)){
-	      curePoison(ch, ch, monk_level*wohlin_learn/200, 0, SKILL_WOHLIN);
-	    }
+            // cure poison 35
+            if(wohlin_learn>35 && ::number(0, 100) <= (wohlin_learn-35)){
+              curePoison(ch, ch, monk_level*wohlin_learn/200, 0, SKILL_WOHLIN);
+            }
 
-	    // sterilize 50
-	    if(wohlin_learn>50 && ::number(0, 100) <= (wohlin_learn-50)){
-	      sterilize(ch, ch, 0, 0, SKILL_WOHLIN);
-	    }
-	    
-	    // cure disease 60
-	    if(wohlin_learn>60 && ::number(0, 100) <= (wohlin_learn-60)){
-	      cureDisease(ch, ch, 0, 0, SKILL_WOHLIN);
-	    }
+            // sterilize 50
+            if(wohlin_learn>50 && ::number(0, 100) <= (wohlin_learn-50)){
+              sterilize(ch, ch, 0, 0, SKILL_WOHLIN);
+            }
 
-	    // clot 75
-	    if(wohlin_learn>75 && ::number(0, 100) <= (wohlin_learn-75)){
-	      clot(ch, ch, 0, 0, SKILL_WOHLIN);
-	    }
-	    
-	    // reduce hunger/thirst 90
+            // cure disease 60
+            if(wohlin_learn>60 && ::number(0, 100) <= (wohlin_learn-60)){
+              cureDisease(ch, ch, 0, 0, SKILL_WOHLIN);
+            }
+
+            // clot 75
+            if(wohlin_learn>75 && ::number(0, 100) <= (wohlin_learn-75)){
+              clot(ch, ch, 0, 0, SKILL_WOHLIN);
+            }
+
+            // reduce hunger/thirst 90
       // bumped these up a bit - Maror Feb 2004
-	    if(wohlin_learn>90 && ::number(0, 100) <= (wohlin_learn-90)){
-	      if(ch->getCond(THIRST)<=5){
-		ch->sendTo("You don't feel quite so thirsty.\n\r");
-		ch->gainCondition(THIRST, 4);
-	      }
-	      if(ch->getCond(FULL)<=5){
-		ch->sendTo("You don't feel quite so hungry.\n\r");
-		ch->gainCondition(FULL, 4);
-	      }
-	    }	    
-	    
-	    if (ch->ansi()) {
-	      ch->desc->updateScreenAnsi(CHANGED_HP);
-	      ch->desc->updateScreenAnsi(CHANGED_MOVE);
-	      ch->desc->updateScreenAnsi(CHANGED_MANA);
-	    } else if (ch->vt100()) {
-	      ch->desc->updateScreenVt100(CHANGED_HP);
-	      ch->desc->updateScreenVt100(CHANGED_MOVE);
-	      ch->desc->updateScreenVt100(CHANGED_MANA);
-	    }
+            if(wohlin_learn>90 && ::number(0, 100) <= (wohlin_learn-90)){
+              if(ch->getCond(THIRST)<=5){
+                ch->sendTo("You don't feel quite so thirsty.\n\r");
+                ch->gainCondition(THIRST, 4);
+              }
+              if(ch->getCond(FULL)<=5){
+                ch->sendTo("You don't feel quite so hungry.\n\r");
+                ch->gainCondition(FULL, 4);
+              }
+            }
+
+            if (ch->ansi()) {
+              ch->desc->updateScreenAnsi(CHANGED_HP);
+              ch->desc->updateScreenAnsi(CHANGED_MOVE);
+              ch->desc->updateScreenAnsi(CHANGED_MANA);
+            } else if (ch->vt100()) {
+              ch->desc->updateScreenVt100(CHANGED_HP);
+              ch->desc->updateScreenVt100(CHANGED_MOVE);
+              ch->desc->updateScreenVt100(CHANGED_MANA);
+            }
           } else {
           }
-	    
+
         } else {
           ch->sendTo("A magical force in the room stops your meditation\n\r");
           ch->stopTask();
@@ -299,23 +299,23 @@ int springleap(TBeing * caster, TBeing * victim, bool should_lag)
   if (caster->bSuccess(bKnown + percent, SKILL_SPRINGLEAP)) {
     if ((i = caster->specialAttack(victim,SKILL_SPRINGLEAP)) || (i == GUARANTEED_SUCCESS)) {
       if (victim->getPosition() > POSITION_DEAD){
-	if (!(d = caster->getActualDamage(victim, NULL, caster->getSkillLevel(SKILL_SPRINGLEAP) >> 1, SKILL_KICK))) {
-	  act("You attempt to kick $N but lose your balance and fall face down in some mud that has suddenly appeared.", FALSE, caster, NULL, victim, TO_CHAR);
-	  act("When $n tries to kick you, you quickly make $m fall in some mud you create.", FALSE, caster, NULL, victim, TO_VICT);
-	  act("$n falls face down in some mud created by $N.", FALSE, caster, NULL, victim, TO_NOTVICT);
-	} else if (caster->willKill(victim, d, SKILL_KICK, TRUE)) {
-	  act("Your kick at $N's face splits $S head open.", FALSE, caster, NULL, victim, TO_CHAR);
-	  act("$n aims a kick at your face which splits your head in two.", FALSE, caster, NULL, victim, TO_VICT);
-	  act("$n neatly kicks $N's head into pieces.", FALSE, caster, NULL, victim, TO_NOTVICT);
+        if (!(d = caster->getActualDamage(victim, NULL, caster->getSkillLevel(SKILL_SPRINGLEAP) >> 1, SKILL_KICK))) {
+          act("You attempt to kick $N but lose your balance and fall face down in some mud that has suddenly appeared.", FALSE, caster, NULL, victim, TO_CHAR);
+          act("When $n tries to kick you, you quickly make $m fall in some mud you create.", FALSE, caster, NULL, victim, TO_VICT);
+          act("$n falls face down in some mud created by $N.", FALSE, caster, NULL, victim, TO_NOTVICT);
+        } else if (caster->willKill(victim, d, SKILL_KICK, TRUE)) {
+          act("Your kick at $N's face splits $S head open.", FALSE, caster, NULL, victim, TO_CHAR);
+          act("$n aims a kick at your face which splits your head in two.", FALSE, caster, NULL, victim, TO_VICT);
+          act("$n neatly kicks $N's head into pieces.", FALSE, caster, NULL, victim, TO_NOTVICT);
           iSkill = DAMAGE_KICK_HEAD;
-	} else {
-	  act("Your kick hits $N in the solar plexus.", FALSE, caster, NULL, victim, TO_CHAR);
-	  act("You're hit in the solar plexus, wow, this is breathtaking!", FALSE, caster, NULL, victim, TO_VICT);
-	  act("$n kicks $N in the solar plexus, $N is rendered breathless.", FALSE, caster, NULL, victim, TO_NOTVICT);
-	}
+        } else {
+          act("Your kick hits $N in the solar plexus.", FALSE, caster, NULL, victim, TO_CHAR);
+          act("You're hit in the solar plexus, wow, this is breathtaking!", FALSE, caster, NULL, victim, TO_VICT);
+          act("$n kicks $N in the solar plexus, $N is rendered breathless.", FALSE, caster, NULL, victim, TO_NOTVICT);
+        }
       }
       if (caster->reconcileDamage(victim, d, iSkill) == -1)
-	return DELETE_VICT;
+        return DELETE_VICT;
     } else {
       act("You miss your kick at $N's groin, much to $S relief.", FALSE, caster, NULL, victim, TO_CHAR);
       act("$n misses a kick at your groin, you breathe lighter now.", FALSE, caster, NULL, victim, TO_VICT);
@@ -329,7 +329,7 @@ int springleap(TBeing * caster, TBeing * victim, bool should_lag)
       caster->sendTo("You fall on your butt.\n\r");
       act("$n falls on $s butt.", FALSE, caster, 0, 0, TO_ROOM);
       if (caster->reconcileDamage(victim, 0,SKILL_SPRINGLEAP) == -1)
-	return DELETE_VICT;
+        return DELETE_VICT;
     }
     return TRUE;
   }
@@ -405,44 +405,44 @@ int TBeing::monkDodge(TBeing *v, TThing *weapon, int *dam, int w_type, wearSlotT
 
     switch(::number(0,2)){
       case 0:
-	strcpy(type, "dodge");
-	break;
+        strcpy(type, "dodge");
+        break;
       case 1:
-	strcpy(type, "block");
-	break;
+        strcpy(type, "block");
+        break;
       case 2:
-	strcpy(type, "deflect");
-	break;
+        strcpy(type, "deflect");
+        break;
     }
 
     if (toggleInfo[TOG_TWINK]->toggle) {
       sprintf(buf, "You %s $n's %s at your %s.", type,
-	      attack_hit_text_twink[w_type].singular,
-	      v->describeBodySlot(part_hit).c_str());
+              attack_hit_text_twink[w_type].singular,
+              v->describeBodySlot(part_hit).c_str());
     } else {
       sprintf(buf, "You %s $n's %s at your %s.", type,
-	      attack_hit_text[w_type].singular,
-	      v->describeBodySlot(part_hit).c_str());
+              attack_hit_text[w_type].singular,
+              v->describeBodySlot(part_hit).c_str());
     }
     act(buf, FALSE, this, 0, v, TO_VICT, ANSI_CYAN);
-    if (toggleInfo[TOG_TWINK]->toggle) {    
+    if (toggleInfo[TOG_TWINK]->toggle) {
       sprintf(buf, "$N %ss your %s at $S %s.", type,
-	      attack_hit_text_twink[w_type].singular,
-	      v->describeBodySlot(part_hit).c_str());
+              attack_hit_text_twink[w_type].singular,
+              v->describeBodySlot(part_hit).c_str());
     } else {
       sprintf(buf, "$N %ss your %s at $S %s.", type,
-	      attack_hit_text[w_type].singular,
-	      v->describeBodySlot(part_hit).c_str());
+              attack_hit_text[w_type].singular,
+              v->describeBodySlot(part_hit).c_str());
     }
     act(buf, FALSE, this, 0, v, TO_CHAR, ANSI_CYAN);
-    if (toggleInfo[TOG_TWINK]->toggle) {    
+    if (toggleInfo[TOG_TWINK]->toggle) {
       sprintf(buf, "$N %ss $n's %s at $S %s.", type,
-	      attack_hit_text_twink[w_type].singular,
-	      v->describeBodySlot(part_hit).c_str());
+              attack_hit_text_twink[w_type].singular,
+              v->describeBodySlot(part_hit).c_str());
     } else {
       sprintf(buf, "$N %ss $n's %s at $S %s.", type,
-	      attack_hit_text[w_type].singular,
-	      v->describeBodySlot(part_hit).c_str());
+              attack_hit_text[w_type].singular,
+              v->describeBodySlot(part_hit).c_str());
     }
     act(buf, TRUE, this, 0, v, TO_NOTVICT);
 
@@ -535,7 +535,7 @@ int TBeing::doChi(const char *tString, TThing *tSucker)
     }
 
     REM_DELETE(tRc, DELETE_VICT);
-  } 
+  }
   if (IS_SET_DELETE(tRc, DELETE_THIS))
     return DELETE_THIS;
 

@@ -66,26 +66,26 @@ void TBeing::doConsider(const char *argument)
 
       int vis=visibility();
       sendTo(format("You are %s.\n\r") %
-	     (vis >= 50 ? "only a shadow to the eyes of most mortals" :
-	      (vis >= 40 ? "barely visible at all" :
-	       (vis >= 30 ? "very well hidden" :
-		(vis >= 20 ? "well hidden" :
-		 (vis >= 10 ? "fairly well hidden" :
-		  (vis >= 5  ? "slightly hidden" :
-		   (vis >= 0 ? "not especially hidden or visible" :
-		    "as visible as a christmas tree"))))))));
-      
+             (vis >= 50 ? "only a shadow to the eyes of most mortals" :
+              (vis >= 40 ? "barely visible at all" :
+               (vis >= 30 ? "very well hidden" :
+                (vis >= 20 ? "well hidden" :
+                 (vis >= 10 ? "fairly well hidden" :
+                  (vis >= 5  ? "slightly hidden" :
+                   (vis >= 0 ? "not especially hidden or visible" :
+                    "as visible as a christmas tree"))))))));
+
       int n=noise(this);
       sendTo(format("You are %s.\n\r") %
-	     (n >= 500 ? "too noisy to sneak up on a deaf man" :
-	      (n >= 300 ? "making more noise than a herd of stampeding elephants" :
-	       (n >= 200  ? "making a lot of noise" :
-		(n >= 100 ? "making some noise" :
-		 (n >= 50 ? "making a little noise" :
-		 (n >= 25 ? "somewhat quiet" :
-		 (n >= 0 ? "quiet" :
-		  (n >= -25 ? "very quiet" :
-		   "walking in silence, like a shadow")))))))));
+             (n >= 500 ? "too noisy to sneak up on a deaf man" :
+              (n >= 300 ? "making more noise than a herd of stampeding elephants" :
+               (n >= 200  ? "making a lot of noise" :
+                (n >= 100 ? "making some noise" :
+                 (n >= 50 ? "making a little noise" :
+                 (n >= 25 ? "somewhat quiet" :
+                 (n >= 0 ? "quiet" :
+                  (n >= -25 ? "very quiet" :
+                   "walking in silence, like a shadow")))))))));
       return;
   }
   if (victim->isPc() && victim->isImmortal()) {
@@ -155,13 +155,13 @@ void TBeing::doConsider(const char *argument)
     sendTo("There are better ways to suicide.\n\r");
 
   if(trophy->getCount(tmon->mobVnum()) > 0){
-    sendTo(COLOR_BASIC, format("You will gain %s experience when fighting %s.\n\r") % 
-	   trophy->getExpModDescr(trophy->getCount(tmon->mobVnum()), tmon->mobVnum()) %
-	   namebuf);
+    sendTo(COLOR_BASIC, format("You will gain %s experience when fighting %s.\n\r") %
+           trophy->getExpModDescr(trophy->getCount(tmon->mobVnum()), tmon->mobVnum()) %
+           namebuf);
   } else {
     sendTo(COLOR_BASIC, format("You have never fought %s and will gain %s experience.\n\r") %
-	   namebuf %
-	   trophy->getExpModDescr(trophy->getCount(tmon->mobVnum()), tmon->mobVnum()));
+           namebuf %
+           trophy->getExpModDescr(trophy->getCount(tmon->mobVnum()), tmon->mobVnum()));
   }
 
   if (getDiscipline(DISC_ADVENTURING)) {
@@ -175,7 +175,7 @@ void TBeing::doConsider(const char *argument)
       learn = getSkillValue(SKILL_CONS_ANIMAL);
       sendTo(COLOR_MOBS, format("Using your knowledge of animal lore, you determine that %s is %s %s.\n\r") %
             namebuf %
-	     (tmon->getMyRace()->getSingularName().startsVowel() ? "an" : "a") %
+             (tmon->getMyRace()->getSingularName().startsVowel() ? "an" : "a") %
             tmon->getMyRace()->getSingularName());
     }
     if (tmon->isVeggie() && doesKnowSkill(SKILL_CONS_VEGGIE)) {
@@ -254,7 +254,7 @@ void TBeing::doConsider(const char *argument)
     addToWait(combatRound(1));
 
     int num = GetApprox(tmon->hitLimit(), max(80,learn));
-    double fnum = hitLimit() ? ((double) num / (double) hitLimit()) : 
+    double fnum = hitLimit() ? ((double) num / (double) hitLimit()) :
             (num ? 10.0 : 0.0);
     if (learn > 5)
       sendTo(format("Est Max HP are: %s.\n\r") % DescRatio(fnum));

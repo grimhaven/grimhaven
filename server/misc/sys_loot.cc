@@ -117,15 +117,15 @@ bool sysLootBoot()
 
           break;
         case ITEM_POTION:
-	  if(!(pot = dynamic_cast<TPotion *>(tObj))){
-	    vlogf(LOG_BUG, format("Screwup in Loot Loader (potion): %s") %  tObj->getName());
-	    delete tObj;
-	    tObj = NULL;
-	  } else
-	    tLevel = pot->getDrinkUnits();
-	  break;
+          if(!(pot = dynamic_cast<TPotion *>(tObj))){
+            vlogf(LOG_BUG, format("Screwup in Loot Loader (potion): %s") %  tObj->getName());
+            delete tObj;
+            tObj = NULL;
+          } else
+            tLevel = pot->getDrinkUnits();
+          break;
         default:
-          vlogf(LOG_BUG, format("sysLootBoot Error: Unrecognized Type: %d") % 
+          vlogf(LOG_BUG, format("sysLootBoot Error: Unrecognized Type: %d") %
                 obj_index[tOIndex].virt);
           delete tObj;
           tObj = NULL;

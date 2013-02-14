@@ -120,7 +120,7 @@ int task_get(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *rp, TObj 
               continue;
 
             // canGet normally handles this, but immortals grab lampposts
-	    // attached items
+            // attached items
             if (o->isObjStat(ITEM_ATTACHED)) {
               if (ch->isImmortal()) {
                 ch->sendTo(COLOR_OBJECTS, format("%s : You'll have to be more specific to get this.\n\r") %
@@ -142,8 +142,8 @@ int task_get(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *rp, TObj 
                 ch->sendTo(COLOR_OBJECTS, format("%s : You'll have to be more specific to get this.\n\r") %
                            sstring(o->getName()).cap());
               } else {
-		//  ch->sendTo(COLOR_OBJECTS, format("%s : You can't take that.\n\r") %
-		//             sstring(o->getName()).cap());
+                //  ch->sendTo(COLOR_OBJECTS, format("%s : You can't take that.\n\r") %
+                //             sstring(o->getName()).cap());
               }
               continue;
             }
@@ -184,15 +184,15 @@ int task_get(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *rp, TObj 
           // This is something like get all.sword
           while ((t = get_thing_in_list_getable(ch, ch->task->orig_arg, rp->stuff))) {
             rc = get(ch, t, NULL, GETNULL, true);
-	    if (IS_SET_DELETE(rc, DELETE_ITEM)) {
+            if (IS_SET_DELETE(rc, DELETE_ITEM)) {
                 delete t;
                 t = NULL;
-	    }
-	    if (IS_SET_DELETE(rc, DELETE_THIS)) {
+            }
+            if (IS_SET_DELETE(rc, DELETE_THIS)) {
                 ch->stopTask();
                 ch->doQueueSave();
                 return DELETE_THIS;
-	    }
+            }
               if (IS_SET_DELETE(rc, DELETE_ITEM) ||
                   !rc) {
                 ch->stopTask();
@@ -243,24 +243,24 @@ int task_get(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *rp, TObj 
       } else {
         // get all bag
         sub = get_obj_vis_accessible(ch, buf2.c_str());
-	if (!sub) {
-	  TBeing *horse;
-	  TObj *tmpobj;
-      	  int bits = generic_find(buf2.c_str(), FIND_CHAR_ROOM, ch, &horse, &tmpobj);
-	  if (bits)
-	    if (horse->isRideable() && horse->equipment[WEAR_BACK]) {
-	      TBaseContainer *saddlebag = dynamic_cast<TBaseContainer *>(horse->equipment[WEAR_BACK]);
-	      if (saddlebag->isSaddle())
-		sub = dynamic_cast<TObj *>(saddlebag);
-	    }
-	}
-	if (!sub) {
-	  ch->sendTo(format("The %s is no longer accessible.\n\r") % buf2);
-	  ch->stopTask();
-	  ch->doQueueSave();
-	  return FALSE;
-	}
-        
+        if (!sub) {
+          TBeing *horse;
+          TObj *tmpobj;
+                int bits = generic_find(buf2.c_str(), FIND_CHAR_ROOM, ch, &horse, &tmpobj);
+          if (bits)
+            if (horse->isRideable() && horse->equipment[WEAR_BACK]) {
+              TBaseContainer *saddlebag = dynamic_cast<TBaseContainer *>(horse->equipment[WEAR_BACK]);
+              if (saddlebag->isSaddle())
+                sub = dynamic_cast<TObj *>(saddlebag);
+            }
+        }
+        if (!sub) {
+          ch->sendTo(format("The %s is no longer accessible.\n\r") % buf2);
+          ch->stopTask();
+          ch->doQueueSave();
+          return FALSE;
+        }
+
         if (ch->task->flags) {
           if (!ch->anythingGetable(sub, buf1.c_str())) {
             act("You can get no more from $p", TRUE, ch, sub, NULL, TO_CHAR);

@@ -60,10 +60,10 @@ void PokerGame::stay(TBeing *ch)
     if(!card[i])
       card[i] = deck[deck_inx++];
 
-      
+
     log_msg = format("%i) %s\n\r") % (i+1) % pretty_card_printout(ch, card[i]);
     ch->sendTo(COLOR_BASIC, log_msg);
-    
+
     log_msg = format("%s") %pretty_card_printout(ch, card[i]);
     act(log_msg, TRUE, ch, 0, 0, TO_ROOM);
   }
@@ -131,7 +131,7 @@ bool PokerGame::isRoyalFlush()
 
   if(CARD_NUM_ACEHI(card[4])!=14)
     return false;
-  
+
 
   return true;
 }
@@ -232,7 +232,7 @@ bool PokerGame::isTwoPair()
       ++i;
     }
   }
-  
+
   if(matches==2)
     return true;
 
@@ -314,11 +314,11 @@ void PokerGame::Bet(TBeing *ch, const sstring &arg)
 
       log_msg = format("%i) %s\n\r") % (i+1) % pretty_card_printout(ch, card[i]);
       ch->sendTo(COLOR_BASIC, log_msg);
-      
+
 
       log_msg = format("%s") %pretty_card_printout(ch, card[i]);
       act(log_msg, TRUE, ch, 0, 0, TO_ROOM);
-    }    
+    }
 
     observerReaction(ch, GAMBLER_BET);
   }
@@ -334,16 +334,16 @@ void PokerGame::discard(TBeing *ch, sstring arg)
 
     if(!i || i<1 || i>5)
       continue;
-    
-    
+
+
     if(!card[--i]){
       ch->sendTo("You've already discarded that card.\n\r");
       return;
     }
-    
-    
+
+
     ch->sendTo(COLOR_BASIC, format("You discard %s.\n\r") %
-	       pretty_card_printout(ch, card[i]));
+               pretty_card_printout(ch, card[i]));
     buf = format("$n discards %s.") %
       pretty_card_printout(ch, card[i]);
     act(buf, TRUE, ch, 0, 0, TO_ROOM);
@@ -373,10 +373,10 @@ void PokerGame::peek(const TBeing *ch)
   for(int i=0;i<5;++i){
     if(card[i]){
       log_msg = format("%i) %s\n\r") % (i+1) %
-	pretty_card_printout(ch, card[i]);
+        pretty_card_printout(ch, card[i]);
       ch->sendTo(COLOR_BASIC, log_msg);
     }
-  }    
+  }
 
 }
 

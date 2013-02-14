@@ -85,18 +85,18 @@ void TTrashPile::updateDesc()
 {
   const char *pilename [] =
   {
-    "<o>a tiny pile of trash<1>", 
-    "<o>a small pile of trash<1>", 
-    "<o>a pile of trash<1>", 
-    "<o>a fair sized pile of trash<1>", 
-    "<o>a big pile of trash<1>", 
-    "<o>a large pile of trash<1>", 
+    "<o>a tiny pile of trash<1>",
+    "<o>a small pile of trash<1>",
+    "<o>a pile of trash<1>",
+    "<o>a fair sized pile of trash<1>",
+    "<o>a big pile of trash<1>",
+    "<o>a large pile of trash<1>",
     "<o>a huge pile of trash<1>",
     "<o>a massive pile of trash<1>",
     "<o>a tremendously huge pile of trash<1>",
     "<o>a veritable sea of trash<1>"
   };
-  
+
   const char *piledesc [] =
   {
     "<o>A tiny pile of trash has gathered here.<1>",
@@ -158,15 +158,15 @@ void TTrashPile::overFlow()
       dir = dirTypeT(::number(MIN_DIR, MAX_DIR-1));
 
       if(exitDir(dir) && real_roomp(exitDir(dir)->to_room) &&
-	 !(exitDir(dir)->condition & EX_CLOSED) &&
-	 (rp = real_roomp(roomp->exitDir(dir)->to_room)))
-	break;
+         !(exitDir(dir)->condition & EX_CLOSED) &&
+         (rp = real_roomp(roomp->exitDir(dir)->to_room)))
+        break;
     }
 
     // couldn't find a room to overflow into
     if(!rp)
       return;
-    
+
     // move some stuff
     for(StuffIter it=stuff.begin();it!=stuff.end();){
       TThing *t=*(it++);
@@ -176,14 +176,14 @@ void TTrashPile::overFlow()
       *rp += *t;
 
       if(volume > MAX_TRASH_PILE_VOL/2)
-	break;
+        break;
     }
 
     sendrpf(COLOR_BASIC, roomp, "%s collapses, sending trash avalanching %s.\n\r",
-	    sstring(getName()).cap().c_str(), dirs_to_blank[dir]);
+            sstring(getName()).cap().c_str(), dirs_to_blank[dir]);
 
     sendrpf(COLOR_BASIC, rp, "An avalanch of trash cascades in from the %s.\n\r",
-	    dirs[rev_dir[dir]]);
+            dirs[rev_dir[dir]]);
 
 
 
@@ -201,11 +201,11 @@ void TTrashPile::attractVermin()
   int mobvnum;
   int count=0;
   TPathFinder path;
-  
+
   if(index<3 || !roomp)
     return;
 
-  if(roomp->isRoomFlag(ROOM_PEACEFUL) || 
+  if(roomp->isRoomFlag(ROOM_PEACEFUL) ||
      roomp->isRoomFlag(ROOM_NO_MOB))
     return;
 
@@ -228,14 +228,14 @@ void TTrashPile::attractVermin()
   path.setUsePortals(true);
   path.setNoMob(false);
   path.setThruDoors(true);
-  
+
   vlogf(LOG_PEEL, format("attractVermin: checking path, here=%i") % inRoom());
 
   if(path.findPath(inRoom(), findOutdoors())==DIR_NONE)
     return;
 
   vlogf(LOG_PEEL, format("attractVermin: found path from %i to %i, dist=%i") %
-	inRoom() % path.getDest() % path.getDist());
+        inRoom() % path.getDest() % path.getDist());
 
 
   switch(::number(3, max(8,index))){
@@ -253,7 +253,7 @@ void TTrashPile::attractVermin()
       break;
     case 6: // vultures
       if(roomp->isIndoorSector())
-	return;
+        return;
       mobvnum=1468;
       buf="%s begins circling %s.\n\r";
       break;
@@ -281,9 +281,9 @@ void TTrashPile::attractVermin()
 
 
   *roomp += *mob;
-  sendrpf(COLOR_BASIC, roomp, buf.c_str(), 
-	  sstring(mob->getName()).cap().c_str(), getName());
-  
+  sendrpf(COLOR_BASIC, roomp, buf.c_str(),
+          sstring(mob->getName()).cap().c_str(), getName());
+
 }
 
 void TTrashPile::doDecay()
@@ -296,7 +296,7 @@ void TTrashPile::doDecay()
       o->addToStructPoints(-1);
 
       if(o->getStructPoints() < 1)
-	delete o;
+        delete o;
     }
   }
 }
@@ -309,7 +309,7 @@ bool TTrashPile::willMerge(TMergeable *tm)
   if(!(pile=dynamic_cast<TTrashPile *>(tm)) ||
      pile==this)
     return false;
-  
+
   return true;
 }
 

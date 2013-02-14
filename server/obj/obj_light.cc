@@ -137,8 +137,8 @@ void TLight::lightDecay()
         act("$p flickers a bit, and then burns out.",
                 FALSE, parent, this, 0, TO_CHAR);
         parent->addToLight(-getLightAmt());
-	if(parent->roomp)
-	  parent->roomp->addToLight(-getLightAmt());
+        if(parent->roomp)
+          parent->roomp->addToLight(-getLightAmt());
       } else if (equippedBy) {
         act("$p flickers a bit, and then burns out.",
                 FALSE, equippedBy, this, 0, TO_CHAR);
@@ -146,11 +146,11 @@ void TLight::lightDecay()
         equippedBy->roomp->addToLight(-getLightAmt());
       }
     } else if (getCurBurn() < 4) {
-      if (roomp && !roomp->stuff.empty()) 
+      if (roomp && !roomp->stuff.empty())
         act("$n flickers a bit.", FALSE, this, 0, 0, TO_ROOM);
-      else if (parent) 
+      else if (parent)
         act("$p flickers a bit.", FALSE, parent, this, 0, TO_CHAR);
-      else if (equippedBy) 
+      else if (equippedBy)
         act("$p flickers a bit.", FALSE, equippedBy, this, 0, TO_CHAR);
     }
   }
@@ -299,7 +299,7 @@ void TLight::describeObjectSpecifics(const TBeing *ch) const
             max(1.0, (double) getMaxBurn()));
     ch->sendTo(COLOR_OBJECTS,format("%s looks refuelable.\n\r") % sstring(getName()).cap());
     ch->sendTo(COLOR_OBJECTS, format("You can tell that %s has %s fuel left.\n\r") %
-	       sstring(getName()).uncap() %
+               sstring(getName()).uncap() %
           ((diff == 0) ? "no" :
            ((diff < .20) ? "very little" :
            ((diff < .50) ? "some" :

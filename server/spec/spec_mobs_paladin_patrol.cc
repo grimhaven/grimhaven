@@ -63,21 +63,21 @@ int paladinPatrol(TBeing *ch, cmdTypeT cmd, const char *, TMonster *myself, TObj
   for(StuffIter it=myself->roomp->stuff.begin();it!=myself->roomp->stuff.end();++it){
     if((tm=dynamic_cast<TMonster *>(*it)) && tm->getRace()==RACE_TYTAN){
       switch(::number(0,5)){
-	case 0:
-	  myself->doSay("Have at them, boys!");
-	  break;
-	case 1:
-	  myself->doSay("In the land of the blind the one-eyed man is king.");
-	  myself->doSay("But we're not blind, sucker!");
-	  break;
-	case 2:
-	  myself->doSay("For Galek!");
-	  break;
-	case 3:
-	  myself->doSay("GET SOME!");
-	  break;
-	default:
-	  break;
+        case 0:
+          myself->doSay("Have at them, boys!");
+          break;
+        case 1:
+          myself->doSay("In the land of the blind the one-eyed man is king.");
+          myself->doSay("But we're not blind, sucker!");
+          break;
+        case 2:
+          myself->doSay("For Galek!");
+          break;
+        case 3:
+          myself->doSay("GET SOME!");
+          break;
+        default:
+          break;
       }
 
       return tm->takeFirstHit(*myself);
@@ -101,7 +101,7 @@ int paladinPatrol(TBeing *ch, cmdTypeT cmd, const char *, TMonster *myself, TObj
 
     act("Some paladin soldiers come to his aid.",
         TRUE, myself, 0, 0, TO_ROOM);
-    
+
     SET_BIT(myself->specials.affectedBy, AFF_GROUP);
     for (i=0;i<3;i++) {
       if (!(mob = read_mobile(MOB_PALADIN_SOLDIER, VIRTUAL))) {
@@ -132,84 +132,84 @@ int paladinPatrol(TBeing *ch, cmdTypeT cmd, const char *, TMonster *myself, TObj
   switch(job->state){
     case STATE_NONE:
       myself->doSay("Enough loafing, let's go find some cyclopses!");
-      job->state=STATE_TO_GH; 
+      job->state=STATE_TO_GH;
       break;
     case STATE_TO_GH:
       if(myself->in_room!=GH_ROOM){
-	switch((dir=path.findPath(myself->in_room, findRoom(GH_ROOM)))){
-	  case 0: case 1: case 2: case 3: case 4: 
-	  case 5: case 6: case 7: case 8: case 9:
-	    myself->goDirection(dir);
-	    break;
-	  case -1: // lost
-	  default: // portal
-	    myself->doSay("Damn, I think I'm lost.");
-	    if(myself->act_ptr){
-	      delete static_cast<hunt_struct *>(myself->act_ptr);
-	      myself->act_ptr = NULL;
-	    }
-	    break;
-	}
+        switch((dir=path.findPath(myself->in_room, findRoom(GH_ROOM)))){
+          case 0: case 1: case 2: case 3: case 4:
+          case 5: case 6: case 7: case 8: case 9:
+            myself->goDirection(dir);
+            break;
+          case -1: // lost
+          default: // portal
+            myself->doSay("Damn, I think I'm lost.");
+            if(myself->act_ptr){
+              delete static_cast<hunt_struct *>(myself->act_ptr);
+              myself->act_ptr = NULL;
+            }
+            break;
+        }
       } else {
-	myself->doSay("Alright boys, let's turn around and head back to Brightmoon.");
-	job->state=STATE_TO_BM;
+        myself->doSay("Alright boys, let's turn around and head back to Brightmoon.");
+        job->state=STATE_TO_BM;
       }
       break;
     case STATE_TO_BM:
       if(myself->in_room!=BM_ROOM){
-	switch((dir=path.findPath(myself->in_room, findRoom(BM_ROOM)))){
-	  case 0: case 1: case 2: case 3: case 4: 
-	  case 5: case 6: case 7: case 8: case 9:
-	    myself->goDirection(dir);
-	    break;
-	  case -1: // lost
-	  default: // portal
-	    myself->doSay("Damn, I think I'm lost.");
-	    if(myself->act_ptr){
-	      delete static_cast<hunt_struct *>(myself->act_ptr);
-	      myself->act_ptr = NULL;
-	    }
-	    break;
-	}
+        switch((dir=path.findPath(myself->in_room, findRoom(BM_ROOM)))){
+          case 0: case 1: case 2: case 3: case 4:
+          case 5: case 6: case 7: case 8: case 9:
+            myself->goDirection(dir);
+            break;
+          case -1: // lost
+          default: // portal
+            myself->doSay("Damn, I think I'm lost.");
+            if(myself->act_ptr){
+              delete static_cast<hunt_struct *>(myself->act_ptr);
+              myself->act_ptr = NULL;
+            }
+            break;
+        }
       } else {
-	followData *f, *n;
-	TBeing *vict;
-	
-	// get rid of valuables, these accumulate
-	for(StuffIter it=myself->stuff.begin();it!=myself->stuff.end();){
-	  TThing *t=*(it++);
-	  --(*t);
-	  if(dynamic_cast<TCommodity *>(t) ||
-	     t->number == Obj::GENERIC_MONEYPOUCH){
-	    delete t;
-	  } else {
-	    *myself->roomp += *t;
-	  }
-	}
-	myself->setMoney(0);
+        followData *f, *n;
+        TBeing *vict;
+
+        // get rid of valuables, these accumulate
+        for(StuffIter it=myself->stuff.begin();it!=myself->stuff.end();){
+          TThing *t=*(it++);
+          --(*t);
+          if(dynamic_cast<TCommodity *>(t) ||
+             t->number == Obj::GENERIC_MONEYPOUCH){
+            delete t;
+          } else {
+            *myself->roomp += *t;
+          }
+        }
+        myself->setMoney(0);
 
 
-	for (f = myself->followers; f; f = n) {
-	  n = f->next;
-	  if((vict=f->follower)&& vict->inGroup(*myself) && !vict->fight()){
-	    TMonster *tmons = dynamic_cast<TMonster *>(vict);
-	    if (!tmons)
-	      continue;
-	    // get rid of valuables, these accumulate
-	    for(StuffIter it=tmons->stuff.begin();it!=tmons->stuff.end();){
-	      TThing *t=*(it++);
-	      --(*t);
-	      if(dynamic_cast<TCommodity *>(t) ||
-		 t->number == Obj::GENERIC_MONEYPOUCH){
-		delete t;
-	      } else {
-		*myself->roomp += *t;
-	      }
-	    }
-	    tmons->setMoney(0);
-	  }
-	}
-	job->state=STATE_NONE;
+        for (f = myself->followers; f; f = n) {
+          n = f->next;
+          if((vict=f->follower)&& vict->inGroup(*myself) && !vict->fight()){
+            TMonster *tmons = dynamic_cast<TMonster *>(vict);
+            if (!tmons)
+              continue;
+            // get rid of valuables, these accumulate
+            for(StuffIter it=tmons->stuff.begin();it!=tmons->stuff.end();){
+              TThing *t=*(it++);
+              --(*t);
+              if(dynamic_cast<TCommodity *>(t) ||
+                 t->number == Obj::GENERIC_MONEYPOUCH){
+                delete t;
+              } else {
+                *myself->roomp += *t;
+              }
+            }
+            tmons->setMoney(0);
+          }
+        }
+        job->state=STATE_NONE;
       }
       break;
   }

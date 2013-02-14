@@ -42,7 +42,7 @@ bool TBeing::hasDisease(diseaseTypeT disease) const
 
   for (aff = affected; aff; aff = aff->next) {
     if (aff->type == AFFECT_DISEASE) {
-      if (aff->modifier == disease) 
+      if (aff->modifier == disease)
         return TRUE;
     }
   }
@@ -71,8 +71,8 @@ int TBeing::diseaseStop(affectedData *af)
 
 int disease_null(TBeing *victim, int, affectedData *)
 {
-  vlogf(LOG_BUG, format("WARNING:  %s has a bogus disease #%d affect.") % 
-	((victim) ? victim->getName() : "A null pointer"));
+  vlogf(LOG_BUG, format("WARNING:  %s has a bogus disease #%d affect.") %
+        ((victim) ? victim->getName() : "A null pointer"));
   return FALSE;
 }
 
@@ -84,7 +84,7 @@ void spread_affect(TBeing *ch, int chance_to_spread, bool race, bool not_race, a
     return;
   int spread_controller = 1; // to reduce rate of spreading in crowds. it gets out of hand.
   int effective_chance = chance_to_spread; // to store the original chance
-  
+
   // Do not spread disease in peacful zones, this can become real hairy.
   if (ch->roomp && ch->roomp->isRoomFlag(ROOM_PEACEFUL))
     return;
@@ -98,7 +98,7 @@ void spread_affect(TBeing *ch, int chance_to_spread, bool race, bool not_race, a
       continue;
     if (v->isImmune(IMMUNE_DISEASE, WEAR_BODY))
       continue;
-    
+
     if (effective_chance > 50)
       effective_chance = chance_to_spread / spread_controller++;
 
@@ -119,10 +119,10 @@ void spread_affect(TBeing *ch, int chance_to_spread, bool race, bool not_race, a
         (af->type == AFFECT_DISEASE && !v->hasDisease(affToDisease(*af)))) {
 
 #if 0
-      vlogf(LOG_MISC, format("%s (%s:%d) spreading from %s to %s at %d") % 
+      vlogf(LOG_MISC, format("%s (%s:%d) spreading from %s to %s at %d") %
              af->type == AFFECT_DISEASE ? "Disease" : "Spell" %
-             af->type == AFFECT_DISEASE ? 
-                 DiseaseInfo[af->modifier].name : 
+             af->type == AFFECT_DISEASE ?
+                 DiseaseInfo[af->modifier].name :
                  discArray[af->type]->name %
              af->type == AFFECT_DISEASE ? af->modifier : af->type %
              ch->getName() % v->getName() % ch->inRoom());
@@ -138,7 +138,7 @@ void spread_affect(TBeing *ch, int chance_to_spread, bool race, bool not_race, a
         vaf.duration *= (100 - v->getImmunity(IMMUNE_DISEASE));
         vaf.duration /= 100;
       }
-			if (vaf.duration > 0 || vaf.duration == PERMANENT_DURATION) {
+                        if (vaf.duration > 0 || vaf.duration == PERMANENT_DURATION) {
         v->affectTo(&vaf, TRUE);
         if (vaf.type == AFFECT_DISEASE)
           disease_start(v, &vaf);
@@ -166,7 +166,7 @@ int TBeing::dummyFlu()
       if (getPosition() <= POSITION_SLEEPING) {
         sendTo("Puking in your sleep causes you to gag!\n\r");
         if ((rc = reconcileDamage(this, ::number(1,10) +15, DAMAGE_SUFFOCATION)) == -1)
-          return DELETE_THIS; 
+          return DELETE_THIS;
       }
       break;
     case 3:
@@ -174,12 +174,12 @@ int TBeing::dummyFlu()
     case 5:
     case 6:
       act("You sweat for no apparent reason.",FALSE,this,0,0,TO_CHAR);
-			if (isHumanoid()) {
-				// i suppose sweating is for humanoids
-      	act("$n is sweating and $e looks feverish.",TRUE,this,0,0,TO_ROOM);
-			} else {
-      	act("$n looks feverish.",TRUE,this,0,0,TO_ROOM);
-			}
+                        if (isHumanoid()) {
+                                // i suppose sweating is for humanoids
+              act("$n is sweating and $e looks feverish.",TRUE,this,0,0,TO_ROOM);
+                        } else {
+              act("$n looks feverish.",TRUE,this,0,0,TO_ROOM);
+                        }
       break;
     case 7:
     case 8:
@@ -235,7 +235,7 @@ int disease_flu(TBeing *victim, int message, affectedData *)
 {
   int chance;
   affectedData vaf;
-  int rc; 
+  int rc;
   if (message == DISEASE_BEGUN) {
     act("You begin to feel hot and nauseous.", FALSE, victim, 0, 0, TO_CHAR);
     if (victim->isHumanoid()) {
@@ -370,16 +370,16 @@ int disease_numbed(TBeing *victim, int message, affectedData *af)
       victim->addToLimbFlags(slot, PART_PARALYZED);
       break;
     case DISEASE_PULSE:
-      // Do nothing, all this disease does is keep up with numb time 
+      // Do nothing, all this disease does is keep up with numb time
       break;
     case DISEASE_DONE:
       if (victim->isLimbFlags(slot, PART_PARALYZED))
-        victim->remLimbFlags(slot, PART_PARALYZED); 
-                                                                            
+        victim->remLimbFlags(slot, PART_PARALYZED);
+
       if (victim->getPosition() > POSITION_DEAD && victim->hasPart(slot)) {
         victim->sendTo(format("You feel the life come back to your %s!\n\r") % victim->describeBodySlot(slot));
       }
-      break;                                                                    
+      break;
     default:
       break;
   }
@@ -460,7 +460,7 @@ int disease_bleeding(TBeing *victim, int message, affectedData *af)
         // start an infection
         victim->rawInfect(i, ::number(50, 150), SILENT_NO, CHECK_IMMUNITY_YES, victim->GetMaxLevel());
       }
-      
+
       if (!number(0, 10)) {
         if (victim->doesKnowSkill(SKILL_SNOFALTE)) {
           // attempt to dodge it altogether
@@ -478,7 +478,7 @@ int disease_bleeding(TBeing *victim, int message, affectedData *af)
         int rc = victim->hurtLimb(1, i);
         if (IS_SET_DELETE(rc, DELETE_THIS))
           return DELETE_THIS;
-        
+
         // took out the damage computations since it always ended up 1 no matter what slot anyhow
         // which i think is fine since i upped chances for bleeding from combat and from the disease prayer
         // and added a chance for infections
@@ -646,27 +646,27 @@ int disease_frostbite(TBeing *victim, int message, affectedData *)
     case DISEASE_PULSE:
       if (number(0,50))
         return FALSE;
-      
+
       for (i = MIN_WEAR; i < MAX_WEAR; i++) {
-	if (victim->validEquipSlot(i) && !(victim->equipment[i]) && !number(0, 3)) {
-	  victim->hurtLimb(victim->getMaxLimbHealth((wearSlotT)i) /
-			   ::number(1,5), 
-			   (wearSlotT)i);
-	  sprintf(buf, "$n's %s takes on a gray-blue color as frost-bite sets in.", victim->describeBodySlot(i).c_str());
-	  act(buf, TRUE, victim, NULL, NULL, TO_ROOM);
-	  victim->sendTo(format("Your %s feels numb and takes on a gray-blue color.  Looks like frostbite.\n\r") % victim->describeBodySlot(i));
-	}
+        if (victim->validEquipSlot(i) && !(victim->equipment[i]) && !number(0, 3)) {
+          victim->hurtLimb(victim->getMaxLimbHealth((wearSlotT)i) /
+                           ::number(1,5),
+                           (wearSlotT)i);
+          sprintf(buf, "$n's %s takes on a gray-blue color as frost-bite sets in.", victim->describeBodySlot(i).c_str());
+          act(buf, TRUE, victim, NULL, NULL, TO_ROOM);
+          victim->sendTo(format("Your %s feels numb and takes on a gray-blue color.  Looks like frostbite.\n\r") % victim->describeBodySlot(i));
+        }
       }
-      
+
       if (number(0,15))
         break;
       victim->doAction("", CMD_SHIVER);
       break;
     case DISEASE_BEGUN:
       act("$n looks very cold and has begun shivering involuntarily.",
-	  TRUE, victim, NULL, NULL, TO_ROOM);
-      act("Frostbite will likely set in soon.", 
-	  FALSE, victim, NULL, NULL, TO_ROOM);
+          TRUE, victim, NULL, NULL, TO_ROOM);
+      act("Frostbite will likely set in soon.",
+          FALSE, victim, NULL, NULL, TO_ROOM);
       victim->sendTo("You are very cold and have begun shivering involuntarily.\n\r");
       victim->sendTo("Frostbite will likely set in soon.\n\r");
       break;
@@ -739,7 +739,7 @@ int disease_stomach(TBeing *victim, int message, affectedData *)
         victim->sendTo("Your stomach wound pains you!\n\r");
         if (victim->reconcileDamage(victim, 2, DAMAGE_STOMACH_WOUND) == -1)
           return DELETE_THIS;
-      } 
+      }
       if ((victim->getCond(DRUNK) > 0) && ::number(0,1))
         victim->gainCondition(DRUNK, -1);
       if (victim->getCond(THIRST) > 0)
@@ -931,11 +931,11 @@ int disease_food_poison(TBeing *ch, int message, affectedData *)
           break;
         case 5:
           ch->doAction("",CMD_PUKE);
-          ch->dropPool(4, LIQ_VOMIT); 
+          ch->dropPool(4, LIQ_VOMIT);
           if (ch->getPosition() <= POSITION_SLEEPING) {
             ch->sendTo("Puking in your sleep causes you to gag!\n\r");
             if ((rc = ch->reconcileDamage(ch, ::number(1,10) + 15, DAMAGE_SUFFOCATION)) == -1)
-              return DELETE_THIS; 
+              return DELETE_THIS;
           }
           break;
         default:
@@ -1095,7 +1095,7 @@ void TBeing::bodySpread(int chance_to_spread, affectedData * af)
     } while (brakes && badSpreadSlot(this, choice2));
     if (!brakes)
       choice2 = WEAR_NOWHERE;
-    
+
   } else if (isLimbFlags(part, PART_INFECTED | PART_LEPROSED)) {
     switch (part) {
       case WEAR_FINGER_R:
@@ -1182,7 +1182,7 @@ void TBeing::bodySpread(int chance_to_spread, affectedData * af)
       case WEAR_EX_FOOT_L:
       case MAX_WEAR:
 //      default:
-        return;  // nowhere on body      
+        return;  // nowhere on body
     }
   } else
     return;  // bogus?
@@ -1194,11 +1194,11 @@ void TBeing::bodySpread(int chance_to_spread, affectedData * af)
   vaf.bitvector = af->bitvector;
 
   if (af->modifier == DISEASE_INFECTION) {
-		// the goal here is to have the spread rate keep step with the dissipation rate
-		// so that infections generally just slow down healing
-		// the older method guaranteed death over time
-		// this would probably be neater if I understood probability...
-		int spread_em = (50000 / chance_to_spread) + ::number(-(chance_to_spread / 10), (chance_to_spread / 10));
+                // the goal here is to have the spread rate keep step with the dissipation rate
+                // so that infections generally just slow down healing
+                // the older method guaranteed death over time
+                // this would probably be neater if I understood probability...
+                int spread_em = (50000 / chance_to_spread) + ::number(-(chance_to_spread / 10), (chance_to_spread / 10));
     vaf.duration = spread_em;
     if (af->duration == PERMANENT_DURATION) {
       // slightly weaken if spreading from a permanent infection (like from gangrene)... too deadly...
@@ -1213,18 +1213,18 @@ void TBeing::bodySpread(int chance_to_spread, affectedData * af)
     affectTo(&vaf);
     wearSlotT slot = wearSlotT(vaf.level);
     if (!part)
-			sendTo(format("Infection has set into your %s!\n\r") % describeBodySlot(slot));
+                        sendTo(format("Infection has set into your %s!\n\r") % describeBodySlot(slot));
     else
-			sendTo(format("Infection spreads to your %s!\n\r") % describeBodySlot(slot));
-			
+                        sendTo(format("Infection spreads to your %s!\n\r") % describeBodySlot(slot));
+
     disease_start(this, &vaf);
-  } else {  
-	  // leprosy- slow uptake, but will persist well over time
+  } else {
+          // leprosy- slow uptake, but will persist well over time
     if (af->duration == PERMANENT_DURATION) {
       vaf.duration = (50000 / chance_to_spread) * 2;
     } else {
       vaf.duration = min(af->duration + ((50000 / chance_to_spread) * 2), 1200);
-		}
+                }
     if (choice1 && !isLimbFlags(choice1, PART_LEPROSED) && hasPart(choice1))
       vaf.level = choice1;
     else if (choice2 && !isLimbFlags(choice2, PART_LEPROSED) && hasPart(choice2))
@@ -1279,10 +1279,10 @@ int disease_leprosy(TBeing *victim, int message, affectedData * af)
     case DISEASE_BEGUN:
       if (slot) {
         victim->addToLimbFlags(slot, PART_LEPROSED);
-			} else {
-		    act("Your skin becomes scaly and insensitive to feeling!", FALSE, victim, 0, 0, TO_CHAR);
-	      act("$n's skin begins to look scaly!", TRUE, victim, NULL, NULL, TO_ROOM);
-			}
+                        } else {
+                    act("Your skin becomes scaly and insensitive to feeling!", FALSE, victim, 0, 0, TO_CHAR);
+              act("$n's skin begins to look scaly!", TRUE, victim, NULL, NULL, TO_ROOM);
+                        }
       break;
     case DISEASE_DONE:
       if (slot) {
@@ -1290,10 +1290,10 @@ int disease_leprosy(TBeing *victim, int message, affectedData * af)
         if (victim->hasPart(slot)) {
           act(format("The skin of your %s softens a bit and the feeling returns.") % victim->describeBodySlot(slot), FALSE, victim, 0, 0, TO_CHAR);
         }
-			} else if (victim->getPosition() > POSITION_DEAD) {
-		    act("The hardened lesions on your skin disappear.", FALSE, victim, 0, 0, TO_CHAR);
-	      act("The lesions covering $n disappear.", TRUE, victim, NULL, NULL, TO_ROOM);
-			}
+                        } else if (victim->getPosition() > POSITION_DEAD) {
+                    act("The hardened lesions on your skin disappear.", FALSE, victim, 0, 0, TO_CHAR);
+              act("The lesions covering $n disappear.", TRUE, victim, NULL, NULL, TO_ROOM);
+                        }
       break;
   }
   return FALSE;
@@ -1347,15 +1347,15 @@ int disease_plague(TBeing *victim, int message, affectedData * af)
       victim->bodySpread(500,&vaf);
       break;
     case DISEASE_BEGUN:
-	    act("Painful lumps form over your body and <o>dark, weeping sores<1> appear!", FALSE, victim, 0, 0, TO_CHAR);
+            act("Painful lumps form over your body and <o>dark, weeping sores<1> appear!", FALSE, victim, 0, 0, TO_CHAR);
       act("Lumps and <o>dark splotches<1> begin to cover $n's body!", TRUE, victim, NULL, NULL, TO_ROOM);
       if (slot != WEAR_NOWHERE)
         victim->addToLimbFlags(slot, PART_LEPROSED);
       break;
     case DISEASE_DONE:
       if (victim->getPosition() > POSITION_DEAD) {
-		    act("The festering sores and lumps covering your body disappear!", FALSE, victim, 0, 0, TO_CHAR);
-	      act("The festering sores and lumps covering $n's body disappear!!", TRUE, victim, NULL, NULL, TO_ROOM);
+                    act("The festering sores and lumps covering your body disappear!", FALSE, victim, 0, 0, TO_CHAR);
+              act("The festering sores and lumps covering $n's body disappear!!", TRUE, victim, NULL, NULL, TO_ROOM);
       }
       break;
   }
@@ -1365,7 +1365,7 @@ int disease_plague(TBeing *victim, int message, affectedData * af)
 int disease_gangrene(TBeing *victim, int message, affectedData *af)
 {
   // produces limb rot (non-spreading) + infection (spreads) + fever & damage when on critical slots
-    
+
   if (victim->isPc() && !victim->desc)
     return FALSE;
 
@@ -1375,11 +1375,11 @@ int disease_gangrene(TBeing *victim, int message, affectedData *af)
     vlogf(LOG_BUG, format("disease_gangrene called with bad slot: %i on %s") % slot % victim->getName());
     return FALSE;
   }
-  
+
   switch (message) {
     case DISEASE_BEGUN:
       victim->addToLimbFlags(slot, PART_GANGRENOUS);
-	    act(format("Your %s has become <k>gangrenous<1>!") % victim->describeBodySlot(slot), FALSE, victim, 0, 0, TO_CHAR);
+            act(format("Your %s has become <k>gangrenous<1>!") % victim->describeBodySlot(slot), FALSE, victim, 0, 0, TO_CHAR);
       act(format("$n's %s has become <k>gangrenous<1>!") % victim->describeBodySlot(slot), TRUE, victim, NULL, NULL, TO_ROOM);
       break;
     case DISEASE_PULSE:
@@ -1393,14 +1393,14 @@ int disease_gangrene(TBeing *victim, int message, affectedData *af)
         af->duration = 0;
         break;
       }
-      
+
       if (!number(0, 10)) {
         switch (number(0, 1)) {
           case 0:
             victim->sendTo(format("You are in a world of pain as your %s darkens and swells.\n\r") % victim->describeBodySlot(slot));
             break;
           case 1:
-					  act(format("Your %s discharges a <o>foul<1> <k>black<1> ichor.  The pain!") % victim->describeBodySlot(slot), FALSE, victim, 0, 0, TO_CHAR);
+                                          act(format("Your %s discharges a <o>foul<1> <k>black<1> ichor.  The pain!") % victim->describeBodySlot(slot), FALSE, victim, 0, 0, TO_CHAR);
             break;
           default:
             // should never fall through here
@@ -1420,7 +1420,7 @@ int disease_gangrene(TBeing *victim, int message, affectedData *af)
             victim->rawInfect(slot, PERMANENT_DURATION, SILENT_NO, CHECK_IMMUNITY_YES, af->modifier2);
         }
       }
-			break;
+                        break;
     }
 
     // cause flu effect when a critical body part is gangrenous
@@ -1452,7 +1452,7 @@ int disease_scurvy(TBeing *victim, int message, affectedData *af)
   bool found = FALSE;
   switch (message) {
     case DISEASE_BEGUN:
-	    act("Your skin <w>pales<1> and your eyes begin to hurt.", FALSE, victim, 0, 0, TO_CHAR);
+            act("Your skin <w>pales<1> and your eyes begin to hurt.", FALSE, victim, 0, 0, TO_CHAR);
       act("$n pales and $s eyes become hollow and bl<r>oo<1>dsh<r>o<1>t.", TRUE, victim, NULL, NULL, TO_ROOM);
       break;
     case DISEASE_PULSE:
@@ -1528,7 +1528,7 @@ int disease_scurvy(TBeing *victim, int message, affectedData *af)
         case 7:
           if (!victim->isUndead()) {
             // start bleeding
-            // find a suitable slot to bleed 
+            // find a suitable slot to bleed
             found = FALSE;
             for (int i = 0; i < 20; ++i) {
               slot = pickRandomLimb();
@@ -1576,22 +1576,22 @@ int disease_dysentery(TBeing *victim, int message, affectedData *af)
       act("Something rotten in your guts causes you to double over momentarily.", FALSE, victim, 0, 0, TO_CHAR);
       if (victim->isHumanoid()) {
         act("$n pales and doubles over momentarily.", TRUE, victim, NULL, NULL, TO_ROOM);
-			} else {
+                        } else {
         act("$n winces and doubles over momentarily.", TRUE, victim, NULL, NULL, TO_ROOM);
-			}
+                        }
       break;
     case DISEASE_PULSE:
       switch (number(0, 50)) {
-			  case 0:
+                          case 0:
         case 1:
-			  case 2:
+                          case 2:
           // weaken
           victim->sendTo("There is a painful knot in your stomach and you feel clammy.\n\r");
           victim->setMana(max((victim->getMana() - 35), 0));
           victim->addToLifeforce(-2);
           break;
         case 3:
-			  case 4:
+                          case 4:
           // poop
           if (victim->isPc()) {
             if (victim->getCond(POOP) <= 0) {
@@ -1599,7 +1599,7 @@ int disease_dysentery(TBeing *victim, int message, affectedData *af)
               victim->sendTo("You experience a hot flash and your bowels clench.\n\r");
               if (victim->isHumanoid()) {
                 act("$n looks pale and sweaty.", TRUE, victim, NULL, NULL, TO_ROOM);
-				      } else {
+                                      } else {
                 act("$n looks uncomfortable.", TRUE, victim, NULL, NULL, TO_ROOM);
               }
             } else {
@@ -1615,18 +1615,18 @@ int disease_dysentery(TBeing *victim, int message, affectedData *af)
               // doesn't actually do anything to thirstless & pooless mobs, so this is just for color
               case 0:
                 victim->sendTo("You experience a hot flash and your bowels clench.\n\r");
-	              if (victim->isHumanoid()) {
-	                act("$n looks pale and sweaty.", TRUE, victim, NULL, NULL, TO_ROOM);
-					      } else {
-	                act("$n looks uncomfortable.", TRUE, victim, NULL, NULL, TO_ROOM);
-	              }
-								break;
+                      if (victim->isHumanoid()) {
+                        act("$n looks pale and sweaty.", TRUE, victim, NULL, NULL, TO_ROOM);
+                                              } else {
+                        act("$n looks uncomfortable.", TRUE, victim, NULL, NULL, TO_ROOM);
+                      }
+                                                                break;
               case 1:
                 victim->sendTo("Your stomach is gripped by a dreadful spasm and you cannot contain yourself.\n\r");
                 act("You have <o>besmirched<1> yourself!", FALSE, victim, NULL, NULL, TO_CHAR);
                 act("The air around $n is woefully befouled as $e <o>besmirches<1> $mself.", FALSE, victim, NULL, NULL, TO_ROOM);
                 victim->dropPool(::number(2, 6), LIQ_POT_FILTH);
-								break;
+                                                                break;
               default:
                 // nothing should fall through here
                 break;
@@ -1660,7 +1660,7 @@ int disease_pneumonia(TBeing *victim, int message, affectedData *af)
   switch (message) {
     case DISEASE_BEGUN:
       act("Your chest begins to hurt and breathing becomes difficult.", FALSE, victim, 0, 0, TO_CHAR);
-	    act("$n looks <w>pale<1> and $s breathing becomes labored.", TRUE, victim, NULL, NULL, TO_ROOM);
+            act("$n looks <w>pale<1> and $s breathing becomes labored.", TRUE, victim, NULL, NULL, TO_ROOM);
       break;
     case DISEASE_PULSE:
       // spread cold, flu, pneumonia

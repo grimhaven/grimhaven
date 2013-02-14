@@ -46,7 +46,7 @@ sstring TPerson::parseTitle(Descriptor *user)
   return buf;
 }
 
-void Descriptor::menuWho() 
+void Descriptor::menuWho()
 {
   TBeing *person;
   sstring buf, buf2, send;
@@ -59,7 +59,7 @@ void Descriptor::menuWho()
           (person->getInvisLevel() < GOD_LEVEL1)) {
         buf=person->parseTitle(this);
         buf2 = format("%s\n\r") % colorString(person, this, buf, NULL, COLOR_BASIC, FALSE);
-	send += buf2;
+        send += buf2;
       }
     }
   }
@@ -114,8 +114,8 @@ static const sstring getWhoLevel(const TBeing *ch, TBeing *p)
     if(p->isPlayerAction(PLR_ANONYMOUS) && !ch->isImmortal()){
       tmpstring = "Anonymous";
     } else {
-      tempbuf=format("%-5s Lev %2d") % 
-	p->getProfAbbrevName() % p->GetMaxLevel();
+      tempbuf=format("%-5s Lev %2d") %
+        p->getProfAbbrevName() % p->GetMaxLevel();
       tmpstring += tempbuf;
     }
 
@@ -128,15 +128,15 @@ static const sstring getWhoLevel(const TBeing *ch, TBeing *p)
     TGuild *f = NULL;
     if((f = p->newguild()) && toggleInfo[TOG_TESTCODE5]->toggle) {
       if (f->ID && (IS_SET(f->flags, GUILD_ACTIVE) || ch->newguild() == p->newguild() || ch->isImmortal()) &&
-	  (!IS_SET(f->flags, GUILD_HIDDEN) || ch->newguild() == p->newguild() || ch->isImmortal()) &&
-	  (!p->isImmortal() || ch->isImmortal())) {
-	tempbuf += format(" %s[<1>%s%s]<1>") % 
-	  heraldcodes[p->newguild()->colors[0]] %
-	  p->newguild()->getName() %
-	  heraldcodes[p->newguild()->colors[0]];
+          (!IS_SET(f->flags, GUILD_HIDDEN) || ch->newguild() == p->newguild() || ch->isImmortal()) &&
+          (!p->isImmortal() || ch->isImmortal())) {
+        tempbuf += format(" %s[<1>%s%s]<1>") %
+          heraldcodes[p->newguild()->colors[0]] %
+          p->newguild()->getName() %
+          heraldcodes[p->newguild()->colors[0]];
       }
     }
-       
+
   }
 
   return tempbuf;
@@ -162,12 +162,12 @@ void TBeing::doWho(const char *argument)
   sb += "Players: (Add -? for online help)\n\r--------\n\r";
   lcount = count = 0;
 
-  if (!*argument || 
-       ((sscanf(argument, "%d %d", &which1, &which2) == 2) && 
+  if (!*argument ||
+       ((sscanf(argument, "%d %d", &which1, &which2) == 2) &&
           which1 > 0 && which2 > 0) ||
-       ((sscanf(argument, "%d %d", &which1, &which2) == 1) && 
+       ((sscanf(argument, "%d %d", &which1, &which2) == 1) &&
           which1 > 0  && (which2 = MAX_IMMORT))) {
-    // plain old 'who' command 
+    // plain old 'who' command
     // who <level>      level2 assigned to 60
     // who <level> <level2>
     for (p = character_list; p; p = p->next) {
@@ -192,20 +192,20 @@ void TBeing::doWho(const char *argument)
 
             if (isImmortal() && p->isLinkdead()) {
             } else {
-	      sb += (p->polyed == POLY_TYPE_SWITCH ?  "(switched) " : "") + buf;
-	    }
+              sb += (p->polyed == POLY_TYPE_SWITCH ?  "(switched) " : "") + buf;
+            }
           }
         } else if (isImmortal()) {
 // only immortals will see this to provide them some concealment
-          if (canSeeWho(p) && 
-              (!*argument || 
+          if (canSeeWho(p) &&
+              (!*argument ||
                 (p->GetMaxLevel() >= which1 && p->GetMaxLevel() <= which2)) &&
               IS_SET(p->specials.act, ACT_POLYSELF)) {
             count++;
             buf = format("%s (polymorphed)\n\r") % sstring(pers(p)).cap();
             sb += buf;
           } else if (canSeeWho(p) &&
-                (!*argument || 
+                (!*argument ||
                 (p->GetMaxLevel() >= which1 && p->GetMaxLevel() <= which2)) &&
                      IS_SET(p->specials.act, ACT_DISGUISED)) {
             count++;
@@ -232,7 +232,7 @@ void TBeing::doWho(const char *argument)
           sb += "[-] [d]linkdead [g]God [b]Builders [o]Mort [s]stats [f]action\n\r";
           sb += "[-] [1]Mage[2]Cleric[3]War[4]Thief[5]Deikhan[6]Monk[7]Ranger[8]Shaman\n\r";
           sb += "[-] [e]elf [t]hobbit [n]gnome [u]human [r]ogre [w]dwarven\n\r\n\r";
-	  sb += "[-] [x]Perma Death [!]Fae-touched [c]ports\n\r";
+          sb += "[-] [x]Perma Death [!]Fae-touched [c]ports\n\r";
 
           if (hasWizPower(POWER_WIZARD))
             sb += "[-] [a]ccount\n\r";
@@ -243,7 +243,7 @@ void TBeing::doWho(const char *argument)
           sb += "[-] [z]seeks-group [p]groups [y]currently-not-grouped\n\r";
           sb += "[-] [e]elf [t]hobbit [n]gnome [u]human [r]ogre [w]dwarven\n\r\n\r";
           sb += "[-] [1]Mage[2]Cleric[3]War[4]Thief[5]Deikhan[6]Monk[7]Ranger[8]Shaman\n\r";
-	  sb += "[-] [x]Perma Death\n\r";
+          sb += "[-] [x]Perma Death\n\r";
         }
         if (desc)
           desc->page_string(sb, SHOWNOW_NO, ALLOWREP_YES);
@@ -282,7 +282,7 @@ void TBeing::doWho(const char *argument)
               (!strchr(arg, 'r') || p->getRace() == RACE_OGRE) &&
               (!strchr(arg, 't') || p->getRace() == RACE_HOBBIT) &&
               (!strchr(arg, '!') || p->hasQuestBit(TOG_FAE_TOUCHED)) &&
-	      (!strchr(arg, 'x') || p->hasQuestBit(TOG_PERMA_DEATH_CHAR)))) {
+              (!strchr(arg, 'x') || p->hasQuestBit(TOG_PERMA_DEATH_CHAR)))) {
             if (p->isLinkdead() && isImmortal())
               buf = format("[%-12s] ") % pers(p);
             else if (p->polyed == POLY_TYPE_SWITCH && isImmortal())
@@ -290,7 +290,7 @@ void TBeing::doWho(const char *argument)
             else if (dynamic_cast<TMonster *>(p) &&
                      (p->specials.act & ACT_POLYSELF))
               buf = format("(%-14s) ") % pers(p);
-            else 
+            else
               buf = format("%-11s ") % pers(p);
             listed++;
             for (l = 1; l <= (int) strlen(arg); l++) {
@@ -301,9 +301,9 @@ void TBeing::doWho(const char *argument)
                     TBeing *ch;
                     followData *f;
 
-		    if(p->desc)
-		      buf = format("Group: %s\n\r%s") %
-			   p->desc->session.groupName % buf;
+                    if(p->desc)
+                      buf = format("Group: %s\n\r%s") %
+                           p->desc->session.groupName % buf;
 
                     for (f = p->followers; f; f = f->next) {
                       ch = f->follower;
@@ -362,18 +362,18 @@ void TBeing::doWho(const char *argument)
                   if (!iPoints) {
                     if (isImmortal()){
                       if (p->hasClass(CLASS_CLERIC)||p->hasClass(CLASS_DEIKHAN))
-                        buf = format("%sHit:[%-3d] Pty:[%-.2f] Move:[%-3d], Talens:[%-8d], Bank:[%-8d]") % 
-			  buf % p->getHit() % p->getPiety() % p->getMove() %
-			  p->getMoney() % p->getBank();
+                        buf = format("%sHit:[%-3d] Pty:[%-.2f] Move:[%-3d], Talens:[%-8d], Bank:[%-8d]") %
+                          buf % p->getHit() % p->getPiety() % p->getMove() %
+                          p->getMoney() % p->getBank();
                       else if (p->hasClass(CLASS_SHAMAN))
                         buf = format("%sHit:[%-3d] LF:[%-4d] Move:[%-3d], Talens:[%-8d], Bank:[%-8d]") %
-			  buf % p->getHit() % p->getLifeforce() % 
-			  p->getMove() % p->getMoney() % p->getBank();
+                          buf % p->getHit() % p->getLifeforce() %
+                          p->getMove() % p->getMoney() % p->getBank();
                       else
-			buf = format("%sHit:[%-3d] Mana:[%-3d] Move:[%-3d], Talens:[%-8d], Bank:[%-8d]") % 
-			  buf % p->getHit() % p->getMana() % p->getMove() %
-			  p->getMoney() % p->getBank();
-		    }
+                        buf = format("%sHit:[%-3d] Mana:[%-3d] Move:[%-3d], Talens:[%-8d], Bank:[%-8d]") %
+                          buf % p->getHit() % p->getMana() % p->getMove() %
+                          p->getMoney() % p->getBank();
+                    }
                   }
                   iPoints = TRUE;
                   break;
@@ -382,58 +382,58 @@ void TBeing::doWho(const char *argument)
                     // show factions of everyone to immorts
                     // mortal version will show non-imms that are in same fact
                     if(toggleInfo[TOG_TESTCODE5]->toggle) {
-		      TGuild *f = NULL;
-		      if((f = p->newguild()) && toggleInfo[TOG_TESTCODE5]->toggle) {
-			if (f->ID && (IS_SET(f->flags, GUILD_ACTIVE) || newguild()== p->newguild()||isImmortal()) &&
-			    (!IS_SET(f->flags, GUILD_HIDDEN) || newguild() == p->newguild() || isImmortal()) &&
-			    (!p->isImmortal() || isImmortal())) {
-			  buf = format("%s%s[<1>%s%s]<1>") % buf %
-			    heraldcodes[p->newguild()->colors[0]] %
-			    p->newguild()->getName() %
-			    heraldcodes[p->newguild()->colors[0]];
-			  if(!IS_SET(f->flags, GUILD_HIDE_RANKS) || newguild() == p->newguild()
-			     || isImmortal()) 
-			    buf = format("%s %s[<1>%s%s]<1>") % buf %
-			      heraldcodes[p->newguild()->colors[1]] %
-			      p->rank() %
-			      heraldcodes[p->newguild()->colors[1]];
-			}
-		      }
-		      
+                      TGuild *f = NULL;
+                      if((f = p->newguild()) && toggleInfo[TOG_TESTCODE5]->toggle) {
+                        if (f->ID && (IS_SET(f->flags, GUILD_ACTIVE) || newguild()== p->newguild()||isImmortal()) &&
+                            (!IS_SET(f->flags, GUILD_HIDDEN) || newguild() == p->newguild() || isImmortal()) &&
+                            (!p->isImmortal() || isImmortal())) {
+                          buf = format("%s%s[<1>%s%s]<1>") % buf %
+                            heraldcodes[p->newguild()->colors[0]] %
+                            p->newguild()->getName() %
+                            heraldcodes[p->newguild()->colors[0]];
+                          if(!IS_SET(f->flags, GUILD_HIDE_RANKS) || newguild() == p->newguild()
+                             || isImmortal())
+                            buf = format("%s %s[<1>%s%s]<1>") % buf %
+                              heraldcodes[p->newguild()->colors[1]] %
+                              p->rank() %
+                              heraldcodes[p->newguild()->colors[1]];
+                        }
+                      }
 
-		    } else {
-		      if ((getFaction()==p->getFaction() &&
-			   p->GetMaxLevel() <= MAX_MORT) || isImmortal()) {
+
+                    } else {
+                      if ((getFaction()==p->getFaction() &&
+                           p->GetMaxLevel() <= MAX_MORT) || isImmortal()) {
 #if FACTIONS_IN_USE
-			buf = format("%s[%s] %5.2f%c") % buf %
-			  FactionInfo[p->getFaction()].faction_name %
-			  p->getPerc() % '%';
+                        buf = format("%s[%s] %5.2f%c") % buf %
+                          FactionInfo[p->getFaction()].faction_name %
+                          p->getPerc() % '%';
 #else
-			buf = format("%s[%s]") % buf %
-				FactionInfo[p->getFaction()].faction_name;
+                        buf = format("%s[%s]") % buf %
+                                FactionInfo[p->getFaction()].faction_name;
 #endif
-		      }
-		    }
-		  }
+                      }
+                    }
+                  }
                   align = TRUE;
                   break;
                 case 's':
                   if (!statsx) {
                     if (isImmortal())
-                      buf = format("%s\n\r\t[St:%-3d Br:%-3d Co:%-3d De:%-3d Ag:%-3d In:%-3d Wi:%-3d Fo:%-3d Pe:%-3d Ch:%-3d Ka:%-3d Sp:%-3d]") % 
-			buf %
-			p->curStats.get(STAT_STR) %
-			p->curStats.get(STAT_BRA) %
-			p->curStats.get(STAT_CON) %
-			p->curStats.get(STAT_DEX) %
-			p->curStats.get(STAT_AGI) %
-			p->curStats.get(STAT_INT) %
-			p->curStats.get(STAT_WIS) %
-			p->curStats.get(STAT_FOC) %
-			p->curStats.get(STAT_PER) %
-			p->curStats.get(STAT_CHA) %
-			p->curStats.get(STAT_KAR) %
-			p->curStats.get(STAT_SPE);
+                      buf = format("%s\n\r\t[St:%-3d Br:%-3d Co:%-3d De:%-3d Ag:%-3d In:%-3d Wi:%-3d Fo:%-3d Pe:%-3d Ch:%-3d Ka:%-3d Sp:%-3d]") %
+                        buf %
+                        p->curStats.get(STAT_STR) %
+                        p->curStats.get(STAT_BRA) %
+                        p->curStats.get(STAT_CON) %
+                        p->curStats.get(STAT_DEX) %
+                        p->curStats.get(STAT_AGI) %
+                        p->curStats.get(STAT_INT) %
+                        p->curStats.get(STAT_WIS) %
+                        p->curStats.get(STAT_FOC) %
+                        p->curStats.get(STAT_PER) %
+                        p->curStats.get(STAT_CHA) %
+                        p->curStats.get(STAT_KAR) %
+                        p->curStats.get(STAT_SPE);
                   }
                   statsx = TRUE;
                   break;
@@ -441,7 +441,7 @@ void TBeing::doWho(const char *argument)
                   if (!quest) {
                     if (p->isPlayerAction(PLR_SOLOQUEST))
                       buf = format("%s (%sSOLO QUEST%s)") % buf % red() % norm();
-                    
+
                     if (p->isPlayerAction(PLR_GRPQUEST))
                       buf = format("%s (%sGROUP QUEST%s)") % buf % blue() % norm();
                   }
@@ -454,25 +454,25 @@ void TBeing::doWho(const char *argument)
                     else
                       sprintf(tString, " Account[Unknown]");
 
-		    buf += tString;
+                    buf += tString;
                   }
                   break;
                 default:
                   break;
-              }        // end of switch statement 
-            }        // end of for-loop 
-	    buf += "\n\r";
+              }        // end of switch statement
+            }        // end of for-loop
+            buf += "\n\r";
             sb += buf;
-          }        // end of 'should I skip this fool' if-statement 
-        }        // end of !NPC(p) loop 
-      }                // end of 'step through the character list loop 
+          }        // end of 'should I skip this fool' if-statement
+        }        // end of !NPC(p) loop
+      }                // end of 'step through the character list loop
     } else {
-      // 'who playername' command 
+      // 'who playername' command
       int c = 0;
       for (k = character_list; k; k = k->next) {
-        if (!k->isPc() || !isname(arg, k->name) || !canSee(k)) 
+        if (!k->isPc() || !isname(arg, k->name) || !canSee(k))
           continue;
- 
+
         c++;
         buf=k->parseTitle(desc);
         buf += "    ";
@@ -504,14 +504,14 @@ void TBeing::doWho(const char *argument)
   if (isImmortal()) {
     if (!listed)
       buf = format("\n\rTotal players / Link dead [%d/%d] (%2.0f%c)\n\rMax since Reboot [%d]  Avg Players : [%.1f]\n\r") %
-	count % lcount % (((double) lcount / (int) count) * 100) % '%' %
-	AccountStats::max_player_since_reboot %
-	(stats.useage_iters ? (float) stats.num_users / stats.useage_iters : 0);
+        count % lcount % (((double) lcount / (int) count) * 100) % '%' %
+        AccountStats::max_player_since_reboot %
+        (stats.useage_iters ? (float) stats.num_users / stats.useage_iters : 0);
     else
       buf = format("\n\rTotal players / Link dead [%d/%d] (%2.0f%c)\n\rNumber Listed: %d  Max since Reboot [%d]  Avg Players : [%.1f]\n\r") %
-	count % lcount % (((double) lcount / (int) count) * 100) % '%' % listed %
-	AccountStats::max_player_since_reboot %
-	(stats.useage_iters ? (float) stats.num_users / stats.useage_iters : 0);
+        count % lcount % (((double) lcount / (int) count) * 100) % '%' % listed %
+        AccountStats::max_player_since_reboot %
+        (stats.useage_iters ? (float) stats.num_users / stats.useage_iters : 0);
   } else {
     buf = format("\n\rTotal Players : [%d] Max since last reboot : [%d] Avg Players : [%.1f]\n\r") % count % AccountStats::max_player_since_reboot % (stats.useage_iters ? (float) stats.num_users / stats.useage_iters : 0);
   }
@@ -538,7 +538,7 @@ void TBeing::doWhozone()
       sbuf = format("%-25s - %s ") % person->getName() % rp->name;
       if (GetMaxLevel() > MAX_MORT){
         buf = format("[%d]") % person->in_room;
-	sbuf+=buf;
+        sbuf+=buf;
       }
       sbuf += "\n\r";
       sendTo(COLOR_BASIC, sbuf);

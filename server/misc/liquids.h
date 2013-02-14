@@ -35,7 +35,7 @@ class liqInfoT {
   liqEntry *operator[] (const liqTypeT);
 
   liqInfoT();
-  ~liqInfoT();  
+  ~liqInfoT();
 };
 
 

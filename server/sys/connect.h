@@ -139,7 +139,7 @@ class commText
     void setNext( commText * n) {
       next = n;
     }
-   
+
     commText();
     commText(const commText &a);
     commText & operator=(const commText &a);
@@ -151,7 +151,7 @@ class outputQ
 {
  private:
   std::deque <Comm *> queue;
-  
+
  public:
   Comm *getBegin();
   Comm *getEnd();
@@ -161,7 +161,7 @@ class outputQ
 
   outputQ() {};
   ~outputQ();
-  
+
   Comm *takeFromQ();
   void putInQ(Comm *);
 };
@@ -209,7 +209,7 @@ class editStuff
     editStuff(const editStuff &a);
     ~editStuff();
 };
-    
+
 class careerData
 {
   public:
@@ -321,7 +321,7 @@ class careerData
       pet_levels_bought = 0;
       stuck_in_foot = 0;
       ounces_of_blood = 0;
-      
+
     }
 };
 
@@ -358,7 +358,7 @@ class sessionData
     unsigned int prayer_success_attempts;
     unsigned int prayer_success_pass;
     unsigned int hones;
- 
+
     sessionData();
     ~sessionData();
     sessionData & operator=(const sessionData &assign);
@@ -510,18 +510,18 @@ class Descriptor
     TSocket *socket;
     editStuff edit;
     sstring host;                 // hostname
-    char pwd[12];                 // password                   
-    connectStateT connected;                // mode of 'connectedness'    
-    int wait;                     // wait for how many loops    
-    char *showstr_head;           // for paging through texts  
+    char pwd[12];                 // password
+    connectStateT connected;                // mode of 'connectedness'
+    int wait;                     // wait for how many loops
+    char *showstr_head;           // for paging through texts
     int tot_pages;               // for tracking paged info
     int cur_page;                //       -
     const char **str;                   // for the modify-str system
     int max_str;
-    int prompt_mode;              // control of prompt-printing 
-    char m_raw[4096];               // buffer for raw input    
-    outputQ output;                 // q of sstrings to send    
-    inputQ input;                  // q of unprocessed input  
+    int prompt_mode;              // control of prompt-printing
+    char m_raw[4096];               // buffer for raw input
+    outputQ output;                 // q of sstrings to send
+    inputQ input;                  // q of unprocessed input
     sessionData session;          // data for this session
     careerData career;            // data for career
     bonusStatPoints bonus_points;
@@ -534,14 +534,14 @@ class Descriptor
     TBeing *character;            // linked to char (might be a poly)
     TAccount *account;            // linked to account
     TPerson *original;            // original char (always a person)
-    snoopData snoop;              // to snoop people           
-    Descriptor *next;             // link to next descriptor    
-    char *pagedfile;              // what file is getting paged 
+    snoopData snoop;              // to snoop people
+    Descriptor *next;             // link to next descriptor
+    char *pagedfile;              // what file is getting paged
     char name[80];                // dummy field (idea, bug, mail use it)
     char subject[80];             // dummy field (idea, bug, mail use it)
     int amount;                   // dummy field (mail uses it)
     TObj *obj;                    // for object editor
-    TMonster *mob;                // for monster editor 
+    TMonster *mob;                // for monster editor
     aliasData alias[16];          // aliases for players
     char history[HISTORY_SIZE][MAX_INPUT_LENGTH];
     betData bet;
@@ -550,7 +550,7 @@ class Descriptor
     byte point_roll;
     time_t talkCount;
     bool m_bIsClient;
-    short bad_login;              // login catches for hackers 
+    short bad_login;              // login catches for hackers
     int severity;
     int office;
     int blockastart;

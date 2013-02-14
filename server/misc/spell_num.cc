@@ -2,7 +2,7 @@
 //
 // SneezyMUD - All rights reserved, SneezyMUD Coding Team
 //
-// spell_num : conversion between internal enums and external ints for 
+// spell_num : conversion between internal enums and external ints for
 //    spell numbers
 //
 //////////////////////////////////////////////////////////////////////////
@@ -622,7 +622,7 @@ int mapSpellnumToFile(spellNumT stt)
     case SKILL_SWITCH_MONK:
       return 410;
     case SKILL_JIRIN:
-      return 411; 
+      return 411;
     case SKILL_KUBO:
       return 412;
     case SKILL_CATFALL:
@@ -1874,7 +1874,7 @@ spellNumT mapFileToSpellnum(int stt)
       return SPELL_CREATE_IRON_GOLEM;
     case 557:
       return SPELL_CREATE_DIAMOND_GOLEM;
-    case 558: 
+    case 558:
       return SPELL_DANCING_BONES;
     case 559:
       return SPELL_CONTROL_UNDEAD;

@@ -67,7 +67,7 @@ public:
     }
   }
 
-  // inline: trims to crlf those lines which consist only of whitespace 
+  // inline: trims to crlf those lines which consist only of whitespace
   void inlineTrimWhiteLines()
   {
     size_t len = length();

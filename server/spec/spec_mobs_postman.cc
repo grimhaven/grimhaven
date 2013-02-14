@@ -30,7 +30,7 @@ sstring randommessage(sstring from)
   sentences.push_back("After having drinks with the escort at Kavod's, I took her back to the Roaring Lion...");
   sentences.push_back("Do you know of a good ointment for this rash on my crotch?");
   sentences.push_back("Were you ever able to get that rash under control?");
-  
+
 
   int r=0;
   for(int i=0;i < ::number(1,3);++i){
@@ -58,12 +58,12 @@ sstring randommessage(sstring from)
       c=0;
     }
   }
-  
+
   msg = "Dear " + to + ",\n" + msg;
   msg += "\nRespectfully, ";
   msg += from;
   msg += "\n";
-  
+
   return msg;
 }
 
@@ -75,12 +75,12 @@ TObj *createletter(sstring from)
     vlogf(LOG_BUG, "Couldn't make a note for mail!");
     return NULL;
   }
-  
+
   note->swapToStrung();
   delete [] note->name;
   note->name = mud_str_dup("letter mail");
   delete [] note->shortDescr;
-  note->shortDescr = mud_str_dup("<o>a handwritten <W>letter<1>"); 
+  note->shortDescr = mud_str_dup("<o>a handwritten <W>letter<1>");
   delete [] note->getDescr();
   note->setDescr(mud_str_dup("A wrinkled <W>letter<1> lies here."));
 
@@ -92,7 +92,7 @@ TObj *createletter(sstring from)
     vlogf(LOG_BUG, "Couldn't load object 124!");
     return NULL;
   }
-  
+
   *envelope += *note;
 
   return envelope;
@@ -135,7 +135,7 @@ int postman(TBeing *, cmdTypeT cmd, const char *, TMonster *me, TObj *)
   // find random mob
   TMonster *tm=NULL;
   std::vector <TMonster *> mobs;
-  
+
   for(StuffIter it=me->roomp->stuff.begin();it!=me->roomp->stuff.end();++it){
     if((tm=dynamic_cast<TMonster *>(*it)) && tm != me)
       mobs.push_back(tm);
@@ -149,37 +149,37 @@ int postman(TBeing *, cmdTypeT cmd, const char *, TMonster *me, TObj *)
     if((obj=dynamic_cast<TObj *>(*it)) && obj->objVnum() == 124)
       count++;
   }
-  
+
   if (!tm->isHumanoid())
     return false;
 
   if(!::number(0,5) || count > 10){
     for(StuffIter it=bag->stuff.begin();it!=bag->stuff.end();++it){
       if((obj=dynamic_cast<TObj *>(*it)) && obj->objVnum() == 124){
-	--(*obj);
-	act("$n delivers $p to $N.",
-	    FALSE, me, obj, tm, TO_ROOM);
-	delete obj;
-	if (!::number(0,800)) {
-	  TObj *o2;
-	  o2=read_object(33601, VIRTUAL);
-	  *me += *o2;
-	  me->doSay("You can go ahead and pay me later...");
-	  me->doGive(tm,o2,GIVE_FLAG_IGN_DEX_TEXT);
-	  me->doAction("", CMD_LICK);
-	  me->doAction(add_bars(tm->name), CMD_WINK);
-	}
-	break;
+        --(*obj);
+        act("$n delivers $p to $N.",
+            FALSE, me, obj, tm, TO_ROOM);
+        delete obj;
+        if (!::number(0,800)) {
+          TObj *o2;
+          o2=read_object(33601, VIRTUAL);
+          *me += *o2;
+          me->doSay("You can go ahead and pay me later...");
+          me->doGive(tm,o2,GIVE_FLAG_IGN_DEX_TEXT);
+          me->doAction("", CMD_LICK);
+          me->doAction(add_bars(tm->name), CMD_WINK);
+        }
+        break;
       }
     }
   } else {
     // deliver letter or receive letter
     obj=createletter(tm->getName());
-    
+
     *bag += *obj;
-    
+
     act("$n receives $p for delivery from $N.",
-	FALSE, me, obj, tm, TO_ROOM);
+        FALSE, me, obj, tm, TO_ROOM);
   }
 
   return true;

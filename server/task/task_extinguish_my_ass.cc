@@ -18,20 +18,20 @@ int task_extinguish_my_ass(TBeing *ch, cmdTypeT cmd, const char *arg, int pulse,
   case CMD_TASK_CONTINUE:
       ch->task->calcNextUpdate(pulse, 3);
       if (!ch->task->status) {
-	act("You roll around on the ground.", FALSE, ch, 0, 0, TO_CHAR);
-	act("$n rolls frantically on the ground.", FALSE, ch, 0, 0, TO_ROOM);
-	TThing *t;
-	TObj *obj = NULL;
-	int i;
-	for (i = MIN_WEAR;i < MAX_WEAR;i++) {
-  	  if (!(t = ch->equipment[i]) || !(obj = dynamic_cast<TObj *>(t)) ||
-	      !obj->isObjStat(ITEM_BURNING))
-	    continue;
-	  if (::number(0,3) == 1) {
-	    obj->remBurning(ch);
-	    act("Your $p is extinguished.", FALSE, ch, obj, 0, TO_CHAR);
-	  }
-	}
+        act("You roll around on the ground.", FALSE, ch, 0, 0, TO_CHAR);
+        act("$n rolls frantically on the ground.", FALSE, ch, 0, 0, TO_ROOM);
+        TThing *t;
+        TObj *obj = NULL;
+        int i;
+        for (i = MIN_WEAR;i < MAX_WEAR;i++) {
+            if (!(t = ch->equipment[i]) || !(obj = dynamic_cast<TObj *>(t)) ||
+              !obj->isObjStat(ITEM_BURNING))
+            continue;
+          if (::number(0,3) == 1) {
+            obj->remBurning(ch);
+            act("Your $p is extinguished.", FALSE, ch, obj, 0, TO_CHAR);
+          }
+        }
       }
       ch->task->status = 0;
       break;

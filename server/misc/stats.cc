@@ -46,7 +46,7 @@ short Stats::set(statTypeT stat, short val)
 short Stats::add(statTypeT stat, short mod)
 {
   mud_assert(((stat >= MIN_STAT) && (stat < MAX_STATS)),
-	"Something tried to access an invalid stat.");
+        "Something tried to access an invalid stat.");
 
   return values[stat] += mod;
 }
@@ -676,7 +676,7 @@ int territory_adjustment(territoryT ter, statTypeT whichStat)
           return 10;
         case STAT_CON:  // poor health environment
           return -10;
-        case STAT_BRA: 
+        case STAT_BRA:
           return -10;
         default:
           return 0;
@@ -701,9 +701,9 @@ int territory_adjustment(territoryT ter, statTypeT whichStat)
           return 20;
         case STAT_CON:  // poor health environment
           return -20;
-        case STAT_BRA: 
+        case STAT_BRA:
           return -20;
-        case STAT_PER:  // over stimulated 
+        case STAT_PER:  // over stimulated
           return -10;
         default:
           return 0;
@@ -723,15 +723,15 @@ int territory_adjustment(territoryT ter, statTypeT whichStat)
           return 0;
         case STAT_CON:  // mildly healthy environment
           return 5;
-        case STAT_BRA: 
+        case STAT_BRA:
           return 5;
-        case STAT_FOC:  // there wasn't a lot to do 
+        case STAT_FOC:  // there wasn't a lot to do
           return -10;
         case STAT_PER:
           return 15;
-        case STAT_SPE: 
+        case STAT_SPE:
           return -5;
-        case STAT_AGI: 
+        case STAT_AGI:
           return 0;
         default:
           return 0;
@@ -750,15 +750,15 @@ int territory_adjustment(territoryT ter, statTypeT whichStat)
           return -15;
         case STAT_CON:  // mildly healthy environment
           return 25;
-        case STAT_BRA: 
+        case STAT_BRA:
           return 15;
-        case STAT_FOC:  // there wasn't a lot to do 
+        case STAT_FOC:  // there wasn't a lot to do
           return 15;
         case STAT_PER:
           return -15;
-        case STAT_SPE: 
+        case STAT_SPE:
           return 0;
-        case STAT_AGI: 
+        case STAT_AGI:
           return 0;
         default:
           return 0;
@@ -779,15 +779,15 @@ int territory_adjustment(territoryT ter, statTypeT whichStat)
           return -5;
         case STAT_CON:  // mildly healthy environment
           return 10;
-        case STAT_BRA: 
+        case STAT_BRA:
           return 10;
-        case STAT_FOC:  // there wasn't a lot to do 
+        case STAT_FOC:  // there wasn't a lot to do
           return -15;
         case STAT_PER:
           return 10;
-        case STAT_SPE: 
+        case STAT_SPE:
           return 0;
-        case STAT_AGI: 
+        case STAT_AGI:
           return 5;
         default:
           return 0;
@@ -806,15 +806,15 @@ int territory_adjustment(territoryT ter, statTypeT whichStat)
           return -15;
         case STAT_CON:  // mildly healthy environment
           return 20;
-        case STAT_BRA: 
+        case STAT_BRA:
           return 15;
-        case STAT_FOC:  // there wasn't a lot to do 
+        case STAT_FOC:  // there wasn't a lot to do
           return -15;
         case STAT_PER:
           return 10;
-        case STAT_SPE: 
+        case STAT_SPE:
           return 0;
-        case STAT_AGI: 
+        case STAT_AGI:
           return 5;
         default:
           return 0;
@@ -833,15 +833,15 @@ int territory_adjustment(territoryT ter, statTypeT whichStat)
           return -15;
         case STAT_CON:  // mildly healthy environment
           return 15;
-        case STAT_BRA: 
+        case STAT_BRA:
           return 15;
-        case STAT_FOC:  // there wasn't a lot to do 
+        case STAT_FOC:  // there wasn't a lot to do
           return -15;
         case STAT_PER:
           return 10;
-        case STAT_SPE: 
+        case STAT_SPE:
           return 0;
-        case STAT_AGI: 
+        case STAT_AGI:
           return 5;
         default:
           return 0;
@@ -861,15 +861,15 @@ int territory_adjustment(territoryT ter, statTypeT whichStat)
           return -5;
         case STAT_CON:  // mildly healthy environment
           return 5;
-        case STAT_BRA: 
+        case STAT_BRA:
           return 5;
-        case STAT_FOC:  // there wasn't a lot to do 
+        case STAT_FOC:  // there wasn't a lot to do
           return -5;
         case STAT_PER:
           return 5;
-        case STAT_SPE: 
+        case STAT_SPE:
           return 0;
-        case STAT_AGI: 
+        case STAT_AGI:
           return 0;
         default:
           return 0;
@@ -899,32 +899,32 @@ int TBeing::getStat(statSetT fromSet, statTypeT whichStat) const
       // and add on age modifiers
       my_age = age()->year - getBaseAge() + 17;
       if(!isVampire())
-	amount += age_mod_for_stat(this, my_age, whichStat);
-    
+        amount += age_mod_for_stat(this, my_age, whichStat);
+
       amount += territory_adjustment(player.hometerrain, whichStat);
 
       // monk skill
       // this is kind of a wack place to put it I think, but it's the easiest
       // place to do a dynamic change based on skill
       if(discs && whichStat == STAT_STR && doesKnowSkill(SKILL_IRON_MUSCLES)){
-	amount += getSkillValue(SKILL_IRON_MUSCLES)/8;
+        amount += getSkillValue(SKILL_IRON_MUSCLES)/8;
       }
 
       if(isVampire() &&
-	 (whichStat == STAT_STR ||
-	  whichStat == STAT_SPE ||
-	  whichStat == STAT_AGI ||
-	  whichStat == STAT_FOC))
-	amount += 15;
+         (whichStat == STAT_STR ||
+          whichStat == STAT_SPE ||
+          whichStat == STAT_AGI ||
+          whichStat == STAT_FOC))
+        amount += 15;
 
       return amount;
     case(STAT_RACE):
       return race->baseStats.get(whichStat);
     case(STAT_AGE):
       if(!isVampire())
-	return age_mod_for_stat(this, (age()->year - getBaseAge() + 17), whichStat);
+        return age_mod_for_stat(this, (age()->year - getBaseAge() + 17), whichStat);
       else
-	return 0;
+        return 0;
     case(STAT_TERRITORY):
       return territory_adjustment(player.hometerrain, whichStat);
   }
@@ -1003,7 +1003,7 @@ double TBeing::plotStat(statSetT whichSet, statTypeT whichStat, double min_value
     cleared = true;
   }
 #endif
- 
+
   int MAXSTAT = 205;
   int MINSTAT = 005;
   if (whichSet == STAT_CHOSEN) {
@@ -1022,7 +1022,7 @@ double TBeing::plotStat(statSetT whichSet, statTypeT whichStat, double min_value
 
   // A little algebra and we get:
   // A = (max_value - avg)/(MAXSTAT ^ power - midline ^ power)
-  // B = avg - (midline^power) * A 
+  // B = avg - (midline^power) * A
 
   // March, 2001:
   // this is incorrect, A = (max_value - avg)/(MAXSTAT-midline)^power
@@ -1040,9 +1040,9 @@ double TBeing::plotStat(statSetT whichSet, statTypeT whichStat, double min_value
       // determine the normalized value
       double A, B;
       if (stat >= midline) {
-        A = 1  / (pow(MAXSTAT, power) - pow(midline, power)); 
+        A = 1  / (pow(MAXSTAT, power) - pow(midline, power));
       } else {
-        A = 1 / (pow(midline, power) - pow(MINSTAT, power)); 
+        A = 1 / (pow(midline, power) - pow(MINSTAT, power));
       }
 
       // this if statment is equiv to A = abs(1 / (pow(midline,power) - pow(MAXSTAT,power)))
@@ -1059,14 +1059,14 @@ double TBeing::plotStat(statSetT whichSet, statTypeT whichStat, double min_value
   }
 #endif
   double A, B;
-  double num; 
+  double num;
 
   if (stat >= midline) {
-    A = (max_value - avg) / (pow(MAXSTAT - midline, power)); 
+    A = (max_value - avg) / (pow(MAXSTAT - midline, power));
     B = avg;
     num = A * pow(stat - midline, power) + B;
   } else {
-    A = (min_value - avg) / (pow(midline - MINSTAT, power)); 
+    A = (min_value - avg) / (pow(midline - MINSTAT, power));
     B =  avg;
     num = A * pow(midline - stat, power) + B;
   }
@@ -1165,7 +1165,7 @@ float TBeing::getSwindleBonus()
     // make 5 separate rolls so chr goes up amount based on learning
     for (int i = 0; i < 5; i++)
       if (bSuccess(SKILL_SWINDLE))
-	chr += 0.02;
+        chr += 0.02;
   }
 
   return chr;

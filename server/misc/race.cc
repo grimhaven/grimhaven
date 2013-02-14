@@ -311,7 +311,7 @@ void Race::initRace(const char *whichRace)
   // COSMO STRING
   sstring buf_sstring;
   const char *buf2;
-  
+
   while (fgets(buf, 256, raceFile)) {
     buf2 = one_argument(buf, keyword, cElements(keyword));
     strcpy(buf, buf2);
@@ -337,21 +337,21 @@ void Race::initRace(const char *whichRace)
     else if (!strcasecmp(keyword, "lore")) {
       one_argument(buf, value, cElements(value));
       if (!strcasecmp(value, "animal"))
-	Kingdom = LORE_ANIMAL;
+        Kingdom = LORE_ANIMAL;
       else if (!strcasecmp(value, "veggie"))
-	Kingdom = LORE_VEGGIE;
+        Kingdom = LORE_VEGGIE;
       else if (!strcasecmp(value, "diabolic"))
-	Kingdom = LORE_DIABOLIC;
+        Kingdom = LORE_DIABOLIC;
       else if (!strcasecmp(value, "reptile"))
-	Kingdom = LORE_REPTILE;
+        Kingdom = LORE_REPTILE;
       else if (!strcasecmp(value, "undead"))
-	Kingdom = LORE_UNDEAD;
+        Kingdom = LORE_UNDEAD;
       else if (!strcasecmp(value, "giant"))
-	Kingdom = LORE_GIANT;
+        Kingdom = LORE_GIANT;
       else if (!strcasecmp(value, "people"))
-	Kingdom = LORE_PEOPLE;
+        Kingdom = LORE_PEOPLE;
       else if (!strcasecmp(value, "other"))
-	Kingdom = LORE_OTHER;
+        Kingdom = LORE_OTHER;
       else {
         vlogf(LOG_LOW, format("Bad lore %s, defined for %s") %  value % whichRace);
         Kingdom = LORE_PEOPLE;
@@ -711,26 +711,26 @@ void Race::showTo(TBeing *caller)
 
   str += "Male Dimensions:    ";
   sprintf(buf, "Height: %d+%dd%d\tWeight: %d+%dd%d\n\r",
-		    baseMaleHeight, maleHtNumDice, maleHtDieSize,
-		    baseMaleWeight, maleWtNumDice, maleWtDieSize);
+                    baseMaleHeight, maleHtNumDice, maleHtDieSize,
+                    baseMaleWeight, maleWtNumDice, maleWtDieSize);
   str += buf;
 
   str += "Female Dimensions:  ";
   sprintf(buf, "Height: %d+%dd%d\tWeight: %d+%dd%d\n\r",
-		    baseFemaleHeight, femaleHtNumDice, femaleHtDieSize,
-		    baseFemaleWeight, femaleWtNumDice, femaleWtDieSize);
+                    baseFemaleHeight, femaleHtNumDice, femaleHtDieSize,
+                    baseFemaleWeight, femaleWtNumDice, femaleWtDieSize);
   str += buf;
 
   str += "Modifiers:\n\r";
   sprintf(buf, "\tHP:\t%d\tMV:\t%d\tMANA:\t%d\n\r", hpMod, moveMod, manaMod);
   str += buf;
 
-  sprintf(buf, "\tSearch:\t%d\tSight:\t%d\tVision:\t%d\n\r", 
+  sprintf(buf, "\tSearch:\t%d\tSight:\t%d\tVision:\t%d\n\r",
         searchMod, lineOfSightMod, visionBonus);
   str += buf;
 
-  sprintf(buf, "\tDrink:\t%.2f\tFood:\t%.2f\n\r", 
-	  	    drinkMod, foodMod);
+  sprintf(buf, "\tDrink:\t%.2f\tFood:\t%.2f\n\r",
+                      drinkMod, foodMod);
   str += buf;
 
   str += sstring("Move In: ") + moveMessageIn + sstring("\n\r");
@@ -806,7 +806,7 @@ int Race::generateHeight(sexTypeT sex) const
   else
     return baseMaleHeight + (dice(maleHtNumDice,maleHtDieSize));
 }
-  
+
 // generateWeight() calculates a weight for a being based on race and the
 // numbers read in at initialization for the race.  This is called upon
 // character creation.  Hopefully mob creation will call this too.
@@ -875,7 +875,7 @@ race_t TBeing::getRaceIndex(const char *ccName) const
 
 race_t TBeing::getRace() const
 {
-  //  if (is_disguised == TRUE && disguise_race) 
+  //  if (is_disguised == TRUE && disguise_race)
   //  return disguise_race->getRace();
   return race->getRace();
 }

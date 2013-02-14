@@ -24,7 +24,7 @@
 #ifndef __DISC_COMBAT_H
 #define __DISC_COMBAT_H   1
 
-// This contains the general combat skills.  
+// This contains the general combat skills.
 
 #include "discipline.h"
 #include "skills.h"

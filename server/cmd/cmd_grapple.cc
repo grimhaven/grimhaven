@@ -72,7 +72,7 @@ static int grapple(TBeing *c, TBeing *victim, spellNumT skill)
 
   if ((c->bSuccess(bKnown + percent, skill) &&
          // insure they can hit this critter
-         (i = c->specialAttack(victim,skill)) && 
+         (i = c->specialAttack(victim,skill)) &&
          i != GUARANTEED_FAILURE &&
          // make sure they have reasonable training
          (percent < bKnown)) ||
@@ -105,16 +105,16 @@ static int grapple(TBeing *c, TBeing *victim, spellNumT skill)
 
       // if eqipment worn on body is spiked, add a little extra 10-20-00, -dash
       if (((obj = c->equipment[WEAR_BODY]) &&
-	   (tbc = dynamic_cast<TBaseClothing *>(obj)) &&
-	   (tbc->isSpiked()||tbc->isObjStat(ITEM_SPIKED)))) {
-	suitDam = (int)((tbc->getWeight()/10) + 1);
+           (tbc = dynamic_cast<TBaseClothing *>(obj)) &&
+           (tbc->isSpiked()||tbc->isObjStat(ITEM_SPIKED)))) {
+        suitDam = (int)((tbc->getWeight()/10) + 1);
 
-	act("The spikes on your $o sink into $N.", FALSE, c, tbc, victim, TO_CHAR);
-	act("The spikes on $n's $o sink into $N.", FALSE, c, tbc, victim, TO_NOTVICT);
-	act("The spikes on $n's $o sink into you.", FALSE, c, tbc, victim, TO_VICT);
+        act("The spikes on your $o sink into $N.", FALSE, c, tbc, victim, TO_CHAR);
+        act("The spikes on $n's $o sink into $N.", FALSE, c, tbc, victim, TO_NOTVICT);
+        act("The spikes on $n's $o sink into you.", FALSE, c, tbc, victim, TO_VICT);
 
-	if (c->reconcileDamage(victim, suitDam, TYPE_STAB) == -1)
-	  return DELETE_VICT;
+        if (c->reconcileDamage(victim, suitDam, TYPE_STAB) == -1)
+          return DELETE_VICT;
 
       }
 
@@ -125,7 +125,7 @@ static int grapple(TBeing *c, TBeing *victim, spellNumT skill)
       rc = c->trySpringleap(victim);
       if (IS_SET_DELETE(rc, DELETE_THIS) || IS_SET_DELETE(rc, DELETE_VICT))
         return rc;
-   
+
       rc = victim->crashLanding(POSITION_SITTING);
       if (IS_SET_DELETE(rc, DELETE_THIS))
         return DELETE_VICT;
@@ -141,11 +141,11 @@ static int grapple(TBeing *c, TBeing *victim, spellNumT skill)
       if (!victim->fight()) {
         if (c->fight()) {
           if (c->fight() != victim) {
-            act("You now turn your attention to $N!", 
+            act("You now turn your attention to $N!",
                 TRUE, c, 0, victim, TO_CHAR);
-            act("$n now turns $s attention to $N!", 
+            act("$n now turns $s attention to $N!",
                 TRUE, c, 0, victim, TO_NOTVICT);
-            act("$n has turned $s attention to you!", 
+            act("$n has turned $s attention to you!",
                 TRUE, c, 0, victim, TO_VICT);
           }
           c->stopFighting();
@@ -164,11 +164,11 @@ static int grapple(TBeing *c, TBeing *victim, spellNumT skill)
               TRUE, c, 0, victim, TO_VICT);
         }
         if (victim->fight() && (victim->fight() != c)) {
-          act("$N now turns $S attention to you!", 
+          act("$N now turns $S attention to you!",
               TRUE, c, 0, victim, TO_CHAR);
-          act("$N now turns $S attention to $n!", 
+          act("$N now turns $S attention to $n!",
               TRUE, c, 0, victim, TO_NOTVICT);
-          act("You now turn your attention to $n!", 
+          act("You now turn your attention to $n!",
               TRUE, c, 0, victim, TO_VICT);
 
         }

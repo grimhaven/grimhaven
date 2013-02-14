@@ -17,7 +17,7 @@ void procCheckMail::run(const TPulse &) const
 
   if (Config::ModeBuilder())
     return;
-  
+
   for (d = descriptor_list; d; d = d->next) {
     TBeing *ch = d->original ? d->original : d->character;
     if (!d->connected && ch) {

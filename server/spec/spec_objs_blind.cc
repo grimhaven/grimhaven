@@ -52,9 +52,9 @@ int weaponBlinder(TBeing *tVictim, cmdTypeT tCmd, const char *, TObj *tObj, TObj
       ch->isNotPowerful(tVictim, (int)tWeap->weaponLevel(), SPELL_BLINDNESS, SILENT_YES))
     return FALSE;
 
-  if (!::number(0, std::max(10, (int)(tWeap->weaponLevel() +
-				      (tVictim->GetMaxLevel() -
-				       ch->GetMaxLevel())))) || forceSuccess) {
+  if (!::number(0, std::max(10, (int)(tWeap->weaponLevel()
+                                      (tVictim->GetMaxLevel() -
+                                       ch->GetMaxLevel())))) || forceSuccess) {
     act("A Seering light shines from $p, blinding $N.",
         FALSE, ch, tObj, tVictim, TO_CHAR);
     act("$n shields $s eyes as a seering light shines from $p, blinding $N.",

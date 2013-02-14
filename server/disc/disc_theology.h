@@ -37,7 +37,7 @@ public:
 
     CDTheology()
       : CDiscipline(),
-      skPenance(), 
+      skPenance(),
       skAttune() {
     }
     CDTheology(const CDTheology &a)

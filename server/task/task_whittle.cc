@@ -131,9 +131,9 @@ void initWhittle()
                     -1, 99, 195, false, WHITTLE_INVOLVED);
   whittleItems[i++]("miniature-idol-peel",
                     -1, 99, 197, false, WHITTLE_INVOLVED);
-  whittleItems[i++]("pole-fishingpole-very-nice", 
+  whittleItems[i++]("pole-fishingpole-very-nice",
                     -1, 60, 13862, false, WHITTLE_GENERAL);
-  
+
   whittleItems[i++]("elongated-strip strip wood", // For 'create splint' later on
                     -1, 30,  -1, false, WHITTLE_EASY);
 }
@@ -221,7 +221,7 @@ void task_whittlePulse(TBeing *ch, TArrow *tArrow, whittlePulseT tWhitLevel)
       tArrow->setWeapDamDev((int)tTemp);
       break;
     default:
-      vlogf(LOG_BUG, format("task_shittlePulse(TArrow) called with invalid tWhitLevel.  [%d]") % 
+      vlogf(LOG_BUG, format("task_shittlePulse(TArrow) called with invalid tWhitLevel.  [%d]") %
             tWhitLevel);
       break;
   }
@@ -272,7 +272,7 @@ void task_whittlePulse(TBeing *ch, TBow *tBow, whittlePulseT tWhitLevel)
       tBow->setMaxRange((int)(tValue + tBow->getMaxRange()));
       break;
     default:
-      vlogf(LOG_BUG, format("task_shittlePulse(TBow) called with invalid tWhitLevel.  [%d]") % 
+      vlogf(LOG_BUG, format("task_shittlePulse(TBow) called with invalid tWhitLevel.  [%d]") %
             tWhitLevel);
       break;
   }
@@ -350,15 +350,15 @@ bool task_whittleCreateNew(TBeing *ch, sstring tStWood, int tIndex)
   if(ch){
     for(StuffIter it=ch->stuff.begin();it!=ch->stuff.end();++it){
       if(isname((*it)->name, tStWood)){
-	if ((tWood = dynamic_cast<TOrganic *>(*it))) {
-	  if (tWood->getOType() != ORGANIC_WOOD) {
-	    tWood = NULL;
-	    continue;
-	  }
-	  
-	  totalWood[0] += tWood->getWeight();
-	  totalWood[1] += tWood->getVolume();
-	}
+        if ((tWood = dynamic_cast<TOrganic *>(*it))) {
+          if (tWood->getOType() != ORGANIC_WOOD) {
+            tWood = NULL;
+            continue;
+          }
+
+          totalWood[0] += tWood->getWeight();
+          totalWood[1] += tWood->getVolume();
+        }
       }
     }
   }
@@ -378,7 +378,7 @@ bool task_whittleCreateNew(TBeing *ch, sstring tStWood, int tIndex)
       TThing *tObjTemp=*(it++);
 
       if(!isname(tObjTemp->name, tStWood))
-	continue;
+        continue;
 
       if ((tWood = dynamic_cast<TOrganic *>(tObjTemp))) {
         if (tWood->getOType() != ORGANIC_WOOD)
@@ -420,7 +420,7 @@ bool task_whittleCreateNew(TBeing *ch, sstring tStWood, int tIndex)
 
     if (!(ch->task->obj = read_object(real_object(whittleItems[tIndex].itemVnum), REAL))) {
       ch->sendTo("Something bad happened.  Tell a god.\n\r");
-      vlogf(LOG_BUG, format("Player in whittle got to item that doesn't exist!  [%d]") % 
+      vlogf(LOG_BUG, format("Player in whittle got to item that doesn't exist!  [%d]") %
             whittleItems[tIndex].itemVnum);
       return false;
     }
@@ -493,7 +493,7 @@ int task_whittleObject(TBeing *ch, sstring tStWood)
 
   ch->learnFromDoingUnusual(LEARN_UNUSUAL_NORM_LEARN, SKILL_WHITTLE, 1);
 
-  double objSize = (((ch->task->obj->getWeight() +
+  double objSize = (((ch->task->obj->getWeight()
                       ch->task->obj->getVolume()) / 25) *
                     whittleItems[ch->task->flags].itemType);
   double process = ((++ch->task->timeLeft) / objSize);
@@ -587,7 +587,7 @@ void TBeing::doWhittle(const char *tArg)
       sendTo("------------------------------------------------------------------------------\n\r");
 
       for (int whittleIndex = 0; whittleIndex < (signed) whittleItems.size(); whittleIndex++) {
-        double whittleTime = (((whittleItems[whittleIndex].volSize +
+        double whittleTime = (((whittleItems[whittleIndex].volSize
                                 whittleItems[whittleIndex].weiSize) / 25) *
                               whittleItems[whittleIndex].itemType);
 
@@ -832,7 +832,7 @@ void taskWhittleEntry::operator()(sstring tString, int newtClass,
     weiSize *= 1.10;
     weaSize = max(400.0, ((volSize + weiSize) / 10));
 
-    vlogf(LOG_MISC, format("Adding Whittle: [%.1f %d : %.1f] [%.1f %.1f : %.1f]") % 
+    vlogf(LOG_MISC, format("Adding Whittle: [%.1f %d : %.1f] [%.1f %.1f : %.1f]") %
           volSize % tObj->getVolume() % (tObj->getVolume() * 1.10) %
           weiSize % tObj->getWeight() % (tObj->getWeight() * 1.10));
 

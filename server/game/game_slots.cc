@@ -1,8 +1,8 @@
 /*************************************************************************
 
       SneezyMUD 3.0 - All rights reserved, SneezyMUD Coding Team
-      "slots.c" - All functions and routines related to the slot machines 
-      
+      "slots.c" - All functions and routines related to the slot machines
+
       Slot Machines coded by Russ Russell, January 1993. Last revision
       April 6th, 1994.
 
@@ -152,7 +152,7 @@ void TBeing::doPlay(const char *arg)
     gPoker.discard(this, arg);
     return;
   }
-  
+
   half_chop(arg, game, options);
 
   if (!*game) {
@@ -178,74 +178,74 @@ void TBeing::doPlay(const char *arg)
       sendTo("6) Play the expensive slots and bet 50000 talen chip.\n\r");
     } else {
       if (!strcmp(options, "1")) {
-	if((chip=find_chip(this, CHIP_100))){
-	  d->bet.slot = CHIP_100;
-	  (*chip)--;
-	  delete chip;
+        if((chip=find_chip(this, CHIP_100))){
+          d->bet.slot = CHIP_100;
+          (*chip)--;
+          delete chip;
 
-	  spin_slot(this);
-	} else {
-	  sendTo("You search your pockets for chips but come up empty-handed.\n\r");
-	  return;
-	}
+          spin_slot(this);
+        } else {
+          sendTo("You search your pockets for chips but come up empty-handed.\n\r");
+          return;
+        }
       } else if (!strcmp(options, "2")) {
-	if((chip=find_chip(this, CHIP_500))){
-	  d->bet.slot = CHIP_500;
-	  (*chip)--;
-	  delete chip;
+        if((chip=find_chip(this, CHIP_500))){
+          d->bet.slot = CHIP_500;
+          (*chip)--;
+          delete chip;
 
-	  spin_slot(this);
-	} else {
-	  sendTo("You search your pockets for chips but come up empty-handed.\n\r");
-	  return;
-	}
+          spin_slot(this);
+        } else {
+          sendTo("You search your pockets for chips but come up empty-handed.\n\r");
+          return;
+        }
       } else if (!strcmp(options, "3")) {
-	if((chip=find_chip(this, CHIP_1000))){
-	  d->bet.slot = CHIP_1000;
-	  (*chip)--;
-	  delete chip;
+        if((chip=find_chip(this, CHIP_1000))){
+          d->bet.slot = CHIP_1000;
+          (*chip)--;
+          delete chip;
 
-	  spin_slot(this);
-	} else {
-	  sendTo("You search your pockets for chips but come up empty-handed.\n\r");
-	  return;
-	}
+          spin_slot(this);
+        } else {
+          sendTo("You search your pockets for chips but come up empty-handed.\n\r");
+          return;
+        }
       } else if (!strcmp(options, "4")) {
-	if((chip=find_chip(this, CHIP_5000))){
-	  d->bet.slot = CHIP_5000;
-	  (*chip)--;
-	  delete chip;
+        if((chip=find_chip(this, CHIP_5000))){
+          d->bet.slot = CHIP_5000;
+          (*chip)--;
+          delete chip;
 
-	  spin_slot(this);
-	} else {
-	  sendTo("You search your pockets for chips but come up empty-handed.\n\r");
-	  return;
-	}
+          spin_slot(this);
+        } else {
+          sendTo("You search your pockets for chips but come up empty-handed.\n\r");
+          return;
+        }
       } else if (!strcmp(options, "5")) {
-	if((chip=find_chip(this, CHIP_10000))){
-	  d->bet.slot = CHIP_10000;
-	  (*chip)--;
-	  delete chip;
+        if((chip=find_chip(this, CHIP_10000))){
+          d->bet.slot = CHIP_10000;
+          (*chip)--;
+          delete chip;
 
-	  spin_slot(this);
-	} else {
-	  sendTo("You search your pockets for chips but come up empty-handed.\n\r");
-	  return;
-	}
+          spin_slot(this);
+        } else {
+          sendTo("You search your pockets for chips but come up empty-handed.\n\r");
+          return;
+        }
       } else if (!strcmp(options, "6")) {
-	if((chip=find_chip(this, CHIP_50000))){
-	  d->bet.slot = CHIP_50000;
-	  (*chip)--;
-	  delete chip;
+        if((chip=find_chip(this, CHIP_50000))){
+          d->bet.slot = CHIP_50000;
+          (*chip)--;
+          delete chip;
 
-	  spin_slot(this);
-	} else {
-	  sendTo("You search your pockets for chips but come up empty-handed.\n\r");
-	  return;
-	}
+          spin_slot(this);
+        } else {
+          sendTo("You search your pockets for chips but come up empty-handed.\n\r");
+          return;
+        }
       } else {
-	sendTo("Incorrect Option.\n\r");
-	return;
+        sendTo("Incorrect Option.\n\r");
+        return;
       }
     }
   } else if (is_abbrev(game, "roulette")) {
@@ -287,15 +287,15 @@ void TBeing::doPlay(const char *arg)
       return;
     } else {
       if (isdigit(*options)) {
-	// int option = convertTo<int>(options);
+        // int option = convertTo<int>(options);
 #if 0
-	m_craps->rollDice();
+        m_craps->rollDice();
 #endif
 
-	return;
+        return;
       } else {
-	sendTo("Options need to be numbers between 1-20\n\r");
-	return;
+        sendTo("Options need to be numbers between 1-20\n\r");
+        return;
       }
     }
   } else if (is_abbrev(game, "21") || is_abbrev(game, "blackjack")) {
@@ -359,8 +359,8 @@ void spin_slot(TBeing *ch)
       ch->sendTo("You win!\n\r");
       ch->sendTo("Some chips fall into the slot.\n\r");
       for(int i=0;i<2;++i){
-	chip=read_object(ch->desc->bet.slot, VIRTUAL);
-	*slot += *chip;
+        chip=read_object(ch->desc->bet.slot, VIRTUAL);
+        *slot += *chip;
       }
       ch->desc->bet.slot = 0;
       return;

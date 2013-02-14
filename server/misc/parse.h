@@ -466,12 +466,12 @@ enum cmdTypeT {
      CMD_DUCK,
      CMD_BECKON,
      CMD_WINCE,
-     CMD_HUM	,
+     CMD_HUM        ,
      CMD_RAZZ,
-     CMD_GAG	,
+     CMD_GAG        ,
      CMD_AVERT,
      CMD_SALUTE,
-     CMD_PET	,
+     CMD_PET        ,
      CMD_GRIMACE,
      CMD_SEEKWATER,
      CMD_CRIT,
@@ -636,7 +636,7 @@ enum cmdTypeT {
 
        CMD_ROOM_ENTERED,
        CMD_ROOM_ATTEMPTED_EXIT,
-  
+
        CMD_OBJ_HITTING,
        CMD_OBJ_HIT,
        CMD_OBJ_MISS,
@@ -715,7 +715,7 @@ template<class T> T convertTo(const sstring &s)
     std::istringstream is(s);
     if(!(is >> x)) // let failure convert to 0 with no warning.  we relied on
       x=0;         // this (undefined) behavior with atoi, so we need it now
-    
+
     return x;
   }
 }

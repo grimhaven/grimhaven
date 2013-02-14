@@ -31,7 +31,7 @@ static void renamePersonalizeFix(TThing *t, const char * orig_name, const char *
     if ((sscanf(buf, "This is the personalized object of %s.", persbuf)) == 1) {
       if (!strcmp(persbuf, orig_name)) {
         // we are personalized already, so not bothering to swap to strung again
-        vlogf(LOG_MISC, format("Personalized object (%s) on %s, being restrung.") % 
+        vlogf(LOG_MISC, format("Personalized object (%s) on %s, being restrung.") %
            obj->getName() % new_name);
         sprintf(buf, "This is the personalized object of %s", new_name);
         delete [] obj->action_description;
@@ -116,10 +116,10 @@ void TBeing::doNameChange(const char *argument)
       act("You can't name $N that.", FALSE, this, 0, mons, TO_CHAR);
       return;
     }
-    
+
     mons->swapToStrung();
 
-    //  Remake the pet's name.  
+    //  Remake the pet's name.
     tmpbuf = format("%s %s") % mons->name % new_name;
     delete [] mons->name;
     mons->name = mud_str_dup(tmpbuf);
@@ -130,7 +130,7 @@ void TBeing::doNameChange(const char *argument)
     one_argument(tmpbuf2, arg, cElements(arg));
     if (!strcmp(arg, "a") || !strcmp(arg, "an"))
       tmpbuf=format("\"%s\", the %s") % sstring(new_name).cap() %
-	one_argument(tmpbuf2, arg, cElements(arg));
+        one_argument(tmpbuf2, arg, cElements(arg));
     else
       tmpbuf = format("\"%s\", %s") % sstring(new_name).cap() % mons->getName();
 
@@ -167,7 +167,7 @@ void TBeing::doNameChange(const char *argument)
     sendTo("That player already exists.\n\r");
     return;
   }
-  
+
   // check for corspse file
   tmpbuf = format("corpses/%s") % sstring(orig_name).lower();
   if ((fp = fopen(tmpbuf.c_str(), "r"))) {
@@ -185,15 +185,15 @@ void TBeing::doNameChange(const char *argument)
 
   TDatabase db(DB_SNEEZY);
 
-  db.query("update player set name=lower('%s') where name=lower('%s')", 
-	   tmp_name, orig_name);
+  db.query("update player set name=lower('%s') where name=lower('%s')",
+           tmp_name, orig_name);
 
   tmpbuf=format("account/%c/%s/%s") % LOWER(vict->desc->account->name[0]) %
     sstring(vict->desc->account->name).lower() % sstring(orig_name).lower();
 
   if (unlink(tmpbuf.c_str()) != 0)
     vlogf(LOG_FILE, format("error in unlink (11) (%s) %d") %  tmpbuf % errno);
-  
+
   if (vict->GetMaxLevel() > MAX_MORT) {
     tmpbuf=format("mv immortals/%s/ immortals/%s/") % orig_name % sstring(tmp_name).cap();
     vsystem(tmpbuf);
@@ -230,7 +230,7 @@ void TBeing::doDescription()
     sendTo("Ugly monsters like you can't change a description!\n\r");
     return;
   }
-#if 0 
+#if 0
   if (desc->m_bIsClient) {
     // it winds up sending their desc as a bug report...
 

@@ -47,12 +47,12 @@ int task_meditate(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, TO
             gainAmt = std::max(gainAmt, 1);
             ch->setMana(std::min(ch->getMana() + gainAmt, (int) ch->manaLimit()));
           } else {
-	    // give them resting regen if a fail on meditate
+            // give them resting regen if a fail on meditate
             ch->addToMana(1);
             if (::number(0,1))
               ch->sendTo("Your meditation has slightly increased your sense of well being!\n\r");
           }
-	  ch->learnFromDoingUnusual(LEARN_UNUSUAL_NORM_LEARN, SKILL_MANA, 20);
+          ch->learnFromDoingUnusual(LEARN_UNUSUAL_NORM_LEARN, SKILL_MANA, 20);
 
           // get this regardless...
           ch->addToHit(1);

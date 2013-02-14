@@ -11,7 +11,7 @@ bool find_paint_target(TBeing *ch, sstring arg, TBeing **tb, TObj **obj, TRoom *
   if(arg.empty()){
     *rp=ch->roomp;
   } else if((exitp=ch->exitDir(getDirFromChar(arg))) &&
-	    exitp->to_room && real_roomp(exitp->to_room)){
+            exitp->to_room && real_roomp(exitp->to_room)){
     *rp=real_roomp(exitp->to_room);
   } else {
     generic_find(arg.c_str(), FIND_CHAR_ROOM | FIND_OBJ_ROOM, ch, tb, obj);

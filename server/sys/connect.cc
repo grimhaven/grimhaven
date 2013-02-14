@@ -117,7 +117,7 @@ Descriptor::Descriptor(TSocket *s) :
 
   for (i = 0; i < HISTORY_SIZE; i++)
     *history[i] = '\0';
-  
+
   descriptor_list = this;
 }
 
@@ -185,11 +185,11 @@ Descriptor::Descriptor(const Descriptor &a) :
 
   for (i = 0; i < HISTORY_SIZE; i++)
     strcpy(history[i], a.history[i]);
-  
+
   descriptor_list = this;
 }
 
-Descriptor & Descriptor::operator=(const Descriptor &a) 
+Descriptor & Descriptor::operator=(const Descriptor &a)
 {
   if (this == &a) return *this;
 
@@ -257,7 +257,7 @@ Descriptor & Descriptor::operator=(const Descriptor &a)
 
   for (int i = 0; i < HISTORY_SIZE; i++)
     strcpy(history[i], a.history[i]);
-  
+
   return *this;
 }
 
@@ -268,18 +268,18 @@ bool Descriptor::checkForMultiplay()
     TBeing *ch;
     unsigned int total = 1;
     Descriptor *d;
-    
+
     if (!character || !account || !character->name)
       return FALSE;
-    
+
     if (character->hasWizPower(POWER_MULTIPLAY))
       return FALSE;
-    
+
     // determine player load
     unsigned int tot_descs = 0;
     for (d = descriptor_list; d; d = d->next)
       tot_descs++;
-    
+
     // established maximums based on player load thresholds
     unsigned int max_multiplay_chars;
     if (tot_descs < 15)
@@ -290,42 +290,42 @@ bool Descriptor::checkForMultiplay()
       max_multiplay_chars = 1;
     else
       max_multiplay_chars = 1;
-    
+
     // for first 30 mins after a reboot, limit to 1 multiplay
     // this prevents a "race to login" from occurring.
     time_t diff = time(0) - Uptime;
     if (diff < (30 * SECS_PER_REAL_MIN))
       max_multiplay_chars = 1;
-    
+
     for (d = descriptor_list; d; d = d->next) {
       if (d == this)
-	continue;
+        continue;
       if (!(ch = d->character) || !ch->name)
-	continue;
-      
+        continue;
+
       if (ch->hasWizPower(POWER_MULTIPLAY))
-	continue;
-      
+        continue;
+
       // reconnect while still connected triggers otherwise
       if (!strcmp(character->name, ch->name))
-	continue;
-      
+        continue;
+
       if (d->account->name==account->name) {
-	total += 1;
-	if (total > max_multiplay_chars && Config::ModeProd()) {
-	  vlogf(LOG_CHEAT, format("MULTIPLAY: %s and %s from same account[%s]") % 
-		character->name % ch->name % account->name);
-	  if(Config::ForceMultiplayCompliance()){
-	    character->sendTo(format("\n\rTake note: You have another character, %s, currently logged in.\n\r") % ch->name);
-	    character->sendTo("Adding this character would cause you to be in violation of multiplay rules.\n\r");
-	    character->sendTo("Please log off your other character and then try again.\n\r");
-	    outputProcessing();  // gotta write this to them, before we sever  :)
-	  }
-	  
-	  return TRUE;
-	}
+        total += 1;
+        if (total > max_multiplay_chars && Config::ModeProd()) {
+          vlogf(LOG_CHEAT, format("MULTIPLAY: %s and %s from same account[%s]") %
+                character->name % ch->name % account->name);
+          if(Config::ForceMultiplayCompliance()){
+            character->sendTo(format("\n\rTake note: You have another character, %s, currently logged in.\n\r") % ch->name);
+            character->sendTo("Adding this character would cause you to be in violation of multiplay rules.\n\r");
+            character->sendTo("Please log off your other character and then try again.\n\r");
+            outputProcessing();  // gotta write this to them, before we sever  :)
+          }
+
+          return TRUE;
+        }
       }
-      
+
 #if 0
       // beyond here, we start checking for cheaters using multiple accounts
       // since this logic is imprecise, we should first slip around any known
@@ -333,103 +333,103 @@ bool Descriptor::checkForMultiplay()
       FILE *fp;
       fp = fopen("allowed_multiplay", "r");
       if (fp) {
-	char acc1[256], acc2[256];
-	bool allowed = false;
-	while (fscanf(fp, "%s %s", acc1, acc2) == 2) {
-	  if (!strcmp(account->name, acc1) && !strcmp(d->account->name, acc2))
-	    allowed = true;
-	  if (!strcmp(account->name, acc2) && !strcmp(d->account->name, acc1))
-	    allowed = true;
-	}
-	fclose(fp);
-	if (allowed)
-	  continue;
+        char acc1[256], acc2[256];
+        bool allowed = false;
+        while (fscanf(fp, "%s %s", acc1, acc2) == 2) {
+          if (!strcmp(account->name, acc1) && !strcmp(d->account->name, acc2))
+            allowed = true;
+          if (!strcmp(account->name, acc2) && !strcmp(d->account->name, acc1))
+            allowed = true;
+        }
+        fclose(fp);
+        if (allowed)
+          continue;
       }
-      
+
       if (max_multiplay_chars == 1) {
-	// some diabolical logic to catch multiplay with separate accounts
-	// check to see if they are grouped, but haven't spoken recently
-	if (character->inGroup(*ch)) {
-	  time_t now = time(0);
-	  const int trigger_minutes = 1;
-	  if (((now - talkCount) > ((trigger_minutes + character->getTimer()) * SECS_PER_REAL_MIN)) &&
-	      ((now - ch->desc->talkCount) > ((trigger_minutes + ch->getTimer()) * SECS_PER_REAL_MIN))) {
-	    vlogf(LOG_CHEAT, format("MULTIPLAY: Players %s and %s are possibly multiplaying.") %  character->getName() % ch->getName());
-	    
-	    time_t ct = time(0);
-	    struct tm * lt = localtime(&ct);
-	    char *tmstr = asctime(lt);
-	    *(tmstr + strlen(tmstr) - 1) = '\0';
-	    
-	    sstring tmpstr;
-	    tmpstr = "***** Auto-Comment on ";
-	    tmpstr += tmstr;
-	    tmpstr += ":\nPlayer ";
-	    tmpstr += character->getName();
-	    tmpstr += " was potentially multiplaying with ";
-	    tmpstr += ch->getName();
-	    tmpstr += " from account '";
-	    tmpstr += d->account->name;
-	    tmpstr += "'.\n";
-	    
-	    sstring cmd_buf;
-	    cmd_buf = "account/";
-	    cmd_buf += LOWER(account->name[0]);
-	    cmd_buf += "/";
-	    cmd_buf += account->name.lower();
-	    cmd_buf += "/comment";
-	    
-	    FILE *fp;
-	    if (!(fp = fopen(cmd_buf.c_str(), "a+"))) {
-	      perror("doComment");
-	      vlogf(LOG_FILE, format("Could not open the comment-file (%s).") %  cmd_buf);
-	    } else {
-	      fputs(tmpstr.c_str(), fp);
-	      fclose(fp);
-	    }
-	  }
-	}
+        // some diabolical logic to catch multiplay with separate accounts
+        // check to see if they are grouped, but haven't spoken recently
+        if (character->inGroup(*ch)) {
+          time_t now = time(0);
+          const int trigger_minutes = 1;
+          if (((now - talkCount) > ((trigger_minutes + character->getTimer()) * SECS_PER_REAL_MIN)) &&
+              ((now - ch->desc->talkCount) > ((trigger_minutes + ch->getTimer()) * SECS_PER_REAL_MIN))) {
+            vlogf(LOG_CHEAT, format("MULTIPLAY: Players %s and %s are possibly multiplaying.") %  character->getName() % ch->getName());
+
+            time_t ct = time(0);
+            struct tm * lt = localtime(&ct);
+            char *tmstr = asctime(lt);
+            *(tmstr + strlen(tmstr) - 1) = '\0';
+
+            sstring tmpstr;
+            tmpstr = "***** Auto-Comment on ";
+            tmpstr += tmstr;
+            tmpstr += ":\nPlayer ";
+            tmpstr += character->getName();
+            tmpstr += " was potentially multiplaying with ";
+            tmpstr += ch->getName();
+            tmpstr += " from account '";
+            tmpstr += d->account->name;
+            tmpstr += "'.\n";
+
+            sstring cmd_buf;
+            cmd_buf = "account/";
+            cmd_buf += LOWER(account->name[0]);
+            cmd_buf += "/";
+            cmd_buf += account->name.lower();
+            cmd_buf += "/comment";
+
+            FILE *fp;
+            if (!(fp = fopen(cmd_buf.c_str(), "a+"))) {
+              perror("doComment");
+              vlogf(LOG_FILE, format("Could not open the comment-file (%s).") %  cmd_buf);
+            } else {
+              fputs(tmpstr.c_str(), fp);
+              fclose(fp);
+            }
+          }
+        }
       } // CHAR_LIMIT = 1
 #endif
     }
-    
-    if (character && account && !account->name.empty() && 
-	!character->hasWizPower(POWER_MULTIPLAY)) {
+
+    if (character && account && !account->name.empty() &&
+        !character->hasWizPower(POWER_MULTIPLAY)) {
       TBeing *tChar = NULL,
-	*oChar = NULL;
+        *oChar = NULL;
       char tAccount[256];
       FILE *tFile = NULL;
-      
+
       for (tChar = character_list; tChar;) {
-	oChar = tChar->next;
-	
-	if (tChar != character && tChar->isLinkdead()) {
-	  sprintf(tAccount, "account/%c/%s/%s",
-		  LOWER(account->name[0]),
-		  sstring(account->name).lower().c_str(),
-		  tChar->getNameNOC(character).lower().c_str());
-	  
-	  if (tChar->isPc() && (tFile = fopen(tAccount, "r"))) {
-	    if (tChar->hasWizPower(POWER_MULTIPLAY))
-	      return FALSE;
-	    
-	    fclose(tFile);
+        oChar = tChar->next;
+
+        if (tChar != character && tChar->isLinkdead()) {
+          sprintf(tAccount, "account/%c/%s/%s",
+                  LOWER(account->name[0]),
+                  sstring(account->name).lower().c_str(),
+                  tChar->getNameNOC(character).lower().c_str());
+
+          if (tChar->isPc() && (tFile = fopen(tAccount, "r"))) {
+            if (tChar->hasWizPower(POWER_MULTIPLAY))
+              return FALSE;
+
+            fclose(tFile);
 #if 1
-	    character->sendTo(format("\n\rTake note: You have a link-dead character, %s, currently logged in.\n\r") % tChar->name);
-	    character->sendTo("Adding this character would cause you to be in violation of multiplay rules.\n\r");
-	    character->sendTo("Please reconnect your other character to log them off and then try again.\n\r");
-	    outputProcessing();  // gotta write this to them, before we sever  :)
-	    return TRUE;
+            character->sendTo(format("\n\rTake note: You have a link-dead character, %s, currently logged in.\n\r") % tChar->name);
+            character->sendTo("Adding this character would cause you to be in violation of multiplay rules.\n\r");
+            character->sendTo("Please reconnect your other character to log them off and then try again.\n\r");
+            outputProcessing();  // gotta write this to them, before we sever  :)
+            return TRUE;
 #else
-	    nukeLdead(tChar);
-	    delete tChar;
-	    tChar = NULL;
+            nukeLdead(tChar);
+            delete tChar;
+            tChar = NULL;
 #endif
-	  }
-	}
-	
-	if (!(tChar = oChar))
-	  return FALSE;
+          }
+        }
+
+        if (!(tChar = oChar))
+          return FALSE;
       }
     }
   }
@@ -446,7 +446,7 @@ sstring SnoopComm::getClientText(){
 }
 
 sstring SnoopComm::getXML(){
-  return format("<snoop victim=\"%s\">%s</snoop>") % 
+  return format("<snoop victim=\"%s\">%s</snoop>") %
     vict.escape(sstring::XML) % text.escape(sstring::XML);
 }
 
@@ -490,12 +490,12 @@ int Descriptor::outputProcessing()
       char buf2[MAX_STRING_LENGTH + MAX_STRING_LENGTH];
       strcpy(buf2, i);
       vlogf(LOG_BUG, format("Tell a coder, bad loop in outputProcessing, please investigate %s") %  (character ? character->getName() : "'No char for desc'"));
-      vlogf(LOG_BUG, format("i = %s, last i= %s") %  buf2 % buf); 
+      vlogf(LOG_BUG, format("i = %s, last i= %s") %  buf2 % buf);
       // Set everything to NULL, might lose memory but we dont wanna try
       // a delete cause it might crash/ - Russ
       output.clear();
       break;
-    } 
+    }
     // recall that in inputProcessing we have mangaled any '$' character into
     // '$$' to avoid confusion problems in act/sendTo/etc.
     // it's now time to undo this
@@ -541,13 +541,13 @@ Descriptor::~Descriptor()
 
   if (close(socket->m_sock))
     vlogf(LOG_BUG, format("Close() exited with errno (%d) return value in ~Descriptor") %  errno);
-  
+
   // clear out input/output buffers
   flush();
 
   // This is a semi-kludge to fix some extra crap we had being sent
   // upon reconnect - Russ 6/15/96
-  if (socket->m_sock == maxdesc) 
+  if (socket->m_sock == maxdesc)
     --maxdesc;
 
   // clear up any editing sstrings
@@ -579,7 +579,7 @@ Descriptor::~Descriptor()
         extract_edit_char(mob);
         mob = NULL;
       }
-      if (connected == CON_REDITING) 
+      if (connected == CON_REDITING)
         character->roomp->removeRoomFlagBit(ROOM_BEING_EDITTED);
       if ((character->checkBlackjack()) &&
           (gBj.index(character) >= 0)) {
@@ -607,7 +607,7 @@ Descriptor::~Descriptor()
           for(StuffIter it=th->stuff.begin();it!=th->stuff.end() && (th2=*it);++it)
             num++;
           num++;
-        }        
+        }
       }
 
       for (int i = MIN_WEAR; i < MAX_WEAR; i++) {
@@ -618,21 +618,21 @@ Descriptor::~Descriptor()
           num++;
         }
       }
-      vlogf(LOG_PIO, format("Link Lost for %s: [%d talens/%d bank/%.2f xps/%d items/%d age-mod/%d rent]") % 
+      vlogf(LOG_PIO, format("Link Lost for %s: [%d talens/%d bank/%.2f xps/%d items/%d age-mod/%d rent]") %
             character->getName() % character->getMoney() % character->getBank() %
-            character->getExp() % num % character->age_mod % 
+            character->getExp() % num % character->age_mod %
             (dynamic_cast<TPerson *>(character)?dynamic_cast<TPerson *>(character)->last_rent:0));
       character->desc = NULL;
       if((!character->affectedBySpell(AFFECT_PLAYERKILL) &&
           !character->affectedBySpell(AFFECT_PLAYERLOOT)) ||
-	  character->isImmortal()) {
-	character->setInvisLevel(GOD_LEVEL1);
+          character->isImmortal()) {
+        character->setInvisLevel(GOD_LEVEL1);
       }
 
-      if (character->riding) 
+      if (character->riding)
         character->dismount(POSITION_STANDING);
-      
-      // this is done out of nceness to keep people from walking linkdeads 
+
+      // this is done out of nceness to keep people from walking linkdeads
       // to someplace nasty
       if (!character->isAffected(AFF_CHARM)) {
         if (character->master)
@@ -670,7 +670,7 @@ Descriptor::~Descriptor()
   else {
     for (tmp = descriptor_list; tmp && (tmp->next != this); tmp = tmp->next);
 
-    mud_assert(tmp != NULL, 
+    mud_assert(tmp != NULL,
                  "~Descriptor : unable to find previous descriptor.");
 
     if (tmp)
@@ -769,7 +769,7 @@ void TPerson::autoDeath()
 {
   char buf[1024];
 
-  vlogf(LOG_PIO, format("%s reconnected with negative hp, auto death occurring.") %  
+  vlogf(LOG_PIO, format("%s reconnected with negative hp, auto death occurring.") %
                         getName());
   sendTo("You reconnected with negative hit points, automatic death occurring.");
   sprintf(buf, "%s detected you reconnecting with %d hit points.\n\r", MUD_NAME, getHit());
@@ -780,7 +780,7 @@ void TPerson::autoDeath()
   sprintf(buf + strlen(buf), "message and does not come from any particular god.\n\r");
   sprintf(buf + strlen(buf), "If you have problems or questions regarding this action, please feel free to\n\r");
   sprintf(buf + strlen(buf), "contact a god.  Type WHO -G to see if any gods are connected.\n\r");
-            
+
   autoMail(this, NULL, buf);
   gain_exp(this, -deathExp(), -1);
   genericKillFix();
@@ -860,7 +860,7 @@ void ShowNewNews(TBeing * tBeing)
       if ((tFile = fopen(File::NEWS, "r"))) {
         while (!feof(tFile)) {
           if(!fgets(tString, 256, tFile))
-	    vlogf(LOG_FILE, "Unexpected read error in ShowNewNews");
+            vlogf(LOG_FILE, "Unexpected read error in ShowNewNews");
 
           if (sscanf(tString, "%d-%d-%d : ", &tMon, &tDay, &tYear) != 3)
             continue;
@@ -897,7 +897,7 @@ void ShowNewNews(TBeing * tBeing)
       if ((tFile = fopen("help/nextversion", "r"))) {
         while (!feof(tFile)) {
           if(!fgets(tString, 256, tFile))
-	    vlogf(LOG_FILE, "Unexpected read error in help/nextversion");
+            vlogf(LOG_FILE, "Unexpected read error in help/nextversion");
 
           if (sscanf(tString, "%d-%d-%d : ", &tMon, &tDay, &tYear) != 3)
             continue;
@@ -933,7 +933,7 @@ void ShowNewNews(TBeing * tBeing)
       if ((tFile = fopen(File::WIZNEWS, "r"))) {
         while (!feof(tFile)) {
           if(!fgets(tString, 256, tFile))
-	    vlogf(LOG_FILE, "Unexpected read error in wiznews");
+            vlogf(LOG_FILE, "Unexpected read error in wiznews");
 
           if (sscanf(tString, "%d-%d-%d : ", &tMon, &tDay, &tYear) != 3)
             continue;
@@ -986,16 +986,16 @@ int Descriptor::nanny(sstring arg)
         *rp += *character;
         delete character;
         character = NULL;
-        if (account->term == TERM_ANSI) 
+        if (account->term == TERM_ANSI)
           SET_BIT(plr_act, PLR_COLOR);
-        
+
         rc = doAccountMenu("");
         if (IS_SET_DELETE(rc, DELETE_THIS))
           return DELETE_THIS;
 
         break;
       }
-      
+
       if (_parse_name(aw.c_str(), tmp_name)) {
         writeToQ("Illegal name, please try another.\n\r");
         writeToQ("Name -> ");
@@ -1015,9 +1015,9 @@ int Descriptor::nanny(sstring arg)
         *rp += *character;
         delete character;
         character = NULL;
-        if (account->term == TERM_ANSI) 
+        if (account->term == TERM_ANSI)
           SET_BIT(plr_act, PLR_COLOR);
-        
+
         rc = doAccountMenu("");
         if (IS_SET_DELETE(rc, DELETE_THIS))
           return DELETE_THIS;
@@ -1058,23 +1058,23 @@ int Descriptor::nanny(sstring arg)
 
 
       if(character->hasQuestBit(TOG_PERMA_DEATH_CHAR)){
-	character->loadCareerStats();
-	if(character->desc->career.deaths){
+        character->loadCareerStats();
+        if(character->desc->career.deaths){
 
-	  writeToQ("That character is a perma death character and has died.\n\r");
-	  writeToQ("Name -> ");
-	  
-	  // copied from above
-	  character->desc = NULL;
-	  character->next = character_list;
-	  character_list = character;
-	  
-	  character->setRoom(Room::NOWHERE);
-	  
-	  delete character;
-	  character = new TPerson(this);
-	  return FALSE;
-	}
+          writeToQ("That character is a perma death character and has died.\n\r");
+          writeToQ("Name -> ");
+
+          // copied from above
+          character->desc = NULL;
+          character->next = character_list;
+          character_list = character;
+
+          character->setRoom(Room::NOWHERE);
+
+          delete character;
+          character = new TPerson(this);
+          return FALSE;
+        }
       }
 
 
@@ -1139,25 +1139,25 @@ int Descriptor::nanny(sstring arg)
             tmp_ch->doCls(false);
 
           rc = checkForMultiplay();
-	  if(Config::ForceMultiplayCompliance()){
-	    if (rc) {
-	      // disconnect, but don't cause character to be deleted
-	      // do this by disassociating character from descriptor
-	      character = NULL;
-	      
-	      return DELETE_THIS;
-	    }
-	  }
-	  
+          if(Config::ForceMultiplayCompliance()){
+            if (rc) {
+              // disconnect, but don't cause character to be deleted
+              // do this by disassociating character from descriptor
+              character = NULL;
+
+              return DELETE_THIS;
+            }
+          }
+
           if (should_be_logged(character)) {
             objCost cost;
 
             if (IS_SET(account->flags, TAccount::IMMORTAL)) {
-              vlogf(LOG_PIO, format("%s[%s] has reconnected  (account: %s).") % 
-	             character->getName() % host % account->name);
+              vlogf(LOG_PIO, format("%s[%s] has reconnected  (account: %s).") %
+                     character->getName() % host % account->name);
 
-	    } else {
-              vlogf(LOG_PIO, format("%s[%s] has reconnected  (account: %s).") %  
+            } else {
+              vlogf(LOG_PIO, format("%s[%s] has reconnected  (account: %s).") %
                      character->getName() % host % account->name);
             }
             character->recepOffer(NULL, &cost);
@@ -1165,26 +1165,26 @@ int Descriptor::nanny(sstring arg)
           }
           act("$n has reconnected.", TRUE, tmp_ch, 0, 0, TO_ROOM);
           tmp_ch->loadCareerStats();
-	  tmp_ch->loadDrugStats();
-	  tmp_ch->loadGuildStats();
-	  tmp_ch->loadTitle();
-	  tmp_ch->stopsound();
-          if (tmp_ch->getHit() < 0) 
+          tmp_ch->loadDrugStats();
+          tmp_ch->loadGuildStats();
+          tmp_ch->loadTitle();
+          tmp_ch->stopsound();
+          if (tmp_ch->getHit() < 0)
             dynamic_cast<TPerson *>(tmp_ch)->autoDeath();
-          
+
           tmp_ch->fixClientPlayerLists(FALSE);
 
           if (tmp_ch->desc && !tmp_ch->desc->m_bIsClient){
-	    Descriptor *d;
-	    sstring buf2;
+            Descriptor *d;
+            sstring buf2;
 
-	    if(IS_SET(tmp_ch->desc->prompt_d.type, PROMPT_CLIENT_PROMPT))
-	      tmp_ch->desc->send_client_prompt(TRUE, 16383);
+            if(IS_SET(tmp_ch->desc->prompt_d.type, PROMPT_CLIENT_PROMPT))
+              tmp_ch->desc->send_client_prompt(TRUE, 16383);
 
-	    for (d = descriptor_list; d; d = d->next) {
-	      if (d->character)
-		d->character->fixClientPlayerLists(false);
-	    }
+            for (d = descriptor_list; d; d = d->next) {
+              if (d->character)
+                d->character->fixClientPlayerLists(false);
+            }
           }
 
           return FALSE;
@@ -1192,12 +1192,12 @@ int Descriptor::nanny(sstring arg)
       }
       if (should_be_logged(character)) {
         if (IS_SET(account->flags, TAccount::IMMORTAL)) {
-	  vlogf(LOG_PIO, format("%s[%s] has connected  (account: %s).") %  character->getName() % host % account->name);
+          vlogf(LOG_PIO, format("%s[%s] has connected  (account: %s).") %  character->getName() % host % account->name);
         } else {
           vlogf(LOG_PIO, format("%s[%s] has connected  (account: %s).") %  character->getName() % host % account->name);
         }
       }
-      
+
       character->cls();
       sendMotd(character->GetMaxLevel() > MAX_MORT);
 
@@ -1217,13 +1217,13 @@ int Descriptor::nanny(sstring arg)
             k2 = k->next;
             if ((k->character != character) && k->character) {
               if (k->original) {
-                if (k->original->getName() && 
+                if (k->original->getName() &&
                     !strcasecmp(k->original->getName(), character->getName())) {
                   delete k;
                   k = NULL;
                 }
               } else {
-                if (k->character->getName() && 
+                if (k->character->getName() &&
                   !strcasecmp(k->character->getName(), character->getName())) {
 
                   if (k->character) {
@@ -1244,7 +1244,7 @@ int Descriptor::nanny(sstring arg)
                 (dynamic_cast<TMonster *>(tmp_ch) && tmp_ch->orig &&
                  !strcasecmp(character->getName(),
                           tmp_ch->orig->getName()))) {
-  
+
               if (character->inRoom() >= 0) {
                 // loadFromSt will have inRoom() == last rent
                 // roomp not set yet, so just clear this value
@@ -1277,44 +1277,44 @@ int Descriptor::nanny(sstring arg)
               flush();
               writeToQ("Reconnecting.\n\r");
               tmp_ch->initDescStuff(&st);
-  
+
               if (tmp_ch->isPlayerAction(PLR_VT100 | PLR_ANSI))
                 tmp_ch->doCls(false);
-  
+
               if (should_be_logged(character)) {
                 objCost cost;
 
-                if (IS_SET(account->flags, TAccount::IMMORTAL)) 
-		  vlogf(LOG_PIO, format("%s[%s] has reconnected  (account: %s).") %  tmp_ch->getName() % host % account->name);
-                else 
+                if (IS_SET(account->flags, TAccount::IMMORTAL))
                   vlogf(LOG_PIO, format("%s[%s] has reconnected  (account: %s).") %  tmp_ch->getName() % host % account->name);
-                
+                else
+                  vlogf(LOG_PIO, format("%s[%s] has reconnected  (account: %s).") %  tmp_ch->getName() % host % account->name);
+
                 tmp_ch->recepOffer(NULL, &cost);
                 dynamic_cast<TPerson *>(tmp_ch)->saveRent(&cost, FALSE, 1);
               }
               act("$n has reconnected.", TRUE, tmp_ch, 0, 0, TO_ROOM);
               tmp_ch->loadCareerStats();
               tmp_ch->loadDrugStats();
-	      tmp_ch->loadGuildStats();
-	      tmp_ch->loadTitle();
-	      tmp_ch->stopsound();
-              if (tmp_ch->getHit() < 0) 
+              tmp_ch->loadGuildStats();
+              tmp_ch->loadTitle();
+              tmp_ch->stopsound();
+              if (tmp_ch->getHit() < 0)
                 dynamic_cast<TPerson *>(tmp_ch)->autoDeath();
-              
+
               tmp_ch->fixClientPlayerLists(FALSE);
 
-	      if (tmp_ch->desc && !tmp_ch->desc->m_bIsClient) {
-		Descriptor *d;
-		sstring buf2;  
+              if (tmp_ch->desc && !tmp_ch->desc->m_bIsClient) {
+                Descriptor *d;
+                sstring buf2;
 
-		if(IS_SET(tmp_ch->desc->prompt_d.type, PROMPT_CLIENT_PROMPT))
-		  tmp_ch->desc->send_client_prompt(TRUE, 16383);
+                if(IS_SET(tmp_ch->desc->prompt_d.type, PROMPT_CLIENT_PROMPT))
+                  tmp_ch->desc->send_client_prompt(TRUE, 16383);
 
-		for (d = descriptor_list; d; d = d->next) {
-		  if (d->character)
-		    d->character->fixClientPlayerLists(false);
-		}
-	      }
+                for (d = descriptor_list; d; d = d->next) {
+                  if (d->character)
+                    d->character->fixClientPlayerLists(false);
+                }
+              }
 
               return FALSE;
             }
@@ -1328,7 +1328,7 @@ int Descriptor::nanny(sstring arg)
           break;
       }
       break;
-    case CON_RMOTD:        
+    case CON_RMOTD:
       character->doCls(false);
       if (!character->GetMaxLevel())
         dynamic_cast<TPerson *>(character)->doStart();
@@ -1358,16 +1358,16 @@ int Descriptor::nanny(sstring arg)
       character->desc->saveAccount();
 
       if (character->desc && !character->desc->m_bIsClient) {
-	Descriptor *d;
-	sstring buf2;  
+        Descriptor *d;
+        sstring buf2;
 
-	if(IS_SET(character->desc->prompt_d.type, PROMPT_CLIENT_PROMPT))
-	  character->desc->send_client_prompt(TRUE, 16383);
+        if(IS_SET(character->desc->prompt_d.type, PROMPT_CLIENT_PROMPT))
+          character->desc->send_client_prompt(TRUE, 16383);
 
-	for (d = descriptor_list; d; d = d->next) {
-	  if (d->character)
-	    d->character->fixClientPlayerLists(false);
-	}
+        for (d = descriptor_list; d; d = d->next) {
+          if (d->character)
+            d->character->fixClientPlayerLists(false);
+        }
       }
 
       // this has to be set AFTER skill assignment, which happens somewhere
@@ -1474,7 +1474,7 @@ int TPerson::genericLoadPC()
       rp = real_roomp((desc ? desc->office : Room::IMPERIA));
 
       if (!IS_SET(desc->account->flags, TAccount::IMMORTAL)) {
-        vlogf(LOG_BUG, format("%s is immortal but account isn't set immortal.  Setting now.") % 
+        vlogf(LOG_BUG, format("%s is immortal but account isn't set immortal.  Setting now.") %
               getName());
         SET_BIT(desc->account->flags, TAccount::IMMORTAL);
       }
@@ -1485,15 +1485,15 @@ int TPerson::genericLoadPC()
       }
 
       if (!rp) {
-	vlogf(LOG_LOW, format("Was unable to read VOID!  Immortal being disconnected!  (%s) [3]") % getName());
-	return DELETE_THIS;
+        vlogf(LOG_LOW, format("Was unable to read VOID!  Immortal being disconnected!  (%s) [3]") % getName());
+        return DELETE_THIS;
       }
 
       in_room = Room::NOWHERE;  // change it so it doesn't error in +=
       *rp += *this;
       player.hometown = Room::IMPERIA;
       if (!isImmortal())   // they turned it off
-	doToggle("immortal");
+        doToggle("immortal");
 
       if (FORCE_LOW_INVSTE && !hasWizPower(POWER_VISIBLE)) {
         if (!isPlayerAction(PLR_STEALTH))
@@ -1557,7 +1557,7 @@ int TPerson::genericLoadPC()
 
   stats.logins++;
   save_game_stats();
- 
+
   return FALSE;
 }
 
@@ -1597,7 +1597,7 @@ bool Descriptor::start_page_file(const char *fpath, const char *errormsg)
   cur_page = 0;
   tot_pages = 0;
 
-  if (!page_file("")) {      // couldn't open file, etc. 
+  if (!page_file("")) {      // couldn't open file, etc.
     delete [] pagedfile;
     pagedfile = NULL;
     cur_page = 0;
@@ -1608,8 +1608,8 @@ bool Descriptor::start_page_file(const char *fpath, const char *errormsg)
   return TRUE;
 }
 
-// page_file returns TRUE if something was paged, FALSE if nothing got sent 
-// if (position) comes back < 0 then EOF was hit when outputing file.    
+// page_file returns TRUE if something was paged, FALSE if nothing got sent
+// if (position) comes back < 0 then EOF was hit when outputing file.
 bool Descriptor::page_file(const char *the_input)
 {
   FILE *fp;
@@ -1745,7 +1745,7 @@ void Descriptor::show_string(const char *the_input, showNowT showNow, allowRepla
         toggle = 0;
         continue;
       }
-      if (!toggle) 
+      if (!toggle)
         toggle = 1;
     }
     if (lines_per_page <= 0) {
@@ -1768,7 +1768,7 @@ void Descriptor::show_string(const char *the_input, showNowT showNow, allowRepla
     } else if (*buf == 'b' || *buf == 'B') {
       cur_page -= 2;
       cur_page = max(0, cur_page);
-    } else if (isdigit(*buf)) 
+    } else if (isdigit(*buf))
       cur_page = max(min((int) tot_pages, convertTo<int>(buf)), 1) - 1;
     else {
       if (showstr_head) {
@@ -1777,7 +1777,7 @@ void Descriptor::show_string(const char *the_input, showNowT showNow, allowRepla
         tot_pages = cur_page = 0;
       }
       return;
-    } 
+    }
   }
   toggle = 1;
   lines = 0;
@@ -1797,11 +1797,11 @@ void Descriptor::show_string(const char *the_input, showNowT showNow, allowRepla
       continue;
 //    if (!i && isspace(*chk))
 //      continue;
-      
+
     // some redundant code from colorString()
     if ((*chk == '<') && (*(chk +2) == '>')) {
       if (chk != showstr_head && *(chk-1) == '<') {
-        // encountered double <<, so skip 1 of them, 
+        // encountered double <<, so skip 1 of them,
         // we've already written the first
         continue;
       }
@@ -2009,11 +2009,11 @@ void Descriptor::show_string(const char *the_input, showNowT showNow, allowRepla
   if (showNow) {
     if (tot_pages) {
       sprintf(buffer + strlen(buffer),
-         "\n\r[ %sReturn%s to continue, %s(r)%sefresh, %s(b)%sack, page %s(%d/%d)%s, or %sany other key%s to quit ]\n\r", 
+         "\n\r[ %sReturn%s to continue, %s(r)%sefresh, %s(b)%sack, page %s(%d/%d)%s, or %sany other key%s to quit ]\n\r",
             green(),  norm(),
             green(),  norm(),
             green(),  norm(),
-            green(),  
+            green(),
             cur_page, tot_pages, norm(),
             green(),  norm());
     } else {
@@ -2058,17 +2058,17 @@ void Descriptor::sstring_add(char *s)
       if (iter < 0)
         break;
       if (!*str) {
-	strncpy(buf, s, iter);
-	buf[iter]='\0';
-	strcat(buf, "\n\r");
-	*str = mud_str_dup(buf);
+        strncpy(buf, s, iter);
+        buf[iter]='\0';
+        strcat(buf, "\n\r");
+        *str = mud_str_dup(buf);
       } else {
         const char *t = *str;
-	strcpy(buf, t);
-	strncat(buf, s, iter);
-	buf[strlen(t)+iter]='\0';
-	strcat(buf, "\n\r");
-	*str=mud_str_dup(buf);
+        strcpy(buf, t);
+        strncat(buf, s, iter);
+        buf[strlen(t)+iter]='\0';
+        strcat(buf, "\n\r");
+        *str=mud_str_dup(buf);
         delete [] t;
       }
 
@@ -2103,19 +2103,19 @@ void Descriptor::sstring_add(char *s)
           // we are on the first line
           const char *t = s;
           for (;*t && isspace(*t); t++);
-    
+
           if (!*t) {
             writeToQ("Blank lines entered.  Ignoring!\n\r");
             *(name) = '\0';
-    
+
             delete [] *str;
             *str = NULL;
-  
+
             delete str;
             str = NULL;
-    
+
             character->remPlayerAction(PLR_BUGGING);
-  
+
             if (connected == CON_WRITING)
               connected = CON_PLYNG;
 
@@ -2134,9 +2134,9 @@ void Descriptor::sstring_add(char *s)
         } else {
           // body of idea
           const char *t = *str;
-	        strncpy(buf, t, cElements(buf));
-	        strncat(buf, s, cElements(buf)-1);
-	        *str=mud_str_dup(buf);
+                strncpy(buf, t, cElements(buf));
+                strncat(buf, s, cElements(buf)-1);
+                *str=mud_str_dup(buf);
           if (!m_bIsClient)
             delete [] t;
         }
@@ -2153,11 +2153,11 @@ void Descriptor::sstring_add(char *s)
 
           loop++;
           const char *t = *str;
-	  strcpy(buf, t);
-	  strncat(buf, s, iter);
-	  buf[strlen(t) + iter] = '\0';
-	  strcat(buf, "\n\r");
-	  *str=mud_str_dup(buf);
+          strcpy(buf, t);
+          strncat(buf, s, iter);
+          buf[strlen(t) + iter] = '\0';
+          strcat(buf, "\n\r");
+          *str=mud_str_dup(buf);
           delete [] t;
 
           // fix s
@@ -2177,9 +2177,9 @@ void Descriptor::sstring_add(char *s)
         }
 
         const char *t = *str;
-	strcpy(buf, t);
-	strcat(buf, s);
-	*str = mud_str_dup(buf);
+        strcpy(buf, t);
+        strcat(buf, s);
+        *str = mud_str_dup(buf);
         delete [] t;
         if (loop > 1)
           delete [] s;
@@ -2231,7 +2231,7 @@ void Descriptor::sstring_add(char *s)
 
         for (;*t && isspace(*t); t++);
 
-        if (!*t) 
+        if (!*t)
           writeToQ("Blank message entered.  Ignoring!\n\r");
         else {
           send_feedback();
@@ -2317,7 +2317,7 @@ const char *StPrompts[] =
 sstring getPietyPrompt(TBeing *ch, Descriptor *d, float piety){
   sstring promptbuf="";
 
-  if (IS_SET(d->prompt_d.type, PROMPT_PIETY)) {	    
+  if (IS_SET(d->prompt_d.type, PROMPT_PIETY)) {
     promptbuf=format(StPrompts[2]) %
       (IS_SET(d->prompt_d.type, PROMPT_COLOR) ? d->prompt_d.pietyColor : "") %
       piety %
@@ -2328,8 +2328,8 @@ sstring getPietyPrompt(TBeing *ch, Descriptor *d, float piety){
 }
 sstring getLFPrompt(TBeing *ch, Descriptor *d, int lf){
   sstring promptbuf="";
-  
-  if (IS_SET(d->prompt_d.type, PROMPT_LIFEFORCE)) {	    
+
+  if (IS_SET(d->prompt_d.type, PROMPT_LIFEFORCE)) {
     promptbuf=format(StPrompts[12]) %
       (IS_SET(d->prompt_d.type, PROMPT_COLOR) ? d->prompt_d.lifeforceColor : "") %
       lf %
@@ -2340,7 +2340,7 @@ sstring getLFPrompt(TBeing *ch, Descriptor *d, int lf){
 }
 sstring getMovesPrompt(TBeing *ch, Descriptor *d, int moves){
   sstring promptbuf="";
-  
+
   if (IS_SET(d->prompt_d.type, PROMPT_MOVE))
     promptbuf=format(StPrompts[4]) %
       (IS_SET(d->prompt_d.type, PROMPT_COLOR) ? d->prompt_d.moveColor : "") %
@@ -2351,7 +2351,7 @@ sstring getMovesPrompt(TBeing *ch, Descriptor *d, int moves){
 }
 sstring getMoneyPrompt(TBeing *ch, Descriptor *d, int money){
   sstring promptbuf="";
-  
+
   if (IS_SET(d->prompt_d.type, PROMPT_GOLD))
     promptbuf=format(StPrompts[5]) %
       (IS_SET(d->prompt_d.type, PROMPT_COLOR) ? d->prompt_d.moneyColor : "") %
@@ -2389,7 +2389,7 @@ sstring getHitPointsPrompt(TBeing *ch, Descriptor *d, int hp){
   sstring promptbuf="";
 
   if (IS_SET(d->prompt_d.type, PROMPT_HIT))
-    promptbuf=format(StPrompts[1]) % 
+    promptbuf=format(StPrompts[1]) %
       (IS_SET(d->prompt_d.type, PROMPT_COLOR) ? d->prompt_d.hpColor : "") %
       hp %
       ch->norm();
@@ -2411,9 +2411,9 @@ time_t getTimePromptData(TBeing *ch){
 sstring getTimePrompt(TBeing *ch, Descriptor *d, time_t ct){
   sstring promptbuf="";
   struct tm *tm=localtime(&ct);
-  
+
   if (IS_SET(d->prompt_d.type, PROMPT_TIME)){
-    promptbuf=format(StPrompts[13]) % 
+    promptbuf=format(StPrompts[13]) %
       (IS_SET(d->prompt_d.type, PROMPT_COLOR) ? d->prompt_d.timeColor : "") %
       tm->tm_hour % tm->tm_min % tm->tm_sec %
       ch->norm();
@@ -2431,7 +2431,7 @@ sstring PromptComm::getClientText(){
 
 sstring PromptComm::getXML(){
   return format("<prompt time=\"%i\" hp=\"%i\" mana=\"%i\" piety=\"%f\" lifeforce=\"%i\" moves=\"%i\" money=\"%i\" room=\"%i\">%s</prompt>") %
-    time % hp % mana % piety % lifeforce % moves % money % room % 
+    time % hp % mana % piety % lifeforce % moves % money % room %
     text.escape(sstring::XML);
 }
 
@@ -2454,9 +2454,9 @@ sstring RoomExitComm::getXML(){
       buf+=format("  <exit>\n");
       buf+=format("    <direction>%s</direction>\n") % dirs[dir];
       if(exits[dir].door){
-	buf+=format("    <door>\n");
-	buf+=format("      <open>%s</open>\n") % (exits[dir].open?"true":"false");
-	buf+=format("    </door>\n");
+        buf+=format("    <door>\n");
+        buf+=format("      <open>%s</open>\n") % (exits[dir].open?"true":"false");
+        buf+=format("    </door>\n");
       }
       buf+=format("  </exit>\n");
     }
@@ -2523,7 +2523,7 @@ void setPrompts(fd_set out)
               break;
 
             tObj = NULL;
-	  }
+          }
 
           if (tObj) {
             sprintf(promptbuf, "\n\r%s (%s) > ", sstring(tObj->getName()).cap().c_str(), tObj->equip_condition(-1).c_str());
@@ -2533,17 +2533,17 @@ void setPrompts(fd_set out)
             d->output.putInQ(new UncategorizedComm(promptbuf));
             vlogf(LOG_OBJ, format("Unable to find repair item for (%s) for prompt report (%s)") % ch->getName() % ch->task->orig_arg);
           }
-	}
+        }
       }
 
       if (d->str && (d->prompt_mode != DONT_SEND)) {
           d->output.putInQ(new UncategorizedComm("-> "));
       } else if (d->pagedfile && (d->prompt_mode != DONT_SEND)) {
-        sprintf(promptbuf, "\n\r[ %sReturn%s to continue, %s(r)%sefresh, %s(b)%sack, page %s(%d/%d)%s, or %sany other key%s to quit ]\n\r", 
+        sprintf(promptbuf, "\n\r[ %sReturn%s to continue, %s(r)%sefresh, %s(b)%sack, page %s(%d/%d)%s, or %sany other key%s to quit ]\n\r",
             d->green(),  d->norm(),
             d->green(),  d->norm(),
             d->green(),  d->norm(),
-            d->green(),  
+            d->green(),
             d->cur_page, d->tot_pages, d->norm(),
             d->green(),  d->norm());
         d->output.putInQ(new UncategorizedComm(promptbuf));
@@ -2553,11 +2553,11 @@ void setPrompts(fd_set out)
           continue;
         }
         if (d->showstr_head && (d->prompt_mode != DONT_SEND)) {
-          sprintf(promptbuf, "\n\r[ %sReturn%s to continue, %s(r)%sefresh, %s(b)%sack, page %s(%d/%d)%s, or %sany other key%s to quit ]\n\r", 
+          sprintf(promptbuf, "\n\r[ %sReturn%s to continue, %s(r)%sefresh, %s(b)%sack, page %s(%d/%d)%s, or %sany other key%s to quit ]\n\r",
             d->green(),  d->norm(),
             d->green(),  d->norm(),
             d->green(),  d->norm(),
-            d->green(),  
+            d->green(),
             d->cur_page, d->tot_pages, d->norm(),
             d->green(),  d->norm());
           d->output.putInQ(new UncategorizedComm(promptbuf));
@@ -2654,40 +2654,40 @@ void setPrompts(fd_set out)
             }
 
 
-	    time_t ct=getTimePromptData(ch);
-	    int hp=ch->getHit();
-	    int mana=ch->getMana();
-	    float piety=ch->getPiety();
-	    int lifeforce=ch->getLifeforce();
-	    int moves=ch->getMove();
-	    int gold=ch->getMoney();
-	    int room=ch->roomp->number;
+            time_t ct=getTimePromptData(ch);
+            int hp=ch->getHit();
+            int mana=ch->getMana();
+            float piety=ch->getPiety();
+            int lifeforce=ch->getLifeforce();
+            int moves=ch->getMove();
+            int gold=ch->getMoney();
+            int room=ch->roomp->number;
 
-	    sprintf(promptbuf + strlen(promptbuf), 
-		    "%s", getTimePrompt(ch, d, ct).c_str());
-	    sprintf(promptbuf + strlen(promptbuf),
-		    "%s", getHitPointsPrompt(ch, d, hp).c_str());
-	    sprintf(promptbuf + strlen(promptbuf),
-		    "%s", getManaPrompt(ch, d, mana).c_str());
-	    sprintf(promptbuf + strlen(promptbuf),
-		    "%s", getPietyPrompt(ch, d, piety).c_str());
-	    sprintf(promptbuf + strlen(promptbuf),
-		    "%s", getLFPrompt(ch, d, lifeforce).c_str());
-	    sprintf(promptbuf + strlen(promptbuf),
-		    "%s", getMovesPrompt(ch, d, moves).c_str());
-	    sprintf(promptbuf + strlen(promptbuf),
-		    "%s", getMoneyPrompt(ch, d, gold).c_str());
-	    sprintf(promptbuf + strlen(promptbuf),
-		    "%s", getRoomPrompt(ch, d, room).c_str());
-	    
-	    if (IS_SET(d->prompt_d.type, PROMPT_EXP)) {
-	      strcpy(tString, ch->displayExp().comify().c_str());
-	      sprintf(promptbuf + strlen(promptbuf),
-		      StPrompts[7],
-		      (hasColor ? d->prompt_d.expColor : ""),
-		      tString,
-		      ch->norm());
-	    }
+            sprintf(promptbuf + strlen(promptbuf),
+                    "%s", getTimePrompt(ch, d, ct).c_str());
+            sprintf(promptbuf + strlen(promptbuf),
+                    "%s", getHitPointsPrompt(ch, d, hp).c_str());
+            sprintf(promptbuf + strlen(promptbuf),
+                    "%s", getManaPrompt(ch, d, mana).c_str());
+            sprintf(promptbuf + strlen(promptbuf),
+                    "%s", getPietyPrompt(ch, d, piety).c_str());
+            sprintf(promptbuf + strlen(promptbuf),
+                    "%s", getLFPrompt(ch, d, lifeforce).c_str());
+            sprintf(promptbuf + strlen(promptbuf),
+                    "%s", getMovesPrompt(ch, d, moves).c_str());
+            sprintf(promptbuf + strlen(promptbuf),
+                    "%s", getMoneyPrompt(ch, d, gold).c_str());
+            sprintf(promptbuf + strlen(promptbuf),
+                    "%s", getRoomPrompt(ch, d, room).c_str());
+
+            if (IS_SET(d->prompt_d.type, PROMPT_EXP)) {
+              strcpy(tString, ch->displayExp().comify().c_str());
+              sprintf(promptbuf + strlen(promptbuf),
+                      StPrompts[7],
+                      (hasColor ? d->prompt_d.expColor : ""),
+                      tString,
+                      ch->norm());
+            }
             if (IS_SET(d->prompt_d.type, PROMPT_EXPTONEXT_LEVEL)) {
               classIndT i;
 
@@ -2699,7 +2699,7 @@ void setPrompts(fd_set out)
                   double need = d->prompt_d.xptnl - ch->getExp();
 
                   sprintf(tString, "%.0f", need);
-		  strcpy(tString, sstring(tString).comify().c_str());
+                  strcpy(tString, sstring(tString).comify().c_str());
                   sprintf(promptbuf + strlen(promptbuf),
                           StPrompts[8],
                           (hasColor ? ch->desc->prompt_d.expColor : ""),
@@ -2759,29 +2759,29 @@ void setPrompts(fd_set out)
 
             strcat(promptbuf, "> ");
 
-	    RoomExitComm *comm=new RoomExitComm();
-	    roomDirData *exitData;
+            RoomExitComm *comm=new RoomExitComm();
+            roomDirData *exitData;
 
-	    for (dirTypeT door = MIN_DIR; door < MAX_DIR; door++) {
-	      if((exitData = ch->roomp->exitDir(door)) &&
-		 (!IS_SET(exitData->condition, EX_SECRET) ||
-		  !IS_SET(exitData->condition, EX_CLOSED))){
-		comm->exits[door].exit=true;
-		if(exitData->door_type != DOOR_NONE)
-		  comm->exits[door].door=true;
-		else
-		  comm->exits[door].door=false;
+            for (dirTypeT door = MIN_DIR; door < MAX_DIR; door++) {
+              if((exitData = ch->roomp->exitDir(door)) &&
+                 (!IS_SET(exitData->condition, EX_SECRET) ||
+                  !IS_SET(exitData->condition, EX_CLOSED))){
+                comm->exits[door].exit=true;
+                if(exitData->door_type != DOOR_NONE)
+                  comm->exits[door].door=true;
+                else
+                  comm->exits[door].door=false;
 
-		comm->exits[door].open=!IS_SET(exitData->condition, EX_CLOSED);
-	      } else {
-		comm->exits[door].exit=false;
-	      }
-	    }
-	    
+                comm->exits[door].open=!IS_SET(exitData->condition, EX_CLOSED);
+              } else {
+                comm->exits[door].exit=false;
+              }
+            }
+
 
             d->output.putInQ(new PromptComm(ct, hp, mana, piety, lifeforce,
-					    moves, gold, room, promptbuf));
-	    d->output.putInQ(comm);
+                                            moves, gold, room, promptbuf));
+            d->output.putInQ(comm);
           }
         }
       }
@@ -2852,7 +2852,7 @@ void processAllInput()
       continue;
     }
     if ((--(d->wait) <= 0) && (&d->input)->takeFromQ(comm, sizeof(comm))){
-      if (d->character && !d->connected && 
+      if (d->character && !d->connected &&
           d->character->specials.was_in_room != Room::NOWHERE) {
         --(*d->character);
         rp = real_roomp(d->character->specials.was_in_room);
@@ -2881,15 +2881,15 @@ void processAllInput()
           delete d;
           d = NULL;
           continue;
-        } 
+        }
         if (IS_SET_DELETE(rc, DELETE_VICT)) {
           delete d->character;
           d->character = NULL;
           continue;
         }
-      } else if (d->str) 
+      } else if (d->str)
         d->sstring_add(comm);
-      else if (d->pagedfile) 
+      else if (d->pagedfile)
         d->page_file(comm);
       else if (!d->account) {            // NO ACCOUNT
         if (d->m_bIsClient) {
@@ -2897,7 +2897,7 @@ void processAllInput()
           if (IS_SET_DELETE(rc, DELETE_THIS)) {
             delete d;
             d = NULL;
-          } 
+          }
           continue;
         }
         rc = d->sendLogin(comm);
@@ -2906,7 +2906,7 @@ void processAllInput()
           d = NULL;
           continue;
         }
-      } else if (!d->account->status) {       //ACCOUNT STUFF 
+      } else if (!d->account->status) {       //ACCOUNT STUFF
         rc = d->doAccountStuff(comm);
         if (IS_SET_DELETE(rc, DELETE_THIS)) {
           delete d;
@@ -2948,11 +2948,11 @@ void processAllInput()
           d = NULL;
           continue;
         }
-      } else if (d->connected == CON_REDITING) 
+      } else if (d->connected == CON_REDITING)
         room_edit(d->character, comm);
-      else if (d->connected == CON_OEDITING) 
+      else if (d->connected == CON_OEDITING)
         obj_edit(d->character, comm);
-      else if (d->connected == CON_MEDITING) 
+      else if (d->connected == CON_MEDITING)
         mob_edit(d->character, comm);
       else if (d->connected == CON_SEDITING)
         seditCore(d->character, comm);
@@ -2966,7 +2966,7 @@ void processAllInput()
           continue;
         }
       }
-    } else if (d->wait <= 0) 
+    } else if (d->wait <= 0)
       d->wait = 1;
   }
 }
@@ -2995,7 +2995,7 @@ sstring LoginComm::getClientText(){
 }
 
 sstring LoginComm::getXML(){
-  return format("<login prompt=\"%s\">%s</login>") % 
+  return format("<login prompt=\"%s\">%s</login>") %
     prompt.escape(sstring::XML) % text.escape(sstring::XML);
 }
 
@@ -3037,15 +3037,15 @@ int Descriptor::sendLogin(const sstring &arg)
       vlogf(LOG_FILE, "No version file found");
     } else {
       if(!fgets(buf, 79, fp))
-	vlogf(LOG_FILE, "Unexpected read error in txt/version");
+        vlogf(LOG_FILE, "Unexpected read error in txt/version");
       // strip off the terminating newline char
       buf[strlen(buf) - 1] = '\0';
 
-      sprintf(buf2 + strlen(buf2), "\n\r\n\rWelcome to %s:\n\r%s:\n\r", 
-	      MUD_NAME_VERS, buf);
+      sprintf(buf2 + strlen(buf2), "\n\r\n\rWelcome to %s:\n\r%s:\n\r",
+              MUD_NAME_VERS, buf);
       fclose(fp);
     }
-	
+
     tm current_date;
     time_t conv_time;
     conv_time = time(&conv_time);
@@ -3092,13 +3092,13 @@ int Descriptor::sendLogin(const sstring &arg)
       return (sendLogin("1"));
     }
     if(account->read(my_arg)){
-      if (account->term == TERM_ANSI) 
-	plr_act = PLR_COLOR;
+      if (account->term == TERM_ANSI)
+        plr_act = PLR_COLOR;
       account->desc = this;
-      strcpy(pwd, account->passwd.c_str()); 
-    } else 
+      strcpy(pwd, account->passwd.c_str());
+    } else
       *pwd = '\0';
- 
+
     output.putInQ(new LoginComm("pass", "Password: "));
     EchoOff();
     connected = CON_ACTPWD;
@@ -3115,7 +3115,7 @@ bool Descriptor::checkForAccount(char *arg, bool silent)
       writeToQ("Sorry, that is an illegal name for an account.\n\r");
     return TRUE;
   }
-  
+
   db.query("select 1 from account where name=lower('%s')", arg);
   if(db.fetchRow()){
     if (!silent)
@@ -3147,7 +3147,7 @@ bool Descriptor::checkForCharacter(const sstring arg, bool silent)
     return FALSE;
 
   sprintf(buf, "player/%c/%s", LOWER(arg[0]), arg.lower().c_str());
- 
+
   if (!stat(buf, &timestat)) {
     if (!m_bIsClient && !silent)
       writeToQ("Character already exists, enter another name.\n\r--> ");
@@ -3182,13 +3182,13 @@ int Descriptor::doAccountStuff(char *arg)
   switch (connected) {
     case CON_NEWLOG:
       // kick um out so they aren't stuck
-      if (!*arg) 
+      if (!*arg)
         return DELETE_THIS;
-      
+
       if (checkForAccount(arg)) {
         output.putInQ(new UncategorizedComm("Please enter a login name -> "));
         return FALSE;
-      } 
+      }
       if (strlen(arg) >= 10) {
         output.putInQ(new UncategorizedComm("Account names must be 9 characters or less.\n\r"));
         output.putInQ(new UncategorizedComm("Please enter a login name -> "));
@@ -3209,7 +3209,7 @@ int Descriptor::doAccountStuff(char *arg)
         writeToQ("Your password can only contain 10 or fewer characters.\n\r");
         writeToQ("Password -> ");
         return FALSE;
-      } 
+      }
       if(!sstring(arg).hasDigit()){
         writeToQ("Your password must contain at least one number.\n\r");
         writeToQ("Password -> ");
@@ -3240,9 +3240,9 @@ int Descriptor::doAccountStuff(char *arg)
       }
       break;
     case CON_EMAIL:
-      if (!*arg) 
+      if (!*arg)
         return DELETE_THIS;
-      
+
       if (illegalEmail(arg, this, SILENT_NO)) {
         writeToQ("Please enter an email address. Accounts with bogus addresses will be deleted.\n\r");
         writeToQ("Address -> ");
@@ -3271,11 +3271,11 @@ int Descriptor::doAccountStuff(char *arg)
       connected = CON_TERM;
       break;
     case CON_TERM:
-      if (*arg == 'a' || *arg == 'A') 
+      if (*arg == 'a' || *arg == 'A')
         account->term = TERM_ANSI;
       else if (!*arg || *arg == 'V' || *arg == 'v')
         account->term = TERM_VT100;
-      else if ((*arg == 'n') || *arg == 'N') 
+      else if ((*arg == 'n') || *arg == 'N')
         account->term = TERM_NONE;
       else {
         writeToQ("What is your terminal type? (A)nsi, [V]t100 (default), (N)one -> ");
@@ -3292,7 +3292,7 @@ int Descriptor::doAccountStuff(char *arg)
         return DELETE_THIS;
       break;
     case CON_WIZLOCKNEW:
-      if (!*arg || strcasecmp(arg, Config::WizLockPassword().c_str())) 
+      if (!*arg || strcasecmp(arg, Config::WizLockPassword().c_str()))
         return DELETE_THIS;
 
       vlogf(LOG_MISC, "Person making new character after entering wizlock password.");
@@ -3301,9 +3301,9 @@ int Descriptor::doAccountStuff(char *arg)
       connected = CON_NEWLOG;
       break;
     case CON_WIZLOCK:
-      if (!*arg || strcasecmp(arg, Config::WizLockPassword().c_str())) 
+      if (!*arg || strcasecmp(arg, Config::WizLockPassword().c_str()))
         return DELETE_THIS;
-      
+
       vlogf(LOG_MISC, "Person entering game by entering wizlock password.");
 
       account->status = TRUE;
@@ -3387,7 +3387,7 @@ int Descriptor::doAccountStuff(char *arg)
         }
       }
       count = listAccount(account->name, lStr);
-      if (count) 
+      if (count)
         writeToQ("Type 'C' to connect with an existing character, or <enter> to see account menu.\n\r-> ");
       else
         writeToQ("Type 'A' to add a new character, or <enter> to see account menu.\n\r-> ");
@@ -3411,7 +3411,7 @@ int Descriptor::doAccountStuff(char *arg)
       // lower() returns static buf, so add one at a time
       sprintf(buf, "account/%c/%s", LOWER(account->name[0]), sstring(account->name).lower().c_str());
       sprintf(buf + strlen(buf), "/%s", sstring(arg).lower().c_str());
-      // sprintf(buf, "account/%c/%s/%s", LOWER(account->name[0]), 
+      // sprintf(buf, "account/%c/%s/%s", LOWER(account->name[0]),
       //                                  account->name.lower(), arg.lower());
       if (stat(buf, &timestat)) {
         writeToQ("No such character.\n\r");
@@ -3425,20 +3425,20 @@ int Descriptor::doAccountStuff(char *arg)
       strcpy(delname, arg.lower().c_str());
 
       char charname[20];
-   
+
       for (ch = character_list; ch; ch = ch->next) {
         strcpy(charname, ch->name.lower().c_str());
-	if (!strcmp(charname, delname)) {
-	  
-	  writeToQ("That character is still connected, so you'll have to\n\r");
-	  writeToQ("reconnect and log off before you can delete.\n\r");
-	  go_back_menu(connected);
-	  break;
+        if (!strcmp(charname, delname)) {
+
+          writeToQ("That character is still connected, so you'll have to\n\r");
+          writeToQ("reconnect and log off before you can delete.\n\r");
+          go_back_menu(connected);
+          break;
 
         }
       }
-      
-#endif      
+
+#endif
 
       writeToQ("Deleting a character will result in total deletion and\n\r");
       writeToQ("equipment loss.  Also, if you character is a perma death\n\r");
@@ -3447,10 +3447,10 @@ int Descriptor::doAccountStuff(char *arg)
       writeToQ("to return to the account menu system\n\r-> ");
       EchoOff();
       strcpy(delname, sstring(arg).lower().c_str());
-      
+
       connected = CON_CHARDELCNF;
       break;
-    
+
     case CON_CHARDELCNF:
       EchoOn();
       if (!*pwd) {
@@ -3475,8 +3475,8 @@ int Descriptor::doAccountStuff(char *arg)
 #if 1
       // it's possible that char is in game (link-dead), check for this
       for (ch = character_list; ch; ch = ch->next) {
-	if(sstring(ch->name).lower() == delname){
-	  //        if (!strcmp(ch->name.lower().c_str(), delname)) {
+        if(sstring(ch->name).lower() == delname){
+          //        if (!strcmp(ch->name.lower().c_str(), delname)) {
           writeToQ("Character is still connected.  Disconnect before deleting.\n\r");
           writeToQ("Which do you want to do?\n\r");
           writeToQ("1) Delete your account\n\r");
@@ -3515,7 +3515,7 @@ int Descriptor::doAccountStuff(char *arg)
       vlogf(LOG_PIO, format("Deleting mail for character %s.") %  delname);
       db.query("delete from mail where lower(mailto)=lower('%s')", delname);
 
-      sprintf(buf, "account/%c/%s/%s", LOWER(account->name[0]), 
+      sprintf(buf, "account/%c/%s/%s", LOWER(account->name[0]),
            sstring(account->name).lower().c_str(), delname);
       if (unlink(buf) != 0)
         vlogf(LOG_FILE, format("error in unlink (3) (%s) %d") %  buf % errno);
@@ -3523,7 +3523,7 @@ int Descriptor::doAccountStuff(char *arg)
       rc = doAccountMenu("");
       if (IS_SET_DELETE(rc, DELETE_THIS))
         return DELETE_THIS;
-      break; 
+      break;
     case CON_ACTDELCNF:
       EchoOn();
       if (!*pwd) {
@@ -3565,7 +3565,7 @@ int Descriptor::doAccountStuff(char *arg)
           writeToQ("To abort the deletion type '/', otherwise ...\n\r");
           writeToQ("Enter the name of the character you wish to delete.\n\r-> ");
           connected = CON_DELCHAR;
-          break; 
+          break;
         case '3':
           account->status = TRUE;
           rc = doAccountMenu("");
@@ -3642,7 +3642,7 @@ int Descriptor::doAccountStuff(char *arg)
       }
       break;
     default:
-      vlogf(LOG_BUG, format("Bad connectivity in doAccountStuff() (%d, %s, %s)") %  
+      vlogf(LOG_BUG, format("Bad connectivity in doAccountStuff() (%d, %s, %s)") %
           connected % (character ? character->getName() : "false") % "0");
       vlogf(LOG_BUG, "Trying to delete it.");
       return DELETE_THIS;
@@ -3716,7 +3716,7 @@ int Descriptor::doAccountMenu(const char *arg)
       EchoOff();
       account->status = FALSE;
       connected = CON_OLDPWD;
-      break; 
+      break;
     case 'W':
     case 'w':
       menuWho();
@@ -3745,7 +3745,7 @@ int Descriptor::doAccountMenu(const char *arg)
       if (!IS_SET(account->flags, TAccount::BOSS)) {
         if (account->term == TERM_ANSI) {
           screen_size = 40;  // adjust for the size of the menu bar temporarily
-         
+
           if (count == 1)
             start_page_file(File::ANSI_MENU_1, "");
           else if (count == 2)
@@ -3766,7 +3766,7 @@ int Descriptor::doAccountMenu(const char *arg)
             start_page_file(File::NORM_MENU_1, "");
           else if (count == 2)
             start_page_file(File::NORM_MENU_2, "");
-          else 
+          else
             start_page_file(File::NORM_MENU_3, "");
           screen_size = tss;
         }
@@ -3793,14 +3793,14 @@ void Descriptor::saveAccount()
   sstring path;
 
   if(!account->write(account->name)){
-    vlogf(LOG_FILE, format("Big problems in saveAccount (%s)") % 
-	  account->name.lower());
+    vlogf(LOG_FILE, format("Big problems in saveAccount (%s)") %
+          account->name.lower());
   }
 
   path=((sstring)(format("account/%c/%s") % account->name[0] % account->name)).lower();
   if (mkdir(path.c_str(), 0770) && errno != EEXIST){
     vlogf(LOG_FILE, format("Can't make directory for Descriptor::saveAccount (%s) (%i)") %
-	  path % errno);
+          path % errno);
   }
 }
 
@@ -3837,7 +3837,7 @@ void Descriptor::deleteAccount()
 
   TDatabase db(DB_SNEEZY);
   db.query("delete from account where name='%s'",
-	   sstring(account->name).lower().c_str());
+           sstring(account->name).lower().c_str());
 
   sprintf(buf, "account/%c/%s", LOWER(account->name[0]), sstring(account->name).lower().c_str());
   rmdir(buf);
@@ -3867,9 +3867,9 @@ int Descriptor::inputProcessing()
         if (errno != EWOULDBLOCK) {
           perror("Read1 - ERROR");
           return (-1);
-        } else 
+        } else
           break;
-        
+
       } else {
         vlogf(LOG_PIO, "EOF encountered on socket read.");
         return (-1);
@@ -3885,8 +3885,8 @@ int Descriptor::inputProcessing()
 
   for (i = 0, k = 0; *(m_raw + i);) {
     if (!ISNEWL(*(m_raw + i)) && !(flag = (k >= (!m_bIsClient ? (MAX_INPUT_LENGTH - 2) : 4096)))) {
-      if (*(m_raw + i) == '\b') {      // backspace 
-        if (k) {                // more than one char ? 
+      if (*(m_raw + i) == '\b') {      // backspace
+        if (k) {                // more than one char ?
           if (*(tmp + --k) == '$')
             k--;
           i++;
@@ -3895,7 +3895,7 @@ int Descriptor::inputProcessing()
       } else {
         if ((*(m_raw + i) == '\200') ||
             (isascii(*(m_raw + i)) && isprint(*(m_raw + i)))) {
-          // trans char, double for '$' (printf)   
+          // trans char, double for '$' (printf)
           if ((*(tmp + k) = *(m_raw + i)) == '$')
             *(tmp + ++k) = '$';
           k++;
@@ -3906,7 +3906,7 @@ int Descriptor::inputProcessing()
     } else {
       *(tmp + k) = 0;
 
-      // New history related c-shell type commands - Russ 
+      // New history related c-shell type commands - Russ
       if (*tmp == '!') {
         if (!tmp[1] || (tmp[1] == '!'))
           strcpy(tmp, history[0]);
@@ -3937,9 +3937,9 @@ int Descriptor::inputProcessing()
       input.putInQ(tmp);
 
       if (snoop.snoop_by && snoop.snoop_by->desc) {
-	sstring outputBuf=tmp;
-	outputBuf+="\n\r";
-	snoop.snoop_by->desc->output.putInQ(new SnoopComm(ch->getName(), outputBuf));
+        sstring outputBuf=tmp;
+        outputBuf+="\n\r";
+        snoop.snoop_by->desc->output.putInQ(new SnoopComm(ch->getName(), outputBuf));
       }
       if (flag) {
         sprintf(buffer, "Line too long. Truncated to:\n\r%s\n\r", tmp);
@@ -3947,13 +3947,13 @@ int Descriptor::inputProcessing()
           return (-1);
         }
 
-        // skip the rest of the line 
+        // skip the rest of the line
         for (; !ISNEWL(*(m_raw + i)); i++);
       }
-      // find end of entry 
+      // find end of entry
       for (; ISNEWL(*(m_raw + i)); i++);
 
-      // squelch the entry from the buffer 
+      // squelch the entry from the buffer
       for (squelch = 0;; squelch++) {
         if ((*(m_raw + squelch) = *(m_raw + i + squelch)) == '\0')
           break;
@@ -4001,7 +4001,7 @@ void Descriptor::sendMotd(int wiz)
       vlogf(LOG_BUG, "bad call to wiznews file");
       return;
     }
-    sprintf(wizmotd + strlen(wizmotd), 
+    sprintf(wizmotd + strlen(wizmotd),
                               "\n\rREAD the WIZNEWS LAST UPDATED    : %s\n\r",
                                ctime(&(timestat.st_mtime)));
   }
@@ -4010,7 +4010,7 @@ void Descriptor::sendMotd(int wiz)
     writeToQ(motd);
     if (wiz)
       writeToQ(wizmotd);
-   
+
     return;
   } else {
     sstring sb;
@@ -4067,7 +4067,7 @@ bool inputQ::takeFromQ(char *dest, int destsize)
   // Are we empty?
   if (!begin)
     return (0);
- 
+
   if (begin->getText())
     strncpy(dest, begin->getText(), destsize-1);
   else {
@@ -4099,7 +4099,7 @@ bool inputQ::takeFromQ(char *dest, int destsize)
 void inputQ::putInQ(const sstring &txt)
 {
   commText *n;
- 
+
   n = new commText();
   if (!n) {
     vlogf(LOG_BUG, "Failed mem alloc in putInQ()");
@@ -4108,7 +4108,7 @@ void inputQ::putInQ(const sstring &txt)
   char *tx = mud_str_dup(txt);
   n->setText(tx);
   n->setNext(NULL);
- 
+
   if (!begin) {
     begin = end = n;
   } else {
@@ -4121,7 +4121,7 @@ int TBeing::applyAutorentPenalties(int secs)
 {
   if(Config::PenalizeForAutoRenting()){
     vlogf(LOG_PIO, format("%s was autorented for %d secs") %
-	  (getName() ? getName() : "Unknown name") % secs);    
+          (getName() ? getName() : "Unknown name") % secs);
   }
 
   return FALSE;
@@ -4137,7 +4137,7 @@ int TBeing::applyRentBenefits(int secs)
   local_tics = secs / Pulse::SECS_PER_UPDATE;
   local_tics /= 3;  // arbitrary
 
-  vlogf(LOG_PIO, format("%s was rented for %d secs, counting as %d tics out-of-game") % 
+  vlogf(LOG_PIO, format("%s was rented for %d secs, counting as %d tics out-of-game") %
         getName() % secs % local_tics);
 
   setHit(min((int) hitLimit(), getHit() + (local_tics * hitGain())));
@@ -4161,10 +4161,10 @@ int TBeing::applyRentBenefits(int secs)
   //  setLifeforce(50);
   // THIS WILL NEED TO BE REVIEWED
   ////////////////////////
- 
+
   wearSlotT ij;
   for (ij=MIN_WEAR;ij < MAX_WEAR; ij++) {
-    amt = min(local_tics, getMaxLimbHealth(ij) - getCurLimbHealth(ij));  
+    amt = min(local_tics, getMaxLimbHealth(ij) - getCurLimbHealth(ij));
     addCurLimbHealth(ij, amt);
   }
 
@@ -4189,7 +4189,7 @@ int TBeing::applyRentBenefits(int secs)
               return DELETE_THIS;
           }
         }
-        if ((af->type == AFFECT_TRANSFORMED_ARMS) || 
+        if ((af->type == AFFECT_TRANSFORMED_ARMS) ||
             (af->type == AFFECT_TRANSFORMED_HANDS) ||
             (af->type == AFFECT_TRANSFORMED_LEGS) ||
             (af->type == AFFECT_TRANSFORMED_HEAD) ||
@@ -4198,7 +4198,7 @@ int TBeing::applyRentBenefits(int secs)
         }
         affectRemove(af);
       }
-    } else 
+    } else
       af->duration -= local_tics * Pulse::UPDATES_PER_MUDHOUR;
   }
   if (transFound)
@@ -4244,7 +4244,7 @@ bool illegalEmail(char *buf, Descriptor *desc, silentTypeT silent)
     return TRUE;
   }
   username = arg.substr(0, str_length);
- 
+
   str_length = arg.find_first_not_of("@", str_length);
   if (str_length == sstring::npos) {
     if (desc && !silent)

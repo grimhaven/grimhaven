@@ -41,7 +41,7 @@ static int spell_frost_breath(byte level, TBeing *ch, TBeing *victim, int lag)
   act("$n's breath is FREEZING!!!",TRUE,ch,0,victim,TO_VICT,ANSI_WHITE_BOLD);
 
   dam=victim->shieldAbsorbDamage(dam);
-  
+
   if (victim->isLucky(levelLuckModifier(ch->GetMaxLevel()))) {
     act("You dodge out of the way, thankfully, avoiding most of the damage.",TRUE,ch, 0, victim, TO_VICT, ANSI_WHITE_BOLD);
     dam >>= 1;
@@ -153,7 +153,7 @@ static int spell_lightning_breath(byte level, TBeing *ch, TBeing *victim, int la
   act("$n's breath is SHOCKING!!!",TRUE,ch,0,victim,TO_VICT);
 
   dam=victim->shieldAbsorbDamage(dam);
-  
+
   if (victim->isLucky(levelLuckModifier(ch->GetMaxLevel()))) {
     act("You dodge out of the way, thankfully, avoiding most of the damage.",TRUE,ch, 0, victim, TO_VICT);
     dam >>= 1;
@@ -278,13 +278,13 @@ int DragonBreath(TBeing *, cmdTypeT cmd, const char *, TMonster *myself, TObj *)
     return FALSE;
   if (myself->getWait() > 0)
     return FALSE;
-  
+
   for (i = 0; dragons[i].vnum != -1 && dragons[i].vnum != myself->mobVnum();i++);
 
   if (dragons[i].vnum == -1) {
     // in general, this is bad, but dumn builders often "test"
     if (myself->number == -1)
-      vlogf(LOG_LOW, format("Dragon (%s:%d) trying to breathe in room %d and not hard coded.") % 
+      vlogf(LOG_LOW, format("Dragon (%s:%d) trying to breathe in room %d and not hard coded.") %
             myself->getName() % myself->mobVnum() % myself->inRoom());
     else
       vlogf(LOG_BUG, format("Dragon has no defined breath. (%d)") %  myself->mobVnum());
@@ -304,7 +304,7 @@ int DragonBreath(TBeing *, cmdTypeT cmd, const char *, TMonster *myself, TObj *)
 
   // have all the mobs in the room try to run for it!
   TThing *t1;
-      
+
 
   for(StuffIter it=myself->roomp->stuff.begin();it!=myself->roomp->stuff.end();){
     TMonster *tm;
@@ -328,26 +328,26 @@ int DragonBreath(TBeing *, cmdTypeT cmd, const char *, TMonster *myself, TObj *)
       continue;
     switch (dragons[i].dam_type) {
       case SPELL_FROST_BREATH:
-	rc = spell_frost_breath(myself->GetMaxLevel(),myself,tmp, dragons[i].lag);
-	break;
+        rc = spell_frost_breath(myself->GetMaxLevel(),myself,tmp, dragons[i].lag);
+        break;
       case SPELL_FIRE_BREATH:
-	rc = spell_fire_breath(myself->GetMaxLevel(),myself,tmp, dragons[i].lag);
-	break;
+        rc = spell_fire_breath(myself->GetMaxLevel(),myself,tmp, dragons[i].lag);
+        break;
       case SPELL_ACID_BREATH:
-	rc = spell_acid_breath(myself->GetMaxLevel(),myself,tmp, dragons[i].lag);
-	break;
+        rc = spell_acid_breath(myself->GetMaxLevel(),myself,tmp, dragons[i].lag);
+        break;
       case SPELL_LIGHTNING_BREATH:
-	rc = spell_lightning_breath(myself->GetMaxLevel(),myself,tmp, dragons[i].lag);
-	break;
+        rc = spell_lightning_breath(myself->GetMaxLevel(),myself,tmp, dragons[i].lag);
+        break;
       case SPELL_CHLORINE_BREATH:
-	rc = spell_chlorine_breath(myself->GetMaxLevel(),myself,tmp, dragons[i].lag);
-	break;
+        rc = spell_chlorine_breath(myself->GetMaxLevel(),myself,tmp, dragons[i].lag);
+        break;
       case SPELL_DUST_BREATH:
-	rc = spell_dust_breath(myself->GetMaxLevel(), myself, tmp, dragons[i].lag);
-	break;
+        rc = spell_dust_breath(myself->GetMaxLevel(), myself, tmp, dragons[i].lag);
+        break;
       default:
-	vlogf(LOG_BUG, format("Bad breath for %s, buy it some Binaca") % myself->getName());
-	break;
+        vlogf(LOG_BUG, format("Bad breath for %s, buy it some Binaca") % myself->getName());
+        break;
     }
     if (IS_SET_DELETE(rc, DELETE_VICT)) {
       delete tmp;
@@ -414,7 +414,7 @@ void TBeing::doBreath(const char *argument)
   } else if (is_abbrev(buf, "frost")) {
     breath = SPELL_FROST_BREATH;
   } else if (is_abbrev(buf, "lightning")) {
-    breath = SPELL_LIGHTNING_BREATH; 
+    breath = SPELL_LIGHTNING_BREATH;
   } else if (is_abbrev(buf, "chlorine")) {
     breath = SPELL_CHLORINE_BREATH;
   } else if (is_abbrev(buf, "dust")) {

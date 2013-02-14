@@ -77,7 +77,7 @@ enum trimTypeT {
 };
 
 // victim = NULL for area effects
-// class_amt is dam appropriate for the class on a per level, per round 
+// class_amt is dam appropriate for the class on a per level, per round
 // reduce indicates if a check on hit() has been done
 //    physical attacks are probably !reduce, spells are reduce
 // npc tells whether the caster is an NPC or not
@@ -92,7 +92,7 @@ static int genericDam(const TBeing *victim, spellNumT skill, discNumT basic_disc
   // reached at L30, and 100% in special disc is L50.  That is, if a skill
   // is start=0, learn=2 (maxing at 50%) we would set the max level either
   // to L15 or L40 depending on whether it was a basic or a special.
-  // 
+  //
   // However, if they have specialized, we will assume the min level is 30
   // and scales up to 50 based on learning in the specialized disc.
   int max_lev;
@@ -146,7 +146,7 @@ if (discArray[skill]->disc == discArray[skill]->assDisc) {
     fixed_amt *= 0.9091 / 1.75;
 
   // Obviously, we should tweak dam up/down based on how successful the
-  // skill is. 
+  // skill is.
   fixed_amt *= (100.0 / getSkillDiffModifier(skill));
 #if 0
 // lower chance of CS/CF makes this less necessary
@@ -159,7 +159,7 @@ if (discArray[skill]->disc == discArray[skill]->assDisc) {
 #endif
 
   // cut area effects in half
-  if (IS_SET(discArray[skill]->targets, TAR_AREA)) 
+  if (IS_SET(discArray[skill]->targets, TAR_AREA))
     fixed_amt /= 2.0;
 
   if (victim && reduce) {
@@ -184,7 +184,7 @@ if (discArray[skill]->disc == discArray[skill]->assDisc) {
     double def = min((int) victim->GetMaxLevel(), 60) * 16.67;
     double off = min(max(orig_lev, level), 60) * 16.67;
     off += max(0, max(orig_lev, level)-60) * 5;
-    
+
     // if I am higher level
     double mod = def-off;
     if (mod > 0) {
@@ -208,7 +208,7 @@ if (discArray[skill]->disc == discArray[skill]->assDisc) {
 
   dam = max(1,dam);
 
-  if (!npc && 
+  if (!npc &&
       ((!trim && ((victim && !victim->isPc()) || !victim)) || trim)) {
     discArray[skill]->pot_victims++;
     discArray[skill]->pot_damage += dam;
@@ -270,7 +270,7 @@ int TBeing::getSkillDam(const TBeing *victim, spellNumT skill, int level, int ad
     case SKILL_DEATHSTROKE:
       // deathstroke fail has chance of being hit back
       // allow 2* normal dam
-      dam =  genericDam(victim, skill, DISC_WARRIOR, level, adv_learn, 
+      dam =  genericDam(victim, skill, DISC_WARRIOR, level, adv_learn,
          victim->doesKnowSkill(SKILL_DEATHSTROKE) ? 0.40 : 0.20,
          REDUCE_NO, !isPc(), TRIM_NO);
       break;
@@ -294,7 +294,7 @@ int TBeing::getSkillDam(const TBeing *victim, spellNumT skill, int level, int ad
     case SPELL_STUNNING_ARROW:
       // for normal success, these spells provide a "save" that cuts dam in
       // half.  That is, 50% chance of dam in half.  The average would be 75%
-      // hence we multiply by 4/3 to get the desired result  
+      // hence we multiply by 4/3 to get the desired result
       // damage also increased due to difficulty in obtaining component
       dam = genericDam(victim, skill, DISC_MAGE, level, adv_learn, 2.05 * HARD_TO_FIND_COMPONENT * HAS_SAVING_THROW, REDUCE_YES, !isPc(), TRIM_NO);
       break;
@@ -314,13 +314,13 @@ int TBeing::getSkillDam(const TBeing *victim, spellNumT skill, int level, int ad
     case SPELL_GRANITE_FISTS:
       // for normal success, these spells provide a "save" that cuts dam in
       // half.  That is, 50% chance of dam in half.  The average would be 75%
-      // hence we multiply by 4/3 to get the desired result  
+      // hence we multiply by 4/3 to get the desired result
       dam = genericDam(victim, skill, DISC_MAGE, level, adv_learn, 2.05 * HAS_SAVING_THROW, REDUCE_YES, !isPc(), TRIM_NO);
       break;
     case SPELL_METEOR_SWARM:
       // for normal success, these spells provide a "save" that cuts dam in
       // half.  That is, 50% chance of dam in half.  The average would be 75%
-      // hence we multiply by 4/3 to get the desired result  
+      // hence we multiply by 4/3 to get the desired result
 
       // meteor has an outdoor-only limitation:
       dam = genericDam(victim, skill, DISC_MAGE, level, adv_learn, 2.25 * HAS_SAVING_THROW * OUTDOOR_ONLY, REDUCE_YES, !isPc(), TRIM_NO);

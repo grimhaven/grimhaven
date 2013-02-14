@@ -76,9 +76,9 @@ int identify(TBeing *caster, TObj *obj, int, short bKnown)
               (int) z % (((int) z != 1) ? "s" : ""));
     } else if (z >= 1.0) {
       caster->sendTo(format("It seems to be about %d cubic inch%s in volume, %d pound%s, %d drechel%s in weight.\n\r") %
-		     x % ((x != 1) ? "es" : "") %
-		     (int) (z) % (((int) (z) != 1) ? "s" : "") %
-		     (int) (10.0 * (z - (int) z)) % (((int) (10.0 * (z - (int) z)) != 1) ? "s" : ""));
+                     x % ((x != 1) ? "es" : "") %
+                     (int) (z) % (((int) (z) != 1) ? "s" : "") %
+                     (int) (10.0 * (z - (int) z)) % (((int) (10.0 * (z - (int) z)) != 1) ? "s" : ""));
     } else {
       caster->sendTo(format("It seems to be about %d cubic inch%s in volume, and %d drechel%s in weight.\n\r") % x % ((x != 1) ? "es" : "") %
               (int) (10.0 * (z - (int) z)) % (((int) (10.0 * (z - (int) z)) != 1) ? "s" : ""));
@@ -161,14 +161,14 @@ static sstring identifyBeingStuff(const TBeing *caster, TBeing *victim, showMeT 
   sstring str;
   char buf[256];
 
-  sprintf(buf, "You sense that %s is a %s %s.\n\r", victim->hssh(), 
-              describe_level(victim->GetMaxLevel()), 
+  sprintf(buf, "You sense that %s is a %s %s.\n\r", victim->hssh(),
+              describe_level(victim->GetMaxLevel()),
               victim->getMyRace()->getPluralName().c_str());
   str += buf;
 
   if (dynamic_cast<const TPerson *>(victim)) {
     sprintf(buf, "%d years, %d months, %d days, %d hours old.\n\r",
-             victim->age()->year, victim->age()->month, 
+             victim->age()->year, victim->age()->month,
              victim->age()->day, victim->age()->hours / 2);
     str += buf;
   }
@@ -187,7 +187,7 @@ static sstring identifyBeingStuff(const TBeing *caster, TBeing *victim, showMeT 
     temp = ::number(0, temp) - 10;
     if (temp > 0) {
       continue;
-    } else {  
+    } else {
       tempStat.add(the_stat, temp);
     }
   }
@@ -274,7 +274,7 @@ int divinationObj(TBeing *caster, const TObj *obj, int, short bKnown)
     caster->sendTo(obj->wear_flags_to_sentence());
     caster->sendTo(format("%s\n\r") % obj->statObjInfo());
     obj->divinateMe(caster);
-    
+
     // caster->sendTo("It will give you following abilities when equipped:  ");
     // buf=sprintbit(obj->obj_flags.bitvector, affected_bits);
     // buf+="\n\r";
@@ -300,7 +300,7 @@ int divinationObj(TBeing *caster, const TObj *obj, int, short bKnown)
         } else if (obj->affected[i].location == APPLY_IMMUNITY) {
           caster->sendTo(format("    Affect:  %s: %s by %ld\n\r") % apply_types[obj->affected[i].location].name % immunity_names[obj->affected[i].modifier] % obj->affected[i].modifier2);
         } else {
-          
+
           if (!strcmp(apply_types[obj->affected[i].location].name, "Magic Affect")) {
             for (unsigned long nr = 0; ; ++nr) {
               // loop over all item perma-affect flags
@@ -358,7 +358,7 @@ int castDivinationObj(TBeing *caster, const TObj *obj)
 {
   if (caster->GetMaxLevel() > MAX_MORT && !caster->hasWizPower(POWER_WIZARD)) {
     caster->sendTo("Shame, Shame.  You shouldn't do this...\n\r");
-    vlogf(LOG_CHEAT, format("%s used Divination Object on: %s") % 
+    vlogf(LOG_CHEAT, format("%s used Divination Object on: %s") %
           caster->getName() % obj->getName());
     return FALSE;
   }
@@ -396,7 +396,7 @@ int divinationBeing(TBeing *caster, TBeing * victim, int, short bKnown)
 
       caster->desc->page_string(str);
     }
-  
+
     return SPELL_SUCCESS;
   } else {
     caster->nothingHappens();
@@ -431,7 +431,7 @@ int castDivinationBeing(TBeing *caster, TBeing * victim)
 {
   if (caster->GetMaxLevel() > MAX_MORT && !caster->hasWizPower(POWER_WIZARD)) {
     caster->sendTo("Shame, Shame.  You shouldn't do this...\n\r");
-    vlogf(LOG_CHEAT, format("%s used Divination Being on: %s") % 
+    vlogf(LOG_CHEAT, format("%s used Divination Being on: %s") %
           caster->getName() % victim->getName());
     return FALSE;
   }
@@ -446,13 +446,13 @@ int castDivinationBeing(TBeing *caster, TBeing * victim)
 
 const char *dirname(dirTypeT dir)
 {
-	static char portalDir[] = "enter portal";
-	static char rightHere[] = "right here";
+        static char portalDir[] = "enter portal";
+        static char rightHere[] = "right here";
   if (dir <= DIR_NONE)
     return rightHere;
   if (dir >= MAX_DIR)
     return portalDir;
-	return dirs[dir];
+        return dirs[dir];
 }
 
 sstring genPathString(pathDataList path)
@@ -557,7 +557,7 @@ int eyesOfFertuman(TBeing *caster, TBeing* victim, int level, short bKnown)
     dirTypeT dir = eqScan.findPath(caster->in_room, eqFinder);
     if (dir == DIR_BOGUS || NULL == eqFinder.getFound(iSearch))
       break; // stop if we didnt find anything, continue if we found something
-    
+
     // found something, save this path
     paths.push_back(genPathString(eqScan.path));
   }
@@ -658,25 +658,25 @@ int eyesOfFertuman(TBeing *caster, const char * tofind, int level, byte bKnown)
 
         TMonster * tMon = dynamic_cast<TMonster *>(obj->parent);
 
-	// added to skip on items flagged with nolocate 8-28-2000 -jh
-	if (obj->isObjStat(ITEM_NOLOCATE))
-	  continue;
+        // added to skip on items flagged with nolocate 8-28-2000 -jh
+        if (obj->isObjStat(ITEM_NOLOCATE))
+          continue;
 
-	// this gets used too much for item hunting
-	if (obj->obj_flags.cost > 5000)
-	  continue;
+        // this gets used too much for item hunting
+        if (obj->obj_flags.cost > 5000)
+          continue;
 
-	if (obj->objVnum() == Obj::YOUTH_POTION ||
+        if (obj->objVnum() == Obj::YOUTH_POTION ||
             obj->objVnum() == Obj::STATS_POTION ||
             obj->objVnum() == Obj::MYSTERY_POTION ||
-	    obj->objVnum() == Obj::LEARNING_POTION ||
-	    obj->objVnum() == 23091 || // for brick quest
+            obj->objVnum() == Obj::LEARNING_POTION ||
+            obj->objVnum() == 23091 || // for brick quest
             obj->parent    == caster       ||
             (tMon && tMon->isShopkeeper()))
-	  continue;
+          continue;
         //added to skip items on gods 10-19-00 -dash
-	if(dynamic_cast<TBeing *>(obj->parent) && dynamic_cast<TBeing *>(obj->parent)->isImmortal())
-	  continue;
+        if(dynamic_cast<TBeing *>(obj->parent) && dynamic_cast<TBeing *>(obj->parent)->isImmortal())
+          continue;
         if (dynamic_cast<TBeing *>(obj->parent)) {
           if (strlen(caster->pers(obj->parent)) > 0) {
             strcpy(capbuf, obj->getName());
@@ -711,8 +711,8 @@ int eyesOfFertuman(TBeing *caster, const char * tofind, int level, byte bKnown)
               if (hasColorStrings(NULL, obj->roomp->getName(), 2)) {
                  caster->sendTo(COLOR_ROOM_NAME, format("%s is in %s.\n\r") % capbuf % caster->dynColorRoom(obj->roomp, 1, TRUE));
               } else {
-                caster->sendTo(COLOR_ROOM_NAME, format("%s is in %s%s%s.\n\r") %  
-                   capbuf % 
+                caster->sendTo(COLOR_ROOM_NAME, format("%s is in %s%s%s.\n\r") %
+                   capbuf %
                    caster->addColorRoom(obj->roomp, 1) %
                    obj->roomp->getName() % caster->norm());
               }
@@ -738,7 +738,7 @@ int eyesOfFertuman(TBeing *caster, const char * tofind, int level, byte bKnown)
         if (ch->in_room == Room::NOWHERE || !caster->canSee(ch)) {
           act("$N is somewhere but you can't tell the location.", TRUE, caster, NULL, ch, TO_CHAR);
         } else if (ch->inImperia() && !caster->isImmortal()) {
-	  continue;
+          continue;
         } else {
           if (IS_SET(caster->desc->plr_color, PLR_COLOR_ROOM_NAME)) {
             if (hasColorStrings(NULL, ch->roomp->getName(), 2)) {
@@ -757,7 +757,7 @@ int eyesOfFertuman(TBeing *caster, const char * tofind, int level, byte bKnown)
 #else
 // old
         strcpy(capbuf, ch->getName());
-        caster->sendTo(format("%s at %s.\n\r") % cap(capbuf) % 
+        caster->sendTo(format("%s at %s.\n\r") % cap(capbuf) %
           (ch->roomp ? ch->roomp->name : "God only knows where..."));
 #endif
         j--;
@@ -828,7 +828,7 @@ int castEyesOfFertuman(TBeing *caster, TBeing* v)
 
 int TThing::powerstoneMe(TBeing *caster, int, short)
 {
-  act("It is too late before you realize your blunder -- that's no opal!", 
+  act("It is too late before you realize your blunder -- that's no opal!",
             FALSE, caster, NULL, NULL, TO_CHAR);
   caster->nothingHappens(SILENT_YES);
   return SPELL_FAIL;
@@ -839,7 +839,7 @@ int TOpal::powerstoneMe(TBeing *caster, int, short bKnown)
   sstring buf;
 
   if ((psGetStrength() == psGetCarats()) || (psGetConsecFails() >= 2)) {
-    // But the thing was already maxed out 
+    // But the thing was already maxed out
     act("You sense that this powerstone is at full possible strength.",FALSE, caster, NULL, NULL, TO_CHAR);
     caster->nothingHappens(SILENT_YES);
     return SPELL_FAIL;
@@ -870,7 +870,7 @@ int TOpal::powerstoneMe(TBeing *caster, int, short bKnown)
       act("The glow surrounding $n's powerstone intensifies for a brief moment!", FALSE, caster, NULL, NULL, TO_ROOM);
       act("You have succeeded in increasing the strength of the powerstone!", FALSE, caster, NULL, NULL, TO_CHAR);
     } else {
-      // ch has turned the opal into a powerstone 
+      // ch has turned the opal into a powerstone
       act("You have created a powerstone -- $p begins to glow softly!", FALSE, caster, this, NULL, TO_CHAR);
       act("$n seems to have somehow enchanted $p! It begins to glow softly!", FALSE, caster, this, NULL, TO_ROOM);
       // init the four values
@@ -889,7 +889,7 @@ int TOpal::powerstoneMe(TBeing *caster, int, short bKnown)
       caster->sendTo("Congratulations! You have brought this powerstone to its maximum strength!\n\r");
     return SPELL_SUCCESS;
   } else {
-    // Do another check to see if the casting fails 
+    // Do another check to see if the casting fails
     caster->nothingHappens();
 
     switch (critFail(caster, SPELL_POWERSTONE)) {
@@ -988,7 +988,7 @@ int shatter(TBeing *caster, TBeing * victim, int level, short bKnown)
         CF(SPELL_SHATTER);
         act("Oops! You have a terrible feeling something went horribly wrong!",
               FALSE, caster, NULL, NULL, TO_CHAR);
-        act("You've cast your 'shatter' on yourself!", 
+        act("You've cast your 'shatter' on yourself!",
               FALSE, caster, NULL, NULL, TO_CHAR);
         act("$n's spell backfires on $m!", FALSE, caster, NULL, NULL, TO_ROOM);
         shatter(caster,caster,100,100);
@@ -1035,9 +1035,9 @@ int farlook(TBeing *caster, TBeing * victim, int level, short bKnown)
   TThing *t=NULL;
   TBeing *ch;
 
-  if (caster->isNotPowerful(victim, level, SPELL_FARLOOK, SILENT_NO)) 
+  if (caster->isNotPowerful(victim, level, SPELL_FARLOOK, SILENT_NO))
     return SPELL_FAIL;
- 
+
   target = victim->roomp->number;
 
   if (target == Room::NOCTURNAL_STORAGE) {
@@ -1269,7 +1269,7 @@ int castIlluminate(TBeing *caster, TObj *obj)
 {
   int ret = 0, level;
   level = caster->getSkillLevel(SPELL_ILLUMINATE);
-  
+
   ret=illuminate(caster,obj,level,caster->getSkillValue(SPELL_ILLUMINATE));
   return ret;
 }
@@ -1357,7 +1357,7 @@ int dispelMagic(TBeing *caster, TObj * obj, int, short bKnown)
 
     // assumes item not being used so don't have to affectFrom()
     // this is the same list in checkObjStat for affects requiring MAGIC be set
-    for (i = 0; i < MAX_OBJ_AFFECT; i++) { 
+    for (i = 0; i < MAX_OBJ_AFFECT; i++) {
       if ((obj->affected[i].location != APPLY_NONE) &&
           (obj->affected[i].location != APPLY_LIGHT) &&
           (obj->affected[i].location != APPLY_NOISE) &&
@@ -1388,7 +1388,7 @@ void dispelMagic(TBeing *caster, TObj * tar_obj, TMagicItem *obj)
 
   ret = dispelMagic(caster,tar_obj, level,obj->getMagicLearnedness());
   if (IS_SET(ret, SPELL_SUCCESS)) {
-    act("$p dispels the magical forces affecting $n...", 
+    act("$p dispels the magical forces affecting $n...",
            FALSE, tar_obj, obj, NULL, TO_ROOM);
   }
 }
@@ -1416,9 +1416,9 @@ int castDispelMagic(TBeing *caster, TObj *obj)
   ret=dispelMagic(caster,obj,level,caster->getSkillValue(SPELL_DISPEL_MAGIC));
 
   if (IS_SET(ret, SPELL_SUCCESS)) {
-    act("You dispel the magical forces affecting $N...", 
+    act("You dispel the magical forces affecting $N...",
          FALSE, caster, NULL, obj, TO_CHAR);
-    act("$n dispels the magical forces affecting $N...", 
+    act("$n dispels the magical forces affecting $N...",
          FALSE, caster, NULL, obj, TO_ROOM);
   }
   return ret;
@@ -1445,9 +1445,9 @@ int dispelMagic(TBeing *caster, TBeing * victim, TMagicItem *obj)
 
   int ret = dispelMagic(caster,victim, level,obj->getMagicLearnedness());
   if (IS_SET(ret, SPELL_SUCCESS)) {
-    act("$p dispels the magical forces affecting you...", 
+    act("$p dispels the magical forces affecting you...",
            FALSE, victim, obj, NULL, TO_CHAR);
-    act("$p dispels the magical forces affecting $n...", 
+    act("$p dispels the magical forces affecting $n...",
            FALSE, victim, obj, NULL, TO_ROOM);
     int rc = generic_dispel_magic(caster, victim, level, caster->isImmortal());
     if (IS_SET_DELETE(rc, DELETE_VICT))
@@ -1482,16 +1482,16 @@ int castDispelMagic(TBeing *caster, TBeing * victim)
 
   if (IS_SET(ret, SPELL_SUCCESS)) {
     if (caster != victim) {
-      act("You dispel the magical forces affecting $N...", 
+      act("You dispel the magical forces affecting $N...",
            FALSE, caster, NULL, victim, TO_CHAR);
-      act("$n dispels the magical forces affecting you...", 
+      act("$n dispels the magical forces affecting you...",
            FALSE, caster, NULL, victim, TO_VICT);
-      act("$n dispels the magical forces affecting $N...", 
+      act("$n dispels the magical forces affecting $N...",
            FALSE, caster, NULL, victim, TO_NOTVICT);
     } else {
-      act("You dispel the magical forces affecting you...", 
+      act("You dispel the magical forces affecting you...",
            FALSE, caster, NULL, 0, TO_CHAR);
-      act("$n dispels the magical forces affecting $m...", 
+      act("$n dispels the magical forces affecting $m...",
            FALSE, caster, NULL, 0, TO_ROOM);
     }
     int rc = generic_dispel_magic(caster, victim, level, caster->isImmortal());
@@ -1656,7 +1656,7 @@ int generic_dispel_magic(TBeing *caster, TBeing *victim, int, immortalTypeT immo
           return DELETE_VICT;
         victim->affectFrom(spell);
       }
-      // aggressive Act 
+      // aggressive Act
       if (caster && !victim->fight() && tvm) {
         caster->setCharFighting(victim);
         caster->setVictFighting(victim);
@@ -1670,7 +1670,7 @@ int generic_dispel_magic(TBeing *caster, TBeing *victim, int, immortalTypeT immo
       victim->sendTo("You feel more vulnerable as your white aura slowly fades.\n\r");
       act("The white glow around $n's body fades.", FALSE, victim, NULL, NULL, TO_ROOM);
     }
-    // aggressive Act 
+    // aggressive Act
     if (caster && !victim->fight() && tvm) {
       caster->setCharFighting(victim);
       caster->setVictFighting(victim);
@@ -1698,29 +1698,29 @@ int enhanceWeapon(TBeing *caster, TMagicItem *usedobj, TObj * toenhance)
 
   ret = enhanceWeapon(caster,toenhance,usedobj->getMagicLevel(),usedobj->getMagicLearnedness());
   if (IS_SET(ret, SPELL_SUCCESS)) {
-    act("$p begins to glow with a soft yellow light.", 
+    act("$p begins to glow with a soft yellow light.",
           FALSE, caster, toenhance, NULL, TO_CHAR);
-    act("$p begins to glow with a soft yellow light.", 
+    act("$p begins to glow with a soft yellow light.",
           FALSE, caster, toenhance, NULL, TO_ROOM);
   }
   if (IS_SET(ret, SPELL_CRIT_FAIL)) {
-    act("A nasty odor eminates from $p, looks like a malfunction!", 
+    act("A nasty odor eminates from $p, looks like a malfunction!",
           FALSE, caster, usedobj, NULL, TO_CHAR);
-    act("A nasty odor eminates from $p, looks like a malfunction!", 
+    act("A nasty odor eminates from $p, looks like a malfunction!",
           FALSE, caster, usedobj, NULL, TO_CHAR);
-    act("$p flickers with a red light for a second, which then slowly fades away.", 
+    act("$p flickers with a red light for a second, which then slowly fades away.",
           FALSE, caster, toenhance, NULL, TO_CHAR);
-    act("$p flickers with a red light for a second, which then slowly fades away.", 
+    act("$p flickers with a red light for a second, which then slowly fades away.",
           FALSE, caster, toenhance, NULL, TO_ROOM);
   }
   if (IS_SET(ret, SPELL_CRIT_FAIL_2)) {
-    act("A nasty odor eminates from $p, looks like a malfunction!", 
+    act("A nasty odor eminates from $p, looks like a malfunction!",
           FALSE, caster, usedobj, NULL, TO_CHAR);
-    act("A nasty odor eminates from $p, looks like a malfunction!", 
+    act("A nasty odor eminates from $p, looks like a malfunction!",
           FALSE, caster, usedobj, NULL, TO_CHAR);
-    act("$p flares up in an explosion of white light!", 
+    act("$p flares up in an explosion of white light!",
           FALSE, caster, toenhance, NULL, TO_CHAR);
-    act("$p flares up in an explosion of white light!", 
+    act("$p flares up in an explosion of white light!",
           FALSE, caster, toenhance, NULL, TO_ROOM);
     return DELETE_ITEM;
   }
@@ -1755,25 +1755,25 @@ int castEnhanceWeapon(TBeing *caster, TObj *obj)
   if (IS_SET(ret, SPELL_SUCCESS)) {
     act("$n draws some elemental magic from the ether and guides it into $p.",
               FALSE, caster, obj, NULL, TO_ROOM);
-    act("You draw some elemental magic from the ether and guide it into $p.", 
+    act("You draw some elemental magic from the ether and guide it into $p.",
               FALSE, caster, obj, NULL, TO_CHAR);
-    act("$p begins to glow with a soft yellow light.", 
+    act("$p begins to glow with a soft yellow light.",
           FALSE, caster, obj, NULL, TO_CHAR);
-    act("$p begins to glow with a soft yellow light.", 
+    act("$p begins to glow with a soft yellow light.",
           FALSE, caster, obj, NULL, TO_ROOM);
   }
   if (IS_SET(ret, SPELL_CRIT_FAIL)) {
     caster->spellMessUp(SPELL_ENHANCE_WEAPON);
-    act("$p flickers with a red light for a second, which then slowly fades away.", 
+    act("$p flickers with a red light for a second, which then slowly fades away.",
           FALSE, caster, obj, NULL, TO_CHAR);
-    act("$p flickers with a red light for a second, which then slowly fades away.", 
+    act("$p flickers with a red light for a second, which then slowly fades away.",
           FALSE, caster, obj, NULL, TO_ROOM);
   }
   if (IS_SET(ret, SPELL_CRIT_FAIL_2)) {
     caster->spellMessUp(SPELL_ENHANCE_WEAPON);
-    act("$p flares up in an explosion of white light!", 
+    act("$p flares up in an explosion of white light!",
           FALSE, caster, obj, NULL, TO_CHAR);
-    act("$p flares up in an explosion of white light!", 
+    act("$p flares up in an explosion of white light!",
           FALSE, caster, obj, NULL, TO_ROOM);
     return DELETE_ITEM;
   }
@@ -1786,9 +1786,9 @@ bool alchemy_create_deny(int numberx)
 {
   objIndexData oid = obj_index[numberx];
 
-  if (oid.value < 0) 
+  if (oid.value < 0)
     return true;
-  if (oid.max_exist < 1000) 
+  if (oid.max_exist < 1000)
     return true;
   if (oid.spec)
     return true;
@@ -1868,7 +1868,7 @@ bool alchemy_create_deny(int numberx)
   // the above checks remain as a safeguard against putting bad objects
   // in this list
   int allowed[]={6,9,105,106,108,321,330,410,1012,3090,3091,13841,13860,
-		 26686,28917,28918,28919,148,318, -1};
+                 26686,28917,28918,28919,148,318, -1};
 
   for(int i=0;allowed[i]!=-1;++i){
     if(allowed[i] == oid.virt)
@@ -1877,7 +1877,7 @@ bool alchemy_create_deny(int numberx)
 
   return true;
 }
-        
+
 int materialize(TBeing *caster, TObj **obj, int, const char * name, short bKnown)
 {
   unsigned int numberx;
@@ -1888,9 +1888,9 @@ int materialize(TBeing *caster, TObj **obj, int, const char * name, short bKnown
   caster->addToMoney(-MATERIALIZE_PRICE, GOLD_HOSPITAL);
 
   for (numberx = 0; numberx < obj_index.size(); numberx++) {
-    if (!isname(name, obj_index[numberx].name)) 
+    if (!isname(name, obj_index[numberx].name))
       continue;
-    if (obj_index[numberx].value > MATERIALIZE_PRICE) 
+    if (obj_index[numberx].value > MATERIALIZE_PRICE)
       continue;
     if (alchemy_create_deny(numberx))
       continue;
@@ -1919,8 +1919,8 @@ int materialize(TBeing *caster, TObj **obj, int, const char * name, short bKnown
       (*obj)->setEmpty();
 
       if (((*obj)->isPaired() && !caster->heldInPrimHand() &&
-	  !caster->heldInSecHand()) ||
-	  (!(*obj)->isPaired() && !caster->heldInPrimHand())) {
+          !caster->heldInSecHand()) ||
+          (!(*obj)->isPaired() && !caster->heldInPrimHand())) {
         caster->equipChar(*obj, caster->getPrimaryHold(), SILENT_YES);
         grabbed = true;
       } else {
@@ -1972,7 +1972,7 @@ int castMaterialize(TBeing *caster, const char * name)
 
   int level = caster->getSkillLevel(SPELL_MATERIALIZE);
   TObj *obj = NULL;
-  
+
   act("$n claps $s hands together.", TRUE, caster, NULL, NULL, TO_ROOM);
   act("You clap your hands together.", TRUE, caster, NULL, NULL, TO_CHAR);
 
@@ -1990,7 +1990,7 @@ int spontaneousGeneration(TBeing *caster, TObj **obj, const char * name, int, sh
   caster->addToMoney(-SPONT_PRICE, GOLD_HOSPITAL);
 
   for (numberx = 0; numberx < obj_index.size(); numberx++) {
-    if (!isname(name, obj_index[numberx].name)) 
+    if (!isname(name, obj_index[numberx].name))
       continue;
     if (obj_index[numberx].value > SPONT_PRICE)
       continue;
@@ -2108,7 +2108,7 @@ int TScroll::copyMe(TBeing *caster, short bKnown)
 
   getFourValues(&x, &spell1, &spell2, &spell3);
 
-  if((spell1!=-1 && !caster->doesKnowSkill((spellNumT)spell1)) || 
+  if((spell1!=-1 && !caster->doesKnowSkill((spellNumT)spell1)) ||
      (spell2!=-1 && !caster->doesKnowSkill((spellNumT)spell2)) ||
      (spell3!=-1 && !caster->doesKnowSkill((spellNumT)spell3))){
     caster->sendTo("You can only copy scrolls of spells that you know.\n\r");
@@ -2139,9 +2139,9 @@ void copy(TBeing *caster, TMagicItem *usedobj, TObj * tocopy)
   ret = copy(caster,tocopy,usedobj->getMagicLevel(),usedobj->getMagicLearnedness());
 
   if (IS_SET(ret, SPELL_SUCCESS)) {
-    act("In a flash of light, $p appears.", 
+    act("In a flash of light, $p appears.",
           TRUE, caster, tocopy, NULL, TO_ROOM);
-    act("In a flash of light, $p appears.", 
+    act("In a flash of light, $p appears.",
          TRUE, caster, tocopy, NULL, TO_CHAR);
   }
 }
@@ -2168,9 +2168,9 @@ int castCopy(TBeing *caster, TObj *obj)
 
   ret = copy(caster,obj,level,caster->getSkillValue(SPELL_COPY));
   if (IS_SET(ret, SPELL_SUCCESS)) {
-    act("In a flash of light, $p appears.", 
+    act("In a flash of light, $p appears.",
           TRUE, caster, obj, NULL, TO_ROOM);
-    act("In a flash of light, $p appears.", 
+    act("In a flash of light, $p appears.",
          TRUE, caster, obj, NULL, TO_CHAR);
   }
   return TRUE;
@@ -2207,31 +2207,31 @@ int castGalvanize(TBeing *caster, TObj *obj)
   }
   level = caster->getSkillLevel(SPELL_GALVANIZE);
 
-  act("$n concentrates on $p, laying $s hands on it.", 
+  act("$n concentrates on $p, laying $s hands on it.",
              TRUE, caster, obj, NULL, TO_ROOM);
-  act("You concentrate on $p, laying your hands on it.", 
+  act("You concentrate on $p, laying your hands on it.",
              TRUE, caster, obj, NULL, TO_CHAR);
   ret=galvanize(caster,obj,level,caster->getSkillValue(SPELL_GALVANIZE));
 
   if (IS_SET(ret, SPELL_SUCCESS)) {
-    act("$p throbs with an aquamarine glow briefly.", 
+    act("$p throbs with an aquamarine glow briefly.",
              FALSE, caster, obj, 0, TO_CHAR);
-    act("$p throbs with an aquamarine glow briefly.", 
+    act("$p throbs with an aquamarine glow briefly.",
              FALSE, caster, obj, 0, TO_ROOM);
   }
   if (IS_SET(ret, SPELL_CRIT_FAIL_2)) {
-    act("Brown goo seeps from $p.  Ooops, that didn't go quite right.", 
+    act("Brown goo seeps from $p.  Ooops, that didn't go quite right.",
              FALSE, caster, obj, 0, TO_CHAR);
-    act("Brown goo seeps from $p.", 
+    act("Brown goo seeps from $p.",
              FALSE, caster, obj, 0, TO_ROOM);
     if (!obj->makeScraps())
       return DELETE_ITEM;
     return FALSE;
   }
   if (IS_SET(ret, SPELL_CRIT_FAIL)) {
-    act("Brown goo seeps from $p.  Ooops, that didn't go quite right.", 
+    act("Brown goo seeps from $p.  Ooops, that didn't go quite right.",
              FALSE, caster, obj, 0, TO_CHAR);
-    act("Brown goo seeps from $p.", 
+    act("Brown goo seeps from $p.",
              FALSE, caster, obj, 0, TO_ROOM);
     if (obj->getStructPoints() <= 0 &&
         obj->getMaxStructPoints() >= 0) {
@@ -2403,7 +2403,7 @@ void TBeing::doScribe(const char *arg)
       delete comp_scribe;
       comp_scribe = NULL;
     }
-    
+
     buf = format("You use up %d charge%s of $p.") %
             how_many % (how_many == 1 ? "" : "s");
     act(buf, FALSE, this, comp_spell, 0, TO_CHAR);

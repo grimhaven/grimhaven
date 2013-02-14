@@ -142,9 +142,9 @@ CSkill *TBeing::getSkill(spellNumT skill) const
 //  MAGE CLASS
 
 // disc_mage
-    case SPELL_GUST: // 0 
+    case SPELL_GUST: // 0
       return &((CDMage *) cd)->skGust;
-    case SPELL_SLING_SHOT: // 1 
+    case SPELL_SLING_SHOT: // 1
       return &((CDMage *) cd)->skSlingShot;
     case SPELL_GUSHER: // 2
       return &((CDMage *) cd)->skGusher;
@@ -164,15 +164,15 @@ CSkill *TBeing::getSkill(spellNumT skill) const
       return &((CDMage *) cd)->skDetectMagic;
     case SPELL_STUNNING_ARROW:  // 10
       return &((CDMage *) cd)->skStunningArrow;
-    case SPELL_MATERIALIZE:  // 11  
+    case SPELL_MATERIALIZE:  // 11
       return &((CDMage *) cd)->skMaterialize;
-    case SPELL_PROTECTION_FROM_EARTH: // 12    
+    case SPELL_PROTECTION_FROM_EARTH: // 12
       return &((CDMage *) cd)->skProtectionFromEarth;
-    case SPELL_PROTECTION_FROM_AIR:  // 13     
+    case SPELL_PROTECTION_FROM_AIR:  // 13
       return &((CDMage *) cd)->skProtectionFromAir;
-    case SPELL_PROTECTION_FROM_FIRE:  //14   
+    case SPELL_PROTECTION_FROM_FIRE:  //14
       return &((CDMage *) cd)->skProtectionFromFire;
-    case SPELL_PROTECTION_FROM_WATER: // 15 
+    case SPELL_PROTECTION_FROM_WATER: // 15
       return &((CDMage *) cd)->skProtectionFromWater;
     case SPELL_PROTECTION_FROM_ELEMENTS: //16
       return &((CDMage *) cd)->skProtectionFromElements;
@@ -180,11 +180,11 @@ CSkill *TBeing::getSkill(spellNumT skill) const
       return &((CDMage *) cd)->skPebbleSpray;
     case SPELL_ARCTIC_BLAST: // 18
       return &((CDMage *) cd)->skArcticBlast;
-    case SPELL_COLOR_SPRAY: // 19  
+    case SPELL_COLOR_SPRAY: // 19
       return &((CDMage *) cd)->skColorSpray;
-    case SPELL_INFRAVISION: // 20 
+    case SPELL_INFRAVISION: // 20
       return &((CDMage *) cd)->skInfravision;
-    case SPELL_IDENTIFY:  // 21   
+    case SPELL_IDENTIFY:  // 21
       return &((CDMage *) cd)->skIdentify;
     case SPELL_POWERSTONE:  // 22
       return &((CDMage *) cd)->skPowerstone;
@@ -200,7 +200,7 @@ CSkill *TBeing::getSkill(spellNumT skill) const
       return &((CDMage *) cd)->skAccelerate;
     case SPELL_DUST_STORM: // 28
       return &((CDMage *) cd)->skDustStorm;
-    case SPELL_LEVITATE: // 29 
+    case SPELL_LEVITATE: // 29
       return &((CDMage *) cd)->skLevitate;
     case SPELL_FEATHERY_DESCENT: // 30
       return &((CDMage *) cd)->skFeatheryDescent;
@@ -220,7 +220,7 @@ CSkill *TBeing::getSkill(spellNumT skill) const
       return &((CDMage *) cd)->skSlumber;
     case SPELL_CONJURE_EARTH: // 39
       return &((CDMage *) cd)->skConjureElemEarth;
-    case SPELL_CONJURE_AIR: // 40 
+    case SPELL_CONJURE_AIR: // 40
       return &((CDMage *) cd)->skConjureElemAir;
     case SPELL_CONJURE_FIRE: // 41
       return &((CDMage *) cd)->skConjureElemFire;
@@ -277,7 +277,7 @@ CSkill *TBeing::getSkill(spellNumT skill) const
       return &((CDAir *) cd)->skAntigravity;
 
 // disc_alchemy
- 
+
     case SPELL_DIVINATION:
       return &((CDAlchemy *) cd)->skDivination;
     case SPELL_SHATTER:
@@ -338,7 +338,7 @@ CSkill *TBeing::getSkill(spellNumT skill) const
       return &((CDSpirit *) cd)->skSilence;
     case SPELL_KNOT:
       return &((CDSpirit *) cd)->skKnot;
- 
+
 // disc_water
 
     case SPELL_WATERY_GRAVE:
@@ -714,35 +714,35 @@ CSkill *TBeing::getSkill(spellNumT skill) const
 
 // disc_monk
 
-     case SKILL_YOGINSA: 
+     case SKILL_YOGINSA:
       return &((CDMonk *) cd)->skYoginsa;
      case SKILL_GROUNDFIGHTING:
       return &((CDMonk *) cd)->skGroundfighting;
-     case SKILL_CINTAI:  
+     case SKILL_CINTAI:
       return &((CDMonk *) cd)->skCintai;
-     case SKILL_OOMLAT:  
+     case SKILL_OOMLAT:
       return &((CDMonk *) cd)->skOomlat;
      case SKILL_KICK_MONK:
       return &((CDMonk *) cd)->skKickMonk;
      case SKILL_ADVANCED_KICKING:
       return &((CDMonk *) cd)->skAdvancedKicking;
-     case SKILL_SPRINGLEAP:      
+     case SKILL_SPRINGLEAP:
       return &((CDMonk *) cd)->skSpringleap;
-     case SKILL_SNOFALTE:     
+     case SKILL_SNOFALTE:
       return &((CDMonk *) cd)->skSnofalte;
-     case SKILL_COUNTER_MOVE: 
+     case SKILL_COUNTER_MOVE:
       return &((CDMonk  *) cd)->skCounterMove;
-     case SKILL_SWITCH_MONK:  
+     case SKILL_SWITCH_MONK:
       return &((CDMonk *) cd)->skSwitchMonk;
-     case SKILL_JIRIN:        
+     case SKILL_JIRIN:
       return &((CDMonk *) cd)->skJirin;
-     case SKILL_KUBO:         
+     case SKILL_KUBO:
       return &((CDMonk *) cd)->skKubo;
-     case SKILL_DUFALI:       
+     case SKILL_DUFALI:
       return &((CDMonk *) cd)->skDufali;
     case SKILL_RETREAT_MONK:
       return &((CDMonk *) cd)->skRetreatMonk;
-    case SKILL_CHOP:  
+    case SKILL_CHOP:
       return &((CDMonk *) cd)->skChop;
     case SKILL_DISARM_MONK:
       return &((CDMonk *) cd)->skDisarmMonk;
@@ -933,9 +933,9 @@ CSkill *TBeing::getSkill(spellNumT skill) const
       return &((CDShaman *) cd)->skChrism;
     case SPELL_VAMPIRIC_TOUCH: // 480
       return &((CDShaman *) cd)->skVampiricTouch;
-    case SPELL_SHIELD_OF_MISTS: 
+    case SPELL_SHIELD_OF_MISTS:
       return &((CDShaman *) cd)->skShieldOfMists;
-    case SKILL_SACRIFICE: 
+    case SKILL_SACRIFICE:
       return &((CDShaman *) cd)->skSacrifice;
     case SPELL_ENTHRALL_SPECTRE:
       return &((CDShaman *) cd)->skEnthrallSpectre;
@@ -954,7 +954,7 @@ CSkill *TBeing::getSkill(spellNumT skill) const
 
       // spider abilities----------------------
 
-    case SPELL_RAZE: 
+    case SPELL_RAZE:
       return &((CDShamanSpider *) cd)->skRaze;
     case SPELL_STICKS_TO_SNAKES:  //           361
       return &((CDShamanSpider *) cd)->skSticksToSnakes;
@@ -984,7 +984,7 @@ CSkill *TBeing::getSkill(spellNumT skill) const
       return &((CDShamanSkunk *) cd)->skTurnSkill;
     case SPELL_CARDIAC_STRESS:
       return &((CDShamanSkunk *) cd)->skCardiacStress;
-    case SPELL_CLEANSE: 
+    case SPELL_CLEANSE:
       return &((CDShamanSkunk *) cd)->skCleanse;
 
       // frog abilities--------------------------
@@ -993,9 +993,9 @@ CSkill *TBeing::getSkill(spellNumT skill) const
       return &((CDShamanFrog *) cd)->skStormySkies;
     case SPELL_SHAPESHIFT:  //                 372
       return &((CDShamanFrog *) cd)->skShapeShift;
-    case SPELL_AQUATIC_BLAST: 
+    case SPELL_AQUATIC_BLAST:
       return &((CDShamanFrog *) cd)->skAquaticBlast;
-    case SPELL_DEATHWAVE: 
+    case SPELL_DEATHWAVE:
       return &((CDShamanFrog *) cd)->skDeathWave;
     case SKILL_TRANSFORM_LIMB:  //             337
       return &((CDShamanFrog *) cd)->skTransformLimb;
@@ -1008,7 +1008,7 @@ CSkill *TBeing::getSkill(spellNumT skill) const
       return &((CDShamanArmadillo *) cd)->skCelerite;
     case SPELL_SHADOW_WALK:  // 545
       return &((CDShamanArmadillo *) cd)->skShadowWalk;
-    case SPELL_AQUALUNG: 
+    case SPELL_AQUALUNG:
       return &((CDShamanArmadillo *) cd)->skAqualung;
     case SPELL_THORNFLESH:
       return &((CDShamanArmadillo *) cd)->skThornflesh;
@@ -1117,7 +1117,7 @@ CSkill *TBeing::getSkill(spellNumT skill) const
       return &((CDAdventuring *) cd)->skTactics;
     case SKILL_DISSECT: // 783
       return &((CDAdventuring *) cd)->skDissect;
-    case SKILL_DEFENSE: // 593 
+    case SKILL_DEFENSE: // 593
       return &((CDAdventuring *) cd)->skDefense;
     case SKILL_OFFENSE: // 594
       return &((CDAdventuring *) cd)->skOffense;
@@ -1177,7 +1177,7 @@ CSkill *TBeing::getSkill(spellNumT skill) const
 
  // disc_barehand
     case SKILL_BAREHAND_SPEC:
-      return &((CDBarehand *) cd)->skBarehandSpec;   
+      return &((CDBarehand *) cd)->skBarehandSpec;
 
 // disc_defense
     case SKILL_ADVANCED_DEFENSE: // 674
@@ -1428,7 +1428,7 @@ short TBeing::getSkillValue(spellNumT skill) const
   if ((value == 255) || (value == SKILL_MIN))
     return SKILL_MIN;
   value = min(value, iMax);
-#if 1 
+#if 1
   int applyAmt = 0;
   skillApplyData *temp = NULL;
 
@@ -1530,7 +1530,7 @@ short TBeing::getNatSkillValue(spellNumT skill) const
 
   if (!(sk = getSkill(skill)))
     return SKILL_MIN;
-  
+
   iMax = getMaxSkillValue(skill);
 //  value = sk->getNatLearnedness();
   value = getRawNatSkillValue(skill);
@@ -1592,7 +1592,7 @@ CSkill::~CSkill()
 }
 
 // this is a global function that  was originally developed to allow
-// QuestCode toggling of spells, e.g. enable a spell at the end of a 
+// QuestCode toggling of spells, e.g. enable a spell at the end of a
 // a quest.
 // it is intended to sit just inside a for(...i < MAX_SKILL; ...)
 // It seems like a good place to check for the global obvious conditions

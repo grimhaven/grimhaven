@@ -245,7 +245,7 @@ class indexData {
 
   void addToNumber(const short int n){
     //    vlogf(LOG_PEEL, fmt("adding %i to number %i for object %i") %
-    //	  n % number % virt);
+    //          n % number % virt);
     number+=n;
   }
 
@@ -304,7 +304,7 @@ class resetQElement
 {
   public:
     unsigned int zone_to_reset;
-    resetQElement *next;	
+    resetQElement *next;
 
   resetQElement() :
     zone_to_reset(0),

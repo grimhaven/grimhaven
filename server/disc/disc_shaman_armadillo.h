@@ -15,7 +15,7 @@ public:
     CSkill skEarthmaw;
     CSkill skShadowWalk;
 
-    CDShamanArmadillo() 
+    CDShamanArmadillo()
       : CDiscipline(),
       skAqualung(),
       skThornflesh(),
@@ -23,7 +23,7 @@ public:
       skEarthmaw(),
       skShadowWalk() {
     }
-    CDShamanArmadillo(const CDShamanArmadillo &a) 
+    CDShamanArmadillo(const CDShamanArmadillo &a)
       : CDiscipline(a),
       skAqualung(a.skAqualung),
       skThornflesh(a.skThornflesh),

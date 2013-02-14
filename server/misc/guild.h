@@ -9,7 +9,7 @@ const int DEFAULT_RANKS      =3;
 const int MAX_GUILD_ID        =200;
 const int MAX_GUILD_COLORS    = 3;
 
-const unsigned int GUILD_ACTIVE                = (1<<0); 
+const unsigned int GUILD_ACTIVE                = (1<<0);
 const unsigned int GUILD_LOCKED                = (1<<1);
 const unsigned int GUILD_OPEN_RECRUITMENT      = (1<<2);
 const unsigned int GUILD_HIDDEN                = (1<<3);
@@ -58,7 +58,7 @@ class TGuild {
   int colors[3];
   deityTypeT patron;
   std::vector<TRelation *>relations;
-  
+
  public:
   int getRelation(int);
   int getRelation(TGuild *);
@@ -97,7 +97,7 @@ class TGuild {
 
     for(i = 0; i < NUM_MAX_RANK; i++) {
       if (rank[i])
-	delete [] rank[i];
+        delete [] rank[i];
     }
   }
 };

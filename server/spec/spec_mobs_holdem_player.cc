@@ -48,7 +48,7 @@ int holdemPlayer(TBeing *ch, cmdTypeT cmd, const char *argument, TMonster *me, T
      vlogf(LOG_BUG, "failed new of holdem player.");
      return false;
     }
-    hpi = static_cast<holdemPlayerInfo *>(me->act_ptr);    
+    hpi = static_cast<holdemPlayerInfo *>(me->act_ptr);
     hpi->name="gambler2000";
     hpi->enabled=false;
     hpi->chip=CHIP_100;
@@ -56,9 +56,9 @@ int holdemPlayer(TBeing *ch, cmdTypeT cmd, const char *argument, TMonster *me, T
   } else {
     hpi = static_cast<holdemPlayerInfo *>(me->act_ptr);
   }
-  
+
   arg=one_argument(arg, buf);
-  
+
   if(cmd == CMD_SAY2 && ch->isImmortal() && buf==hpi->name){
     if(arg=="power up"){
       hpi->enabled=true;
@@ -75,10 +75,10 @@ int holdemPlayer(TBeing *ch, cmdTypeT cmd, const char *argument, TMonster *me, T
 
       buf=me->name;
       if(buf.find(hpi->name)!=sstring::npos){
-	buf.replace(buf.find(hpi->name), hpi->name.length(), arg);
+        buf.replace(buf.find(hpi->name), hpi->name.length(), arg);
       } else {
-	buf += " ";
-	buf += arg;
+        buf += " ";
+        buf += arg;
       }
 
       me->swapToStrung();
@@ -91,40 +91,40 @@ int holdemPlayer(TBeing *ch, cmdTypeT cmd, const char *argument, TMonster *me, T
       me->doSay("My name is... huh?");
       me->doSay("My name is... what?");
       me->doSay("My name is %s.", hpi->name.c_str());
-      
 
-      
+
+
     } else if(arg.find("chip ", 0)!=sstring::npos){
       arg=one_argument(arg, buf);
       if(convertTo<int>(arg)==0)
-	return false;
+        return false;
       hpi->chip=convertTo<int>(arg);
 
       if(real_object(hpi->chip)==-1){
-	me->doSay("I can't find that chip.");
-	hpi->chip=CHIP_100;
+        me->doSay("I can't find that chip.");
+        hpi->chip=CHIP_100;
       } else {
-	me->doSay("All your %s are belong to Gambler2000.",
-		  obj_index[real_object(hpi->chip)].short_desc);
+        me->doSay("All your %s are belong to Gambler2000.",
+                  obj_index[real_object(hpi->chip)].short_desc);
       }
     } else if(arg=="freechips"){
       if(hpi->free_chips){
-	hpi->free_chips=false;
-	me->doSay("There ain't no such thing as a free chip.");
+        hpi->free_chips=false;
+        me->doSay("There ain't no such thing as a free chip.");
 
-	int tcount=0;
-	for(StuffIter it=me->stuff.begin();it!=me->stuff.end();++it){
-	  if((obj=dynamic_cast<TObj *>(*it))){
-	    if(obj->objVnum() == hpi->chip)
-	      tcount++;
-	  }
-	}
+        int tcount=0;
+        for(StuffIter it=me->stuff.begin();it!=me->stuff.end();++it){
+          if((obj=dynamic_cast<TObj *>(*it))){
+            if(obj->objVnum() == hpi->chip)
+              tcount++;
+          }
+        }
 
-	me->doSay("I have %s [%i].",
-		  obj_index[real_object(hpi->chip)].short_desc, tcount);
+        me->doSay("I have %s [%i].",
+                  obj_index[real_object(hpi->chip)].short_desc, tcount);
       } else {
-	hpi->free_chips=true;
-	me->doSay("I will now pull chips out of my ass.");
+        hpi->free_chips=true;
+        me->doSay("I will now pull chips out of my ass.");
       }
     }
     return true;
@@ -164,17 +164,17 @@ int holdemPlayer(TBeing *ch, cmdTypeT cmd, const char *argument, TMonster *me, T
 
   if(gHoldem.getLastBet()){
     if(gHoldem.getLastBet() != hpi->chip){
-      me->doSay("Sorry, I only play with '%s' right now.", 
-		obj_index[real_object(hpi->chip)].short_desc);
+      me->doSay("Sorry, I only play with '%s' right now.",
+                obj_index[real_object(hpi->chip)].short_desc);
       gHoldem.fold(me);
       return false;
     }
 
     if(hpi->free_chips){
       for(int i=0;i<gHoldem.getNRaises()+1;++i){
-	chip=read_object(gHoldem.getLastBet(), VIRTUAL);
-	*me += *chip;
-	chipl.push_back(chip);
+        chip=read_object(gHoldem.getLastBet(), VIRTUAL);
+        *me += *chip;
+        chipl.push_back(chip);
       }
     }
   } else {
@@ -188,35 +188,35 @@ int holdemPlayer(TBeing *ch, cmdTypeT cmd, const char *argument, TMonster *me, T
     case STATE_DEAL:
       // if someone raised before the flop
       if(gHoldem.getNRaises() > 1){
-	// if we have a couple of high cards, we'll call once in awhile
-	if((hp->hand[0]->getValAceHi() >= 10) &&
-	   (hp->hand[1]->getValAceHi() >= 10) && !::number(0,2)){
-	  gHoldem.call(me);
-	  return true;
-	} else if(handval > 15){
-	  // or if we have a pair we'll call
-	  gHoldem.call(me);
-	  return true;
-	} else {
-	  // but otherwise fold
-	  gHoldem.fold(me);
-	}
+        // if we have a couple of high cards, we'll call once in awhile
+        if((hp->hand[0]->getValAceHi() >= 10) &&
+           (hp->hand[1]->getValAceHi() >= 10) && !::number(0,2)){
+          gHoldem.call(me);
+          return true;
+        } else if(handval > 15){
+          // or if we have a pair we'll call
+          gHoldem.call(me);
+          return true;
+        } else {
+          // but otherwise fold
+          gHoldem.fold(me);
+        }
       }
-      
+
       // by default we call to see the flop
       gHoldem.call(me);
       return true;
       break;
     case STATE_FLOP:
       if(handval > 30 && ::number(0,1)){
-	gHoldem.raise(me, "");
-	gHoldem.call(me); // sometimes raise fails, if he's broke etc
-	return true;
+        gHoldem.raise(me, "");
+        gHoldem.call(me); // sometimes raise fails, if he's broke etc
+        return true;
       } else if(handval > 15 || !::number(0,3)){
-	gHoldem.call(me);
-	return true;
+        gHoldem.call(me);
+        return true;
       }
-      
+
       // no hand, may as well fold
       gHoldem.fold(me);
       return true;
@@ -224,16 +224,16 @@ int holdemPlayer(TBeing *ch, cmdTypeT cmd, const char *argument, TMonster *me, T
     case STATE_TURN:
     case STATE_RIVER:
       if(handval > 45){
-	gHoldem.raise(me, "");
-	gHoldem.call(me); // sometimes raise fails, if he's broke etc
+        gHoldem.raise(me, "");
+        gHoldem.call(me); // sometimes raise fails, if he's broke etc
       } else if(handval > 15){
-	gHoldem.call(me);
+        gHoldem.call(me);
       } else {
-	gHoldem.fold(me);
+        gHoldem.fold(me);
       }
 
       if(hpi->free_chips)
-	deleteChips(me);
+        deleteChips(me);
 
       return true;
       break;
@@ -245,7 +245,7 @@ int holdemPlayer(TBeing *ch, cmdTypeT cmd, const char *argument, TMonster *me, T
       delete chipl[i];
     }
   }
-  
+
   gHoldem.fold(me);
   return true;
 }

@@ -44,7 +44,7 @@ MYSQL *TDatabaseConnection::getDB(dbTypeT type)
   {
     vlogf(LOG_DB, format("Initializing database '%s'.") % getConnectParam(type));
     databases[type] = mysql_init(NULL);
-    
+
     vlogf(LOG_DB, "Connecting to database.");
     if(!mysql_real_connect(databases[type], db_hosts[type].c_str(), "sneezy", NULL, getConnectParam(type), 0, NULL, 0))
     {
@@ -57,8 +57,8 @@ MYSQL *TDatabaseConnection::getDB(dbTypeT type)
 }
 
 
-TDatabase::TDatabase() : 
-  res(NULL), 
+TDatabase::TDatabase() :
+  res(NULL),
   row(NULL),
   db(NULL)
 {
@@ -88,10 +88,10 @@ void TDatabase::setDB(dbTypeT tdb){
 bool TDatabase::fetchRow(){
   if(!res)
     return FALSE;
-  
+
   if(!(row=mysql_fetch_row(res)))
     return FALSE;
-  
+
   return TRUE;
 }
 
@@ -143,52 +143,52 @@ bool TDatabase::query(const char *query,...)
     if(*query=='%'){
       query++;
       switch(*query){
-	case 'r':
-	  // this is just like %s, but it doesn't do escaping
-	  // use with caution!  should not be used with user input
-	  from=va_arg(ap, char *);
-	 	  	  
-	  if(!from){
-	    vlogf(LOG_DB, "null argument for format specifier 'r'");
-	    vlogf(LOG_DB, format("%s") % qsave);	    
-	  }
-	  
-	  buf += from;
-	  break;
-	case 's':
-	  from=va_arg(ap, char *);
-	 	  	  
-	  if(!from){
-	    vlogf(LOG_DB, "null argument for format specifier 's'");
-	    vlogf(LOG_DB, format("%s") % qsave);	    
-	  }
+        case 'r':
+          // this is just like %s, but it doesn't do escaping
+          // use with caution!  should not be used with user input
+          from=va_arg(ap, char *);
 
-	  fromlen=strlen(from);
-	  
-	  // mysql_escape_string needs a buffer that is 
-	  // (string * 2) + 1 in size to avoid overruns
-	  if(((fromlen*2)+1) > tolen){
-	    vlogf(LOG_DB, format("query - buffer overrun on %s") % from);
-	    vlogf(LOG_DB, format("%s") % qsave);
-	    return FALSE;
-	  }
-	  
-	  mysql_escape_string(to, from, strlen(from));
-	  buf += to;
-	  break;
-	case 'i':
-	  buf = format("%s%i") % buf % va_arg(ap, int);
-	  break;
-	case 'f':
-	  buf = format("%s%f") % buf % va_arg(ap, double);
-	  break;
-	case '%':
-	  buf += "%";
-	  break;
-	default:
-	  vlogf(LOG_DB, format("query - bad format specifier - %c") %  *query);
-	  vlogf(LOG_DB, format("%s") %  qsave);
-	  return FALSE;
+          if(!from){
+            vlogf(LOG_DB, "null argument for format specifier 'r'");
+            vlogf(LOG_DB, format("%s") % qsave);
+          }
+
+          buf += from;
+          break;
+        case 's':
+          from=va_arg(ap, char *);
+
+          if(!from){
+            vlogf(LOG_DB, "null argument for format specifier 's'");
+            vlogf(LOG_DB, format("%s") % qsave);
+          }
+
+          fromlen=strlen(from);
+
+          // mysql_escape_string needs a buffer that is
+          // (string * 2) + 1 in size to avoid overruns
+          if(((fromlen*2)+1) > tolen){
+            vlogf(LOG_DB, format("query - buffer overrun on %s") % from);
+            vlogf(LOG_DB, format("%s") % qsave);
+            return FALSE;
+          }
+
+          mysql_escape_string(to, from, strlen(from));
+          buf += to;
+          break;
+        case 'i':
+          buf = format("%s%i") % buf % va_arg(ap, int);
+          break;
+        case 'f':
+          buf = format("%s%f") % buf % va_arg(ap, double);
+          break;
+        case '%':
+          buf += "%";
+          break;
+        default:
+          vlogf(LOG_DB, format("query - bad format specifier - %c") %  *query);
+          vlogf(LOG_DB, format("%s") %  qsave);
+          return FALSE;
       }
     } else {
       buf += *query;
@@ -212,7 +212,7 @@ bool TDatabase::query(const char *query,...)
       mysql_free_result(res);
     res=restmp;
   }
-  
+
   // capture rowcount here, because the db pointer state changes when
   // db timing is on
   row_count = (long) mysql_affected_rows(db);
@@ -222,7 +222,7 @@ bool TDatabase::query(const char *query,...)
     column_names.clear();
     unsigned int num_fields=mysql_num_fields(res);
     MYSQL_FIELD *fields=mysql_fetch_fields(res);
-    
+
     for(unsigned int i=0;i<num_fields;++i)
       column_names[fields[i].name]=i;
   }
@@ -249,7 +249,7 @@ bool TDatabase::query(const char *query,...)
       buf += *query++;
     }
 
-    buf = format("insert into querytimes (query, secs) values ('%s', %f)") % 
+    buf = format("insert into querytimes (query, secs) values ('%s', %f)") %
       buf % t.getElapsed();
 
     mysql_query(db, buf.c_str());
@@ -258,7 +258,7 @@ bool TDatabase::query(const char *query,...)
 
   //  if(res)
   //    vlogf(LOG_DB, "New query results stored.");
-  
+
   return TRUE;
 }
 
@@ -272,7 +272,7 @@ bool TDatabase::isResults(){
 long TDatabase::rowCount(){
   // return # of affected or retrieved rows
   // -1 if query returned an error
-  
+
   // this gets set in TDatabase::query
   // because the db pointer will have changed state if query timing is on
   return row_count;

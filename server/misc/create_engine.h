@@ -61,7 +61,7 @@ class CreateEngineData
     int (*cePerMesg)(int, TBeing *, TObj *);
     int (*ceEnding )(int, TBeing *, TObj *);
 
-    CreateEngineData(unsigned short, int, short, short, short, spellNumT, const char *, const char *, const char *, 
+    CreateEngineData(unsigned short, int, short, short, short, spellNumT, const char *, const char *, const char *,
                      const char *, const char *, const char *, const char *, const char *, long, long, long, long, long,
                      long, long, long, long, long, long, int (*)(int, TBeing *, TObj *),
                      int (*)(int, TBeing *, TObj *), int (*)(int, TBeing *, TObj *));

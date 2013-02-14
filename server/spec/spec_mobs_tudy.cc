@@ -21,23 +21,23 @@ int tudy(TBeing *, cmdTypeT cmd, const char *, TMonster *tudy, TObj *)
 
   if(cmd != CMD_GIVE && cmd != CMD_GENERIC_PULSE)
     return FALSE;
-  
+
   // loop through inventory
   for(StuffIter it=tudy->stuff.begin();it!=tudy->stuff.end() && (t=*it);++it){
     if((o=dynamic_cast<TObj *>(t))){
       if(o->objVnum() == OBJ_TUDY_SHACKLE_KEY1)
-	haskey1=true;
+        haskey1=true;
       if(o->objVnum() == OBJ_TUDY_SHACKLE_KEY2)
-	haskey2=true;
+        haskey2=true;
     }
   }
-  
-  
+
+
   if(haskey1 && haskey2){
     act("$n quickly unlocks his shackles.",
-	0, tudy, 0, 0, TO_ROOM);	
+        0, tudy, 0, 0, TO_ROOM);
     act("$n looks to the heavens and as large wings sprout from his back.",
-	0, tudy, 0, 0, TO_ROOM);
+        0, tudy, 0, 0, TO_ROOM);
     tudy->doAction("", CMD_SCREAM);
 
     newtudy=read_mobile(MOB_DEMI_ANGEL_TUDY, VIRTUAL);
@@ -47,7 +47,7 @@ int tudy(TBeing *, cmdTypeT cmd, const char *, TMonster *tudy, TObj *)
 
 
     act("$n turns to you with glowing <r>red<1> eyes and a face full of anger.",
-	0, newtudy, 0, 0, TO_ROOM);
+        0, newtudy, 0, 0, TO_ROOM);
 
     newtudy->doSay("No mortal shall ever possess the heart of an angel!");
     newtudy->doSay("You will perish for your arrogance!");
@@ -55,8 +55,8 @@ int tudy(TBeing *, cmdTypeT cmd, const char *, TMonster *tudy, TObj *)
 
     for(StuffIter it=newtudy->roomp->stuff.begin();it!=newtudy->roomp->stuff.end() && (t=*it);++it){
       if((ch=dynamic_cast<TPerson *>(t))){
-	newtudy->takeFirstHit(*ch);
-	break;
+        newtudy->takeFirstHit(*ch);
+        break;
       }
     }
 

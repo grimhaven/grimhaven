@@ -29,8 +29,8 @@ static void showStatsTo(const Descriptor *d, const TBeing *ch, bool hidden_stuff
   GameTime::realTimePassed((time(0) - d->session.connect),0, &playing_time);
   if (playing_time.day)
     playing_time.hours += playing_time.day * 24;
-  sprintf(time_buf, "%d hour%s, %d minute%s and %d second%s", 
-        playing_time.hours, 
+  sprintf(time_buf, "%d hour%s, %d minute%s and %d second%s",
+        playing_time.hours,
         ((playing_time.hours == 1) ? "" : "s"),
         playing_time.minutes,
         ((playing_time.minutes== 1) ? "" : "s"),
@@ -67,7 +67,7 @@ static void showStatsTo(const Descriptor *d, const TBeing *ch, bool hidden_stuff
     str += buffer;
     sprintf(buffer, "Combat   :            hits swings   rnds   hit%%  ComDam SklDam  Mod  Pot\n\r");
     str += buffer;
-  
+
     for (i = 0; i < MAX_ATTACK_MODE_TYPE; i++) {
       // prevent them from using this to see specific damage of a weapon
       sprintf(buffer, "%s%-9.9s%s: inflict: %s%6u%s %s%6u%s %s%6u%s (%s%4.1f%%%s) %s%6d%s %s%6d%s %s%4d%s %s%4.1f%s\n\r",
@@ -128,7 +128,7 @@ static void showStatsTo(const Descriptor *d, const TBeing *ch, bool hidden_stuff
       str += buffer;
     }
     spellNumT skill = victim->getSkillNum(SKILL_SNEAK);
-    if (!ch->isImmortal() && 
+    if (!ch->isImmortal() &&
          (victim->affectedBySpell(skill) || victim->checkForSkillAttempt(skill))) {
       sprintf(buffer, "Skill Success  : info concealed at present time.\n\r");
     } else {
@@ -152,7 +152,7 @@ static void showStatsTo(const Descriptor *d, const TBeing *ch, bool hidden_stuff
   else
     sprintf(buffer, "\n\rIn %s's career:\n\r%s has", victim->getName(), victim->getName());
   str += buffer;
-  GameTime::realTimePassed((time(0) - victim->player.time->logon) +
+  GameTime::realTimePassed((time(0) - victim->player.time->logon)
                                 victim->player.time->played, 0, &playing_time);
 
   sprintf(buffer, " been playing for %s%d%s days and %s%d%s hours.\n\r",
@@ -225,7 +225,7 @@ static void showStatsTo(const Descriptor *d, const TBeing *ch, bool hidden_stuff
   } else {
     // !hidden_stuff
     spellNumT skill = victim->getSkillNum(SKILL_SNEAK);
-    if (!ch->isImmortal() && 
+    if (!ch->isImmortal() &&
          (victim->affectedBySpell(skill) || victim->checkForSkillAttempt(skill))) {
       sprintf(buffer, "Skill Success  : info concealed at present time.\n\r");
     } else {
@@ -278,12 +278,12 @@ static void showStatsTo(const Descriptor *d, const TBeing *ch, bool hidden_stuff
     sprintf(buffer, "Ounces of blood lost                    : %s%u%s\n\r",
            ch->cyan(), d->career.ounces_of_blood, ch->norm());
     str += buffer;
-  } 
+  }
   if (d->career.stuck_in_foot) {
     sprintf(buffer, "COMBAT-CRIT: Weapons stuck in foot      : %s%u%s\n\r",
            ch->cyan(), d->career.stuck_in_foot, ch->norm());
     str += buffer;
-  } 
+  }
   if (d->career.crit_beheads) {
     sprintf(buffer, "COMBAT-CRIT: Beheadings inflicted       : %s%u%s\n\r",
            ch->cyan(), d->career.crit_beheads, ch->norm());
@@ -426,32 +426,32 @@ static void showStatsTo(const Descriptor *d, const TBeing *ch, bool hidden_stuff
   }
   if (d->career.crit_genitalia) {
     sprintf(buffer, "COMBAT_CRIT: Genitalia Severings inflicted   : %s %u%s\n\r",
-	    ch->cyan(), d->career.crit_genitalia, ch->norm());
+            ch->cyan(), d->career.crit_genitalia, ch->norm());
     str += buffer;
   }
   if (d->career.crit_genitalia_suff) {
     sprintf(buffer, "COMBAT_CRIT: Genitalia Severings suffered   : %s %u%s\n\r",
-	    ch->cyan(), d->career.crit_genitalia_suff, ch->norm());
+            ch->cyan(), d->career.crit_genitalia_suff, ch->norm());
     str += buffer;
   }
   if (d->career.crit_tooth){
     sprintf(buffer, "COMBAT_CRIT: Teeth knocked out inflicted : %s %u%s\n\r",
-	    ch->cyan(), d->career.crit_tooth, ch->norm());
+            ch->cyan(), d->career.crit_tooth, ch->norm());
     str += buffer;
   }
   if (d->career.crit_tooth_suff){
     sprintf(buffer, "COMBAT_CRIT: Teeth knocked out suffered : %s %u%s\n\r",
-	    ch->cyan(), d->career.crit_tooth_suff, ch->norm());
+            ch->cyan(), d->career.crit_tooth_suff, ch->norm());
     str += buffer;
   }
   if (d->career.crit_ripped_out_heart){
     sprintf(buffer, "COMBAT_CRIT: Hearts ripped out inflicted : %s %u%s\n\r",
-	    ch->cyan(), d->career.crit_ripped_out_heart, ch->norm());
+            ch->cyan(), d->career.crit_ripped_out_heart, ch->norm());
     str += buffer;
   }
   if (d->career.crit_ripped_out_heart_suff){
     sprintf(buffer, "COMBAT_CRIT: Hearts ripped out suffered : %s %u%s\n\r",
-	    ch->cyan(), d->career.crit_ripped_out_heart_suff, ch->norm());
+            ch->cyan(), d->career.crit_ripped_out_heart_suff, ch->norm());
     str += buffer;
   }
 
@@ -538,14 +538,14 @@ void TBeing::doAttribute(const char *arg)
     birth_data.year += GameTime::getYearAdjust();
     birth_data.year -= getBaseAge();
 
-    day = birth_data.day + 1;        // day in [1..35] 
+    day = birth_data.day + 1;        // day in [1..35]
 
     sendTo(format("You were born on the %s of %s, in the year %d P.S.\n\r") %
-	   numberAsString(day) % month_name[birth_data.month]%birth_data.year);
+           numberAsString(day) % month_name[birth_data.month]%birth_data.year);
 
     sendTo(format("You grew up as %s %s and began adventuring at the age of %d.\n\r") %
-	   (sstring(home_terrains[player.hometerrain]).startsVowel()?"an":"a")%
-	   home_terrains[player.hometerrain] % getBaseAge());
+           (sstring(home_terrains[player.hometerrain]).startsVowel()?"an":"a")%
+           home_terrains[player.hometerrain] % getBaseAge());
 
     sstring gender;
     switch (getSex()) {
@@ -564,7 +564,7 @@ void TBeing::doAttribute(const char *arg)
         break;
     }
     sendTo(format("You are %s %s.\n\r") % gender % getMyRace()->getSingularName());
-    
+
     sendTo(format("You are %d years and %d months old, %d inches tall, and you weigh %d lbs.\n\r") %
         age()->year % age()->month % getHeight() % (int) getWeight());
     if (!age()->month && !age()->day)
@@ -577,36 +577,36 @@ void TBeing::doAttribute(const char *arg)
     sendTo(buf);
     if (toggleInfo[TOG_TESTCODE5]->toggle){
       sendTo(COLOR_BASIC, format("You are a member of %s<1>, and have a rank of %s<1>.\n\r") %
-	     newguild()->getName() % rank());
+             newguild()->getName() % rank());
     } else {
 #if FACTIONS_IN_USE
       sendTo(format("You are allied to %s, and have a %.4f%c rating.\n\r") %
-	     FactionInfo[getFaction()].faction_name % getPerc() % '%');
+             FactionInfo[getFaction()].faction_name % getPerc() % '%');
 #else
       sendTo(format("You are allied to %s.\n\r") %
-	     FactionInfo[getFaction()].faction_name);
+             FactionInfo[getFaction()].faction_name);
 #endif
     }
-    
+
     if(Config::SpeefMakeBody()){
       vlogf(LOG_MISC, format("Attribute argument: %s") % cmdbuf);
       if(body)
-	body->showBody(this);
+        body->showBody(this);
       else
-	sendTo("You have no Body!\n\r");
+        sendTo("You have no Body!\n\r");
       vlogf(LOG_MISC, "I tried to show a body.");
     }
 
     buf="";
     for(int i=0;i<MAX_TRAITS;++i){
       if(hasQuestBit(traits[i].tog)){
-	buf+=traits[i].name;
-	buf+=" ";
+        buf+=traits[i].name;
+        buf+=" ";
       }
     }
     if(buf != "")
       sendTo(format("Your character traits are: %s\n\r") % buf);
-    
+
     return;
   } else if (is_abbrev(cmdbuf, "condition")) {
     if (GetMaxLevel() > 10) {
@@ -617,10 +617,10 @@ void TBeing::doAttribute(const char *arg)
           ((float) ((float) getCarriedVolume()/(float) carryVolumeLimit()) * 100) % '%');
       } else {
         sendTo(format("You have %.1f lbs of equipment, and can carry up to %.1f lbs - %.1f spare lbs.\n\r") %
-            getCarriedWeight() % carryWeightLimit() % 
+            getCarriedWeight() % carryWeightLimit() %
             (carryWeightLimit() - getCarriedWeight()));
         sendTo(format("You have %d volume in inventory.\n\rYou can carry up to %d volume - You have %d spare volume capacity.\n\r") %
-            getCarriedVolume() % carryVolumeLimit() % 
+            getCarriedVolume() % carryVolumeLimit() %
             (carryVolumeLimit() - getCarriedVolume()));
       }
     }
@@ -660,61 +660,61 @@ void TBeing::doAttribute(const char *arg)
 
     if(GetMaxLevel() >= 5){
       int mod;
-      
+
       //// str
       mod=(int)(getStrDamModifier()*100)-100;
 
       if(GetMaxLevel()>=25){
-	sendTo(COLOR_MOBS, format("Your strength gives you a %i%c damage %s.\n\r") %
-	       mod % '%' % ((mod>0)?"bonus":"penalty"));
+        sendTo(COLOR_MOBS, format("Your strength gives you a %i%c damage %s.\n\r") %
+               mod % '%' % ((mod>0)?"bonus":"penalty"));
       } else {
-	sendTo(COLOR_MOBS, format("Your strength gives you %s damage %s.\n\r") %
-	       statBonusDescr(mod+100) % ((mod>0)?"bonus":"penalty"));
+        sendTo(COLOR_MOBS, format("Your strength gives you %s damage %s.\n\r") %
+               statBonusDescr(mod+100) % ((mod>0)?"bonus":"penalty"));
       }
 
       //// bra
       mod=(int)(getBraMod()*100)-100;
 
       if(GetMaxLevel()>=25){
-	sendTo(COLOR_MOBS, format("Your brawn gives you a %i%c damage absorption %s.\n\r") %
-	       mod % '%' % ((mod>0)?"bonus":"penalty"));
+        sendTo(COLOR_MOBS, format("Your brawn gives you a %i%c damage absorption %s.\n\r") %
+               mod % '%' % ((mod>0)?"bonus":"penalty"));
       } else {
-	sendTo(COLOR_MOBS, format("Your brawn gives you %s damage absorption %s.\n\r") %
-	       statBonusDescr(mod+100) % ((mod>0)?"bonus":"penalty"));
+        sendTo(COLOR_MOBS, format("Your brawn gives you %s damage absorption %s.\n\r") %
+               statBonusDescr(mod+100) % ((mod>0)?"bonus":"penalty"));
       }
 
       //// con
       mod=(int)(getConHpModifier()*100)-100;
 
       if(GetMaxLevel()>=25){
-	sendTo(COLOR_MOBS, format("Your constitution gives you a %i%c hit point %s.\n\r") %
-	       mod % '%' % ((mod>0)?"bonus":"penalty"));
+        sendTo(COLOR_MOBS, format("Your constitution gives you a %i%c hit point %s.\n\r") %
+               mod % '%' % ((mod>0)?"bonus":"penalty"));
       } else {
-	sendTo(COLOR_MOBS, format("Your constitution gives you %s hit point %s.\n\r") %
-	       statBonusDescr(mod+100) % ((mod>0)?"bonus":"penalty"));
+        sendTo(COLOR_MOBS, format("Your constitution gives you %s hit point %s.\n\r") %
+               statBonusDescr(mod+100) % ((mod>0)?"bonus":"penalty"));
       }
 
-      
+
       //// dex
       mod=(int)(getDexMod()*100)-100;
 
       if(GetMaxLevel()>=25){
-	sendTo(COLOR_MOBS, format("Your dexterity gives you a %i%c hitting %s.\n\r") %
-	       mod % '%' % ((mod>0)?"bonus":"penalty"));
+        sendTo(COLOR_MOBS, format("Your dexterity gives you a %i%c hitting %s.\n\r") %
+               mod % '%' % ((mod>0)?"bonus":"penalty"));
       } else {
-	sendTo(COLOR_MOBS, format("Your dexterity gives you %s hitting %s.\n\r") %
-	       statBonusDescr(mod+100) % ((mod>0)?"bonus":"penalty"));
+        sendTo(COLOR_MOBS, format("Your dexterity gives you %s hitting %s.\n\r") %
+               statBonusDescr(mod+100) % ((mod>0)?"bonus":"penalty"));
       }
 
       //// agi
       mod=(int)(getAgiMod()*100)-100;
 
       if(GetMaxLevel()>=25){
-	sendTo(COLOR_MOBS, format("Your agility gives you a %i%c armor class %s.\n\r") %
-	       mod % '%' % ((mod>0)?"bonus":"penalty"));
+        sendTo(COLOR_MOBS, format("Your agility gives you a %i%c armor class %s.\n\r") %
+               mod % '%' % ((mod>0)?"bonus":"penalty"));
       } else {
-	sendTo(COLOR_MOBS, format("Your agility gives you %s armor class %s.\n\r") %
-	       statBonusDescr(mod+100) % ((mod>0)?"bonus":"penalty"));
+        sendTo(COLOR_MOBS, format("Your agility gives you %s armor class %s.\n\r") %
+               statBonusDescr(mod+100) % ((mod>0)?"bonus":"penalty"));
       }
 
 
@@ -723,46 +723,46 @@ void TBeing::doAttribute(const char *arg)
       mod=(int)(getIntModForPracs()*100)-100;
 
       if(GetMaxLevel()>=25){
-	sendTo(COLOR_MOBS, format("Your intelligence gives you a %i%c practice %s.\n\r") %
-	       mod % '%' % ((mod>0)?"bonus":"penalty"));
+        sendTo(COLOR_MOBS, format("Your intelligence gives you a %i%c practice %s.\n\r") %
+               mod % '%' % ((mod>0)?"bonus":"penalty"));
       } else {
-	sendTo(COLOR_MOBS, format("Your intelligence gives you %s practice %s.\n\r") %
-	       statBonusDescr(mod+100) % ((mod>0)?"bonus":"penalty"));
+        sendTo(COLOR_MOBS, format("Your intelligence gives you %s practice %s.\n\r") %
+               statBonusDescr(mod+100) % ((mod>0)?"bonus":"penalty"));
       }
 
       //// foc
       mod=(int)(getFocMod()*100)-100;
 
       if(GetMaxLevel()>=25){
-	sendTo(COLOR_MOBS, format("Your focus gives you a %i%c skill success %s.\n\r") %
-	       mod % '%' % ((mod>0)?"bonus":"penalty"));
+        sendTo(COLOR_MOBS, format("Your focus gives you a %i%c skill success %s.\n\r") %
+               mod % '%' % ((mod>0)?"bonus":"penalty"));
       } else {
-	sendTo(COLOR_MOBS, format("Your focus gives you %s skill success %s.\n\r") %
-	       statBonusDescr(mod+100) % ((mod>0)?"bonus":"penalty"));
+        sendTo(COLOR_MOBS, format("Your focus gives you %s skill success %s.\n\r") %
+               statBonusDescr(mod+100) % ((mod>0)?"bonus":"penalty"));
       }
 
       //// cha
       mod=(int)(getChaShopPenalty()*100)-100;
 
       mod=-mod;
-	
+
       if(GetMaxLevel()>=25){
-	sendTo(COLOR_MOBS, format("Your charisma gives you a %i%c shop price %s.\n\r") %
-	       mod % '%' % ((mod>0)?"bonus":"penalty"));
+        sendTo(COLOR_MOBS, format("Your charisma gives you a %i%c shop price %s.\n\r") %
+               mod % '%' % ((mod>0)?"bonus":"penalty"));
       } else {
-	sendTo(COLOR_MOBS, format("Your charisma gives you %s shop price %s.\n\r") %
-	       statBonusDescr(mod+100) % ((mod>0)?"bonus":"penalty"));
+        sendTo(COLOR_MOBS, format("Your charisma gives you %s shop price %s.\n\r") %
+               statBonusDescr(mod+100) % ((mod>0)?"bonus":"penalty"));
       }
 
       //// spe
       mod=(int)(getSpeMod()*100)-100;
 
       if(GetMaxLevel()>=25){
-	sendTo(COLOR_MOBS, format("Your speed gives you a %i%c %s to your number of attacks.\n\r") %
-	       mod % '%' % ((mod>0)?"bonus":"penalty"));
+        sendTo(COLOR_MOBS, format("Your speed gives you a %i%c %s to your number of attacks.\n\r") %
+               mod % '%' % ((mod>0)?"bonus":"penalty"));
       } else {
-	sendTo(COLOR_MOBS, format("Your speed gives you %s %s to your number of attacks.\n\r") %
-	       statBonusDescr(mod+100) % ((mod>0)?"bonus":"penalty"));
+        sendTo(COLOR_MOBS, format("Your speed gives you %s %s to your number of attacks.\n\r") %
+               statBonusDescr(mod+100) % ((mod>0)?"bonus":"penalty"));
       }
 
 
@@ -837,7 +837,7 @@ void TBeing::doAttribute(const char *arg)
               buf+=objs(riding);
             else
               buf+="A bad object";
-  
+
             buf+=".\n\r";
           } else
             buf="You are sleeping.\n\r";
@@ -871,7 +871,7 @@ void TBeing::doAttribute(const char *arg)
           sendTo(buf);
           break;
         case POSITION_FLYING:
-           if (roomp && roomp->isUnderwaterSector()) 
+           if (roomp && roomp->isUnderwaterSector())
             sendTo("You are swimming about.");
           else
             sendTo("You are flying about.\n\r");
@@ -889,9 +889,9 @@ void TBeing::doAttribute(const char *arg)
             sendTo(COLOR_MOBS, buf);
           } else if (tbr) {
             sendTo(COLOR_MOBS,
-		   format("You are here, also riding on %s's %s%s.\n\r") %
-		   pers(tbr->horseMaster()) % persfname(tbr) %
-		   (tbr->isAffected(AFF_INVISIBLE) ? " (invisible)" : ""));
+                   format("You are here, also riding on %s's %s%s.\n\r") %
+                   pers(tbr->horseMaster()) % persfname(tbr) %
+                   (tbr->isAffected(AFF_INVISIBLE) ? " (invisible)" : ""));
           } else {
             sendTo("You are standing.\n\r");
           }
@@ -919,10 +919,10 @@ void TBeing::doAttribute(const char *arg)
       sendTo("Your account is in boss-mode.\n\r");
     if (IS_SET(desc->account->flags, TAccount::MSP))
       sendTo("Your account has MUD Sound Protocol enabled.\n\r");
-  
+
     describeLimbDamage(this);
     sendTo(COLOR_BASIC, describeAffects(this, SHOW_ME));
-  
+
     return;
   } else if (is_abbrev(cmdbuf, "statistics")) {
     showStatsTo(desc, this, false);
@@ -932,22 +932,22 @@ void TBeing::doAttribute(const char *arg)
     int i;
     for(i=MIN_DRUG;i<MAX_DRUG;++i){
       if(desc->drugs[i].total_consumed>0){
-	sendTo(format("%s (%i):\n\r") % drugTypes[i].name % i);
-	sendTo(format("You first used %s on the %s day of %s, Year %d P.S.\n\r") % 
-	       drugTypes[i].name %
-	       numberAsString(desc->drugs[i].first_use.day+1) %
-	       month_name[desc->drugs[i].first_use.month] % 
-	       desc->drugs[i].first_use.year);
-	sendTo(format("You last used %s on the %s day of %s, Year %d P.S.\n\r") % 
-	       drugTypes[i].name %
-	       numberAsString(desc->drugs[i].last_use.day+1) %
-	       month_name[desc->drugs[i].last_use.month] % 
-	       desc->drugs[i].last_use.year);
-	sendTo(format("You have consumed %i units of %s.\n\r") % 
-	       desc->drugs[i].total_consumed % drugTypes[i].name);
-	sendTo(format("You currently have %i units of %s in your body.\n\r") % 
-	       desc->drugs[i].current_consumed % drugTypes[i].name);
-	
+        sendTo(format("%s (%i):\n\r") % drugTypes[i].name % i);
+        sendTo(format("You first used %s on the %s day of %s, Year %d P.S.\n\r") %
+               drugTypes[i].name %
+               numberAsString(desc->drugs[i].first_use.day+1) %
+               month_name[desc->drugs[i].first_use.month] %
+               desc->drugs[i].first_use.year);
+        sendTo(format("You last used %s on the %s day of %s, Year %d P.S.\n\r") %
+               drugTypes[i].name %
+               numberAsString(desc->drugs[i].last_use.day+1) %
+               month_name[desc->drugs[i].last_use.month] %
+               desc->drugs[i].last_use.year);
+        sendTo(format("You have consumed %i units of %s.\n\r") %
+               desc->drugs[i].total_consumed % drugTypes[i].name);
+        sendTo(format("You currently have %i units of %s in your body.\n\r") %
+               desc->drugs[i].current_consumed % drugTypes[i].name);
+
       }
     }
   } else if (is_abbrev(cmdbuf, "reset")) {

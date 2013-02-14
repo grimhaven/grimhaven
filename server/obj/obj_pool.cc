@@ -36,33 +36,33 @@ void TPool::overFlow()
     for(dirTypeT dir=MIN_DIR;dir<MAX_DIR;dir++){
       // liquid doesn't flow up
       if(dir==DIR_UP)
-	continue;
-      
+        continue;
+
       // eligible exit
       if(exitDir(dir) && real_roomp(exitDir(dir)->to_room) &&
-	 !(exitDir(dir)->condition & EX_CLOSED) &&
+         !(exitDir(dir)->condition & EX_CLOSED) &&
 
-	 (rp = real_roomp(roomp->exitDir(dir)->to_room))){
-	// check each item
-	valid=true;
-	amt=0;
-	for(StuffIter it=rp->stuff.begin();it!=rp->stuff.end();++it){
-	  // check pools that are the same type and less than half my size
-	  if((pool=dynamic_cast<TPool *>(*it)) && 
-	     pool->getDrinkType()==getDrinkType()){
-	    if(pool->getDrinkUnits() >= (getDrinkUnits()/2)){
-	      valid=false;
-	    } else {
-	      total+=pool->getDrinkUnits();
-	      amt=pool->getDrinkUnits();
-	    }
-	  }
-	}
-	if(valid){
-	  rooms.push_back(rp);
-	  roomdirs.push_back(dir);
-	  roomamts.push_back(amt);
-	}
+         (rp = real_roomp(roomp->exitDir(dir)->to_room))){
+        // check each item
+        valid=true;
+        amt=0;
+        for(StuffIter it=rp->stuff.begin();it!=rp->stuff.end();++it){
+          // check pools that are the same type and less than half my size
+          if((pool=dynamic_cast<TPool *>(*it)) &&
+             pool->getDrinkType()==getDrinkType()){
+            if(pool->getDrinkUnits() >= (getDrinkUnits()/2)){
+              valid=false;
+            } else {
+              total+=pool->getDrinkUnits();
+              amt=pool->getDrinkUnits();
+            }
+          }
+        }
+        if(valid){
+          rooms.push_back(rp);
+          roomdirs.push_back(dir);
+          roomamts.push_back(amt);
+        }
       }
     }
 
@@ -75,16 +75,16 @@ void TPool::overFlow()
 
     total/=rooms.size();
 
-    sendrpf(COLOR_BASIC, roomp, 
-	    "Some %s flows outward into surrounding rooms.\n\r",
-	    liquidInfo[getDrinkType()]->name);
+    sendrpf(COLOR_BASIC, roomp,
+            "Some %s flows outward into surrounding rooms.\n\r",
+            liquidInfo[getDrinkType()]->name);
 
     for(unsigned int i=0;i<rooms.size();++i){
       rooms[i]->dropPool(total-roomamts[i], getDrinkType());
-      sendrpf(COLOR_BASIC, rooms[i], 
-	      "Some %s flows in from the %s.\n\r",
-	      liquidInfo[getDrinkType()]->name,
-	      dirs[rev_dir[roomdirs[i]]]);
+      sendrpf(COLOR_BASIC, rooms[i],
+              "Some %s flows in from the %s.\n\r",
+              liquidInfo[getDrinkType()]->name,
+              dirs[rev_dir[roomdirs[i]]]);
     }
 
     roomp->saveItems("");
@@ -96,7 +96,7 @@ void TPool::overFlow()
 bool TPool::willMerge(TMergeable *tm)
 {
   TPool *pool;
-  
+
   if(!(pool=dynamic_cast<TPool *>(tm)) ||
      pool==this ||
      pool->getDrinkType()!=getDrinkType()){
@@ -168,7 +168,7 @@ int TPool::getDrinkIndex() const
     return 2;
   } else if(drinkunits<=25){
     return 3;
-  } else if(drinkunits<=50){ 
+  } else if(drinkunits<=50){
     return 4;
   } else if(drinkunits<=100){
     return 5;
@@ -184,29 +184,29 @@ int TPool::getDrinkIndex() const
     return 10;
   }
 }
-  
+
 void TPool::updateDesc()
 {
   int drinkindex=getDrinkIndex();
   char buf[256];
   const char *liqname=liquidInfo[getDrinkType()]->name;
   sstring buf2;
-  
+
   const char *poolname [] =
   {
-    "a few drops of %s", 
-    "a tiny puddle of %s", 
-    "a small puddle of %s", 
-    "a puddle of %s", 
-    "a fair sized puddle of %s", 
-    "a big pool of %s", 
-    "a large pool of %s", 
+    "a few drops of %s",
+    "a tiny puddle of %s",
+    "a small puddle of %s",
+    "a puddle of %s",
+    "a fair sized puddle of %s",
+    "a big pool of %s",
+    "a large pool of %s",
     "a huge pool of %s",
     "a massive pool of %s",
     "a tremendously huge pool of %s",
     "a veritable ocean of %s"
   };
-  
+
   const char *pooldesc [] =
   {
     "A few drops of %s sprinkle the $g here and are fading fast.",
@@ -249,10 +249,10 @@ void TPool::updateDesc()
 
     sprintf(buf, "a <C>frozen<1> chunk of %s", liqname);
     shortDescr = mud_str_dup(buf);
-    
+
     sprintf(buf, "A chunk of <C>frozen<1> %s is here.", liqname);
     setDescr(mud_str_dup(buf));
-    
+
     SET_BIT(obj_flags.wear_flags, ITEM_TAKE);
   } else {
     buf2 = format("pool puddle %s %s") %
@@ -262,7 +262,7 @@ void TPool::updateDesc()
 
     sprintf(buf, poolname[drinkindex], liqname);
     shortDescr = mud_str_dup(buf);
-    
+
     sprintf(buf, pooldesc[drinkindex], liqname);
     setDescr(mud_str_dup(buf));
 
@@ -386,7 +386,7 @@ void TPool::decayMe()
   else if(drinkunits<25)
     addToDrinkUnits(-1);
   else // large pools evaporate faster
-    addToDrinkUnits(-(drinkunits/25)); 
+    addToDrinkUnits(-(drinkunits/25));
 }
 
 
@@ -397,7 +397,7 @@ void TPool::initPool(int amt, liqTypeT liq)
   setDrinkType(liq);
   canBeSeen = 1;
   setMaterial(MAT_WATER);
-  
+
   fillMeAmount(amt, liq);
 }
 

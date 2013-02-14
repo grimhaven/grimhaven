@@ -208,10 +208,10 @@ void TBeing::doNews(const char *argument)
     for (iter = 0; iter < vecFiles.size(); iter++) {
       strcpy(timebuf, ctime(&(vecFiles[iter].modTime)));
       timebuf[strlen(timebuf) - 1] = '\0';
-  
-      sprintf(buf, "%s : %s%s\n\r", timebuf, 
+
+      sprintf(buf, "%s : %s%s\n\r", timebuf,
             vecFiles[iter].prependStr.c_str(),
-            vecFiles[iter].fileName.c_str()); 
+            vecFiles[iter].fileName.c_str());
       str += buf;
     }
   }
@@ -224,16 +224,16 @@ void TBeing::doNews(const char *argument)
 
     while(news.getline(buf, 256)){
       if(!*buf){
-	if(s.find(arg) != sstring::npos){
-	  str+=s;
-	}
-	s="";
+        if(s.find(arg) != sstring::npos){
+          str+=s;
+        }
+        s="";
       }
-      
+
       s+=buf;
       s+="\n\r";
     }
-  } else 
+  } else
     file_to_sstring(File::NEWS, str, CONCAT_YES);
 
   if (desc) {

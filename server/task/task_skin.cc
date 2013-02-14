@@ -211,14 +211,14 @@ int TThing::skinPulse(TBeing *ch, TBaseCorpse *corpse)
 
   // Lets make sure the skinner isn't too weak/encumbered to grab this item.
   if (compareWeights(item->getTotalWeight(TRUE),
-		     (ch->carryWeightLimit() - ch->getCarriedWeight())) == -1) {
+                     (ch->carryWeightLimit() - ch->getCarriedWeight())) == -1) {
     act("The weight of the hide gets too much for you, so you drop it.",
         FALSE, ch, 0, 0, TO_CHAR);
     act("The weight of the hide gets too much for $n, so $e drops it.",
         FALSE, ch, 0, NULL, TO_ROOM);
     *corpse->roomp += *item;
   } else if (ch->getCarriedVolume() + (item->getTotalVolume()
-				       -item->getReducedVolume(NULL)) > ch->carryVolumeLimit()) {
+                                       -item->getReducedVolume(NULL)) > ch->carryVolumeLimit()) {
     act("You struggle to hold onto the hide but it slips from your grasp.",
         FALSE, ch, 0, 0, TO_CHAR);
     act("$n struggles to hold onto the hide but it slips from $s grasp.",

@@ -170,7 +170,7 @@ int sleepTagControl(TBeing *tBeing, cmdTypeT tCmd, const char *tArg, TRoom *tRoo
       tBeing->sendTo("Hope you had a good time.\n\r");
 
       for(StuffIter it=tBeing->stuff.begin();it!=tBeing->stuff.end();){
-	tThing=*(it++);
+        tThing=*(it++);
         TObj *tObj = dynamic_cast<TObj *>(tThing);
 
         if (tObj && tObj->objVnum() == SLEEPTAG_STAFF) {
@@ -178,7 +178,7 @@ int sleepTagControl(TBeing *tBeing, cmdTypeT tCmd, const char *tArg, TRoom *tRoo
           delete tThing;
           tThing = NULL;
         } else if (!tThing->stuff.empty())
-	  for(StuffIter itt=tThing->stuff.begin();itt!=tThing->stuff.end();){
+          for(StuffIter itt=tThing->stuff.begin();itt!=tThing->stuff.end();){
             tCThing=*(it++);
             TObj *tCObj = dynamic_cast<TObj *>(tCThing);
 
@@ -260,7 +260,7 @@ int sleepTagRoom(TBeing *tBeing, cmdTypeT tCmd, const char *tArg, TRoom *tRoom)
                 tPerson->affectFrom(SPELL_SLUMBER);
               } else
                 vlogf(LOG_PROC, format("Unable to load room %d for sleeptag move!") %  SLEEPTAG_CONTROL_ROOM);
-	    }
+            }
 
             sleepTagReport(tRoom->getZoneNum(), "%s has lost this game...", tPerson->getName());
           } else {
@@ -270,7 +270,7 @@ int sleepTagRoom(TBeing *tBeing, cmdTypeT tCmd, const char *tArg, TRoom *tRoom)
               tPerson = NULL;
             } else
               ;
-	      //tPerson->sleepTagMonsterSearch();
+              //tPerson->sleepTagMonsterSearch();
           }
         }
 

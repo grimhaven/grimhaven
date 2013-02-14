@@ -6,7 +6,7 @@
 
 
 #ifndef __DISC_LEVERAGE_H
-#define __DISC_LEVERAGE_H 
+#define __DISC_LEVERAGE_H
 
 #include "discipline.h"
 #include "skills.h"

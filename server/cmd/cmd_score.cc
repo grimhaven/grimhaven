@@ -16,10 +16,10 @@ void TBeing::doScore()
   struct time_info_data playing_time;
   sstring Buf, tString;
 
-  sendTo(format("You have %s%d%s/%s%d%s hit points, %s%d%s/%s%d%s moves and ") %	 red() % getHit() % norm() %
-	 green() % hitLimit() % norm() %
-	 purple() % getMove() % norm() %
-	 green() % moveLimit() % norm());
+  sendTo(format("You have %s%d%s/%s%d%s hit points, %s%d%s/%s%d%s moves and ") %         red() % getHit() % norm() %
+         green() % hitLimit() % norm() %
+         purple() % getMove() % norm() %
+         green() % moveLimit() % norm());
 
   if (hasClass(CLASS_DEIKHAN) || hasClass(CLASS_CLERIC))
     Buf = format("%s%.2f%c %spiety.\n\r") % cyan() % getPiety() % '%' % norm();
@@ -53,15 +53,15 @@ void TBeing::doScore()
     int total=0, count=0;
     for (spellNumT tSpell = MIN_SPELL; tSpell < MAX_SKILL; tSpell++){
       if(getDisciplineNumber(tSpell, FALSE)!=DISC_NONE &&
-	 doesKnowSkill(tSpell)){
-	total += getSkillValue(tSpell);
-	++count;
+         doesKnowSkill(tSpell)){
+        total += getSkillValue(tSpell);
+        ++count;
       }
     }
     if(count > 0){
-      sendTo(format("You have a total of %s%i%s skill points with an average of %s%i%s per skill.\n\r") % 
-	     cyan() % total % norm() %
-	     cyan() % (int)(total/count) % norm());
+      sendTo(format("You have a total of %s%i%s skill points with an average of %s%i%s per skill.\n\r") %
+             cyan() % total % norm() %
+             cyan() % (int)(total/count) % norm());
     }
 
 
@@ -99,7 +99,7 @@ void TBeing::doScore()
     for (i = MAGE_LEVEL_IND; i < MAX_CLASSES; i++) {
       if (getLevel(i)) {
         sendTo(format("%s%s lev %2d") %             (shownFirst ? ", " : "") %
-	       classInfo[i].name.cap() % getLevel(i));
+               classInfo[i].name.cap() % getLevel(i));
         shownFirst = true;
       }
     }
@@ -118,7 +118,7 @@ void TBeing::doScore()
 
       if (allClassesSame) {
         sendTo(format("You need %s%s%s experience points to be a %sLevel %d %s%s.\n\r") %             purple() % tString % norm() % purple() % (getLevel(i)+1) %
-	       getProfName() % norm());
+               getProfName() % norm());
         break;
       } else {
         // leveled in one class, but not another, show each class as own line
@@ -218,7 +218,7 @@ void TBeing::doScore()
           if (riding->getName())
             Buf += objs(riding);
           else
-	    Buf += "A bad object!";
+            Buf += "A bad object!";
 
           Buf += ".\n\r";
         } else
@@ -240,15 +240,15 @@ void TBeing::doScore()
       case POSITION_MOUNTED:
         tbr = dynamic_cast<TBeing *>(riding);
         if (tbr && tbr->horseMaster() == this) {
-	  Buf = "You are here, riding ";
-	  Buf += pers(tbr);
-	  Buf += ".\n\r";
+          Buf = "You are here, riding ";
+          Buf += pers(tbr);
+          Buf += ".\n\r";
           sendTo(COLOR_MOBS, Buf);
         } else if (tbr) {
-	  Buf = format("You are here, also riding on %s's %s%s.\n\r") %
-	    pers(tbr->horseMaster()) %
-	    persfname(tbr) %
-	    (tbr->isAffected(AFF_INVISIBLE) ? " (invisible)" : "");
+          Buf = format("You are here, also riding on %s's %s%s.\n\r") %
+            pers(tbr->horseMaster()) %
+            persfname(tbr) %
+            (tbr->isAffected(AFF_INVISIBLE) ? " (invisible)" : "");
 
           sendTo(COLOR_MOBS, Buf);
         } else
@@ -267,7 +267,7 @@ void TBeing::doScore()
 
   if (getWimpy())
     sendTo(format("You are in wimpy mode, and will flee at %d hit points.\n\r") %
-	   getWimpy());
+           getWimpy());
 
   describeLimbDamage(this);
   sendTo(COLOR_BASIC, describeAffects(this, SHOW_ME));

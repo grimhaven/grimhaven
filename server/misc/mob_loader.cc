@@ -37,7 +37,7 @@ static void treasureCreate(int num, int mat, int &wealth, TObj *bag, TMonster *c
 
   wealth -= (int)(num * cost);
   TObj * obj = read_object(Obj::GENERIC_COMMODITY, VIRTUAL);
-    
+
   obj->setWeight(num / 10.0);
   obj->setMaterial(mat);
 
@@ -67,7 +67,7 @@ struct mat_sort
     // which turns out to be unintuitave for players - so now we sort on value alone
 
     return pa > pb;
-    
+
     //    return material_nums[a].price > material_nums[b].price;
   }
 };
@@ -104,11 +104,11 @@ void commodLoader(TMonster *tmons, TObj *bag)
     // very wealthy mobs prefer to have cash
     if(n_afford > 0 && n_afford <= ::number(0,max_units)){
       treasureCreate(max(1, ::number(n_afford/2, n_afford)), base_mats[i],
-		     wealth, bag, tmons);
+                     wealth, bag, tmons);
       break;
     }
   }
-  
+
   // add the leftover cash back
   tmons->setMoney(tmons->getMoney()+wealth);
 
@@ -118,7 +118,7 @@ void potionLoader(TMonster *tmons)
 {
   std::vector<int>potions;
   int pot=0;
-  
+
   potions.push_back(800); // remove poison
   potions.push_back(809); // refresh
   potions.push_back(810); // second wind
@@ -143,10 +143,10 @@ void potionLoader(TMonster *tmons)
     pot=5; // heal
   else
     pot=7; // flight
-  
+
   // equal distribution among the 3 potions in our area
   pot+=::number(-1,1);
-  
+
   // crits
   switch(::number(0,99)){
     case 0:
@@ -160,7 +160,7 @@ void potionLoader(TMonster *tmons)
   // safety check
   pot=min(pot, (int)potions.size());
   pot=max(pot, 0);
-  
+
   TObj *obj;
   TPotion *tpot;
 
@@ -225,7 +225,7 @@ void potionLoader(TMonster *tmons)
   };
 
   int * myTools = crappyTools[tmons->bestClass()];
-  
+
   if (tmons->GetMaxLevel() > 40)
     myTools = powerTools[tmons->bestClass()];
 
@@ -261,13 +261,13 @@ void TMonster::thiefLootLoader()
 
   // pick one
   vnum=loot[::number(0, loot.size()-1)];
-  
+
   // load it
   if (!(obj = read_object_buy_build(this,vnum,VIRTUAL))){
     vlogf(LOG_BUG, format("couldn't load object %i") %  vnum);
     return;
   }
-    
+
   // buy it, if we can afford it
   // divided cost by 2 - mobs are buying at cost here to get load rate
   //   more reasonable - Maror
@@ -435,8 +435,8 @@ void TMonster::mageComponentLoader(void)
   int wealth = getMoney();
   TObj *obj,
        *bag = NULL;
-  int num = -1, iters = 0;  
-  spellNumT spell;  
+  int num = -1, iters = 0;
+  spellNumT spell;
   int comp = 0;
   int bag_num = 0;
   bool found = FALSE;
@@ -449,136 +449,136 @@ void TMonster::mageComponentLoader(void)
   } else if (GetMaxLevel() >= 17 && wealth > 500) {
     wealth -= 200;
     bag_num = 322;
-  } else 
+  } else
     bag_num = 321;
 
   // can't buy_build this obj if its doing to be deleted
   if (!(bag = read_object(bag_num, VIRTUAL)))
     return;
 
-  while (::number(0,3) && (wealth > 10)) { 
-    iters = 0;  
-    num = -1;  
-    while ((num == -1) && (iters < 25)) {  
-      num = ::number(0, CompIndex.size() - 1);  
-      spell = CompIndex[num].spell_num;  
-      comp = CompIndex[num].comp_vnum;  
-      iters++;  
-      
-      if (spell < TYPE_UNDEFINED || spell >= MAX_SKILL) {  
-        vlogf(LOG_BUG, format("Component (%d) defined with bad spell (%d).  num=%d") %  comp % spell % num);  
-        continue;  
-      }  
-      if (spell != TYPE_UNDEFINED && hideThisSpell(spell)) {  
-        num = -1;  
-        continue;  
-      }  
-      // only load mage spell component  
-      if (spell != TYPE_UNDEFINED && discArray[spell]->typ != SPELL_MAGE) {  
-        num=-1;  
-        continue;  
-      }  
-     
-      if (isDissectComponent(comp))  
-        num = -1;  
-     
-      if (isInkComponent(comp) && ++inksloaded>3)  
-        num = -1;  
-     
-      // disallow certain components  
-      switch (comp) {  
-        case COMP_FEATHERY_DESCENT:  
-        case COMP_FALCON_WINGS:  
-        case COMP_ANTIGRAVITY:  
-        case COMP_POWERSTONE:  
-        case COMP_SHATTER:  
-        case COMP_ILLUMINATE:  
-        case COMP_DETECT_MAGIC:  
-        case COMP_DISPEL_MAGIC:  
-        case COMP_COPY:  
-        case COMP_TRAIL_SEEK:  
-        case COMP_FLARE:  
-        case COMP_ANIMATE:  
-        case COMP_BIND:  
-        case COMP_TELEPORT:  
-        case COMP_SENSE_LIFE:  
-        case COMP_SILENCE:  
-        case COMP_STEALTH:  
-        case COMP_CALM:  
-        case COMP_ENSORCER:  
-        case COMP_FEAR:  
-        case COMP_CLOUD_OF_CONCEAL:  
-        case COMP_DETECT_INVIS:  
-        case COMP_DETECT_SHADOW:  
-        case COMP_DISPEL_INVIS:  
-        case COMP_TELEPATHY:  
-        case COMP_POLYMORPH:  
-        case COMP_GILLS_OF_FLESH:  
-        case COMP_BREATH_SARAHAGE:  
-        case COMP_INFRAVISION:  
-        case COMP_FLIGHT:  
-          // we'll make utility comps more rare so that relatively speaking  
-          // the comps for offensive spells are more prevalent  
-          if (::number(0,2))  
-         num = -1;  
-          break;  
-        case COMP_FARLOOK:  
-        case COMP_INVISIBILITY:  
-        case COMP_LEVITATE:  
-        case COMP_TRUE_SIGHT:  
-          // these are also "utility" comps, but players have asked for a  
-          // slightly higher load rate on them  
-          if (::number(0,9) < 5)  
-         num = -1;  
-          break;  
-        case COMP_GALVANIZE:  
-          // keep fairly rare  
-          if (::number(0,19))  
-         num = -1;  
-          break;  
-        case COMP_ENHANCE_WEAPON:  
-          // keep VERY rare  
-          if (::number(0,29))  
-         num = -1;  
-          break;  
-        default:  
-          break;  
-      }  
-      if (num == -1)  
-        continue;  
-     
-      // this check is to prevent a mob that "sells" comps via responses  
-      // from loading the comp they sell, and hence preventing the response  
-      // load from working  
-      if (!Config::LoadOnDeath() && isMobComponentSeller(comp, mobVnum()))  
-        num = -1;  
-     
-      if (num == -1)  
-        continue;  
-     
-      if (comp == -1) {  
-        vlogf(LOG_BUG, format("Bogus component on spell %d (%s)") %   
-              spell % discArray[spell]->name);  
-        continue;  
-      }  
-    }  
-    if (num == -1)  
-      continue; 
+  while (::number(0,3) && (wealth > 10)) {
+    iters = 0;
+    num = -1;
+    while ((num == -1) && (iters < 25)) {
+      num = ::number(0, CompIndex.size() - 1);
+      spell = CompIndex[num].spell_num;
+      comp = CompIndex[num].comp_vnum;
+      iters++;
+
+      if (spell < TYPE_UNDEFINED || spell >= MAX_SKILL) {
+        vlogf(LOG_BUG, format("Component (%d) defined with bad spell (%d).  num=%d") %  comp % spell % num);
+        continue;
+      }
+      if (spell != TYPE_UNDEFINED && hideThisSpell(spell)) {
+        num = -1;
+        continue;
+      }
+      // only load mage spell component
+      if (spell != TYPE_UNDEFINED && discArray[spell]->typ != SPELL_MAGE) {
+        num=-1;
+        continue;
+      }
+
+      if (isDissectComponent(comp))
+        num = -1;
+
+      if (isInkComponent(comp) && ++inksloaded>3)
+        num = -1;
+
+      // disallow certain components
+      switch (comp) {
+        case COMP_FEATHERY_DESCENT:
+        case COMP_FALCON_WINGS:
+        case COMP_ANTIGRAVITY:
+        case COMP_POWERSTONE:
+        case COMP_SHATTER:
+        case COMP_ILLUMINATE:
+        case COMP_DETECT_MAGIC:
+        case COMP_DISPEL_MAGIC:
+        case COMP_COPY:
+        case COMP_TRAIL_SEEK:
+        case COMP_FLARE:
+        case COMP_ANIMATE:
+        case COMP_BIND:
+        case COMP_TELEPORT:
+        case COMP_SENSE_LIFE:
+        case COMP_SILENCE:
+        case COMP_STEALTH:
+        case COMP_CALM:
+        case COMP_ENSORCER:
+        case COMP_FEAR:
+        case COMP_CLOUD_OF_CONCEAL:
+        case COMP_DETECT_INVIS:
+        case COMP_DETECT_SHADOW:
+        case COMP_DISPEL_INVIS:
+        case COMP_TELEPATHY:
+        case COMP_POLYMORPH:
+        case COMP_GILLS_OF_FLESH:
+        case COMP_BREATH_SARAHAGE:
+        case COMP_INFRAVISION:
+        case COMP_FLIGHT:
+          // we'll make utility comps more rare so that relatively speaking
+          // the comps for offensive spells are more prevalent
+          if (::number(0,2))
+         num = -1;
+          break;
+        case COMP_FARLOOK:
+        case COMP_INVISIBILITY:
+        case COMP_LEVITATE:
+        case COMP_TRUE_SIGHT:
+          // these are also "utility" comps, but players have asked for a
+          // slightly higher load rate on them
+          if (::number(0,9) < 5)
+         num = -1;
+          break;
+        case COMP_GALVANIZE:
+          // keep fairly rare
+          if (::number(0,19))
+         num = -1;
+          break;
+        case COMP_ENHANCE_WEAPON:
+          // keep VERY rare
+          if (::number(0,29))
+         num = -1;
+          break;
+        default:
+          break;
+      }
+      if (num == -1)
+        continue;
+
+      // this check is to prevent a mob that "sells" comps via responses
+      // from loading the comp they sell, and hence preventing the response
+      // load from working
+      if (!Config::LoadOnDeath() && isMobComponentSeller(comp, mobVnum()))
+        num = -1;
+
+      if (num == -1)
+        continue;
+
+      if (comp == -1) {
+        vlogf(LOG_BUG, format("Bogus component on spell %d (%s)") %
+              spell % discArray[spell]->name);
+        continue;
+      }
+    }
+    if (num == -1)
+      continue;
 
     // gets here if component is valid for mob
     if (!(obj = read_object(comp,VIRTUAL)))
       continue;
 
     TComponent *tcom =dynamic_cast<TComponent *>(obj);
-    spell = CompIndex[num].spell_num;  
-     
-    if (tcom && tcom->isComponentType(COMP_SPELL) && spell == TYPE_UNDEFINED) {  
-      num = -1;  
-      delete tcom;  
-      continue;  
-    }  
-    if (tcom->isComponentType(COMP_POTION)) {  
-      num = -1;  
+    spell = CompIndex[num].spell_num;
+
+    if (tcom && tcom->isComponentType(COMP_SPELL) && spell == TYPE_UNDEFINED) {
+      num = -1;
+      delete tcom;
+      continue;
+    }
+    if (tcom->isComponentType(COMP_POTION)) {
+      num = -1;
       delete tcom;
       continue;
     }
@@ -622,14 +622,14 @@ void TMonster::rangerComponentLoader(void)
   } else if (GetMaxLevel() >= 17 && wealth > 500) {
     wealth -= 200;
     bag_num = 331;
-  } else 
+  } else
     bag_num = 330;
 
   // cant buy_build this obj if its going to be deleted
   if (!(bag = read_object(bag_num, VIRTUAL)))
     return;
 
-  while (::number(0,3) && (wealth > 10)) { 
+  while (::number(0,3) && (wealth > 10)) {
     iters = 0;
     num = -1;
     while ((num == -1) && (iters < 15)) {
@@ -637,12 +637,12 @@ void TMonster::rangerComponentLoader(void)
       spell = CompIndex[num].spell_num;
       comp = CompIndex[num].comp_vnum;
       iters++;
-    
+
       // no mage spell components
-      if (spell != TYPE_UNDEFINED && discArray[spell] && 
-	 discArray[spell]->typ != SPELL_RANGER){
-      	num=-1;
-      	continue;
+      if (spell != TYPE_UNDEFINED && discArray[spell] &&
+         discArray[spell]->typ != SPELL_RANGER){
+              num=-1;
+              continue;
       }
 
       if (isDissectComponent(comp))
@@ -657,7 +657,7 @@ void TMonster::rangerComponentLoader(void)
         continue;
 
       if (comp == -1) {
-        vlogf(LOG_BUG, format("Bogus component on spell %d (%s)") % 
+        vlogf(LOG_BUG, format("Bogus component on spell %d (%s)") %
                  spell % discArray[spell]->name);
         continue;
       }
@@ -730,7 +730,7 @@ void TMonster::shamanComponentLoader(void)
   } else if (GetMaxLevel() >= 17 && wealth > 500) {
     wealth -= 200;
     bag_num = 31318;
-  } else 
+  } else
     bag_num = 31317;
 
   // can't but this obj if its going to be deleted
@@ -738,7 +738,7 @@ void TMonster::shamanComponentLoader(void)
     return;
 
 
-  while (::number(0,3) && (wealth > 10)) { 
+  while (::number(0,3) && (wealth > 10)) {
     iters = 0;
     num = -1;
     while ((num == -1) && (iters < 25)) {
@@ -746,7 +746,7 @@ void TMonster::shamanComponentLoader(void)
       spell = CompIndex[num].spell_num;
       comp = CompIndex[num].comp_vnum;
       iters++;
-    
+
       if (spell < TYPE_UNDEFINED || spell >= MAX_SKILL) {
         vlogf(LOG_BUG, format("Component (%d) defined with bad spell (%d).  num=%d") %  comp % spell % num);
         continue;
@@ -757,27 +757,27 @@ void TMonster::shamanComponentLoader(void)
       }
       // only load mage spell component
       if (spell != TYPE_UNDEFINED && discArray[spell]->typ != SPELL_SHAMAN) {
-      	num=-1;
-      	continue;
+              num=-1;
+              continue;
       }
 
       if (isDissectComponent(comp))
         num = -1;
 
       if (isBrewComponent(comp) && ++Brewload>3)
-	      num = -1;
+              num = -1;
 
       // disallow certain components
       switch (comp) {
-	      case COMP_BLOOD_BOIL:
-	      case COMP_AQUALUNG:
+              case COMP_BLOOD_BOIL:
+              case COMP_AQUALUNG:
         case COMP_HYPNOSIS:
           // we'll make utility comps more rare so that relatively speaking
           // the comps for offensive spells are more prevalent
           if (::number(0,2))
             num = -1;
           break;
-	      case COMP_CELERITE:
+              case COMP_CELERITE:
         case COMP_CLARITY:
         case COMP_SHADOW_WALK:
           // these are also "utility" comps, but players have asked for a
@@ -786,7 +786,7 @@ void TMonster::shamanComponentLoader(void)
             num = -1;
           break;
 #ifdef RARECOMPSHAMAN
-	case COMP_XXXXXXXXXXXXXXXXXXX:
+        case COMP_XXXXXXXXXXXXXXXXXXX:
           // keep fairly rare
           if (::number(0,19))
             num = -1;
@@ -813,7 +813,7 @@ void TMonster::shamanComponentLoader(void)
         continue;
 
       if (comp == -1) {
-        vlogf(LOG_BUG, format("Bogus component on spell %d (%s)") % 
+        vlogf(LOG_BUG, format("Bogus component on spell %d (%s)") %
                  spell % discArray[spell]->name);
         continue;
       }
@@ -921,11 +921,11 @@ void TMonster::clericSymbolLoader(void)
 
   for(int i=0;syms[i]!=-1;++i){
     value = obj_index[real_object(syms[i])].value / div;
-    
+
     if(wealth>value){
       if (!(obj = read_object_buy_build(this,syms[i], VIRTUAL))) {
-	      vlogf(LOG_BUG, "Error in cleric Component Loader");
-	      return;
+              vlogf(LOG_BUG, "Error in cleric Component Loader");
+              return;
       }
 
       *this += *obj;
@@ -997,7 +997,7 @@ void TMonster::genericMobLoader(TOpenContainer **bag)
     TObj *brick = read_object(23091, VIRTUAL);
     if (brick)
       *this += *brick;
-  }  
+  }
 #endif
 
 //October Critter Quest food commodity loads - berries
@@ -1030,7 +1030,7 @@ void TMonster::genericMobLoader(TOpenContainer **bag)
   }
 #endif
 
-//October Critter Quest food commodity loads - egg  
+//October Critter Quest food commodity loads - egg
 #if 0
   if (!::number(0,4) && wealth > 0)
   {
@@ -1040,7 +1040,7 @@ void TMonster::genericMobLoader(TOpenContainer **bag)
   }
 #endif
 
-//October Critter Quest food commodity loads - steak    
+//October Critter Quest food commodity loads - steak
 #if 0
   if (!::number(0,9) && wealth > 0)
   {
@@ -1063,7 +1063,7 @@ void TMonster::genericMobLoader(TOpenContainer **bag)
     wealth -= 5;
   } else
     return;
- 
+
   TObj *obj;
   // moneypouches are newbie flagged and not sellable, so probably shouldn't buy_build
   if (!(obj = read_object(Obj::GENERIC_MONEYPOUCH, VIRTUAL)) ||

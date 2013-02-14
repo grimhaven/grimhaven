@@ -22,7 +22,7 @@ void TBeing::dropWeapon(wearSlotT slot)
       hand = HOLD_LEFT;
 
     TObj *tobj = dynamic_cast<TObj *>(equipment[hand]);
-    if (tobj && tobj->isPaired()) 
+    if (tobj && tobj->isPaired())
       hand = getPrimaryHold();
 
     if (equipment[hand]) {
@@ -60,17 +60,17 @@ void TBeing::shatterWeapon(wearSlotT slot, int scrap_it)
       if (scrap_it) {
         if (!shattered->makeScraps()){
           delete shattered;
-	  shattered = NULL;
-	}
+          shattered = NULL;
+        }
       } else {
-	      shattered->addToStructPoints(-dice(3, 10));
-	      if (shattered->getStructPoints() < 0) {
-		if (!shattered->makeScraps()){
-		  delete shattered;
-		  shattered = NULL;
-		}
-	      } else
-	        act("$p seems to be okay, though you can tell it took a lot of damage.", FALSE, this, shattered, NULL, TO_CHAR);
+              shattered->addToStructPoints(-dice(3, 10));
+              if (shattered->getStructPoints() < 0) {
+                if (!shattered->makeScraps()){
+                  delete shattered;
+                  shattered = NULL;
+                }
+              } else
+                act("$p seems to be okay, though you can tell it took a lot of damage.", FALSE, this, shattered, NULL, TO_CHAR);
       }
     }
   }

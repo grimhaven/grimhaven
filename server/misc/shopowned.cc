@@ -33,9 +33,9 @@ bool sameAccount(sstring buf, int shop_nr){
 
     if(!strcmp(stthis.aname, st.aname)){
       if(buf.lower() == sstring(db["name"]).lower())
-	return FALSE;
+        return FALSE;
       else
-	return TRUE;
+        return TRUE;
     }
   }
 
@@ -75,14 +75,14 @@ sstring transactionToString(transactionTypeT action)
 int TShopOwned::getInventoryCount(const TObj *obj)
 {
   TDatabase db(DB_SNEEZY);
-  
+
   if (obj->objVnum() == Obj::GENERIC_COMMODITY)
     db.query("select weight*10 as count from rent where vnum=%i and material=%i and owner_type='shop' and owner=%i", Obj::GENERIC_COMMODITY, obj->getMaterial(), shop_nr);
     else if (obj->isObjStat(ITEM_STRUNG))
     db.query("select count(*) as count from rent r left outer join rent_strung rs on (r.rent_id=rs.rent_id) where r.vnum=%i and rs.short_desc='%s' and r.owner_type='shop' and r.owner=%i and (r.extra_flags & 4) = 4", obj->objVnum(), sstring(obj->shortDescr).trim().c_str(), shop_nr);
   else
     db.query("select count(*) as count from rent where vnum=%i and owner_type='shop' and owner=%i", obj->objVnum(), shop_nr);
-  
+
   if (db.fetchRow());
     return convertTo<int>(db["count"]);
   return 0;
@@ -105,7 +105,7 @@ TMonster *TShopOwned::getKeeper()
 // player selling to shop (receiving money from shop)
 // num is the number of items, but cashCost is the TOTAL cost
 void TShopOwned::doSellTransaction(int cashCost, const sstring &name,
-				   transactionTypeT action, int num)
+                                   transactionTypeT action, int num)
 {
   // sell gives money to the buyer
   keeper->giveMoney(ch, cashCost, GOLD_SHOP);
@@ -125,8 +125,8 @@ void TShopOwned::doSellTransaction(int cashCost, const sstring &name,
 
 // player buying from shop (giving money to shop)
 // obj is optional
-void TShopOwned::doBuyTransaction(int cashCost, const sstring &name, 
-			       transactionTypeT action, TObj *obj)
+void TShopOwned::doBuyTransaction(int cashCost, const sstring &name,
+                               transactionTypeT action, TObj *obj)
 {
   // take the expense cut out
   int expenses=doExpenses(cashCost, obj);
@@ -149,10 +149,10 @@ void TShopOwned::doBuyTransaction(int cashCost, const sstring &name,
        action == TX_BUYING_SERVICE)
       tax=chargeTax(cashCost, name, obj);
 
-    journalize(ch->getName(), name, action, cashCost, tax, 
-	       corp_cash, expenses);
+    journalize(ch->getName(), name, action, cashCost, tax,
+               corp_cash, expenses);
   }
-  
+
   // save
   keeper->saveItems(shop_nr);
   ch->doQueueSave();
@@ -209,20 +209,20 @@ int getShopAccess(int shop_nr, TBeing *ch){
     return 0;
 
   db.query("select access from shopownedaccess where shop_nr=%i and upper(name)=upper('%s')", shop_nr, ch->getName());
-  
+
   if(db.fetchRow())
     access=convertTo<int>(db["access"]);
 
-#if 0  
+#if 0
   if(sameAccount(ch->getName(), shop_nr) && !ch->isImmortal() && access){
     ch->sendTo("Another character in your account has permissions at this shop, so this character can not use the ownership functions.\n\r");
     access=0;
   }
-#endif  
+#endif
 
   if(ch->isImmortal())
     access=SHOPACCESS_OWNER;
-  
+
   return access;
 }
 
@@ -294,8 +294,8 @@ int TShopOwned::chargeTax(int cost, const sstring &name, TObj *o)
 
   TMonster *taxman = shop_index[tax_office].getKeeper();
   if(!taxman){
-    vlogf(LOG_BUG, format("taxman not found %i") % 
-	  shop_index[tax_office].keeper);
+    vlogf(LOG_BUG, format("taxman not found %i") %
+          shop_index[tax_office].keeper);
     return 0;
   }
 
@@ -303,10 +303,10 @@ int TShopOwned::chargeTax(int cost, const sstring &name, TObj *o)
   keeper->saveItems(shop_nr);
   taxman->saveItems(tax_office);
 
-  shoplog(shop_nr, keeper, keeper, name, 
-	  -cost, "paying tax");
+  shoplog(shop_nr, keeper, keeper, name,
+          -cost, "paying tax");
   shoplog(tax_office, keeper, taxman,
-	  name, cost, "tax");
+          name, cost, "tax");
 
   TShopOwned tso(tax_office, taxman, keeper);
   tso.journalize(keeper->getName(), "tax", TX_BUYING_SERVICE, cost, 0, 0, 0);
@@ -411,7 +411,7 @@ int TShopOwned::doReserve()
 
     keeper->saveItems(shop_nr);
     dynamic_cast<TMonster *>(banker)->saveItems(shop_nr);
-    
+
     shoplog(bank_nr, keeper,  dynamic_cast<TMonster *>(banker), "talens", amt, "reserve");
     shoplog(shop_nr, keeper, keeper, "talens", -amt, "reserve");
 
@@ -509,7 +509,7 @@ int TShopOwned::doDividend(int cost, const sstring &name)
 
     keeper->saveItems(shop_nr);
     shoplog(shop_nr, ch, keeper, name, -div, "dividend");
-    
+
     tso.journalize(keeper->getName(), "talens", TX_DEPOSIT, div, 0, 0, 0);
 
     corp.setMoney(corp.getMoney() + div);
@@ -571,7 +571,7 @@ bool TShopOwned::hasAccess(int perm){
   if(getCorpID()){
     TCorporation corp(getCorpID());
     access = access | corp.getAccess(ch);
-  }    
+  }
 
   if(access & SHOPACCESS_OWNER &&
      !(perm & SHOPACCESS_SELL)) // must have explicit sell permission
@@ -597,20 +597,20 @@ void TShopOwned::showInfo()
     count=convertTo<int>(db["count"]);
 
     keeper->doTell(ch->getName(),
-		   format("I have %i talens and %i items worth %i talens and selling for approximately %i talens.") %
-		   keeper->getMoney() % count % value %
-		   (int)(value * shop_index[shop_nr].profit_buy));
+                   format("I have %i talens and %i items worth %i talens and selling for approximately %i talens.") %
+                   keeper->getMoney() % count % value %
+                   (int)(value * shop_index[shop_nr].profit_buy));
 
     //    keeper->doTell(ch->getName(), format("My inventory takes up %i cubic inches of space.") % volume);
-    
+
     keeper->doTell(ch->getName(), format("That puts my total value at %i talens.") %
-		   (keeper->getMoney()+value));
+                   (keeper->getMoney()+value));
 
     if(getDividend() > 0)
       keeper->doTell(ch->getName(), format("My corporate dividend kickback is %f.") % getDividend());
     if(getMinReserve() > 0 || getMaxReserve() > 0)
       keeper->doTell(ch->getName(), format("My corporate reserve is %i-%i.") %
-		     getMinReserve() % getMaxReserve());
+                     getMinReserve() % getMaxReserve());
     if(getExpenseRatio() > 0)
       keeper->doTell(ch->getName(), format("My expense ratio is %f.") % getExpenseRatio());
 
@@ -620,25 +620,25 @@ void TShopOwned::showInfo()
 
   if(!isOwned()){
     keeper->doTell(ch->getName(), "This shop is for sale, however the King charges a sales tax and an ownership fee.");
-    
+
     keeper->doTell(ch->getName(), format("That puts the sale price at %i.") %
-		   getPurchasePrice(keeper->getMoney(), value));
+                   getPurchasePrice(keeper->getMoney(), value));
   } else if(getCorpID()){
     TCorporation corp(getCorpID());
     keeper->doTell(ch->getName(), format("This shop is owned by %s.") %
-		   corp.getName());
+                   corp.getName());
   }
 
-  
+
   db.query("select r.name as name from room r, shopowned st, shop s where r.vnum=s.in_room and s.shop_nr=st.tax_nr and st.shop_nr=%i", shop_nr);
 
   if(db.fetchRow()){
-    keeper->doTell(ch->getName(), format("This shop is taxed by %s.") % 
-		   db["name"]);
+    keeper->doTell(ch->getName(), format("This shop is taxed by %s.") %
+                   db["name"]);
   } else {
     keeper->doTell(ch->getName(), "This shop is untaxed.");
   }
-  
+
 
   // repair stuff
   if((getQuality() >= 0 && getQuality() != 1) ||
@@ -649,59 +649,59 @@ void TShopOwned::showInfo()
   // anyone can see profit_buy, profit_sell and trading types, anytime
   if(keeper->spec==SPEC_LOAN_SHARK){
     keeper->doTell(ch->getName(),
-		   format("My defaulting penalty is %f and my interest rate is %f.") %
-		   shop_index[shop_nr].profit_buy %
-		   shop_index[shop_nr].profit_sell);
+                   format("My defaulting penalty is %f and my interest rate is %f.") %
+                   shop_index[shop_nr].profit_buy %
+                   shop_index[shop_nr].profit_sell);
 
 
     db.query("select x, y, term from shopownedloanrate where shop_nr=%i",
-	     shop_nr);
+             shop_nr);
     if(db.fetchRow()){
       keeper->doTell(ch->getName(), format("My offered term is %i years.") %
-		     convertTo<int>(db["term"]));
-      keeper->doTell(ch->getName(), format("My talens per level X value is %f and my max offering at level 50 is %f.") % 
-		     convertTo<double>(db["x"]) % 
-		     convertTo<double>(db["y"]));
+                     convertTo<int>(db["term"]));
+      keeper->doTell(ch->getName(), format("My talens per level X value is %f and my max offering at level 50 is %f.") %
+                     convertTo<double>(db["x"]) %
+                     convertTo<double>(db["y"]));
     }
   } else if(keeper->spec==SPEC_BANKER){
     keeper->doTell(ch->getName(),
-		   format("I pay out %f in yearly interest, compounded daily.") %
-		   (shop_index[shop_nr].profit_sell));
+                   format("I pay out %f in yearly interest, compounded daily.") %
+                   (shop_index[shop_nr].profit_sell));
     db.query("select a.talens+b.talens as talens from (select sum(talens) as talens from shopownedbank where shop_nr=%i) a, (select sum(talens) as talens from shopownedcorpbank where shop_nr=%i) b", shop_nr, shop_nr);
     if(db.fetchRow()){
       keeper->doTell(ch->getName(), format("My equity value is %i talens.") %
-		     (keeper->getMoney()-convertTo<int>(db["talens"])));
+                     (keeper->getMoney()-convertTo<int>(db["talens"])));
     }
   } else if(keeper->spec==SPEC_TAXMAN){
     keeper->doTell(ch->getName(),
-		   format("The tax rate is %f.") %
-		   (shop_index[shop_nr].profit_buy));
+                   format("The tax rate is %f.") %
+                   (shop_index[shop_nr].profit_buy));
   } else if(keeper->spec==SPEC_CENTRAL_BANKER){
     keeper->doTell(ch->getName(),
-		   format("The reserve deposit requirement is %f.") %
-		   (shop_index[shop_nr].profit_buy));
+                   format("The reserve deposit requirement is %f.") %
+                   (shop_index[shop_nr].profit_buy));
     keeper->doTell(ch->getName(),
-		   format("The rate of new money printed is %f.") %
-		   (shop_index[shop_nr].profit_sell));
+                   format("The rate of new money printed is %f.") %
+                   (shop_index[shop_nr].profit_sell));
   } else {
     keeper->doTell(ch->getName(),
-		   format("My profit_buy is %f and my profit_sell is %f.") %
-		   shop_index[shop_nr].profit_buy %
-		   shop_index[shop_nr].profit_sell);
+                   format("My profit_buy is %f and my profit_sell is %f.") %
+                   shop_index[shop_nr].profit_buy %
+                   shop_index[shop_nr].profit_sell);
     keeper->doTell(ch->getName(),format("My maximum inventory per item is %i.") %
-		   getMaxNum(NULL, NULL, 9));
+                   getMaxNum(NULL, NULL, 9));
   }
 
 
   if(shop_index[shop_nr].type.size()<=1){
-    keeper->doTell(ch->getName(), 
-		   "I only sell things, I do not buy anything.");
+    keeper->doTell(ch->getName(),
+                   "I only sell things, I do not buy anything.");
   } else {
     buf = "I deal in";
     for(i=0;i<shop_index[shop_nr].type.size();++i){
       tmp=shop_index[shop_nr].type[i];
       if(tmp != MAX_OBJ_TYPES && (int) tmp != -1)
-	buf = format("%s %s,") % buf % ItemInfo[tmp]->name;
+        buf = format("%s %s,") % buf % ItemInfo[tmp]->name;
     }
     keeper->doTell(ch->getName(), buf);
   }
@@ -740,8 +740,8 @@ int TShopOwned::setRates(sstring arg)
       arg = one_argument(arg, buf);
 
       db.query("delete from shopownedplayer where shop_nr=%i and player='%s'",
-	       shop_nr, buf.c_str());
-      
+               shop_nr, buf.c_str());
+
       keeper->doTell(ch->getName(), "Done.");
       shoplog(shop_nr, ch, keeper, buf, 0, "clear setrates");
       return TRUE;
@@ -749,30 +749,30 @@ int TShopOwned::setRates(sstring arg)
       arg = one_argument(arg, buf);
 
       db.query("delete from shopownedmatch where shop_nr=%i and match_str='%s'",
-	       shop_nr, buf.c_str());
-      
+               shop_nr, buf.c_str());
+
       keeper->doTell(ch->getName(), "Done.");
       shoplog(shop_nr, ch, keeper, format("match %s") % buf, 0, "clear setrates");
-  
+
       return TRUE;
     } else {
       // find item in inventory matching keywords in arg
       // get vnum, then store in db
       TThing *tt = searchLinkedListVis(ch, buf, ch->stuff);
-      
+
       if(!tt){
-	keeper->doTell(ch->getName(), "I don't have that item.");
-	return FALSE;
+        keeper->doTell(ch->getName(), "I don't have that item.");
+        return FALSE;
       }
-      
+
       TObj *o=dynamic_cast<TObj *>(tt);
 
       db.query("delete from shopownedratios where shop_nr=%i and obj_nr=%i",
-	       shop_nr, o->objVnum());
-      
+               shop_nr, o->objVnum());
+
       keeper->doTell(ch->getName(), "Done.");
-      shoplog(shop_nr, ch, keeper, format("item %s") % 
-	      o->getName(), 0, "clear setrates");
+      shoplog(shop_nr, ch, keeper, format("item %s") %
+              o->getName(), 0, "clear setrates");
 
       return TRUE;
     }
@@ -788,7 +788,7 @@ int TShopOwned::setRates(sstring arg)
   max_num = convertTo<int>(buf);
   if(buf != "")
     argc++;
-  
+
   arg = one_argument(arg, buf);
   if(buf != "")
     argc++;
@@ -802,129 +802,129 @@ int TShopOwned::setRates(sstring arg)
       keeper->doTell(ch->getName(), "Due to fraud regulations, I cannot set my profit_sell or profit_buy to more than 5 or less than 0.");
       return FALSE;
     }
-    
+
     if(profit_buy < profit_sell){
       keeper->doTell(ch->getName(), "You can't set your buy profit lower than your sell profit, you'd lose all your money!");
       return FALSE;
     }
   }
-  
+
   if(argc==0){
     db.query("select obj_nr, profit_buy, profit_sell, max_num from shopownedratios where shop_nr=%i", shop_nr);
-    
+
     while(db.fetchRow()){
       keeper->doTell(ch->getName(), format("%f %f %i item %s") %
-		     convertTo<float>(db["profit_buy"]) % 
-		     convertTo<float>(db["profit_sell"]) % 
-		     convertTo<int>(db["max_num"]) %
-		     obj_index[real_object(convertTo<int>(db["obj_nr"]))].short_desc);
+                     convertTo<float>(db["profit_buy"]) %
+                     convertTo<float>(db["profit_sell"]) %
+                     convertTo<int>(db["max_num"]) %
+                     obj_index[real_object(convertTo<int>(db["obj_nr"]))].short_desc);
     }
 
     db.query("select match_str, profit_buy, profit_sell, max_num from shopownedmatch where shop_nr=%i", shop_nr);
-    
+
     while(db.fetchRow()){
       keeper->doTell(ch->getName(),format( "%f %f %i match %s") %
-		     convertTo<float>(db["profit_buy"]) % 
-		     convertTo<float>(db["profit_sell"]) % 
-		     convertTo<int>(db["max_num"]) %
-		     db["match_str"]);
-    }    
+                     convertTo<float>(db["profit_buy"]) %
+                     convertTo<float>(db["profit_sell"]) %
+                     convertTo<int>(db["max_num"]) %
+                     db["match_str"]);
+    }
 
     db.query("select player, profit_buy, profit_sell, max_num from shopownedplayer where shop_nr=%i", shop_nr);
-    
+
     while(db.fetchRow()){
       keeper->doTell(ch->getName(),format( "%f %f %i player %s") %
-		     convertTo<float>(db["profit_buy"]) % 
-		     convertTo<float>(db["profit_sell"]) % 
-		     convertTo<int>(db["max_num"]) %
-		     db["player"]);
-    }    
+                     convertTo<float>(db["profit_buy"]) %
+                     convertTo<float>(db["profit_sell"]) %
+                     convertTo<int>(db["max_num"]) %
+                     db["player"]);
+    }
 
     return TRUE;
   } else if(argc<4){
     keeper->doTell(ch->getName(), "I don't understand.");
     return FALSE;
   }
-  
+
   if(buf == "default"){ ///////////////////////////////////////////////////
     shop_index[shop_nr].profit_buy=profit_buy;
     shop_index[shop_nr].profit_sell=profit_sell;
-    
-    db.query("update shopowned set profit_buy=%f, profit_sell=%f, max_num=%i where shop_nr=%i", shop_index[shop_nr].profit_buy, shop_index[shop_nr].profit_sell, max_num, shop_nr);
-    
-    keeper->doTell(ch->getName(), 
-		   format("Ok, my profit_buy is now %f, my profit_sell is now %f and my max_num is now %i.") % 
-		   shop_index[shop_nr].profit_buy %
-		   shop_index[shop_nr].profit_sell % max_num);
 
-    shoplog(shop_nr, ch, keeper, 
-	    format("default %f %f %i") % shop_index[shop_nr].profit_buy %
-	    shop_index[shop_nr].profit_sell % max_num, 0, "set setrates");
+    db.query("update shopowned set profit_buy=%f, profit_sell=%f, max_num=%i where shop_nr=%i", shop_index[shop_nr].profit_buy, shop_index[shop_nr].profit_sell, max_num, shop_nr);
+
+    keeper->doTell(ch->getName(),
+                   format("Ok, my profit_buy is now %f, my profit_sell is now %f and my max_num is now %i.") %
+                   shop_index[shop_nr].profit_buy %
+                   shop_index[shop_nr].profit_sell % max_num);
+
+    shoplog(shop_nr, ch, keeper,
+            format("default %f %f %i") % shop_index[shop_nr].profit_buy %
+            shop_index[shop_nr].profit_sell % max_num, 0, "set setrates");
 
   } else if(buf == "match"){ /////////////////////////////////////////////
     arg = one_argument(arg, buf);
 
     db.query("select 1 from shopownedmatch where shop_nr=%i and match_str='%s'",
-	     shop_nr, buf.c_str());
-    
+             shop_nr, buf.c_str());
+
     if(!db.fetchRow()){
       db.query("insert into shopownedmatch values (%i, '%s', %f, %f, %i)",
-	       shop_nr, buf.c_str(), profit_buy, profit_sell, max_num);
+               shop_nr, buf.c_str(), profit_buy, profit_sell, max_num);
     } else {
       db.query("update shopownedmatch set profit_buy=%f, profit_sell=%f, max_num=%i where shop_nr=%i and match_str='%s'", profit_buy, profit_sell, max_num, shop_nr, buf.c_str());
     }
-    
-    keeper->doTell(ch->getName(), format("Ok, my profit_buy is now %f, my profit_sell is now %f and my max_num is now %i, all for keyword %s.") %
-		   profit_buy % profit_sell % max_num % buf);    
 
-    shoplog(shop_nr, ch, keeper, format("match %s, %f %f %i") % 
-	    buf % profit_buy % profit_sell % max_num, 0, "set setrates");
+    keeper->doTell(ch->getName(), format("Ok, my profit_buy is now %f, my profit_sell is now %f and my max_num is now %i, all for keyword %s.") %
+                   profit_buy % profit_sell % max_num % buf);
+
+    shoplog(shop_nr, ch, keeper, format("match %s, %f %f %i") %
+            buf % profit_buy % profit_sell % max_num, 0, "set setrates");
 
   } else if(buf == "player"){ ////////////////////////////////////////////
     arg = one_argument(arg, buf);
 
     db.query("select 1 from shopownedplayer where shop_nr=%i and player='%s'",
-	     shop_nr, buf.c_str());
-    
+             shop_nr, buf.c_str());
+
     if(!db.fetchRow()){
       db.query("insert into shopownedplayer values (%i, '%s', %f, %f, %i)",
-	       shop_nr, buf.c_str(), profit_buy, profit_sell, max_num);
+               shop_nr, buf.c_str(), profit_buy, profit_sell, max_num);
     } else {
       db.query("update shopownedplayer set profit_buy=%f, profit_sell=%f, max_num=%i where shop_nr=%i and player='%s'", profit_buy, profit_sell, max_num, shop_nr, buf.c_str());
     }
-    
+
     keeper->doTell(ch->getName(), format("Ok, my profit_buy is now %f, my profit_sell is now %f and my max_num is now %i, all for player %s.") %
-		   profit_buy % profit_sell % max_num % buf);    
+                   profit_buy % profit_sell % max_num % buf);
     shoplog(shop_nr, ch, keeper, format("player %s, %f %f %i") %
-	    buf % profit_buy % profit_sell % max_num, 0, "set setrates");
+            buf % profit_buy % profit_sell % max_num, 0, "set setrates");
 
   } else if(buf == "loanrate"){
     db.query("select 1 from shopownedloanrate where shop_nr=%i", shop_nr);
 
     if(!db.fetchRow()){
       db.query("insert into shopownedloanrate values (%i, %f, %f, %i)",
-	       shop_nr, profit_buy, profit_sell, max_num);
+               shop_nr, profit_buy, profit_sell, max_num);
     } else {
       db.query("update shopownedloanrate set x=%f, y=%f, term=%i where shop_nr=%i", profit_buy, profit_sell, max_num, shop_nr);
-    }    
+    }
 
-    keeper->doTell(ch->getName(), 
-		   format("Ok, my loanrate X value is now %f, my Y value is now %f and my max term is %i.") % profit_buy % profit_sell % max_num);
+    keeper->doTell(ch->getName(),
+                   format("Ok, my loanrate X value is now %f, my Y value is now %f and my max term is %i.") % profit_buy % profit_sell % max_num);
     shoplog(shop_nr, ch, keeper, format("loanrate %f %f %i") %
-	    profit_buy % profit_sell % max_num, 0, "set setrates");
-  
+            profit_buy % profit_sell % max_num, 0, "set setrates");
+
   } else if(buf == "repair"){
     db.query("select 1 from shopownedrepair where shop_nr=%i", shop_nr);
 
     if(!db.fetchRow()){
       db.query("insert into shopownedrepair values (%i, %f, %f)",
-	       shop_nr, profit_buy, profit_sell);
+               shop_nr, profit_buy, profit_sell);
     } else {
       db.query("update shopownedrepair set quality=%f, speed=%f where shop_nr=%i", profit_buy, profit_sell, shop_nr);
-    }    
+    }
 
-    keeper->doTell(ch->getName(), 
-		   format("Ok, my quality percentage is now %f and my speed modifier is now %f.") % profit_buy % profit_sell);
+    keeper->doTell(ch->getName(),
+                   format("Ok, my quality percentage is now %f and my speed modifier is now %f.") % profit_buy % profit_sell);
 
     shoplog(shop_nr, ch, keeper, format("repair %f %f") % profit_buy % profit_sell, 0, "set setrates");
 
@@ -932,30 +932,30 @@ int TShopOwned::setRates(sstring arg)
     // find item in inventory matching keywords in arg
     // get vnum, then store in db
     TThing *tt = searchLinkedListVis(ch, buf, keeper->stuff);
-    
+
     if(!tt){
       keeper->doTell(ch->getName(), "I don't have that item.");
       return FALSE;
     }
-    
+
     TObj *o=dynamic_cast<TObj *>(tt);
-    
+
     db.query("select 1 from shopownedratios where shop_nr=%i and obj_nr=%i",
-	     shop_nr, o->objVnum());
-    
+             shop_nr, o->objVnum());
+
     if(!db.fetchRow()){
       db.query("insert into shopownedratios values (%i, %i, %f, %f, %i)",
-	       shop_nr, o->objVnum(), profit_buy, profit_sell, max_num);
+               shop_nr, o->objVnum(), profit_buy, profit_sell, max_num);
     } else {
       db.query("update shopownedratios set profit_buy=%f, profit_sell=%f, max_num=%i where shop_nr=%i and obj_nr=%i", profit_buy, profit_sell, max_num, shop_nr, o->objVnum());
     }
-    
+
     keeper->doTell(ch->getName(), format("Ok, my profit_buy is now %f, my profit_sell is now %f and my max_num is %i, all for %s.") %
-		   profit_buy % profit_sell % max_num % o->getName());
-    
-    shoplog(shop_nr, ch, keeper, format("item %s, %f %f %i") % 
-	    o->getName() % profit_buy % profit_sell % max_num, 
-	    0, "set setrates");
+                   profit_buy % profit_sell % max_num % o->getName());
+
+    shoplog(shop_nr, ch, keeper, format("item %s, %f %f %i") %
+            o->getName() % profit_buy % profit_sell % max_num,
+            0, "set setrates");
   }
 
   return TRUE;
@@ -974,7 +974,7 @@ int TShopOwned::buyShop(sstring arg){
     keeper->doTell(ch->getName(), "Sorry, this shop isn't for sale.");
     return TRUE;
   }
-  
+
   for(StuffIter it=keeper->stuff.begin();it!=keeper->stuff.end() && (tt=*it);++it){
     o=dynamic_cast<TObj *>(tt);
     value+=o->obj_flags.cost;
@@ -982,7 +982,7 @@ int TShopOwned::buyShop(sstring arg){
   value=getPurchasePrice(keeper->getMoney(), value);
 
   db.query("select corp_id from corpaccess where player_id=%i",
-	   ch->getPlayerID());
+           ch->getPlayerID());
 
   if(arg.empty()){
     if(db.fetchRow())
@@ -1000,8 +1000,8 @@ int TShopOwned::buyShop(sstring arg){
 
     while(db.fetchRow()){
       if(convertTo<int>(db["corp_id"]) == convertTo<int>(arg)){
-	corp_id=convertTo<int>(arg);
-	break;
+        corp_id=convertTo<int>(arg);
+        break;
       }
     }
   }
@@ -1011,18 +1011,18 @@ int TShopOwned::buyShop(sstring arg){
       return TRUE;
   }
 
-  
+
   if(ch->getMoney()<value){
     keeper->doTell(ch->getName(), format("Sorry, you can't afford this shop.  The price is %i.") % value);
     return TRUE;
   }
   ch->setMoney(ch->getMoney()-value);
-  
-  
+
+
   db.query("insert into shopowned (shop_nr, profit_buy, profit_sell, corp_id) values (%i, %f, %f, %i)", shop_nr, shop_index[shop_nr].profit_buy, shop_index[shop_nr].profit_sell, corp_id);
-  
+
   keeper->saveItems(shop_nr);
-  
+
   keeper->doTell(ch->getName(), "Congratulations, you now own this shop.");
   shop_index[shop_nr].owned=true;
 
@@ -1030,14 +1030,14 @@ int TShopOwned::buyShop(sstring arg){
 
   return TRUE;
 }
-  
+
 
 int TShopOwned::setString(sstring arg)
 {
   sstring which, s;
 
   s=one_argument(arg, which);
-  
+
   if(!hasAccess(SHOPACCESS_OWNER)){
     keeper->doTell(ch->getName(), "Sorry, you don't have access to do that.");
     return FALSE;
@@ -1046,22 +1046,22 @@ int TShopOwned::setString(sstring arg)
 
   if(which.empty() && s.empty()){
     keeper->doTell(ch->getName(), format("no_such_item1: %s") %
-		   shop_index[shop_nr].no_such_item1);
+                   shop_index[shop_nr].no_such_item1);
     keeper->doTell(ch->getName(), format("no_such_item2: %s") %
-		   shop_index[shop_nr].no_such_item2);
+                   shop_index[shop_nr].no_such_item2);
     keeper->doTell(ch->getName(), format("do_not_buy: %s") %
-		   shop_index[shop_nr].do_not_buy);
+                   shop_index[shop_nr].do_not_buy);
     keeper->doTell(ch->getName(), format("missing_cash1: %s") %
-		   shop_index[shop_nr].missing_cash1);
+                   shop_index[shop_nr].missing_cash1);
     keeper->doTell(ch->getName(), format("missing_cash2: %s") %
-		   shop_index[shop_nr].missing_cash2);
+                   shop_index[shop_nr].missing_cash2);
     keeper->doTell(ch->getName(), format("message_buy: %s") %
-		   shop_index[shop_nr].message_buy);
+                   shop_index[shop_nr].message_buy);
     keeper->doTell(ch->getName(), format("message_sell: %s") %
-		   shop_index[shop_nr].message_sell);
+                   shop_index[shop_nr].message_sell);
     return TRUE;
-  } 
-  
+  }
+
 
   if(which=="no_such_item1"){
     delete [] shop_index[shop_nr].no_such_item1;
@@ -1092,13 +1092,13 @@ int TShopOwned::setString(sstring arg)
 
   TDatabase db(DB_SNEEZY);
 
-  db.query("update shopowned set %s='%s' where shop_nr=%i", 
-	   which.c_str(), s.c_str(), shop_nr);
+  db.query("update shopowned set %s='%s' where shop_nr=%i",
+           which.c_str(), s.c_str(), shop_nr);
 
   keeper->doTell(ch->getName(), "Alright, I changed that response.");
 
   shoplog(shop_nr, ch, keeper, which, 0, "set sstring");
-  
+
   return TRUE;
 }
 
@@ -1113,26 +1113,26 @@ int TShopOwned::sellShop(){
     keeper->doTell(ch->getName(), "I'll just give you the money I have on me, but nothing for the inventory.");
     return FALSE;
   }
-  
+
   db.query("delete from shopowned where shop_nr=%i", shop_nr);
-  
+
   db.query("delete from shopownedaccess where shop_nr=%i", shop_nr);
-  
+
   db.query("delete from shopownedratios where shop_nr=%i", shop_nr);
 
   db.query("delete from shopownedmatch where shop_nr=%i", shop_nr);
-  
+
   value+=keeper->getMoney();
   ch->setMoney(ch->getMoney()+value);
-  
+
   shop_index[shop_nr].profit_buy=1.1;
   shop_index[shop_nr].profit_sell=0.9;
-  
+
   keeper->doTell(ch->getName(), "Ok, you no longer own this shop.");
   shop_index[shop_nr].owned=false;
 
   shoplog(shop_nr, ch, keeper, format("%i") % value, 0, "sold shop");
-  
+
   shop_index[shop_nr].clearCache();
 
   return TRUE;
@@ -1157,7 +1157,7 @@ int TShopOwned::giveMoney(sstring arg){
     keeper->doAction(ch->getName(), CMD_SLAP);
     keeper->doTell(ch->getName(), "Don't be an idiot.");
     return FALSE;
-  }  
+  }
 
   db.query("select centralbank from shopownedcentralbank where bank=%i", shop_nr);
 
@@ -1173,10 +1173,10 @@ int TShopOwned::giveMoney(sstring arg){
     keeper->saveChar(Room::AUTO_RENT);
     ch->setMoney(ch->getMoney()+amount);
     ch->saveChar(Room::AUTO_RENT);
-    
+
     shoplog(shop_nr, ch, keeper, "talens", -amount, transactionToString(TX_RECEIVING_TALENS));
     journalize(ch->getName(), "talens", TX_RECEIVING_TALENS, amount, 0, 0, 0);
-    
+
     buf = format("$n gives you %d talen%s.") % amount %
       ((amount == 1) ? "" : "s");
     act(buf, TRUE, keeper, NULL, ch, TO_VICT);
@@ -1206,7 +1206,7 @@ int TShopOwned::setAccess(sstring arg)
 
   if(!buf2.empty()){ // set value
     db.query("delete from shopownedaccess where shop_nr=%i and upper(name)=upper('%s')", shop_nr, buf.c_str());
-    
+
     if(convertTo<int>(buf2) != 0)
       db.query("insert into shopownedaccess (shop_nr, name, access) values (%i, '%s', %i)", shop_nr, buf.c_str(), convertTo<int>(buf2));
 
@@ -1220,43 +1220,43 @@ int TShopOwned::setAccess(sstring arg)
     }
     while(db.fetchRow()){
       access=convertTo<int>(db["access"]);
-      
+
       buf = format("Access for %s is set to %i, commands/abilities:") %
-	       db["name"] % access;
-      
+               db["name"] % access;
+
       if(access>=SHOPACCESS_LOGS){
-	access-=SHOPACCESS_LOGS;
-	buf+=" logs";
+        access-=SHOPACCESS_LOGS;
+        buf+=" logs";
       }
       if(access>=SHOPACCESS_ACCESS){
-	access-=SHOPACCESS_ACCESS;
-	buf+=" access";
+        access-=SHOPACCESS_ACCESS;
+        buf+=" access";
       }
       if(access>=SHOPACCESS_SELL){
-	access-=SHOPACCESS_SELL;
-	buf+=" sell";
+        access-=SHOPACCESS_SELL;
+        buf+=" sell";
       }
       if(access>=SHOPACCESS_GIVE){
-	access-=SHOPACCESS_GIVE;
-	buf+=" give";
+        access-=SHOPACCESS_GIVE;
+        buf+=" give";
       }
       if(access>=SHOPACCESS_RATES){
-	access-=SHOPACCESS_RATES;
-	buf+=" rates";
+        access-=SHOPACCESS_RATES;
+        buf+=" rates";
       }
       if(access>=SHOPACCESS_INFO){
-	access-=SHOPACCESS_INFO;
-	buf+=" info";
+        access-=SHOPACCESS_INFO;
+        buf+=" info";
       }
       if(access>=SHOPACCESS_OWNER){
-	access-=SHOPACCESS_OWNER;
-	buf+=" owner";
+        access-=SHOPACCESS_OWNER;
+        buf+=" owner";
       }
-      
+
       keeper->doTell(ch->getName(), buf);
     }
   }
-  
+
   return TRUE;
 }
 
@@ -1281,120 +1281,120 @@ int TShopOwned::doLogs(sstring arg)
   if(arg=="summaries" || arg=="balance"){
     if(arg=="summaries"){
       db.query("select name, sum(talens) as tsum from shoplog where shop_nr=%i group by name order by tsum desc", shop_nr);
-      
+
       buf = format("<r>%-10s %-65.65s<1>\n\r") % "Profit" % "Person";
       sb += buf;
-      
+
       while(db.fetchRow()){
-	buf = format("%10i %-65.65s\n\r") %
-	  convertTo<int>(db["tsum"]) % db["name"];
-	sb += buf;
+        buf = format("%10i %-65.65s\n\r") %
+          convertTo<int>(db["tsum"]) % db["name"];
+        sb += buf;
       }
-      
+
       //////////
       sb += "\n\r";
-      
+
       db.query("select item, sum(talens) as tsum from shoplog where shop_nr=%i group by item order by tsum desc", shop_nr);
 
       buf = format("<r>%-10s %-65.65s<1>\n\r") % "Profit" % "Item";
       sb += buf;
-      
+
       while(db.fetchRow()){
-	buf = format("%10i %-65.65s\n\r") %
-	  convertTo<int>(db["tsum"]) % db["item"];
-	sb += buf;
+        buf = format("%10i %-65.65s\n\r") %
+          convertTo<int>(db["tsum"]) % db["item"];
+        sb += buf;
       }
 
       sb += "\n\r";
     }
-    
+
     db.query("select action, sum(talens) as tsum from shoplog where shop_nr=%i group by action order by tsum desc", shop_nr);
-    
+
     buf = format("<r>%-12.12s %s<1>\n\r") %
       "Action" % "Total Talens";
     sb += buf;
-    
+
     while(db.fetchRow()){
       buf = format("%-12.12s %8i\n\r") %
-	db["action"] % convertTo<int>(db["tsum"]);
+        db["action"] % convertTo<int>(db["tsum"]);
       sb += buf;
     }
-    
+
     /////////
     sb += "\n\r";
     int profit=0, loss=0;
-    
+
     sb+="<r>Sales Balance<1>\n\r";
-    
+
     db.query("select sum(talens) as talens from shoplog where shop_nr=%i and talens > 0 and action='buying'", shop_nr);
-    
+
     if(db.fetchRow())
       profit=convertTo<int>(db["talens"]);
-    
+
     buf = format("%-15.15s %i\n\r") % "Sales" % profit;
     sb += buf;
-    
+
     db.query("select sum(talens) as talens from shoplog where shop_nr=%i and talens < 0 and action='selling'", shop_nr);
-    
+
     if(db.fetchRow())
       loss=convertTo<int>(db["talens"]);
-    
+
     buf = format("%-15.15s %i\n\r") % "Purchases" % loss;
     sb += buf;
-    
+
     buf = format("%-15.15s %i\n\r") % "Sales Income" % (profit+loss);
     sb += buf;
-    
+
     /////////
     sb += "\n\r";
     profit=loss=0;
-    
+
     sb+="<r>Gross Balance<1>\n\r";
-    
+
     db.query("select sum(talens) as talens from shoplog where shop_nr=%i and talens > 0",
-	     shop_nr);
+             shop_nr);
     if(db.fetchRow())
       profit=convertTo<int>(db["talens"]);
-    
+
     buf = format("%-15.15s %i\n\r") % "Income" % profit;
     sb += buf;
-    
+
     db.query("select sum(talens) as talens from shoplog where shop_nr=%i and talens < 0",
-	     shop_nr);
+             shop_nr);
     if(db.fetchRow())
       loss=convertTo<int>(db["talens"]);
-    
+
     buf = format("%-15.15s %i\n\r") % "Expenditures" % loss;
     sb += buf;
-    
+
     buf = format("%-15.15s %i\n\r") % "Total" % (profit+loss);
     sb += buf;
-    
+
     /////////
     if (ch->desc)
       ch->desc->page_string(sb, SHOWNOW_NO, ALLOWREP_YES);
     ///////////////////////////////////////////////////////////////////////
   } else {
     if(!arg.empty()){
-      db.query("select name, action, item, talens, shoptalens, shopvalue, logtime from shoplog where shop_nr=%i and upper(name)=upper('%s') order by logtime desc, action desc", shop_nr, arg.c_str());      
+      db.query("select name, action, item, talens, shoptalens, shopvalue, logtime from shoplog where shop_nr=%i and upper(name)=upper('%s') order by logtime desc, action desc", shop_nr, arg.c_str());
     } else {
       db.query("select name, action, item, talens, shoptalens, shopvalue, logtime from shoplog where shop_nr=%i order by logtime desc, action desc", shop_nr);
-    }    
+    }
 
     while(db.fetchRow()){
       buf = format("%19.19s  Talens: %8i  Value: %8i  Total: %8i\n\r") % db["logtime"] % convertTo<int>(db["shoptalens"]) % convertTo<int>(db["shopvalue"]) % (convertTo<int>(db["shopvalue"])+convertTo<int>(db["shoptalens"]));
       sb += buf;
-      
+
       buf = format("%-12.12s %-10.10s %-32.32s for %8i talens.\n\r\n\r") %
-	db["name"] % db["action"] % db["item"] %
-	convertTo<int>(db["talens"]);
+        db["name"] % db["action"] % db["item"] %
+        convertTo<int>(db["talens"]);
       sb += buf;
     }
-    
+
     if (ch->desc)
       ch->desc->page_string(sb, SHOWNOW_NO, ALLOWREP_YES);
-    
-    
+
+
   }
   return TRUE;
 }

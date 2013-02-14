@@ -63,7 +63,7 @@ int TBeing::doHit(const sstring &argument, TBeing *vict)
     }
   } else {
     if ((tmp = get_best_char_room(this, arg.c_str()))) {
-      victim = tmp; 
+      victim = tmp;
     } else if (fight() && isAffected(AFF_ENGAGER)) {
       victim = fight();
       if (!canSee(victim)) {
@@ -74,8 +74,8 @@ int TBeing::doHit(const sstring &argument, TBeing *vict)
     } else {
       sendTo("Just whom do you want to hit?\n\r");
       return FALSE;
-    } 
-  } 
+    }
+  }
 
 // if pc is already in battle but not swinging and wishes to hit-Cos 3/1/97
   if (fight() && isAffected(AFF_ENGAGER)) {
@@ -96,13 +96,13 @@ int TBeing::doHit(const sstring &argument, TBeing *vict)
       addToWait(combatRound(1));
       rc = hit(victim);
       if (IS_SET_DELETE(rc, DELETE_VICT)) {
-        if (vict) 
+        if (vict)
           return rc;
         victim->reformGroup();
         delete victim;
         victim = NULL;
       }
-      if (!rc) 
+      if (!rc)
         setVictFighting(victim);
       return rc;
     } else {
@@ -116,10 +116,10 @@ int TBeing::doHit(const sstring &argument, TBeing *vict)
     act("$n hits $mself, and says OUCH!", FALSE, this, 0, victim, TO_ROOM);
     return FALSE;
   } else if (isAffected(AFF_CHARM) && (master == victim)) {
-    act("$N is just such a good friend, you simply can't hit $M.", 
+    act("$N is just such a good friend, you simply can't hit $M.",
             FALSE, this, 0, victim, TO_CHAR);
     return FALSE;
-  } 
+  }
   if (noHarmCheck(victim))
     return FALSE;
 
@@ -262,10 +262,10 @@ int TBeing::doEngagedHit(const char *argument, TBeing *vict)
     act("$n hits $mself, and says OUCH!", FALSE, this, 0, victim, TO_ROOM);
     return FALSE;
   } else if (isAffected(AFF_CHARM) && (master == victim)) {
-    act("$N is just such a good friend, you simply can't hit $M.", 
+    act("$N is just such a good friend, you simply can't hit $M.",
             FALSE, this, 0, victim, TO_CHAR);
     return FALSE;
-  } 
+  }
   if (noHarmCheck(victim))
     return FALSE;
 
@@ -282,7 +282,7 @@ int TBeing::doEngagedHit(const char *argument, TBeing *vict)
       act("There is no room to begin physically attacking $N.",
            FALSE, this, 0, victim, TO_CHAR);
       return FALSE;
-    
+
     }
   } else {
       if (doesKnowSkill(getSkillNum(skill))) {
@@ -296,7 +296,7 @@ int TBeing::doEngagedHit(const char *argument, TBeing *vict)
             addToWait(combatRound(1));
             return TRUE;
           } else {
-            act("There is no room to switch and begin attacking $N.", 
+            act("There is no room to switch and begin attacking $N.",
                 FALSE, this, 0, victim, TO_CHAR);
             addToWait(combatRound(1));
           }
@@ -339,14 +339,14 @@ int TBeing::doEngage(const char *argument, TBeing *vict)
     }
   } else {
       if ((tmp = get_char_room_vis(this,arg, NULL, EXACT_NO, INFRA_YES))) {
-        victim = tmp; 
+        victim = tmp;
       } else if (fight() && !isAffected(AFF_ENGAGER)) {
         victim = fight();
       } else {
         sendTo("Just whom do you want to engage?\n\r");
         return FALSE;
-      } 
-  } 
+      }
+  }
 
   if (this == victim) {
     sendTo("How are you going to engage yourself in combat.\n\r");
@@ -360,7 +360,7 @@ int TBeing::doEngage(const char *argument, TBeing *vict)
       if (isAffected(AFF_ENGAGER)) {
         act("You are already engaged in combat with $N.",
             TRUE, this, 0, victim, TO_CHAR);
-        return FALSE; 
+        return FALSE;
       } else {
         SET_BIT(specials.affectedBy, AFF_ENGAGER);
         act("You stop physically attacking $N.",
@@ -373,7 +373,7 @@ int TBeing::doEngage(const char *argument, TBeing *vict)
         // setFighting added to attackers, so allow for this
         fight()->attackers--;
         return TRUE;
-      } 
+      }
     } else {
       if (isTanking()) {
         act("You can not simply engage another while you are tanking.",
@@ -413,7 +413,7 @@ int TBeing::doEngage(const char *argument, TBeing *vict)
     }
     if (victim == this) {
       sendTo("You dance around and engage yourself..OUCH!.\n\r");
-      act("$n engages $mself, and stares $eself down!", FALSE, this, 0, victim, TO_ROOM); 
+      act("$n engages $mself, and stares $eself down!", FALSE, this, 0, victim, TO_ROOM);
       return FALSE;
     } else if (isAffected(AFF_CHARM) && (master == victim)) {
       act("$N is just such a good friend, you simply can't engage $M.",
@@ -444,13 +444,13 @@ int TBeing::doEngage(const char *argument, TBeing *vict)
 int TBeing::doDisengage()
 {
   if (!fight()) {
-    act("Why do you need to disengage. You are not even fighting.", 
+    act("Why do you need to disengage. You are not even fighting.",
         FALSE, this, 0, 0, TO_CHAR);
     return FALSE;
   }
 
   if (isTanking() && isAffected(AFF_ENGAGER) && (fight()->getPosition() > POSITION_SLEEPING)) {
-    act("You can not fully disengage while you are tanking.", 
+    act("You can not fully disengage while you are tanking.",
         FALSE, this, 0, 0, TO_CHAR);
     return FALSE;
   }
@@ -459,23 +459,23 @@ int TBeing::doDisengage()
     addToWait(combatRound(2));
     act("You disengage totally from the fight.", FALSE, this, 0, 0, TO_CHAR);
     stopFighting();
-    REMOVE_BIT(specials.affectedBy, AFF_ENGAGER); 
+    REMOVE_BIT(specials.affectedBy, AFF_ENGAGER);
   } else {
     SET_BIT(specials.affectedBy, AFF_ENGAGER);
     addToWait(combatRound(1));
     fight()->attackers--;
-    act("You disengage from physical participation in the fight.", 
+    act("You disengage from physical participation in the fight.",
         FALSE, this, 0, 0, TO_CHAR);
   }
   if (!isTanking() && (cantHit > 0)) {
     if (cantHit <=2) {
-      cantHit = 0; 
+      cantHit = 0;
       act("You finish orienting yourself.", FALSE, this, 0, 0, TO_CHAR);
       addToWait(combatRound(2));
     } else if (!fight()) {
       addToWait(combatRound(2 + (cantHit/5)));
       act("You finish orienting yourself.", FALSE, this, 0, 0, TO_CHAR);
-      cantHit = 0; 
+      cantHit = 0;
     }  else {
       act("By disengaging, you are able focus on orienting yourself.", FALSE, this, 0, 0, TO_CHAR);
     }
@@ -512,7 +512,7 @@ int TBeing::doKill(const char *argument, TBeing *vict)
       act("You chop $M to pieces! Ah! The blood!", 0, this, 0, v, TO_CHAR);
       act(msgVariables(MSG_SLAY_TARG, (TThing *)NULL),
           FALSE, v, 0, this, TO_CHAR);
-      act(msgVariables(MSG_SLAY, v), 
+      act(msgVariables(MSG_SLAY, v),
           FALSE, this, 0, v, TO_NOTVICT);
       if (dynamic_cast<TMonster*>(v))
         dynamic_cast<TMonster*>(v)->checkResponses(this, 0, "", CMD_RESP_KILLED);
@@ -543,7 +543,7 @@ static int applyOrder(TBeing *ch, TBeing *vict, const char * message, silentType
     ch->sendTo("OK.\n\r");
 
   if (vict->getWait() <= 1) {
-    vlogf(LOG_SILENT, format("%s ordering %s to '%s' at %d") % 
+    vlogf(LOG_SILENT, format("%s ordering %s to '%s' at %d") %
           ch->getName() % vict->getName() % message % ch->inRoom());
     if (!strncmp(message, "ret", 3)) {
       rc = vict->checkDecharm(FORCE_YES);
@@ -690,7 +690,7 @@ int TBeing::doOrder(const char *argument)
       act("$n has an indifferent look.", FALSE, v, 0, 0, TO_ROOM);
     }
   } else {
-    // This is order "followers" 
+    // This is order "followers"
     sstring garbled = garble(NULL, format("$n issues the order '%s'.") % message, Garble::SPEECH_SAY);
 
     // there is a possibility that the order would change our room
@@ -759,7 +759,7 @@ static bool canFleeThisWay(TBeing *ch, dirTypeT dir)
 #if 0
   // out of the frying pan, into the fire...
   // this should be allowed, that's the way it worked in original DIKU
-  // and us old timers just knew to turn off wimpy near DTs 
+  // and us old timers just knew to turn off wimpy near DTs
   if (rp2->isRoomFlag(ROOM_DEATH))
     return false;
 #endif
@@ -835,21 +835,21 @@ int TBeing::doFlee(const char *arg)
   }
   if (eitherLegHurt() && ::number(0,2) && !isFlying()) {
     sendTo("Your injured leg makes the attempt fail!\n\r");
-    act("$n tries to flee, but $s legs just won't move!", 
+    act("$n tries to flee, but $s legs just won't move!",
          TRUE, this, NULL, NULL, TO_ROOM);
     return FALSE;
   }
   if (!isHumanoid() && eitherArmHurt() && ::number(0,2) && !isFlying()) {
     // non-humanoid arms are considered legs
     sendTo("Your injured leg makes the attempt fail!\n\r");
-    act("$n tries to flee, but $s legs just won't move!", 
+    act("$n tries to flee, but $s legs just won't move!",
          TRUE, this, NULL, NULL, TO_ROOM);
     return FALSE;
   }
   if (isAffected(AFF_CHARM) && master && sameRoom(*master)) {
     if (!::number(0, 5))
       act("$n bursts into tears.", TRUE, this, 0, 0, TO_ROOM);
-    act("You burst into tears at the thought of leaving $N.", 
+    act("You burst into tears at the thought of leaving $N.",
             FALSE, this, 0, master, TO_CHAR);
     return FALSE;
   }
@@ -862,12 +862,12 @@ int TBeing::doFlee(const char *arg)
   }
   if (riding) {
     // Let's make retreat skill have some chance of keeping you on the mount - Brutius 07/26/1999
-    if (!(doesKnowSkill(skill) && doesKnowSkill(skill2)) || 
-	!(bSuccess(skill) && bSuccess(skill2))) { 
+    if (!(doesKnowSkill(skill) && doesKnowSkill(skill2)) ||
+        !(bSuccess(skill) && bSuccess(skill2))) {
       sendTo("Your panic causes you to fall.\n\r");
       rc = fallOffMount(riding, POSITION_SITTING);
       panic = TRUE;
-      if (IS_SET_DELETE(rc, DELETE_THIS)) 
+      if (IS_SET_DELETE(rc, DELETE_THIS))
         return DELETE_THIS;
     }
   } else if (getPosition() <= POSITION_SITTING) {
@@ -890,8 +890,8 @@ int TBeing::doFlee(const char *arg)
       t = NULL;
     }
   }
-   
-  
+
+
   dirTypeT chosenDir = getDirFromChar(arg);
 
   soundNumT snd = pickRandSound(SOUND_FLEE_01, SOUND_FLEE_03);
@@ -899,18 +899,18 @@ int TBeing::doFlee(const char *arg)
 
   if (!(vict = fight())) {
     for (i = 0; i < 20; i++) {
-      dirTypeT attempt = dirTypeT(::number(MIN_DIR, MAX_DIR-1));        // Select a random direction 
-      
+      dirTypeT attempt = dirTypeT(::number(MIN_DIR, MAX_DIR-1));        // Select a random direction
+
       // not fighting, so encourage flight to be in dir PC selected
       if (chosenDir != DIR_NONE && !panic) {
-	attempt = chosenDir;
+        attempt = chosenDir;
       }
       if (canFleeThisWay(this, attempt)) {
         act("$n panics, and attempts to flee.", TRUE, this, 0, 0, TO_ROOM);
         TBeing *tbt = dynamic_cast<TBeing *>(rider);
         if (tbt) {
-          act("You turn tail and attempt to run away.", 
-	      TRUE, this, 0, 0, TO_CHAR);
+          act("You turn tail and attempt to run away.",
+              TRUE, this, 0, 0, TO_CHAR);
           loseSneak();
           iDie = tbt->moveOne(attempt);
           if (IS_SET_DELETE(iDie, DELETE_THIS)) {
@@ -927,17 +927,17 @@ int TBeing::doFlee(const char *arg)
             return TRUE;
           }
         } else {
-          act("You turn tail and attempt to run away.", 
-	      TRUE, this, 0, 0, TO_CHAR);
+          act("You turn tail and attempt to run away.",
+              TRUE, this, 0, 0, TO_CHAR);
           loseSneak();
           iDie = moveOne(attempt);
           if (IS_SET_DELETE(iDie, DELETE_THIS))
             return DELETE_THIS;
-	  
+
           if (iDie == TRUE) {
             sendTo(format("You nearly hurt yourself as you fled madly %swards.\n\r") % dirs[attempt]);
             REMOVE_BIT(specials.affectedBy, AFF_ENGAGER);
-	    
+
             return TRUE;
           } else {
             fleeFail(this);
@@ -946,19 +946,19 @@ int TBeing::doFlee(const char *arg)
         }
       }
     }
-    // No exits was found 
+    // No exits was found
     sendTo("PANIC! You couldn't escape!\n\r");
     return TRUE;
   }
   for (i = 0; i < 20; i++) {
-    dirTypeT attempt = dirTypeT(::number(MIN_DIR, MAX_DIR-1));        // Select a random direction 
-    
+    dirTypeT attempt = dirTypeT(::number(MIN_DIR, MAX_DIR-1));        // Select a random direction
+
     // fighting, so give slight chance of letting PC direct the direction
     if (chosenDir != DIR_NONE && !panic && !::number(0,99) < (30+getSkillValue(skill)/2))
       attempt = chosenDir;
-    
+
     if (canFleeThisWay(this, attempt)) {
-      if (panic || !doesKnowSkill(skill) || 
+      if (panic || !doesKnowSkill(skill) ||
           !bSuccess(skill)) {
         act("$n panics, and attempts to flee.", TRUE, this, 0, 0, TO_ROOM);
         panic = TRUE;
@@ -1080,7 +1080,7 @@ int TBeing::doFlee(const char *arg)
         return TRUE;
       }
     }
-  }                                // for 
+  }                                // for
   sendTo("PANIC! You couldn't escape!\n\r");
   if (!::number(0,1) && getMyRace()->hasTalent(TALENT_MUSK) && getCond(FULL) > 5) {
     act("In your panic you release some musk scent to cover your tracks.", FALSE, this, 0, NULL, TO_CHAR);
@@ -1110,25 +1110,25 @@ int TBeing::doAssist(const char *argument, TBeing *vict, bool flags)
     if (isAffected(AFF_GROUP) && (!argument || !*argument) && (followers || (master && master->followers))) {
       followData * tFData    = (master ? master->followers : followers);
       TBeing     * tAssistMe = NULL,
-	         * tMaybeMe  = NULL;
+                 * tMaybeMe  = NULL;
 
       if (master && master->isAffected(AFF_GROUP) && sameRoom(*master) && canSee(master) && master->fight() &&
           (master->fight()->fight() == master))
-	tAssistMe = master;
+        tAssistMe = master;
       else
-	for (; tFData; tFData = tFData->next)
-	  if (tFData->follower && tFData->follower->isAffected(AFF_GROUP) && canSee(tFData->follower) &&
+        for (; tFData; tFData = tFData->next)
+          if (tFData->follower && tFData->follower->isAffected(AFF_GROUP) && canSee(tFData->follower) &&
               tFData->follower->fight() && (tFData->follower->fight()->fight() == tFData->follower) &&
               (tFData->follower != this) && sameRoom(*tFData->follower)) {
-	    if (tFData->follower->isPc()) {
-	      tAssistMe = tFData->follower;
-	      break;
-	    } else if (!tMaybeMe)
-	      tMaybeMe = tFData->follower;
-	  }
+            if (tFData->follower->isPc()) {
+              tAssistMe = tFData->follower;
+              break;
+            } else if (!tMaybeMe)
+              tMaybeMe = tFData->follower;
+          }
 
       if (!tAssistMe && tMaybeMe)
-	tAssistMe = tMaybeMe;
+        tAssistMe = tMaybeMe;
 
       v = tAssistMe; // Since this is NULL'ed above we are safe doing this without a check.
     }
@@ -1164,10 +1164,10 @@ int TBeing::doAssist(const char *argument, TBeing *vict, bool flags)
     return FALSE;
   }
   if (isAffected(AFF_CHARM) && (master == v->fight())) {
-    act("You can't assist $N against your beloved master.", 
+    act("You can't assist $N against your beloved master.",
             FALSE, this, 0, v, TO_CHAR);
     return FALSE;
-  } 
+  }
 // See if they have chosen to be an engager or if they are currently engaged
   if (checkEngagementStatus()) {
     act("You turn to face $N's enemy.",
@@ -1202,62 +1202,62 @@ int TBeing::doAssist(const char *argument, TBeing *vict, bool flags)
     act("$n tries to assist against $N, but fails.", TRUE, this, 0, tmp_ch, TO_NOTVICT, ANSI_BLUE);
     return FALSE;
   }
-  
+
   switch (::number(1,6)) {
     case 1:
-      act("You jump into the battle attacking $N's enemy.", 
+      act("You jump into the battle attacking $N's enemy.",
            TRUE, this, 0, v, TO_CHAR, ANSI_ORANGE);
-      act("$n jumps into the battle, assisting you.", 
+      act("$n jumps into the battle, assisting you.",
            TRUE, this, 0, v, TO_VICT, ANSI_GREEN);
-      act("$n jumps into the battle, attacking you.", 
+      act("$n jumps into the battle, attacking you.",
            TRUE, this, 0, tmp_ch, TO_VICT, ANSI_RED);
-      act("$n jumps into the battle, attacking $N.", 
+      act("$n jumps into the battle, attacking $N.",
            TRUE, this, 0, tmp_ch, TO_NOTVICT, ANSI_BLUE);
       break;
     case 2:
-      act("You leap to the aid of $N.", 
+      act("You leap to the aid of $N.",
            TRUE, this, 0, v, TO_CHAR, ANSI_ORANGE);
-      act("$n leaps into the fray, assisting you.", 
+      act("$n leaps into the fray, assisting you.",
            TRUE, this, 0, v, TO_VICT, ANSI_GREEN);
-      act("$n leaps into the fray, attacking you.", 
+      act("$n leaps into the fray, attacking you.",
            TRUE, this, 0, tmp_ch, TO_VICT, ANSI_RED);
-      act("$n leaps into the fray, attacking $N.", 
+      act("$n leaps into the fray, attacking $N.",
            TRUE, this, 0, tmp_ch, TO_NOTVICT, ANSI_BLUE);
       break;
     case 3:
-      act("You add the strength of your arms to $N's cause.", 
+      act("You add the strength of your arms to $N's cause.",
            TRUE, this, 0, v, TO_CHAR, ANSI_ORANGE);
-      act("$n joins the fray, assisting you.", 
+      act("$n joins the fray, assisting you.",
            TRUE, this, 0, v, TO_VICT, ANSI_GREEN);
-      act("$n joins the fray, attacking you.", 
+      act("$n joins the fray, attacking you.",
            TRUE, this, 0, tmp_ch, TO_VICT, ANSI_RED);
-      act("$n joins the battle attacking $N.", 
+      act("$n joins the battle attacking $N.",
            TRUE, this, 0, tmp_ch, TO_NOTVICT, ANSI_BLUE);
       break;
     case 4:
-      act("You charge ahead in order to assist $N in battle.", 
-           TRUE, this, 0, v,  TO_CHAR, ANSI_ORANGE);      
-      act("$n charges into the fray, assisting you.", 
+      act("You charge ahead in order to assist $N in battle.",
+           TRUE, this, 0, v,  TO_CHAR, ANSI_ORANGE);
+      act("$n charges into the fray, assisting you.",
            TRUE, this, 0, v, TO_VICT, ANSI_GREEN);
-      act("$n charges into the fray, attacking you.", 
+      act("$n charges into the fray, attacking you.",
            TRUE, this, 0, tmp_ch, TO_VICT, ANSI_RED);
-      act("$n charges into the battle and begins to attack $N.", 
+      act("$n charges into the battle and begins to attack $N.",
            TRUE, this, 0, tmp_ch, TO_NOTVICT, ANSI_BLUE);
       break;
     case 5:
-      act("You join forces with $N in battle.", 
+      act("You join forces with $N in battle.",
            TRUE, this, 0, v, TO_CHAR, ANSI_ORANGE);
-      act("$n joins forces with you against your enemy.", 
+      act("$n joins forces with you against your enemy.",
            TRUE, this, 0, v, TO_VICT, ANSI_GREEN);
-      act("$n joins forces with $N in battle coming to $S aid.", 
+      act("$n joins forces with $N in battle coming to $S aid.",
            TRUE, this, 0, v, TO_NOTVICT, ANSI_BLUE);
       break;
     default:
-      act("You come to the assistance of $N in $S time of need.", 
+      act("You come to the assistance of $N in $S time of need.",
            TRUE, this, 0, v, TO_CHAR, ANSI_ORANGE);
-      act("$n assists you against your enemy.", 
+      act("$n assists you against your enemy.",
            TRUE, this, 0, v, TO_VICT, ANSI_GREEN);
-      act("$n enters the battle coming to the assistance of $N.", 
+      act("$n enters the battle coming to the assistance of $N.",
            TRUE, this, 0, v, TO_NOTVICT, ANSI_BLUE);
       break;
   }
@@ -1352,8 +1352,8 @@ int TObj::burnObject(TBeing *ch, int perc)
 
 
   int orig = getMaxStructPoints();
-  int burndam = ::number(0,(int)((double)orig * 1.00 * 
-				 ((double)(material_nums[getMaterial()].flammability))/1000.0) +1);
+  int burndam = ::number(0,(int)((double)orig * 1.00 *
+                                 ((double)(material_nums[getMaterial()].flammability))/1000.0) +1);
   burndam/=5;
   if(burndam<=0) burndam=1;
 
@@ -1369,7 +1369,7 @@ int TObj::burnObject(TBeing *ch, int perc)
     } else {
       act("The flame consumes $n.",TRUE,this,0,0,TO_ROOM);
     }
-    // since bag went poof, lets (re)check contents 
+    // since bag went poof, lets (re)check contents
     // with an even higher percentage, and empty bag into owner
     for(StuffIter it=stuff.begin();it!=stuff.end();){
       t=*(it++);
@@ -1394,7 +1394,7 @@ int TObj::burnObject(TBeing *ch, int perc)
     return TRUE;
   } else {
     setStructPoints(getStructPoints()-burndam);
-    
+
     if (ch) {
       sprintf(buf, "Your $o $q singed slightly, but look$Q intact.");
       act(buf,TRUE,ch,this,0,TO_CHAR);
@@ -1412,8 +1412,8 @@ int TObj::burnObject(TBeing *ch, int perc)
        !isObjStat(ITEM_BURNING) && !isObjStat(ITEM_PAIRED)){
       setBurning(ch);
       if(ch){
-	sprintf(buf, "Your $o start$Q to burn!\a");
-	act(buf,TRUE,ch,this,0,TO_CHAR);
+        sprintf(buf, "Your $o start$Q to burn!\a");
+        act(buf,TRUE,ch,this,0,TO_CHAR);
       }
     }
 
@@ -1431,9 +1431,9 @@ int TBeing::flameEngulfed()
   int res = 0;
 
   for (i = MIN_WEAR;i < MAX_WEAR;i++) {
-    if (!(t = equipment[i]) || !(obj = dynamic_cast<TObj *>(t))) 
+    if (!(t = equipment[i]) || !(obj = dynamic_cast<TObj *>(t)))
       continue;
-    
+
     res = obj->burnObject(this, getImmunity(IMMUNE_HEAT)?1:50);
     if (IS_SET_DELETE(res, DELETE_THIS)) {
       delete obj;
@@ -1495,9 +1495,9 @@ int TBeing::thawEngulfed()
   int res = 0;
 
   for (i = MIN_WEAR;i < MAX_WEAR;i++) {
-    if (!(t = equipment[i]) || !(obj = dynamic_cast<TObj *>(t))) 
+    if (!(t = equipment[i]) || !(obj = dynamic_cast<TObj *>(t)))
       continue;
-    
+
     res = obj->thawObject(this, 0);
     if (IS_SET_DELETE(res, DELETE_THIS)) {
       delete obj;
@@ -1555,7 +1555,7 @@ int TBaseCup::thawObject(TBeing *ch, int perc)
 
   if(roomp && roomp->isArcticSector())
     return FALSE;
-  
+
   if(ch && ch->roomp && ch->roomp->isArcticSector())
     return FALSE;
 
@@ -1566,12 +1566,12 @@ int TBaseCup::thawObject(TBeing *ch, int perc)
 
   if (ch) {
     act(format("The warmth causes the %s in your $o to thaw.") %
-	liquidInfo[getDrinkType()]->name,
-	TRUE,ch, this,0,TO_CHAR, ANSI_BLUE);
+        liquidInfo[getDrinkType()]->name,
+        TRUE,ch, this,0,TO_CHAR, ANSI_BLUE);
   } else {
     act(format("The warmth causes the %s in $n to thaw.") %
-	liquidInfo[getDrinkType()]->name,
-	TRUE,this,0,0,TO_ROOM);
+        liquidInfo[getDrinkType()]->name,
+        TRUE,this,0,0,TO_ROOM);
   }
   remDrinkConFlags(DRINK_FROZEN);
 
@@ -1587,7 +1587,7 @@ int TPool::thawObject(TBeing *ch, int perc)
 
   if(roomp && roomp->isArcticSector())
     return FALSE;
-  
+
   if(ch && ch->roomp && ch->roomp->isArcticSector())
     return FALSE;
 
@@ -1690,7 +1690,7 @@ int TObj::freezeObject(TBeing *ch, int perc)
         if (ch) {
           act("..The mineral splits and $p $q destroyed.",TRUE,ch,this,0,TO_CHAR, ANSI_GREEN);
         } else {
-          act("   $n $r destroyed.",TRUE,this,0,0,TO_ROOM); 
+          act("   $n $r destroyed.",TRUE,this,0,0,TO_ROOM);
         }
       }
       return TRUE;
@@ -1708,12 +1708,12 @@ int TPool::freezeObject(TBeing *ch, int perc)
 
   if (ch) {
     act(format("The chill causes the %s in your $o to freeze.") %
-	liquidInfo[getDrinkType()]->name,
-	TRUE,ch, this,0,TO_CHAR, ANSI_BLUE);
+        liquidInfo[getDrinkType()]->name,
+        TRUE,ch, this,0,TO_CHAR, ANSI_BLUE);
   } else {
     act(format("The chill causes the %s in $n to freeze.") %
-	liquidInfo[getDrinkType()]->name,
-	TRUE,this,0,0,TO_ROOM);
+        liquidInfo[getDrinkType()]->name,
+        TRUE,this,0,0,TO_ROOM);
   }
 
   updateDesc();
@@ -1727,20 +1727,20 @@ int TBaseCup::freezeObject(TBeing *ch, int perc)
   int rc = TObj::freezeObject(ch, perc);
   if (IS_SET_DELETE(rc, DELETE_THIS | DELETE_VICT))
     return rc;
-  
+
   char buf [256];
   bool damage=false;
 
   if(isDrinkConFlag(DRINK_FROZEN))
     return FALSE;
-  
+
   // figure anything that can compact can also expand a bit
   // a glass bottle can't compact/expand, a leather waterskin can
   // also, room to expand if it's less than half full
   // and, only take damage if less than or as hard as glass, so things like
   // a steel thermos wouldn't crack (neither would plastic, as it can stretch)
   if((material_nums[getMaterial()].vol_mult <= 1) &&
-     (material_nums[getMaterial()].hardness <= 
+     (material_nums[getMaterial()].hardness <=
       material_nums[MAT_GLASS].hardness) &&
      (2 * getDrinkUnits() >= getMaxDrinkUnits()))
     damage=true;
@@ -1751,31 +1751,31 @@ int TBaseCup::freezeObject(TBeing *ch, int perc)
 
   addDrinkConFlags(DRINK_FROZEN);
   updateDesc();
-  
+
   if (ch) {
     sprintf(buf, "The chill causes the %s in your $o to freeze.",
-	    liquidInfo[getDrinkType()]->name);
+            liquidInfo[getDrinkType()]->name);
     act(buf,TRUE,ch, this,0,TO_CHAR, ANSI_BLUE);
-    
+
     if(damage)
       act("$p is damaged severely by the expanding ice!",
-	  TRUE,ch, this,0,TO_CHAR, ANSI_BLUE);
+          TRUE,ch, this,0,TO_CHAR, ANSI_BLUE);
   } else {
     sprintf(buf, "The chill causes the %s in $n to freeze.",
-	    liquidInfo[getDrinkType()]->name);
+            liquidInfo[getDrinkType()]->name);
     act(buf,TRUE,this,0,0,TO_ROOM);
-    
+
     if(damage)
       act("$n is damaged severely by the expanding ice!",
-	  TRUE,this,0,0,TO_ROOM);
+          TRUE,this,0,0,TO_ROOM);
   }
-  
+
   if(damage){
     if(IS_SET_DELETE(damageItem(::number(1,12)), DELETE_THIS)){
       if (ch) {
-	act("   $n $r destroyed.",TRUE,this,0,0,TO_ROOM); 
+        act("   $n $r destroyed.",TRUE,this,0,0,TO_ROOM);
       } else {
-	act("   $n $r destroyed.",TRUE,this,0,0,TO_ROOM); 
+        act("   $n $r destroyed.",TRUE,this,0,0,TO_ROOM);
       }
       return DELETE_THIS;
     }
@@ -1795,7 +1795,7 @@ int TBeing::frostEngulfed()
   for (i = MIN_WEAR;i < MAX_WEAR;i++) {
     if (!(t = equipment[i]) || !(obj = dynamic_cast<TObj *>(t)))
       continue;
-    
+
     res = obj->freezeObject(this, getImmunity(IMMUNE_COLD)?1:50);
     if (IS_SET_DELETE(res, DELETE_THIS)) {
       delete obj;
@@ -1969,7 +1969,7 @@ int TBeing::chlorineEngulfed()
       int dam = ::number(2,11);
 
       if(isImmune(IMMUNE_POISON, i))
-	continue;
+        continue;
 
       if ((dam = getActualDamage(this, 0, dam, SPELL_CHLORINE_BREATH)))
         sendTo(format("The chlorine gas gives you a caustic burn on your %s.\n\r") %describeBodySlot(i));
@@ -1979,9 +1979,9 @@ int TBeing::chlorineEngulfed()
     } else if (t)
       t->poisonObject();
   }
-  for(StuffIter it=stuff.begin();it!=stuff.end() && (t=*it);++it) 
+  for(StuffIter it=stuff.begin();it!=stuff.end() && (t=*it);++it)
     t->poisonObject();
-  
+
   return TRUE;
 }
 
@@ -2074,7 +2074,7 @@ int TBeing::shieldAbsorbDamage(int dam)
   right = equipment[HOLD_RIGHT];
 
   TBaseClothing *tbc = NULL;
-  if (left && 
+  if (left &&
       (tbc = dynamic_cast<TBaseClothing *>(left)) &&
       tbc->isShield()) {
     shield = tbc;
@@ -2094,7 +2094,7 @@ int TBeing::shieldAbsorbDamage(int dam)
 
   act("You hold your $o up to block the blast.",TRUE,this,shield,0,TO_CHAR);
   act("$n holds $s $o up to block the blast.",TRUE,this,shield,0,TO_ROOM);
-  
+
   if (shielddam >= shield->getStructPoints()) {
     act("$p partially blocks the blast but is utterly destroyed at the same time.",TRUE,
          this,shield, 0,TO_CHAR);
@@ -2145,16 +2145,16 @@ bool TBeing::noHarmCheck(TBeing *vict)
       }
     }
   }
-  
+
   if(isPc() && vict->isPc() && !isImmortal() && !vict->isValidPkTarget(this)){
     sendTo("Your victim is not a valid PK target.\n\r");
     return TRUE;
   }
-  
-  if (desc && !isImmortal() && isPc() && 
+
+  if (desc && !isImmortal() && isPc() &&
           vict->desc && vict->isPc() &&
-          (vict->GetMaxLevel() <= MAX_NEWBIE_LEVEL) && 
-          !vict->isPlayerAction(PLR_KILLABLE) && 
+          (vict->GetMaxLevel() <= MAX_NEWBIE_LEVEL) &&
+          !vict->isPlayerAction(PLR_KILLABLE) &&
       !toggleInfo[TOG_NEWBIEPK]->toggle) {
     sendTo("Your victim is a newbie and protected.\n\r");
     sendTo("If you have a problem with this newbie please see a god for action.\n\r");
@@ -2240,7 +2240,7 @@ void TBeing::blowCount(bool check, float &fx, float &fy)
     if((gun=dynamic_cast<TGun *>(sec)) && !gun->isPaired()){
       fy = gun->getROF();
     }
-    
+
 
     // MOBS
   } else if (hasClass(CLASS_MONK)) {
@@ -2258,7 +2258,7 @@ void TBeing::blowCount(bool check, float &fx, float &fy)
       }
 
       if((gun=dynamic_cast<TGun *>(prim))){
-	fx = gun->getROF();
+        fx = gun->getROF();
       }
     }
 
@@ -2269,7 +2269,7 @@ void TBeing::blowCount(bool check, float &fx, float &fy)
     else if (sec != prim) {
       fy = sec->blowCountSplitter(this, false);
       if((gun=dynamic_cast<TGun *>(sec)) && !gun->isPaired()){
-	fy = gun->getROF();
+        fy = gun->getROF();
       }
     } else
       // don't give paired weapons extra hits
@@ -2283,7 +2283,7 @@ void TBeing::blowCount(bool check, float &fx, float &fy)
        getDiscipline(DISC_BAREHAND)) {
       num = ::number(0,99);
       if (num < getSkillValue(SKILL_BAREHAND_SPEC) - 20 * drunkMinus())
-	fx += (float) 1.0;
+        fx += (float) 1.0;
     }
     // specialization check
     if (prim && getPosition() >= POSITION_STANDING) {
@@ -2311,7 +2311,7 @@ void TBeing::blowCount(bool check, float &fx, float &fy)
     // NON-monk PCS
 
     TObj *tobj = dynamic_cast<TObj *>(prim);
-    if (tobj && !tobj->isPaired() && !dynamic_cast<TBaseWeapon *>(tobj) && !check) 
+    if (tobj && !tobj->isPaired() && !dynamic_cast<TBaseWeapon *>(tobj) && !check)
       // no attacks for non-weapons
       fx = (float) 0.0;
     else {
@@ -2324,7 +2324,7 @@ void TBeing::blowCount(bool check, float &fx, float &fy)
     }
 
     tobj = dynamic_cast<TObj *>(sec);
-    if (tobj && !tobj->isPaired() && !dynamic_cast<TBaseWeapon *>(tobj) && !check) 
+    if (tobj && !tobj->isPaired() && !dynamic_cast<TBaseWeapon *>(tobj) && !check)
       fy = (float) 0.0;
     else if (sec && (sec == prim)) {
      // Don't give two handed weapons two hits - Russ 122797
@@ -2344,13 +2344,13 @@ void TBeing::blowCount(bool check, float &fx, float &fy)
     }
 
     // berzerk
-    if (isCombatMode(ATTACK_BERSERK) && 
+    if (isCombatMode(ATTACK_BERSERK) &&
         getPosition() >= POSITION_STANDING) {
       if (bSuccess(SKILL_BERSERK)) {
         if (fx > 0.0)
           fx += 0.5;
         if (fy > 0.0)
-	  fy += 0.5;
+          fy += 0.5;
       }
     }
 

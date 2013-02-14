@@ -50,7 +50,7 @@ int determineDissectionItem(TBaseCorpse *corpse, int *amount, char *msg, char *g
         break;
       default:
         break;
-    }  
+    }
   }
   if (num == -1) {
     // switch based on vnum
@@ -58,16 +58,16 @@ int determineDissectionItem(TBaseCorpse *corpse, int *amount, char *msg, char *g
     // put generic stuff in the dissect file and let the LOWs maintain it
     switch(corpse->getCorpseVnum()) {
       case Mob::TIGER_SHARK:
-	if(ch && ch->hasQuestBit(TOG_STARTED_MONK_BLUE)){
-	  num = Obj::MONK_QUEST_DOG_COLLAR;
-	  *amount = 100;
-	  sprintf(msg, "You reach deep into $N's maw and pull out $p.");
-	  sprintf(gl_msg, "$n reaches deep into $N's maw and pulls out $p.");
-	}
+        if(ch && ch->hasQuestBit(TOG_STARTED_MONK_BLUE)){
+          num = Obj::MONK_QUEST_DOG_COLLAR;
+          *amount = 100;
+          sprintf(msg, "You reach deep into $N's maw and pull out $p.");
+          sprintf(gl_msg, "$n reaches deep into $N's maw and pulls out $p.");
+        }
         break;
       default:
         break;
-    }  
+    }
   }
   if (num == -1) {
     std::map<unsigned short int, dissectInfo>::const_iterator CT;
@@ -147,7 +147,7 @@ int dissect(TBeing * caster, TObj * corpse)
 
 int TObj::dissectMe(TBeing *caster)
 {
-  act("$p: You can only dissect corpses.", 
+  act("$p: You can only dissect corpses.",
           FALSE, caster, this, 0, TO_CHAR);
   return FALSE;
 }
@@ -169,11 +169,11 @@ void readDissectionFile()
   }
 
   while (!feof(fp)) {
-    res = fscanf(fp, " %d ", &mobNum); 
+    res = fscanf(fp, " %d ", &mobNum);
     if (res != 1)
       continue;
-    //    res = fscanf(fp, " %d %d %d ", &di.loadItem, &di.amount, &di.count); 
-    res = fscanf(fp, " %d %d ", &di.loadItem, &di.amount); 
+    //    res = fscanf(fp, " %d %d %d ", &di.loadItem, &di.amount, &di.count);
+    res = fscanf(fp, " %d %d ", &di.loadItem, &di.amount);
     if (res != 2)
       continue;
     if (!fgets(buf, 256, fp))

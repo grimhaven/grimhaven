@@ -15,9 +15,9 @@
 
 bool TBeing::canBash(TBeing *victim, silentTypeT silent)
 {
-  if (checkBusy()) 
+  if (checkBusy())
     return FALSE;
-  
+
   spellNumT skill = getSkillNum(SKILL_BASH);
   if (!doesKnowSkill(skill)) {
     if (!silent)
@@ -118,7 +118,7 @@ bool TBeing::canBash(TBeing *victim, silentTypeT silent)
     if (!silent)
       sendTo(format("How can you bash someone already on the %s?!?\n\r") % roomp->describeGround());
     return FALSE;
-  }    
+  }
   if (getMove() < 5) {
     if (!silent)
       sendTo("You don't have the vitality to bash anyone!\n\r");
@@ -155,9 +155,9 @@ static int bash(TBeing *c, TBeing *victim, spellNumT skill)
     }
   } else if (skill == SKILL_BASH) {
     // warrior bashing with disc_brawling > 10%
-    if (learning <= 25) 
+    if (learning <= 25)
       shieldAdj = learning;
-    else 
+    else
       shieldAdj = 25 + ((learning-25)/4);
   } else {
     if (((obj = c->heldInSecHand()) &&
@@ -191,7 +191,7 @@ static int bash(TBeing *c, TBeing *victim, spellNumT skill)
   }
 #endif
 
-  // some modifications to account for dexterity, and level 
+  // some modifications to account for dexterity, and level
   percent = 0;
   percent += ((int) c->getWeight() - (int) victim->getWeight())/20;
 
@@ -240,11 +240,11 @@ int TBeing::bashFail(TBeing *victim, spellNumT skill)
 {
   int rc;
 
-  act("$n attempts to bash $N who deftly dodges the attack.", 
+  act("$n attempts to bash $N who deftly dodges the attack.",
       FALSE, this, 0, victim, TO_NOTVICT);
-  act("You attempt to bash $N who deftly dodges the attack.", 
+  act("You attempt to bash $N who deftly dodges the attack.",
       FALSE, this, 0, victim, TO_CHAR);
-  act("You deftly dodge $n's attempt to bash you!", 
+  act("You deftly dodge $n's attempt to bash you!",
       FALSE, this, 0, victim, TO_VICT);
 
   if (hasLegs()) {
@@ -286,7 +286,7 @@ int TBeing::bashSuccess(TBeing *victim, spellNumT skill)
   act("You send $N sprawling.", FALSE, this, 0, victim, TO_CHAR);
   act("You tumble as $n knocks you over",
         FALSE, this, 0, victim, TO_VICT, ANSI_BLUE);
- 
+
   //extra damage done by shield with spikes 10-20-00 -dash
   if (((obj = this->heldInSecHand()) &&
        (tbc = dynamic_cast<TBaseClothing *>(obj)) &&
@@ -338,7 +338,7 @@ int TBeing::bashSuccess(TBeing *victim, spellNumT skill)
 
   victim->addToWait((int) wt);
 
-  if (victim->spelltask) 
+  if (victim->spelltask)
     victim->addToDistracted(distNum, FALSE);
 
   reconcileHurt(victim, 0.01);
@@ -374,7 +374,7 @@ int TBeing::doBash(const char *argument, TBeing *vict)
   if (IS_SET_DELETE(rc, DELETE_VICT)) {
     if (vict)
       return rc;
-       
+
     delete victim;
     victim = NULL;
     REM_DELETE(rc, DELETE_VICT);

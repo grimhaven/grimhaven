@@ -186,11 +186,11 @@ class compPlace
     // if no mob in that room, it'll return.
     int mob;
 
-    
+
     int number;     /* Number of object to put/take */
 
     // bitvector for type of actions to perform, CACT codes
-    unsigned int place_act;  
+    unsigned int place_act;
 
     /* dont load if more than this number in game */
     // ignored on take commands
@@ -258,7 +258,7 @@ class compPlace
 
 extern std::vector<compPlace>component_placement;
 
-class compInfo 
+class compInfo
 {
   public:
     int comp_num;

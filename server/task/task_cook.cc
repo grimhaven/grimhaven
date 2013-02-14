@@ -18,43 +18,43 @@ bool check_ingredients(TCookware *pot, int recipe){
   for(int i=0;ingredients[i].recipe>=0;++i){
     if(ingredients[i].recipe!=recipe)
       continue;
-    
+
     nfound=0;
 
     for(int j=i;ingredients[j].recipe>=0 && ingredients[j].ingredient==ingredients[i].ingredient;++j){
       // look for this ingredient
       for(StuffIter it=pot->stuff.begin();it!=pot->stuff.end() && (t=*it);++it){
-	switch(ingredients[i].type){
-	  case TYPE_VNUM:
-	    if(obj_index[t->number].virt==ingredients[i].num)
-	      nfound++;
-	    break;
-	  case TYPE_LIQUID:
-	    if((pool=dynamic_cast<TPool *>(t)) &&
-	       pool->getDrinkType() == ingredients[i].num)
-	      nfound += pool->getDrinkUnits();
-	    break;
-	  case TYPE_MATERIAL:
-	    if(t->getMaterial() == ingredients[i].num)
-	      nfound++;
-	    break;
-	  case TYPE_CORPSE:
-	    if((corpse=dynamic_cast<TCorpse *>(t)) &&
-	       corpse->getCorpseRace() == ingredients[i].num)
-	      nfound++;
-	    break;
-	  case TYPE_ITEM:
-	    if((obj=dynamic_cast<TObj *>(t)) &&
-	       obj->itemType() == ingredients[i].num)
-	      nfound++;
-	    break;
-	}
+        switch(ingredients[i].type){
+          case TYPE_VNUM:
+            if(obj_index[t->number].virt==ingredients[i].num)
+              nfound++;
+            break;
+          case TYPE_LIQUID:
+            if((pool=dynamic_cast<TPool *>(t)) &&
+               pool->getDrinkType() == ingredients[i].num)
+              nfound += pool->getDrinkUnits();
+            break;
+          case TYPE_MATERIAL:
+            if(t->getMaterial() == ingredients[i].num)
+              nfound++;
+            break;
+          case TYPE_CORPSE:
+            if((corpse=dynamic_cast<TCorpse *>(t)) &&
+               corpse->getCorpseRace() == ingredients[i].num)
+              nfound++;
+            break;
+          case TYPE_ITEM:
+            if((obj=dynamic_cast<TObj *>(t)) &&
+               obj->itemType() == ingredients[i].num)
+              nfound++;
+            break;
+        }
       }
 
       i=j;
     }
 
-    
+
     if(nfound < ingredients[i].amt){
       return false;
     }
@@ -85,7 +85,7 @@ int find_recipe(sstring recipearg){
     if(isname(recipearg, recipes[i].keywords))
       recipe=recipes[i].recipe;
   }
-  
+
   return recipe;
 }
 
@@ -131,7 +131,7 @@ void TBeing::doCook(sstring arg)
     sendTo("Error loading food, alert an admin.\n\r");
     return;
   }
-    
+
 
   sendTo(COLOR_BASIC, format("You begin to cook %s.\n\r") % recipes[recipe].name);
   start_task(this, pot, NULL, TASK_COOK, "", 2, inRoom(), 0, 0, 5);
@@ -162,11 +162,11 @@ int task_cook(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, TObj *
 
   if (ch->task->timeLeft < 0){
     act("You finish cooking.",
-	FALSE, ch, pot, 0, TO_CHAR);
+        FALSE, ch, pot, 0, TO_CHAR);
     act("$n finishes cooking.",
-	TRUE, ch, pot, 0, TO_ROOM);
+        TRUE, ch, pot, 0, TO_ROOM);
     ch->stopTask();
-    
+
     return FALSE;
   }
 
@@ -175,14 +175,14 @@ int task_cook(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, TObj *
       ch->task->calcNextUpdate(pulse, Pulse::MOBACT * 3);
 
       switch (ch->task->timeLeft) {
-	case 2:
+        case 2:
           act("You prepare the ingredients in $p.",
               FALSE, ch, pot, 0, TO_CHAR);
           act("$n prepares $s ingredients.",
               TRUE, ch, pot, 0, TO_ROOM);
           ch->task->timeLeft--;
           break;
-	case 1:
+        case 1:
           act("You cook the ingredients in $p.",
               FALSE, ch, pot, 0, TO_CHAR);
           act("$n cooks the ingredients in $p.",
@@ -190,13 +190,13 @@ int task_cook(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, TObj *
           ch->task->timeLeft--;
 
           break;
-	case 0:
-	  act("You continue cooking the ingredients in $p.",
+        case 0:
+          act("You continue cooking the ingredients in $p.",
               FALSE, ch, pot, 0, TO_CHAR);
-	  act("$n continues cooking.",
-	      TRUE, ch, pot, 0, TO_ROOM);
-	  ch->task->timeLeft--;
-	  break;
+          act("$n continues cooking.",
+              TRUE, ch, pot, 0, TO_ROOM);
+          ch->task->timeLeft--;
+          break;
       }
       break;
     case CMD_ABORT:

@@ -39,7 +39,7 @@ class TAccount
   static const unsigned int MSP;
   static const unsigned int ALLOW_DOUBLECLASS;
   static const unsigned int ALLOW_TRIPLECLASS;
-  
+
   int status;
   sstring email;
   sstring passwd;
@@ -52,10 +52,10 @@ class TAccount
   unsigned int flags;
   int account_id;
   time_t last_logon;
-  
+
   bool read(const sstring &);
   bool write(const sstring &);
-  
+
   TAccount();
   TAccount(const TAccount &a);
   TAccount & operator=(const TAccount &a);

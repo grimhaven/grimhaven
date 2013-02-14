@@ -58,9 +58,9 @@ int TBeing::doTaunt(const sstring &arg)
 {
   TBeing *victim;
   char name_buf[256];
-  
+
   strcpy(name_buf, arg.c_str());
-  
+
   if (!(victim = get_char_room_vis(this, name_buf))) {
     if (!(victim = fight())) {
       sendTo("Taunt whom?\n\r");
@@ -83,12 +83,12 @@ int TBeing::doTaunt(const sstring &arg)
 
   if(bSuccess(SKILL_TAUNT)){
     act("You taunt $N ruthlessly, drawing their ire.",
-	FALSE, this, 0, victim, TO_CHAR);
+        FALSE, this, 0, victim, TO_CHAR);
     act("$n taunts you ruthlessly, drawing your ire.",
-	FALSE, this, 0, victim, TO_VICT);
+        FALSE, this, 0, victim, TO_VICT);
     act("$n taunts $N ruthlessly, drawing their ire.",
-	FALSE, this, 0, victim, TO_NOTVICT);
-    
+        FALSE, this, 0, victim, TO_NOTVICT);
+
     affectedData af;
 
     af.type = SKILL_TAUNT;
@@ -102,9 +102,9 @@ int TBeing::doTaunt(const sstring &arg)
 
   } else {
     act("You taunt yourself ruthlessly, confusing yourself.",
-	FALSE, this, 0, this, TO_CHAR);
+        FALSE, this, 0, this, TO_CHAR);
     act("$n taunts $mself ruthlessly, confusing $mself.",
-	FALSE, this, 0, this, TO_NOTVICT);
+        FALSE, this, 0, this, TO_NOTVICT);
   }
 
   addSkillLag(SKILL_TAUNT, 0);

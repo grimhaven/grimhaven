@@ -114,7 +114,7 @@ int limb_wound_price(TBeing *ch, wearSlotT pos, unsigned short int wound, int sh
 
   else if (IS_SET(wound, PART_BROKEN))
     price *= 7;
-  
+
   else if (IS_SET(wound, PART_USELESS))
     price *= 8;
 
@@ -235,7 +235,7 @@ int doctorCost(int shop_nr, TBeing *ch, diseaseTypeT disease)
   }
 
   cost = (int)((float) cost * shop_index[shop_nr].getProfitBuy(NULL, ch));
-  
+
   return cost;
 }
 
@@ -275,7 +275,7 @@ int doctor(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *me, TObj *)
         continue;
       if (ch->isLimbFlags(i, PART_MISSING)) {
         me->doTell(ch->getName(), format("%d) Your %s is missing! (%d talens)") %
-		   ++count % ch->describeBodySlot(i) % limb_regen_price(ch, i, shop_nr));
+                   ++count % ch->describeBodySlot(i) % limb_regen_price(ch, i, shop_nr));
         continue;
       } else {
         for (j = 0; j < MAX_PARTS; j++) {
@@ -283,15 +283,15 @@ int doctor(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *me, TObj *)
             continue;
           if (ch->isLimbFlags(i, 1 << j)) {
             me->doTell(ch->getName(), format("%d) Your %s is %s. (%d talens)") %
-		       ++count % ch->describeBodySlot(i) % body_flags[j] %
-		       limb_wound_price(ch, i, 1 << j, shop_nr));
+                       ++count % ch->describeBodySlot(i) % body_flags[j] %
+                       limb_wound_price(ch, i, 1 << j, shop_nr));
           }
         }
         if (ch->getCurLimbHealth(i) < ch->getMaxLimbHealth(i)) {
           double perc = (double) ch->getCurLimbHealth(i) / (double) ch->getMaxLimbHealth(i);
           me->doTell(ch->getName(), format("%d) Your %s is %s. (%d talens)") %
-		     ++count % ch->describeBodySlot(i) %
-		     LimbHealth(perc) % limb_heal_price(ch, i, shop_nr));
+                     ++count % ch->describeBodySlot(i) %
+                     LimbHealth(perc) % limb_heal_price(ch, i, shop_nr));
         }
         if ((stuck = ch->getStuckIn(i))) {
           me->doTell(ch->getName(), format("%d) You have %s stuck in your %s. (%d talens)") % ++count % stuck->shortDescr % ch->describeBodySlot(i) % limb_expel_price(ch, i, shop_nr));
@@ -302,20 +302,20 @@ int doctor(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *me, TObj *)
       affectedData *aff;
       for (aff = ch->affected; aff; aff = aff->next) {
         if (aff->type == AFFECT_DISEASE) {
-	  if (ch->GetMaxLevel() < 12) {
-	    me->doTell(ch->getName(), "Hmm, you are just a newbie, guess I will have to take you at reduced rates.\n\r");
-	  }
-	  buf=format("%d) You have %s. (%d talens)") %
-	    ++count % DiseaseInfo[affToDisease(*aff)].name %
-	    doctorCost(shop_nr, ch, affToDisease(*aff));
-	  me->doTell(ch->getName(), buf);
+          if (ch->GetMaxLevel() < 12) {
+            me->doTell(ch->getName(), "Hmm, you are just a newbie, guess I will have to take you at reduced rates.\n\r");
+          }
+          buf=format("%d) You have %s. (%d talens)") %
+            ++count % DiseaseInfo[affToDisease(*aff)].name %
+            doctorCost(shop_nr, ch, affToDisease(*aff));
+          me->doTell(ch->getName(), buf);
         } else if (aff->type == SPELL_BLINDNESS) {
           if (!aff->shouldGenerateText())
             continue;
           me->doTell(ch->getName(), format("%d) Affect: %s. (%d talens).\n\r") %
                     ++count % discArray[aff->type]->name %
                     spell_regen_price(ch, SPELL_BLINDNESS, shop_nr));
-	}
+        }
       }  // affects loop
     }
     if (!count) {
@@ -366,15 +366,15 @@ int doctor(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *me, TObj *)
             }
             int cashCost = min(ch->getMoney(), cost);
 
-	    if(me->getMoney() < cashCost){
-	      me->doTell(ch->getName(), "I don't have enough money to cover my operating expenses!");
-	      return TRUE;
-	    }
+            if(me->getMoney() < cashCost){
+              me->doTell(ch->getName(), "I don't have enough money to cover my operating expenses!");
+              return TRUE;
+            }
 
-	    TShopOwned tso(shop_nr, me, ch);
-	    tso.doBuyTransaction(cashCost, format("regenerating %s") % 
-				 ch->describeBodySlot(i),
-				 TX_BUYING_SERVICE);
+            TShopOwned tso(shop_nr, me, ch);
+            tso.doBuyTransaction(cashCost, format("regenerating %s") %
+                                 ch->describeBodySlot(i),
+                                 TX_BUYING_SERVICE);
 
             buf=format("$n waves $s hands, utters many magic phrases and regenerates $N's %s!") % ch->describeBodySlot(i);
             act(buf, TRUE, me, NULL, ch, TO_NOTVICT);
@@ -405,16 +405,16 @@ int doctor(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *me, TObj *)
                 return TRUE;
               } else {
                 int cashCost = min(ch->getMoney(), cost);
-		
-		if(me->getMoney() < cashCost){
-		  me->doTell(ch->getName(), "I don't have enough money to cover my operating expenses!");
-		  return TRUE;
-		}
 
-		TShopOwned tso(shop_nr, me, ch);
-		tso.doBuyTransaction(cashCost, format("mending %s") % 
-				     ch->describeBodySlot(i),
-				     TX_BUYING_SERVICE);
+                if(me->getMoney() < cashCost){
+                  me->doTell(ch->getName(), "I don't have enough money to cover my operating expenses!");
+                  return TRUE;
+                }
+
+                TShopOwned tso(shop_nr, me, ch);
+                tso.doBuyTransaction(cashCost, format("mending %s") %
+                                     ch->describeBodySlot(i),
+                                     TX_BUYING_SERVICE);
 
                 buf=format("$n waves $s hands, utters many magic phrases and touches $N's %s!") % ch->describeBodySlot(i);
                 act(buf, TRUE, me, NULL, ch, TO_NOTVICT);
@@ -444,15 +444,15 @@ int doctor(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *me, TObj *)
           } else {
             int cashCost = min(ch->getMoney(), cost);
 
-	    if(me->getMoney() < cashCost){
-	      me->doTell(ch->getName(), "I don't have enough money to cover my operating expenses!");
-	      return TRUE;
-	    }
+            if(me->getMoney() < cashCost){
+              me->doTell(ch->getName(), "I don't have enough money to cover my operating expenses!");
+              return TRUE;
+            }
 
-	    TShopOwned tso(shop_nr, me, ch);
-	    tso.doBuyTransaction(cashCost, format("healing %s") % 
-				 ch->describeBodySlot(i),
-				 TX_BUYING_SERVICE);
+            TShopOwned tso(shop_nr, me, ch);
+            tso.doBuyTransaction(cashCost, format("healing %s") %
+                                 ch->describeBodySlot(i),
+                                 TX_BUYING_SERVICE);
 
             buf=format("$n waves $s hands, utters many magic phrases and touches $N's %s!") % ch->describeBodySlot(i);
             act(buf, TRUE, me, NULL, ch, TO_NOTVICT);
@@ -478,15 +478,15 @@ int doctor(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *me, TObj *)
           } else {
             int cashCost = min(ch->getMoney(), cost);
 
-	    if(me->getMoney() < cashCost){
-	      me->doTell(ch->getName(), "I don't have enough money to cover my operating expenses!");
-	      return TRUE;
-	    }
+            if(me->getMoney() < cashCost){
+              me->doTell(ch->getName(), "I don't have enough money to cover my operating expenses!");
+              return TRUE;
+            }
 
-	    TShopOwned tso(shop_nr, me, ch);
-	    tso.doBuyTransaction(cashCost, format("expelling %s") % 
-				 ch->describeBodySlot(i),
-				 TX_BUYING_SERVICE);
+            TShopOwned tso(shop_nr, me, ch);
+            tso.doBuyTransaction(cashCost, format("expelling %s") %
+                                 ch->describeBodySlot(i),
+                                 TX_BUYING_SERVICE);
 
             buf=format("$n skillfully removes $p from $N's %s!") % ch->describeBodySlot(i);
             act(buf, TRUE, me, stuck, ch, TO_NOTVICT);
@@ -511,40 +511,40 @@ int doctor(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *me, TObj *)
       for (aff = ch->affected; aff; aff = aff2) {
         aff2 = aff->next;
         if (aff->type == AFFECT_DISEASE) {
-	  if (++count == bought) {
-	    cost = doctorCost(shop_nr, ch, affToDisease(*aff));
+          if (++count == bought) {
+            cost = doctorCost(shop_nr, ch, affToDisease(*aff));
 
-	    if ((ch->getMoney()) < cost) {
-	      me->doTell(fname(ch->name), format("You don't have enough money to cure %s!") % DiseaseInfo[affToDisease(*aff)].name);
-	      return TRUE;
-	    } else {
-	      int cashCost = min(ch->getMoney(), cost);
+            if ((ch->getMoney()) < cost) {
+              me->doTell(fname(ch->name), format("You don't have enough money to cure %s!") % DiseaseInfo[affToDisease(*aff)].name);
+              return TRUE;
+            } else {
+              int cashCost = min(ch->getMoney(), cost);
 
-	      if(me->getMoney() < cashCost){
-		me->doTell(ch->getName(), "I don't have enough money to cover my operating expenses!");
-		return TRUE;
-	      }
+              if(me->getMoney() < cashCost){
+                me->doTell(ch->getName(), "I don't have enough money to cover my operating expenses!");
+                return TRUE;
+              }
 
-	      TShopOwned tso(shop_nr, me, ch);
-	      tso.doBuyTransaction(cashCost, format("curing disease %s") %
-				   DiseaseInfo[affToDisease(*aff)].name,
-				   TX_BUYING_SERVICE);
-	      
-	      act("$n waves $s hands, utters many magic phrases and touches $N!", TRUE, me, NULL, ch, TO_NOTVICT);
-	      act("$n waves $s hands, utters many magic phrases and touches you!", TRUE, me, NULL, ch, TO_VICT);
-	      if (aff->modifier == DISEASE_POISON) {
-		ch->affectFrom(SPELL_POISON);
-		ch->affectFrom(SPELL_POISON_DEIKHAN);
-	      }
-	      if (aff->modifier == DISEASE_SYPHILIS) {
-		ch->affectFrom(SPELL_DEATH_MIST);
-	      }
-	      ch->diseaseStop(aff);
-	      ch->affectRemove(aff);
-	      ch->doSave(SILENT_YES);
-	      return TRUE;
-	    }
-	  }
+              TShopOwned tso(shop_nr, me, ch);
+              tso.doBuyTransaction(cashCost, format("curing disease %s") %
+                                   DiseaseInfo[affToDisease(*aff)].name,
+                                   TX_BUYING_SERVICE);
+
+              act("$n waves $s hands, utters many magic phrases and touches $N!", TRUE, me, NULL, ch, TO_NOTVICT);
+              act("$n waves $s hands, utters many magic phrases and touches you!", TRUE, me, NULL, ch, TO_VICT);
+              if (aff->modifier == DISEASE_POISON) {
+                ch->affectFrom(SPELL_POISON);
+                ch->affectFrom(SPELL_POISON_DEIKHAN);
+              }
+              if (aff->modifier == DISEASE_SYPHILIS) {
+                ch->affectFrom(SPELL_DEATH_MIST);
+              }
+              ch->diseaseStop(aff);
+              ch->affectRemove(aff);
+              ch->doSave(SILENT_YES);
+              return TRUE;
+            }
+          }
         } else if (aff->type == SPELL_BLINDNESS) {
           if (++count == bought) {
             cost = spell_regen_price(ch, SPELL_BLINDNESS, shop_nr);
@@ -555,15 +555,15 @@ int doctor(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *me, TObj *)
             } else {
               int cashCost = min(ch->getMoney(), cost);
 
-	      if(me->getMoney() < cashCost){
-		me->doTell(ch->getName(), "I don't have enough money to cover my operating expenses!");
-		return TRUE;
-	      }
+              if(me->getMoney() < cashCost){
+                me->doTell(ch->getName(), "I don't have enough money to cover my operating expenses!");
+                return TRUE;
+              }
 
-	      TShopOwned tso(shop_nr, me, ch);
-	      tso.doBuyTransaction(cashCost, format("curing blindness %i") %
-				   ch->describeBodySlot(i),
-				   TX_BUYING_SERVICE);
+              TShopOwned tso(shop_nr, me, ch);
+              tso.doBuyTransaction(cashCost, format("curing blindness %i") %
+                                   ch->describeBodySlot(i),
+                                   TX_BUYING_SERVICE);
 
               act("$n waves $s hands, utters many magic phrases and touches $N!", TRUE, me, NULL, ch, TO_NOTVICT);
               act("$n waves $s hands, utters many magic phrases and touches you!", TRUE, me, NULL, ch, TO_VICT);
@@ -708,7 +708,7 @@ int emergency_room(TBeing *ch, cmdTypeT cmd, const char *arg, TRoom *rp)
   } else if (cmd == CMD_BUY) {        /* Buy */
     // find the doctor
     doctor = getDoctor(rp->in_room, shop_nr);
-    
+
     if(!doctor){
       vlogf(LOG_BUG, format("couldn't find doctor for shop_nr=%i!") % shop_nr);
       ch->sendTo("Couldn't find the doctor, tell a god!");
@@ -721,7 +721,7 @@ int emergency_room(TBeing *ch, cmdTypeT cmd, const char *arg, TRoom *rp)
       ch->sendTo("Sorry, no medicare, medicaid or insurance allowed.\n\r");
       return TRUE;
     }
-    
+
     if(doctor->getMoney() < cost){
       doctor->doTell(ch->getName(), "I don't have enough money to cover my operating expenses!");
       return TRUE;
@@ -745,7 +745,7 @@ int emergency_room(TBeing *ch, cmdTypeT cmd, const char *arg, TRoom *rp)
 
           // this was added due to fighting in/near the hospitals
           ch->addToWait(combatRound(6));
-	        tso.doBuyTransaction(cost, "full heal", TX_BUYING_SERVICE);
+                tso.doBuyTransaction(cost, "full heal", TX_BUYING_SERVICE);
           break;
         case 2:
           ch->setMana(ch->manaLimit());
@@ -754,7 +754,7 @@ int emergency_room(TBeing *ch, cmdTypeT cmd, const char *arg, TRoom *rp)
 
           // this was added due to fighting in/near the hospitals
           ch->addToWait(combatRound(6));
-	        tso.doBuyTransaction(cost, "full mana", TX_BUYING_SERVICE);
+                tso.doBuyTransaction(cost, "full mana", TX_BUYING_SERVICE);
           break;
         case 3:
           ch->setLifeforce(500);
@@ -763,7 +763,7 @@ int emergency_room(TBeing *ch, cmdTypeT cmd, const char *arg, TRoom *rp)
 
           // this was added due to fighting in/near the hospitals
           ch->addToWait(combatRound(6));
-	        tso.doBuyTransaction(cost, "full life force", TX_BUYING_SERVICE);
+                tso.doBuyTransaction(cost, "full life force", TX_BUYING_SERVICE);
           break;
         default:
           ch->sendTo("That's not available at THIS hospital!\n\r");

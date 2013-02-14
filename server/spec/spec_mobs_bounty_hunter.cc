@@ -37,32 +37,32 @@ static TObj * findHuntedItem(const TBeing *ch, const char *arg, const TObj *stop
   if (!targ)
     return NULL;
 
-  
+
   TObj *obj, *last;
   unsigned int i;
   std::map<int,int>vnums;
-  
+
   // scan the object index and make a list of vnums that match our keyword
   for (i = 0;i < obj_index.size();i++) {
     if(isname(arg, obj_index[i].name)){
       vnums[obj_index[i].virt]=1;
     }
   }
-  
+
   // now search for the vnums we cached
   last=NULL;
   for(TObjIter iter=object_list.begin();iter!=object_list.end();++iter){
     obj=*iter;
     if (vnums[obj->objVnum()]==1) {
       if (ch->canSee(obj))
-	if (!targ || !dynamic_cast<TBeing *>(obj->thingHolding()) || isname(targ, dynamic_cast<TBeing *>(obj->thingHolding())->name)) {
-	  last = obj;
-	}
+        if (!targ || !dynamic_cast<TBeing *>(obj->thingHolding()) || isname(targ, dynamic_cast<TBeing *>(obj->thingHolding())->name)) {
+          last = obj;
+        }
     }
     if (obj == stopper)  // we need not go further
       break;
   }
-  
+
   return last;
 }
 
@@ -85,7 +85,7 @@ static TObj * findHuntedItem(const TBeing *ch, const char *arg, const TObj *stop
     obj=*iter;
     if (vnums[obj->objVnum()]==1) {
       if (ch->canSee(obj))
-	last = obj;
+        last = obj;
     }
     if (obj == stopper)  // we need not go further
       break;
@@ -166,7 +166,7 @@ static void bountyPoof(TMonster *myself, int targ_rm)
   if (targ_rm == myself->inRoom())
     return;
 
-  act("$n fades almost unnoticed into the shadows.", 
+  act("$n fades almost unnoticed into the shadows.",
                      0, myself, 0, 0, TO_ROOM);
   --(*myself);
   thing_to_room(myself, targ_rm);
@@ -196,7 +196,7 @@ int bounty_hunter(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, T
     return FALSE;
   }
 
-  if (myself->act_ptr) 
+  if (myself->act_ptr)
     job = static_cast<bounty_hunt_struct *>(myself->act_ptr);
 
   //  vlogf(LOG_DASH, format("hunter being called - proc = %d, generic pulse? %s") %  cmd % (cmd==CMD_GENERIC_PULSE ? "yes" : "no"));
@@ -210,12 +210,12 @@ int bounty_hunter(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, T
       for (; *arg == ' '; arg++);
       if (myself->act_ptr) {
         job = static_cast<bounty_hunt_struct *>(myself->act_ptr);
-	if (job->hunted_item != NULL) {
+        if (job->hunted_item != NULL) {
           if (job->singletarg)
-	    temp_obj = findHuntedItem(myself, job->hunted_item, job->noneBeyond, job->hunted_victim);
-	  else
-	    temp_obj = findHuntedItem(myself, job->hunted_item, job->noneBeyond);
-	  
+            temp_obj = findHuntedItem(myself, job->hunted_item, job->noneBeyond, job->hunted_victim);
+          else
+            temp_obj = findHuntedItem(myself, job->hunted_item, job->noneBeyond);
+
           if (temp_obj && (ch == temp_obj->thingHolding())) {
             if (cmd == CMD_RENT) {
               myself->doSay("You're not getting away that easily.");
@@ -223,7 +223,7 @@ int bounty_hunter(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, T
               act("$n blocks $N from renting!", FALSE, myself, 0, ch, TO_NOTVICT);
               return TRUE;
             } else if (cmd == CMD_GIVE) {
-              if (((sscanf(arg, " %s %s", buf, buf2) == 2) && (isname(buf, temp_obj->name))) || 
+              if (((sscanf(arg, " %s %s", buf, buf2) == 2) && (isname(buf, temp_obj->name))) ||
                   ((sscanf(arg, " %s to %s", buf, buf2) == 2) && (isname(buf, temp_obj->name)))) {
                 if (isname(buf2, myself->name)) {
                   if (ch->doGive(arg) == DELETE_THIS)
@@ -232,14 +232,14 @@ int bounty_hunter(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, T
                   if (temp_obj->parent == myself) {
                     myself->doAction(fname(ch->name), CMD_SMILE);
                     myself->doSay("I'm glad you've come to your senses!  I would surely smite thee!");
-		    
+
                     myself->doSay("I will leave you alone now that I have my bounty. Goodbye!!");
-		    //                    return DELETE_THIS;
-		    // curious what they do if i take this line out, heh. - dash
-		    //if (job->singletarg) 
-		    //  job->missionaccomplished = true;
-		    
-		    return TRUE;
+                    //                    return DELETE_THIS;
+                    // curious what they do if i take this line out, heh. - dash
+                    //if (job->singletarg)
+                    //  job->missionaccomplished = true;
+
+                    return TRUE;
                   }
                 } else {
                   myself->doSay("I'll take that!");
@@ -252,7 +252,7 @@ int bounty_hunter(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, T
               // cmd == CMD_DROP
               sscanf(arg, " %s ", buf);
               if (isname(buf, temp_obj->name) &&
-		  searchLinkedListVis(ch, buf, ch->stuff)) {
+                  searchLinkedListVis(ch, buf, ch->stuff)) {
                 rc = ch->doDrop("", temp_obj);
                 if (IS_SET_DELETE(rc, DELETE_ITEM)) {
                   delete temp_obj;
@@ -273,18 +273,18 @@ int bounty_hunter(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, T
       return FALSE;
     } else if (((cmd == CMD_GROUP) || (cmd == CMD_FOLLOW)) && !ch->isImmortal()) {
       // need this, since mob follows pc, they might try and group it
-      if (!ch->name || !job || !job->hunted_victim || !isname(job->hunted_victim, ch->name)) 
-	return FALSE;
+      if (!ch->name || !job || !job->hunted_victim || !isname(job->hunted_victim, ch->name))
+        return FALSE;
       myself->doAction(ch->name, CMD_GROWL);
       myself->doSay("No one is grouping here, scum.");
       return TRUE;
     } else if (cmd == CMD_FLEE && ch != myself) {
-      vlogf(LOG_DASH, format("hunter flee ch->name: %s, job->vict: %s, isname? %s") %  
-	    (ch->name ? ch->name : "NULL") % 
-	    (job && job->hunted_victim ? job->hunted_victim : "NULL") %
-	    (job && job->hunted_victim && ch->name && isname(job->hunted_victim, ch->name) ? "yes" : "no"));
-      if (!ch->name || !job || !job->hunted_victim || 
-	  !isname(job->hunted_victim, ch->name))
+      vlogf(LOG_DASH, format("hunter flee ch->name: %s, job->vict: %s, isname? %s") %
+            (ch->name ? ch->name : "NULL") %
+            (job && job->hunted_victim ? job->hunted_victim : "NULL") %
+            (job && job->hunted_victim && ch->name && isname(job->hunted_victim, ch->name) ? "yes" : "no"));
+      if (!ch->name || !job || !job->hunted_victim ||
+          !isname(job->hunted_victim, ch->name))
         return FALSE;
       ch->addToMove(-15);
       job = static_cast<bounty_hunt_struct *>(myself->act_ptr);
@@ -308,20 +308,20 @@ int bounty_hunter(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, T
 
       job = static_cast<bounty_hunt_struct *>(myself->act_ptr);
       if (job) {
-	job->num_chances--;
+        job->num_chances--;
       }
       return FALSE;
 
-    } else if (((cmd == CMD_SAY) || (cmd == CMD_SAY2)) && 
-	       (!ch || ch->isImmortal())) {
+    } else if (((cmd == CMD_SAY) || (cmd == CMD_SAY2)) &&
+               (!ch || ch->isImmortal())) {
       if (!arg)
         return FALSE;
       for (; *arg == ' '; arg++);
-      
+
       // this !ch case is whenit gets set automatically
       if (strncasecmp(arg, HUNTER_ID, strlen(HUNTER_ID)))
         return FALSE;
-      
+
       arg += strlen(HUNTER_ID);
       job = (bounty_hunt_struct *) myself->act_ptr;
       if (!strncasecmp(arg, " status", 7)) {
@@ -348,23 +348,23 @@ int bounty_hunter(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, T
           }
         } else
           sprintf(buf2, "$n whispers 'Master $N, I am currently idle with memory allocated.'");
-	
+
         act(buf2, FALSE, myself, 0, ch, TO_VICT);
         if (job->num_chances >= -99 && job->num_chances <= -96)
           act("$n whispers 'I am showing no mercy.'", FALSE, myself, 0, ch, TO_VICT);
         else
           act("$n whispers 'I am showing mercy.  Do I *have* to?'", FALSE, myself, 0, ch, TO_VICT);
-	
-	if (job->singletarg) {
-	  if(job->missionaccomplished)
-	    act("$n whispers 'I was hunting a single target and my mission is complete.'", FALSE, myself, 0, ch, TO_VICT);
-	  else
-	    act("$n whispers 'I am hunting a single target and my mission is incomplete.'", FALSE, myself, 0, ch, TO_VICT);
-	}
-	
+
+        if (job->singletarg) {
+          if(job->missionaccomplished)
+            act("$n whispers 'I was hunting a single target and my mission is complete.'", FALSE, myself, 0, ch, TO_VICT);
+          else
+            act("$n whispers 'I am hunting a single target and my mission is incomplete.'", FALSE, myself, 0, ch, TO_VICT);
+        }
+
         sprintf(buf2, "$n whispers 'Master $N, I am using room %d as my base of operations.'", myself->oldRoom);
         act(buf2, FALSE, myself, 0, ch, TO_VICT);
-	
+
         return TRUE;
       }
       // below here is kill and repo commands, both need to alloc if needed
@@ -391,17 +391,17 @@ int bounty_hunter(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, T
       if (sscanf(arg, " repo %s from %s", buf, buf3) == 2) {
         if (strlen(buf3) > 79 || strlen(buf) > 79)
           return TRUE;
-	
+
         sprintf(buf2, "$n whispers 'Master $N, I will now reposess a single %s from %s.'", buf, buf3);
         if (ch)
           act(buf2, FALSE, myself, 0, ch, TO_VICT);
 
-	vlogf(LOG_PROC, format("REPO: repo mob (%s) being sent after %s on %s by %s.") %  myself->getName() % buf % buf3 % (ch ? ch->getName() : "the code"));
+        vlogf(LOG_PROC, format("REPO: repo mob (%s) being sent after %s on %s by %s.") %  myself->getName() % buf % buf3 % (ch ? ch->getName() : "the code"));
 
         job->reset();
         job->hunted_item = mud_str_dup(buf);
-	job->hunted_victim = mud_str_dup(buf3);
-	job->singletarg = true;
+        job->hunted_victim = mud_str_dup(buf3);
+        job->singletarg = true;
         if (job->num_chances < -99 || job->num_chances > -96)
           job->num_chances = 27;
         if (!ch && (myself->specials.act &  ACT_AGGRESSIVE)) {
@@ -466,15 +466,15 @@ int bounty_hunter(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, T
     myself->spec = 0;
 
     vlogf(LOG_PROC, format("REPO: %s finished repoing  %s of %s, deactivating.") %  myself->getName() %
-	  job->hunted_victim % job->hunted_item);
+          job->hunted_victim % job->hunted_item);
     delete job;
     return TRUE;
   }
 
 
   //  vlogf(LOG_DASH, format("Bounty hunter %s, generic pulse, item = %s, victim = %s, singletarg = %s.") %  myself->getName() %
-  //	(job->hunted_item ? job->hunted_item : "NULL") % (job->hunted_victim ? job->hunted_victim : "NULL") %
-  //	(job->singletarg ? "TRUE" : "FALSE"));
+  //        (job->hunted_item ? job->hunted_item : "NULL") % (job->hunted_victim ? job->hunted_victim : "NULL") %
+  //        (job->singletarg ? "TRUE" : "FALSE"));
   if (job->hunted_item) {
     if (job->singletarg)
       temp_obj = findHuntedItem(myself, job->hunted_item, job->noneBeyond, job->hunted_victim);
@@ -496,7 +496,7 @@ int bounty_hunter(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, T
       if (myself->fight())
         return FALSE;
       if (!job->singletarg || job->missionaccomplished)
-	job->hunted_victim = NULL;
+        job->hunted_victim = NULL;
 #if 0
 // the canSee check in findHuntedItem makes this flawed
 // we are able to walk entire list fairly fast, so this is not heavily needed
@@ -517,14 +517,14 @@ int bounty_hunter(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, T
       }
 
       if (myself->oldRoom == myself->inRoom() && job->missionaccomplished) {
-	myself->spec = 0;
+        myself->spec = 0;
 
-	vlogf(LOG_PROC, format("REPO: %s finished repoing  %s of %s, deactivating.") %  myself->getName() %
-	      (job->hunted_victim ? job->hunted_victim : "NULL") %
-	      (job->hunted_item   ? job->hunted_item : "NULL"));
-	delete job;
+        vlogf(LOG_PROC, format("REPO: %s finished repoing  %s of %s, deactivating.") %  myself->getName() %
+              (job->hunted_victim ? job->hunted_victim : "NULL") %
+              (job->hunted_item   ? job->hunted_item : "NULL"));
+        delete job;
       }
-      
+
     }
 #if 0
 // the canSee check in findHuntedItem makes this flawed
@@ -537,13 +537,13 @@ int bounty_hunter(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, T
     if (targ) {
 
       if (!job->last_targ || strcmp(targ->getName(), job->last_targ)) {
-	// we switched targets or something
-	vlogf(LOG_PROC, format("REPO: hunter %s switched targets from %s to %s, reseting chances.") % myself->getName() % 
-	      (job->last_targ ? job->last_targ : "NULL") % 
-	      (targ->getName() ? targ->getName() : "NULL"));
-	//	strcpy(job->last_targ, targ->getName());
-	job->last_targ = mud_str_dup(targ->getName());
-	
+        // we switched targets or something
+        vlogf(LOG_PROC, format("REPO: hunter %s switched targets from %s to %s, reseting chances.") % myself->getName() %
+              (job->last_targ ? job->last_targ : "NULL") %
+              (targ->getName() ? targ->getName() : "NULL"));
+        //        strcpy(job->last_targ, targ->getName());
+        job->last_targ = mud_str_dup(targ->getName());
+
         if (job->num_chances < -99 || job->num_chances > -96)
           job->num_chances = 27;
         else
@@ -557,8 +557,8 @@ int bounty_hunter(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, T
         // If I am not fighting who has the item, don't get sidetracked
         if (tmpch != targ) {
           act("$n has no time for this right now.", false, myself, 0, 0, TO_ROOM);
-	  tmpch->stopFighting();
-	  myself->stopFighting();
+          tmpch->stopFighting();
+          myself->stopFighting();
           TThing *toto=NULL;
           // stop all fights
 
@@ -592,7 +592,7 @@ int bounty_hunter(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, T
           job->hunted_victim = NULL;
         } else {
           act("$n appears pleased.", FALSE, myself, NULL, targ, TO_ROOM);
-          vlogf(LOG_PROC, format("REPO: Bounty apparently repo'd %s (%d)") % 
+          vlogf(LOG_PROC, format("REPO: Bounty apparently repo'd %s (%d)") %
                 temp_obj->getName() % temp_obj->objVnum());
         }
         delete temp_obj;
@@ -610,10 +610,10 @@ int bounty_hunter(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, T
           job->num_chances = -99;
 
         cleanUpHunter(myself);
-	if (job->singletarg) {
-	  vlogf(LOG_PROC, format("REPO: hunter %s mission complete.") %  myself->getName());
-	  job->missionaccomplished = true;
-	}
+        if (job->singletarg) {
+          vlogf(LOG_PROC, format("REPO: hunter %s mission complete.") %  myself->getName());
+          job->missionaccomplished = true;
+        }
         return TRUE;
       }
       if (job->hunted_victim && !job->singletarg) {
@@ -649,11 +649,11 @@ int bounty_hunter(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, T
       // item is in a linkdead bag
       // mob will wind up in CS due to teleporter which is sort of bad
       if (temp_obj->parent)
-        vlogf(LOG_PROC, format("REPO: Bounty getting %s (%d) from %s (storage)") % 
-             temp_obj->getName() % temp_obj->objVnum() % 
+        vlogf(LOG_PROC, format("REPO: Bounty getting %s (%d) from %s (storage)") %
+             temp_obj->getName() % temp_obj->objVnum() %
              temp_obj->parent->getName());
       else
-        vlogf(LOG_PROC, format("REPO: Bounty getting %s (%d) from (storage)") % 
+        vlogf(LOG_PROC, format("REPO: Bounty getting %s (%d) from (storage)") %
              temp_obj->getName() % temp_obj->objVnum());
       (*temp_obj)--;
       *myself += *temp_obj;
@@ -665,7 +665,7 @@ int bounty_hunter(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, T
           if (aff->type == SKILL_CONCEALMENT) {
             if (::number(1,150) < aff->modifier) {
               myself->sendTo(format("%s##You have lost the trail.%s\n\r") % myself->orange() % myself->norm());
-   
+
               if (aff->be == targ) {
                 act("You have successfully concealed your path from $N.",
                           FALSE, targ, 0, myself, TO_CHAR);
@@ -686,8 +686,8 @@ int bounty_hunter(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, T
       dir=path.findPath(myself->in_room, findRoom(room));
 
       if (dir == DIR_NONE) {
-        // unable to find a path 
-        // look for a place nearby to pop into 
+        // unable to find a path
+        // look for a place nearby to pop into
 
         TRoom *rp, *rp2;
         if (!(rp = real_roomp(room)))
@@ -707,9 +707,9 @@ int bounty_hunter(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, T
         }
         if (dir >= MAX_DIR)
           beam_in_room = room;
-        
+
         if (beam_in_room > 0 && myself->roomp->roomIsEmpty(TRUE)) {
-          act("$n looks about for clues of passage, as if tracking someone.", 
+          act("$n looks about for clues of passage, as if tracking someone.",
                      0, myself, 0, 0, TO_ROOM);
           bountyPoof(myself, beam_in_room);
         } else if (room > 0) {
@@ -746,10 +746,10 @@ int bounty_hunter(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, T
         switch (job->num_chances) {
           case -99:
             myself->doAction(targ->name, CMD_POKE);
-            sprintf(buf, "I'll only ask this once, %s, hand over %s.", 
+            sprintf(buf, "I'll only ask this once, %s, hand over %s.",
                  targ->getName(), temp_obj->getName());
             myself->doSay(buf);
-	    vlogf(LOG_PROC, format("REPO: hunter %s gave no-mercy repo ultimatium to %s for %s") %  myself->getName() % targ->getName() % temp_obj->getName());
+            vlogf(LOG_PROC, format("REPO: hunter %s gave no-mercy repo ultimatium to %s for %s") %  myself->getName() % targ->getName() % temp_obj->getName());
             myself->doSay("If you do not give the item to me, I will kill you and take it myself.");
             if (!targ->isPc())
               targ->doSay("Buzz off, creep.");
@@ -759,10 +759,10 @@ int bounty_hunter(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, T
             break;
           case 27:
             myself->doAction(targ->name, CMD_POKE);
-            sprintf(buf, "That's a pretty nice %s you have there, %s.", 
+            sprintf(buf, "That's a pretty nice %s you have there, %s.",
                  fname(temp_obj->name).c_str(), targ->getName());
             myself->doSay(buf);
-	    vlogf(LOG_PROC, format("REPO: hunter %s gave first repo warning to %s for %s") %  myself->getName() % targ->getName() % temp_obj->getName());
+            vlogf(LOG_PROC, format("REPO: hunter %s gave first repo warning to %s for %s") %  myself->getName() % targ->getName() % temp_obj->getName());
 
             myself->doSay("If you do not give the item to me, I will kill you and take it myself.");
             if (!targ->isPc())
@@ -805,7 +805,7 @@ int bounty_hunter(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, T
             break;
           case 9:
             myself->doAction(targ->name, CMD_POKE);
-            sprintf(buf, "This is your *LAST* warning.  Give me %s or DIE!", 
+            sprintf(buf, "This is your *LAST* warning.  Give me %s or DIE!",
                 temp_obj->getName());
             myself->doSay(buf);
             vlogf(LOG_PROC, format("REPO: hunter %s gave third and final repo warning to %s for %s") %  myself->getName() % targ->getName() % temp_obj->getName());
@@ -827,14 +827,14 @@ int bounty_hunter(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, T
             else if (temp_obj->equippedBy)
               targ->unequip(temp_obj->eq_pos);
 
-            *myself += *temp_obj; 
+            *myself += *temp_obj;
             break;
           case 0:
           default: {
             job->warned = TRUE;
             TMonster * tmtarg = dynamic_cast<TMonster *>(targ);
             if (tmtarg) {
-	      vlogf(LOG_PROC, format("REPO: hunter %s doing monster repo to %s for %s") %  myself->getName() % targ->getName() % temp_obj->getName());
+              vlogf(LOG_PROC, format("REPO: hunter %s doing monster repo to %s for %s") %  myself->getName() % targ->getName() % temp_obj->getName());
               act("$n puts $N in a sleeper hold.", FALSE, myself, NULL, targ, TO_ROOM);
               sprintf(buf, "$n quickly surrenders $p.");
               act(buf, FALSE, targ, temp_obj, targ, TO_ROOM);
@@ -851,23 +851,23 @@ int bounty_hunter(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, T
               // if repo'd from a shopkeeper, make sure we save this fact
               if (shop_nr < shop_index.size()) {
                 tmtarg->saveItems(shop_nr);
-		            shoplog(shop_nr, myself, dynamic_cast<TMonster *>(targ), temp_obj->getName(), 0, "repoing");
+                            shoplog(shop_nr, myself, dynamic_cast<TMonster *>(targ), temp_obj->getName(), 0, "repoing");
               }
 
             } else if (targ->isLinkdead()) {
-	      vlogf(LOG_PROC, format("REPO: hunter %s doing linkdead repo to %s for %s") %  myself->getName() % targ->getName() % temp_obj->getName());
+              vlogf(LOG_PROC, format("REPO: hunter %s doing linkdead repo to %s for %s") %  myself->getName() % targ->getName() % temp_obj->getName());
               act("$n gets something from a linkdead player and laughs evilly.",
                    FALSE, myself, NULL, targ, TO_ROOM);
               if (temp_obj->parent)
                 --(*temp_obj);
               else if (temp_obj->equippedBy)
                 targ->unequip(temp_obj->eq_pos);
-	      
-              *myself += *temp_obj; 
+
+              *myself += *temp_obj;
             } else if (targ->getTimer() >= 2 || (targ->desc && (targ->isPlayerAction(PLR_AFK)))) {
               sprintf(buf, "%s, I see you are unresponsive.", targ->getName());
               myself->doSay(buf);
-	      vlogf(LOG_PROC, format("REPO: hunter %s doing afk repo to %s for %s") %  myself->getName() % targ->getName() % temp_obj->getName());
+              vlogf(LOG_PROC, format("REPO: hunter %s doing afk repo to %s for %s") %  myself->getName() % targ->getName() % temp_obj->getName());
               myself->doSay("I'll just relieve you of this burden and be on my way.");
               act("$n gets $o from $N.",
                    FALSE, myself, temp_obj, targ, TO_NOTVICT);
@@ -878,16 +878,16 @@ int bounty_hunter(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, T
                 --(*temp_obj);
               else if (temp_obj->equippedBy)
                 targ->unequip(temp_obj->eq_pos);
-              *myself += *temp_obj; 
+              *myself += *temp_obj;
             } else if (targ->GetMaxLevel() <= 10) {
-	      sprintf(buf, "%s, I would kill you now, but you are so weak I really wont bother.", targ->getName());
+              sprintf(buf, "%s, I would kill you now, but you are so weak I really wont bother.", targ->getName());
               myself->doSay(buf);
               vlogf(LOG_PROC, format("REPO: hunter %s doing lowbie repo to %s for %s") %  myself->getName() % targ->getName() % temp_obj->getName());
               myself->doSay("I'll just relieve you of this burden and be on my way.");
               act("$n gets $o from $N.",
-		  FALSE, myself, temp_obj, targ, TO_NOTVICT);
+                  FALSE, myself, temp_obj, targ, TO_NOTVICT);
               act("$n gets $o from you.",
-		  FALSE, myself, temp_obj, targ, TO_VICT);
+                  FALSE, myself, temp_obj, targ, TO_VICT);
 
               if (temp_obj->parent)
                 --(*temp_obj);
@@ -895,49 +895,49 @@ int bounty_hunter(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, T
                 targ->unequip(temp_obj->eq_pos);
               *myself += *temp_obj;
 
-	    } else {
+            } else {
               if (myself->checkPeaceful("")) {
                 if (::number(0, 7)) {
-		  if (!::number(0,3)) {
-		    sprintf(buf, "%s, you can't stay here forever. I want %s!\n\r", targ->getName(), temp_obj->getName());
-		    myself->doSay(buf);
-		  }
+                  if (!::number(0,3)) {
+                    sprintf(buf, "%s, you can't stay here forever. I want %s!\n\r", targ->getName(), temp_obj->getName());
+                    myself->doSay(buf);
+                  }
                 } else {
                   sprintf(buf, "I've waited long enough, %s.  I want %s!\n\r", targ->getName(), temp_obj->getName());
                   myself->doSay(buf);
-		  int loopcount=0;
-		  while (myself->checkPeaceful("") && loopcount <10) {
-		    loopcount++;
-		    vlogf(LOG_PROC, format("REPO: hunter %s kicking %s out of a noheal room while getting  %s") %  myself->getName() % targ->getName() % temp_obj->getName());
-		    for (dir = MIN_DIR; dir < MAX_DIR; dir++) {
-		      if (exit_ok(exitp = myself->exitDir(dir), NULL)) {
-			myself->throwChar(targ, dir, FALSE, SILENT_NO, true);
-			
-			// verify throw succeeded
-			if (!myself->sameRoom(*targ)) {
-			  rc = myself->goDirection(dir);
-			  if (IS_SET_DELETE(rc, DELETE_THIS))
-			    return DELETE_THIS;
-			  
-			  rc = warCry(myself, targ, temp_obj);
-			  if (rc == DELETE_VICT) {
-			    delete targ;
-			    targ = NULL;
-			  } else if (rc == DELETE_THIS) 
-			    return DELETE_THIS;
-			  
-			  return TRUE;
-			}
-		      }
-		    }
-		  }
+                  int loopcount=0;
+                  while (myself->checkPeaceful("") && loopcount <10) {
+                    loopcount++;
+                    vlogf(LOG_PROC, format("REPO: hunter %s kicking %s out of a noheal room while getting  %s") %  myself->getName() % targ->getName() % temp_obj->getName());
+                    for (dir = MIN_DIR; dir < MAX_DIR; dir++) {
+                      if (exit_ok(exitp = myself->exitDir(dir), NULL)) {
+                        myself->throwChar(targ, dir, FALSE, SILENT_NO, true);
+
+                        // verify throw succeeded
+                        if (!myself->sameRoom(*targ)) {
+                          rc = myself->goDirection(dir);
+                          if (IS_SET_DELETE(rc, DELETE_THIS))
+                            return DELETE_THIS;
+
+                          rc = warCry(myself, targ, temp_obj);
+                          if (rc == DELETE_VICT) {
+                            delete targ;
+                            targ = NULL;
+                          } else if (rc == DELETE_THIS)
+                            return DELETE_THIS;
+
+                          return TRUE;
+                        }
+                      }
+                    }
+                  }
                 }
               } else {
                 rc = warCry(myself, targ, temp_obj);
                 if (rc == DELETE_VICT) {
                   delete targ;
                   targ = NULL;
-                } else if (rc == DELETE_THIS) 
+                } else if (rc == DELETE_THIS)
                   return DELETE_THIS;
               }
             }
@@ -945,18 +945,18 @@ int bounty_hunter(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, T
           }  // default case
         }
       } else if (temp_obj->parent) {
-        vlogf(LOG_PROC, format("REPO: %s repo'd %s %d from %s") % 
-             myself->getName() % temp_obj->getName() % temp_obj->objVnum() % 
+        vlogf(LOG_PROC, format("REPO: %s repo'd %s %d from %s") %
+             myself->getName() % temp_obj->getName() % temp_obj->objVnum() %
              temp_obj->parent->getName());
         --(*temp_obj);
-        *myself += *temp_obj; 
+        *myself += *temp_obj;
         act("$n picks up something quickly.", FALSE, myself, NULL, 0, TO_ROOM);
       } else if (temp_obj->in_room != Room::NOWHERE) {
         --(*temp_obj);
         *myself += *temp_obj;
         act("$n picks up something quickly.", FALSE, myself, NULL, 0, TO_ROOM);
-        vlogf(LOG_PROC, format("REPO: %s repo'd %s %d from room %s") % 
-             myself->getName() % temp_obj->getName() % temp_obj->objVnum() % 
+        vlogf(LOG_PROC, format("REPO: %s repo'd %s %d from room %s") %
+             myself->getName() % temp_obj->getName() % temp_obj->objVnum() %
              myself->roomp->getName());
       } else {
         vlogf(LOG_PROC, format("REPO: Bounty hunter stuck looking for disconnected %s.") %  job->hunted_item);
@@ -984,22 +984,22 @@ int bounty_hunter(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, T
           myself->doSay("I've been hired to kill you, but I'll be nice and give you a chance to log off first.");
           myself->doSay("I suggest you comply.");
         case 26:
-	case 25:
-	case 24:
-	case 23:
-	case 22:
-	case 21:
-	case 20:
-	case 19:
-	case 17:
-	case 16:
-	case 15:
-	case 14:
-	case 13:
-	case 12:
-	case 11:
-	case 10:
-	case 8:
+        case 25:
+        case 24:
+        case 23:
+        case 22:
+        case 21:
+        case 20:
+        case 19:
+        case 17:
+        case 16:
+        case 15:
+        case 14:
+        case 13:
+        case 12:
+        case 11:
+        case 10:
+        case 8:
         case 7:
         case 5:
         case 4:
@@ -1043,7 +1043,7 @@ int bounty_hunter(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, T
 
 // this is a bit of level control, 9/01 - dash
 void repoCheckForRent(TBeing *ch, TObj *obj, bool corpse) {
-  
+
   // apparently players don't like repo?? disable
   return;
 
@@ -1063,14 +1063,14 @@ void repoCheckForRent(TBeing *ch, TObj *obj, bool corpse) {
     buffer = 10;
 
   objectLevel = (int) (obj->objLevel() + 0.5);
-  int dif = objectLevel - ch->GetMaxLevel(); 
+  int dif = objectLevel - ch->GetMaxLevel();
 
   if (dif > buffer) {
     // 1:500 chance for 10 lev lim diff, 1/20 chance for 50 lev lim diff
     if (((100*dif)/buffer) > ::number(0, 5000)) {
       // well this is the meat of it.. now we need to randomly pick a mob roughly the level of the
       // object and send him after.
-      
+
       int minlev, maxlev;
       int huntergroup = ( objectLevel / 10 ) + 1;
       int nummobs;
@@ -1079,57 +1079,57 @@ void repoCheckForRent(TBeing *ch, TObj *obj, bool corpse) {
       maxlev = huntergroup * 10 + 10;
 
       switch (huntergroup) {
-	case 0:
-	  // shouldn't happen, but just to be safe;
-	  nummobs = stats.act_1_5 + stats.act_6_10;
-	  break;
-	case 1:
-	  nummobs = stats.act_11_15 + stats.act_16_20;
-	  break;
-	case 2:
-	  nummobs = stats.act_21_25 + stats.act_26_30;
-	  break;
-	case 3:
-	  nummobs = stats.act_31_40;
-	  break;
-	case 4:
-	  nummobs = stats.act_41_50;
-	  break;
-	default:
-	  nummobs = stats.act_51_60;
-	  break;
+        case 0:
+          // shouldn't happen, but just to be safe;
+          nummobs = stats.act_1_5 + stats.act_6_10;
+          break;
+        case 1:
+          nummobs = stats.act_11_15 + stats.act_16_20;
+          break;
+        case 2:
+          nummobs = stats.act_21_25 + stats.act_26_30;
+          break;
+        case 3:
+          nummobs = stats.act_31_40;
+          break;
+        case 4:
+          nummobs = stats.act_41_50;
+          break;
+        default:
+          nummobs = stats.act_51_60;
+          break;
       }
-      
+
       for (i = character_list; i; i = i->next) {
-	if (i->GetMaxLevel() <= maxlev && i->GetMaxLevel() >= minlev && !::number(0, nummobs)
-	    && (mob = dynamic_cast<TMonster *>(i))) {
-	  if (i->roomp->isRoomFlag(ROOM_NO_HEAL) || i->isImmortal() || i->spec != 0 || !(i->canSpeak())) {
-	    continue;
-	  }
-	  // code to set up the repo mob here
-	  char buf[160],buf2[160], buf3[160];
-	  strcpy(buf,obj->name);
-	  strcpy(buf, add_bars(buf).c_str());
-	  strcpy(buf3,ch->name);
-	  strcpy(buf3, add_bars(buf3).c_str());
-	  sprintf(buf2,"Hunter, repo %s from %s",buf,buf3);
-	  vlogf(LOG_PROC,format("REPO: %s rent-repoing: '%s' from %s : plev: %d, olev: %d.") % 
-		i->getName() % buf % ch->getName() % ch->GetMaxLevel() % objectLevel);
-	  i->spec = SPEC_BOUNTY_HUNTER;
-	  bounty_hunter(NULL, CMD_SAY, buf2, mob, NULL);
-	  break;
-	} else {
-	  continue;
-	}
+        if (i->GetMaxLevel() <= maxlev && i->GetMaxLevel() >= minlev && !::number(0, nummobs)
+            && (mob = dynamic_cast<TMonster *>(i))) {
+          if (i->roomp->isRoomFlag(ROOM_NO_HEAL) || i->isImmortal() || i->spec != 0 || !(i->canSpeak())) {
+            continue;
+          }
+          // code to set up the repo mob here
+          char buf[160],buf2[160], buf3[160];
+          strcpy(buf,obj->name);
+          strcpy(buf, add_bars(buf).c_str());
+          strcpy(buf3,ch->name);
+          strcpy(buf3, add_bars(buf3).c_str());
+          sprintf(buf2,"Hunter, repo %s from %s",buf,buf3);
+          vlogf(LOG_PROC,format("REPO: %s rent-repoing: '%s' from %s : plev: %d, olev: %d.") %
+                i->getName() % buf % ch->getName() % ch->GetMaxLevel() % objectLevel);
+          i->spec = SPEC_BOUNTY_HUNTER;
+          bounty_hunter(NULL, CMD_SAY, buf2, mob, NULL);
+          break;
+        } else {
+          continue;
+        }
       }
     }
   }
   return;
 }
-	  
-      
-    
-  
+
+
+
+
 
 void repoCheck(TMonster *mob, int rnum)
 {
@@ -1137,28 +1137,28 @@ void repoCheck(TMonster *mob, int rnum)
     char buf[160],buf2[160];
     int cur_num = obj_index[rnum].getNumber();
     int max_num = obj_index[rnum].max_exist;
-    
+
     // Bounty's just cause massive griping - bat 2/23/97
     // keep it in, but at low low frequency - brut 2/27/97
     if ((cur_num >= max_num) &&
-	!::number(0, ((cur_num > max_num) ? 10 : 100))) {
+        !::number(0, ((cur_num > max_num) ? 10 : 100))) {
       // reduce hunter chance on artifacts
       if (::number(1,5) <= cur_num) {
-	strcpy(buf,obj_index[rnum].name);
-	strcpy(buf, add_bars(buf).c_str());
-	sprintf(buf2,"Hunter, repo %s",buf);
-	vlogf(LOG_PROC,format("REPO: %s auto-hunting: '%s' : cur:%d, max:%d.") % 
-	      mob->getName() %buf % cur_num % max_num);
-	mob->spec = SPEC_BOUNTY_HUNTER;
-	bounty_hunter(NULL, CMD_SAY, buf2, mob, NULL);
-	
-	if(Config::SuperRepoMobs()){
-	  // make supertough to enforce max-exist rules
-	  if (cur_num > max_num) {
-	    mob->setMaxHit(5*mob->hitLimit());
-	    mob->setHit(mob->hitLimit());
-	  }
-	}
+        strcpy(buf,obj_index[rnum].name);
+        strcpy(buf, add_bars(buf).c_str());
+        sprintf(buf2,"Hunter, repo %s",buf);
+        vlogf(LOG_PROC,format("REPO: %s auto-hunting: '%s' : cur:%d, max:%d.") %
+              mob->getName() %buf % cur_num % max_num);
+        mob->spec = SPEC_BOUNTY_HUNTER;
+        bounty_hunter(NULL, CMD_SAY, buf2, mob, NULL);
+
+        if(Config::SuperRepoMobs()){
+          // make supertough to enforce max-exist rules
+          if (cur_num > max_num) {
+            mob->setMaxHit(5*mob->hitLimit());
+            mob->setHit(mob->hitLimit());
+          }
+        }
       }
     }
   }

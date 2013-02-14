@@ -2,8 +2,8 @@
 //
 //      SneezyMUD - All rights reserved, SneezyMUD Coding Team
 //      "blackjack.c" - All functions and routines related to blackjack
-//      
-//      The blackjack table coded by Russ Russell, January 1993, 
+//
+//      The blackjack table coded by Russ Russell, January 1993,
 //      Changed to c++ October 1994
 //      Last revision, October 13th, 1994.
 //
@@ -153,7 +153,7 @@ void BjGame::Bet(TBeing *ch, const char *arg)
 
 
     if (((CARD_NUM(hand[0]) == 1) && (CARD_NUM(hand[1]) >= 10)) ||
-	((CARD_NUM(hand[1]) == 1) && (CARD_NUM(hand[0]) >= 10))) {
+        ((CARD_NUM(hand[1]) == 1) && (CARD_NUM(hand[0]) >= 10))) {
       ch->sendTo("You get a blackjack!\n\r");
       act("$n gets a blackjack!", TRUE, ch, 0, 0, TO_ROOM);
       payout(ch, (int) (bet * 2.5));
@@ -161,7 +161,7 @@ void BjGame::Bet(TBeing *ch, const char *arg)
       observerReaction(ch, GAMBLER_WON);
     }
     if (((CARD_NUM(dealer[0]) == 1) && (CARD_NUM(dealer[1]) >= 10)) ||
-	((CARD_NUM(dealer[1]) == 1) && (CARD_NUM(dealer[0]) >= 10))) {
+        ((CARD_NUM(dealer[1]) == 1) && (CARD_NUM(dealer[0]) >= 10))) {
       ch->sendTo("The dealer gets a blackjack!\n\r");
       act("The dealer gets a blackjack!", TRUE, ch, 0, 0, TO_ROOM);
       bet = 0;
@@ -192,7 +192,7 @@ void TBeing::doStay()
       sendTo("You are not sitting at the table yet.\n\r");
       return;
     }
-    
+
     if(!gHiLo.check_for_bet()) {
       sendTo("You are not playing a game.\n\r");
       return;
@@ -203,7 +203,7 @@ void TBeing::doStay()
       sendTo("You are not sitting at the table yet.\n\r");
       return;
     }
-    
+
     if(!gPoker.check_for_bet()) {
       sendTo("You are not playing a game.\n\r");
       return;
@@ -214,12 +214,12 @@ void TBeing::doStay()
       sendTo("You are not sitting at the table yet.\n\r");
       return;
     }
-    
+
     if(!gBaccarat.check_for_bet()) {
       sendTo("You are not playing a game.\n\r");
       return;
     }
-    gBaccarat.stay(this);    
+    gBaccarat.stay(this);
   } else
     sendTo("So you think you are in a casino?\n\r");
 }
@@ -229,7 +229,7 @@ void BjGame::stay(TBeing *ch)
   int pbest, dbest, player;
   char log_msg[2048];
 
-  sprintf(log_msg, "The dealer flips up his down card:\n\r%s\n\r", 
+  sprintf(log_msg, "The dealer flips up his down card:\n\r%s\n\r",
       pretty_card_printout(ch, dealer[0]).c_str());
   ch->sendTo(COLOR_BASIC, log_msg);
   act(log_msg, TRUE, ch, 0, 0, TO_ROOM);

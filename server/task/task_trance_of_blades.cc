@@ -13,9 +13,9 @@ void stop_trance_of_blades(TBeing *ch)
 {
   if (ch->getPosition() >= POSITION_RESTING) {
     act("You suddenly snap out of your trance.",
-	FALSE, ch, 0, 0, TO_CHAR, ANSI_RED);
+        FALSE, ch, 0, 0, TO_CHAR, ANSI_RED);
     act("$n suddenly snaps out of $s trance.",
-	FALSE, ch, 0, 0, TO_ROOM);
+        FALSE, ch, 0, 0, TO_ROOM);
   }
   ch->stopTask();
 }
@@ -53,7 +53,7 @@ int task_trance_of_blades(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRo
       ch->addToWait(combatRound(2));
       ch->cantHit += ch->loseRound(1);
       return FALSE;
-    }   
+    }
     if (ch->getCombatMode() == ATTACK_BERSERK) {
       act("Berserking causes you to snap out of your trance.",
           FALSE, ch, 0, 0, TO_CHAR, ANSI_RED);
@@ -63,7 +63,7 @@ int task_trance_of_blades(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRo
       ch->addToWait(combatRound(2));
       ch->cantHit += ch->loseRound(1);
       return FALSE;
-    }   
+    }
     if (!ch->canUseArm(HAND_PRIMARY)) {
       act("Your injured arm causes you to snap out of your trance.",
           FALSE, ch, 0, 0, TO_CHAR);
@@ -76,13 +76,13 @@ int task_trance_of_blades(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRo
     }
     if (ch->getMove() < 30) {
       act("Your fatigue causes you to snap out of your trance.",
-	  FALSE, ch, 0, 0, TO_CHAR, ANSI_RED);
+          FALSE, ch, 0, 0, TO_CHAR, ANSI_RED);
       act("$n's fatigue causes $m to snap out of $s trance.",
-	  FALSE, ch, 0, 0, TO_ROOM);
+          FALSE, ch, 0, 0, TO_ROOM);
       ch->stopTask();
       ch->addToWait(combatRound(2));
       ch->cantHit += ch->loseRound(1);
-      return FALSE;      
+      return FALSE;
     }
     ch->addToMove(-10);
     chance = 150 - ch->getSkillValue(SKILL_TRANCE_OF_BLADES);
@@ -90,9 +90,9 @@ int task_trance_of_blades(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRo
     chance = (int)((float) chance * ch->plotStat(STAT_CURRENT, STAT_FOC, 1.25, 0.80, 1.00));
     if (chance > ::number(0,999)) {
       act("Your concentration has been lost, and you snap out of your defensive trance.",
-	  FALSE, ch, 0, 0, TO_CHAR, ANSI_YELLOW);
+          FALSE, ch, 0, 0, TO_CHAR, ANSI_YELLOW);
       act("$n loses $s concentration and snaps out of $s defensive trance.",
-	  FALSE, ch, 0, 0, TO_ROOM, ANSI_YELLOW);
+          FALSE, ch, 0, 0, TO_ROOM, ANSI_YELLOW);
       ch->stopTask();
       ch->addToWait(combatRound(2));
       ch->cantHit += ch->loseRound(1);
@@ -100,12 +100,12 @@ int task_trance_of_blades(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRo
     }
     if (!(::number(0,2)) || (ch->attackers))
       act("Your focus is good and you are able to maintain your defensive trance.",
-	  FALSE, ch, 0, 0, TO_CHAR);
+          FALSE, ch, 0, 0, TO_CHAR);
     return FALSE;
   case CMD_ABORT:
   case CMD_STOP:
     act("You slowly come out of your trance.",
-	FALSE, ch, o, 0, TO_CHAR);
+        FALSE, ch, o, 0, TO_CHAR);
     act("$n slowly comes out of $s trance.", FALSE, ch, o, 0, TO_ROOM);
     ch->stopTask();
     ch->addToWait(combatRound(2));

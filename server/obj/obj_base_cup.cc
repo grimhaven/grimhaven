@@ -19,7 +19,7 @@ TBaseCup::TBaseCup() :
   TObj(),
   maxDrinks(0),
   curDrinks(0),
-  liquidType(MIN_DRINK_TYPES), 
+  liquidType(MIN_DRINK_TYPES),
   drinkFlags(0)
 {
   updateDesc();
@@ -145,10 +145,10 @@ sstring TBaseCup::showModifier(showModeT tMode, const TBeing *tBeing) const
   sstring tString = TObj::showModifier(tMode, tBeing);
 
   if (!getDrinkUnits()){
-    tString += " (empty)";                                          
-  }                                                           
-                                                              
-  return tString;                                             
+    tString += " (empty)";
+  }
+
+  return tString;
 }
 
 
@@ -198,7 +198,7 @@ void TBaseCup::pourMeOut(TBeing *ch)
   }
   if(isDrinkConFlag(DRINK_FROZEN)){
     act("$p is frozen solid, you can't get it out.",
-	FALSE, ch, this, 0, TO_CHAR);
+        FALSE, ch, this, 0, TO_CHAR);
     return;
   }
 
@@ -212,10 +212,10 @@ void TBaseCup::pourMeOut(TBeing *ch)
 void TBaseCup::lowCheck()
 {
   if (getMaxDrinkUnits() < getDrinkUnits())
-    vlogf(LOG_LOW, format("drinkcon %s  maxdrinks < current drinks.") % 
+    vlogf(LOG_LOW, format("drinkcon %s  maxdrinks < current drinks.") %
          getName());
   if (isDrinkConFlag(DRINK_PERM) && canWear(ITEM_TAKE))
-    vlogf(LOG_LOW, format("drinkcon %s  takeable and permanent container.") % 
+    vlogf(LOG_LOW, format("drinkcon %s  takeable and permanent container.") %
          getName());
 
   TObj::lowCheck();
@@ -387,9 +387,9 @@ int TBaseCup::chiMe(TBeing *tLunatic)
 
   if(isDrinkConFlag(DRINK_FROZEN)){
     act("You focus your chi, causing $p to melt!",
-	FALSE, tLunatic, this, NULL, TO_CHAR);
+        FALSE, tLunatic, this, NULL, TO_CHAR);
     act("$n stares at $p, causing it to melt.",
-	TRUE, tLunatic, this, NULL, TO_ROOM);
+        TRUE, tLunatic, this, NULL, TO_ROOM);
     remDrinkConFlags(DRINK_FROZEN);
     return true;
   }
@@ -414,7 +414,7 @@ void TBaseCup::updateDesc()
   // get og desc
   // replace all $l
   // if $l found, set strung and move desc
-  
+
   newname=obj_index[getItemIndex()].name;
   short_desc=obj_index[getItemIndex()].short_desc;
   long_desc=obj_index[getItemIndex()].long_desc;
@@ -527,8 +527,8 @@ void TBaseCup::updateDesc()
       delete [] descr;
       extraDescription *exd;
       while ((exd = ex_description)) {
-	ex_description = exd->next;
-	delete exd;
+        ex_description = exd->next;
+        delete exd;
       }
       ex_description = NULL;
       delete [] action_description;

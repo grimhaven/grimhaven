@@ -243,7 +243,7 @@ public:
   void remTalent(unsigned int n);
 
   const Immunities & getImmunities() const;
-  
+
   int getBaseArmor() const; // gets the basic armor class of this race (usually 1000)
 
   int getGarbles() const; // gets the garbles which members of this race have by default
@@ -263,11 +263,11 @@ private:
   unsigned int cToggles;
 
   // Dimensions base + NumDice d DieSize
-  int baseAge;		int ageNumDice;		int ageDieSize;
-  int baseMaleHeight;	int maleHtNumDice;	int maleHtDieSize;
-  int baseMaleWeight;	int maleWtNumDice;	int maleWtDieSize;
-  int baseFemaleHeight;	int femaleHtNumDice;	int femaleHtDieSize;
-  int baseFemaleWeight;	int femaleWtNumDice;	int femaleWtDieSize;
+  int baseAge;                int ageNumDice;                int ageDieSize;
+  int baseMaleHeight;        int maleHtNumDice;        int maleHtDieSize;
+  int baseMaleWeight;        int maleWtNumDice;        int maleWtDieSize;
+  int baseFemaleHeight;        int femaleHtNumDice;        int femaleHtDieSize;
+  int baseFemaleWeight;        int femaleWtNumDice;        int femaleWtDieSize;
 
   // Point modifiers
   int hpMod;
@@ -305,7 +305,7 @@ private:
    public:
   // Dissection Information
   dissectInfo tDissectItem[2];
-}; 
+};
 
 extern Race *Races[MAX_RACIAL_TYPES];
 

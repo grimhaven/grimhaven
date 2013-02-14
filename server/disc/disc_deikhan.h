@@ -88,7 +88,7 @@ public:
     CSkill skHarmCriticalDeikhan;
 
     CSkill skRepairDeikhan;
-    
+
     CDDeikhan()
       : CDiscipline(),
       skKickDeikhan(),

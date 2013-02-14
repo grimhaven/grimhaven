@@ -32,7 +32,7 @@ charList::charList(const charList &a)
   iHateStrength = a.iHateStrength;
   account_id = a.account_id;
   player_id = a.player_id;
-  
+
   if (a.next)
     next = new charList(*a.next);
   else
@@ -47,7 +47,7 @@ charList & charList::operator=(const charList &a)
   iHateStrength = a.iHateStrength;
   account_id = a.account_id;
   player_id = a.player_id;
-  
+
   charList *c, *n;
   for (c = next; c; c = n) {
     n = c->next;
@@ -166,7 +166,7 @@ TMonster::TMonster() :
   opinion(),
   hates(),
   fears(),
-  persist(0), 
+  persist(0),
   oldRoom(Room::NOWHERE),
   brtRoom(Room::NOWHERE),
   hatefield(0),
@@ -188,7 +188,7 @@ TMonster::TMonster(const TMonster &a) :
   opinion(a.opinion),
   hates(a.hates),
   fears(a.fears),
-  persist(a.persist), 
+  persist(a.persist),
   oldRoom(a.oldRoom),
   brtRoom(a.brtRoom),
   hatefield(a.hatefield),
@@ -326,14 +326,14 @@ TMonster::~TMonster()
   }
   mobCount--;
 // Looking for bugs below--cos 8/98
-  if (getDescr() && getDescr() == mob_index[getMobIndex()].description) { 
+  if (getDescr() && getDescr() == mob_index[getMobIndex()].description) {
     vlogf(LOG_BUG, format("TMonster delete: after allocation, monster still had shared sstring (%s) : descr") %  getName());
     vlogf(LOG_BUG, format("New Alloc: %s: shared descr is: %s") %  (didAloc ? "True" : "False") % getDescr());
   }
-  if (name && name == mob_index[getMobIndex()].name) 
+  if (name && name == mob_index[getMobIndex()].name)
     vlogf(LOG_BUG, format("TMonster delete: after allocation, monster still had shared sstring (%s) : name") %  getName());
 
-  if (shortDescr && shortDescr == mob_index[getMobIndex()].short_desc) 
+  if (shortDescr && shortDescr == mob_index[getMobIndex()].short_desc)
     vlogf(LOG_BUG, format("TMonster delete: after allocation, monster still had shared sstring (%s) : short") %  getName());
 
   if (getLongDesc() && player.longDescr == mob_index[getMobIndex()].long_desc)
@@ -367,7 +367,7 @@ void TMonster::swapToStrung()
   if (specials.act & ACT_STRINGS_CHANGED)
     return;
 
-  // Set flags saying editted and point all sstrings to new stuff - Russ 
+  // Set flags saying editted and point all sstrings to new stuff - Russ
   specials.act |= ACT_STRINGS_CHANGED;
   name = mud_str_dup(mob_index[getMobIndex()].name);
   shortDescr = mud_str_dup(mob_index[getMobIndex()].short_desc);
@@ -400,7 +400,7 @@ int TMonster::calculateGoldFromConstant()
     unsigned int shop_nr;
 
     for (shop_nr = 0; (shop_nr < shop_index.size()) && (shop_index[shop_nr].keeper != this->number); shop_nr++);
-    
+
     if (shop_nr >= shop_index.size()) {
       vlogf(LOG_BUG, format("Warning... shop # for mobile %d (real nr) not found.") %  mob_index[this->number].virt);
       return FALSE;
@@ -408,7 +408,7 @@ int TMonster::calculateGoldFromConstant()
 
     TDatabase db(DB_SNEEZY);
     db.query("select gold from shopowned where shop_nr=%i", shop_nr);
-    
+
     if(db.fetchRow()){
       the_gold = convertTo<int>(db["gold"]);
     } else {
@@ -451,7 +451,7 @@ void TMonster::setHPFromHPLevel()
   amt += (int) (11 * getHPLevel());
   // extra boost for mobs above level 70
   if(getHPLevel()>70)
-    amt += (int) ( 11 * getHPLevel()  * 
+    amt += (int) ( 11 * getHPLevel()  *
       (getHPLevel()-70) * (getHPLevel() - 70) / 150 );
 
   // balance stuff:

@@ -66,7 +66,7 @@ int grimhavenPosse(TBeing *ch, cmdTypeT cmd, const char *, TMonster *myself, TOb
   if (cmd != CMD_GENERIC_PULSE || !myself->awake() || myself->fight())
     return FALSE;
 
-  // Not doing anything yet, time to start a posse  
+  // Not doing anything yet, time to start a posse
   if (!myself->act_ptr) {
     if(::number(0,25))
       return FALSE;
@@ -89,7 +89,7 @@ int grimhavenPosse(TBeing *ch, cmdTypeT cmd, const char *, TMonster *myself, TOb
 
     act("Some cityguards come to his aid.",
         TRUE, myself, 0, 0, TO_ROOM);
-    
+
     SET_BIT(myself->specials.affectedBy, AFF_GROUP);
     for (i=0;i<3;i++) {
       if (!(mob = read_mobile(Mob::CITYGUARD, VIRTUAL))) {
@@ -118,18 +118,18 @@ int grimhavenPosse(TBeing *ch, cmdTypeT cmd, const char *, TMonster *myself, TOb
 
     for(StuffIter it=myself->roomp->stuff.begin();it!=myself->roomp->stuff.end() && (t=*it);++it){
       if((tb=dynamic_cast<TBeing *>(t)) && tb==job->criminal)
-	found=1;
+        found=1;
     }
     if(!found){
       myself->doSay("Bah.  We'll have to find another one.");
       job->criminal=NULL;
       job->arrest_state=STATE_NONE;
       if(job->state==STATE_ARREST_FAST || job->state==STATE_BOOK_UM)
-	job->state=STATE_FIND_CRIM;
-      return TRUE;	
+        job->state=STATE_FIND_CRIM;
+      return TRUE;
     }
   }
-  
+
   // seperate switch for "speed"
   switch(job->state){
     case STATE_NONE: // nothing happens here
@@ -138,13 +138,13 @@ int grimhavenPosse(TBeing *ch, cmdTypeT cmd, const char *, TMonster *myself, TOb
     case STATE_FIND_CRIM: // finding a criminal, go slow
     case STATE_RETURN_OFFICE: // head back to office
       if(::number(0,2))
-	return FALSE;
+        return FALSE;
       break;
     case STATE_LEAVE_OFFICE: // leaving barracks, go fast
     case STATE_BOOK_UM: // taking criminal in, fast
     case STATE_TO_JAIL:
       if(::number(0,1))
-	return FALSE;
+        return FALSE;
       break;
   }
 
@@ -153,303 +153,303 @@ int grimhavenPosse(TBeing *ch, cmdTypeT cmd, const char *, TMonster *myself, TOb
     case STATE_NONE:
       job->cur_path=0;
       job->cur_pos=0;
-      job->state=STATE_LEAVE_OFFICE; 
+      job->state=STATE_LEAVE_OFFICE;
       break;
     case STATE_LEAVE_OFFICE: // get out of barracks
     case STATE_TO_JAIL: // go to jail
     case STATE_RETURN_OFFICE: // go back to office
       if (head_guard_path[job->cur_path][(job->cur_pos + 1)].direction == -1) {
-	// end of path, start on the lamp boy path now
-	switch(job->state){
-   	  case STATE_LEAVE_OFFICE:
-	    act("$n looks at the sky and takes a deep breath of fresh air.",
-		TRUE, myself, 0, 0, TO_ROOM);
-	    myself->doSay("Alright boys, let's find us some criminals!");
-	    job->state=STATE_FIND_CRIM;
-	    job->cur_pos = 9;
-	    job->cur_path = 0;
-	    break;
-  	  case STATE_TO_JAIL:
-	    if(job->criminal){
-	      myself->doSay("You stay here until you can behave yourself.");
-	      myself->doRelease(job->criminal->name);
-	    }
-	    rc = myself->goDirection(DIR_EAST);
-	    if (IS_SET_DELETE(rc, DELETE_THIS))
-	      return DELETE_THIS;
-	    myself->doClose("cell w");
-	    if(job->criminal && dynamic_cast<TMonster *>(job->criminal)){
-	      act("$n slinks off into the shadows to serve out his term.",
-		  0, job->criminal, 0, 0, TO_ROOM);
-	      delete job->criminal;
-	      job->criminal=NULL;
-	    }
-	    job->cur_path=2;
-	    job->state=STATE_RETURN_OFFICE;
-	    break;
-  	  case STATE_RETURN_OFFICE:
-	    // delete guards
-	    for (f = myself->followers; f; f = n) {
-	      n = f->next;
-	      if((vict=f->follower)&& vict->inGroup(*myself) && !vict->fight()){
-		tmons = dynamic_cast<TMonster *>(vict);
-		if (!tmons)
-		  continue;
-		act("$N salutes $n briskly and goes back to normal duty.",
-		    TRUE, myself, 0, tmons, TO_ROOM);
-		delete tmons;
-	      }
-	    }
-	    
-	    act("$n relaxes after a hard day of criminal hunting.",
-		TRUE, myself, 0, 0, TO_ROOM);
-	    SET_BIT(myself->specials.act, ACT_SENTINEL);
-	    delete static_cast<hunt_struct *>(myself->act_ptr);
-	    myself->act_ptr = NULL;
-	    break;
+        // end of path, start on the lamp boy path now
+        switch(job->state){
+             case STATE_LEAVE_OFFICE:
+            act("$n looks at the sky and takes a deep breath of fresh air.",
+                TRUE, myself, 0, 0, TO_ROOM);
+            myself->doSay("Alright boys, let's find us some criminals!");
+            job->state=STATE_FIND_CRIM;
+            job->cur_pos = 9;
+            job->cur_path = 0;
+            break;
+            case STATE_TO_JAIL:
+            if(job->criminal){
+              myself->doSay("You stay here until you can behave yourself.");
+              myself->doRelease(job->criminal->name);
+            }
+            rc = myself->goDirection(DIR_EAST);
+            if (IS_SET_DELETE(rc, DELETE_THIS))
+              return DELETE_THIS;
+            myself->doClose("cell w");
+            if(job->criminal && dynamic_cast<TMonster *>(job->criminal)){
+              act("$n slinks off into the shadows to serve out his term.",
+                  0, job->criminal, 0, 0, TO_ROOM);
+              delete job->criminal;
+              job->criminal=NULL;
+            }
+            job->cur_path=2;
+            job->state=STATE_RETURN_OFFICE;
+            break;
+            case STATE_RETURN_OFFICE:
+            // delete guards
+            for (f = myself->followers; f; f = n) {
+              n = f->next;
+              if((vict=f->follower)&& vict->inGroup(*myself) && !vict->fight()){
+                tmons = dynamic_cast<TMonster *>(vict);
+                if (!tmons)
+                  continue;
+                act("$N salutes $n briskly and goes back to normal duty.",
+                    TRUE, myself, 0, tmons, TO_ROOM);
+                delete tmons;
+              }
+            }
+
+            act("$n relaxes after a hard day of criminal hunting.",
+                TRUE, myself, 0, 0, TO_ROOM);
+            SET_BIT(myself->specials.act, ACT_SENTINEL);
+            delete static_cast<hunt_struct *>(myself->act_ptr);
+            myself->act_ptr = NULL;
+            break;
           default:
-	    break;
-	}
-	return TRUE;
+            break;
+        }
+        return TRUE;
       } else if (head_guard_path[job->cur_path][job->cur_pos].cur_room != myself->in_room){
-	// not in correct room
-	// check surrounding rooms, I probably fled
+        // not in correct room
+        // check surrounding rooms, I probably fled
         dirTypeT dir;
-	for (dir=MIN_DIR; dir < MAX_DIR;dir++) {
-	  if (myself->canGo(dir) && 
-	      myself->roomp->dir_option[dir]->to_room ==
-	      head_guard_path[job->cur_path][job->cur_pos].cur_room){
-	    rc = myself->goDirection(dir);
-	    if (IS_SET_DELETE(rc, DELETE_THIS))
-	      return DELETE_THIS;
-	    return TRUE;
-	  }
-	}
-	
-	// trace along entire route and see if I can correct
-	job->cur_pos = -1;
-	do {
-	  job->cur_pos += 1;
-	  if (head_guard_path[job->cur_path][job->cur_pos].cur_room == myself->in_room)
-	    return TRUE;
-	} while (head_guard_path[job->cur_path][job->cur_pos].cur_room != -1);
-	
+        for (dir=MIN_DIR; dir < MAX_DIR;dir++) {
+          if (myself->canGo(dir) &&
+              myself->roomp->dir_option[dir]->to_room ==
+              head_guard_path[job->cur_path][job->cur_pos].cur_room){
+            rc = myself->goDirection(dir);
+            if (IS_SET_DELETE(rc, DELETE_THIS))
+              return DELETE_THIS;
+            return TRUE;
+          }
+        }
+
+        // trace along entire route and see if I can correct
+        job->cur_pos = -1;
+        do {
+          job->cur_pos += 1;
+          if (head_guard_path[job->cur_path][job->cur_pos].cur_room == myself->in_room)
+            return TRUE;
+        } while (head_guard_path[job->cur_path][job->cur_pos].cur_room != -1);
+
         // vlogf(LOG_BUG, "grimhavenPosse: head guard got lost");
-	act("$n grows weary of searching for criminals.",
-	    0, myself, 0, 0, TO_ROOM);
-	act("$n goes back to his office.",
-	    0, myself, 0, 0, TO_ROOM);
+        act("$n grows weary of searching for criminals.",
+            0, myself, 0, 0, TO_ROOM);
+        act("$n goes back to his office.",
+            0, myself, 0, 0, TO_ROOM);
 
-	if (myself->riding)
-	  myself->dismount(POSITION_STANDING);
-	--(*myself);
-	thing_to_room(myself, 274);
-	SET_BIT(myself->specials.act, ACT_SENTINEL);
-	delete static_cast<hunt_struct *>(myself->act_ptr);
-	myself->act_ptr = NULL;
-	act("$n has arrived.", 0, myself, 0, 0, TO_ROOM);
-	return TRUE;
+        if (myself->riding)
+          myself->dismount(POSITION_STANDING);
+        --(*myself);
+        thing_to_room(myself, 274);
+        SET_BIT(myself->specials.act, ACT_SENTINEL);
+        delete static_cast<hunt_struct *>(myself->act_ptr);
+        myself->act_ptr = NULL;
+        act("$n has arrived.", 0, myself, 0, 0, TO_ROOM);
+        return TRUE;
       } else if (myself->getPosition() < POSITION_STANDING) {
-	myself->doStand();
+        myself->doStand();
       } else {
-	rc=myself->goDirection(head_guard_path[job->cur_path][job->cur_pos + 1].direction);
-	if (IS_SET_DELETE(rc, DELETE_THIS)) {
-	  return DELETE_THIS;
-	} else if(rc){
-	  job->cur_pos++;
+        rc=myself->goDirection(head_guard_path[job->cur_path][job->cur_pos + 1].direction);
+        if (IS_SET_DELETE(rc, DELETE_THIS)) {
+          return DELETE_THIS;
+        } else if(rc){
+          job->cur_pos++;
 
-	  if(job->state==STATE_TO_JAIL && !::number(0,2) && job->criminal){
-	    switch(::number(0,4)){
-    	      case 0:
-		if(dynamic_cast<TMonster *>(job->criminal))
-		  act("$n struggles to get free, but $N holds him tightly.",
-		      0, job->criminal, 0, myself, TO_ROOM);
-		break;
-	      case 1:
-		if(dynamic_cast<TMonster *>(job->criminal))
-		  act("$n looks at you pleadingly, with a panicked look in his eye.",
-		      0, job->criminal, 0, 0, TO_ROOM);
-		act("$n jerks him around roughly.",
-		    0, myself, 0, 0, TO_ROOM);
-		break;
-	      case 2: 
-		myself->doSay("Clear the way, guards coming through, we've got a criminal.");
-		break;
+          if(job->state==STATE_TO_JAIL && !::number(0,2) && job->criminal){
+            switch(::number(0,4)){
+                  case 0:
+                if(dynamic_cast<TMonster *>(job->criminal))
+                  act("$n struggles to get free, but $N holds him tightly.",
+                      0, job->criminal, 0, myself, TO_ROOM);
+                break;
+              case 1:
+                if(dynamic_cast<TMonster *>(job->criminal))
+                  act("$n looks at you pleadingly, with a panicked look in his eye.",
+                      0, job->criminal, 0, 0, TO_ROOM);
+                act("$n jerks him around roughly.",
+                    0, myself, 0, 0, TO_ROOM);
+                break;
+              case 2:
+                myself->doSay("Clear the way, guards coming through, we've got a criminal.");
+                break;
               case 3:
-		if(dynamic_cast<TMonster *>(job->criminal)){
-		  act("$n whispers to you, \"Please you've got to help me!  I didn't do it, it's all a big setup!\"",
-		      0, job->criminal, 0, 0, TO_ROOM);
-		}
-		act("$n casts a reproving look your way.",
-		    0, myself, 0, 0, TO_ROOM);
-		break;
-	    }
-	  }
-	}
+                if(dynamic_cast<TMonster *>(job->criminal)){
+                  act("$n whispers to you, \"Please you've got to help me!  I didn't do it, it's all a big setup!\"",
+                      0, job->criminal, 0, 0, TO_ROOM);
+                }
+                act("$n casts a reproving look your way.",
+                    0, myself, 0, 0, TO_ROOM);
+                break;
+            }
+          }
+        }
       }
       break;
     case STATE_FIND_CRIM: // find a criminal
     case STATE_BOOK_UM: // take criminal to cs
       if (lamp_path_pos[job->cur_path][(job->cur_pos + 1)].direction == -1) {
-	if(job->state==STATE_FIND_CRIM){
-	  // end of path, get a new one
-	  job->cur_pos=0;
-	  job->cur_path=0;
-	  job->cur_path = ::number(MIN_GRIM_PATHS, MAX_GRIM_PATHS);
-	} else {
-	  job->cur_path=1;
-	  job->state=STATE_TO_JAIL;
-	}
+        if(job->state==STATE_FIND_CRIM){
+          // end of path, get a new one
+          job->cur_pos=0;
+          job->cur_path=0;
+          job->cur_path = ::number(MIN_GRIM_PATHS, MAX_GRIM_PATHS);
+        } else {
+          job->cur_path=1;
+          job->state=STATE_TO_JAIL;
+        }
       } else if (lamp_path_pos[job->cur_path][job->cur_pos].cur_room != myself->in_room){
-	// not in correct room
-	// check surrounding rooms, I probably fled
+        // not in correct room
+        // check surrounding rooms, I probably fled
         dirTypeT dir;
-	for (dir=MIN_DIR; dir < MAX_DIR; dir++) {
-	  if (myself->canGo(dir) && 
-	      myself->roomp->dir_option[dir]->to_room ==
-	      lamp_path_pos[job->cur_path][job->cur_pos].cur_room){
-	    rc = myself->goDirection(dir);
-	    if (IS_SET_DELETE(rc, DELETE_THIS))
-	      return DELETE_THIS;
-	    return TRUE;
-	  }
-	}
-	
-	// trace along entire route and see if I can correct
-	job->cur_pos = -1;
-	do {
-	  job->cur_pos += 1;
-	  if (lamp_path_pos[job->cur_path][job->cur_pos].cur_room == myself->in_room)
-	    return TRUE;
-	} while (lamp_path_pos[job->cur_path][job->cur_pos].cur_room != -1);
-	
+        for (dir=MIN_DIR; dir < MAX_DIR; dir++) {
+          if (myself->canGo(dir) &&
+              myself->roomp->dir_option[dir]->to_room ==
+              lamp_path_pos[job->cur_path][job->cur_pos].cur_room){
+            rc = myself->goDirection(dir);
+            if (IS_SET_DELETE(rc, DELETE_THIS))
+              return DELETE_THIS;
+            return TRUE;
+          }
+        }
+
+        // trace along entire route and see if I can correct
+        job->cur_pos = -1;
+        do {
+          job->cur_pos += 1;
+          if (lamp_path_pos[job->cur_path][job->cur_pos].cur_room == myself->in_room)
+            return TRUE;
+        } while (lamp_path_pos[job->cur_path][job->cur_pos].cur_room != -1);
+
         // vlogf(LOG_BUG, "grimhavenPosse: head guard got lost");
 
-	act("$n grows weary of searching for criminals.",
-	    0, myself, 0, 0, TO_ROOM);
-	act("$n goes back to his office.",
-	    0, myself, 0, 0, TO_ROOM);
+        act("$n grows weary of searching for criminals.",
+            0, myself, 0, 0, TO_ROOM);
+        act("$n goes back to his office.",
+            0, myself, 0, 0, TO_ROOM);
 
-	if (myself->riding)
-	  myself->dismount(POSITION_STANDING);
-	--(*myself);
-	thing_to_room(myself, 274);
-	SET_BIT(myself->specials.act, ACT_SENTINEL);
-	delete static_cast<hunt_struct *>(myself->act_ptr);
-	myself->act_ptr = NULL;
-	act("$n has arrived.", 0, myself, 0, 0, TO_ROOM);
-	return TRUE;
+        if (myself->riding)
+          myself->dismount(POSITION_STANDING);
+        --(*myself);
+        thing_to_room(myself, 274);
+        SET_BIT(myself->specials.act, ACT_SENTINEL);
+        delete static_cast<hunt_struct *>(myself->act_ptr);
+        myself->act_ptr = NULL;
+        act("$n has arrived.", 0, myself, 0, 0, TO_ROOM);
+        return TRUE;
       } else if (myself->getPosition() < POSITION_STANDING) {
-	myself->doStand();
+        myself->doStand();
       } else {
-	rc=myself->goDirection(lamp_path_pos[job->cur_path][job->cur_pos + 1].direction);
-	if (IS_SET_DELETE(rc, DELETE_THIS)) {
-	  return DELETE_THIS;
-	} else if(rc){
-	  // look for a criminal, change state
-	  if(job->state==STATE_FIND_CRIM && !::number(0,0)){
-	    for(StuffIter it=myself->roomp->stuff.begin();it!=myself->roomp->stuff.end() && (t=*it);++it){
-	      if((tmons=dynamic_cast<TMonster *>(t))){
-		for(i=0;i<3;++i){
-		  if(tmons->mobVnum() == criminals[i]){
-		    job->criminal=tmons;
-		    job->state=STATE_ARREST_FAST;
-		    break;
-		  }
-		}
-	      } else if((tb=dynamic_cast<TBeing *>(t)) &&
-			tb->hasClass(CLASS_THIEF) &&
-			tb->GetMaxLevel() >= 8 &&
-			myself->canSee(tb) &&
-			!::number(0,3)){
-		job->criminal=tb;
-		job->state=STATE_ARREST_FAST;
-		break;
-	      }
+        rc=myself->goDirection(lamp_path_pos[job->cur_path][job->cur_pos + 1].direction);
+        if (IS_SET_DELETE(rc, DELETE_THIS)) {
+          return DELETE_THIS;
+        } else if(rc){
+          // look for a criminal, change state
+          if(job->state==STATE_FIND_CRIM && !::number(0,0)){
+            for(StuffIter it=myself->roomp->stuff.begin();it!=myself->roomp->stuff.end() && (t=*it);++it){
+              if((tmons=dynamic_cast<TMonster *>(t))){
+                for(i=0;i<3;++i){
+                  if(tmons->mobVnum() == criminals[i]){
+                    job->criminal=tmons;
+                    job->state=STATE_ARREST_FAST;
+                    break;
+                  }
+                }
+              } else if((tb=dynamic_cast<TBeing *>(t)) &&
+                        tb->hasClass(CLASS_THIEF) &&
+                        tb->GetMaxLevel() >= 8 &&
+                        myself->canSee(tb) &&
+                        !::number(0,3)){
+                job->criminal=tb;
+                job->state=STATE_ARREST_FAST;
+                break;
+              }
 
-	    }
-	  } else if(job->state==STATE_BOOK_UM && !::number(0,2) && job->criminal){
-	    switch(::number(0,4)){
-    	      case 0:
-		if(dynamic_cast<TMonster *>(job->criminal))
-		  act("$n struggles to get free, but $N holds him tightly.",
-		      0, job->criminal, 0, myself, TO_ROOM);
-		break;
-	      case 1:
-		if(dynamic_cast<TMonster *>(job->criminal))
-		  act("$n looks at you pleadingly, with a panicked look in his eye.",
-		      0, job->criminal, 0, 0, TO_ROOM);
-		act("$n jerks him around roughly.",
-		    0, myself, 0, 0, TO_ROOM);
-		break;
-	      case 2: 
-		myself->doSay("Clear the way, guards coming through, we've got a criminal.");
-		break;
+            }
+          } else if(job->state==STATE_BOOK_UM && !::number(0,2) && job->criminal){
+            switch(::number(0,4)){
+                  case 0:
+                if(dynamic_cast<TMonster *>(job->criminal))
+                  act("$n struggles to get free, but $N holds him tightly.",
+                      0, job->criminal, 0, myself, TO_ROOM);
+                break;
+              case 1:
+                if(dynamic_cast<TMonster *>(job->criminal))
+                  act("$n looks at you pleadingly, with a panicked look in his eye.",
+                      0, job->criminal, 0, 0, TO_ROOM);
+                act("$n jerks him around roughly.",
+                    0, myself, 0, 0, TO_ROOM);
+                break;
+              case 2:
+                myself->doSay("Clear the way, guards coming through, we've got a criminal.");
+                break;
               case 3:
-		if(dynamic_cast<TMonster *>(job->criminal))
-		  act("$n whispers to you, \"Please you've got to help me!  I didn't do it, it's all a big setup!\"",
-		      0, job->criminal, 0, 0, TO_ROOM);
-		
-		act("$n casts a reproving look your way.",
-		    0, myself, 0, 0, TO_ROOM);
-		break;
-	    }
-	  }
-	  job->cur_pos++;
-	}
+                if(dynamic_cast<TMonster *>(job->criminal))
+                  act("$n whispers to you, \"Please you've got to help me!  I didn't do it, it's all a big setup!\"",
+                      0, job->criminal, 0, 0, TO_ROOM);
+
+                act("$n casts a reproving look your way.",
+                    0, myself, 0, 0, TO_ROOM);
+                break;
+            }
+          }
+          job->cur_pos++;
+        }
       }
       break;
     case STATE_ARREST_FAST: // arrest the criminal
       if(!job->criminal || job->criminal->roomp != myself->roomp){
-	job->state=STATE_FIND_CRIM;
-	job->criminal=NULL;
-	job->arrest_state=0;
-	return TRUE;
+        job->state=STATE_FIND_CRIM;
+        job->criminal=NULL;
+        job->arrest_state=0;
+        return TRUE;
       }
 
       switch(job->arrest_state){
         case 0:
-	  act("$n glares at $N intently for a moment.", 
-	      0, myself, 0, job->criminal, TO_ROOM);
-	  myself->doSay("You're coming with us, we've got some questions to ask you.");
-	  job->arrest_state=1;
-	  break;
+          act("$n glares at $N intently for a moment.",
+              0, myself, 0, job->criminal, TO_ROOM);
+          myself->doSay("You're coming with us, we've got some questions to ask you.");
+          job->arrest_state=1;
+          break;
         case 1:
-	  if(dynamic_cast<TMonster *>(job->criminal)){
-	    job->criminal->doSay("Wh-what?  I didn't do anything.");
-	    act("$n looks about innocently.",
-		0, job->criminal, 0, 0, TO_ROOM);
-	  }
-	  job->arrest_state=2;
-	  break;
+          if(dynamic_cast<TMonster *>(job->criminal)){
+            job->criminal->doSay("Wh-what?  I didn't do anything.");
+            act("$n looks about innocently.",
+                0, job->criminal, 0, 0, TO_ROOM);
+          }
+          job->arrest_state=2;
+          break;
         case 2:
-	  if(dynamic_cast<TMonster *>(job->criminal)){
-	    act("$n meets $N's cold hard eyes for a moment and then looks away.",
-		0, job->criminal, 0, myself, TO_ROOM);
-	    act("$n panics and attempts to flee!",
-		0, job->criminal, 0, 0, TO_ROOM);
-	  }
+          if(dynamic_cast<TMonster *>(job->criminal)){
+            act("$n meets $N's cold hard eyes for a moment and then looks away.",
+                0, job->criminal, 0, myself, TO_ROOM);
+            act("$n panics and attempts to flee!",
+                0, job->criminal, 0, 0, TO_ROOM);
+          }
           act("With lightning fast reflexes, $n sticks a foot out and trips $N!",
-	      0, myself, 0, job->criminal, TO_ROOM);
-	  // sometimes they don't stand up fast enough...
-	  //	  rc=job->criminal->crashLanding(POSITION_SITTING);
-	  // if (IS_SET_DELETE(rc, DELETE_THIS))
-	  //  return DELETE_THIS;
-	  job->arrest_state=3;
-	  break;
+              0, myself, 0, job->criminal, TO_ROOM);
+          // sometimes they don't stand up fast enough...
+          //          rc=job->criminal->crashLanding(POSITION_SITTING);
+          // if (IS_SET_DELETE(rc, DELETE_THIS))
+          //  return DELETE_THIS;
+          job->arrest_state=3;
+          break;
         case 3:
-	  sprintf(buf, "That's it, %s is coming with us!", 
-		  job->criminal->getName());
-	  myself->doSay(buf);
-	  tmp=mud_str_dup(job->criminal->name);
-	  strcpy(tmp, add_bars(tmp).c_str());
-	  myself->doCapture(tmp);
-	  delete tmp;
-	  REMOVE_BIT(job->criminal->specials.act, ACT_DIURNAL);
-	  REMOVE_BIT(job->criminal->specials.act, ACT_NOCTURNAL);
-	  job->state=STATE_BOOK_UM;      
-	  job->arrest_state=0;
-	  break;
+          sprintf(buf, "That's it, %s is coming with us!",
+                  job->criminal->getName());
+          myself->doSay(buf);
+          tmp=mud_str_dup(job->criminal->name);
+          strcpy(tmp, add_bars(tmp).c_str());
+          myself->doCapture(tmp);
+          delete tmp;
+          REMOVE_BIT(job->criminal->specials.act, ACT_DIURNAL);
+          REMOVE_BIT(job->criminal->specials.act, ACT_NOCTURNAL);
+          job->state=STATE_BOOK_UM;
+          job->arrest_state=0;
+          break;
       }
   }
 

@@ -233,9 +233,9 @@ void doSaveZoneFile(TBeing *ch, const sstring & tArg)
       fputs(tBuffer, tFile);
 
       if(!tObj->stuff.empty()){
-        TThing *sThing=NULL, 
+        TThing *sThing=NULL,
                *sThing2=NULL;
-        TObj   *sObj, 
+        TObj   *sObj,
                *sObj2;
 
         iMaxExist = 0;
@@ -295,7 +295,7 @@ void doSaveZoneFile(TBeing *ch, const sstring & tArg)
       sprintf(tBuffer, "%-23s %s\n", tString,
               (tMob->getNameNOC(ch).c_str() ? tMob->getNameNOC(ch).c_str() : "Unknown"));
       fputs(tBuffer, tFile);
-      
+
       if(!tMob->stuff.empty()){
         TThing *sThing=NULL;
         TObj   *sObj;

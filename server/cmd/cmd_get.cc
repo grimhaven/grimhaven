@@ -75,7 +75,7 @@ int TTrap::getMe(TBeing *ch, TThing *sub)
   return FALSE;
 }
 
-// procedures related to get 
+// procedures related to get
 // might return DELETE_THIS for ch
 // might return DELETE_ITEM for obj
 // might return DELETE_VICT for sub
@@ -97,13 +97,13 @@ int get(TBeing *ch, TThing *ttt, TThing *sub, getTypeT tType, bool isFirst)
   if (obj && obj->isObjStat(ITEM_ATTACHED)) {
     if (!ch->isImmortal()) {
       if (obj->canWear(ITEM_TAKE)) {
-        if (obj->riding) { 
+        if (obj->riding) {
           ch->sendTo(COLOR_OBJECTS, format("%s is attached to %s and is not currently getable.\n\r") % obj->getName() % obj->riding->getName());
-        } else 
+        } else
           ch->sendTo(COLOR_OBJECTS, format("%s is attached and is not currently getable.\n\r") % obj->getName());
-      } else 
+      } else
         ch->sendTo(COLOR_OBJECTS, format("%s is attached and is not getable.\n\r") % obj->getName());
-      
+
       return FALSE;
     }
   }
@@ -128,15 +128,15 @@ int get(TBeing *ch, TThing *ttt, TThing *sub, getTypeT tType, bool isFirst)
   else {
     if (ttt->parent && ttt->parent != sub) {
       // very bad
-      vlogf(LOG_BUG, format("get(): obj (%s) gotten with parent (%s) and sub (%s)") % 
+      vlogf(LOG_BUG, format("get(): obj (%s) gotten with parent (%s) and sub (%s)") %
           ttt->getName() % ttt->parent->getName() % sub->getName());
     }
   }
 
   if (sub) {
-    if (sub->getObjFromMeCheck(ch)) 
+    if (sub->getObjFromMeCheck(ch))
       return FALSE;
-    
+
     // getting from a bag ought to cause some loss of attacks
     if (ch->fight())
       ch->cantHit += ch->loseRound(1 + ttt->getVolume() / 2250);
@@ -150,7 +150,7 @@ int get(TBeing *ch, TThing *ttt, TThing *sub, getTypeT tType, bool isFirst)
       return DELETE_THIS;
     if (rc)
       return FALSE;
-  
+
     rc = ch->checkForGetTrap(ttt);
     if (IS_SET_DELETE(rc, DELETE_ITEM | DELETE_THIS))
       return DELETE_ITEM | DELETE_THIS;
@@ -160,7 +160,7 @@ int get(TBeing *ch, TThing *ttt, TThing *sub, getTypeT tType, bool isFirst)
       return DELETE_THIS;
     if (rc)
       return FALSE;
-  
+
     sub->getObjFromMeText(ch, ttt, tType, isFirst);
 
     ch->logItem(ttt, CMD_GET);
@@ -207,7 +207,7 @@ int get(TBeing *ch, TThing *ttt, TThing *sub, getTypeT tType, bool isFirst)
   }
 
   rc = ttt->getMe(ch, sub);
-  if (IS_SET_DELETE(rc, DELETE_THIS)) 
+  if (IS_SET_DELETE(rc, DELETE_THIS))
     return DELETE_ITEM;
   else if (IS_SET_DELETE(rc, DELETE_VICT))
     return DELETE_THIS;
@@ -331,9 +331,9 @@ int TBeing::doGet(const char *a)
       // this dumps around it and goes right to the guts
       rc = (*(tasks[TASK_GET_ALL].taskf))
           (this, CMD_TASK_CONTINUE, "", 0, roomp, 0);
-      if (IS_SET_ONLY(rc, DELETE_THIS)) 
+      if (IS_SET_ONLY(rc, DELETE_THIS))
         return DELETE_THIS;
-      
+
 
       break;
     case GETOBJ:
@@ -345,14 +345,14 @@ int TBeing::doGet(const char *a)
 
         if (!searchLinkedListVis(this, newarg, roomp->stuff)) {
           sendTo(format("There are no \"%s\"'s visible in this room.\n\r") % newarg);
-          return FALSE;    
+          return FALSE;
         }
         if (getPosition() <= POSITION_SITTING) {
           sendTo("You need to be standing to do that.\n\r");
           if (!awake())
             return FALSE;   // sleeping
           doStand();
-  
+
           if (fight())
             return FALSE;  // don't fall through
         }
@@ -367,7 +367,7 @@ int TBeing::doGet(const char *a)
         // this dumps around it and goes right to the guts
         rc = (*(tasks[TASK_GET_ALL].taskf))
             (this, CMD_TASK_CONTINUE, "", 0, roomp, 0);
-        if (IS_SET_ONLY(rc, DELETE_THIS)) 
+        if (IS_SET_ONLY(rc, DELETE_THIS))
           return DELETE_THIS;
 
         break;
@@ -381,7 +381,7 @@ int TBeing::doGet(const char *a)
           if (!awake())
             return FALSE;   // sleeping
           doStand();
- 
+
           if (fight())
             return FALSE;  // don't fall through
         }
@@ -410,8 +410,8 @@ int TBeing::doGet(const char *a)
           if (IS_SET_DELETE(rc, DELETE_ITEM)) {
             if (!t->makeScraps()){
               delete t;
-	      t = NULL;
-	    }
+              t = NULL;
+            }
           }
           if (IS_SET_DELETE(rc, DELETE_THIS)) {
             return DELETE_THIS;
@@ -435,7 +435,7 @@ int TBeing::doGet(const char *a)
           return FALSE;
 
         if (dynamic_cast<TBeing *>(riding)) {
-          act("You can't get things from corpses while mounted!", 
+          act("You can't get things from corpses while mounted!",
                FALSE, this, NULL, 0, TO_CHAR);
           return FALSE;
         }
@@ -445,19 +445,19 @@ int TBeing::doGet(const char *a)
           TBaseCorpse *tbc = dynamic_cast<TBaseCorpse *>(t);
           // we do no name check here, since "pile dust" won't hit "corpse"
           if (tbc) {
-	    sstring namebuf;
-	    TThing *tt=NULL;
-	    int counter=1;
-	    for(StuffIter it=roomp->stuff.begin();it!=roomp->stuff.end() && (tt=*it);++it) {
-	      if(dynamic_cast<TBaseCorpse *>(tt) == tbc)
-		break;
-	      if(dynamic_cast<TBaseCorpse *>(tt) &&
-		 !strcmp(tbc->name, tt->name)){
-		++counter;
-	      }
-	    }
-	    namebuf=format("all %i.%s") % counter % add_bars(tbc->name);
-	    
+            sstring namebuf;
+            TThing *tt=NULL;
+            int counter=1;
+            for(StuffIter it=roomp->stuff.begin();it!=roomp->stuff.end() && (tt=*it);++it) {
+              if(dynamic_cast<TBaseCorpse *>(tt) == tbc)
+                break;
+              if(dynamic_cast<TBaseCorpse *>(tt) &&
+                 !strcmp(tbc->name, tt->name)){
+                ++counter;
+              }
+            }
+            namebuf=format("all %i.%s") % counter % add_bars(tbc->name);
+
             rc = tbc->getAllFrom(this, namebuf.c_str());
             if (IS_SET_DELETE(rc, DELETE_VICT))
               return DELETE_THIS;
@@ -470,24 +470,24 @@ int TBeing::doGet(const char *a)
       sub = get_obj_vis_accessible(this, arg2);
 
       if (!sub) {
-	int bits = generic_find(arg2, FIND_CHAR_ROOM, this, &horse, &tmpobj);
-	if (bits)
-	  if (horse->isRideable() && horse->equipment[WEAR_BACK]) {
-	    TBaseContainer *saddlebag = dynamic_cast<TBaseContainer *>(horse->equipment[WEAR_BACK]);
-	    if (saddlebag && saddlebag->isSaddle()) {
-	      sub = dynamic_cast<TObj *>(saddlebag);
-	      act("You reach over to $N and open the $o on $s back.",FALSE,this,saddlebag,horse,TO_CHAR);
-	      act("$n reaches over to $N and opens the $o on $s back.",FALSE,this,saddlebag,horse,TO_NOTVICT);
-	      act("$n reaches over to you and opens the $o on your back.",FALSE,this,saddlebag,horse,TO_VICT);
-	    }
-	  }
+        int bits = generic_find(arg2, FIND_CHAR_ROOM, this, &horse, &tmpobj);
+        if (bits)
+          if (horse->isRideable() && horse->equipment[WEAR_BACK]) {
+            TBaseContainer *saddlebag = dynamic_cast<TBaseContainer *>(horse->equipment[WEAR_BACK]);
+            if (saddlebag && saddlebag->isSaddle()) {
+              sub = dynamic_cast<TObj *>(saddlebag);
+              act("You reach over to $N and open the $o on $s back.",FALSE,this,saddlebag,horse,TO_CHAR);
+              act("$n reaches over to $N and opens the $o on $s back.",FALSE,this,saddlebag,horse,TO_NOTVICT);
+              act("$n reaches over to you and opens the $o on your back.",FALSE,this,saddlebag,horse,TO_VICT);
+            }
+          }
       }
-      
+
       if (!sub) {
-	if(autoloot==TRUE)
-	  sendTo("You do not see or have the corpse.\n\r");
-	else 
-	  sendTo(format("You do not see or have the %s.\n\r") % arg2);
+        if(autoloot==TRUE)
+          sendTo("You do not see or have the corpse.\n\r");
+        else
+          sendTo(format("You do not see or have the %s.\n\r") % arg2);
         break;
       } else {
         if (getAllObjChecks(this))
@@ -495,7 +495,7 @@ int TBeing::doGet(const char *a)
 
         if (dynamic_cast<TBeing *>(riding) &&
              (sub->inRoom() != Room::NOWHERE)) {
-          act("You can't get things from $p while mounted!", 
+          act("You can't get things from $p while mounted!",
                FALSE, this, sub, 0, TO_CHAR);
           return FALSE;
         }
@@ -518,10 +518,10 @@ int TBeing::doGet(const char *a)
             TBaseContainer *saddlebag = dynamic_cast<TBaseContainer *>(horse->equipment[WEAR_BACK]);
             if (saddlebag && saddlebag->isSaddle()) {
               sub = dynamic_cast<TObj *>(saddlebag);
-	      act("You reach over to $N and open the $o on $s back.",FALSE,this,saddlebag,horse,TO_CHAR);
-	      act("$n reaches over to $N and opens the $o on $s back.",FALSE,this,saddlebag,horse,TO_NOTVICT);
-	      act("$n reaches over to you and opens the $o on your back.",FALSE,this,saddlebag,horse,TO_VICT);
-	    }
+              act("You reach over to $N and open the $o on $s back.",FALSE,this,saddlebag,horse,TO_CHAR);
+              act("$n reaches over to $N and opens the $o on $s back.",FALSE,this,saddlebag,horse,TO_NOTVICT);
+              act("$n reaches over to you and opens the $o on your back.",FALSE,this,saddlebag,horse,TO_VICT);
+            }
           }
       }
 
@@ -532,10 +532,10 @@ int TBeing::doGet(const char *a)
         else if (rc)
           return TRUE;
       } else {
-	if(autoloot==TRUE)
-	  sendTo("You do not see or have the corpse.\n\r");
-	else
-	  sendTo(format("You do not see or have the %s.\n\r") % arg2);
+        if(autoloot==TRUE)
+          sendTo("You do not see or have the corpse.\n\r");
+        else
+          sendTo(format("You do not see or have the %s.\n\r") % arg2);
         break;
       }
       if ((t = searchLinkedListVis(this, arg1, sub->stuff))) {
@@ -548,14 +548,14 @@ int TBeing::doGet(const char *a)
           if (IS_SET_DELETE(rc, DELETE_ITEM)) {
             if (!t->makeScraps()){
               delete t;
-	      t = NULL;
-	    }
+              t = NULL;
+            }
           }
           if (IS_SET_DELETE(rc, DELETE_VICT)) {
             if (!sub->makeScraps()){
               delete sub;
-	      sub = NULL;
-	    }
+              sub = NULL;
+            }
           }
           if (IS_SET_DELETE(rc, DELETE_THIS)) {
             return DELETE_THIS;
@@ -572,14 +572,14 @@ int TBeing::doGet(const char *a)
           if (IS_SET_DELETE(rc, DELETE_ITEM)) {
             if (!t->makeScraps()){
               delete t;
-	      t = NULL;
-	    }
+              t = NULL;
+            }
           }
           if (IS_SET_DELETE(rc, DELETE_VICT)) {
             if (!sub->makeScraps()){
               delete sub;
-	      sub = NULL;
-	    }
+              sub = NULL;
+            }
           }
           if (IS_SET_DELETE(rc, DELETE_THIS)) {
             return DELETE_THIS;
@@ -588,7 +588,7 @@ int TBeing::doGet(const char *a)
         }
       } else {
         sendTo(COLOR_OBJECTS, format("%s does not contain the %s.\n\r") %
-	       sstring(sub->getName()).cap() % arg1);
+               sstring(sub->getName()).cap() % arg1);
       }
       break;
   }

@@ -2,7 +2,7 @@
 //
 // SneezyMUD - All rights reserved, SneezyMUD Coding Team
 //
-//      "client.cc" - All functions and routines related to client/server 
+//      "client.cc" - All functions and routines related to client/server
 //
 //      The client/server protocol coded by Russ Russell
 //
@@ -34,12 +34,12 @@
 const int  CURRENT_VERSION = 19990615;
 const int  BAD_VERSION = 19990614;
 
-// clientf(...) will take a string, and tack on the CLIENT_CODE_CHAR at 
-// the beginning and end, and also put a newline at the end. - Russ     
+// clientf(...) will take a string, and tack on the CLIENT_CODE_CHAR at
+// the beginning and end, and also put a newline at the end. - Russ
 
 void Descriptor::clientf(const sstring &msg)
 {
-  // This is done so that the client message isn't somehow combined 
+  // This is done so that the client message isn't somehow combined
   // with other text and missed by the client interpreter Russ - 061299
   outputProcessing();
 
@@ -55,7 +55,7 @@ void TRoom::clientf(const sstring &msg)
   if (!msg.empty()) {
     for(StuffIter it=stuff.begin();it!=stuff.end() && (t=*it);++it) {
       if (t->isPc() && t->desc && (t->desc->m_bIsClient || IS_SET(t->desc->prompt_d.type, PROMPT_CLIENT_PROMPT)))
-	t->sendTo(format("\200%s\n") % msg);
+        t->sendTo(format("\200%s\n") % msg);
     }
   }
 }
@@ -131,8 +131,8 @@ void Descriptor::send_client_prompt(int, int update)
         strcpy(t_cond, prompt_mesg[ratio]);
       }
     }
-    clientf(format("%d|%s|%s|%s|%s") % CLIENT_FIGHT % c_name % 
-	    cond % t_name % t_cond);
+    clientf(format("%d|%s|%s|%s|%s") % CLIENT_FIGHT % c_name %
+            cond % t_name % t_cond);
   }
   if ((update & CHANGED_MANA) || (update & CHANGED_PIETY) || (update & CHANGED_LIFEFORCE)) {
     char manaBuf[80], maxManaBuf[80];
@@ -157,7 +157,7 @@ void Descriptor::send_client_prompt(int, int update)
 
     clientf(format("%d|%s|%s") % iClientCode % manaBuf % maxManaBuf);
   }
-  if (update & CHANGED_HP) 
+  if (update & CHANGED_HP)
     clientf(format("%d|%d|%d") % CLIENT_HITPOINT % ch->getHit() % ch->hitLimit());
 
   if (update & CHANGED_MOVE)
@@ -177,17 +177,17 @@ void Descriptor::send_client_prompt(int, int update)
       classIndT iClass;
 
       for (iClass = MAGE_LEVEL_IND; iClass < MAX_CLASSES; iClass++) {
-	if (ch->getLevel(iClass)) {
+        if (ch->getLevel(iClass)) {
           if (ch->getLevel(iClass) < MAX_MORT) {
-	    double iNeed = getExpClassLevel(iClass, ch->getLevel(iClass) + 1) - ch->getExp();
+            double iNeed = getExpClassLevel(iClass, ch->getLevel(iClass) + 1) - ch->getExp();
             char   StTemp[2048];
 
-	    memset(&StTemp, 0, sizeof(StTemp));
+            memset(&StTemp, 0, sizeof(StTemp));
 
-	    if (ch->getExp() < 100)
-	      sprintf(StTemp, "%.3f", iNeed);
-	    else
-	      sprintf(StTemp, "%.0f", iNeed);
+            if (ch->getExp() < 100)
+              sprintf(StTemp, "%.3f", iNeed);
+            else
+              sprintf(StTemp, "%.0f", iNeed);
 
             clientf(format("%d|%d|%d|%s") % CLIENT_TONEXTLEVEL % iClass % (ch->getLevel(iClass) + 1) % StTemp);
           }
@@ -209,7 +209,7 @@ void Descriptor::send_client_prompt(int, int update)
 
   if (update & CHANGED_MUD) {
     clientf(format("%d|%s") % CLIENT_MUDTIME %
-	    GameTime::hmtAsString(GameTime::hourminTime()));
+            GameTime::hmtAsString(GameTime::hourminTime()));
 
   }
   //prompt_mode = -1;
@@ -234,13 +234,13 @@ void Descriptor::send_client_exits()
       else if(!(exitdata->condition & EX_SECRET))
         SET_BIT(cbits, (1 << door));
 
-      
+
       comm->exits[door].exit=true;
       if(exitdata->door_type != DOOR_NONE)
-	comm->exits[door].door=true;
+        comm->exits[door].door=true;
       else
-	comm->exits[door].door=false;
-      
+        comm->exits[door].door=false;
+
       comm->exits[door].open=!IS_SET(exitdata->condition, EX_CLOSED);
     } else {
       comm->exits[door].exit=false;
@@ -278,14 +278,14 @@ int Descriptor::read_client(char *str2)
       m_bIsClient = TRUE;
 
       if (!toggleInfo[TOG_CLIENTS]->toggle) {
-        clientf(format("%d|Clients not allowed at this time. Try later!|%d") % 
+        clientf(format("%d|Clients not allowed at this time. Try later!|%d") %
                 CLIENT_ERROR % ERR_NOT_ALLOWED);
         outputProcessing();
         return FALSE;
       }
       if (WizLock) {
         // this may need better handling to let wizs in, but, oh well
-        clientf(format("%d|The mud is presently Wizlocked.|%d") % 
+        clientf(format("%d|The mud is presently Wizlocked.|%d") %
                 CLIENT_ERROR % ERR_NOT_ALLOWED);
         if (!lockmess.empty())
           clientf(lockmess);
@@ -305,9 +305,9 @@ int Descriptor::read_client(char *str2)
 
       output.clear();
       if (account) {
-        if (IS_SET(account->flags, TAccount::IMMORTAL)) 
+        if (IS_SET(account->flags, TAccount::IMMORTAL))
           vlogf(LOG_PIO, "Client Connection from *****Masked*****");
-        else 
+        else
           vlogf(LOG_PIO, format("Client Connection from %s") %  host);
       }
       break;
@@ -322,17 +322,17 @@ int Descriptor::read_client(char *str2)
         break;
 
       for (door = MIN_DIR; door < MAX_DIR; door++) {
-        if ((exitdata = character->exitDir(door))) 
-          sprintf(tmpBuf + strlen(tmpBuf), "|1|%d|%d|%s|%s", exitdata->to_room, 
+        if ((exitdata = character->exitDir(door)))
+          sprintf(tmpBuf + strlen(tmpBuf), "|1|%d|%d|%s|%s", exitdata->to_room,
                   exitdata->door_type, exitdata->keyword, exitdata->description);
-        else 
+        else
           sprintf(tmpBuf + strlen(tmpBuf), "|0");
       }
 
       if (rp->ex_description) {
         for (exptr = rp->ex_description; exptr; exptr = exptr->next) {
-          sprintf(tmpBuf2 + strlen(tmpBuf2), "|%s|%s", exptr->keyword, exptr->description); 
-        }      
+          sprintf(tmpBuf2 + strlen(tmpBuf2), "|%s|%s", exptr->keyword, exptr->description);
+        }
       }
       char tmpbuf[25000];
       sprintf(tmpbuf, "%d|%s|%s|%d|%d|%d%s%s", CLIENT_CURRENTROOM, rp->name, rp->getDescr(),
@@ -354,7 +354,7 @@ int Descriptor::read_client(char *str2)
         break;
       }
       strcpy(buf, nextToken('|', 255, str2).c_str());
-     
+
       if (!(rp = character->roomp))
         break;
 
@@ -493,9 +493,9 @@ int Descriptor::read_client(char *str2)
       for (person = character_list; person; person = person->next) {
         if (person->isPc() && person->polyed == POLY_TYPE_NONE) {
           if (dynamic_cast<TPerson *>(person) && character && (character->GetMaxLevel() >= person->getInvisLevel())) {
-            if (person->isLinkdead() && character->isImmortal()) 
+            if (person->isLinkdead() && character->isImmortal())
               clientf(format("%d|[%s]|%d|%d|%d") % CLIENT_WHO %
-		      person->getName() % ADD %person->GetMaxLevel() % notify);
+                      person->getName() % ADD %person->GetMaxLevel() % notify);
             else {
               if (person->isPlayerAction(PLR_ANONYMOUS) && !character->isImmortal())
                 clientf(format("%d|%s|%d|0|%d") % CLIENT_WHO % person->getName() % ADD % notify);
@@ -510,13 +510,13 @@ int Descriptor::read_client(char *str2)
       str = NULL;
       max_str = 0;
       connected = CON_PLYNG;
-      if (character->isPlayerAction(PLR_MAILING)) 
+      if (character->isPlayerAction(PLR_MAILING))
         character->remPlayerAction(PLR_MAILING);
 
-      if (character->isPlayerAction(PLR_BUGGING)) 
+      if (character->isPlayerAction(PLR_BUGGING))
         character->remPlayerAction(PLR_BUGGING);
 
-      if (connected == CON_WRITING) 
+      if (connected == CON_WRITING)
         connected = CON_PLYNG;
 
       break;
@@ -548,23 +548,23 @@ int Descriptor::read_client(char *str2)
       break;
     case CLIENT_CONNECTED:
       if(character->hasQuestBit(TOG_PERMA_DEATH_CHAR)){
-	character->loadCareerStats();
-	if(character->desc->career.deaths){
-	  
-	  writeToQ("That character is a perma death character and has died.\n\r");
-	  writeToQ("Name -> ");
-	  
-	  // copied from above
-	  character->desc = NULL;
-	  character->next = character_list;
-	  character_list = character;
-	  
-	  character->setRoom(Room::NOWHERE);
-	  
-	  delete character;
-	  character = new TPerson(this);
-	  return FALSE;
-	}
+        character->loadCareerStats();
+        if(character->desc->career.deaths){
+
+          writeToQ("That character is a perma death character and has died.\n\r");
+          writeToQ("Name -> ");
+
+          // copied from above
+          character->desc = NULL;
+          character->next = character_list;
+          character_list = character;
+
+          character->setRoom(Room::NOWHERE);
+
+          delete character;
+          character = new TPerson(this);
+          return FALSE;
+        }
       }
 
 
@@ -576,13 +576,13 @@ int Descriptor::read_client(char *str2)
 
         if ((k->character != character) && k->character) {
           if (k->original) {
-            if (k->original->getName() && 
+            if (k->original->getName() &&
                 !strcasecmp(k->original->getName(), character->getName())) {
               delete k;
               k = NULL;
             }
           } else {
-            if (k->character->getName() && 
+            if (k->character->getName() &&
               !strcasecmp(k->character->getName(), character->getName())) {
 
               if (k->character) {
@@ -604,7 +604,7 @@ int Descriptor::read_client(char *str2)
             (dynamic_cast<TMonster *>(ch) && ch->orig &&
              !strcasecmp(character->getName(),
                       ch->orig->getName()))) {
- 
+
           if ((character->inRoom() >= 0) ||
               (character->inRoom() == Room::AUTO_RENT)) {
             // loadFromSt will have inRoom() == last rent
@@ -639,7 +639,7 @@ int Descriptor::read_client(char *str2)
           clientf(format("%d|%d") % CLIENT_ENABLEWINDOW % TRUE);
 
           // setombatMode sends necessary client info about attack mode
-          ch->setCombatMode(ch->getCombatMode());  
+          ch->setCombatMode(ch->getCombatMode());
 
           load_char(ch->getName(), &st);
           ch->initDescStuff(&st);
@@ -649,9 +649,9 @@ int Descriptor::read_client(char *str2)
           if (should_be_logged(character)) {
             objCost cost;
 
-            if (IS_SET(account->flags, TAccount::IMMORTAL)) 
+            if (IS_SET(account->flags, TAccount::IMMORTAL))
               vlogf(LOG_PIO, format("%s[*masked*] has reconnected (client)  (account: *masked*).") %  ch->getName());
-            else 
+            else
               vlogf(LOG_PIO, format("%s[%s] has reconnected (client)  (account: %s).") %  ch->getName() % host % account->name);
 
             ch->recepOffer(NULL, &cost);
@@ -660,21 +660,21 @@ int Descriptor::read_client(char *str2)
           act("$n has reconnected.", TRUE, ch, 0, 0, TO_ROOM);
           ch->loadCareerStats();
           ch->loadDrugStats();
-	  ch->loadGuildStats();
-	  ch->loadTitle();
-          if (ch->getHit() < 0) 
+          ch->loadGuildStats();
+          ch->loadTitle();
+          if (ch->getHit() < 0)
             dynamic_cast<TPerson *>(ch)->autoDeath();
 
           int rc = checkForMultiplay();
-	  if(Config::ForceMultiplayCompliance()){
-	    if (rc) {
-	      // disconnect, but don't cause character to be deleted
-	      // do this by disassociating character from descriptor
-	      character = NULL;
-	      
-	      return DELETE_THIS;
-	    }
-	  }
+          if(Config::ForceMultiplayCompliance()){
+            if (rc) {
+              // disconnect, but don't cause character to be deleted
+              // do this by disassociating character from descriptor
+              character = NULL;
+
+              return DELETE_THIS;
+            }
+          }
 
           ch->fixClientPlayerLists(FALSE);
           return FALSE;
@@ -684,7 +684,7 @@ int Descriptor::read_client(char *str2)
     case CLIENT_PROMPT:
       send_client_prompt(FALSE, 16383);
       break;
-    case CLIENT_EXITS: 
+    case CLIENT_EXITS:
       send_client_exits();
       break;
     case CLIENT_INVENTORY:
@@ -696,7 +696,7 @@ int Descriptor::read_client(char *str2)
     case CLIENT_ROOMOBJS:
       send_client_room_objects();
       break;
-    case CLIENT_NEWCHAR: 
+    case CLIENT_NEWCHAR:
       clientCreateChar(str2);
       break;
     case CLIENT_NORMAL:
@@ -751,13 +751,13 @@ int Descriptor::read_client(char *str2)
           break;
         }
 
-	db.query("select 1 from account where name=lower('%s')", buf);
+        db.query("select 1 from account where name=lower('%s')", buf);
 
-	if(db.fetchRow()){
+        if(db.fetchRow()){
           writeToQ("Account already exists, enter another name.\n\r");
           return TRUE;
         }
-      } else { 
+      } else {
         account = new TAccount();
 
         strcpy(apassword, nextToken('|', 255, str2).c_str());
@@ -767,7 +767,7 @@ int Descriptor::read_client(char *str2)
           clientf(format("%d|0|%d") % CLIENT_CHECKACCOUNTNAME % ERR_BADACCOUNT_NAME);
           break;
         }
-	if(account->read(aname)){
+        if(account->read(aname)){
           account->term = TERM_NONE;
           plr_act = PLR_COLOR;
           account->login = time(0);
@@ -848,8 +848,8 @@ int Descriptor::read_client(char *str2)
         clientf(format("%d|Account name already exists! Please try another.") % CLIENT_ERROR);
         delete account;
         account = NULL;
-	return FALSE;
-      } 
+        return FALSE;
+      }
       if (strlen(aname) >= 10) {
         clientf(format("%d|Account name must be less than 10 characters! Try another name please.") % CLIENT_ERROR);
         delete account;
@@ -896,21 +896,21 @@ int Descriptor::read_client(char *str2)
 
       switch(*listserver) {
         case '1':
-          break;                                                                                                  
-        case '2':                                                                                                 
-          break;                                                                                                  
-      }                                                                                                           
+          break;
+        case '2':
+          break;
+      }
       // Account term
       account->term = TERM_NONE;
 
       // Save all information
-      account->write(aname);    
+      account->write(aname);
       AccountStats::account_number++;
-    
+
       vlogf(LOG_MISC, format("New Client Account: '%s' with email '%s'") %  account->name % account->email);
       clientf(format("%d|1") % CLIENT_CHECKACCOUNTNAME);
       break;
-    } 
+    }
     default:
       vlogf(LOG_CLIENT, format("Bad type in read_client (%d)") %  type);
       break;
@@ -922,7 +922,7 @@ void stripFrontBytes(char *s, int num)
 {
   char *c = s + num;
 
-  while ((*(s++) = *(c++)));	// tight code rocks 
+  while ((*(s++) = *(c++)));        // tight code rocks
 }
 
 bool is_client_sstring(char *str)
@@ -954,9 +954,9 @@ int Descriptor::client_nanny(char *arg)
   strcpy(passwd, nextToken('|', 39, arg).c_str());
   strcpy(charname, nextToken('|', 39, arg).c_str());
 
-  if (!*login || !*passwd || !*charname) 
+  if (!*login || !*passwd || !*charname)
     return DELETE_THIS;
-  
+
   account = new TAccount();
   account->name=login;
   if(account->read(login)){
@@ -969,7 +969,7 @@ int Descriptor::client_nanny(char *arg)
     clientf(format("%d|No account %s exists! Please reenter account name, or create a new account.|%d") % CLIENT_ERROR % account->name % ERR_BAD_NAME);
     delete account;
     account = NULL;
-    return FALSE;   
+    return FALSE;
   }
   crypted = (char *) crypt(passwd, pwd);
   if (strncmp(crypted, pwd, 10)) {
@@ -985,13 +985,13 @@ int Descriptor::client_nanny(char *arg)
   // loadFromSt done.  Some events (especially if swapping from one char
   // to another) rely on this.  So...
   delete character;
-  
+
   character = new TPerson(this);
 #else
-  if (!character) 
+  if (!character)
     character = new TPerson(this);
 #endif
-  
+
   if (_parse_name(charname, tmp_name)) {
     clientf(format("%d|No such character exists! Reenter character name or create a new character.|%d") % CLIENT_ERROR % ERR_BAD_NAME);
 
@@ -1050,7 +1050,7 @@ int Descriptor::client_nanny(char *arg)
     return FALSE;
   }
   if (account->name!=st.aname) {
-    clientf(format("%d|That character isn't in the listed account.|%d") % 
+    clientf(format("%d|That character isn't in the listed account.|%d") %
               CLIENT_ERROR % ERR_BAD_NAME);
 
     // loadFromSt has initted character (improperly)
@@ -1082,7 +1082,7 @@ int Descriptor::client_nanny(char *arg)
   }
   if (WizLock) {
     // this may need better handling to let wizs in, but, oh well
-    clientf(format("%d|The mud is presently Wizlocked.|%d") % 
+    clientf(format("%d|The mud is presently Wizlocked.|%d") %
                 CLIENT_ERROR % ERR_NOT_ALLOWED);
     if (!lockmess.empty())
       clientf(lockmess);
@@ -1094,17 +1094,17 @@ int Descriptor::client_nanny(char *arg)
   if(character->hasQuestBit(TOG_PERMA_DEATH_CHAR)){
     character->loadCareerStats();
     if(character->desc->career.deaths){
-      
+
       writeToQ("That character is a perma death character and has died.\n\r");
       writeToQ("Name -> ");
-      
+
       // copied from above
       character->desc = NULL;
       character->next = character_list;
       character_list = character;
-      
+
       character->setRoom(Room::NOWHERE);
-      
+
       delete character;
       character = new TPerson(this);
       return FALSE;
@@ -1184,10 +1184,10 @@ int Descriptor::client_nanny(char *arg)
         objCost cost;
 
         if (IS_SET(account->flags, TAccount::IMMORTAL)) {
-          vlogf(LOG_PIO, format("%s[*masked*] has reconnected (client 2)  (account: *masked*).") % 
+          vlogf(LOG_PIO, format("%s[*masked*] has reconnected (client 2)  (account: *masked*).") %
                 character->getName());
         } else {
-          vlogf(LOG_PIO, format("%s[%s] has reconnected (client 2)  (account: %s).") % 
+          vlogf(LOG_PIO, format("%s[%s] has reconnected (client 2)  (account: %s).") %
                      character->getName() % host % account->name);
         }
         character->recepOffer(NULL, &cost);
@@ -1198,18 +1198,18 @@ int Descriptor::client_nanny(char *arg)
       tmp_ch->loadDrugStats();
       tmp_ch->loadGuildStats();
       tmp_ch->loadTitle();
-      if (tmp_ch->getHit() < 0) 
+      if (tmp_ch->getHit() < 0)
         dynamic_cast<TPerson *>(tmp_ch)->autoDeath();
-      
+
       rc = checkForMultiplay();
       if(Config::ForceMultiplayCompliance()){
-	if (rc) {
-	  // disconnect, but don't cause character to be deleted
-	  // do this by disassociating character from descriptor
-	  character = NULL;
-	  
-	  return DELETE_THIS;
-	}
+        if (rc) {
+          // disconnect, but don't cause character to be deleted
+          // do this by disassociating character from descriptor
+          character = NULL;
+
+          return DELETE_THIS;
+        }
       }
 
       if (tmp_ch->hasClass(CLASS_CLERIC) || tmp_ch->hasClass(CLASS_DEIKHAN))
@@ -1221,10 +1221,10 @@ int Descriptor::client_nanny(char *arg)
   }
   if (should_be_logged(character)) {
     if (IS_SET(account->flags, TAccount::IMMORTAL)) {
-      vlogf(LOG_PIO, format("%s[*masked*] has connected (client)  (account: *masked*).") % 
+      vlogf(LOG_PIO, format("%s[*masked*] has connected (client)  (account: *masked*).") %
             character->getName());
     } else {
-      vlogf(LOG_PIO, format("%s[%s] has connected (client)  (account: %s).") % 
+      vlogf(LOG_PIO, format("%s[%s] has connected (client)  (account: %s).") %
                  character->getName() % host % account->name);
     }
   }
@@ -1259,7 +1259,7 @@ sstring WhoListComm::getText(){
 sstring WhoListComm::getClientText(){
   sstring buf;
   if(online){
-    buf=format("\200%d|%s|%d|%d|1\n") % CLIENT_WHO % who % ADD % 
+    buf=format("\200%d|%s|%d|%d|1\n") % CLIENT_WHO % who % ADD %
       ((level==-1)?0:level);
   } else {
     buf=format("\200%d|%s|%d|0\n") % CLIENT_WHO % who % DELETE;
@@ -1273,12 +1273,12 @@ sstring WhoListComm::getXML(){
 
   buf+=format("<wholist>\n");
   buf+=format("  <online>%s</online>\n") % (online ? "true" : "false");
-  
+
   if(level!=-1)
     buf+=format("  <level>%i</level>\n") % level;
   if(idle!=-1)
     buf+=format("  <idle>%i</idle>\n") % idle;
-  
+
   buf+=format("  <linkdead>%s</linkdead>\n") % (linkdead ? "true" : "false");
   buf+=format("  <name>%s</name>\n") % who.escape(sstring::XML);
   buf+=format("  <prof>%s</prof>\n") % prof.escape(sstring::XML);
@@ -1297,42 +1297,42 @@ void TBeing::fixClientPlayerLists(bool lost)
   for (d = descriptor_list; d; d = d->next) {
     if (d->character){
       if(isImmortal())
-	prof=msgVariables(MSG_IMM_TITLE);
+        prof=msgVariables(MSG_IMM_TITLE);
       else
-	prof=getProfName();
+        prof=getProfName();
 
       title=parseTitle(d);
 
 
       // delete the entry first
       if(d->character->isImmortal())
-	d->output.putInQ(new WhoListComm(getName(), false, GetMaxLevel(),
-					 getTimer(), isLinkdead(), prof, 
-					 title));
-      else 
-	d->output.putInQ(new WhoListComm(getName(), false, -1, -1, false, 
-					 prof, title));
+        d->output.putInQ(new WhoListComm(getName(), false, GetMaxLevel(),
+                                         getTimer(), isLinkdead(), prof,
+                                         title));
+      else
+        d->output.putInQ(new WhoListComm(getName(), false, -1, -1, false,
+                                         prof, title));
 
       d->prompt_mode = -1;
 
       if (!lost) {
-	if(d->character->isImmortal()){
-	  // immortals get all info
-	  d->output.putInQ(new WhoListComm(getName(), true, GetMaxLevel(),
-					   getTimer(), isLinkdead(), prof,
-					   title));
-	} else {
-	  // mortals get filtered info
-	  if (d->character->canSeeWho(this)) {
-	    if (isPlayerAction(PLR_ANONYMOUS)){
-	      d->output.putInQ(new WhoListComm(getName(), true, -1, -1, false,
-					       prof, title));
-	    } else {
-	      d->output.putInQ(new WhoListComm(getName(), true, GetMaxLevel(), 
-					       -1, false, prof, title));
-	    }
-	  }
-	}
+        if(d->character->isImmortal()){
+          // immortals get all info
+          d->output.putInQ(new WhoListComm(getName(), true, GetMaxLevel(),
+                                           getTimer(), isLinkdead(), prof,
+                                           title));
+        } else {
+          // mortals get filtered info
+          if (d->character->canSeeWho(this)) {
+            if (isPlayerAction(PLR_ANONYMOUS)){
+              d->output.putInQ(new WhoListComm(getName(), true, -1, -1, false,
+                                               prof, title));
+            } else {
+              d->output.putInQ(new WhoListComm(getName(), true, GetMaxLevel(),
+                                               -1, false, prof, title));
+            }
+          }
+        }
       }
     }
   }
@@ -1371,7 +1371,7 @@ int TBeing::doClientMessage(const char *arg)
 
   for (i = descriptor_list; i; i = i->next) {
     if ((b = i->character) && (b != this) && !i->connected && i->m_bIsClient)
-      b->sendTo(COLOR_COMM, format("<p>CLIENT<1> (%s): %s\n\r") % getName() % arg);  
+      b->sendTo(COLOR_COMM, format("<p>CLIENT<1> (%s): %s\n\r") % getName() % arg);
   }
   sendTo(COLOR_COMM, format("<p>CLIENT<1>: %s\n\r") % arg);
   return TRUE;
@@ -1406,8 +1406,8 @@ int Descriptor::clientCreateAccount(char *arg)
 
   // Save all information
   if(!account->write(account->name)){
-    vlogf(LOG_CLIENT, format("Big problems in saveAccount (s)") % 
-	  account->name.lower());
+    vlogf(LOG_CLIENT, format("Big problems in saveAccount (s)") %
+          account->name.lower());
     return FALSE;
   }
 
@@ -1447,7 +1447,7 @@ int Descriptor::clientCreateChar(char *arg)
     ch->desc = NULL;
     ch->next = character_list;
     character_list = ch;
-  
+
     TRoom *rp = real_roomp(Room::VOID);
     *rp += *ch;
     delete ch;
@@ -1458,7 +1458,7 @@ int Descriptor::clientCreateChar(char *arg)
 
   // Sex
   strcpy(dummy, nextToken('|', 1024, arg).c_str());
-  switch(convertTo<int>(dummy)) { 
+  switch(convertTo<int>(dummy)) {
     case 0:
       ch->setSex(SEX_MALE);
       break;
@@ -1477,7 +1477,7 @@ int Descriptor::clientCreateChar(char *arg)
       ch->addPlayerAction(PLR_RT_HANDED);
       break;
     default:
-      // Do nothing - This is determine by !RIGHT_HANDED - Russ 
+      // Do nothing - This is determine by !RIGHT_HANDED - Russ
       break;
   }
 
@@ -1562,12 +1562,12 @@ int Descriptor::clientCreateChar(char *arg)
           break;
       }
       break;
-  } 
+  }
 
   character = ch;
 
   // Class
-  switch (*(nextToken('|', 1024, arg).c_str())) {        
+  switch (*(nextToken('|', 1024, arg).c_str())) {
     case '1':
       ch->setClass(CLASS_WARRIOR);
       break;
@@ -1594,32 +1594,32 @@ int Descriptor::clientCreateChar(char *arg)
   ch->chosenStats.values[STAT_DEX] = convertTo<int>(nextToken('|', 1024, arg));
   ch->chosenStats.values[STAT_AGI] = convertTo<int>(nextToken('|', 1024, arg));
   ch->chosenStats.values[STAT_INT] = convertTo<int>(nextToken('|', 1024, arg));
-  ch->chosenStats.values[STAT_WIS] = convertTo<int>(nextToken('|', 1024, arg)); 
+  ch->chosenStats.values[STAT_WIS] = convertTo<int>(nextToken('|', 1024, arg));
   ch->chosenStats.values[STAT_FOC] = convertTo<int>(nextToken('|', 1024, arg));
   ch->chosenStats.values[STAT_PER] = convertTo<int>(nextToken('|', 1024, arg));
   ch->chosenStats.values[STAT_CHA] = convertTo<int>(nextToken('|', 1024, arg));
   ch->chosenStats.values[STAT_KAR] = convertTo<int>(nextToken('|', 1024, arg));
   ch->chosenStats.values[STAT_SPE] = convertTo<int>(nextToken('|', 1024, arg));
 
-  // Check if everything sums to 0, if not send an error message. 
+  // Check if everything sums to 0, if not send an error message.
 
-  if (ch->chosenStats.values[STAT_STR] +
-      ch->chosenStats.values[STAT_BRA] +
-      ch->chosenStats.values[STAT_CON] +
-      ch->chosenStats.values[STAT_DEX] +
-      ch->chosenStats.values[STAT_AGI] +
-      ch->chosenStats.values[STAT_INT] +
-      ch->chosenStats.values[STAT_WIS] +
-      ch->chosenStats.values[STAT_FOC] +
-      ch->chosenStats.values[STAT_PER] +
-      ch->chosenStats.values[STAT_CHA] +
-      ch->chosenStats.values[STAT_KAR] +
+  if (ch->chosenStats.values[STAT_STR]
+      ch->chosenStats.values[STAT_BRA]
+      ch->chosenStats.values[STAT_CON]
+      ch->chosenStats.values[STAT_DEX]
+      ch->chosenStats.values[STAT_AGI]
+      ch->chosenStats.values[STAT_INT]
+      ch->chosenStats.values[STAT_WIS]
+      ch->chosenStats.values[STAT_FOC]
+      ch->chosenStats.values[STAT_PER]
+      ch->chosenStats.values[STAT_CHA]
+      ch->chosenStats.values[STAT_KAR]
       ch->chosenStats.values[STAT_SPE])  {
     clientf(format("%d|Stats do not add up to 0. Email being sent to Brutius to alert of possible client hack.|%d") % CLIENT_ERROR % ERR_BAD_STAT);
     ch->desc = NULL;
     ch->next = character_list;
     character_list = ch;
-  
+
     TRoom *rp = real_roomp(Room::VOID);
     *rp += *ch;
     delete ch;

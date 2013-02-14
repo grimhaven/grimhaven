@@ -96,7 +96,7 @@ void TDrug::describeObjectSpecifics(const TBeing *ch) const
           sstring(getName()).uncap() %
           ((diff < .20) ? "very little" : ((diff < .50) ? "some" :
           ((diff < .75) ? "a good bit of" : "almost all of its"))) %
-	       drugTypes[getDrugType()].name);
+               drugTypes[getDrugType()].name);
   }
 }
 
@@ -125,7 +125,7 @@ void TDrug::refuelMeDrug(TBeing *ch, TDrugContainer *lamp)
   sprintf(buf, "$n packs some %s into $s $o", drugTypes[getDrugType()].name);
   act(buf, TRUE, ch, lamp, 0, TO_ROOM);
   ch->sendTo(format("You pack some %s into the %s.\n\r") % drugTypes[getDrugType()].name %
-	     fname(lamp->name));
+             fname(lamp->name));
 
   addToCurFuel(-use);
   lamp->addToCurBurn(use);
@@ -133,7 +133,7 @@ void TDrug::refuelMeDrug(TBeing *ch, TDrugContainer *lamp)
 
   if (getCurFuel() <= 0) {
     ch->sendTo(format("Your %s is all used up, and you discard it.\n\r") %
-	       drugTypes[getDrugType()].name);
+               drugTypes[getDrugType()].name);
     if (equippedBy) {
       dynamic_cast<TBeing *>(equippedBy)->unequip(eq_pos);
     } else
@@ -250,15 +250,15 @@ affectedData *findDrugAffect(TBeing *ch, int drug, int type){
   return NULL;
 }
 
-void reapplyDrugAffect(TBeing *ch, affectedData *affptr, 
-		       int modifier, int duration){
+void reapplyDrugAffect(TBeing *ch, affectedData *affptr,
+                       int modifier, int duration){
   int origamt = ch->specials.affectedBy;
 
   ch->affectModify(affptr->location, affptr->modifier, affptr->modifier2, affptr->bitvector, FALSE, SILENT_NO);
-  
+
   affptr->modifier=modifier;
   affptr->duration=duration;
-  
+
   ch->affectModify(affptr->location, affptr->modifier, affptr->modifier2, affptr->bitvector, TRUE, SILENT_NO);
   ch->affectTotal();
   ch->affectChange(origamt, SILENT_NO);
@@ -285,221 +285,221 @@ void applyDrugAffects(TBeing *ch, drugTypeT drug, bool istick){
   switch(drug){
     case DRUG_PIPEWEED:
       if(!istick){
-	if(ch->desc->drugs[drug].total_consumed==1){
-	  // first smoke :)
-	  act("Ugh, you're not used to smoking this stuff, it makes you nauseous.", TRUE,ch,0,0,TO_CHAR);
-	  ch->doAction("", CMD_PUKE);
-	  ch->dropPool(10, LIQ_VOMIT);
-	}
+        if(ch->desc->drugs[drug].total_consumed==1){
+          // first smoke :)
+          act("Ugh, you're not used to smoking this stuff, it makes you nauseous.", TRUE,ch,0,0,TO_CHAR);
+          ch->doAction("", CMD_PUKE);
+          ch->dropPool(10, LIQ_VOMIT);
+        }
 
-	if(ch->desc->drugs[drug].current_consumed>(potency*3)){
-	  act("You overdose on pipeweed and pass out.",
-	      TRUE,ch,0,0,TO_CHAR);
-	  if (ch->riding) {
-	    act("$n sways then crumples as $e passes out.",TRUE,ch,0,0,TO_ROOM);
-	    ch->fallOffMount(ch->riding, POSITION_RESTING);
-	  } else
-	    act("$n stumbles then crumples as $e passes out.",TRUE,ch,0,0,TO_ROOM);
-	  ch->setPosition(POSITION_SLEEPING);
-	  ch->setMove(0);
-	  break;
-	}
+        if(ch->desc->drugs[drug].current_consumed>(potency*3)){
+          act("You overdose on pipeweed and pass out.",
+              TRUE,ch,0,0,TO_CHAR);
+          if (ch->riding) {
+            act("$n sways then crumples as $e passes out.",TRUE,ch,0,0,TO_ROOM);
+            ch->fallOffMount(ch->riding, POSITION_RESTING);
+          } else
+            act("$n stumbles then crumples as $e passes out.",TRUE,ch,0,0,TO_ROOM);
+          ch->setPosition(POSITION_SLEEPING);
+          ch->setMove(0);
+          break;
+        }
 
-	switch(consumed){
-	  case 0: case 1:
-	    act("You feel a little light-headed.",TRUE,ch,0,0,TO_CHAR);
-	    break;
-	  case 4:
-	    act("You can feel the pipeweed taking effect.",
-		TRUE,ch,0,0,TO_CHAR);
-	    break;
-	  case 7:
-	    act("You feel pretty buzzed.",TRUE,ch,0,0,TO_CHAR);
-	    break;
-	  default:
-	    act("You're really buzzed now.  Smoking any more might be a bad idea.",
-		TRUE,ch,0,0,TO_CHAR);
-	    break;
-	  case 2: case 3: case 5: case 6: case 8: case 9:
-	    break;
-	}
+        switch(consumed){
+          case 0: case 1:
+            act("You feel a little light-headed.",TRUE,ch,0,0,TO_CHAR);
+            break;
+          case 4:
+            act("You can feel the pipeweed taking effect.",
+                TRUE,ch,0,0,TO_CHAR);
+            break;
+          case 7:
+            act("You feel pretty buzzed.",TRUE,ch,0,0,TO_CHAR);
+            break;
+          default:
+            act("You're really buzzed now.  Smoking any more might be a bad idea.",
+                TRUE,ch,0,0,TO_CHAR);
+            break;
+          case 2: case 3: case 5: case 6: case 8: case 9:
+            break;
+        }
       }
 
       aff.modifier = consumed;
       aff.duration = duration1hit * consumed;
 
       if(!(affptr=findDrugAffect(ch, DRUG_PIPEWEED, APPLY_SPE))){
-	aff.location = APPLY_SPE;
-	ch->affectTo(&aff, -1);
+        aff.location = APPLY_SPE;
+        ch->affectTo(&aff, -1);
       } else {
-	reapplyDrugAffect(ch, affptr, aff.modifier, 
-	 istick?affptr->duration:min(affptr->duration+duration1hit, aff.duration));
+        reapplyDrugAffect(ch, affptr, aff.modifier,
+         istick?affptr->duration:min(affptr->duration+duration1hit, aff.duration));
       }
       if(!(affptr=findDrugAffect(ch, DRUG_PIPEWEED, APPLY_KAR))){
-	aff.location = APPLY_KAR;
-	ch->affectTo(&aff, -1);
+        aff.location = APPLY_KAR;
+        ch->affectTo(&aff, -1);
       } else {
-	reapplyDrugAffect(ch, affptr, aff.modifier, 
-	 istick?affptr->duration:min(affptr->duration+duration1hit, aff.duration));
+        reapplyDrugAffect(ch, affptr, aff.modifier,
+         istick?affptr->duration:min(affptr->duration+duration1hit, aff.duration));
       }
 
       aff.modifier = -(consumed);
       aff.duration = duration1hit * consumed;
 
       if(!(affptr=findDrugAffect(ch, DRUG_PIPEWEED, APPLY_CHA))){
-	aff.location = APPLY_CHA;
-	ch->affectTo(&aff, -1);
+        aff.location = APPLY_CHA;
+        ch->affectTo(&aff, -1);
       } else {
-	reapplyDrugAffect(ch, affptr, aff.modifier, 
-	 istick?affptr->duration:min(affptr->duration+duration1hit, aff.duration));
+        reapplyDrugAffect(ch, affptr, aff.modifier,
+         istick?affptr->duration:min(affptr->duration+duration1hit, aff.duration));
       }
       if(!(affptr=findDrugAffect(ch, DRUG_PIPEWEED, APPLY_FOC))){
-	aff.location = APPLY_FOC;
-	ch->affectTo(&aff, -1);
+        aff.location = APPLY_FOC;
+        ch->affectTo(&aff, -1);
       } else {
-	reapplyDrugAffect(ch, affptr, aff.modifier, 
-	 istick?affptr->duration:min(affptr->duration+duration1hit, aff.duration));
+        reapplyDrugAffect(ch, affptr, aff.modifier,
+         istick?affptr->duration:min(affptr->duration+duration1hit, aff.duration));
       }
 
       break;
     case DRUG_POT:
       if(!istick){
-	if(ch->desc->drugs[drug].total_consumed==1){
-	  // first REAL smoke :)
-	  act("Ugh, you're not used to smoking this stuff, but it is tasty.", TRUE,ch,0,0,TO_CHAR);
-	  ch->doAction("", CMD_PUKE);
-	  ch->dropPool(10, LIQ_VOMIT);
-	}
+        if(ch->desc->drugs[drug].total_consumed==1){
+          // first REAL smoke :)
+          act("Ugh, you're not used to smoking this stuff, but it is tasty.", TRUE,ch,0,0,TO_CHAR);
+          ch->doAction("", CMD_PUKE);
+          ch->dropPool(10, LIQ_VOMIT);
+        }
 
-	if(ch->desc->drugs[drug].current_consumed>(potency*3)){
-	  act("You smoked a bit too much pot and decide to crash.",
-	      TRUE,ch,0,0,TO_CHAR);
-	  if (ch->riding) {
-	    act("$n coughs and the momentum knmocks $m off $s mount.",TRUE,ch,0,0,TO_ROOM);
-	    ch->fallOffMount(ch->riding, POSITION_RESTING);
-	  } else
-	    act("$n ignores you and decides to crash.",TRUE,ch,0,0,TO_ROOM);
-	  ch->setPosition(POSITION_SLEEPING);
-	  ch->setMove(0);
-	  break;
-	}
+        if(ch->desc->drugs[drug].current_consumed>(potency*3)){
+          act("You smoked a bit too much pot and decide to crash.",
+              TRUE,ch,0,0,TO_CHAR);
+          if (ch->riding) {
+            act("$n coughs and the momentum knmocks $m off $s mount.",TRUE,ch,0,0,TO_ROOM);
+            ch->fallOffMount(ch->riding, POSITION_RESTING);
+          } else
+            act("$n ignores you and decides to crash.",TRUE,ch,0,0,TO_ROOM);
+          ch->setPosition(POSITION_SLEEPING);
+          ch->setMove(0);
+          break;
+        }
 
-	switch(consumed){
-	  case 0: case 1:
-	    act("You feel a little less stressed and begin to relax.",TRUE,ch,0,0,TO_CHAR);
-	    break;
-	  case 4:
-	    act("You feel very loose and carefree.",
-		TRUE,ch,0,0,TO_CHAR);
-	    break;
-	  case 7:
-	    act("You feel pretty buzzed.",TRUE,ch,0,0,TO_CHAR);
-	    break;
-	  default:
-	    act("You're really buzzed now.  Better save the rest for later.",
-		TRUE,ch,0,0,TO_CHAR);
-	    break;
-	  case 2: case 3: case 5: case 6: case 8: case 9:
-	    break;
-	}
+        switch(consumed){
+          case 0: case 1:
+            act("You feel a little less stressed and begin to relax.",TRUE,ch,0,0,TO_CHAR);
+            break;
+          case 4:
+            act("You feel very loose and carefree.",
+                TRUE,ch,0,0,TO_CHAR);
+            break;
+          case 7:
+            act("You feel pretty buzzed.",TRUE,ch,0,0,TO_CHAR);
+            break;
+          default:
+            act("You're really buzzed now.  Better save the rest for later.",
+                TRUE,ch,0,0,TO_CHAR);
+            break;
+          case 2: case 3: case 5: case 6: case 8: case 9:
+            break;
+        }
       }
 
       aff.modifier = consumed;
       aff.duration = duration1hit * consumed;
 
       if(!(affptr=findDrugAffect(ch, DRUG_POT, APPLY_SPE))){
-	aff.location = APPLY_SPE;
-	ch->affectTo(&aff, -1);
+        aff.location = APPLY_SPE;
+        ch->affectTo(&aff, -1);
       } else {
-	reapplyDrugAffect(ch, affptr, aff.modifier, 
-	 istick?affptr->duration:min(affptr->duration+duration1hit, aff.duration));
+        reapplyDrugAffect(ch, affptr, aff.modifier,
+         istick?affptr->duration:min(affptr->duration+duration1hit, aff.duration));
       }
       if(!(affptr=findDrugAffect(ch, DRUG_POT, APPLY_CHA))){
-	aff.location = APPLY_CHA;
-	ch->affectTo(&aff, 1);
+        aff.location = APPLY_CHA;
+        ch->affectTo(&aff, 1);
       } else {
-	reapplyDrugAffect(ch, affptr, aff.modifier, 
-	 istick?affptr->duration:min(affptr->duration+duration1hit, aff.duration));
+        reapplyDrugAffect(ch, affptr, aff.modifier,
+         istick?affptr->duration:min(affptr->duration+duration1hit, aff.duration));
       }
 
       aff.modifier = -(consumed);
       aff.duration = duration1hit * consumed;
 
       if(!(affptr=findDrugAffect(ch, DRUG_POT, APPLY_INT))){
-	aff.location = APPLY_INT;
-	ch->affectTo(&aff, -1);
+        aff.location = APPLY_INT;
+        ch->affectTo(&aff, -1);
       } else {
-	reapplyDrugAffect(ch, affptr, aff.modifier, 
-	 istick?affptr->duration:min(affptr->duration+duration1hit, aff.duration));
+        reapplyDrugAffect(ch, affptr, aff.modifier,
+         istick?affptr->duration:min(affptr->duration+duration1hit, aff.duration));
       }
       if(!(affptr=findDrugAffect(ch, DRUG_POT, APPLY_FOC))){
-	aff.location = APPLY_FOC;
-	ch->affectTo(&aff, -1);
+        aff.location = APPLY_FOC;
+        ch->affectTo(&aff, -1);
       } else {
-	reapplyDrugAffect(ch, affptr, aff.modifier, 
-	 istick?affptr->duration:min(affptr->duration+duration1hit, aff.duration));
+        reapplyDrugAffect(ch, affptr, aff.modifier,
+         istick?affptr->duration:min(affptr->duration+duration1hit, aff.duration));
       }
 
       break;
     case DRUG_OPIUM:
       if(!istick){
-	if(ch->desc->drugs[drug].current_consumed>(potency*3)){
-	  act("You feel like you are smoking too much opium.",
-	      TRUE,ch,0,0,TO_CHAR);
-	}
+        if(ch->desc->drugs[drug].current_consumed>(potency*3)){
+          act("You feel like you are smoking too much opium.",
+              TRUE,ch,0,0,TO_CHAR);
+        }
 
-	switch(consumed){
-	  case 0: case 1:
-	    act("You feel relaxed.",
-		TRUE,ch,0,0,TO_CHAR);
-	    break;
-	  case 4:
-	    act("You feel really great.",
-		TRUE,ch,0,0,TO_CHAR);
-	    break;
-	  default:
-	    act("You feel euphoric.",
-		TRUE,ch,0,0,TO_CHAR);
-	    break;
-	  case 2: case 3: case 5: case 6: case 8: case 9:
-	    break;
-	}
+        switch(consumed){
+          case 0: case 1:
+            act("You feel relaxed.",
+                TRUE,ch,0,0,TO_CHAR);
+            break;
+          case 4:
+            act("You feel really great.",
+                TRUE,ch,0,0,TO_CHAR);
+            break;
+          default:
+            act("You feel euphoric.",
+                TRUE,ch,0,0,TO_CHAR);
+            break;
+          case 2: case 3: case 5: case 6: case 8: case 9:
+            break;
+        }
       }
 
       aff.modifier = consumed;
       aff.duration = duration1hit * consumed;
 
       if(!(affptr=findDrugAffect(ch, DRUG_OPIUM, APPLY_KAR))){
-	aff.location = APPLY_SPE;
-	ch->affectTo(&aff, -1);
+        aff.location = APPLY_SPE;
+        ch->affectTo(&aff, -1);
       } else {
-	reapplyDrugAffect(ch, affptr, aff.modifier, 
-	 istick?affptr->duration:min(affptr->duration+duration1hit, aff.duration));
+        reapplyDrugAffect(ch, affptr, aff.modifier,
+         istick?affptr->duration:min(affptr->duration+duration1hit, aff.duration));
       }
       if(!(affptr=findDrugAffect(ch, DRUG_OPIUM, APPLY_CHA))){
-	aff.location = APPLY_KAR;
-	ch->affectTo(&aff, -1);
+        aff.location = APPLY_KAR;
+        ch->affectTo(&aff, -1);
       } else {
-	reapplyDrugAffect(ch, affptr, aff.modifier, 
-	 istick?affptr->duration:min(affptr->duration+duration1hit, aff.duration));
+        reapplyDrugAffect(ch, affptr, aff.modifier,
+         istick?affptr->duration:min(affptr->duration+duration1hit, aff.duration));
       }
 
       aff.modifier = -(consumed);
       aff.duration = duration1hit * consumed;
 
       if(!(affptr=findDrugAffect(ch, DRUG_OPIUM, APPLY_DEX))){
-	aff.location = APPLY_CHA;
-	ch->affectTo(&aff, -1);
+        aff.location = APPLY_CHA;
+        ch->affectTo(&aff, -1);
       } else {
-	reapplyDrugAffect(ch, affptr, aff.modifier, 
-	 istick?affptr->duration:min(affptr->duration+duration1hit, aff.duration));
+        reapplyDrugAffect(ch, affptr, aff.modifier,
+         istick?affptr->duration:min(affptr->duration+duration1hit, aff.duration));
       }
       if(!(affptr=findDrugAffect(ch, DRUG_PIPEWEED, APPLY_FOC))){
-	aff.location = APPLY_FOC;
-	ch->affectTo(&aff, -1);
+        aff.location = APPLY_FOC;
+        ch->affectTo(&aff, -1);
       } else {
-	reapplyDrugAffect(ch, affptr, aff.modifier, 
-	 istick?affptr->duration:min(affptr->duration+duration1hit, aff.duration));
+        reapplyDrugAffect(ch, affptr, aff.modifier,
+         istick?affptr->duration:min(affptr->duration+duration1hit, aff.duration));
       }
 
       break;
@@ -593,42 +593,42 @@ void applyAddictionAffects(TBeing *ch, drugTypeT drug, int severity){
       // is 20*5=100 units, divided by 24 hours = about 4
 
       if(ch->desc->drugs[DRUG_PIPEWEED].current_consumed > (unsigned)(severity/2))
-	break;
+        break;
 
       if(severity<20){
-	ch->sendTo(format("You could use some %s right now.\n\r") % drugTypes[drug].name);
+        ch->sendTo(format("You could use some %s right now.\n\r") % drugTypes[drug].name);
       } else if(severity<40){
-	ch->sendTo(format("You feel queasy and your hands are trembling, you really need some %s.\n\r") % drugTypes[drug].name);
+        ch->sendTo(format("You feel queasy and your hands are trembling, you really need some %s.\n\r") % drugTypes[drug].name);
 
-	aff.type = AFFECT_DRUG;
-	aff.bitvector = 0;
-	aff.modifier2 = drug;
-	aff.modifier = -severity;
-	aff.duration = Pulse::MUDHOUR;
-	aff.location = APPLY_FOC;
+        aff.type = AFFECT_DRUG;
+        aff.bitvector = 0;
+        aff.modifier2 = drug;
+        aff.modifier = -severity;
+        aff.duration = Pulse::MUDHOUR;
+        aff.location = APPLY_FOC;
 
-	if(!(affptr=findDrugAffect(ch, DRUG_PIPEWEED, APPLY_FOC))){
-	  ch->affectTo(&aff, -1);
-	} else {
-	  reapplyDrugAffect(ch, affptr, aff.modifier, aff.duration);
-	}
+        if(!(affptr=findDrugAffect(ch, DRUG_PIPEWEED, APPLY_FOC))){
+          ch->affectTo(&aff, -1);
+        } else {
+          reapplyDrugAffect(ch, affptr, aff.modifier, aff.duration);
+        }
       } else {
-	ch->sendTo(format("You need to smoke some %s to feed your addiction.\n\r") % drugTypes[drug].name);
-	ch->sendTo("You've got a splitting headache and you feel very very tired.\n\r");
-	ch->setMove(max((ch->getMove() - 50), 0));
-	
-	aff.type = AFFECT_DRUG;
-	aff.bitvector = 0;
-	aff.modifier2 = drug;
-	aff.modifier = -10;
-	aff.duration = Pulse::MUDHOUR;
-	aff.location = APPLY_FOC;
+        ch->sendTo(format("You need to smoke some %s to feed your addiction.\n\r") % drugTypes[drug].name);
+        ch->sendTo("You've got a splitting headache and you feel very very tired.\n\r");
+        ch->setMove(max((ch->getMove() - 50), 0));
 
-	if(!(affptr=findDrugAffect(ch, DRUG_PIPEWEED, APPLY_FOC))){
-	  ch->affectTo(&aff, -1);
-	} else {
-	  reapplyDrugAffect(ch, affptr, aff.modifier, aff.duration);
-	}
+        aff.type = AFFECT_DRUG;
+        aff.bitvector = 0;
+        aff.modifier2 = drug;
+        aff.modifier = -10;
+        aff.duration = Pulse::MUDHOUR;
+        aff.location = APPLY_FOC;
+
+        if(!(affptr=findDrugAffect(ch, DRUG_PIPEWEED, APPLY_FOC))){
+          ch->affectTo(&aff, -1);
+        } else {
+          reapplyDrugAffect(ch, affptr, aff.modifier, aff.duration);
+        }
       }
       break;
     case DRUG_POT:
@@ -719,7 +719,7 @@ int TBeing::doSmoke(const char *argument)
 
   //  sendTo("Smoking is bad for your health.\n\r");
   //  return FALSE;
-  
+
 
   strcpy(arg, argument);
 
@@ -740,11 +740,11 @@ int TBeing::doSmoke(const char *argument)
     return FALSE;
   }
 
-  sprintf(buf, "Ok, you smoke the %s from %s.", 
-	 drugTypes[tdc->getDrugType()].name, tdc->getName());
+  sprintf(buf, "Ok, you smoke the %s from %s.",
+         drugTypes[tdc->getDrugType()].name, tdc->getName());
   act(buf,TRUE,this,0,0,TO_CHAR);
-  sprintf(buf, "$n smokes %s from %s.", 
-	  drugTypes[tdc->getDrugType()].name, tdc->getName());
+  sprintf(buf, "$n smokes %s from %s.",
+          drugTypes[tdc->getDrugType()].name, tdc->getName());
   act(buf,TRUE,this,0,0,TO_ROOM);
 
   dropGas(::number(1,5), GAS_SMOKE);

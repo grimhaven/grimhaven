@@ -54,7 +54,7 @@ void TBaseClothing::lowCheck()
   // warn about prices that are WAY too high though too
   if ((ap > obj_flags.cost || ap < obj_flags.cost-200) && !isSaddle()) {
 #endif
-    vlogf(LOG_LOW, format("base_clothing (%s:%d) has a bad price (%d).  should be (%d)") % 
+    vlogf(LOG_LOW, format("base_clothing (%s:%d) has a bad price (%d).  should be (%d)") %
          getName() % objVnum() % obj_flags.cost % ap);
     obj_flags.cost = ap;
   }
@@ -63,13 +63,13 @@ void TBaseClothing::lowCheck()
     float amt = -(float) itemAC();
 
     if ((20*getWeight()) < amt)
-      vlogf(LOG_LOW, format("shield %s has a bad weight.  should be (%.1f)") % 
+      vlogf(LOG_LOW, format("shield %s has a bad weight.  should be (%.1f)") %
            getName() % (amt/20.0+0.1));
   } else {
     if (canWear(ITEM_HOLD)) {
       int amt = -itemAC();
       if (amt)
-        vlogf(LOG_LOW, format("Holdable item (%s:%d) with AC that was not a shield.") % 
+        vlogf(LOG_LOW, format("Holdable item (%s:%d) with AC that was not a shield.") %
             getName() % objVnum());
     }
   }
@@ -82,7 +82,7 @@ void TBaseClothing::lowCheck()
   if (ui != ITEM_HOLD) {
     int num = CountBits(ui) - 1;
     if (num < 0) {
-      vlogf(LOG_LOW, format("Base Clothing (%s:%d) with insufficient wearability.") % 
+      vlogf(LOG_LOW, format("Base Clothing (%s:%d) with insufficient wearability.") %
             getName() % objVnum());
     }
   }
@@ -263,8 +263,8 @@ void TBaseClothing::setDefArmorLevel(float lev)
 
   new_acVal = (((lev * 25) * ac_perc) + ((NEWBIE_AC * ac_perc))) * (isPaired() ? 2.0 : 1.0);
 
-  new_strVal = (((lev * 1.1) / sqrt(BODY_STR / str_perc)) +
-                ((NEWBIE_STR * sqrt(str_perc / BODY_STR)))) * 
+  new_strVal = (((lev * 1.1) / sqrt(BODY_STR / str_perc))
+                ((NEWBIE_STR * sqrt(str_perc / BODY_STR)))) *
                 (isPaired() ? 2.0 : 1.0);
 
   new_acVal  = min(1000.0, max(-1000.0, new_acVal ));
@@ -306,7 +306,7 @@ double TBaseClothing::armorLevel(armorLevT type) const
   const double NEWBIE_AC = 500.0;
 
   // This calculates the AC of each body part of the newbie suit
-  int ac_min = (int) ((NEWBIE_AC * ac_perc) +
+  int ac_min = (int) ((NEWBIE_AC * ac_perc)
          (isPaired() ? 1.0 : 0.5));
 
   // this is the struct of the BODY slot on newbie suit
@@ -319,7 +319,7 @@ double TBaseClothing::armorLevel(armorLevT type) const
   // I am not positive exactly why the sqrt is in there, but I stuck
   // it in the original equation, so I probably had a reason...
   int str_min = (int) ((NEWBIE_STR *
-           sqrt((double) str_perc / BODY_STR)) +
+           sqrt((double) str_perc / BODY_STR))
             (isPaired() ? 1.0 : 0.5));
 
   // newbie suit has 50 AC and 30 struct
@@ -456,7 +456,7 @@ int TBaseClothing::suggestedPrice() const
 // vlogf(LOG_MISC, format("%s had a wearability modifier of %.3f (%.3f)") %  getName() % modif % lev_mod);
   price = (int) (price * modif);
 #endif
-  
+
   int adjustments = 0;
   for (i = 0;i < MAX_OBJ_AFFECT;i++) {
     int num = affected[i].modifier;
@@ -527,7 +527,7 @@ int TBaseClothing::suggestedPrice() const
     }
     if (affected[i].location == APPLY_HITROLL ||
         affected[i].location == APPLY_HITNDAM) {
-      // add directly to price since we don't want to be scaled 
+      // add directly to price since we don't want to be scaled
       // this formula is in balance notes
       int amt  = (int) (lev * max(lev, 20.0) * 450/4);
           amt -= (int) ((lev-num) * max(lev-num, 20.0)* 450/4);
@@ -602,7 +602,7 @@ void TBaseClothing::describeObjectSpecifics(const TBeing *ch) const
       buf += ".";
       act(buf, FALSE, ch, this, 0, TO_CHAR);
     } else {
-      vlogf(LOG_LOW, format("Base Clothing (%s:%d) with insufficient wearability.") % 
+      vlogf(LOG_LOW, format("Base Clothing (%s:%d) with insufficient wearability.") %
             getName() % objVnum());
     }
   }
@@ -690,7 +690,7 @@ int TBaseClothing::putMeInto(TBeing *ch, TOpenContainer *container)
       wrists++;
     if(o->canWear(ITEM_WEAR_HANDS))
       hands++;
-    
+
     if((o->canWear(ITEM_WEAR_NECK) && canWear(ITEM_WEAR_NECK)) ||
        (o->canWear(ITEM_WEAR_BODY) && canWear(ITEM_WEAR_BODY)) ||
        (o->canWear(ITEM_WEAR_HEAD) && canWear(ITEM_WEAR_HEAD)) ||

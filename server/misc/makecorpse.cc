@@ -74,11 +74,11 @@ TThing * TBeing::makeCorpse(spellNumT dmg_type, TBeing * tKiller, float exp_lost
     if (mobVnum() < 0)
       corpse->addCorpseFlag(CORPSE_NO_REGEN);
   }
-  
+
   gen_corpse->setCorpseFlags(0);
   gen_corpse->setCorpseLevel(GetMaxLevel());
   gen_corpse->addObjStat(ITEM_STRUNG);
-  
+
   gen_corpse->ex_description = NULL;
   gen_corpse->action_description = NULL;
 
@@ -159,7 +159,7 @@ TThing * TBeing::makeCorpse(spellNumT dmg_type, TBeing * tKiller, float exp_lost
   }
 
 
-  if (!specialCorpse && roomp && 
+  if (!specialCorpse && roomp &&
 
       (roomp->isUnderwaterSector() || roomp->isWaterSector())) {
     sprintf(buf, "The bloated, water-filled corpse of %s is floating here.", getName());
@@ -187,7 +187,7 @@ TThing * TBeing::makeCorpse(spellNumT dmg_type, TBeing * tKiller, float exp_lost
           namebuf);
         break;
       case SKILL_SHOULDER_THROW:
-         sprintf(buf, "%s's corpse lies shattered here, having been thrown hard to the ground.", namebuf); 
+         sprintf(buf, "%s's corpse lies shattered here, having been thrown hard to the ground.", namebuf);
         break;
       case DAMAGE_ELECTRIC:
       case SPELL_CALL_LIGHTNING_DEIKHAN:
@@ -245,8 +245,8 @@ TThing * TBeing::makeCorpse(spellNumT dmg_type, TBeing * tKiller, float exp_lost
         sprintf(buf, "The body of %s looks as if a great weight has squished %s.",getName(),hmhr());
         break;
       case SKILL_SPIN:
-	sprintf(buf, "%s's corpse lies here with a dazed look.", getName());
-	break;
+        sprintf(buf, "%s's corpse lies here with a dazed look.", getName());
+        break;
       case DAMAGE_COLLISION:
         sprintf(buf, "%s's corpse lies shattered here, having collided with something massive.", namebuf);
         break;
@@ -399,7 +399,7 @@ TThing * TBeing::makeCorpse(spellNumT dmg_type, TBeing * tKiller, float exp_lost
         sprintf(buf, "%s's corpse looks to have been mauled by a bear.",getName());
         break;
       case TYPE_MAUL:
-	sprintf(buf, "The corpse of %s lying on the ground looks smashed and mauled.", getName());
+        sprintf(buf, "The corpse of %s lying on the ground looks smashed and mauled.", getName());
         break;
       case TYPE_SMASH:
       case TYPE_WHIP:
@@ -439,11 +439,11 @@ TThing * TBeing::makeCorpse(spellNumT dmg_type, TBeing * tKiller, float exp_lost
         sprintf(buf, "Many tiny peck wounds cover %s's dead form.",getName());
         break;
       case TYPE_CANNON:
-	sprintf(buf, "A hole the size of a <k>cannonball<1> has been punched through %s's corpse's chest.", getName());
-	break;
+        sprintf(buf, "A hole the size of a <k>cannonball<1> has been punched through %s's corpse's chest.", getName());
+        break;
       case TYPE_SHOOT:
         sprintf(buf, "%s's corpse lies in a pool of blood, riddled with bullet holes.", namebuf);
-	break;
+        break;
       case TYPE_BITE:
         sprintf(buf, "%s's corpse looks like %s was bitten to death.",namebuf, hssh());
         break;
@@ -482,7 +482,7 @@ TThing * TBeing::makeCorpse(spellNumT dmg_type, TBeing * tKiller, float exp_lost
         sprintf(buf,"%s's corpse lies here with a crushed rib cage.",
              namebuf);
         break;
-      case DAMAGE_KNEESTRIKE_CROTCH:      
+      case DAMAGE_KNEESTRIKE_CROTCH:
       case DAMAGE_HEADBUTT_CROTCH:
         sprintf(buf,"%s's corpse seems folded at the waist, protecting its privates.",
               namebuf);
@@ -503,8 +503,8 @@ TThing * TBeing::makeCorpse(spellNumT dmg_type, TBeing * tKiller, float exp_lost
         sprintf(buf,"Brains ooze out of the crushed skull of %s's corpse.",getName());
         break;
       case DAMAGE_RIPPED_OUT_HEART:
-	sprintf(buf,"%s's corpse has a gaping bloody hole where the heart once was.",getName());
-	break;
+        sprintf(buf,"%s's corpse has a gaping bloody hole where the heart once was.",getName());
+        break;
       case SKILL_STOMP:
         sprintf(buf,"Stomped to death, %s's corpse is here.",getName());
         break;
@@ -524,25 +524,25 @@ TThing * TBeing::makeCorpse(spellNumT dmg_type, TBeing * tKiller, float exp_lost
         sprintf(buf, "%s was torn asunder by powerful magic!", namebuf);
         break;
       case SKILL_CHI:
-	sprintf(buf, "%s's corpse wears a deep grimace of agony.", getName());
-	break;
+        sprintf(buf, "%s's corpse wears a deep grimace of agony.", getName());
+        break;
       case SKILL_KINETIC_WAVE:
-	sprintf(buf, "Blood trickles out of the eyes, ears and nose of %s's corpse.", getName());
-	break;
+        sprintf(buf, "Blood trickles out of the eyes, ears and nose of %s's corpse.", getName());
+        break;
       case SKILL_PSI_BLAST:
-	sprintf(buf, "Blank eyes stare out of the slackjawed face of %s's corpse.", getName());
-	break;
+        sprintf(buf, "Blank eyes stare out of the slackjawed face of %s's corpse.", getName());
+        break;
       case SKILL_PSYCHIC_CRUSH:
-	sprintf(buf, "%s's corpse wears a death mask of pure terror.", getName());
-	break;
+        sprintf(buf, "%s's corpse wears a death mask of pure terror.", getName());
+        break;
       case SKILL_PSIDRAIN:
-	sprintf(buf, "The head of %s's corpse is blackened and bears a look of grim terror.", getName());
-	break;
+        sprintf(buf, "The head of %s's corpse is blackened and bears a look of grim terror.", getName());
+        break;
 
 #if 1
       case SPELL_EARTHMAW:
-	sprintf(buf, "The corpse of %s lies here half buried in the earth.", getName());
-	break;
+        sprintf(buf, "The corpse of %s lies here half buried in the earth.", getName());
+        break;
       case SPELL_CREEPING_DOOM:
         sprintf(buf, "A light coat of pollen covers the wide-eyed corpse of %s.", getName());
         break;
@@ -604,7 +604,7 @@ TThing * TBeing::makeCorpse(spellNumT dmg_type, TBeing * tKiller, float exp_lost
     addToMoney(-getMoney(), GOLD_INCOME);
     *gen_corpse += *money;
   }
-  
+
 #if 0
   // this is designed to move the pc's light cuz of items to the corpse
   // this seems to be silly.  makes the corpse glow or shadowy artificially
@@ -628,17 +628,17 @@ TThing * TBeing::makeCorpse(spellNumT dmg_type, TBeing * tKiller, float exp_lost
 
   //load a herald and put on corpse - Russ 010298
   // Grimhaven Newsboy, chance to put herald in corpse
-  if (mobVnum() == Mob::NEWSBOY) { 
-    if (!::number(0, 10)) 
+  if (mobVnum() == Mob::NEWSBOY) {
+    if (!::number(0, 10))
       *gen_corpse += *(read_object(Obj::HERALD, VIRTUAL));
-  } 
+  }
 
   // banshee loading banshee larynx (shatter comp)
   // would be better as dissect, but banshee=undead=dustpile=no-dissect
-  if (mobVnum() == Mob::BANSHEE) { 
-    if (!::number(0, 1)) 
+  if (mobVnum() == Mob::BANSHEE) {
+    if (!::number(0, 1))
       *gen_corpse += *(read_object(COMP_SHATTER, VIRTUAL));
-  } 
+  }
 
   for(StuffIter it=stuff.begin();it!=stuff.end();){
     TThing *obo=*(it++);
@@ -646,12 +646,12 @@ TThing * TBeing::makeCorpse(spellNumT dmg_type, TBeing * tKiller, float exp_lost
     logItem(obo, CMD_SOUTH);
   }
 
-  if (dynamic_cast<TMonster *>(this)) 
+  if (dynamic_cast<TMonster *>(this))
     gen_corpse->obj_flags.decay_time = MAX_NPC_CORPSE_TIME;
   else {
-    if (!gen_corpse->stuff.empty()) 
+    if (!gen_corpse->stuff.empty())
       gen_corpse->obj_flags.decay_time = MAX_PC_CORPSE_EQUIPPED_TIME;
-    else 
+    else
       gen_corpse->obj_flags.decay_time = MAX_PC_CORPSE_EMPTY_TIME;
   }
 
@@ -665,7 +665,7 @@ TThing * TBeing::makeCorpse(spellNumT dmg_type, TBeing * tKiller, float exp_lost
 //    *rp += *gen_corpse;
   }
 
-  // make sure we don't have any "corpses in a corpse" 
+  // make sure we don't have any "corpses in a corpse"
   for(StuffIter it=gen_corpse->stuff.begin();it!=gen_corpse->stuff.end();){
     o=*(it++);
     TBaseCorpse *tbc = dynamic_cast<TBaseCorpse *>(o);

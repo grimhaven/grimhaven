@@ -78,11 +78,11 @@ bool TObj::isLevitating() const
 
 bool TObj::fitInShop(const char *buf3, const TBeing *) const
 {
-  return (!strcmp(buf3, "yes") || 
-          !strcmp(buf3, "N/A") || 
+  return (!strcmp(buf3, "yes") ||
+          !strcmp(buf3, "N/A") ||
           !strcmp(buf3, "paired") ||
-          !strcmp(buf3, "either hand") || 
-          !strcmp(buf3, "secondary only") || 
+          !strcmp(buf3, "either hand") ||
+          !strcmp(buf3, "secondary only") ||
           !strcmp(buf3, "primary only"));
 }
 
@@ -102,7 +102,7 @@ int TObj::suggestedPrice() const
 int TObj::productionPrice() const
 {
   // just the indexed cost
-  return obj_index[getItemIndex()].value;  
+  return obj_index[getItemIndex()].value;
 }
 
 
@@ -496,7 +496,7 @@ bool TObj::lowCheckSlots(silentTypeT silent)
     if (IS_SET(value, (unsigned) (1<<ui)))
       if (value != (unsigned) (1<<ui)) {
         if (!silent)
-          vlogf(LOG_LOW, format("item (%s) with multiple wear slots: %s") % 
+          vlogf(LOG_LOW, format("item (%s) with multiple wear slots: %s") %
                getName() % wear_bits[ui]);
         return true;
       }
@@ -528,7 +528,7 @@ void TObj::addGlowEffects()
         vlogf(LOG_LOW,format("Mega light on %s") % getName());
       break;
     } else if (i==(MAX_OBJ_AFFECT-1))
-      vlogf(LOG_LOW,format("obj %s has too many affects to set glow on it.") % 
+      vlogf(LOG_LOW,format("obj %s has too many affects to set glow on it.") %
              getName());
   }
 }
@@ -592,12 +592,12 @@ void TObj::onObjLoad()
 }
 
 //returns who owns this monogram (or empty)
-sstring TObj::monogramOwner() const 
+sstring TObj::monogramOwner() const
 {
   char namebuf[MAX_INPUT_LENGTH];
   /* added an 'immortal' type monogram to differentiate between engraver & immortal monogramming */
   /* so %*s might read 'personalized' or 'immortalized' */
-  if(action_description && 
+  if(action_description &&
      (sscanf(action_description, "This is the %*s object of %s.", namebuf) == 1))
     return sstring(namebuf);
 
@@ -620,12 +620,12 @@ bool TObj::isMonogramOwner(TBeing *b, bool crossAccount) const
 }
 
 //checks for special-case monogramming (a subset of regular monogram)
-bool TObj::isImmMonogrammed() const 
+bool TObj::isImmMonogrammed() const
 {
   char namebuf[MAX_INPUT_LENGTH];
   /* added an 'immortal' type monogram to differentiate between engraver & immortal monogramming */
   /* so %*s might read 'personalized' or 'immortalized' */
-  if(action_description && 
+  if(action_description &&
      (sscanf(action_description, "This is the immortalized object of %s.", namebuf) == 1))
     return true;
 
@@ -634,37 +634,37 @@ bool TObj::isImmMonogrammed() const
 
 bool TObj::deMonogram(bool erase_imm_monogram)
 {
-	/* remove a monogram from an item and strip off the monogrammed name from the obj name */
-	if (isMonogrammed()) {
-		if (isImmMonogrammed() && !erase_imm_monogram) {
-			return FALSE;
-		}
-		
-		// remove it and return!
-		
-		/* trim character's name from obj->name, if it's the last word */
-		/* not convinced that it was a good idea to append the char name in the first place, but will leave that for now */
-		char looking_for_name[MAX_INPUT_LENGTH];
-		if (action_description && (sscanf(action_description, "This is the %*s object of %s.", looking_for_name) == 1)) {
-			sstring obj_name = name;
-			unsigned int last_space_loc = obj_name.rfind(' ', obj_name.size());
-			if (last_space_loc > 0 && last_space_loc < obj_name.size()) {
-				if (obj_name.substr(last_space_loc + 1, obj_name.size()).compare(looking_for_name) == 0) {
-					// last word matches name, let's strip it off
-					obj_name = obj_name.substr(0, last_space_loc);
-					delete [] name;
-					name = mud_str_dup(obj_name);
-				}
-			}
-		}
-		
-		delete [] action_description;
-		action_description = NULL;
-		
-		return TRUE;
-		
-	}
-	return FALSE; // or we could return true to indicate that it's clean. whatever.
+        /* remove a monogram from an item and strip off the monogrammed name from the obj name */
+        if (isMonogrammed()) {
+                if (isImmMonogrammed() && !erase_imm_monogram) {
+                        return FALSE;
+                }
+
+                // remove it and return!
+
+                /* trim character's name from obj->name, if it's the last word */
+                /* not convinced that it was a good idea to append the char name in the first place, but will leave that for now */
+                char looking_for_name[MAX_INPUT_LENGTH];
+                if (action_description && (sscanf(action_description, "This is the %*s object of %s.", looking_for_name) == 1)) {
+                        sstring obj_name = name;
+                        unsigned int last_space_loc = obj_name.rfind(' ', obj_name.size());
+                        if (last_space_loc > 0 && last_space_loc < obj_name.size()) {
+                                if (obj_name.substr(last_space_loc + 1, obj_name.size()).compare(looking_for_name) == 0) {
+                                        // last word matches name, let's strip it off
+                                        obj_name = obj_name.substr(0, last_space_loc);
+                                        delete [] name;
+                                        name = mud_str_dup(obj_name);
+                                }
+                        }
+                }
+
+                delete [] action_description;
+                action_description = NULL;
+
+                return TRUE;
+
+        }
+        return FALSE; // or we could return true to indicate that it's clean. whatever.
 }
 
 sstring TObj::wear_flags_to_sentence() const
@@ -673,7 +673,7 @@ sstring TObj::wear_flags_to_sentence() const
   sstring msg_wear_flag = "";
   bool worn = FALSE;
   bool ok_or = FALSE;
-  int wf = obj_flags.wear_flags; 
+  int wf = obj_flags.wear_flags;
   if (IS_SET(wf, 1<<0)) {
     // take flag
     msg_wear_flag = "It may be taken";

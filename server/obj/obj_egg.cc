@@ -50,7 +50,7 @@ void eggPoisoned(TEgg *egg, TBeing *ch, int dur)
 {
   affectedData af;
 
-  if (egg->isFoodFlag(FOOD_POISON) && 
+  if (egg->isFoodFlag(FOOD_POISON) &&
       !ch->isAffected(AFF_POISON)) {
     if (ch->getMyRace()->hasTalent(TALENT_GARBAGEEATER)) {
       act("Mmm, that had a bit of a kick to it!", FALSE, ch, 0, 0, TO_CHAR);
@@ -98,7 +98,7 @@ void eggSpoiled(TEgg *egg, TBeing *ch, int dur)
 void TEgg::eatMe(TBeing *ch)
 {
   if ((ch->getCond(FULL) > 20) && !ch->isImmortal()) {
-  	act("You try to stuff another $o into your mouth, but alas, you are full!", FALSE, ch, this, 0, TO_CHAR);
+          act("You try to stuff another $o into your mouth, but alas, you are full!", FALSE, ch, this, 0, TO_CHAR);
     return;
   }
   if (isFoodFlag(FOOD_SPOILED) && ch->isPerceptive()) {
@@ -119,7 +119,7 @@ void TEgg::eatMe(TBeing *ch)
   } else {
     if (ch->getCond(FULL) > -1)
       ch->gainCondition(FULL, TFood::getFoodFill());
-  }    
+  }
 
   if (ch->getCond(FULL) > 20)
     act("You are full.", FALSE, ch, 0, 0, TO_CHAR);
@@ -348,10 +348,10 @@ void TEgg::hatch(TRoom *rp)
     TRUE, mob, this, NULL, TO_ROOM);
 
   if (
-  	  ((parent && (ch=dynamic_cast<TBeing *>(parent)))
+            ((parent && (ch=dynamic_cast<TBeing *>(parent)))
       || (equippedBy && (ch = dynamic_cast<TBeing *>(equippedBy))))
-      && ch->isPc() 
-      && mob->GetMaxLevel() < ch->GetMaxLevel() 
+      && ch->isPc()
+      && mob->GetMaxLevel() < ch->GetMaxLevel()
       && !ch->tooManyFollowers(mob, FOL_PET)) {
     // this code was cut and pasted from the pet buying code, sorry :(
     mob->doAction(ch->name, CMD_STARE);
@@ -359,7 +359,7 @@ void TEgg::hatch(TRoom *rp)
     SET_BIT(mob->specials.affectedBy, AFF_CHARM);
     ch->addFollower(mob);
     mob->balanceMakeNPCLikePC();
-    
+
     aff.type = AFFECT_PET;
     aff.level = 0;
     aff.duration  = PERMANENT_DURATION;
@@ -367,10 +367,10 @@ void TEgg::hatch(TRoom *rp)
     aff.modifier = 0;   // to be used for elemental skill level
     aff.bitvector = 0;
 
-	aff.be = static_cast<TThing *>((void *) mud_str_dup(ch->getName()));
+        aff.be = static_cast<TThing *>((void *) mud_str_dup(ch->getName()));
 
     mob->affectTo(&aff, -1);
-  } 
+  }
 }
 
 int TEgg::eggIncubate()

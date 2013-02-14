@@ -32,7 +32,7 @@ class charList {
   long iHateStrength;
   int account_id;
   int player_id;
-  
+
   charList *next;
 
   charList();
@@ -63,17 +63,17 @@ class Mobile_Attitude {
     unsigned short greed;              /* current greed value */
     unsigned short malice;             /* current malice value */
     unsigned short anger;              /* current anger value */
-  
+
     unsigned short def_suspicion;      /* the various default values */
     unsigned short def_greed;
     unsigned short def_malice;
     unsigned short def_anger;
-  
+
     TBeing *target;             /* the target of the mobs opinions */
   public:
     TBeing *random;             // used to store a tbeing for random things
     int last_cmd;
-  
+
     Mobile_Attitude();
     Mobile_Attitude(const Mobile_Attitude &a);
     Mobile_Attitude & operator=(const Mobile_Attitude &a);
@@ -83,7 +83,7 @@ class Mobile_Attitude {
 class TMonster : public TBeing {
   public:
     Responses *resps;
-    Mobile_Attitude opinion; 
+    Mobile_Attitude opinion;
     opinionData hates;
     opinionData fears;
     short persist;
@@ -462,7 +462,7 @@ class TMonster : public TBeing {
     int remHated(const TBeing *, const char *);
     int remFeared(const TBeing *, const char *);
     int remHatred(unsigned short);
-	bool multiHates(const TBeing *, bool);
+        bool multiHates(const TBeing *, bool);
     bool Hates(const TBeing *, const char *) const;
     bool Fears(const TBeing *, const char *) const;
     TBeing *findAHatee();

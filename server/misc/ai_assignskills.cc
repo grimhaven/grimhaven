@@ -60,9 +60,9 @@ void TBeing::assignSkillsClass()
     // a new char is started at level 0 and advanced 1 level automatically
     for (i = 1; i <= getLevel(Class); i++) {
       // adjust for basic/ vs spelcialization practices
-      if (pracs < 200) 
+      if (pracs < 200)
         pracs += calcNewPracs(Class, true);
-      else 
+      else
         pracs += calcNewPracs(Class, false);
     }
     // but discount for the freebies given above
@@ -134,7 +134,7 @@ void TBeing::assignSkillsClass()
     favorites.push_back(DISC_IRON_BODY);
     assignSkills(Class, prim, favorites);
   }
-  
+
   if (hasClass(CLASS_SHAMAN)){
     Class=SHAMAN_LEVEL_IND;
     prim=DISC_SHAMAN;
@@ -150,21 +150,21 @@ void TBeing::assignSkillsClass()
   affectTotal();
   discNumT disc_num;
   for (disc_num = MIN_DISC; disc_num < MAX_DISCS; disc_num++) {
-    if (!(cd = getDiscipline(disc_num))) 
-      continue;   
+    if (!(cd = getDiscipline(disc_num)))
+      continue;
     if (cd->getNatLearnedness() < 0) {
       continue;
-    } 
+    }
     initSkillsBasedOnDiscLearning(disc_num);
   }
 }
 
 void TBeing::assignSkills(classIndT Class, discNumT primDisc,
-			  std::vector<discNumT>favorites)
+                          std::vector<discNumT>favorites)
 {
   CDiscipline *cd, *prim, *combat, *favored=NULL;
   discNumT favoredNum=DISC_NONE, discnum;
-  
+
   if(!(prim=getDiscipline(primDisc))){
     vlogf(LOG_BUG, format("%s didn't have prim discipline.") %  getName());
     return;
@@ -187,7 +187,7 @@ void TBeing::assignSkills(classIndT Class, discNumT primDisc,
 
   while (getPracs(Class) > 0) {
     addPracs(-1, Class);
-    
+
     // Get combat (tactics) up to a minimum
     if(combat->getLearnedness() < 15) {
       raiseDiscOnce(DISC_COMBAT);
@@ -197,7 +197,7 @@ void TBeing::assignSkills(classIndT Class, discNumT primDisc,
     // start raising combat and prim until they are both maxed
     bool combatDone=(combat->getLearnedness() >= MAX_DISC_LEARNEDNESS);
     bool primDone=(prim->getLearnedness() >= MAX_DISC_LEARNEDNESS);
-    
+
     if(combatDone && !primDone){
       raiseDiscOnce(primDisc);
       continue;
@@ -206,9 +206,9 @@ void TBeing::assignSkills(classIndT Class, discNumT primDisc,
       continue;
     } else if(!combatDone && !primDone){
       if(::number(0,1))
-	raiseDiscOnce(primDisc);
+        raiseDiscOnce(primDisc);
       else
-	raiseDiscOnce(DISC_COMBAT);
+        raiseDiscOnce(DISC_COMBAT);
       continue;
     }
     // fall through only if combat and prim are both maxed
@@ -218,10 +218,10 @@ void TBeing::assignSkills(classIndT Class, discNumT primDisc,
     if(!favored){
       std::random_shuffle(favorites.begin(), favorites.end());
       favoredNum=favorites[0];
-      
+
       if(!(favored = getDiscipline(favoredNum))){
-	vlogf(LOG_BUG, format("%s didn't have discipline %i.") %  getName() % favoredNum);
-	return;
+        vlogf(LOG_BUG, format("%s didn't have discipline %i.") %  getName() % favoredNum);
+        return;
       }
     }
 
@@ -239,18 +239,18 @@ void TBeing::assignSkills(classIndT Class, discNumT primDisc,
     bool found=false;
     for(unsigned int i=0;i < disclist.size();++i){
       if(!(cd=getDiscipline(disclist[i]))){
-	vlogf(LOG_BUG, format("%s didn't have discipline %i.") %  getName() %disclist[i]);
-	return;
+        vlogf(LOG_BUG, format("%s didn't have discipline %i.") %  getName() %disclist[i]);
+        return;
       }
       if(cd->getLearnedness() < MAX_DISC_LEARNEDNESS){
-	raiseDiscOnce(disclist[i]);
-	found=true;
-	break;
+        raiseDiscOnce(disclist[i]);
+        found=true;
+        break;
       }
     }
     if(found)
       continue;
-    
+
     // fall through means we maxed all disciplines
     break;
   }

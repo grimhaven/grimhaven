@@ -85,7 +85,7 @@ int task_scribe(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, TObj
             scroll_obj->setMagicLearnedness(0);
           }
 
-	        scroll_obj->obj_flags.cost = scroll_obj->suggestedPrice();
+                scroll_obj->obj_flags.cost = scroll_obj->suggestedPrice();
           *ch += *scroll_obj;
 
           sprintf(buf, "You now have %d scroll%s of %s.\n\r",
@@ -105,7 +105,7 @@ int task_scribe(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, TObj
             delete s2->shortDescr;
             sprintf(buf, "<o>a crumpled %s scroll<1>", discArray[which]->name);
             s2->shortDescr=mud_str_dup(buf);
-	  
+
             s2->setSpell(0, scroll_obj->getSpell(0));
             s2->setSpell(1, scroll_obj->getSpell(1));
             s2->setSpell(2, scroll_obj->getSpell(2));

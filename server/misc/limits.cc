@@ -30,7 +30,7 @@ static const sstring ClassTitles(const TBeing *ch)
   for (i = MIN_CLASS_IND; i < MAX_CLASSES; i++) {
     if (ch->getLevel(i)) {
       if ((++count) > 1)
-        sprintf(buf + strlen(buf), "/Level %d %s", 
+        sprintf(buf + strlen(buf), "/Level %d %s",
                 ch->getLevel(i), classInfo[i].name.cap().c_str());
       else
         sprintf(buf, "Level %d %s",
@@ -67,7 +67,7 @@ void TPerson::setMaxHit(int newhit)
   // TPerson hit points are dynamic now, so this shouldn't happen
   // unless an immortal uses @set
   vlogf(LOG_BUG, format("TPerson::setMaxHit() got called on %s") %  getName());
-  points.maxHit = newhit;  
+  points.maxHit = newhit;
 }
 
 int eqHpBonus(const TPerson *ch)
@@ -79,9 +79,9 @@ int eqHpBonus(const TPerson *ch)
   for (i = MIN_WEAR; i < MAX_WEAR; i++) {
     for(j=0;j<MAX_OBJ_AFFECT;++j){
       if(ch->equipment[i] &&
-	 (o=dynamic_cast<TObj *>(ch->equipment[i])) &&
-	 o->affected[j].location == APPLY_HIT){
-	total+=o->affected[j].modifier;
+         (o=dynamic_cast<TObj *>(ch->equipment[i])) &&
+         o->affected[j].location == APPLY_HIT){
+        total+=o->affected[j].modifier;
       }
     }
   }
@@ -107,7 +107,7 @@ float classHpPerLevel(const TPerson *tp){
  if(!hpgain){
     vlogf(LOG_BUG, format("No class in classHpPerLevel() for %s") %  tp->getName());
     hpgain=7.0;
- } 
+ }
 
  return hpgain;
 }
@@ -116,7 +116,7 @@ int ageHpMod(const TPerson *tp){
     // age disabled - graf modified to always return age 30-44
   if (!tp) return 0;
   return graf(tp, (tp->age()->year - tp->getBaseAge() + 15), 2, 4, 17, 14, 8, 4, 3);
-  
+
 }
 
 
@@ -128,7 +128,7 @@ int affectHpBonus(const TPerson *tp){
     if(aff->location==APPLY_HIT)
       total+=aff->modifier;
   }
-  
+
   return total;
 }
 
@@ -138,7 +138,7 @@ short int TPerson::hitLimit() const
     return points.maxHit;
 
 
-  float defense_amt=((35.0/100.0) * (float) getSkillValue(SKILL_DEFENSE)) +
+  float defense_amt=((35.0/100.0) * (float) getSkillValue(SKILL_DEFENSE))
              ((15.0/100.0) * (float) getSkillValue(SKILL_ADVANCED_DEFENSE));
 
   float newmax=0;
@@ -180,10 +180,10 @@ int TPerson::getMaxMove() const
 {
   // age disabled
   if(!hasQuestBit(TOG_REAL_AGING)){
-    return 100 + 15 + GetTotLevel() +
+    return 100 + 15 + GetTotLevel()
       plotStat(STAT_CURRENT, STAT_CON, 3, 18, 13);
   } else {
-    return 100 + age()->year - getBaseAge() + 15 + GetTotLevel() +
+    return 100 + age()->year - getBaseAge() + 15 + GetTotLevel()
       plotStat(STAT_CURRENT, STAT_CON, 3, 18, 13);
   }
 }
@@ -222,7 +222,7 @@ double TBeing::pietyGain(double modif)
     return 0.5;  // slow regen if they somehow lost it
 
 #if FACTIONS_IN_USE
-  double ppx;  // my factions power as a percent of the avg faction power 
+  double ppx;  // my factions power as a percent of the avg faction power
   if (isUnaff())
     ppx = 50.0;  // flat regen
   else if (avg_faction_power)
@@ -265,7 +265,7 @@ double TBeing::pietyGain(double modif)
     } else {
       // unaff's will drain from from highest powered faction
       int iFact = bestFactionPower();
-  
+
       if ((gain/GAIN_DIVISOR) > FactionInfo[iFact].faction_power)
         gain = GAIN_DIVISOR * FactionInfo[iFact].faction_power;
 
@@ -294,7 +294,7 @@ double TBeing::pietyGain(double modif)
   // limit the gain so we don't go over max
   if ((getPiety() + gain) > 100.0)
     gain = 100. - getPiety();
-      
+
   return gain;
 }
 
@@ -370,7 +370,7 @@ int TMonster::hitGain()
 
   int oldgain = max(2, (GetMaxLevel() / 2));
   // the old version
-  
+
   // base1 is the % for level 1, base50 is the percent for level 50, for easy adjusting
 
   double base1 = 0.125; // yeash complain complain making this much lower etc
@@ -385,7 +385,7 @@ int TMonster::hitGain()
   // than the old value
 
   gain = max(oldgain,gain);
-  
+
   if (fight())
     gain = 0;
 
@@ -486,13 +486,13 @@ int TBeing::moveGain()
   // moveMod is used to calc moveLimit().  don't use it
 
   if (isAffected(AFF_POISON))
-    gain >>= 2;	// rightshift by 2 is div by 4
+    gain >>= 2;        // rightshift by 2 is div by 4
 
   if (isAffected(AFF_SYPHILIS))
-    gain >>= 2;	// rightshift by 2 is div by 4
+    gain >>= 2;        // rightshift by 2 is div by 4
 
   if (!getCond(FULL) || !getCond(THIRST))
-    gain >>= 2;	// rightshift by 2 is div by 4
+    gain >>= 2;        // rightshift by 2 is div by 4
 
   if ((num = inCamp())) {
     gain += (gain * num / 100);
@@ -529,11 +529,11 @@ int getAdvancedPracs(TBeing *ch){
     cd = ch->getDiscipline(i);
     if(cd && cd->ok_for_class){
       if(cd->isBasic() || cd->isAutomatic())
-	totalpracs+=0;
+        totalpracs+=0;
       else if(cd->isFast()){
-	totalpracs+=20;
+        totalpracs+=20;
       } else {
-	totalpracs+=60;
+        totalpracs+=60;
       }
     }
   }
@@ -548,9 +548,9 @@ double TBeing::pracsPerLevel(classIndT Class, bool forceBasic)
   // learn.  0.50 would let them learn half of their advanced discs, or 50%
   // in each advanced disc.  This includes "fast" discs like weapon specs.
   double class_tweak=classInfo[Class].prac_tweak;
-  
+
   // what level player should finish basic at (200 pracs)
-  double avbasic = 30.0; 
+  double avbasic = 30.0;
 
   // modify the level by the int mod, smart people finish sooner
   double advancedlevel = avbasic / getIntModForPracs();
@@ -593,17 +593,17 @@ short TBeing::calcNewPracs(classIndT Class, bool forceBasic)
     prac /= 4;
     num *= 3;
     num /= 4;
-  } 
+  }
 
   int roll = ::number(1,99);
   if ((100.0*num) >= roll) {
     prac++;
   }
-  
+
     // spammy with new functions
 /*  if(isPc()) {
     vlogf(LOG_DASH, format("%s gaining %d pracs roll = %d (%d + %4.2f) lev: %d") %  getName() %
-	  prac % roll % (int)temp % num % getLevel(Class));
+          prac % roll % (int)temp % num % getLevel(Class));
   }*/
 
   return prac;
@@ -681,7 +681,7 @@ void TPerson::doHPGainForLev(classIndT Class)
 void TBeing::dropLevel(classIndT Class)
 {
   double add_hp;
- 
+
   if (GetMaxLevel() > MAX_MORT)
     return;
 
@@ -704,7 +704,7 @@ void TBeing::dropLevel(classIndT Class)
     if (dnt == MAX_DISCS)
       break;  /* player has negitive pracs and no learning */
   }
-    
+
   setLevel(Class,  getLevel(Class) - 1);
 
   if (getLevel(Class) < 1)
@@ -725,10 +725,10 @@ void TBeing::dropLevel(classIndT Class)
 // this is NOT explicitly compatible with multiclasses
 void TPerson::fixPracs()
 {
-  
+
   int level = 0, actual = 0, i = 0, diff = 0;
   classIndT Class;
-  
+
   if (isImmortal())
     return;
 
@@ -738,17 +738,17 @@ void TPerson::fixPracs()
       break;
     }
   }
- 
+
   for (Class = MIN_CLASS_IND; Class < MAX_CLASSES; Class++) {
     if (hasClass(1<<Class))
       break;
   }
-  
+
   // figure out the right number of pracs
   short expected = expectedPracs();
   actual = pracsSoFar();
   diff = expected-actual; // >0 if they didn't get enough pracs
-        
+
   // compare it to how many pracs the person got
   // if the person is under by more than level/10 and this is their first time, give them a second chance
   if (-diff > max(5,level/2) && hasQuestBit(TOG_PRACS_FIXED)) {
@@ -774,7 +774,7 @@ void TPerson::fixPracs()
           % redBold() % norm() );
     }
   }
-    
+
 }
 
 // calculates the number of pracs this character should have
@@ -783,7 +783,7 @@ short TBeing::meanPracsSoFar()
 {
   int repeats = 10;
   int sum = 0;
-  
+
   for (int i=0; i<repeats; i++)
     sum += pracsSoFar();
 
@@ -819,7 +819,7 @@ short TBeing::expectedPracs(){
   double lvlStart, lvlEnd, fraction;
   double pracs = 0, gain = 0;
   classIndT Class;
-  
+
   for (Class = MIN_CLASS_IND; Class < MAX_CLASSES; Class++) {
     if (!hasClass(1<<Class))
       continue;
@@ -837,7 +837,7 @@ short TBeing::expectedPracs(){
     fraction = (getMaxExp()-lvlStart)/(lvlEnd-lvlStart);
     double advancedlevel = 30.0 / getIntModForPracs();
     /*
-    vlogf(LOG_MAROR, format("level is %d, exp is %f, fraction is %f, advancedlevel is %f") 
+    vlogf(LOG_MAROR, format("level is %d, exp is %f, fraction is %f, advancedlevel is %f")
        % level % getMaxExp() % fraction % advancedlevel );
     */
     for (i = 0; i <= level; i++) {
@@ -934,7 +934,7 @@ void gain_exp(TBeing *ch, double gain, int dam)
 
   if(ch->isImmortal())
     return;
-  
+
 
   if (gain < 0) {
     ch->addToExp(gain);
@@ -951,9 +951,9 @@ void gain_exp(TBeing *ch, double gain, int dam)
     ch->sendTo(format("%sYou would have gained XP here, but there is a problem with your account.  Please contact a creator.%s\n\r") % ch->redBold() % ch->norm());
     return;
   }
-  
+
   gain /= ch->howManyClasses();
-  
+
   for (Class = MIN_CLASS_IND; Class < MAX_CLASSES; Class++) {
     if(!ch->getLevel(Class))
       continue;
@@ -962,29 +962,29 @@ void gain_exp(TBeing *ch, double gain, int dam)
     const double peak = getExpClassLevel(Class,ch->getLevel(Class) + 1);
     const double curr = getExpClassLevel(Class,ch->getLevel(Class));
     const double gainmod = ((1.15*ch->getLevel(Class)) );
-      
+
     // calculate exp gain
     if (!been_here && gain > ((double)(dam)*(peak-curr))/(gainmod*(double)(ch->howManyClasses()*10000))+2.0 && dam > 0) {
       been_here = TRUE; // don't show multiple logs for multiclasses
-	
+
       // the 100 turns dam into a %
       newgain = ((double)(dam)*(peak-curr))/(gainmod*(double)(ch->howManyClasses()*10000)) + 1.0;
-	
+
       // 05/24/01 - adding a 'soft' cap here
-      double softmod = (1.0 - pow( 1.1 , -1.0*(gain/newgain))) + 1.0;     
-	
+      double softmod = (1.0 - pow( 1.1 , -1.0*(gain/newgain))) + 1.0;
+
       // this gives us a range of 1-2
       newgain *= softmod;
-	
+
       //newgain = (newgain*0.95) +  (((float)::number(0,100))*newgain)/1000.0;
       // don't need this anymore since no hard cap - dash
       if (gain < newgain)
-	newgain = gain;
+        newgain = gain;
       gain = newgain;
-      
-    
+
+
     }
-    
+
     // Fae touched characters gain xp at half the normal rate
     // Leave this here, if it is moved up they will get more than half because
     // the cap will be applied to a lower value
@@ -1052,7 +1052,7 @@ if (ch->getLevel(Class) < MAX_MORT)
     // roll for extra prac
     double overshoot = t_exp-t_peak; // amount of delta that is not part of this level
     if(::number(1,(int)delta_exp) < (delta_exp - overshoot)){
-      vlogf(LOG_SILENT, format("%s gaining practice (threshold): t_curr=%f, t_peak=%f, delta_exp=%f, exp=%f, new_exp=%f, overshoot=%f") 
+      vlogf(LOG_SILENT, format("%s gaining practice (threshold): t_curr=%f, t_peak=%f, delta_exp=%f, exp=%f, new_exp=%f, overshoot=%f")
           %  ch->getName() % t_curr % t_peak % delta_exp % exp % new_exp % overshoot);
       gain_pracs++;
     }
@@ -1063,7 +1063,7 @@ if (ch->getLevel(Class) < MAX_MORT)
 
 //if(new_exp > peak)
 else
-{ 
+{
   // peak is the amount of exp required to level
   // (if someone's experience is set high you go through this)
 
@@ -1100,7 +1100,7 @@ else
     // roll for extra prac
     double overshoot = new_exp-t_peak; // amount of delta that is not part of this level
     if(::number(1,(int)delta_exp) < (delta_exp - overshoot)){
-      vlogf(LOG_SILENT, format("%s gaining practice (threshold): t_curr=%f, t_peak=%f, delta_exp=%f, exp=%f, new_exp=%f, overshoot=%f") 
+      vlogf(LOG_SILENT, format("%s gaining practice (threshold): t_curr=%f, t_peak=%f, delta_exp=%f, exp=%f, new_exp=%f, overshoot=%f")
           %  ch->getName() % t_curr % t_peak % delta_exp % exp % new_exp % overshoot);
       gain_pracs++;
     }
@@ -1111,10 +1111,10 @@ else
 // THE CONDITIONAL ON THE FIRST LINE IS TO FIX SOME LONG TERM PROBLEMS WITH
 // EXCESS PRACTICES BEING GIVEN OUT
 if(gain_pracs > 0){
-  if (ch->hasQuestBit(TOG_PRACS_FIXED) && 
+  if (ch->hasQuestBit(TOG_PRACS_FIXED) &&
         ch->meanPracsSoFar() > ch->expectedPracs() + ch->getLevel(Class)/10)
       vlogf(LOG_MAROR, format("%s gaining practice outside normal bounds with 'practices ok' toggle on.") % ch->getName());
-  if (ch->hasQuestBit(TOG_PRACS_FIXED) || 
+  if (ch->hasQuestBit(TOG_PRACS_FIXED) ||
       ch->meanPracsSoFar() <= (ch->expectedPracs() + ch->getLevel(Class)/10)) {
     ch->setQuestBit(TOG_PRACS_FIXED);
     ch->addPracs(gain_pracs, Class);
@@ -1124,8 +1124,8 @@ if(gain_pracs > 0){
       ch->sendTo(COLOR_BASIC, format("<W>You have gained %i practices!<1>\n\r") %
          gain_pracs);
     }
-    
-  } else 
+
+  } else
     vlogf(LOG_MAROR, format("%s missing practice gain due to too many practices.")
         % ch->getName());
 }
@@ -1161,10 +1161,10 @@ if(gain_pracs > 0){
   // update max exp
   if(ch->getExp() > ch->getMaxExp())
     ch->setMaxExp(ch->getExp());
-  
+
 }
 
-void TFood::findSomeFood(TFood **last_good, TBaseContainer **last_cont, TBaseContainer *cont) 
+void TFood::findSomeFood(TFood **last_good, TBaseContainer **last_cont, TBaseContainer *cont)
 {
   // get item closest to spoiling.
   if (*last_good && obj_flags.decay_time > (*last_good)->obj_flags.decay_time)
@@ -1180,7 +1180,7 @@ void TBeing::gainCondition(condTypeT condition, int value)
   char buf[160], tmpbuf[40], buf2[256];
   TThing *t = NULL;
 
-  if (getCond(condition) == -1)        // No change 
+  if (getCond(condition) == -1)        // No change
     return;
 
   loopchk=getCond(condition);
@@ -1194,30 +1194,30 @@ void TBeing::gainCondition(condTypeT condition, int value)
     // this is racial metabolism vs human norm
     switch (condition) {
       case FULL:
-        value = (int) (value * getMyRace()->getFoodMod()); 
+        value = (int) (value * getMyRace()->getFoodMod());
         value = max(1, value);
-	// lets take body mass into consideration for hunger
-	value = (int) (value * 180.0 / getWeight());
-	value = max(1, value);
+        // lets take body mass into consideration for hunger
+        value = (int) (value * 180.0 / getWeight());
+        value = max(1, value);
 
         break;
       case THIRST:
-	// lets take body mass into consideration for thirst
-	value = (int) (value * 180.0 / getWeight());
-	value = max(1, value);
-	break;
-      case DRUNK:
-        value = (int) (value * getMyRace()->getDrinkMod()); 
+        // lets take body mass into consideration for thirst
+        value = (int) (value * 180.0 / getWeight());
         value = max(1, value);
-	// lets take body mass into consideration for drunkenness
-	// this may need some revision
-	// At the momeny we are scaling linearly and taking drunkenness factors
-	// normalized to a 180LB person
-	value = (int) (value * 180.0 / getWeight());
-	value = max(1, value);
+        break;
+      case DRUNK:
+        value = (int) (value * getMyRace()->getDrinkMod());
+        value = max(1, value);
+        // lets take body mass into consideration for drunkenness
+        // this may need some revision
+        // At the momeny we are scaling linearly and taking drunkenness factors
+        // normalized to a 180LB person
+        value = (int) (value * 180.0 / getWeight());
+        value = max(1, value);
 
-	// modify for SKILL_ALCOHOLISM
-	value = (int)((double) value * (double)(((double)(105 - getSkillValue(SKILL_ALCOHOLISM)) / 100)));
+        // modify for SKILL_ALCOHOLISM
+        value = (int)((double) value * (double)(((double)(105 - getSkillValue(SKILL_ALCOHOLISM)) / 100)));
         break;
       case PEE:
       case POOP:
@@ -1245,15 +1245,15 @@ void TBeing::gainCondition(condTypeT condition, int value)
         sendTo("You begin to feel your mouth getting dry.\n\r");
         break;
       case DRUNK:
-	if(inRoom() >= 31800 && inRoom() <= 31899){    
-	  sendTo("As you begin to sober up, your grasp on this strange world begins to loosen.\n\r");
-	}
+        if(inRoom() >= 31800 && inRoom() <= 31899){
+          sendTo("As you begin to sober up, your grasp on this strange world begins to loosen.\n\r");
+        }
 
         break;
       case PEE:
       case POOP:
       case MAX_COND_TYPE:
-	break;
+        break;
     }
   }
   if (amt)
@@ -1280,11 +1280,11 @@ void TBeing::gainCondition(condTypeT condition, int value)
       if (!(t = equipment[i]))
         continue;
 
-      t->findSomeFood(&last_good, &last_cont, NULL); 
-    }
-    for(StuffIter it=stuff.begin();it!=stuff.end() && (t=*it);++it) 
       t->findSomeFood(&last_good, &last_cont, NULL);
-            
+    }
+    for(StuffIter it=stuff.begin();it!=stuff.end() && (t=*it);++it)
+      t->findSomeFood(&last_good, &last_cont, NULL);
+
     if (last_good && !last_cont) {
       sprintf(buf, "%s", fname(last_good->name).c_str());
       doEat(buf);
@@ -1312,8 +1312,8 @@ void TBeing::gainCondition(condTypeT condition, int value)
     for(StuffIter it=roomp->stuff.begin();it!=roomp->stuff.end() && (t=*it);++it) {
       if (dynamic_cast<TObj *>(t) && (t->spec == SPEC_FOUNTAIN)) {
         char drinkbuf[256];
-	sprintf(drinkbuf, "drink %s", t->name);
-	parseCommand(drinkbuf, FALSE);
+        sprintf(drinkbuf, "drink %s", t->name);
+        parseCommand(drinkbuf, FALSE);
         return;
       }
     }
@@ -1332,8 +1332,8 @@ void TBeing::gainCondition(condTypeT condition, int value)
       for(StuffIter it=stuff.begin();it!=stuff.end() && (t=*it);++it) {
         t->findSomeDrink(&last_good, &last_cont, NULL);
 
-	if (last_good)
-	  break;
+        if (last_good)
+          break;
       }
 
     if (last_good && !last_cont) {
@@ -1348,9 +1348,9 @@ void TBeing::gainCondition(condTypeT condition, int value)
     if (last_good && last_cont) {
       sprintf(buf, "%s", last_cont->name);
       strcpy(buf, add_bars(buf).c_str());
-      if (getPosition() == POSITION_RESTING) 
+      if (getPosition() == POSITION_RESTING)
         addCommandToQue("sit");
-            
+
       strcpy(tmpbuf, fname(last_good->name).c_str());
       sprintf(buf2, "get %s %s", tmpbuf, buf);
       addCommandToQue(buf2);
@@ -1413,9 +1413,9 @@ int TBeing::checkIdling()
       desc = NULL;
       return DELETE_THIS;
     }
-#if 0 
+#if 0
   }
-#else 
+#else
   } else if (desc && desc->original && (desc->original->getTimer() >= 20)) {
     TBeing *mob = NULL;
     TBeing *per = NULL;
@@ -1464,13 +1464,13 @@ int TBeing::moneyMeBeing(TThing *mon, TThing *sub)
 
 void TBeing::classSpecificStuff()
 {
-  if (hasClass(CLASS_WARRIOR)) 
+  if (hasClass(CLASS_WARRIOR))
     setMult(1.0);
-  
+
   if (hasClass(CLASS_MONK)) {
     // from balance note
     // we desire monks to be getting 5/7 sqrt(lev) hits per round
-    // barehand prof is linear from L1-L30 : n = 10/3 * L 
+    // barehand prof is linear from L1-L30 : n = 10/3 * L
     // barehand spec is linear roughly L31-L50 n = (L-30) * 5
     // solve for L as a function of n
     double value = 0;
@@ -1481,7 +1481,7 @@ void TBeing::classSpecificStuff()
 
     // value is roughly their actual level, but based on skill instead
     value = min(max(1.0, value), 50.0);
- 
+
     // now make it into numHits
     value = 5.0 * sqrt(value) / 7.0;
 
@@ -1554,7 +1554,7 @@ int TBeing::hpGainForClass(classIndT Class) const
     hpgain += ::number(6,8); // old 5,9
 
   if (hasClass(CLASS_SHAMAN) && Class == SHAMAN_LEVEL_IND)
-    hpgain += ::number(3,8); 
+    hpgain += ::number(3,8);
 
   return hpgain;
 }
@@ -1564,7 +1564,7 @@ int TBeing::hpGainForLevel(classIndT Class) const
 {
   double hpgain = 0;
 
-  hpgain = (double) hpGainForClass(Class);  
+  hpgain = (double) hpGainForClass(Class);
 
   hpgain *= (double) getConHpModifier();
 

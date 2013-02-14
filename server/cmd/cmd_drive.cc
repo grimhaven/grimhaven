@@ -52,8 +52,8 @@ void TBeing::doDrive(sstring arg)
        ((sstring)(dirs[dir])=="northeast" && buf=="ne") ||
        ((sstring)(dirs[dir])=="southeast" && buf=="se")){
       if(!has_key(this, vehicle->getPortalKey())){
-	sendTo("You need the keys to drive this vehicle!\n\r");
-	return;
+        sendTo("You need the keys to drive this vehicle!\n\r");
+        return;
       }
 
       vehicle->driveDir(this, dir);
@@ -86,11 +86,11 @@ void TBeing::doDrive(sstring arg)
     vehicle->lockMe(this);
     return;
   }
-		   
+
   // authenticated commands
   int speed=convertTo<int>(buf);
-  if(speed || (is_abbrev(buf, "fast") || is_abbrev(buf, "medium") || 
-	       is_abbrev(buf, "slow") || is_abbrev(buf, "stop"))){
+  if(speed || (is_abbrev(buf, "fast") || is_abbrev(buf, "medium") ||
+               is_abbrev(buf, "slow") || is_abbrev(buf, "stop"))){
     if(!has_key(this, vehicle->getPortalKey())){
       sendTo("You need the keys to drive this vehicle!\n\r");
       return;

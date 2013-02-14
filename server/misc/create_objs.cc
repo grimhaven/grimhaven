@@ -153,7 +153,7 @@ static void update_obj_menu(const TBeing *ch, const TObj *obj)
   ch->sendTo("--> ");
 }
 
-// Loading/Saving functions are below 
+// Loading/Saving functions are below
 
 void TBeing::doOEdit(const char *)
 {
@@ -216,7 +216,7 @@ void ObjLoad(TBeing *ch, int vnum)
 
 
   db.query("select name, description from objextra where vnum=%i and owner='%s'", vnum, ch->name);
-  
+
   while(db.fetchRow()){
     new_descr = new extraDescription();
     new_descr->keyword = mud_str_dup(db["name"]);
@@ -237,7 +237,7 @@ void ObjLoad(TBeing *ch, int vnum)
       o->affected[i].modifier = mapFileToSpellnum(convertTo<int>(db["mod1"]));
     else
       o->affected[i].modifier = convertTo<int>(db["mod1"]);
- 
+
     o->affected[i].modifier2 = convertTo<int>(db["mod2"]);
 
     if (o->affected[i].location == APPLY_LIGHT)
@@ -283,14 +283,14 @@ static void ObjSave(TBeing *ch, TObj *o, int vnum)
   TDatabase db(DB_IMMORTAL);
 
   //  db.query("delete from obj where vnum=%i", vnum);
-  if(!db.query("insert into obj (vnum, name, short_desc, long_desc, type, action_flag, wear_flag, val0, val1, val2, val3, weight, price, can_be_seen, spec_proc, max_exist, cur_struct, max_struct, decay, volume, material, owner, action_desc) values (%i, '%s', '%s', '%s', %i, %i, %i, %i, %i, %i, %i, %f, %i, %i, %i, %i, %i, %i, %i, %i, %i, '%s', '%s')", 
-	  vnum, o->name, o->shortDescr, o->getDescr(),o->itemType(), 
-	  o->getObjStat(), o->obj_flags.wear_flags, tmp1, tmp2, tmp3, tmp4, 
-	  o->getWeight(), o->obj_flags.cost, o->canBeSeen, o->spec, 
-	  o->max_exist, o->obj_flags.struct_points, 
-	  o->obj_flags.max_struct_points, o->obj_flags.decay_time, 
-		 o->getVolume(), o->getMaterial(), ch->name, 
-	       o->action_description?o->action_description:"")){
+  if(!db.query("insert into obj (vnum, name, short_desc, long_desc, type, action_flag, wear_flag, val0, val1, val2, val3, weight, price, can_be_seen, spec_proc, max_exist, cur_struct, max_struct, decay, volume, material, owner, action_desc) values (%i, '%s', '%s', '%s', %i, %i, %i, %i, %i, %i, %i, %f, %i, %i, %i, %i, %i, %i, %i, %i, %i, '%s', '%s')",
+          vnum, o->name, o->shortDescr, o->getDescr(),o->itemType(),
+          o->getObjStat(), o->obj_flags.wear_flags, tmp1, tmp2, tmp3, tmp4,
+          o->getWeight(), o->obj_flags.cost, o->canBeSeen, o->spec,
+          o->max_exist, o->obj_flags.struct_points,
+          o->obj_flags.max_struct_points, o->obj_flags.decay_time,
+                 o->getVolume(), o->getMaterial(), ch->name,
+               o->action_description?o->action_description:"")){
     ch->sendTo("Unable to save object.  Make sure that an object doesn't already exist in that slot.\n\r");
     //    ch->sendTo("Database error!  Talk to a coder ASAP.\n\r");
     return;
@@ -305,19 +305,19 @@ static void ObjSave(TBeing *ch, TObj *o, int vnum)
     j = 0;
     if (exdes->description) {
       for (k = 0; k <= (int) strlen(exdes->description); k++) {
-	if (exdes->description[k] != 13)
-	  temp[j++] = exdes->description[k];
+        if (exdes->description[k] != 13)
+          temp[j++] = exdes->description[k];
       }
       temp[j] = '\0';
 
       if(!db.query("insert into objextra (name, description, owner, vnum) values ('%s', '%s', '%s', %i)", exdes->keyword, temp, ch->name, vnum)){
-	ch->sendTo("Database error!  Talk to a coder ASAP.\n\r");
-	return;
+        ch->sendTo("Database error!  Talk to a coder ASAP.\n\r");
+        return;
       }
     } else {
       if(!db.query("insert into objextra (name, description, owner, vnum) values ('%s', '', '%s')", exdes->keyword, ch->name, vnum)){
-	ch->sendTo("Database error!  Talk to a coder ASAP.\n\r");
-	return;
+        ch->sendTo("Database error!  Talk to a coder ASAP.\n\r");
+        return;
       }
     }
   }
@@ -326,20 +326,20 @@ static void ObjSave(TBeing *ch, TObj *o, int vnum)
     ch->sendTo("Database error!  Talk to a coder ASAP.\n\r");
     return;
   }
-  
+
   for (i = 0; i < MAX_OBJ_AFFECT; i++) {
     if (o->affected[i].location == APPLY_LIGHT && o->canWear(ITEM_TAKE)) {
       ch->sendTo("Removing light affects on takeable item.\n\r");
       continue;
     }
-    
+
     if (o->affected[i].location != APPLY_NONE) {
       if(!db.query("insert into objaffect (type, mod1, mod2, owner, vnum) values (%i, %i, %i, '%s', %i)",
-		 mapApplyToFile(o->affected[i].location), 
-		 applyTypeShouldBeSpellnum(o->affected[i].location) ? mapSpellnumToFile(spellNumT(o->affected[i].modifier)) : o->affected[i].modifier,
-		 o->affected[i].modifier2, ch->name, vnum)){
-	ch->sendTo("Database error!  Talk to a coder ASAP.\n\r");
-	return;
+                 mapApplyToFile(o->affected[i].location),
+                 applyTypeShouldBeSpellnum(o->affected[i].location) ? mapSpellnumToFile(spellNumT(o->affected[i].modifier)) : o->affected[i].modifier,
+                 o->affected[i].modifier2, ch->name, vnum)){
+        ch->sendTo("Database error!  Talk to a coder ASAP.\n\r");
+        return;
       }
     }
   }
@@ -389,7 +389,7 @@ static void olist(TPerson *ch, bool zone=false)
     ch->sendTo("Database error!  Talk to a coder ASAP.\n\r");
     return;
   }
-    
+
 
   while(db.fetchRow()){
     longstr += db["vnum"];
@@ -469,7 +469,7 @@ static void oedit(TBeing *ch, const char *arg)
 void oremove(TBeing *ch, int vnum)
 {
   TDatabase db(DB_IMMORTAL);
-  
+
   db.query("select * from obj where vnum=%i and owner='%s'", vnum, ch->name);
 
   if(!db.isResults()){
@@ -486,7 +486,7 @@ void oremove(TBeing *ch, int vnum)
     ch->sendTo("Removed.\n\r");
 }
 
-// This is the main function that controls all the object stuff - Russ 
+// This is the main function that controls all the object stuff - Russ
 void TPerson::doOEdit(const char *argument)
 {
   const char *tString = NULL;
@@ -514,22 +514,22 @@ void TPerson::doOEdit(const char *argument)
       if (!*sstring)
         sendTo("Syntax: oed resave <object>\n\r");
       else if (!(cObj = dynamic_cast<TObj *>(searchLinkedListVis(this, sstring, stuff))))
-	sendTo(format("Unable to find %s...Sorry...\n\r") % sstring);
+        sendTo(format("Unable to find %s...Sorry...\n\r") % sstring);
       else if (cObj->getSnum() == cObj->objVnum() && !hasWizPower(POWER_OEDIT_IMP_POWER))
         sendTo("Unknown value on this object.  resave only usable on oed loaded objects...\n\r");
 
       else if (!limitPowerCheck(CMD_OEDIT, cObj->getSnum()))
-	sendTo("You are not allowed to oedit that object, sorry.\n\r");
+        sendTo("You are not allowed to oedit that object, sorry.\n\r");
 
       else {
         sprintf(sstring, "%s %d", sstring, cObj->getSnum());
-	sendTo(format("Resaving in slot %i.\n\r") % cObj->getSnum());
-	oremove(this, cObj->getSnum());
+        sendTo(format("Resaving in slot %i.\n\r") % cObj->getSnum());
+        oremove(this, cObj->getSnum());
         osave(this, sstring);
       }
       return;
       break;
-    case 1:			// save 
+    case 1:                        // save
 #if 1
       tStArg = sstring;
       tStString=tStArg.word(0);
@@ -547,10 +547,10 @@ void TPerson::doOEdit(const char *argument)
           else if (cObj->getSnum() <= 0)
             sendTo("That object has a bad snum.  Sorry.  Can not resave.\n\r");
 
-	  else if (!limitPowerCheck(CMD_OEDIT, cObj->getSnum()))
-	    sendTo("You are not allowed to oedit that object, sorry.\n\r");
+          else if (!limitPowerCheck(CMD_OEDIT, cObj->getSnum()))
+            sendTo("You are not allowed to oedit that object, sorry.\n\r");
 
-	  else {
+          else {
             sprintf(sstring, "%s %d", tStString.c_str(), cObj->getSnum());
 
             osave(this, sstring);
@@ -581,8 +581,8 @@ void TPerson::doOEdit(const char *argument)
         }
         if (!hasWizPower(POWER_OEDIT_IMP_POWER) || !cObj || (cObj->objVnum() < 0) ||
             !*tString || !is_abbrev(tString, "resave")) {
-	  sendTo("Syntax : oed save <object> <vnum>\n\r");
-	  return;
+          sendTo("Syntax : oed save <object> <vnum>\n\r");
+          return;
         } else
           sprintf(sstring, "%s %d", object, cObj->objVnum());
       }
@@ -600,55 +600,55 @@ void TPerson::doOEdit(const char *argument)
 #endif
       return;
       break;
-    case 2:			// load 
+    case 2:                        // load
       if (sscanf(sstring, "%d", &vnum) != 1) {
-	// assume that sstring is an object name
-	TDatabase db(DB_IMMORTAL);
+        // assume that sstring is an object name
+        TDatabase db(DB_IMMORTAL);
 
-	db.query("select vnum, name from obj where owner='%s'", getName());
-  
-	vnum=-1;
-	while(db.fetchRow()){
-	  if(isname(sstring, db["vnum"])){
-	    vnum=convertTo<int>(db["name"]);
-	    break;
-	  }
-	}
+        db.query("select vnum, name from obj where owner='%s'", getName());
 
-	if(vnum==-1){
-	  sendTo("Syntax : oed load <vnum>\n\r");
-	  return;
-	}
+        vnum=-1;
+        while(db.fetchRow()){
+          if(isname(sstring, db["vnum"])){
+            vnum=convertTo<int>(db["name"]);
+            break;
+          }
+        }
+
+        if(vnum==-1){
+          sendTo("Syntax : oed load <vnum>\n\r");
+          return;
+        }
       }
 
       ObjLoad(this, vnum);
       return;
       break;
-    case 3:			// modify 
+    case 3:                        // modify
       if (sscanf(sstring, "%s", object) != 1) {
-	sendTo("Syntax : oed modify <object name>\n\r");
-	return;
+        sendTo("Syntax : oed modify <object name>\n\r");
+        return;
       }
       oedit(this, sstring);
       return;
       break;
-    case 4:			// list 
+    case 4:                        // list
       sscanf(sstring, "%s", object);
       if(!strcmp(object, "zone"))
-	olist(this, true);
+        olist(this, true);
       else
-	olist(this, false);
+        olist(this, false);
       return;
       break;
-    case 5:			// remove 
+    case 5:                        // remove
       if (sscanf(sstring, "%d", &vnum) != 1) {
-	sendTo("Syntax : oed remove <vnum>\n\r");
-	return;
+        sendTo("Syntax : oed remove <vnum>\n\r");
+        return;
       }
       oremove(this, vnum);
       return;
       break;
-    case 6:			// create 
+    case 6:                        // create
       ocreate(this);
       return;
       break;
@@ -832,13 +832,13 @@ void TPerson::doOEdit(const char *argument)
         cObj->editAverageMe(this, sstring);
 #else
       if ((sscanf(sstring, "%f", &oFValue)) != 1 || oValue < 0){
-	sendTo("Syntax : oed default_ac_str <object> <level>\n\r");
-	return;
+        sendTo("Syntax : oed default_ac_str <object> <level>\n\r");
+        return;
       }
       TBaseClothing *tbc;
       if (!(tbc = dynamic_cast<TBaseClothing *>(cObj))) {
-	sendTo("This only works on armor.\n\r");
-	return;
+        sendTo("This only works on armor.\n\r");
+        return;
       }
       str_orig   = tbc->getMaxStructPoints();
       ac_orig    = tbc->itemAC();
@@ -846,8 +846,8 @@ void TPerson::doOEdit(const char *argument)
       tbc->setDefArmorLevel(oFValue);
       tbc->obj_flags.cost = tbc->suggestedPrice();
       sendTo(format("Modified AC by %i, Structure by %i and Price by %i.\n\r") %
-	     (tbc->itemAC() - ac_orig), (tbc->getMaxStructPoints() - str_orig),
-	     (tbc->obj_flags.cost - price_orig));
+             (tbc->itemAC() - ac_orig), (tbc->getMaxStructPoints() - str_orig),
+             (tbc->obj_flags.cost - price_orig));
       sendTo(format("Real Level: %.2f  AC Level: %.2f   Str Level: %.2f\n\r") %
              tbc->armorLevel(ARMOR_LEV_REAL),
              tbc->armorLevel(ARMOR_LEV_AC),
@@ -936,7 +936,7 @@ void TObj::writeAffects(int i, FILE *fp) const
     return;
 
   if (affected[i].location != APPLY_NONE) {
-    fprintf(fp, "A\n%d %ld %ld\n", 
+    fprintf(fp, "A\n%d %ld %ld\n",
         mapApplyToFile(affected[i].location),
         applyTypeShouldBeSpellnum(affected[i].location) ? mapSpellnumToFile(spellNumT(affected[i].modifier)) : affected[i].modifier,
         affected[i].modifier2);
@@ -947,13 +947,13 @@ void raw_write_out_object(const TObj *o, FILE *fp, unsigned int vnum)
 {
   if (o->action_description)
     fprintf(fp, "#%d\n%s~\n%s~\n%s~\n%s~\n", vnum, o->name,
-	  o->shortDescr, o->getDescr(), 
+          o->shortDescr, o->getDescr(),
           o->action_description ? o->action_description : "");
-  else 
-    fprintf(fp, "#%d\n%s~\n%s~\n%s~\n~\n", vnum, o->name, 
+  else
+    fprintf(fp, "#%d\n%s~\n%s~\n%s~\n~\n", vnum, o->name,
            o->shortDescr, o->getDescr());
   fprintf(fp, "%d %d %d\n", mapItemTypeToFile(o->itemType()),
-	  o->getObjStat(), o->obj_flags.wear_flags);
+          o->getObjStat(), o->obj_flags.wear_flags);
 
   int tmp1, tmp2, tmp3, tmp4;
   o->getFourValues(&tmp1, &tmp2, &tmp3, &tmp4);
@@ -961,10 +961,10 @@ void raw_write_out_object(const TObj *o, FILE *fp, unsigned int vnum)
           tmp1, tmp2, tmp3, tmp4);
 
   fprintf(fp, "%.1f %d %d %d %d\n", o->getWeight(),
-	  o->obj_flags.cost, o->canBeSeen, o->spec, o->max_exist);
+          o->obj_flags.cost, o->canBeSeen, o->spec, o->max_exist);
   fprintf(fp, "%d %d %d %d %d\n", o->obj_flags.struct_points,
-	  o->obj_flags.max_struct_points, o->obj_flags.decay_time,
-	  o->getVolume(), o->getMaterial());
+          o->obj_flags.max_struct_points, o->obj_flags.decay_time,
+          o->getVolume(), o->getMaterial());
 
   int i, j, k;
   char temp[2048];
@@ -973,8 +973,8 @@ void raw_write_out_object(const TObj *o, FILE *fp, unsigned int vnum)
     j = 0;
     if (exdes->description) {
       for (k = 0; k <= (int) strlen(exdes->description); k++) {
-	if (exdes->description[k] != 13)
-	  temp[j++] = exdes->description[k];
+        if (exdes->description[k] != 13)
+          temp[j++] = exdes->description[k];
       }
       temp[j] = '\0';
       fprintf(fp, "E\n%s~\n%s~\n", exdes->keyword, temp);
@@ -1129,7 +1129,7 @@ static void change_obj_type(TBeing *ch, TObj *o, const char *arg, editorEnterTyp
       return;
 
     update = itemTypeT(num);
-  
+
     // disallow creating player corpses or "unknown" items
     if (update == ITEM_PCORPSE ||
         update == ITEM_MARTIAL_WEAPON ||
@@ -1227,7 +1227,7 @@ static void change_obj_extra_flags(TBeing *ch, TObj *o, const char *arg, editorE
     i = 1 << update;
 
     if (i == ITEM_STRUNG) {
-      ch->sendTo("This bit gets set automatically, and should never need to be manually changed.\n\r"); 
+      ch->sendTo("This bit gets set automatically, and should never need to be manually changed.\n\r");
       return;
     }
     if ((i == ITEM_PROTOTYPE) && !ch->hasWizPower(POWER_OEDIT_NOPROTOS)) {
@@ -1390,7 +1390,7 @@ static void change_obj_applys(TBeing *ch, TObj *o, const char *arg, editorEnterT
       return;
     }
     if (num == 3) {
-      // offset the arrays for applies 
+      // offset the arrays for applies
       if (att == APPLY_IMMUNITY)
         number1--;
 
@@ -1410,16 +1410,16 @@ static void change_obj_applys(TBeing *ch, TObj *o, const char *arg, editorEnterT
       return;
     } else if ((att != APPLY_SPELL) &&
                (att != APPLY_DISCIPLINE) &&
-               (att != APPLY_IMMUNITY) && 
+               (att != APPLY_IMMUNITY) &&
          (num == 3) && (number2 != 0)) {
       ch->sendTo("Syntax : <apply number> <arg>\n\r");
       return;
-    } else if ((att == APPLY_SPELL) && 
+    } else if ((att == APPLY_SPELL) &&
                (!discArray[number1] || !strcmp(discArray[number1]->name, ""))) {
       ch->sendTo("Illegal skill/spell!\n\r");
       return;
     } else if ((att == APPLY_DISCIPLINE) &&
-         ((number1 < 0) || (number1 >= MAX_DISCS)  || 
+         ((number1 < 0) || (number1 >= MAX_DISCS)  ||
           !(*discNames[number1].name))) {
       ch->sendTo("Illegal Discipline!\n\r");
       return;
@@ -1432,7 +1432,7 @@ static void change_obj_applys(TBeing *ch, TObj *o, const char *arg, editorEnterT
     } else if (att == APPLY_GARBLE && (number1 < 0 || number1 >= Garble::TYPE_MAX)) {
       ch->sendTo(format("Illegal Garble!  Please choose a number between 0 and %d\n\r") % (Garble::TYPE_MAX-1));
       return;
-    } else if (num == 2) 
+    } else if (num == 2)
       number2 = 0;
 
     if (!apply_types[att].assignable) {
@@ -1441,7 +1441,7 @@ static void change_obj_applys(TBeing *ch, TObj *o, const char *arg, editorEnterT
     } else if ((att == APPLY_SPELL) &&!discArray[number1]) {
       ch->sendTo("Illegal skill/spell number.\n\r");
       return;
-    } else if (o->addApply(ch, att)) 
+    } else if (o->addApply(ch, att))
       return;
     else {
       if (att == APPLY_LIGHT)
@@ -1507,7 +1507,7 @@ static void change_obj_applys(TBeing *ch, TObj *o, const char *arg, editorEnterT
     if (o->affected[i].location == APPLY_SPELL) {
       ch->sendTo(format("Affects %s: %s (%d) by %d\n\r") %
         apply_types[o->affected[i].location].name %
-        discArray[o->affected[i].modifier]->name % 
+        discArray[o->affected[i].modifier]->name %
         o->affected[i].modifier %
         o->affected[i].modifier2);
     } else if (o->affected[i].location == APPLY_IMMUNITY) {
@@ -1583,50 +1583,50 @@ void change_obj_values(TBeing *ch, TObj *o, const char *arg, editorEnterTypeT ty
     switch (ch->specials.edit) {
       case CHANGE_OBJ_VALUES:
         switch (update) {
-	  case 0:
+          case 0:
             o->changeObjValue1(ch);
             break;
-	  case 1:
+          case 1:
             o->changeObjValue2(ch);
             break;
-	  case 2:
+          case 2:
             o->changeObjValue3(ch);
             break;
-	  case 3:
+          case 3:
             o->changeObjValue4(ch);
             break;
-	  default:
+          default:
             break;
-	}
+        }
         return;
       case CHANGE_OBJ_VALUE1:
-	update++;
-	if (update > ItemInfo[o->itemType()]->val0_max) {
-	  ch->sendTo(format("Value 1 for this item type can't be over %d.\n\r") %
-		ItemInfo[o->itemType()]->val0_max);
-	  return;
-	}
-	if (update < ItemInfo[o->itemType()]->val0_min) {
-	  ch->sendTo(format("Value 1 for this item type can't be under %d.\n\r") %
-		ItemInfo[o->itemType()]->val0_min);
-	  return;
-	}
+        update++;
+        if (update > ItemInfo[o->itemType()]->val0_max) {
+          ch->sendTo(format("Value 1 for this item type can't be over %d.\n\r") %
+                ItemInfo[o->itemType()]->val0_max);
+          return;
+        }
+        if (update < ItemInfo[o->itemType()]->val0_min) {
+          ch->sendTo(format("Value 1 for this item type can't be under %d.\n\r") %
+                ItemInfo[o->itemType()]->val0_min);
+          return;
+        }
         o->assignFourValues(update, x2, x3, x4);
-	ch->specials.edit = CHANGE_OBJ_VALUES;
-	change_obj_values(ch, o, "", ENTER_CHECK);
-	return;
+        ch->specials.edit = CHANGE_OBJ_VALUES;
+        change_obj_values(ch, o, "", ENTER_CHECK);
+        return;
       case CHANGE_OBJ_VALUE2:
-	update++;
-	if (update > ItemInfo[o->itemType()]->val1_max) {
-	  ch->sendTo(format("Value 2 for this item type can't be over %d.\n\r") %
-		ItemInfo[o->itemType()]->val1_max);
-	  return;
-	}
-	if (update < ItemInfo[o->itemType()]->val1_min) {
-	  ch->sendTo(format("Value 2 for this item type can't be under %d.\n\r") %
-		ItemInfo[o->itemType()]->val1_min);
-	  return;
-	}
+        update++;
+        if (update > ItemInfo[o->itemType()]->val1_max) {
+          ch->sendTo(format("Value 2 for this item type can't be over %d.\n\r") %
+                ItemInfo[o->itemType()]->val1_max);
+          return;
+        }
+        if (update < ItemInfo[o->itemType()]->val1_min) {
+          ch->sendTo(format("Value 2 for this item type can't be under %d.\n\r") %
+                ItemInfo[o->itemType()]->val1_min);
+          return;
+        }
         if (o->changeItemVal2Check(ch, update))
           return;
 
@@ -1639,21 +1639,21 @@ void change_obj_values(TBeing *ch, TObj *o, const char *arg, editorEnterTypeT ty
         }
 
         o->assignFourValues(x1, update, x3, x4);
-	ch->specials.edit = CHANGE_OBJ_VALUES;
-	change_obj_values(ch, o, "", ENTER_CHECK);
-	return;
+        ch->specials.edit = CHANGE_OBJ_VALUES;
+        change_obj_values(ch, o, "", ENTER_CHECK);
+        return;
       case CHANGE_OBJ_VALUE3:
-	update++;
-	if (update > ItemInfo[o->itemType()]->val2_max) {
-	  ch->sendTo(format("Value 3 for this item type can't be over %d.\n\r") %
-		ItemInfo[o->itemType()]->val2_max);
-	  return;
-	}
-	if (update < ItemInfo[o->itemType()]->val2_min) {
-	  ch->sendTo(format("Value 3 for this item type can't be under %d.\n\r") %
-		ItemInfo[o->itemType()]->val2_min);
-	  return;
-	}
+        update++;
+        if (update > ItemInfo[o->itemType()]->val2_max) {
+          ch->sendTo(format("Value 3 for this item type can't be over %d.\n\r") %
+                ItemInfo[o->itemType()]->val2_max);
+          return;
+        }
+        if (update < ItemInfo[o->itemType()]->val2_min) {
+          ch->sendTo(format("Value 3 for this item type can't be under %d.\n\r") %
+                ItemInfo[o->itemType()]->val2_min);
+          return;
+        }
         if (o->changeItemVal3Check(ch, update))
           return;
 
@@ -1666,21 +1666,21 @@ void change_obj_values(TBeing *ch, TObj *o, const char *arg, editorEnterTypeT ty
         }
 
         o->assignFourValues(x1, x2, update, x4);
-	ch->specials.edit = CHANGE_OBJ_VALUES;
-	change_obj_values(ch, o, "", ENTER_CHECK);
-	return;
+        ch->specials.edit = CHANGE_OBJ_VALUES;
+        change_obj_values(ch, o, "", ENTER_CHECK);
+        return;
       case CHANGE_OBJ_VALUE4:
-	update++;
-	if (update > ItemInfo[o->itemType()]->val3_max) {
-	  ch->sendTo(format("Value 4 for this item type can't be over %d.\n\r") %
-		ItemInfo[o->itemType()]->val3_max);
-	  return;
-	}
-	if (update < ItemInfo[o->itemType()]->val3_min) {
-	  ch->sendTo(format("Value 4 for this item type can't be under %d.\n\r") %
-		ItemInfo[o->itemType()]->val3_min);
-	  return;
-	}
+        update++;
+        if (update > ItemInfo[o->itemType()]->val3_max) {
+          ch->sendTo(format("Value 4 for this item type can't be over %d.\n\r") %
+                ItemInfo[o->itemType()]->val3_max);
+          return;
+        }
+        if (update < ItemInfo[o->itemType()]->val3_min) {
+          ch->sendTo(format("Value 4 for this item type can't be under %d.\n\r") %
+                ItemInfo[o->itemType()]->val3_min);
+          return;
+        }
         if (o->changeItemVal4Check(ch, update))
           return;
 
@@ -1695,9 +1695,9 @@ void change_obj_values(TBeing *ch, TObj *o, const char *arg, editorEnterTypeT ty
         }
 
         o->assignFourValues(x1, x2, x3, update);
-	ch->specials.edit = CHANGE_OBJ_VALUES;
-	change_obj_values(ch, o, "", ENTER_CHECK);
-	return;
+        ch->specials.edit = CHANGE_OBJ_VALUES;
+        change_obj_values(ch, o, "", ENTER_CHECK);
+        return;
       default:
         return;
     }
@@ -1711,10 +1711,10 @@ void change_obj_values(TBeing *ch, TObj *o, const char *arg, editorEnterTypeT ty
   ch->sendTo(format(VT_CURSPOS) % 5 % 1);
   ch->sendTo("What the values mean :\n\r");
   ch->sendTo(format("1) %s\n\r2) %s\n\r3) %s\n\r4) %s\n\r") %
-	ItemInfo[o->itemType()]->val0_info %
-	ItemInfo[o->itemType()]->val1_info %
-	ItemInfo[o->itemType()]->val2_info %
-	ItemInfo[o->itemType()]->val3_info);
+        ItemInfo[o->itemType()]->val0_info %
+        ItemInfo[o->itemType()]->val1_info %
+        ItemInfo[o->itemType()]->val2_info %
+        ItemInfo[o->itemType()]->val3_info);
 
   ch->sendTo(format(VT_CURSPOS) % 20 % 1);
   ch->sendTo("Which value to change?\n\r--> ");
@@ -1764,92 +1764,92 @@ static void change_obj_mat_type(TBeing *ch, TObj *o, const char *arg, editorEnte
 
     switch (ch->specials.edit) {
       case CHANGE_OBJ_MAT_TYPE:
-	if (update < 0 || update > 3)
-	  return;
-	else {
-	  ch->sendTo(VT_HOMECLR);
-	  switch (update) {
-	    case 0:
-	      ch->specials.edit = CHANGE_OBJ_MAT_TYPE1;
-	      for (i = row = 0; i < MAX_MAT_GENERAL; i++) {
-		sprintf(buf, VT_CURSPOS, row + 3, ((i & 1) ? 45 : 5));
-		if (i & 1)
-		  row++;
-		ch->sendTo(buf);
-		ch->sendTo(format("%2d %s") % (i+1) % material_nums[i].mat_name);
-	      }
-	      break;
-	    case 1:
-	      ch->specials.edit = CHANGE_OBJ_MAT_TYPE2;
-	      for (i = row = 0; i < MAX_MAT_NATURE; i++) {
-		sprintf(buf, VT_CURSPOS, row + 3, ((i & 1) ? 45 : 5));
-		if (i & 1)
-		  row++;
-		ch->sendTo(buf);
-		ch->sendTo(format("%2d %s") % (i+1) % material_nums[i+50].mat_name);
-	      }
-	      break;
-	    case 2:
-	      ch->specials.edit = CHANGE_OBJ_MAT_TYPE3;
-	      for (i = row = 0; i < MAX_MAT_MINERAL; i++) {
-		sprintf(buf, VT_CURSPOS, row + 3, ((i & 1) ? 45 : 5));
-		if (i & 1)
-		  row++;
-		ch->sendTo(buf);
-		ch->sendTo(format("%2d %s") % (i+1) % material_nums[i+100].mat_name);
-	      }
-	      break;
-	    case 3:
-	      ch->specials.edit = CHANGE_OBJ_MAT_TYPE4;
-	      for (i = row = 0; i < MAX_MAT_METAL; i++) {
-		sprintf(buf, VT_CURSPOS, row + 3, ((i & 1) ? 45 : 5));
-		if (i & 1)
-		  row++;
-		ch->sendTo(buf);
-		ch->sendTo(format("%2d %s") % (i+1) % material_nums[i+150].mat_name);
-	      }
-	      break;
-	  }
-	  ch->sendTo(format(VT_CURSPOS) % 20 % 1);
-	  ch->sendTo("Enter a new material type.\n\r--> ");
-	  return;
-	}
+        if (update < 0 || update > 3)
+          return;
+        else {
+          ch->sendTo(VT_HOMECLR);
+          switch (update) {
+            case 0:
+              ch->specials.edit = CHANGE_OBJ_MAT_TYPE1;
+              for (i = row = 0; i < MAX_MAT_GENERAL; i++) {
+                sprintf(buf, VT_CURSPOS, row + 3, ((i & 1) ? 45 : 5));
+                if (i & 1)
+                  row++;
+                ch->sendTo(buf);
+                ch->sendTo(format("%2d %s") % (i+1) % material_nums[i].mat_name);
+              }
+              break;
+            case 1:
+              ch->specials.edit = CHANGE_OBJ_MAT_TYPE2;
+              for (i = row = 0; i < MAX_MAT_NATURE; i++) {
+                sprintf(buf, VT_CURSPOS, row + 3, ((i & 1) ? 45 : 5));
+                if (i & 1)
+                  row++;
+                ch->sendTo(buf);
+                ch->sendTo(format("%2d %s") % (i+1) % material_nums[i+50].mat_name);
+              }
+              break;
+            case 2:
+              ch->specials.edit = CHANGE_OBJ_MAT_TYPE3;
+              for (i = row = 0; i < MAX_MAT_MINERAL; i++) {
+                sprintf(buf, VT_CURSPOS, row + 3, ((i & 1) ? 45 : 5));
+                if (i & 1)
+                  row++;
+                ch->sendTo(buf);
+                ch->sendTo(format("%2d %s") % (i+1) % material_nums[i+100].mat_name);
+              }
+              break;
+            case 3:
+              ch->specials.edit = CHANGE_OBJ_MAT_TYPE4;
+              for (i = row = 0; i < MAX_MAT_METAL; i++) {
+                sprintf(buf, VT_CURSPOS, row + 3, ((i & 1) ? 45 : 5));
+                if (i & 1)
+                  row++;
+                ch->sendTo(buf);
+                ch->sendTo(format("%2d %s") % (i+1) % material_nums[i+150].mat_name);
+              }
+              break;
+          }
+          ch->sendTo(format(VT_CURSPOS) % 20 % 1);
+          ch->sendTo("Enter a new material type.\n\r--> ");
+          return;
+        }
       case CHANGE_OBJ_MAT_TYPE1:
-	if (update < 0 || update >= MAX_MAT_GENERAL)
-	  return;
-	else {
-	  o->setMaterial(update);
-	  ch->specials.edit = MAIN_MENU;
-	  update_obj_menu(ch, o);
-	  return;
-	}
+        if (update < 0 || update >= MAX_MAT_GENERAL)
+          return;
+        else {
+          o->setMaterial(update);
+          ch->specials.edit = MAIN_MENU;
+          update_obj_menu(ch, o);
+          return;
+        }
       case CHANGE_OBJ_MAT_TYPE2:
-	if (update < 0 || update >= MAX_MAT_NATURE)
-	  return;
-	else {
-	  o->setMaterial(update + 50);
-	  ch->specials.edit = MAIN_MENU;
-	  update_obj_menu(ch, o);
-	  return;
-	}
+        if (update < 0 || update >= MAX_MAT_NATURE)
+          return;
+        else {
+          o->setMaterial(update + 50);
+          ch->specials.edit = MAIN_MENU;
+          update_obj_menu(ch, o);
+          return;
+        }
       case CHANGE_OBJ_MAT_TYPE3:
-	if (update < 0 || update >= MAX_MAT_MINERAL)
-	  return;
-	else {
-	  o->setMaterial(update + 100);
-	  ch->specials.edit = MAIN_MENU;
-	  update_obj_menu(ch, o);
-	  return;
-	}
+        if (update < 0 || update >= MAX_MAT_MINERAL)
+          return;
+        else {
+          o->setMaterial(update + 100);
+          ch->specials.edit = MAIN_MENU;
+          update_obj_menu(ch, o);
+          return;
+        }
       case CHANGE_OBJ_MAT_TYPE4:
-	if (update < 0 || update >= MAX_MAT_METAL)
-	  return;
-	else {
-	  o->setMaterial(update + 150);
-	  ch->specials.edit = MAIN_MENU;
-	  update_obj_menu(ch, o);
-	  return;
-	}
+        if (update < 0 || update >= MAX_MAT_METAL)
+          return;
+        else {
+          o->setMaterial(update + 150);
+          ch->specials.edit = MAIN_MENU;
+          update_obj_menu(ch, o);
+          return;
+        }
       default:
         return;
     }
@@ -1883,13 +1883,13 @@ static void change_obj_extra(TBeing *ch, TObj *o, const char *arg, editorEnterTy
     for ( prev = ed = o->ex_description;; prev = ed, ed = ed->next) {
       if (!ed) {
         ed = new extraDescription();
-	ed->next = o->ex_description;
-	o->ex_description = ed;
+        ed->next = o->ex_description;
+        o->ex_description = ed;
         ed->keyword = mud_str_dup(arg);
-	ed->description = NULL;
-	ch->desc->str = &ed->description;
-	ch->sendTo("Enter the description. Terminate with a '~' on a NEW line.\n\r");
-	break;
+        ed->description = NULL;
+        ch->desc->str = &ed->description;
+        ch->sendTo("Enter the description. Terminate with a '~' on a NEW line.\n\r");
+        break;
       } else if (!strcasecmp(ed->keyword, arg)) {
         ch->sendTo(format("Current description:\n\r%s\n\r") % ed->description);
         ch->sendTo("This description has been deleted.  If you needed to modify it, simply readd it.\n\r");
@@ -1901,7 +1901,7 @@ static void change_obj_extra(TBeing *ch, TObj *o, const char *arg, editorEnterTy
           prev->next = ed->next;
           delete ed;
         }
-	return;
+        return;
       }
     }
     ch->desc->max_str = MAX_STRING_LENGTH;
@@ -2020,58 +2020,58 @@ void change_chest_value2(TBeing *ch, TOpenContainer *o, const char *arg, editorE
   switch (ch->specials.edit) {
     case CHANGE_CHEST_VALUE2:
       switch (loc_update) {
-	case 1:
-	  ch->specials.edit = CHANGE_CHEST_CONT_FLAGS;
-	  change_chest_value2(ch, o, "", ENTER_CHECK);
-	  return;
-	case 2:
-	  ch->specials.edit = CHANGE_CHEST_TRAP_TYPE;
-	  change_chest_value2(ch, o, "", ENTER_CHECK);
-	  return;
-	case 3:
-	  ch->specials.edit = CHANGE_CHEST_TRAP_DAM;
-	  change_chest_value2(ch, o, "", ENTER_CHECK);
-	  return;
-	  return;
+        case 1:
+          ch->specials.edit = CHANGE_CHEST_CONT_FLAGS;
+          change_chest_value2(ch, o, "", ENTER_CHECK);
+          return;
+        case 2:
+          ch->specials.edit = CHANGE_CHEST_TRAP_TYPE;
+          change_chest_value2(ch, o, "", ENTER_CHECK);
+          return;
+        case 3:
+          ch->specials.edit = CHANGE_CHEST_TRAP_DAM;
+          change_chest_value2(ch, o, "", ENTER_CHECK);
+          return;
+          return;
       }
       break;
     case CHANGE_CHEST_CONT_FLAGS:
       loc_update--;
 
       if (type != ENTER_CHECK) {
-	if (loc_update < 0 || loc_update >= MAX_CONTAINER_FLAG)
-	  return;
-	i = 1 << loc_update;
+        if (loc_update < 0 || loc_update >= MAX_CONTAINER_FLAG)
+          return;
+        i = 1 << loc_update;
 
         if (i == CONT_TRAPPED ||
             i == CONT_EMPTYTRAP ||
             i == CONT_GHOSTTRAP) {
-          ch->sendTo("This flag is set automatically and can not be changed.\n\r"); 
+          ch->sendTo("This flag is set automatically and can not be changed.\n\r");
           return;
         }
-     
-	if (o->isContainerFlag(i))
-	  o->remContainerFlag(i);
-	else
-	  o->addContainerFlag(i);
+
+        if (o->isContainerFlag(i))
+          o->remContainerFlag(i);
+        else
+          o->addContainerFlag(i);
       }
       ch->sendTo(VT_HOMECLR);
       row = 0;
       for (i = 0; i < MAX_CONTAINER_FLAG; i++) {
-	sprintf(buf, VT_CURSPOS, row + 4, ((i & 1) ? 45 : 5));
-	if (i & 1)
-	  row++;
-	ch->sendTo(buf);
+        sprintf(buf, VT_CURSPOS, row + 4, ((i & 1) ? 45 : 5));
+        if (i & 1)
+          row++;
+        ch->sendTo(buf);
 
-	ch->sendTo(format("%2d [%s] %s") % (i+1) % (o->isContainerFlag(1 << i) ? "X" : " ") % chest_bits[i]);
+        ch->sendTo(format("%2d [%s] %s") % (i+1) % (o->isContainerFlag(1 << i) ? "X" : " ") % chest_bits[i]);
       }
       ch->sendTo(format(VT_CURSPOS) % 21 % 1);
       ch->sendTo("Select number to toggle. <ENTER> to return back to main menu.\n\r");
       return;
     case CHANGE_CHEST_TRAP_TYPE:
       if (type != ENTER_CHECK) {
-	if (loc_update < 0 || loc_update > MAX_TRAP_TYPES)
-	  return;
+        if (loc_update < 0 || loc_update > MAX_TRAP_TYPES)
+          return;
         if (loc_update == DOOR_TRAP_BOLT ||
             loc_update == DOOR_TRAP_DISK ||
             loc_update == DOOR_TRAP_HAMMER) {
@@ -2096,12 +2096,12 @@ void change_chest_value2(TBeing *ch, TOpenContainer *o, const char *arg, editorE
       ch->sendTo(VT_HOMECLR);
       row = 0;
       for (i = 0; i < MAX_TRAP_TYPES; i++) {
-	sprintf(buf, VT_CURSPOS, row + 4, (((i%2) == 0) ? 5 : 45));
-	if ((i%2) == 1)
-	  row++;
-	ch->sendTo(buf);
+        sprintf(buf, VT_CURSPOS, row + 4, (((i%2) == 0) ? 5 : 45));
+        if ((i%2) == 1)
+          row++;
+        ch->sendTo(buf);
 
-	ch->sendTo(format("%2d %s") % i % trap_types[i]);
+        ch->sendTo(format("%2d %s") % i % trap_types[i]);
       }
       ch->sendTo(format(VT_CURSPOS) % 21 % 1);
       ch->sendTo("Select number to select.\n\r");
@@ -2191,16 +2191,16 @@ void change_egg_value1(TBeing *ch, TEgg *o, const char *arg, editorEnterTypeT ty
   switch (ch->specials.edit) {
     case CHANGE_EGG_VALUE1:
       switch (loc_update) {
-	case 1:
-	  ch->sendTo(VT_HOMECLR);
-	  ch->sendTo("Set whether touched.\n\r--> ");
-	  ch->specials.edit = CHANGE_EGG_TOUCHED;
-	  return;
-	case 2:
-	  ch->sendTo(VT_HOMECLR);
-	  ch->sendTo("Enter new food fill value.\n\r--> ");
-	  ch->specials.edit = CHANGE_EGG_FILL;
-	  return;
+        case 1:
+          ch->sendTo(VT_HOMECLR);
+          ch->sendTo("Set whether touched.\n\r--> ");
+          ch->specials.edit = CHANGE_EGG_TOUCHED;
+          return;
+        case 2:
+          ch->sendTo(VT_HOMECLR);
+          ch->sendTo("Enter new food fill value.\n\r--> ");
+          ch->specials.edit = CHANGE_EGG_FILL;
+          return;
       }
       break;
     case CHANGE_EGG_TOUCHED:
@@ -2253,42 +2253,42 @@ void change_portal_value1(TBeing *ch, TPortal *o, const char *arg, editorEnterTy
   switch (ch->specials.edit) {
     case CHANGE_PORTAL_VALUE1:
       switch (loc_update) {
-	case 1:
-	  ch->sendTo(VT_HOMECLR);
-	  ch->sendTo("Enter new room destination number.\n\r--> ");
-	  ch->specials.edit = CHANGE_PORTAL_VNUM;
-	  return;
-	case 2:
-	  ch->sendTo(VT_HOMECLR);
-	  ch->sendTo("Enter new max number of entries.\n\r--> ");
-	  ch->specials.edit = CHANGE_PORTAL_MAX;
-	  return;
+        case 1:
+          ch->sendTo(VT_HOMECLR);
+          ch->sendTo("Enter new room destination number.\n\r--> ");
+          ch->specials.edit = CHANGE_PORTAL_VNUM;
+          return;
+        case 2:
+          ch->sendTo(VT_HOMECLR);
+          ch->sendTo("Enter new max number of entries.\n\r--> ");
+          ch->specials.edit = CHANGE_PORTAL_MAX;
+          return;
       }
       break;
     case CHANGE_PORTAL_MAX:
       if (type != ENTER_CHECK) {
-	if ((loc_update > 100) || (loc_update < -1)) {
-	  ch->sendTo("Please enter a number from -1 to 100.\n\r");
-	  return;
-	}
-	o->setPortalNumCharges(loc_update);
+        if ((loc_update > 100) || (loc_update < -1)) {
+          ch->sendTo("Please enter a number from -1 to 100.\n\r");
+          return;
+        }
+        o->setPortalNumCharges(loc_update);
         ch->specials.edit = CHANGE_PORTAL_VALUE1;
         change_portal_value1(ch, o, "", ENTER_CHECK);
-	return;
+        return;
       }
       break;
     case CHANGE_PORTAL_VNUM:
       if (type != ENTER_CHECK) {
-	/*
-	if ((loc_update >= WORLD_SIZE) || (loc_update < 0)) {
-	  ch->sendTo(format("Please enter a number from 0-%d.\n\r") % WORLD_SIZE-1);
-	  return;
-	}
-	*/
-	o->setTarget(loc_update);
+        /*
+        if ((loc_update >= WORLD_SIZE) || (loc_update < 0)) {
+          ch->sendTo(format("Please enter a number from 0-%d.\n\r") % WORLD_SIZE-1);
+          return;
+        }
+        */
+        o->setTarget(loc_update);
         ch->specials.edit = CHANGE_PORTAL_VALUE1;
         change_portal_value1(ch, o, "", ENTER_CHECK);
-	return;
+        return;
       }
     default:
       return;
@@ -2322,14 +2322,14 @@ void change_portal_value3(TBeing *ch, TPortal *o, const char *arg, editorEnterTy
   switch (ch->specials.edit) {
     case CHANGE_PORTAL_VALUE3:
       switch (loc_update) {
-	case 1:
-	  ch->sendTo(format("Current portal trap damage: %d\n\r") % o->getPortalTrapDam());
-	  ch->sendTo("Enter new portal trap damage.\n\r--> ");
-	  ch->specials.edit = CHANGE_PORTAL_TRAP_DAM;
-	  return;
-	case 2:
+        case 1:
+          ch->sendTo(format("Current portal trap damage: %d\n\r") % o->getPortalTrapDam());
+          ch->sendTo("Enter new portal trap damage.\n\r--> ");
+          ch->specials.edit = CHANGE_PORTAL_TRAP_DAM;
+          return;
+        case 2:
           ch->sendTo(VT_HOMECLR);
-	  ch->sendTo(format("Current portal trap type: %d\n\r") % o->getPortalTrapType());
+          ch->sendTo(format("Current portal trap type: %d\n\r") % o->getPortalTrapType());
           row = 0;
           for (i = 0; i < MAX_TRAP_TYPES; i++) {
             sprintf(buf, VT_CURSPOS, row + 4, (((i%2) == 0) ? 5 : 45));
@@ -2339,18 +2339,18 @@ void change_portal_value3(TBeing *ch, TPortal *o, const char *arg, editorEnterTy
             ch->sendTo(format("%2d %s") % i % trap_types[i]);
           }
           ch->sendTo(format(VT_CURSPOS) % 21 % 1);
-	  ch->sendTo("Enter new portal trap type.\n\r--> ");
-	  ch->specials.edit = CHANGE_PORTAL_TRAP_TYPE;
-	  return;
+          ch->sendTo("Enter new portal trap type.\n\r--> ");
+          ch->specials.edit = CHANGE_PORTAL_TRAP_TYPE;
+          return;
       }
       break;
     case CHANGE_PORTAL_TRAP_DAM:
       if (type != ENTER_CHECK) {
-	if ((loc_update > 100) || (loc_update < 0)) {
-	  ch->sendTo("Please enter a number from 0-100.\n\r");
-	  return;
-	}
-	o->setPortalTrapDam(loc_update);
+        if ((loc_update > 100) || (loc_update < 0)) {
+          ch->sendTo("Please enter a number from 0-100.\n\r");
+          return;
+        }
+        o->setPortalTrapDam(loc_update);
         if (loc_update == 0) {
           o->remPortalFlag(EX_TRAPPED);
           o->setPortalTrapType(DOOR_TRAP_NONE);
@@ -2359,20 +2359,20 @@ void change_portal_value3(TBeing *ch, TPortal *o, const char *arg, editorEnterTy
         }
         ch->specials.edit = CHANGE_PORTAL_VALUE3;
         change_portal_value3(ch, o, "", ENTER_CHECK);
-	return;
+        return;
       }
       break;
     case CHANGE_PORTAL_TRAP_TYPE:
       if (type != ENTER_CHECK) {
-	if (loc_update < 0 || loc_update > MAX_TRAP_TYPES) {
-	  ch->sendTo(format("Please enter a number from 0-%d.\n\r") % MAX_TRAP_TYPES);
-	  return;
+        if (loc_update < 0 || loc_update > MAX_TRAP_TYPES) {
+          ch->sendTo(format("Please enter a number from 0-%d.\n\r") % MAX_TRAP_TYPES);
+          return;
         }
-	if (loc_update == DOOR_TRAP_BOLT ||
-	    loc_update == DOOR_TRAP_DISK ||
-	    loc_update == DOOR_TRAP_PEBBLE) {
+        if (loc_update == DOOR_TRAP_BOLT ||
+            loc_update == DOOR_TRAP_DISK ||
+            loc_update == DOOR_TRAP_PEBBLE) {
           ch->sendTo("That trap type is not supported for portals.\n\r");
-	  return;
+          return;
         }
         o->setPortalTrapType(loc_update);
         if (loc_update == DOOR_TRAP_NONE) {
@@ -2383,7 +2383,7 @@ void change_portal_value3(TBeing *ch, TPortal *o, const char *arg, editorEnterTy
         }
         ch->specials.edit = CHANGE_PORTAL_VALUE3;
         change_portal_value3(ch, o, "", ENTER_CHECK);
-	return;
+        return;
       }
       break;
     default:
@@ -2416,48 +2416,48 @@ void change_portal_value4(TBeing *ch, TPortal *o, const char *arg, editorEnterTy
   switch (ch->specials.edit) {
     case CHANGE_PORTAL_VALUE4:
       switch (loc_update) {
-	case 1:
-	  ch->sendTo("Enter new key number.\n\r--> ");
-	  ch->specials.edit = CHANGE_PORTAL_KEY;
-	  return;
-	case 2:
-	  ch->specials.edit = CHANGE_PORTAL_DOOR_FLAGS;
-	  change_portal_value4(ch, o, "", ENTER_CHECK);
-	  return;
+        case 1:
+          ch->sendTo("Enter new key number.\n\r--> ");
+          ch->specials.edit = CHANGE_PORTAL_KEY;
+          return;
+        case 2:
+          ch->specials.edit = CHANGE_PORTAL_DOOR_FLAGS;
+          change_portal_value4(ch, o, "", ENTER_CHECK);
+          return;
       }
       break;
     case CHANGE_PORTAL_KEY:
       if (type != ENTER_CHECK) {
-	if ((loc_update >= WORLD_SIZE) || (loc_update < 1)) {
-	  ch->sendTo(format("Please enter a number from 1-%d.\n\r") % (WORLD_SIZE-1));
-	  return;
-	}
-	o->setPortalKey(loc_update);
+        if ((loc_update >= WORLD_SIZE) || (loc_update < 1)) {
+          ch->sendTo(format("Please enter a number from 1-%d.\n\r") % (WORLD_SIZE-1));
+          return;
+        }
+        o->setPortalKey(loc_update);
         ch->specials.edit = CHANGE_PORTAL_VALUE4;
         change_portal_value4(ch, o, "", ENTER_CHECK);
-	return;
+        return;
       }
     case CHANGE_PORTAL_DOOR_FLAGS:
       loc_update--;
 
       if (type != ENTER_CHECK) {
-	if (loc_update < 0 || loc_update >= MAX_DOOR_CONDITIONS)
-	  return;
-	i = 1 << loc_update;
+        if (loc_update < 0 || loc_update >= MAX_DOOR_CONDITIONS)
+          return;
+        i = 1 << loc_update;
 
-	if (o->isPortalFlag(i))
-	  o->remPortalFlag(i);
-	else
-	  o->addPortalFlag(i);
+        if (o->isPortalFlag(i))
+          o->remPortalFlag(i);
+        else
+          o->addPortalFlag(i);
       }
       ch->sendTo(VT_HOMECLR);
       row = 0;
       for (j = 0; j < MAX_DOOR_CONDITIONS; j++) {
-	sprintf(buf, VT_CURSPOS, row + 4, ((j & 1) ? 45 : 5));
-	if (j & 1)
-	  row++;
-	ch->sendTo(buf);
-	ch->sendTo(format("%2d [%s] %s") % (j + 1) % ((o->isPortalFlag(1 << j)) ? "X" : " ") % exit_bits[j]);
+        sprintf(buf, VT_CURSPOS, row + 4, ((j & 1) ? 45 : 5));
+        if (j & 1)
+          row++;
+        ch->sendTo(buf);
+        ch->sendTo(format("%2d [%s] %s") % (j + 1) % ((o->isPortalFlag(1 << j)) ? "X" : " ") % exit_bits[j]);
       }
       ch->sendTo(format(VT_CURSPOS) % 21 % 1);
       ch->sendTo("Select number to toggle. <ENTER> to return back to main menu,\n\r--> ");
@@ -2488,89 +2488,89 @@ void change_arrow_value3(TBeing *ch, TArrow *o, const char *arg, editorEnterType
   switch (ch->specials.edit) {
     case CHANGE_ARROW_VALUE3:
       switch (loc_update) {
-	case 1:
-	  ch->sendTo(VT_HOMECLR);
-	  ch->sendTo("Enter Arrow Trap Type.\n\r");
-	  ch->sendTo("NOTE: DOOR_TRAP_TYPE does not correlate to the number of the menu choices below.  Eval the weapon after to ensure the proper trap has been set.\n\r");
-	  ch->sendTo(" 0) None\n\r");
-	  ch->sendTo(" 1) Fire\n\r");
-	  ch->sendTo(" 2) Explosive\n\r");
-	  ch->sendTo(" 3) Sleep\n\r");
-	  ch->sendTo(" 4) Acid\n\r");
-	  ch->sendTo(" 5) Spore\n\r");
-	  ch->sendTo(" 6) Frost\n\r");
-	  ch->sendTo(" 7) Spike\n\r");
-	  ch->sendTo(" 8) Pebble\n\r");
-	  ch->sendTo(" 9) Power\n\r");
-	  ch->sendTo("10) Teleport\n\r");
-	  ch->sendTo(" Your Selection [0-10]\n\r--> ");
-	  ch->specials.edit = CHANGE_ARROW_TRAPTYPE;
-	  return;
-	case 2:
-	  ch->sendTo(VT_HOMECLR);
-	  ch->sendTo("Enter Arrow Trap Level.  [0-65]\n\r--> ");
-	  ch->specials.edit = CHANGE_ARROW_TRAPLVL;
-	  return;
+        case 1:
+          ch->sendTo(VT_HOMECLR);
+          ch->sendTo("Enter Arrow Trap Type.\n\r");
+          ch->sendTo("NOTE: DOOR_TRAP_TYPE does not correlate to the number of the menu choices below.  Eval the weapon after to ensure the proper trap has been set.\n\r");
+          ch->sendTo(" 0) None\n\r");
+          ch->sendTo(" 1) Fire\n\r");
+          ch->sendTo(" 2) Explosive\n\r");
+          ch->sendTo(" 3) Sleep\n\r");
+          ch->sendTo(" 4) Acid\n\r");
+          ch->sendTo(" 5) Spore\n\r");
+          ch->sendTo(" 6) Frost\n\r");
+          ch->sendTo(" 7) Spike\n\r");
+          ch->sendTo(" 8) Pebble\n\r");
+          ch->sendTo(" 9) Power\n\r");
+          ch->sendTo("10) Teleport\n\r");
+          ch->sendTo(" Your Selection [0-10]\n\r--> ");
+          ch->specials.edit = CHANGE_ARROW_TRAPTYPE;
+          return;
+        case 2:
+          ch->sendTo(VT_HOMECLR);
+          ch->sendTo("Enter Arrow Trap Level.  [0-65]\n\r--> ");
+          ch->specials.edit = CHANGE_ARROW_TRAPLVL;
+          return;
       }
       break;
     case CHANGE_ARROW_TRAPTYPE:
       if (type!= ENTER_CHECK) {
-	if((loc_update > 10) || (loc_update < 0)) {
-	  ch->sendTo("Invalid value.  Please enter a value between 0 and 10.\n\r");
-	  return;
-	}
+        if((loc_update > 10) || (loc_update < 0)) {
+          ch->sendTo("Invalid value.  Please enter a value between 0 and 10.\n\r");
+          return;
+        }
 
-	switch(loc_update) {
-	  case 0:
-	    o->setTrapDamType(DOOR_TRAP_NONE);
-	    break;
-	  case 1:
-	    o->setTrapDamType(DOOR_TRAP_FIRE);
-	    break;
-	  case 2:
-	    o->setTrapDamType(DOOR_TRAP_TNT);
-	    break;
-	  case 3:
-	    o->setTrapDamType(DOOR_TRAP_SLEEP);
-	    break;
-	  case 4:
-	    o->setTrapDamType(DOOR_TRAP_ACID);
-	    break;
-	  case 5:
-	    o->setTrapDamType(DOOR_TRAP_DISEASE);
-	    break;
-	  case 6:
-	    o->setTrapDamType(DOOR_TRAP_FROST);
-	    break;
-	  case 7:
-	    o->setTrapDamType(DOOR_TRAP_SPIKE);
-	    break;
-	  case 8:
-	    o->setTrapDamType(DOOR_TRAP_PEBBLE);
-	    break;
-	  case 9:
-	    o->setTrapDamType(DOOR_TRAP_ENERGY);
-	    break;
-	  case 10:
-	    o->setTrapDamType(DOOR_TRAP_TELEPORT);
-	    break;
-	}
-	ch->specials.edit = CHANGE_ARROW_VALUE3;
-	change_arrow_value3(ch, o, "", ENTER_CHECK);
-	return;
+        switch(loc_update) {
+          case 0:
+            o->setTrapDamType(DOOR_TRAP_NONE);
+            break;
+          case 1:
+            o->setTrapDamType(DOOR_TRAP_FIRE);
+            break;
+          case 2:
+            o->setTrapDamType(DOOR_TRAP_TNT);
+            break;
+          case 3:
+            o->setTrapDamType(DOOR_TRAP_SLEEP);
+            break;
+          case 4:
+            o->setTrapDamType(DOOR_TRAP_ACID);
+            break;
+          case 5:
+            o->setTrapDamType(DOOR_TRAP_DISEASE);
+            break;
+          case 6:
+            o->setTrapDamType(DOOR_TRAP_FROST);
+            break;
+          case 7:
+            o->setTrapDamType(DOOR_TRAP_SPIKE);
+            break;
+          case 8:
+            o->setTrapDamType(DOOR_TRAP_PEBBLE);
+            break;
+          case 9:
+            o->setTrapDamType(DOOR_TRAP_ENERGY);
+            break;
+          case 10:
+            o->setTrapDamType(DOOR_TRAP_TELEPORT);
+            break;
+        }
+        ch->specials.edit = CHANGE_ARROW_VALUE3;
+        change_arrow_value3(ch, o, "", ENTER_CHECK);
+        return;
       }
       break;
     case CHANGE_ARROW_TRAPLVL:
       if (type != ENTER_CHECK) {
-	if ((loc_update > 65) || (loc_update < 0)) {
-	  ch->sendTo("Invalid value.  Please enter a value between 0 and 65.\n\r");
-	  return;
-	}
+        if ((loc_update > 65) || (loc_update < 0)) {
+          ch->sendTo("Invalid value.  Please enter a value between 0 and 65.\n\r");
+          return;
+        }
 
-	o->setTrapLevel((unsigned char) loc_update);
-	ch->specials.edit = CHANGE_ARROW_VALUE3;
-	change_arrow_value3(ch, o, "", ENTER_CHECK);
-	return;
+        o->setTrapLevel((unsigned char) loc_update);
+        ch->specials.edit = CHANGE_ARROW_VALUE3;
+        change_arrow_value3(ch, o, "", ENTER_CHECK);
+        return;
       }
       break;
     default:
@@ -2583,7 +2583,7 @@ void change_arrow_value3(TBeing *ch, TArrow *o, const char *arg, editorEnterType
   ch->sendTo(format(VT_CURSPOS) % 10 % 1);
   ch->sendTo("Enter your choice.\n\r--> ");
 }
-	
+
 void change_arrow_value4(TBeing *ch, TArrow *o, const char *arg, editorEnterTypeT type)
 {
   int loc_update;
@@ -2657,8 +2657,8 @@ void obj_edit(TBeing *ch, const char *arg)
       ch->desc->connected = CON_PLYNG;
       act("$n has returned from editing objects.", TRUE, ch, 0, 0, TO_ROOM);
       if (ch->desc->obj) {
-	*ch += *(ch->desc->obj);
-	ch->desc->obj = NULL;
+        *ch += *(ch->desc->obj);
+        ch->desc->obj = NULL;
       }
       // reset the terminal bars
       if (ch->vt100() || ch->ansi())
@@ -2668,72 +2668,72 @@ void obj_edit(TBeing *ch, const char *arg)
     switch (convertTo<int>(arg)) {
       case 0:
         ch->specials.edit = MAIN_MENU;
-	update_obj_menu(ch, ch->desc->obj);
-	return;
+        update_obj_menu(ch, ch->desc->obj);
+        return;
       case 1:
-	ch->specials.edit = CHANGE_NAME;
-	change_obj_name(ch, ch->desc->obj, "", ENTER_CHECK);
-	return;
+        ch->specials.edit = CHANGE_NAME;
+        change_obj_name(ch, ch->desc->obj, "", ENTER_CHECK);
+        return;
       case 2:
-	ch->specials.edit = CHANGE_SHORT_DESC;
-	change_obj_short_desc(ch, ch->desc->obj, ENTER_CHECK);
-	return;
+        ch->specials.edit = CHANGE_SHORT_DESC;
+        change_obj_short_desc(ch, ch->desc->obj, ENTER_CHECK);
+        return;
       case 3:
-	ch->specials.edit = CHANGE_OBJ_TYPE;
-	change_obj_type(ch, ch->desc->obj, "", ENTER_CHECK);
-	return;
+        ch->specials.edit = CHANGE_OBJ_TYPE;
+        change_obj_type(ch, ch->desc->obj, "", ENTER_CHECK);
+        return;
       case 4:
-	ch->specials.edit = CHANGE_LONG_DESC;
-	change_obj_long_desc(ch, ch->desc->obj, ENTER_CHECK);
-	return;
+        ch->specials.edit = CHANGE_LONG_DESC;
+        change_obj_long_desc(ch, ch->desc->obj, ENTER_CHECK);
+        return;
       case 5:
-	ch->specials.edit = CHANGE_OBJ_WEIGHT;
-	change_obj_weight(ch, ch->desc->obj, "", ENTER_CHECK);
-	return;
+        ch->specials.edit = CHANGE_OBJ_WEIGHT;
+        change_obj_weight(ch, ch->desc->obj, "", ENTER_CHECK);
+        return;
       case 6:
-	ch->specials.edit = CHANGE_OBJ_VOLUME;
-	change_obj_volume(ch, ch->desc->obj, "", ENTER_CHECK);
-	return;
+        ch->specials.edit = CHANGE_OBJ_VOLUME;
+        change_obj_volume(ch, ch->desc->obj, "", ENTER_CHECK);
+        return;
       case 7:
-	ch->specials.edit = CHANGE_OBJ_EXTRA_FLAGS;
-	change_obj_extra_flags(ch, ch->desc->obj, "", ENTER_CHECK);
-	return;
+        ch->specials.edit = CHANGE_OBJ_EXTRA_FLAGS;
+        change_obj_extra_flags(ch, ch->desc->obj, "", ENTER_CHECK);
+        return;
       case 8:
-	ch->specials.edit = CHANGE_OBJ_WEAR_FLAGS;
-	change_obj_wear_flags(ch, ch->desc->obj, "", ENTER_CHECK);
-	return;
+        ch->specials.edit = CHANGE_OBJ_WEAR_FLAGS;
+        change_obj_wear_flags(ch, ch->desc->obj, "", ENTER_CHECK);
+        return;
       case 10:
         if (ch->hasWizPower(POWER_OEDIT_COST)) {
           ch->specials.edit = CHANGE_OBJ_COST;
-	  change_obj_cost(ch, ch->desc->obj, "", ENTER_CHECK);
+          change_obj_cost(ch, ch->desc->obj, "", ENTER_CHECK);
         } else {
           ch->sendTo("Do not worry about setting cost yourself until level 52.\n\r");
         }
-	return;
+        return;
       case 11:
         ch->specials.edit = CHANGE_OBJ_VALUES;
         change_obj_values(ch, ch->desc->obj, "", ENTER_CHECK);
-	return;
+        return;
       case 12:
-	ch->specials.edit = CHANGE_OBJ_DECAY;
-	change_obj_decay(ch, ch->desc->obj, "", ENTER_CHECK);
-	return;
+        ch->specials.edit = CHANGE_OBJ_DECAY;
+        change_obj_decay(ch, ch->desc->obj, "", ENTER_CHECK);
+        return;
       case 13:
-	ch->specials.edit = CHANGE_OBJ_MAX_STRUCTS;
-	change_obj_max_struct_points(ch, ch->desc->obj, "", ENTER_CHECK);
-	return;
+        ch->specials.edit = CHANGE_OBJ_MAX_STRUCTS;
+        change_obj_max_struct_points(ch, ch->desc->obj, "", ENTER_CHECK);
+        return;
       case 14:
-	ch->specials.edit = CHANGE_OBJ_STRUCT_POINTS;
-	change_obj_struct_points(ch, ch->desc->obj, "", ENTER_CHECK);
-	return;
+        ch->specials.edit = CHANGE_OBJ_STRUCT_POINTS;
+        change_obj_struct_points(ch, ch->desc->obj, "", ENTER_CHECK);
+        return;
       case 15:
-	ch->specials.edit = CHANGE_OBJ_EXTRA;
-	change_obj_extra(ch, ch->desc->obj, "", ENTER_CHECK);
-	return;
+        ch->specials.edit = CHANGE_OBJ_EXTRA;
+        change_obj_extra(ch, ch->desc->obj, "", ENTER_CHECK);
+        return;
       case 16:
-	ch->specials.edit = CHANGE_OBJ_MAT_TYPE;
-	change_obj_mat_type(ch, ch->desc->obj, "", ENTER_CHECK);
-	return;
+        ch->specials.edit = CHANGE_OBJ_MAT_TYPE;
+        change_obj_mat_type(ch, ch->desc->obj, "", ENTER_CHECK);
+        return;
       case 17:
         if (ch->hasWizPower(POWER_OEDIT_APPLYS)) {
           ch->specials.edit = CHANGE_OBJ_APPLYS;
@@ -2742,15 +2742,15 @@ void obj_edit(TBeing *ch, const char *arg)
           ch->sendTo("Do not worry about changing applys yourself until level 53.\n\r");
           ch->specials.edit = MAIN_MENU;
         }
-	return;
+        return;
       case 18:
-	ch->specials.edit = CHANGE_OBJ_CAN_BE_SEEN;
-	change_obj_can_be_seen(ch, ch->desc->obj, "", ENTER_CHECK);
-	return;
+        ch->specials.edit = CHANGE_OBJ_CAN_BE_SEEN;
+        change_obj_can_be_seen(ch, ch->desc->obj, "", ENTER_CHECK);
+        return;
       case 19:
-	ch->specials.edit = MAIN_MENU;
-	delete_obj_extra_desc(ch, ch->desc->obj, "", ENTER_CHECK);
-	return;
+        ch->specials.edit = MAIN_MENU;
+        delete_obj_extra_desc(ch, ch->desc->obj, "", ENTER_CHECK);
+        return;
       case 20:
         ch->specials.edit = CHANGE_OBJ_SPEC;
         change_obj_spec(ch, ch->desc->obj, "", ENTER_CHECK);
@@ -2760,8 +2760,8 @@ void obj_edit(TBeing *ch, const char *arg)
         change_obj_max_exist(ch, ch->desc->obj, "", ENTER_CHECK);
         return;
       default:
-	ch->specials.edit = MAIN_MENU;
-	update_obj_menu(ch, ch->desc->obj);
+        ch->specials.edit = MAIN_MENU;
+        update_obj_menu(ch, ch->desc->obj);
     }
   }
   switch (ch->specials.edit) {
@@ -2964,7 +2964,7 @@ void TObj::changeObjValue4(TBeing *ch)
 
   ch->sendTo(VT_HOMECLR);
   ch->sendTo(format("What does this value do? :\n\r %s\n\r") %
-	    ItemInfo[itemType()]->val3_info);
+            ItemInfo[itemType()]->val3_info);
   ch->specials.edit = CHANGE_OBJ_VALUE4;
 
   ch->sendTo(format("Value 4 for %s : %d\n\r\n\r") %
@@ -3053,7 +3053,7 @@ void generic_dirlist(const char *buf, const TBeing *ch)
         // only handle if it's of right form
         char *n;
         n = fread_string(fp);
-  
+
         sstring newstr;
         newstr += dp->d_name;
         newstr += " ";
@@ -3093,7 +3093,7 @@ int TObj::addApply(TBeing *ch, applyTypeT apply)
 void TMagicItem::changeMagicItemValue1(TBeing *ch, const char *arg, editorEnterTypeT type)
 {
   int loc_update;
- 
+
   if (type != ENTER_CHECK) {
     if (!*arg || (*arg == '\n')) {
       ch->specials.edit = CHANGE_OBJ_VALUES;
@@ -3102,7 +3102,7 @@ void TMagicItem::changeMagicItemValue1(TBeing *ch, const char *arg, editorEnterT
     }
   }
   loc_update = convertTo<int>(arg);
- 
+
   switch (ch->specials.edit) {
     case CHANGE_MAGICITEM_VALUE1:
       switch (loc_update) {
@@ -3155,7 +3155,7 @@ void TMagicItem::changeMagicItemValue1(TBeing *ch, const char *arg, editorEnterT
 }
 
 void TTrap::changeTrapValue2(TBeing *ch, const char *arg, editorEnterTypeT type)
-{ 
+{
   int i, row, loc_update;
   char buf[256];
 
@@ -3189,8 +3189,8 @@ void TTrap::changeTrapValue2(TBeing *ch, const char *arg, editorEnterTypeT type)
       row++;
     ch->sendTo(buf);
 
-    ch->sendTo(format("%2d [%s] %s") % (i+1) % 
-              ((getTrapEffectType() & (1 << i)) ? "X" : " ") % 
+    ch->sendTo(format("%2d [%s] %s") % (i+1) %
+              ((getTrapEffectType() & (1 << i)) ? "X" : " ") %
               trap_effects[i]);
   }
   ch->sendTo(format(VT_CURSPOS) % 21 % 1);
@@ -3199,11 +3199,11 @@ void TTrap::changeTrapValue2(TBeing *ch, const char *arg, editorEnterTypeT type)
 
 
 void TTrap::changeTrapValue3(TBeing *ch, const char *arg, editorEnterTypeT type)
-{ 
+{
   int i, row;
   doorTrapT loc_update;
   char buf[256];
- 
+
   if (type != ENTER_CHECK) {
     if (!*arg || (*arg == '\n')) {
       ch->specials.edit = MAIN_MENU;
@@ -3230,7 +3230,7 @@ void TTrap::changeTrapValue3(TBeing *ch, const char *arg, editorEnterTypeT type)
   }
   ch->sendTo(VT_HOMECLR);
   ch->sendTo(format("Trap Damage Type: %s") % trap_types[getTrapDamType()]);
- 
+
   row = 0;
   for (i = 0; i < MAX_TRAP_TYPES; i++) {
     sprintf(buf, VT_CURSPOS, row + 3, (((i % 3) * 25) + 5));
@@ -3545,7 +3545,7 @@ void TGun::changeBaseWeaponValue1(TBeing *ch, const char *arg, editorEnterTypeT 
 {
   int new_rof;
   TGun *o=this;
-  
+
   if (type != ENTER_CHECK) {
     if (!*arg || (*arg == '\n')) {
       ch->specials.edit = MAIN_MENU;

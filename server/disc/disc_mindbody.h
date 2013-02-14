@@ -17,7 +17,7 @@
 
 
 #ifndef __DISC_MINDBODY_H
-#define __DISC_MINDBODY_H 
+#define __DISC_MINDBODY_H
 
 #include "discipline.h"
 #include "skills.h"

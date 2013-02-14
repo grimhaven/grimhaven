@@ -20,12 +20,12 @@
 // General arrays used for character creation
 
 // 3 groups, hard-coded, have to add another if more traits are added
-const int TRAIT_GROUP_SIZE=MAX_TRAITS/3+(MAX_TRAITS%3>0?1:0); 
+const int TRAIT_GROUP_SIZE=MAX_TRAITS/3+(MAX_TRAITS%3>0?1:0);
 
 // keep this list ordered by point value (for cosmetics)
 TTraits traits[MAX_TRAITS+1] = {
-  {0,0, "", "", 0,0}, 
-  {TOG_IS_COWARD, 10,       "cowardice", 
+  {0,0, "", "", 0,0},
+  {TOG_IS_COWARD, 10,       "cowardice",
    "You flee combat if you get below 1/2 hit points.", 0,0},
   {TOG_IS_BLIND, 6,         "blindness",
    "Your vision has been damaged and you are permanently blind.", 0,1},
@@ -85,7 +85,7 @@ territoryT frogmanTerr[] = { HOME_TER_FROGMAN_VILLAGER, HOME_TER_FROGMAN_PLAINS,
                               HOME_TER_FROGMAN_FOREST };
 territoryT fishmanTerr[] = { HOME_TER_FISHMAN_URBAN, HOME_TER_FISHMAN_VILLAGER, HOME_TER_FISHMAN_RECLUSE,
                         HOME_TER_FISHMAN_MOUNTAIN, HOME_TER_FISHMAN_FOREST, HOME_TER_FISHMAN_MARINER };
-territoryT birdmanTerr[] = { HOME_TER_BIRDMAN_URBAN, HOME_TER_BIRDMAN_VILLAGER, HOME_TER_BIRDMAN_MOUNTAIN, 
+territoryT birdmanTerr[] = { HOME_TER_BIRDMAN_URBAN, HOME_TER_BIRDMAN_VILLAGER, HOME_TER_BIRDMAN_MOUNTAIN,
                           HOME_TER_BIRDMAN_FOREST, HOME_TER_BIRDMAN_MARINER };
 territoryT trollTerr[] = { HOME_TER_TROLL_URBAN, HOME_TER_TROLL_VILLAGER, HOME_TER_TROLL_RECLUSE,
                           HOME_TER_TROLL_HILL, HOME_TER_TROLL_MOUNTAIN };
@@ -240,27 +240,27 @@ void Descriptor::setChosenStat(statTypeT stat, int val)
 }
 
 int Descriptor::totalChosenStats() const
-{ 
+{
   return character->chosenStats.total();
 }
 
-bool Descriptor::isDefaultChosenStats() const 
-{ 
+bool Descriptor::isDefaultChosenStats() const
+{
   return character->chosenStats.isDefault();
 }
 
-int Descriptor::getChosenStat(statTypeT stat) const 
-{ 
+int Descriptor::getChosenStat(statTypeT stat) const
+{
   return character->chosenStats.values[stat];
 }
 
-int Descriptor::getRacialStat(statTypeT stat) const 
-{ 
+int Descriptor::getRacialStat(statTypeT stat) const
+{
   return character->race->getBaseStats().values[stat];
 }
 
-int Descriptor::getTerritoryStat(statTypeT stat) const 
-{ 
+int Descriptor::getTerritoryStat(statTypeT stat) const
+{
   return territory_adjustment(character->player.hometerrain, stat);
 }
 // end functions used for character creation stats
@@ -894,8 +894,8 @@ void nannyStats_output(Descriptor * desc)
   for (int iStat = 0; iStat < 3; iStat++)
   {
     int statAmount = desc->getChosenStat(stats[iStat].stat);
-    int realStatAmount = desc->getRacialStat(stats[iStat].stat) +
-                          desc->getTerritoryStat(stats[iStat].stat) +
+    int realStatAmount = desc->getRacialStat(stats[iStat].stat)
+                          desc->getTerritoryStat(stats[iStat].stat)
                           statAmount;
     realStatAmount -= 100;
     const sstring statDesc[MAX_STATS] = realStatAmount < 0 ? statDescNeg : statDescPos;
@@ -1013,7 +1013,7 @@ void nannyDone_output(Descriptor * desc)
   output += "and encouraged to help you with command problems and general orientation.\n\r\n\r";
 
   output += format("The staff of %s hope that you enjoy your stay.\n\r") % MUD_NAME;
-  
+
   desc->writeToQ(output);
 }
 
@@ -1056,7 +1056,7 @@ connectStateT nannyCode_input(Descriptor * desc, sstring & output, const sstring
     nannyTerritory_input(desc, buf, format("%i") % GET_BITS_CORRECT(other, 6, 3));
     output += buf + "\n\r";
     buf="";
-    
+
     nannyClass_input(desc, buf, format("%i") % GET_BITS_CORRECT(other, 9, 3));
     output += buf + "\n\r";
     buf="";
@@ -1067,13 +1067,13 @@ connectStateT nannyCode_input(Descriptor * desc, sstring & output, const sstring
 
     nannyHand_input(desc, buf, format("%i") % (GET_BITS_CORRECT(other, 11, 1)+1));
     output += buf + "\n\r";
-    buf="";    
-    
+    buf="";
+
     for(int i=12;i<28;++i){
       if(GET_BITS_CORRECT(other, i, 1)){
         nannyTraits_input(desc, buf, format("%i") % (i-11));
-	      output += buf + "\n\r";
-	      buf="";
+              output += buf + "\n\r";
+              buf="";
       }
     }
 

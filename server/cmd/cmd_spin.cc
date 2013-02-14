@@ -39,7 +39,7 @@ bool TBeing::canSpin(TBeing *victim, silentTypeT silent)
 
   if (checkPeaceful("You feel too peaceful to contemplate violence.\n\r"))
     return FALSE;
-  
+
   if (getCombatMode() == ATTACK_BERSERK) {
     if (!silent)
       sendTo("You are berserking! You can't focus enough to spin anyone!\n\r ");
@@ -95,11 +95,11 @@ static int spinMiss(TBeing *caster, TBeing *victim, spinMissT type)
   int rc;
 
   if (type == TYPE_DEX) {
-    act("$N deftly avoids your attempt at spinning $M.", FALSE, caster, 
+    act("$N deftly avoids your attempt at spinning $M.", FALSE, caster,
               0, victim, TO_CHAR);
-    act("You deftly avoid $n's attempt at spinning you.", FALSE, caster, 
+    act("You deftly avoid $n's attempt at spinning you.", FALSE, caster,
               0, victim, TO_VICT);
-    act("$N deftly avoids $n's attempt at spinning $M.", FALSE, caster, 
+    act("$N deftly avoids $n's attempt at spinning $M.", FALSE, caster,
               0, victim, TO_NOTVICT);
   } else if (type == TYPE_MONK) {
     act("$N deftly counters your attempt at spinning $M.", FALSE, caster, 0, victim, TO_CHAR, ANSI_RED);
@@ -207,7 +207,7 @@ static int spin(TBeing *caster, TBeing *victim)
   if (!caster->canSpin(victim, SILENT_NO))
     return FALSE;
 
-  // AC makes less difference here ... 
+  // AC makes less difference here ...
   percent = ((10 + (victim->getArmor() / 200)) << 1);
   int bKnown = caster->getSkillValue(SKILL_SPIN);
 
@@ -231,12 +231,12 @@ static int spin(TBeing *caster, TBeing *victim)
   }
   caster->addToMove(-SPIN_COST);
 
-  if (victim->getPosition() <= POSITION_INCAP) 
+  if (victim->getPosition() <= POSITION_INCAP)
     return (spinHit(caster, victim));
-  
-  // remember, F = MA :) need to take  weight into account 
+
+  // remember, F = MA :) need to take  weight into account
   if (caster->bSuccess(bKnown + percent, SKILL_SPIN) &&
-         (i = caster->specialAttack(victim,SKILL_SPIN)) && 
+         (i = caster->specialAttack(victim,SKILL_SPIN)) &&
          i != GUARANTEED_FAILURE &&
          (percent < bKnown))  {
     int modif = 1;
@@ -248,21 +248,21 @@ static int spin(TBeing *caster, TBeing *victim)
       rc = spinMiss(caster, victim, TYPE_MONK);
       if (IS_SET_DELETE(rc, DELETE_THIS) || IS_SET_DELETE(rc, DELETE_VICT))
         return rc;
-    } else if (((caster->getDexReaction() - 
+    } else if (((caster->getDexReaction() -
                 victim->getAgiReaction()) > ::number(-10,20)) &&
                victim->awake() && victim->getPosition() >= POSITION_STANDING) {
       CS(SKILL_SPIN);
       rc = spinMiss(caster, victim, TYPE_DEX);
       if (IS_SET_DELETE(rc, DELETE_THIS) || IS_SET_DELETE(rc, DELETE_VICT))
         return rc;
-    } else 
+    } else
       return spinHit(caster, victim);
   } else {
     rc = spinMiss(caster, victim, TYPE_DEFAULT);
     if (IS_SET_DELETE(rc, DELETE_THIS) || IS_SET_DELETE(rc, DELETE_VICT))
       return rc;
   }
-   
+
   return TRUE;
 }
 
@@ -271,9 +271,9 @@ int TBeing::doSpin(const char *argument, TBeing *vict)
   int rc = 0, learning = 0;
   TBeing *victim;
   char name_buf[256];
-  
+
   strcpy(name_buf, argument);
-  
+
   if (!(victim = vict)) {
     if (!(victim = get_char_room_vis(this, name_buf))) {
       if (!(victim = fight())) {

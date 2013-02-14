@@ -144,7 +144,7 @@ class togInfoT {
   togEntry *operator[] (const togTypeT);
 
   togInfoT();
-  ~togInfoT();  
+  ~togInfoT();
 };
 
 
@@ -194,9 +194,9 @@ const int TOG_IMMORTAL_ON_QUEST      = 29;
 
 // defines for silverclaw quest //
 
-const int ROOM_SILVERCLAW_1		= 9489;
+const int ROOM_SILVERCLAW_1                = 9489;
 
-const int TOG_SILVERCLAW_TO_SCAR	 =   30;
+const int TOG_SILVERCLAW_TO_SCAR         =   30;
 const int TOG_SILVERCLAW_EEL_SKIN    = 31;
 const int TOG_SILVERCLAW_MAP_HOBBIT  = 32;
 const int TOG_SILVERCLAW_FIND_GOBLIN = 33;
@@ -215,17 +215,17 @@ const int TOG_SILVERCLAW_END_QUEST   = 45;
 
 // defines for holy devastator quest //
 
-const int ROOM_CREED		= 	2495;
-const int ROOM_TAILLE		= 	2273;
-const int ROOM_OVERLORD		= 	5442;
-const int ROOM_GRIZWALD		= 	9331;
-const int ROOM_MOAT_MONSTER	= 	9736;
-const int ROOM_ABNOR		= 	9326;
-const int ROOM_ASSASSIN		= 	3857;
-const int ROOM_LORTO		= 	28880;
-const int ROOM_YOLA		= 	9148;
-const int ROOM_SULTRESS		= 	3459;
-const int ROOM_NESNUM		= 	7531;
+const int ROOM_CREED                =         2495;
+const int ROOM_TAILLE                =         2273;
+const int ROOM_OVERLORD                =         5442;
+const int ROOM_GRIZWALD                =         9331;
+const int ROOM_MOAT_MONSTER        =         9736;
+const int ROOM_ABNOR                =         9326;
+const int ROOM_ASSASSIN                =         3857;
+const int ROOM_LORTO                =         28880;
+const int ROOM_YOLA                =         9148;
+const int ROOM_SULTRESS                =         3459;
+const int ROOM_NESNUM                =         7531;
 
 const int TOG_DEVASTATOR_FIND_BEN    = 46;
 const int TOG_DEVASTATOR_TOOK_BRIBE  = 47;
@@ -300,7 +300,7 @@ const int TOG_HAS_STONESKIN        = 121;
 const int TOG_ELIGIBLE_GALVANIZE   = 122;
 const int TOG_FIND_PURPLE_ROBE     = 123;
 const int TOG_HAS_GALVANIZE        = 124;
-const int TOG_ELIGIBLE_POWERSTONE  = 125; 
+const int TOG_ELIGIBLE_POWERSTONE  = 125;
 const int TOG_FIND_SNAKESTAFF      = 126;
 const int TOG_HAS_POWERSTONE       = 127;
 const int TOG_HAS_ADVANCED_KICKING = 128;
@@ -381,7 +381,7 @@ const int TOG_STARTED_RANGER_L14    = 175;
 const int TOG_SEEN_KOBOLD_POACHER   = 176;
 const int TOG_SEEKING_ORC_POACHER   = 177;
 const int TOG_SEEN_ORC_POACHER      = 178;
-const int TOG_SEEKING_BONE_WOMAN    = 179;    
+const int TOG_SEEKING_BONE_WOMAN    = 179;
 const int TOG_SEEKING_APPLE         = 180;
 const int TOG_GOT_CARVED_BUCKLE     = 181;
 const int TOG_SEEKING_ORC_MAGI      = 182;
@@ -486,7 +486,7 @@ const int TOG_PSIONICIST                       = 248;
 const int TOG_DRAGON_ARMOR_RED_SCALES          = 249;
 const int TOG_DRAGON_ARMOR_GREEN_SCALES        = 250;
 const int TOG_DRAGON_ARMOR_WHITE_SCALES        = 251;
-const int TOG_DRAGON_ARMOR_TUNGSTEN_SUIT       = 252;    
+const int TOG_DRAGON_ARMOR_TUNGSTEN_SUIT       = 252;
 const int TOG_DRAGON_ARMOR_HUGE_OPAL           = 253;
 const int TOG_DRAGON_ARMOR_DRAGON_BONE_1       = 254;
 const int TOG_DRAGON_ARMOR_DRAGON_BONE_2       = 255;
@@ -624,17 +624,17 @@ const int TOG_IS_CRAVEN                        = 358;
 
 // Newbie quest toggles:
 const int TOG_NOOB_DOING_QUEST                 = 359;
-const int TOG_NOOB_FINDING_1_TRAINER	       = 360;
-const int TOG_NOOB_FOUND_1_TRAINER	       = 361;
-const int TOG_NOOB_FINDING_2_TRAINER	       = 362;
-const int TOG_NOOB_FOUND_2_TRAINER	       = 363;
-const int TOG_NOOB_RUNNING_1_ERRAND	       = 364;
-const int TOG_NOOB_RAN_1_ERRAND	  	       = 365;
-const int TOG_NOOB_RUNNING_2_ERRAND	       = 366;
-const int TOG_NOOB_RAN_2_ERRAND		       = 367;
-const int TOG_NOOB_FIGHTING_MOUSE  	       = 368;
-const int TOG_NOOB_KILLED_MOUSE		       = 369;
-const int TOG_NOOB_COMPLETED_QUEST	       = 370;
+const int TOG_NOOB_FINDING_1_TRAINER               = 360;
+const int TOG_NOOB_FOUND_1_TRAINER               = 361;
+const int TOG_NOOB_FINDING_2_TRAINER               = 362;
+const int TOG_NOOB_FOUND_2_TRAINER               = 363;
+const int TOG_NOOB_RUNNING_1_ERRAND               = 364;
+const int TOG_NOOB_RAN_1_ERRAND                         = 365;
+const int TOG_NOOB_RUNNING_2_ERRAND               = 366;
+const int TOG_NOOB_RAN_2_ERRAND                       = 367;
+const int TOG_NOOB_FIGHTING_MOUSE                 = 368;
+const int TOG_NOOB_KILLED_MOUSE                       = 369;
+const int TOG_NOOB_COMPLETED_QUEST               = 370;
 
 const int MAX_TOG_INDEX                        = 371;  // move and change
 

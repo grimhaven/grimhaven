@@ -50,7 +50,7 @@ currencyEntry::currencyEntry(sstring n, sstring a) :
 {
 }
 
-currencyEntry & currencyEntry::operator = (const currencyEntry &a) 
+currencyEntry & currencyEntry::operator = (const currencyEntry &a)
 {
   if (this == &a) return *this;
 
@@ -314,7 +314,7 @@ int TMoney::moneyMeMoney(TBeing *ch, TThing *sub)
       ch->sendTo(format("There were %d talens.\n\r") % amount);
     else {
       ch->sendTo(format("There were %d talens, and you tithe %d of them.\n\r") % amount % amt2);
-      // BUGFIX: tithing was creating money 
+      // BUGFIX: tithing was creating money
       amount = amount - amt2;
     }*/
   }
@@ -380,7 +380,7 @@ void TMoney::onObjLoad()
 sstring TMoney::getNameForShow(bool useColor, bool useName, const TBeing *ch) const
 {
   char buf2[256];
-  sprintf(buf2, "%s [%d %ss]", useName ? name : (useColor ? getName() : getNameNOC(ch).c_str()), 
+  sprintf(buf2, "%s [%d %ss]", useName ? name : (useColor ? getName() : getNameNOC(ch).c_str()),
       getMoney(), getCurrencyName().c_str());
   return buf2;
 }

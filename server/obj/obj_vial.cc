@@ -40,7 +40,7 @@ void TVial::getBestVial(TVial **best)
     *best = this;
 
   return;
-}     
+}
 
 int TVial::rentCost() const
 {
@@ -55,7 +55,7 @@ int TVial::rentCost() const
   num *= getDrinkUnits();
   num /= max(1, getMaxDrinkUnits());
   return num;
-}          
+}
 
 int TVial::objectSell(TBeing *ch, TMonster *keeper)
 {
@@ -88,15 +88,15 @@ int TVial::suggestedPrice() const
   if (getDrinkType() != LIQ_HOLYWATER)
     return TBaseCup::suggestedPrice();
 
-  return (int) ((133.34 * (float) getMaxDrinkUnits() + 0.5) +
-		(int)(10.0 * getWeight() * material_nums[getMaterial()].price));
+  return (int) ((133.34 * (float) getMaxDrinkUnits() + 0.5)
+                (int)(10.0 * getWeight() * material_nums[getMaterial()].price));
 }
 
 void TVial::lowCheck()
 {
   int ap = suggestedPrice();
   if (ap != obj_flags.cost && ap) {
-    vlogf(LOG_LOW, format("vial (%s:%d) has a bad price (%d).  should be (%d)") % 
+    vlogf(LOG_LOW, format("vial (%s:%d) has a bad price (%d).  should be (%d)") %
          getName() % objVnum() % obj_flags.cost % ap);
     obj_flags.cost = ap;
   }

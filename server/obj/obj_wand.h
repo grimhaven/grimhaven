@@ -16,7 +16,7 @@ class TWand : public virtual TMagicItem {
     int maxCharges;
     int curCharges;
     spellNumT spell;
-    
+
   public:
     virtual void assignFourValues(int, int, int, int);
     virtual void getFourValues(int *, int *, int *, int *) const;

@@ -35,7 +35,7 @@ bool zoneSorter::operator()  (const zoneSorter &x, const zoneSorter &y) const
 void TBeing::doZonesSingle(sstring tStString)
 {
   unsigned int iZone        = 0/*,
-	       iZoneIter    = 0*/;
+               iZoneIter    = 0*/;
   char         tString[256] = "\0",
                tBuffer[256] = "\0",
                tStats[2048] = "\0";
@@ -194,12 +194,12 @@ void TBeing::doZonesSingle(sstring tStString)
       // skip the void (0) : this is for misc. mobs
       // skip immort zone (1)
       if (zone == 0 || zone == 1)
-	continue;
+        continue;
 
       zoneData &zd = zone_table[zone];
 
       if (!zd.enabled || !zd.num_mobs)
-	continue;
+        continue;
 
       char buf[256];
       strcpy(buf, zd.name);
@@ -207,13 +207,13 @@ void TBeing::doZonesSingle(sstring tStString)
       char *s = strchr(buf, '-');
 
       if (s) {
-	--s;       // get the space before the -
-	*s = '\0'; // after builder name
-	s += 2;    // get the space after the -
-	*s = '\0'; // after zone name
-	++s;
+        --s;       // get the space before the -
+        *s = '\0'; // after builder name
+        s += 2;    // get the space after the -
+        *s = '\0'; // after zone name
+        ++s;
       } else {
-	s = buf;
+        s = buf;
       }
 
       // buf is now the builder name, s is the zone name
@@ -223,22 +223,22 @@ void TBeing::doZonesSingle(sstring tStString)
       int virt, count = 0;
 
       for (unsigned int mobnum = 0; mobnum < mob_index.size(); mobnum++) {
-	virt = mob_index[mobnum].virt;
+        virt = mob_index[mobnum].virt;
 
-	if(virt > zone_table[zone-1].top && virt <= zone_table[zone].top && mob_index[mobnum].doesLoad) {
-	  count += mob_index[mobnum].getMaxNumber();
-	  x=(mob_index[mobnum].level * mob_index[mobnum].getMaxNumber());
+        if(virt > zone_table[zone-1].top && virt <= zone_table[zone].top && mob_index[mobnum].doesLoad) {
+          count += mob_index[mobnum].getMaxNumber();
+          x=(mob_index[mobnum].level * mob_index[mobnum].getMaxNumber());
 
-	  if(mob_index[mobnum].level>maxlev)
-	    maxlev = mob_index[mobnum].level;
+          if(mob_index[mobnum].level>maxlev)
+            maxlev = mob_index[mobnum].level;
 
-	  if(mob_index[mobnum].level<minlev)
-	    minlev = mob_index[mobnum].level;
+          if(mob_index[mobnum].level<minlev)
+            minlev = mob_index[mobnum].level;
 
-	  x -= avg;
-	  x *= x;
-	  total += x;
-	}
+          x -= avg;
+          x *= x;
+          total += x;
+        }
       }
       total /= (count-1);
       dev = sqrt(total);
@@ -247,17 +247,17 @@ void TBeing::doZonesSingle(sstring tStString)
 
       // now go through the mobs again and average up only a few
       for (unsigned int mobnum = 0; mobnum < mob_index.size(); mobnum++) {
-	virt = mob_index[mobnum].virt;
-	if (virt > zone_table[zone-1].top && virt <=  zone_table[zone].top && mob_index[mobnum].doesLoad) {
-	  if(mob_index[mobnum].level < avg+dev && mob_index[mobnum].level > avg-dev) {
-	    total+= (mob_index[mobnum].level * mob_index[mobnum].getMaxNumber());
-	    count+= mob_index[mobnum].getMaxNumber();
-	  }
-	}
+        virt = mob_index[mobnum].virt;
+        if (virt > zone_table[zone-1].top && virt <=  zone_table[zone].top && mob_index[mobnum].doesLoad) {
+          if(mob_index[mobnum].level < avg+dev && mob_index[mobnum].level > avg-dev) {
+            total+= (mob_index[mobnum].level * mob_index[mobnum].getMaxNumber());
+            count+= mob_index[mobnum].getMaxNumber();
+          }
+        }
       }
 
       if (count > 0 && total > 0)
-	avg = total / count;
+        avg = total / count;
 
       sortZoneVec.push_back(zoneSorter(avg, s));
     }
@@ -456,7 +456,7 @@ void TBeing::doZones(sstring tStString)
 
       lastavg = (int)(sortZoneVec[zone].avgLevel);
     }
-    
+
     sprintf(tString, "%3d. %s%s<z>", (zone + 1), colorStrings[cIndex], sortZoneVec[zone].zoneName.c_str());
     str += tString;
   }

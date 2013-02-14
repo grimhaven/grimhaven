@@ -44,40 +44,40 @@ enum skillUseClassT {
 
 extern skillUseTypeT getSpellType(skillUseClassT);
 
-const unsigned int TAR_IGNORE		 = (1<<0);
+const unsigned int TAR_IGNORE                 = (1<<0);
 const unsigned int TAR_CHAR_ROOM    = (1<<1);
 const unsigned int TAR_CHAR_WORLD   = (1<<2);
 const unsigned int TAR_FIGHT_SELF   = (1<<3);
 const unsigned int TAR_FIGHT_VICT   = (1<<4);
 const unsigned int TAR_SELF_ONLY    = (1<<5) ;
 const unsigned int TAR_SELF_NONO    = (1<<6) ;
-const unsigned int TAR_OBJ_INV		  = (1<<7);
+const unsigned int TAR_OBJ_INV                  = (1<<7);
 const unsigned int TAR_OBJ_ROOM     = (1<<8);
 const unsigned int TAR_OBJ_WORLD    = (1<<9);
 const unsigned int TAR_OBJ_EQUIP    = (1<<10);
-const unsigned int TAR_NAME	       = (1<<11);
-const unsigned int TAR_VIOLENT		  = (1<<12);
-const unsigned int TAR_ROOM	       = (1<<13); 
-const unsigned int TAR_AREA	       = (1<<14); 
+const unsigned int TAR_NAME               = (1<<11);
+const unsigned int TAR_VIOLENT                  = (1<<12);
+const unsigned int TAR_ROOM               = (1<<13);
+const unsigned int TAR_AREA               = (1<<14);
 const unsigned int TAR_CHAR_VIS_WORLD  = (1<<15);
 
-const unsigned int COMP_GESTURAL		= (1<<0);
-const unsigned int COMP_GESTURAL_INIT		     = (1<<1);
-const unsigned int COMP_GESTURAL_END		    = (1<<2);
-const unsigned int COMP_GESTURAL_ALWAYS		       = (1<<3);
-const unsigned int COMP_GESTURAL_RANDOM		       = (1<<4);
-const unsigned int COMP_VERBAL			      = (1<<5);
-const unsigned int COMP_VERBAL_INIT		   = (1<<6);
-const unsigned int COMP_VERBAL_END		  = (1<<7);
-const unsigned int COMP_VERBAL_ALWAYS		     = (1<<8);
-const unsigned int COMP_VERBAL_RANDOM		     = (1<<9);
-const unsigned int COMP_MATERIAL		= (1<<10);
-const unsigned int COMP_MATERIAL_INIT		     = (1<<11);
-const unsigned int COMP_MATERIAL_END		    = (1<<12);
-const unsigned int COMP_MATERIAL_ALWAYS		       = (1<<13);
-const unsigned int COMP_MATERIAL_RANDOM		       = (1<<14);
-const unsigned int COMP_MATERIAL_ALMOST_END	   = (1<<15);
-const unsigned int SPELL_TASKED			       = (1<<16);
+const unsigned int COMP_GESTURAL                = (1<<0);
+const unsigned int COMP_GESTURAL_INIT                     = (1<<1);
+const unsigned int COMP_GESTURAL_END                    = (1<<2);
+const unsigned int COMP_GESTURAL_ALWAYS                       = (1<<3);
+const unsigned int COMP_GESTURAL_RANDOM                       = (1<<4);
+const unsigned int COMP_VERBAL                              = (1<<5);
+const unsigned int COMP_VERBAL_INIT                   = (1<<6);
+const unsigned int COMP_VERBAL_END                  = (1<<7);
+const unsigned int COMP_VERBAL_ALWAYS                     = (1<<8);
+const unsigned int COMP_VERBAL_RANDOM                     = (1<<9);
+const unsigned int COMP_MATERIAL                = (1<<10);
+const unsigned int COMP_MATERIAL_INIT                     = (1<<11);
+const unsigned int COMP_MATERIAL_END                    = (1<<12);
+const unsigned int COMP_MATERIAL_ALWAYS                       = (1<<13);
+const unsigned int COMP_MATERIAL_RANDOM                       = (1<<14);
+const unsigned int COMP_MATERIAL_ALMOST_END           = (1<<15);
+const unsigned int SPELL_TASKED                               = (1<<16);
 const unsigned int SPELL_IGNORE_POSITION          = (1<<17);
 const unsigned int SPELL_TASKED_EVERY             = (1<<18);
 
@@ -203,7 +203,7 @@ enum lifeforceCostT {
 };
 
 // enum can't be float unfortunately, which we want
-// KLUDGE: values here will be 4* the float we really want 
+// KLUDGE: values here will be 4* the float we really want
 // the ctor for spellInfo will turn into float
 enum pietyCostT {
    PRAY_0 = 0,
@@ -462,9 +462,9 @@ class spellInfo {
   private:
     spellInfo() {}  // prevent default constructor from being used
   public:
-    spellInfo(skillUseClassT styp, 
-         discNumT discipline, 
-         discNumT assDiscipline, 
+    spellInfo(skillUseClassT styp,
+         discNumT discipline,
+         discNumT assDiscipline,
          const char *n,
          taskDiffT cast_diff,
          lag_t l,
@@ -472,24 +472,24 @@ class spellInfo {
          manaCostT mana,
          lifeforceCostT lifeforce,
          pietyCostT align,
-         unsigned int t, 
-         symbolStressT h, 
-         const char *fa, 
-         const char *far, 
-         const char *fas, 
-         const char *fasr, 
+         unsigned int t,
+         symbolStressT h,
+         const char *fa,
+         const char *far,
+         const char *fas,
+         const char *fasr,
          discStartT starting,
          discLearnT learning,
          discStartDoT learnDoStarting,
          discLearnDoT learningDoAmt,
          discStartDoT secLearnDoStart,
          discLearnDoT secLearnDoAmt,
-         int learningDoDiff, float modifier, unsigned int ctyp, 
+         int learningDoDiff, float modifier, unsigned int ctyp,
          unsigned int tgl);
     ~spellInfo();
     spellInfo(const spellInfo &);
     spellInfo & operator = (const spellInfo &);
-}; 
+};
 
 #if 0
 // defunct, but remains in some commented out code

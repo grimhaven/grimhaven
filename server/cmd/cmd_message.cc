@@ -101,7 +101,7 @@ void TBeing::doMessage(const char *tArg)
       if (messageCommandSwitches[tValue][2] &&
           hasWizPower(wizPowerT(messageCommandSwitches[tValue][2])))
         sendTo(format("%-15s:  %s\n\r") % messageCommandTypes[tValue-1] %
-            msgVariables(messageTypeT(tValue), 
+            msgVariables(messageTypeT(tValue),
               (TThing *)NULL, (const char *) NULL, false));
     }
     return;
@@ -310,7 +310,7 @@ void TMessages::operator()(messageTypeT tValue, sstring tStString)
   // look for "~R" and replace with newlines
   while (tStString.find("~R") != sstring::npos)
     tStString.replace(tStString.find("~R"), 2, "\n\r");
-  
+
   switch (tValue)
   {
     case MSG_IMM_TITLE: // Immortal Title
@@ -423,7 +423,7 @@ void TMessages::operator()(messageTypeT tValue, sstring tStString)
       break;
     case MSG_ERROR:
     case MSG_MAX:
-      vlogf(LOG_BUG, format("TMessages::operator()(int, sstring) got invalid tValue.  [%d]") % 
+      vlogf(LOG_BUG, format("TMessages::operator()(int, sstring) got invalid tValue.  [%d]") %
             tValue);
   }
 }
@@ -563,7 +563,7 @@ sstring TMessages::operator[](messageTypeT tValue) const
       return tMessages.msgNote;
       break;
     default:
-      vlogf(LOG_BUG, format("TMessages::operator[](int) got invalid tValue.  [%d]") % 
+      vlogf(LOG_BUG, format("TMessages::operator[](int) got invalid tValue.  [%d]") %
             tValue);
   }
 

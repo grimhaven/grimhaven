@@ -34,7 +34,7 @@ int voodoo(TBeing *caster, TObj *obj, int level, short bKnown)
     act("Nothing seems to happen.", FALSE, caster, 0, 0, TO_ROOM);
     return SPELL_FAIL;
   }
- 
+
   if (corpse->isCorpseFlag(CORPSE_NO_REGEN)) {
     // a corpse that can't be res'd  (body-part or something)
     caster->sendTo("You can't do that.  Nothing happens.\n\r");
@@ -58,12 +58,12 @@ int voodoo(TBeing *caster, TObj *obj, int level, short bKnown)
     act("Nothing seems to happen.", FALSE, caster, 0, 0, TO_ROOM);
     return SPELL_FAIL;
   }
-  
+
   mob->genericCharmFix();
 
   // make it a zombie
   SET_BIT(mob->specials.act, ACT_ZOMBIE);
-  
+
   *caster->roomp += *mob;
 
   act("You channel some of the cosmic energy into $p!", FALSE, caster, corpse, NULL, TO_CHAR);
@@ -77,7 +77,7 @@ int voodoo(TBeing *caster, TObj *obj, int level, short bKnown)
   mob->setHit((int) (mob->hitLimit() >> 1));
   mob->setSex(SEX_NEUTER);
 
-  // take all from corpse, and give to zombie 
+  // take all from corpse, and give to zombie
   for(StuffIter it=corpse->stuff.begin();it!=corpse->stuff.end();){
     t=*(it++);
     --(*t);
@@ -85,11 +85,11 @@ int voodoo(TBeing *caster, TObj *obj, int level, short bKnown)
   }
 
   for (i=MIN_WEAR;i < MAX_WEAR;i++) {
-    if (mob->hasPart(i)) 
+    if (mob->hasPart(i))
       mob->setCurLimbHealth(i, mob->getMaxLimbHealth(i));
   }
 
-  // set up descriptions and such 
+  // set up descriptions and such
   mob->swapToStrung();
   sprintf(buf, "zombie %s", mob_index[mob->getMobIndex()].name);
   delete [] mob->name;
@@ -99,15 +99,15 @@ int voodoo(TBeing *caster, TObj *obj, int level, short bKnown)
   mob->shortDescr = mud_str_dup(buf);
 
   strcpy(capbuf, mob->getName());
-  sprintf(buf, "%s is here, obediently following its master.\n\r", 
-	  sstring(capbuf).cap().c_str());
+  sprintf(buf, "%s is here, obediently following its master.\n\r",
+          sstring(capbuf).cap().c_str());
   delete [] mob->player.longDescr;
   mob->player.longDescr = mud_str_dup(buf);
 
   if (caster->tooManyFollowers(mob, FOL_ZOMBIE)) {
-    act("$N refuses to enter a group the size of yours!", 
+    act("$N refuses to enter a group the size of yours!",
           TRUE, caster, NULL, mob, TO_CHAR);
-    act("$N refuses to enter a group the size of $n's!", 
+    act("$N refuses to enter a group the size of $n's!",
           TRUE, caster, NULL, mob, TO_ROOM);
     return SPELL_FAIL + VICTIM_DEAD;
   }
@@ -123,7 +123,7 @@ int voodoo(TBeing *caster, TObj *obj, int level, short bKnown)
     //    delete corpse;
     act("$N slowly begins to move...it's slowly standing up!",
              FALSE, caster, NULL, mob, TO_CHAR);
-    act("$N slowly begins to move...it's slowly standing up!", 
+    act("$N slowly begins to move...it's slowly standing up!",
              FALSE, caster, NULL, mob, TO_ROOM);
 
     aff.type = SPELL_VOODOO;
@@ -217,7 +217,7 @@ int dancingBones(TBeing * caster, TObj * obj, int level, short bKnown)
     act("Nothing seems to happen.", FALSE, caster, 0, 0, TO_ROOM);
     return SPELL_FAIL;
   }
- 
+
   if (corpse->isCorpseFlag(CORPSE_NO_REGEN)) {
     // a corpse that can't be res'd  (body-part or something)
     caster->sendTo("You can't do that.  Nothing happens.\n\r");
@@ -241,10 +241,10 @@ int dancingBones(TBeing * caster, TObj * obj, int level, short bKnown)
     act("Nothing seems to happen.", FALSE, caster, 0, 0, TO_ROOM);
     return SPELL_FAIL;
   }
-  
+
   // make it a skeleton
   SET_BIT(mob->specials.act, ACT_SKELETON);
-  
+
   mob->genericCharmFix();
   *caster->roomp += *mob;
 
@@ -278,15 +278,15 @@ int dancingBones(TBeing * caster, TObj * obj, int level, short bKnown)
   delete [] mob->shortDescr;
   mob->shortDescr = mud_str_dup(buf);
   strcpy(capbuf, mob->getName());
-  sprintf(buf, "%s is here, enthralled by it's master.\n\r", 
-	  sstring(capbuf).cap().c_str());
+  sprintf(buf, "%s is here, enthralled by it's master.\n\r",
+          sstring(capbuf).cap().c_str());
   delete [] mob->player.longDescr;
   mob->player.longDescr = mud_str_dup(buf);
 
   if (caster->tooManyFollowers(mob, FOL_ZOMBIE)) {
-    act("$N refuses to enter a group the size of yours!", 
+    act("$N refuses to enter a group the size of yours!",
           TRUE, caster, NULL, mob, TO_CHAR);
-    act("$N refuses to enter a group the size of $n's!", 
+    act("$N refuses to enter a group the size of $n's!",
           TRUE, caster, NULL, mob, TO_ROOM);
     return SPELL_FAIL + VICTIM_DEAD;
   }
@@ -302,7 +302,7 @@ int dancingBones(TBeing * caster, TObj * obj, int level, short bKnown)
     //    delete corpse;
     act("$N slowly begins to move...it's slowly standing up!",
              FALSE, caster, NULL, mob, TO_CHAR);
-    act("$N slowly begins to move...it's slowly standing up!", 
+    act("$N slowly begins to move...it's slowly standing up!",
              FALSE, caster, NULL, mob, TO_ROOM);
 
     aff.type = SPELL_DANCING_BONES;
@@ -405,7 +405,7 @@ int shieldOfMists(TBeing *caster, TBeing *victim, int level, short bKnown)
       case CRIT_S_NONE:
         break;
     }
-    if (caster != victim) 
+    if (caster != victim)
       aff.modifier /= 5;
 
     //Second argument FALSE causes it to add new duration to old
@@ -734,20 +734,20 @@ void TThing::sacrificeMe(TBeing *ch, const char *arg)
     return;
   }
   // Check to see if corpse is a corpse
-  
+
   if (!(corpse = dynamic_cast<TBaseCorpse *>(obj))) {
     ch->sendTo(COLOR_OBJECTS, format("You cannot sacrifice %s.\n\r") % obj->getName());
     return;
   }
   if (corpse->isCorpseFlag(CORPSE_SACRIFICE)) {
     act("$p is no longer worthy of the ritual.",
-          FALSE, ch, corpse, 0, TO_CHAR);    
+          FALSE, ch, corpse, 0, TO_CHAR);
     return;
   }
   if (corpse->isCorpseFlag(CORPSE_NO_REGEN)) {
     // a body part or something
     act("You aren't able to sacrifice that $p.",
-          FALSE, ch, corpse, 0, TO_CHAR);    
+          FALSE, ch, corpse, 0, TO_CHAR);
     return;
   }
   if (!corpse->isCorpseFlag(CORPSE_SACRIFICE)) {
@@ -778,14 +778,14 @@ void TTool::sacrificeMe(TBeing *ch, const char *arg)
     return;
   }
   // Check to see if corpse is a corpse
-  
+
   if (!(corpse = dynamic_cast<TBaseCorpse *>(obj))) {
     ch->sendTo(COLOR_OBJECTS, format("You cannot sacrifice %s.\n\r") % obj->getName());
     return;
   }
   if (corpse->isCorpseFlag(CORPSE_SACRIFICE)) {
     act("Someone must be sacrificing $p currently.",
-          FALSE, ch, corpse, 0, TO_CHAR);    
+          FALSE, ch, corpse, 0, TO_CHAR);
     return;
   }
 
@@ -863,9 +863,9 @@ int vampiricTouch(TBeing *caster, TBeing *victim, int level, short bKnown, int a
       case CRIT_F_HITSELF:
       case CRIT_F_HITOTHER:
         CF(SPELL_VAMPIRIC_TOUCH);
-        act("$n's body glows a dark, evil-looking red!", 
+        act("$n's body glows a dark, evil-looking red!",
                FALSE, caster, NULL, NULL, TO_ROOM);
-        act("You sang the invokation incorrectly! The ancestors are EXTREMELY pissed!", 
+        act("You sang the invokation incorrectly! The ancestors are EXTREMELY pissed!",
                FALSE, caster, NULL, NULL, TO_CHAR);
         victim->addToHit(num);
         if (caster->reconcileDamage(caster, num,SPELL_VAMPIRIC_TOUCH) == -1)
@@ -888,11 +888,11 @@ int vampiricTouch(TBeing *caster, TBeing *victim)
   lag_t rounds = discArray[SPELL_VAMPIRIC_TOUCH]->lag;
   taskDiffT diff = discArray[SPELL_VAMPIRIC_TOUCH]->task;
 
-  start_cast(caster, victim, NULL, caster->roomp, SPELL_VAMPIRIC_TOUCH, diff, 1, "", rounds, caster->in_room, 0, 
-0,TRUE, 
+  start_cast(caster, victim, NULL, caster->roomp, SPELL_VAMPIRIC_TOUCH, diff, 1, "", rounds, caster->in_room, 0,
+0,TRUE,
 0);
 
-  return TRUE; 
+  return TRUE;
 }
 
 int castVampiricTouch(TBeing *caster, TBeing *victim)
@@ -973,9 +973,9 @@ int lifeLeech(TBeing *caster, TBeing *victim, int level, short bKnown, int adv_l
       case CRIT_F_HITSELF:
       case CRIT_F_HITOTHER:
         CF(SPELL_LIFE_LEECH);
-        act("<r>$n's body glows a dark, evil-looking red!<z>", 
+        act("<r>$n's body glows a dark, evil-looking red!<z>",
                FALSE, caster, NULL, NULL, TO_ROOM);
-        act("<r>You sang the invokation incorrectly! The ancestors are<z> <R>EXTREMELY<z> <r>pissed!<z>", 
+        act("<r>You sang the invokation incorrectly! The ancestors are<z> <R>EXTREMELY<z> <r>pissed!<z>",
                FALSE, caster, NULL, NULL, TO_CHAR);
         if (caster->reconcileDamage(caster, num, SPELL_LIFE_LEECH) == -1)
           return SPELL_CRIT_FAIL + CASTER_DEAD;
@@ -998,11 +998,11 @@ int lifeLeech(TBeing *caster, TBeing *victim)
   lag_t rounds = discArray[SPELL_LIFE_LEECH]->lag;
   taskDiffT diff = discArray[SPELL_LIFE_LEECH]->task;
 
-  start_cast(caster, victim, NULL, caster->roomp, SPELL_LIFE_LEECH, diff, 1, "", rounds, caster->in_room, 0, 
-0,TRUE, 
+  start_cast(caster, victim, NULL, caster->roomp, SPELL_LIFE_LEECH, diff, 1, "", rounds, caster->in_room, 0,
+0,TRUE,
 0);
 
-  return TRUE; 
+  return TRUE;
 }
 
 int castLifeLeech(TBeing *caster, TBeing *victim)
@@ -1074,7 +1074,7 @@ int cheval(TBeing *caster, TBeing *victim, int level, short bKnown)
 
     act("$N seems as if $E is possessed!",
         FALSE, caster, NULL, victim, TO_NOTVICT, ANSI_GREEN);
-    act("The power of the loa takes dominion inside of you!", 
+    act("The power of the loa takes dominion inside of you!",
         FALSE, victim, NULL, NULL, TO_CHAR, ANSI_GREEN);
     return SPELL_SUCCESS;
   } else {
@@ -1096,7 +1096,7 @@ int cheval(TBeing *caster, TBeing *victim)
      lag_t rounds = discArray[SPELL_CHEVAL]->lag;
      diff = discArray[SPELL_CHEVAL]->task;
 
-     start_cast(caster, victim, NULL, caster->roomp, SPELL_CHEVAL, diff, 1, "", 
+     start_cast(caster, victim, NULL, caster->roomp, SPELL_CHEVAL, diff, 1, "",
 rounds, caster->in_room, 0, 0,TRUE, 0);
        return TRUE;
 }
@@ -1128,7 +1128,7 @@ bool shaman_create_deny(int numberx)
 
   return false;
 }
-        
+
 int chrism(TBeing *caster, TObj **obj, int, const char * name, short bKnown)
 {
   unsigned int numberx;
@@ -1139,9 +1139,9 @@ int chrism(TBeing *caster, TObj **obj, int, const char * name, short bKnown)
   caster->addToMoney(-CHRISM_PRICE, GOLD_HOSPITAL);
 
   for (numberx = 0; numberx < obj_index.size(); numberx++) {
-    if (!isname(name, obj_index[numberx].name)) 
+    if (!isname(name, obj_index[numberx].name))
       continue;
-    if (obj_index[numberx].value > CHRISM_PRICE) 
+    if (obj_index[numberx].value > CHRISM_PRICE)
       continue;
     if (shaman_create_deny(numberx))
       continue;
@@ -1178,7 +1178,7 @@ int chrism(TBeing *caster, TObj **obj, int, const char * name, short bKnown)
       }
     }
 
-    act("Out of the sky $p gently falls into $n's hands.", TRUE, caster, *obj, NULL, 
+    act("Out of the sky $p gently falls into $n's hands.", TRUE, caster, *obj, NULL,
 TO_ROOM);
     act("The loa have blessed you with $p to aid you.", TRUE, caster, *obj, NULL, TO_CHAR);
 
@@ -1201,7 +1201,7 @@ int chrism(TBeing *caster, const char * name)
   lag_t rounds = discArray[SPELL_CHRISM]->lag;
   taskDiffT diff = discArray[SPELL_CHRISM]->task;
 
-  start_cast(caster, NULL, NULL, caster->roomp, SPELL_CHRISM, diff, 2, name, rounds, 
+  start_cast(caster, NULL, NULL, caster->roomp, SPELL_CHRISM, diff, 2, name, rounds,
 caster->in_room, 0, 0,TRUE, 0);
   return TRUE;
 }
@@ -1224,8 +1224,8 @@ int castChrism(TBeing *caster, const char * name)
 
   int level = caster->getSkillLevel(SPELL_CHRISM);
   TObj *obj = NULL;
-  
-  act("$n places $s hands on $s head and howls at the sky.", TRUE, caster, NULL, NULL, 
+
+  act("$n places $s hands on $s head and howls at the sky.", TRUE, caster, NULL, NULL,
 TO_ROOM);
   act("You place your hands on the sides of your head and call unto the loa to hear your plea.", TRUE, caster, NULL, NULL, TO_CHAR);
 
@@ -1240,8 +1240,8 @@ int rombler(TBeing *caster, int, short bKnown)
   sstring pgbuff;
   //  for (; isspace(*msg); msg++);
 
-  if (caster->isPc() && 
-     ((caster->desc && 
+  if (caster->isPc() &&
+     ((caster->desc &&
       IS_SET(caster->desc->autobits, AUTO_NOSHOUT)) || caster->isPlayerAction(PLR_GODNOSHOUT))) {
     caster->sendTo("You aren't allowed to invoke the ritual drumming at this time!!\n\r");
     return SPELL_FAIL;
@@ -1269,18 +1269,18 @@ int rombler(TBeing *caster, int, short bKnown)
             i->clientf(format("%d|%s|%s") % CLIENT_ROMBLER % colorString(i->character, i, caster->getName(), NULL, COLOR_NONE, FALSE) % colorString(i->character, i, pgbuff, NULL, COLOR_NONE, FALSE));
 
           } else {
-	    int num = ::number(0,3);
-	    if (num == 0) {
-            i->character->sendTo(COLOR_SPELLS, "<p>In the faint distance you hear savage drumming.<z>\n\r"); 
-	    }
-	    if (num == 1) {
-            i->character->sendTo(COLOR_SPELLS, "<o>Savage drumming can be heard in the distance.<z>\n\r"); 
-	    }
-	    if (num == 2) {
-	    }
-	    if (num == 3) {
-	    }
-          } 
+            int num = ::number(0,3);
+            if (num == 0) {
+            i->character->sendTo(COLOR_SPELLS, "<p>In the faint distance you hear savage drumming.<z>\n\r");
+            }
+            if (num == 1) {
+            i->character->sendTo(COLOR_SPELLS, "<o>Savage drumming can be heard in the distance.<z>\n\r");
+            }
+            if (num == 2) {
+            }
+            if (num == 3) {
+            }
+          }
         }
       }
       caster->addToMove(-5);
@@ -1332,10 +1332,10 @@ int intimidate(TBeing *caster, TBeing *victim, int level, short bKnown)
     if (victim->isLucky(caster->spellLuckModifier(SPELL_INTIMIDATE)) || victim->isImmune(IMMUNE_FEAR, WEAR_BODY)) {
       SV(SPELL_INTIMIDATE);
       act("Nothing seems to happen.", FALSE, caster, NULL, NULL, TO_CHAR);
-      act("You feel intimidated briefly.", FALSE, caster, NULL, victim, 
+      act("You feel intimidated briefly.", FALSE, caster, NULL, victim,
 TO_VICT, ANSI_YELLOW_BOLD);
     } else {
-      act("$N is totally intimidated by $n!", FALSE, caster, NULL, victim, 
+      act("$N is totally intimidated by $n!", FALSE, caster, NULL, victim,
 TO_NOTVICT, ANSI_YELLOW_BOLD);
       act("$N is totally intimidated by you.", FALSE, caster, NULL, victim, TO_CHAR, ANSI_YELLOW_BOLD);
       act("$n intimidates you! RUN!!!", FALSE, caster, NULL, victim, TO_VICT, ANSI_YELLOW_BOLD);
@@ -1411,9 +1411,9 @@ int castIntimidate(TBeing *caster, TBeing *victim)
   int ret=intimidate(caster,victim,level,bKnown);
   if (IS_SET(ret, SPELL_SUCCESS)) {
   } else if (IS_SET(ret,SPELL_CRIT_FAIL)) {
-  } else { 
+  } else {
   }
-  
+
   if (IS_SET(ret, VICTIM_DEAD))
     ADD_DELETE(rc, DELETE_VICT);
   if (IS_SET(ret, CASTER_DEAD))
@@ -1461,9 +1461,9 @@ void senseLifeShaman(TBeing *caster, TBeing *victim, TMagicItem * obj)
   ret = senseLifeShaman(caster,victim,obj->getMagicLevel(),obj->getMagicLearnedness());
   if (ret == SPELL_SUCCESS) {
     victim->sendTo("You feel more aware of the world about you.\n\r");
-    act("$n's eyes flicker a faint pale blue.", FALSE, victim, NULL, NULL, TO_ROOM, 
+    act("$n's eyes flicker a faint pale blue.", FALSE, victim, NULL, NULL, TO_ROOM,
 ANSI_CYAN);
-  } else { 
+  } else {
     caster->nothingHappens();
   }
 }
@@ -1478,7 +1478,7 @@ int senseLifeShaman(TBeing *caster, TBeing *victim)
      lag_t rounds = discArray[SPELL_SENSE_LIFE_SHAMAN]->lag;
      diff = discArray[SPELL_SENSE_LIFE_SHAMAN]->task;
 
-     start_cast(caster, victim, NULL, caster->roomp, SPELL_SENSE_LIFE_SHAMAN, diff, 1, "", 
+     start_cast(caster, victim, NULL, caster->roomp, SPELL_SENSE_LIFE_SHAMAN, diff, 1, "",
 rounds, caster->in_room, 0, 0,TRUE, 0);
        return TRUE;
 }
@@ -1493,9 +1493,9 @@ int castSenseLifeShaman(TBeing *caster, TBeing *victim)
   ret = senseLifeShaman(caster,victim,level,bKnown);
   if (ret == SPELL_SUCCESS) {
     victim->sendTo("You feel more aware of the world about you.\n\r");
-    act("$n's eyes flicker a faint pale blue.", FALSE, victim, NULL, NULL, TO_ROOM, 
+    act("$n's eyes flicker a faint pale blue.", FALSE, victim, NULL, NULL, TO_ROOM,
 ANSI_CYAN);
-  } else 
+  } else
     caster->nothingHappens();
 
   return TRUE;
@@ -1513,7 +1513,7 @@ int detectShadow(TBeing *caster, TBeing *victim, int level, short bKnown)
     aff.modifier = 0;
     aff.location = APPLY_NONE;
     aff.bitvector = AFF_DETECT_INVISIBLE;
- 
+
     switch (critSuccess(caster, SPELL_DETECT_SHADOW)) {
       case CRIT_S_DOUBLE:
       case CRIT_S_TRIPLE:
@@ -1553,7 +1553,7 @@ int detectShadow(TBeing *caster, TBeing *victim)
   lag_t rounds = discArray[SPELL_DETECT_SHADOW]->lag;
   diff = discArray[SPELL_DETECT_SHADOW]->task;
 
-  start_cast(caster, victim, NULL, caster->roomp, SPELL_DETECT_SHADOW, diff, 1, "", rounds, 
+  start_cast(caster, victim, NULL, caster->roomp, SPELL_DETECT_SHADOW, diff, 1, "", rounds,
 caster->in_room, 0, 0,TRUE, 0);
     return TRUE;
 }
@@ -1622,21 +1622,21 @@ int djallasProtection(TBeing *caster, TBeing *victim, int level, short bKnown)
         aff3.modifier2 = (level * 2);
         aff4.duration = (10 + (level / 2)) * Pulse::UPDATES_PER_MUDHOUR;
         aff4.modifier2 = (level * 2);
-	act("$n becomes one with the spirits.", FALSE, victim, NULL, NULL, TO_ROOM, ANSI_GREEN);
-	act("You have been greatly blessed with the protection of Djalla!", FALSE, victim, NULL, NULL, TO_CHAR, ANSI_GREEN);
+        act("$n becomes one with the spirits.", FALSE, victim, NULL, NULL, TO_ROOM, ANSI_GREEN);
+        act("You have been greatly blessed with the protection of Djalla!", FALSE, victim, NULL, NULL, TO_CHAR, ANSI_GREEN);
         break;
       case CRIT_S_NONE:
       act("$n becomes one with the spirits.", FALSE, victim, NULL, NULL, TO_ROOM, ANSI_GREEN);
       act("You have been granted the protection of Djalla!", FALSE, victim, NULL, NULL, TO_CHAR, ANSI_GREEN);
         break;
     }
- 
-    if (caster != victim) 
+
+    if (caster != victim)
       aff.modifier2 /= 2;
       aff2.modifier2 /= 2;
       aff3.modifier2 /= 2;
       aff4.modifier2 /= 2;
- 
+
     victim->affectJoin(caster, &aff, AVG_DUR_NO, AVG_EFF_YES);
     victim->affectJoin(caster, &aff2, AVG_DUR_NO, AVG_EFF_YES);
     victim->affectJoin(caster, &aff3, AVG_DUR_NO, AVG_EFF_YES);
@@ -1661,7 +1661,7 @@ int djallasProtection(TBeing *caster, TBeing *victim)
   lag_t rounds = discArray[SPELL_DJALLA]->lag;
   taskDiffT diff = discArray[SPELL_DJALLA]->task;
 
-  start_cast(caster, victim, NULL, caster->roomp, SPELL_DJALLA, diff, 1, "", rounds, 
+  start_cast(caster, victim, NULL, caster->roomp, SPELL_DJALLA, diff, 1, "", rounds,
 caster->in_room, 0, 0,TRUE, 0);
   return TRUE;
 }
@@ -1670,7 +1670,7 @@ int castDjallasProtection(TBeing *caster, TBeing *victim)
 {
   int level = caster->getSkillLevel(SPELL_DJALLA);
   int bKnown = caster->getSkillValue(SPELL_DJALLA);
- 
+
   int ret=djallasProtection(caster,victim,level,bKnown);
   if (ret == SPELL_SUCCESS) {
   } else {
@@ -1728,21 +1728,21 @@ int legbasGuidance(TBeing *caster, TBeing *victim, int level, short bKnown)
         aff3.modifier2 = (level * 2);
         aff4.duration = (10 + (level / 2)) * Pulse::UPDATES_PER_MUDHOUR;
         aff4.modifier2 = (level * 2);
-	act("$n becomes one with the spirits.", FALSE, victim, NULL, NULL, TO_ROOM, ANSI_GREEN);
-	act("You have been greatly blessed with the protection of Legba!", FALSE, victim, NULL, NULL, TO_CHAR, ANSI_GREEN);
+        act("$n becomes one with the spirits.", FALSE, victim, NULL, NULL, TO_ROOM, ANSI_GREEN);
+        act("You have been greatly blessed with the protection of Legba!", FALSE, victim, NULL, NULL, TO_CHAR, ANSI_GREEN);
         break;
       case CRIT_S_NONE:
-	act("$n becomes one with the spirits.", FALSE, victim, NULL, NULL, TO_ROOM, ANSI_GREEN);
-	act("You have been granted the protection of Legba!", FALSE, victim, NULL, NULL, TO_CHAR, ANSI_GREEN);
+        act("$n becomes one with the spirits.", FALSE, victim, NULL, NULL, TO_ROOM, ANSI_GREEN);
+        act("You have been granted the protection of Legba!", FALSE, victim, NULL, NULL, TO_CHAR, ANSI_GREEN);
         break;
     }
- 
-    if (caster != victim) 
+
+    if (caster != victim)
       aff.modifier2 /= 2;
       aff2.modifier2 /= 2;
       aff3.modifier2 /= 2;
       aff4.modifier2 /= 2;
- 
+
     victim->affectJoin(caster, &aff, AVG_DUR_NO, AVG_EFF_YES);
     victim->affectJoin(caster, &aff2, AVG_DUR_NO, AVG_EFF_YES);
     victim->affectJoin(caster, &aff3, AVG_DUR_NO, AVG_EFF_YES);
@@ -1767,7 +1767,7 @@ int legbasGuidance(TBeing *caster, TBeing *victim)
   lag_t rounds = discArray[SPELL_LEGBA]->lag;
   taskDiffT diff = discArray[SPELL_LEGBA]->task;
 
-  start_cast(caster, victim, NULL, caster->roomp, SPELL_LEGBA, diff, 1, "", rounds, 
+  start_cast(caster, victim, NULL, caster->roomp, SPELL_LEGBA, diff, 1, "", rounds,
 caster->in_room, 0, 0,TRUE, 0);
   return TRUE;
 }
@@ -1776,7 +1776,7 @@ int castLegbasGuidance(TBeing *caster, TBeing *victim)
 {
   int level = caster->getSkillLevel(SPELL_LEGBA);
   int bKnown = caster->getSkillValue(SPELL_LEGBA);
- 
+
   int ret=legbasGuidance(caster,victim,level,bKnown);
   if (ret == SPELL_SUCCESS) {
   } else {
@@ -1818,23 +1818,23 @@ int embalm(TBeing *caster, TObj *o, int level, short bKnown)
     caster->nothingHappens();
     return SPELL_FAIL;
   }
- 
+
   if(!(corpse=dynamic_cast<TBaseCorpse *>(o))){
-    act("$N is not a corpse!  You can only embalm corpses.", 
-	FALSE, caster, NULL, o, TO_CHAR);
+    act("$N is not a corpse!  You can only embalm corpses.",
+        FALSE, caster, NULL, o, TO_CHAR);
     act("$n looks momentarily befuddled.",
-	FALSE, caster, NULL, corpse, TO_ROOM);
+        FALSE, caster, NULL, corpse, TO_ROOM);
     return SPELL_FAIL;
   }
 
   if(corpse->obj_flags.decay_time < 0){
     act("$N is not decaying and would not benefit from embalming.",
-	FALSE, caster, NULL, corpse, TO_CHAR);
+        FALSE, caster, NULL, corpse, TO_CHAR);
     act("$n looks momentarily befuddled.",
-	FALSE, caster, NULL, corpse, TO_ROOM);
+        FALSE, caster, NULL, corpse, TO_ROOM);
     return SPELL_FAIL;
   }
-  
+
   corpse->obj_flags.decay_time += (bKnown/2); // 1-50
 
   act("$N stiffens and takes on a rubbery appearance.",
@@ -1857,7 +1857,7 @@ int squish(TBeing * caster, TBeing * victim, int level, short bKnown, int adv_le
 
   int dam = caster->getSkillDam(victim, SPELL_SQUISH, level, adv_learn);
 
-  if (victim->getImmunity(IMMUNE_BONE_COND) >= 100) { 
+  if (victim->getImmunity(IMMUNE_BONE_COND) >= 100) {
     act("$N is immune to bone ailments!", FALSE, caster, NULL, victim, TO_CHAR);
     act("$N ignores $n's weak grasp!", FALSE, caster, NULL, victim, TO_NOTVICT);
     act("$n's ritual fails because of your immunity!", FALSE, caster, NULL, victim, TO_VICT);
@@ -1920,12 +1920,12 @@ int squish(TBeing * caster, TBeing * victim)
   taskDiffT diff;
 
      if (!bPassShamanChecks(caster, SPELL_SQUISH, victim))
-        return FALSE; 
+        return FALSE;
 
      lag_t rounds = discArray[SPELL_SQUISH]->lag;
      diff = discArray[SPELL_SQUISH]->task;
 
-     start_cast(caster, victim, NULL, caster->roomp, SPELL_SQUISH, diff, 1, "", rounds, 
+     start_cast(caster, victim, NULL, caster->roomp, SPELL_SQUISH, diff, 1, "", rounds,
 caster->in_room, 0, 0,TRUE, 0);
 
        return TRUE;
@@ -1966,7 +1966,7 @@ int distort(TBeing *caster, TBeing *victim, int level, short bKnown, int adv_lea
 
   caster->reconcileHurt(victim, discArray[SPELL_DISTORT]->alignMod);
 
-  if (victim->getImmunity(IMMUNE_ENERGY) >= 100) { 
+  if (victim->getImmunity(IMMUNE_ENERGY) >= 100) {
     act("$N is immune to energy and thaumaturgy!", FALSE, caster, NULL, victim, TO_CHAR);
     act("$N ignores $n's weak ritual!", FALSE, caster, NULL, victim, TO_NOTVICT);
     act("$n's ritual fails because of your immunity!", FALSE, caster, NULL, victim, TO_VICT);
@@ -2064,7 +2064,7 @@ int distort(TBeing *caster, TBeing *victim, int level, short bKnown, int adv_lea
         break;
       case CRIT_F_NONE:
         break;
-    } 
+    }
     caster->nothingHappens();
     return SPELL_FAIL;
   }
@@ -2076,10 +2076,10 @@ int distort(TBeing *caster, TBeing *victim, TMagicItem * obj)
   int ret = 0;
 
   ret = distort(caster,victim,obj->getMagicLevel(),obj->getMagicLearnedness(), 0);
-  if (IS_SET(ret, VICTIM_DEAD)) 
+  if (IS_SET(ret, VICTIM_DEAD))
     ADD_DELETE(rc, DELETE_VICT);
-  
-  if (IS_SET(ret, CASTER_DEAD)) 
+
+  if (IS_SET(ret, CASTER_DEAD))
     ADD_DELETE(rc, DELETE_THIS);
 
   return rc;
@@ -2126,7 +2126,7 @@ int soulTwist(TBeing *caster, TBeing *victim, int level, short bKnown, int adv_l
     caster->nothingHappens(SILENT_YES);
     return SPELL_FAIL;
   }
-  if (victim->getImmunity(IMMUNE_DRAIN) >= 100) { 
+  if (victim->getImmunity(IMMUNE_DRAIN) >= 100) {
     act("$N is immune to draining!", FALSE, caster, NULL, victim, TO_CHAR);
     act("$N ignores $n's weak ritual!", FALSE, caster, NULL, victim, TO_NOTVICT);
     act("$n's ritual fails because of your immunity!", FALSE, caster, NULL, victim, TO_VICT);
@@ -2143,21 +2143,21 @@ int soulTwist(TBeing *caster, TBeing *victim, int level, short bKnown, int adv_l
       case CRIT_S_KILL:
       case CRIT_S_TRIPLE:
       case CRIT_S_DOUBLE:
-        act("$N screams in EXTREME pain!.", 
+        act("$N screams in EXTREME pain!.",
                FALSE,caster,0,victim, TO_CHAR);
-        act("You scream in EXTREME pain!", 
+        act("You scream in EXTREME pain!",
                FALSE, caster,0,victim, TO_VICT);
-        act("$N screams in EXTREME pain!", 
+        act("$N screams in EXTREME pain!",
                FALSE,caster,0,victim, TO_NOTVICT);
         CS(SPELL_SOUL_TWIST);
         dam <<= 1;
         break;
       case CRIT_S_NONE:
-        act("$N screams in pain!.", 
+        act("$N screams in pain!.",
                FALSE,caster,0,victim, TO_CHAR);
-        act("You scream in pain!", 
+        act("You scream in pain!",
                FALSE, caster,0,victim, TO_VICT);
-        act("$N screams in pain!", 
+        act("$N screams in pain!",
                FALSE,caster,0,victim, TO_NOTVICT);
         if (victim->isLucky(caster->spellLuckModifier(SPELL_SOUL_TWIST))) {
           SV(SPELL_SOUL_TWIST);
@@ -2173,9 +2173,9 @@ int soulTwist(TBeing *caster, TBeing *victim, int level, short bKnown, int adv_l
       case CRIT_F_HITSELF:
       case CRIT_F_HITOTHER:
         CF(SPELL_SOUL_TWIST);
-        act("You scream in EXTREME pain!.", 
+        act("You scream in EXTREME pain!.",
                FALSE,caster,0,victim, TO_CHAR);
-        act("$n screams in EXTREME pain!", 
+        act("$n screams in EXTREME pain!",
                FALSE,caster,0,victim, TO_ROOM);
         if (caster->reconcileDamage(caster, dam, SPELL_SOUL_TWIST) == -1)
           return SPELL_CRIT_FAIL + CASTER_DEAD;
@@ -2381,7 +2381,7 @@ int stupidity(TBeing *caster, TBeing *victim, int level, short bKnown)
   if (victim->affectedBySpell(SPELL_STUPIDITY)) {
     act("You sense that $N is already stupid!",
         FALSE, caster, NULL, victim, TO_CHAR);
-    act("$n just tried to invoke something on you!", 
+    act("$n just tried to invoke something on you!",
         0, caster, NULL, victim, TO_VICT);
     caster->nothingHappens(SILENT_YES);
     return SPELL_FALSE;
@@ -2537,11 +2537,11 @@ void stupidity(TBeing *caster, TBeing *victim)
   diff = discArray[SPELL_STUPIDITY]->task;
 
 // 5.   Initialize the casting object with data
-  start_cast(caster, victim, NULL, caster->roomp, SPELL_STUPIDITY, diff, 1, "", rounds, 
+  start_cast(caster, victim, NULL, caster->roomp, SPELL_STUPIDITY, diff, 1, "", rounds,
 caster->in_room, 0, 0,TRUE, 0);
 
 // 6.   Start them fighting with 0 damage
-// this spell is non-violent, it piss off mobs if it hits 
+// this spell is non-violent, it piss off mobs if it hits
 
 }
 
@@ -2560,11 +2560,11 @@ int ret,level;
   }
 
   if (IS_SET(ret, SPELL_SUCCESS)) {
-    act("A drab olive green aura engulfs $N!", 
+    act("A drab olive green aura engulfs $N!",
         TRUE, caster, NULL, victim, TO_NOTVICT);
-    act("A drab olive green aura engulfs $N!", 
+    act("A drab olive green aura engulfs $N!",
         TRUE, caster, NULL, victim, TO_CHAR);
-    act("A drab olive green aura engulfs your head!", 
+    act("A drab olive green aura engulfs your head!",
         FALSE, caster, NULL, victim, TO_VICT);
   }
   if (IS_SET(ret, SPELL_SAVE)) {
@@ -2594,9 +2594,9 @@ int ret,level;
     caster->nothingHappens();
   }
   if (IS_SET(ret, SPELL_CRIT_FAIL) || IS_SET(ret, SPELL_CFAIL_DEFAULT)) {
-    act("A drab olive green aura engulfs $n!", 
+    act("A drab olive green aura engulfs $n!",
         TRUE, caster, NULL, victim, TO_ROOM);
-    act("A drab olive green aura engulfs your head!", 
+    act("A drab olive green aura engulfs your head!",
         TRUE, caster, NULL, victim, TO_CHAR);
   } else {
 
@@ -2651,9 +2651,9 @@ int flatulence(TBeing * caster, int level, short bKnown, int adv_learn)
   } else {
     if (critFail(caster, SPELL_FLATULENCE)) {
       CF(SPELL_FLATULENCE);
-      act("Oh no!!! That one stuck with you!", 
+      act("Oh no!!! That one stuck with you!",
             FALSE, caster, NULL, NULL, TO_CHAR);
-      act("$n chokes on $s own fumes!!", 
+      act("$n chokes on $s own fumes!!",
             FALSE, caster, NULL, NULL, TO_ROOM);
       if (caster->reconcileDamage(caster, dam, SPELL_FLATULENCE) == -1)
         return SPELL_CRIT_FAIL + CASTER_DEAD;
@@ -2667,12 +2667,12 @@ int flatulence(TBeing * caster, int level, short bKnown, int adv_learn)
 int flatulence(TBeing * caster)
 {
   if (!bPassShamanChecks(caster, SPELL_FLATULENCE, NULL))
-    return FALSE; 
+    return FALSE;
 
   lag_t rounds = discArray[SPELL_FLATULENCE]->lag;
   taskDiffT diff = discArray[SPELL_FLATULENCE]->task;
 
-  start_cast(caster, NULL, NULL, caster->roomp, SPELL_FLATULENCE, diff, 1, "", rounds, 
+  start_cast(caster, NULL, NULL, caster->roomp, SPELL_FLATULENCE, diff, 1, "", rounds,
 caster->in_room, 0, 0,TRUE, 0);
   return TRUE;
 }
@@ -2703,7 +2703,7 @@ int chaseSpirits(TBeing *caster, TObj * obj, int, short bKnown)
 
   if (caster->bSuccess(bKnown, SPELL_CHASE_SPIRIT)) {
 
-    for (i = 0; i < MAX_OBJ_AFFECT; i++) { 
+    for (i = 0; i < MAX_OBJ_AFFECT; i++) {
       if ((obj->affected[i].location != APPLY_NONE) &&
           (obj->affected[i].location != APPLY_LIGHT) &&
           (obj->affected[i].location != APPLY_NOISE) &&
@@ -2987,7 +2987,7 @@ int genericChaseSpirits(TBeing *caster, TBeing *victim, int, immortalTypeT immor
           return DELETE_VICT;
         victim->affectFrom(spell);
       }
-      // aggressive Act 
+      // aggressive Act
       if (caster && !victim->fight() && tvm) {
         caster->setCharFighting(victim);
         caster->setVictFighting(victim);
@@ -3001,7 +3001,7 @@ int genericChaseSpirits(TBeing *caster, TBeing *victim, int, immortalTypeT immor
       victim->sendTo("You feel more vulnerable as your white aura slowly fades.\n\r");
       act("The white glow around $n's body fades.", FALSE, victim, NULL, NULL, TO_ROOM);
     }
-    // aggressive Act 
+    // aggressive Act
     if (caster && !victim->fight() && tvm) {
       caster->setCharFighting(victim);
       caster->setVictFighting(victim);

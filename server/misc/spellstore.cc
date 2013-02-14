@@ -45,7 +45,7 @@ int TBeing::doTrigger(const char *argument){
 
   if(!preCastCheck())
     return FALSE;
-  
+
   strcpy(arg, argument);
 
   if((which=parseSpellNum(arg))==TYPE_UNDEFINED)
@@ -56,7 +56,7 @@ int TBeing::doTrigger(const char *argument){
     return FALSE;
   }
 
-  if (which <= TYPE_UNDEFINED || !preDiscCheck(which) || 
+  if (which <= TYPE_UNDEFINED || !preDiscCheck(which) ||
       !parseTarget(which, arg, &t))
     return FALSE;
 
@@ -90,7 +90,7 @@ int TBeing::doStore(const char *argument)
 
   if(rc==FALSE){
     act("Your spell has not been stored.",
-	TRUE,this, NULL, NULL, TO_CHAR, ANSI_RED);
+        TRUE,this, NULL, NULL, TO_CHAR, ANSI_RED);
     spellstore.storing=FALSE;
     delete spellstore.spelltask;
   }

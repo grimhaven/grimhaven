@@ -234,7 +234,7 @@ class RoomExitComm : public Comm {
  public:
   RoomExitComm();
   RoomExitData exits[MAX_DIR];
-  
+
  private:
   virtual sstring getText();
   virtual sstring getClientText();

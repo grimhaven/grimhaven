@@ -93,8 +93,8 @@ void GinGame::peek(const TBeing *ch)
 
   for (i = 0; i < 11; i++) {
     if (hands[which][i])
-      ch->sendTo(format("%2d) %-5s | %s\n\r") % (i+1) %		 card_names[CARD_NUM(hands[which][i])] %
-		 suit(ch, hands[which][i]));
+      ch->sendTo(format("%2d) %-5s | %s\n\r") % (i+1) %                 card_names[CARD_NUM(hands[which][i])] %
+                 suit(ch, hands[which][i]));
   }
   return;
 }
@@ -128,10 +128,10 @@ n);
 
     if (orig < n) {
       for (i = orig; i < n; i++)
-	hands[which][i] = hands[which][i + 1];
+        hands[which][i] = hands[which][i + 1];
     } else {
       for (i = orig; i > n; i--)
-	hands[which][i] = hands[which][i - 1];
+        hands[which][i] = hands[which][i - 1];
     }
     hands[which][n] = tmp;
     ch->sendTo(format("You move card number %d to slot %d.\n\r") % (orig + 1) % (n + 1));
@@ -188,7 +188,7 @@ ch, NULL, NULL, TO_ROOM);
     other->sendTo("You stand up and leave the table as well.\n\r");
     other->setPosition(POSITION_STANDING);
   }
-  // Clear out and zero all necessary gGin variables. 
+  // Clear out and zero all necessary gGin variables.
   *(names[0]) = '\0';
   *(names[1]) = '\0';
   topcard = 0;
@@ -249,7 +249,7 @@ int GinGame::draw(TBeing *ch, const char *arg)
     hands[which][10] = pile[pile_index];
     pile[pile_index--] = 0;
     ch->sendTo(format("You draw the %s off of the pile top.\n\r") %
-	       pretty_card_printout(ch, hands[which][10]));
+               pretty_card_printout(ch, hands[which][10]));
     act("$n takes the top card from the pile.", FALSE, ch, NULL, NULL, TO_ROOM);
     return TRUE;
   } else {
@@ -472,8 +472,8 @@ void GinGame::play(TBeing *ch, const char *arg)
   if (sscanf(arg, "%s %d", arg1, &discard) == 2) {
     if (is_abbrev(arg1, "gin")) {
       if (!in_range(discard, 1, 11)) {
-	ch->sendTo("Gin/Knock syntax : play \"gin\" <card number>\n\r");
-	return;
+        ch->sendTo("Gin/Knock syntax : play \"gin\" <card number>\n\r");
+        return;
       }
       discard--;
 
@@ -483,21 +483,21 @@ void GinGame::play(TBeing *ch, const char *arg)
       take_card_from_hand(hands[which], discard, 10);
 
       if ((low = can_knock_or_gin(ch)) == -1)
-	return;
+        return;
 
       if (!low) {
-	gin(ch);
-	return;
+        gin(ch);
+        return;
       } else if (low <= 10) {
-	knock(ch, low);
-	return;
+        knock(ch, low);
+        return;
       } else {
-	ch->sendTo(format("You can't gin, you have too many points (%d).\n\r") % low);
-	for (i = 10; i > discard; i--)
-	  hands[which][i] = hands[which][i - 1];
+        ch->sendTo(format("You can't gin, you have too many points (%d).\n\r") % low);
+        for (i = 10; i > discard; i--)
+          hands[which][i] = hands[which][i - 1];
 
-	hands[which][discard] = card;
-	return;
+        hands[which][discard] = card;
+        return;
       }
     } else {
       ch->sendTo("Gin/Knock syntax : play \"gin\" <card number>\n\r");
@@ -514,10 +514,10 @@ void GinGame::play(TBeing *ch, const char *arg)
     return;
   }
   if (hands[which][card]) {
-    // Put card onto the pile 
+    // Put card onto the pile
     pile[++pile_index] = hands[which][card];
 
-    // Rearrange players hand so he doesn't have a "hole" where the card was 
+    // Rearrange players hand so he doesn't have a "hole" where the card was
     take_card_from_hand(hands[which], card, 10);
 
     can_draw = !which;
@@ -531,28 +531,28 @@ void GinGame::play(TBeing *ch, const char *arg)
   }
 }
 
-// Figuring out the lowest gin hand can be confusing. There are 
-// a number of possibilities for each card. A card can fit in a 
-// book, it can fit in a run, or it can fit in both. What we end 
-// up with are examples like these :                            
-                                                            
-//    1) A book of three 8's that aren't in any run.           
-//    2) A book of three 8's where one 8 is in a 8, 9, 10 run.  
-//         In this case we have to figure out which is lower    
-//    3) A book of three 8's with more than one 8 in a run.     
-//         In this case we have to figure out which is lower    
-//    4) A book of four 8's that aren't in a run.               
-//    5) A book of four 8's where one eight is in a run.        
-//         In this case we don't have to figure anything out    
-//         because the run and the remaining 3 8's play.        
-//    6) A book of four 8's with more than one 8 in a run.      
-//         In this case we have to figure out which is lower    
+// Figuring out the lowest gin hand can be confusing. There are
+// a number of possibilities for each card. A card can fit in a
+// book, it can fit in a run, or it can fit in both. What we end
+// up with are examples like these :
+
+//    1) A book of three 8's that aren't in any run.
+//    2) A book of three 8's where one 8 is in a 8, 9, 10 run.
+//         In this case we have to figure out which is lower
+//    3) A book of three 8's with more than one 8 in a run.
+//         In this case we have to figure out which is lower
+//    4) A book of four 8's that aren't in a run.
+//    5) A book of four 8's where one eight is in a run.
+//         In this case we don't have to figure anything out
+//         because the run and the remaining 3 8's play.
+//    6) A book of four 8's with more than one 8 in a run.
+//         In this case we have to figure out which is lower
 
 
-// This function takes a hand,and returns whether or not has any 
-// possibility of being a part of a book of 3 or a run of three. 
-// First thing we do in lowest function is total all such cards 
-// to see if they even have a shot at any sort of knock of gin  
+// This function takes a hand,and returns whether or not has any
+// possibility of being a part of a book of 3 or a run of three.
+// First thing we do in lowest function is total all such cards
+// to see if they even have a shot at any sort of knock of gin
 
 int GinGame::total_not_in_book(int *hand, Hand *hs)
 {
@@ -572,24 +572,24 @@ int GinGame::total_not_in_book(int *hand, Hand *hs)
 
     for (j = 0; j < 10; j++) {
       if (j == i)
-	continue;
+        continue;
 
       if (CARD_NUM(hand[i]) == CARD_NUM(hand[j]))
-	book_needed--;
+        book_needed--;
 
       if (same_suit(hand[i], hand[j])) {
-	if ((CARD_NUM(hand[i]) == (CARD_NUM(hand[j]) + 1)) &&
+        if ((CARD_NUM(hand[i]) == (CARD_NUM(hand[j]) + 1)) &&
             (CARD_NUM(hand[i] != 13))) {
-	  mid_run_needed--;
-	  up_run_needed--;
-	} else if ((CARD_NUM(hand[i]) == (CARD_NUM(hand[j]) - 1)) &&
+          mid_run_needed--;
+          up_run_needed--;
+        } else if ((CARD_NUM(hand[i]) == (CARD_NUM(hand[j]) - 1)) &&
                    (CARD_NUM(hand[i] != 1))) {
-	  mid_run_needed--;
-	  down_run_needed--;
-	} else if (CARD_NUM(hand[i]) == (CARD_NUM(hand[j]) + 2))
-	  up_run_needed--;
-	else if (CARD_NUM(hand[i]) == (CARD_NUM(hand[j]) - 2))
-	  down_run_needed--;
+          mid_run_needed--;
+          down_run_needed--;
+        } else if (CARD_NUM(hand[i]) == (CARD_NUM(hand[j]) + 2))
+          up_run_needed--;
+        else if (CARD_NUM(hand[i]) == (CARD_NUM(hand[j]) - 2))
+          down_run_needed--;
       }
     }
     book_needed = max(0, book_needed);
@@ -604,7 +604,7 @@ int GinGame::total_not_in_book(int *hand, Hand *hs)
     } else {
       hs->both[i] = FALSE;
       if (book_needed && mid_run_needed && up_run_needed && down_run_needed)
-	total += min((unsigned char) 10, CARD_NUM(hand[i]));
+        total += min((unsigned char) 10, CARD_NUM(hand[i]));
     }
   }
   return total;
@@ -671,16 +671,16 @@ int *GinGame::find_run(int num, int *hand, int *left)
     upfound = downfound = FALSE;
     for (i = 0; i <= j; i++) {
       if (!updone) {
-	if (CARD_NUM(card) == (CARD_NUM(same[i]) - inc)) {
-	  tmp[i] = 0;
-	  upfound = TRUE;
-	}
+        if (CARD_NUM(card) == (CARD_NUM(same[i]) - inc)) {
+          tmp[i] = 0;
+          upfound = TRUE;
+        }
       }
       if (!downdone) {
-	if (CARD_NUM(card) == (CARD_NUM(same[i]) + inc)) {
-	  tmp[i] = 0;
-	  downfound = TRUE;
-	}
+        if (CARD_NUM(card) == (CARD_NUM(same[i]) + inc)) {
+          tmp[i] = 0;
+          downfound = TRUE;
+        }
       }
     }
     if (!upfound)
@@ -711,13 +711,13 @@ int GinGame::recursive_gin_search(TBeing *ch, Hand *hs, int *hand)
       i++;
       continue;
     }
-    // We now are at a card that is both in a run, and a book. What I'm  
-    // gonna do here is rip off the book, then the run, figuring         
-    // out each time how many points are left. We will do this double    
-    // maneuver for each both spot. We will recursively call the function 
-    // with the remaining cards each time to make sure we get all of it  
-    // This might not be the best way to do this, but after much thought 
-    // it is the best way I came up with to do it - Russ                 
+    // We now are at a card that is both in a run, and a book. What I'm
+    // gonna do here is rip off the book, then the run, figuring
+    // out each time how many points are left. We will do this double
+    // maneuver for each both spot. We will recursively call the function
+    // with the remaining cards each time to make sure we get all of it
+    // This might not be the best way to do this, but after much thought
+    // it is the best way I came up with to do it - Russ
 
     if (!run)
       left = find_book(i, hand, left);
@@ -795,7 +795,7 @@ int GinGame::count(int which)
   return (num - 1);
 }
 
-GinGame::GinGame() : 
+GinGame::GinGame() :
   CardGame(),
   can_draw(false),
   topcard(0),

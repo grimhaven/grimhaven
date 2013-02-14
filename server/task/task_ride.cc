@@ -42,35 +42,35 @@ int task_ride(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, TObj *
 
       // first time through we set newdir above
       if(newdir==DIR_NONE){
-	for(dirTypeT d=DIR_NORTH;d<MAX_DIR;d++){
-	  if(ch->roomp->dir_option[d] &&
-	     canSeeThruDoor(ch->roomp->dir_option[d])){
-	    if(ch->roomp->dir_option[d]->to_room == ch->task->wasInRoom){
-	      camefrom=d;
-	      ch->task->wasInRoom=ch->in_room;
-	    } else {
-	      newdir=d;
-	    }
-	    ++count;
-	  }
-	}
+        for(dirTypeT d=DIR_NORTH;d<MAX_DIR;d++){
+          if(ch->roomp->dir_option[d] &&
+             canSeeThruDoor(ch->roomp->dir_option[d])){
+            if(ch->roomp->dir_option[d]->to_room == ch->task->wasInRoom){
+              camefrom=d;
+              ch->task->wasInRoom=ch->in_room;
+            } else {
+              newdir=d;
+            }
+            ++count;
+          }
+        }
 
-	if(camefrom == DIR_NONE){
-	  ch->sendTo("Your mount is lost.\n\r");
-	  ch->stopTask();
-	  break;
-	}
+        if(camefrom == DIR_NONE){
+          ch->sendTo("Your mount is lost.\n\r");
+          ch->stopTask();
+          break;
+        }
 
-	// either we continue in the direction we were travelling if possible
-	// or we take whatever exit is available if there are 2 exits
-	// otherwise stop
-	if(ch->roomp->dir_option[rev_dir[camefrom]]){
-	  newdir=rev_dir[camefrom];
-	} else if(count != 2){
-	  ch->sendTo("Your mount comes to a halt.\n\r");
-	  ch->stopTask();
-	  break;
-	}
+        // either we continue in the direction we were travelling if possible
+        // or we take whatever exit is available if there are 2 exits
+        // otherwise stop
+        if(ch->roomp->dir_option[rev_dir[camefrom]]){
+          newdir=rev_dir[camefrom];
+        } else if(count != 2){
+          ch->sendTo("Your mount comes to a halt.\n\r");
+          ch->stopTask();
+          break;
+        }
       }
 
       ch->doMove(newdir);

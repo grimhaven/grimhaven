@@ -53,15 +53,15 @@ TPlant & TPlant::operator=(const TPlant &a)
 TPlant::~TPlant()
 {
   if (this->getVerminated())
-	  vlogf(LOG_MISC, format("%s is dying: lifetime yield of %i, %i lost to vermin.") % this->getName() % this->getYield() % this->getVerminated());
+          vlogf(LOG_MISC, format("%s is dying: lifetime yield of %i, %i lost to vermin.") % this->getName() % this->getYield() % this->getVerminated());
   else
-	  vlogf(LOG_MISC, format("%s is dying: lifetime yield of %i.") % this->getName() % this->getYield());
+          vlogf(LOG_MISC, format("%s is dying: lifetime yield of %i.") % this->getName() % this->getYield());
 }
 
 int TPlant::putSomethingInto(TBeing *ch, TThing *)
 {
   // technically, would be OK since is a container, but prevent them anyhow
-  act("Unfortunately, you can't put things into $p.", 
+  act("Unfortunately, you can't put things into $p.",
              FALSE, ch, this, 0, TO_CHAR);
   return 2;
 }
@@ -70,9 +70,9 @@ sstring TPlant::statObjInfo() const
 {
   char buf[256];
   if (this->getVerminated())
-	  sprintf(buf, "Type: %i Age: %i Total Yield: %i To Vermin: %i", getType(), getAge(), getYield(), getVerminated());
-  else 
-	  sprintf(buf, "Type: %i Age: %i Total Yield: %i", getType(), getAge(), getYield());  
+          sprintf(buf, "Type: %i Age: %i Total Yield: %i To Vermin: %i", getType(), getAge(), getYield(), getVerminated());
+  else
+          sprintf(buf, "Type: %i Age: %i Total Yield: %i", getType(), getAge(), getYield());
   sstring a(buf);
   return a;
 }
@@ -114,7 +114,7 @@ int seed_to_plant(int vnum)
     case 34216:  // grape seeds
       return 14; // gray grapes
   }
-  
+
   return 0;
 }
 
@@ -135,16 +135,16 @@ void TPlant::updateDesc()
     "plant %s",
     "plant withered %s"
   };
-  
+
   const char *plantname [] =
   {
-    "a small mound of <o>dirt<1>", 
-    "a tiny sprout", 
-    "a small %s", 
+    "a small mound of <o>dirt<1>",
+    "a tiny sprout",
+    "a small %s",
     "a %s",
     "an old, withered %s"
   };
-  
+
   const char *plantdesc [] =
   {
     "A small mound of <o>dirt<1> is here.",
@@ -209,12 +209,12 @@ void TPlant::updateDesc()
     34215
   };
 
-  // considering a plant ages an average of 2 'age' points each mud hour, 
+  // considering a plant ages an average of 2 'age' points each mud hour,
   // a plant will age to 17520 in a mud year
   int plantlifeexpectancy [] =
   {
     175200, // 10 years
-    262800, // 15 years 
+    262800, // 15 years
     219000,  // 12.5 years
     262800,  // 15 years
     262800,  // 15 years
@@ -227,9 +227,9 @@ void TPlant::updateDesc()
     17520, // 1 year
     17520, // 1 year
     2350, // 2 real days
-    262800 // 15 years 
+    262800 // 15 years
   };
-  
+
   // really old plants should wither and die
   if(getAge() > plantlifeexpectancy[getType()]){
     plantindex=4;
@@ -263,7 +263,7 @@ void TPlant::updateDesc()
 
     sprintf(buf, plantname[plantindex], planttypes[getType()]);
     shortDescr = mud_str_dup(buf);
-    
+
     sprintf(buf, plantdesc[plantindex], planttypes[getType()]);
     setDescr(mud_str_dup(buf));
   } else {
@@ -273,7 +273,7 @@ void TPlant::updateDesc()
 
     sprintf(buf, "%s", plantname[plantindex]);
     shortDescr = mud_str_dup(buf);
-    
+
     sprintf(buf, "%s", plantdesc[plantindex]);
     setDescr(mud_str_dup(buf));
   }
@@ -287,9 +287,9 @@ void TPlant::updateDesc()
       ++count;
     }
 
-    if(count<=4 && 
-       (obj_index[real_object(plantfruits[getType()])].getNumber() < 
-	obj_index[real_object(plantfruits[getType()])].max_exist)){
+    if(count<=4 &&
+       (obj_index[real_object(plantfruits[getType()])].getNumber() <
+        obj_index[real_object(plantfruits[getType()])].max_exist)){
       t=read_object(plantfruits[getType()], VIRTUAL);
       *this += *t;
       setYield(getYield() + 1);
@@ -303,7 +303,7 @@ void TPlant::updateDesc()
     for(StuffIter it=stuff.begin();it!=stuff.end() && (t=*it);++it){
       ++count;
     }
-    
+
     if(count<=2){
       t=read_object(plantfruits[getType()], VIRTUAL);
       *this += *t;
@@ -315,13 +315,13 @@ void TPlant::updateDesc()
     TObj *o;
     for(StuffIter it=stuff.begin();it!=stuff.end();++it){
       if((o=dynamic_cast<TObj *>(*it)) &&
-	 (o->obj_flags.decay_time >= 0) && // only drop if it will decay
-	 !::number(0,150)){
-	--(*o);
-	*roomp+=*o;
-	sendrpf(roomp, "%s falls to the ground.\n\r", 
-		sstring(o->getName()).cap().c_str());
-	break; // iterator is invalidated
+         (o->obj_flags.decay_time >= 0) && // only drop if it will decay
+         !::number(0,150)){
+        --(*o);
+        *roomp+=*o;
+        sendrpf(roomp, "%s falls to the ground.\n\r",
+                sstring(o->getName()).cap().c_str());
+        break; // iterator is invalidated
       }
     }
   }
@@ -330,36 +330,36 @@ void TPlant::updateDesc()
 
   /*
   if (roomp && getType() == 13 && plantindex > 1) {
-	  // candy trees spawn rainbow-rats, which eat the candy
-	  if (plantindex > 2) {
-		  TThing *tcount;
-		  TPlant *tree;
-		  double tree_count = 0.0;
-		  for(StuffIter it=roomp->stuff.begin();it!=roomp->stuff.end() && (tcount=*it);++it) {
-			tree = dynamic_cast<TPlant *>(tcount);
-		    if(tree && tree->getType() == getType()) {
-		      // looking for same type of trees
-		      // let's only count trees with stuff in them, to avoid over-population of vermin
-		      if (tree->getStuff())
-		    	  ++tree_count;
-		    }
-		  }
-		  if (tree_count > 1 && ::number(1, 100000) < (int) ((tree_count / 16) * 200)) {
-			// this is about a 17% chance per MUD day for a room of 8 laden trees
-			// 5% for a room of 2 trees
-			int mob_vnum = Mob::CANDY_HEART_EATER; // sugar-toothed weasel
-		    TBeing *mob = read_mobile(mob_vnum, VIRTUAL);
-		    if (!mob) {
-		      // vlogf(LOG_PROC, format("Failed attempt to spawn a fruit scavenger (%i) in room %i.") % mob_vnum % in_room);
-		      return;
-		    }
-		    *roomp += *mob;
-		    colorAct(COLOR_MOBS, 
-		            ((mob->ex_description && mob->ex_description->findExtraDesc("repop")) ?
-		            mob->ex_description->findExtraDesc("repop") :
-		            "$n appears suddenly in the room."), TRUE, mob, 0, 0, TO_ROOM);
-		  }
-	  }
+          // candy trees spawn rainbow-rats, which eat the candy
+          if (plantindex > 2) {
+                  TThing *tcount;
+                  TPlant *tree;
+                  double tree_count = 0.0;
+                  for(StuffIter it=roomp->stuff.begin();it!=roomp->stuff.end() && (tcount=*it);++it) {
+                        tree = dynamic_cast<TPlant *>(tcount);
+                    if(tree && tree->getType() == getType()) {
+                      // looking for same type of trees
+                      // let's only count trees with stuff in them, to avoid over-population of vermin
+                      if (tree->getStuff())
+                              ++tree_count;
+                    }
+                  }
+                  if (tree_count > 1 && ::number(1, 100000) < (int) ((tree_count / 16) * 200)) {
+                        // this is about a 17% chance per MUD day for a room of 8 laden trees
+                        // 5% for a room of 2 trees
+                        int mob_vnum = Mob::CANDY_HEART_EATER; // sugar-toothed weasel
+                    TBeing *mob = read_mobile(mob_vnum, VIRTUAL);
+                    if (!mob) {
+                      // vlogf(LOG_PROC, format("Failed attempt to spawn a fruit scavenger (%i) in room %i.") % mob_vnum % in_room);
+                      return;
+                    }
+                    *roomp += *mob;
+                    colorAct(COLOR_MOBS,
+                            ((mob->ex_description && mob->ex_description->findExtraDesc("repop")) ?
+                            mob->ex_description->findExtraDesc("repop") :
+                            "$n appears suddenly in the room."), TRUE, mob, 0, 0, TO_ROOM);
+                  }
+          }
   }
   */
 }

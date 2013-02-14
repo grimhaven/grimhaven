@@ -11,38 +11,38 @@ const int DEVASTATOR=320;
 void doHeal(TBeing *ch, TObj *o){
   int hp;
 
-  act("$n's $o emanates a gentle <r>w<R>a<Y>rm<R>t<1><r>h.<1>", 
+  act("$n's $o emanates a gentle <r>w<R>a<Y>rm<R>t<1><r>h.<1>",
       0, ch, o, 0, TO_ROOM);
   act("Your $o emanates a gentle <r>w<R>a<Y>rm<R>t<1><r>h.<1>",
       0, ch, o, 0, TO_CHAR);
-  
+
 
   switch(o->objVnum()){
     case AVENGER:
-      colorAct(COLOR_SPELLS, "$n glows briefly with a <b>blue hue<z>.", 
-	       FALSE, ch, NULL, 0, TO_ROOM);
-      colorAct(COLOR_SPELLS, "You glow briefly with a <b>blue hue<z>.", 
-	       FALSE, ch, NULL, 0, TO_CHAR);
-      
+      colorAct(COLOR_SPELLS, "$n glows briefly with a <b>blue hue<z>.",
+               FALSE, ch, NULL, 0, TO_ROOM);
+      colorAct(COLOR_SPELLS, "You glow briefly with a <b>blue hue<z>.",
+               FALSE, ch, NULL, 0, TO_CHAR);
+
       hp = ch->getSkillDam(ch, SPELL_HEAL_SERIOUS, 50, 100);
       break;
     case VINDICATOR:
       colorAct(COLOR_SPELLS, "$n glows briefly with an <p>indigo hue<1>.",FALSE, ch, NULL, 0, TO_ROOM);
       colorAct(COLOR_SPELLS, "You glow briefly with an <p>indigo hue<1>.",FALSE, ch, NULL, 0, TO_CHAR);
-      
+
       hp = ch->getSkillDam(ch, SPELL_HEAL_CRITICAL, 50, 100);
       break;
     case DEVASTATOR:
     default:
-      act("$n glows briefly with an <b>ultramarine hue<1>.", 
-	  FALSE, ch, NULL, 0, TO_ROOM);
-      act("You glow briefly with an <b>ultramarine hue<1>.", 
-	  FALSE, ch, NULL, 0, TO_CHAR);
-      
+      act("$n glows briefly with an <b>ultramarine hue<1>.",
+          FALSE, ch, NULL, 0, TO_ROOM);
+      act("You glow briefly with an <b>ultramarine hue<1>.",
+          FALSE, ch, NULL, 0, TO_CHAR);
+
       hp = ch->getSkillDam(ch, SPELL_HEAL, 50, 100);
   }
 
-  
+
   ch->addToHit(hp);
   ch->updatePos();
 }
@@ -60,9 +60,9 @@ void doBlind(TBeing *ch, TBeing *vict, TObj *o)
       ch->isNotPowerful(vict, (int)tWeap->weaponLevel(), SPELL_BLINDNESS, SILENT_YES))
     return;
 
-  if (!::number(0, std::max(10, (int)(tWeap->weaponLevel() +
-				      (vict->GetMaxLevel() -
-				       ch->GetMaxLevel()))))) {
+  if (!::number(0, std::max(10, (int)(tWeap->weaponLevel()
+                                      (vict->GetMaxLevel() -
+                                       ch->GetMaxLevel()))))) {
     act("A searing light shines from $p, blinding $N.",
         FALSE, ch, o, vict, TO_CHAR);
     act("$n shields $s eyes as a searing light shines from $p, blinding $N.",
@@ -90,11 +90,11 @@ void doSanc(TBeing *ch, TObj *o)
   aff.bitvector = AFF_SANCTUARY;
 
 
-  act("$n's $o <W>flashes brightly<1>!", 
+  act("$n's $o <W>flashes brightly<1>!",
       0, ch, o, 0, TO_ROOM);
-  act("Your $o <W>flashes brightly<1>!", 
+  act("Your $o <W>flashes brightly<1>!",
       0, ch, o, 0, TO_CHAR);
-  
+
   ch->affectJoin(ch, &aff, AVG_DUR_NO, AVG_EFF_YES);
 }
 
@@ -113,9 +113,9 @@ int doHarm(TBeing *ch, TBeing *vict, TObj *o)
   }
 
 
-  act("$n's $o projects righteous <Y>fury<1> into $N.", 
+  act("$n's $o projects righteous <Y>fury<1> into $N.",
       0, ch, o, vict, TO_ROOM);
-  act("Your $o projects righteous <Y>fury<1> into $N.", 
+  act("Your $o projects righteous <Y>fury<1> into $N.",
       0, ch, o, vict, TO_CHAR);
 
 
@@ -144,18 +144,18 @@ int deikhanSword(TBeing *vict, cmdTypeT cmd, const char *arg, TObj *o, TObj *)
       doSanc(ch, o);
       return TRUE;
     }
-    
+
     if(!::number(0,49)){
       doHeal(ch, o);
       return TRUE;
     }
     return TRUE;
   }
-  
+
   if (cmd == CMD_OBJ_HIT && vict){
-    if(!::number(0,9) && 
+    if(!::number(0,9) &&
        (o->objVnum()==DEVASTATOR || o->objVnum()==VINDICATOR)){
-      doBlind(ch, vict, o);      
+      doBlind(ch, vict, o);
       return TRUE;
     }
 
@@ -164,7 +164,7 @@ int deikhanSword(TBeing *vict, cmdTypeT cmd, const char *arg, TObj *o, TObj *)
     }
     return TRUE;
   }
-  
+
   return FALSE;
 }
 

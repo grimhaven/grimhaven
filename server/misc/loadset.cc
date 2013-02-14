@@ -1,9 +1,9 @@
-////////////////////////////////////////////////////////////////////////// 
+//////////////////////////////////////////////////////////////////////////
 //
 //      SneezyMUD++ - All rights reserved, SneezyMUD Coding Team
 //
 //      "loadset.cc" - Functions related to loading a set of EQ
-//  
+//
 //////////////////////////////////////////////////////////////////////////
 
 #include <stdio.h>
@@ -114,7 +114,7 @@ bool loadSetClass::suitLoad(const char *argument, TBeing *ch, loadSetTypeT tPiec
                            tChance, getSlotFromLST(loadSetTypeT(pieceIndex), ch, true),
                            suitPieceNames[pieceIndex]);
             }
-	  }
+          }
         }
       } else
         if (findLoadPotential) {
@@ -206,8 +206,8 @@ bool loadsetCheck(TBeing *ch, int vnum, int chance, wearSlotT slot, const sstrin
       } else if ((Config::LoadOnDeath() || chance == 101) && !(flags & resetFlagPropLoad))
         *ch += *obj;
       else if (ch->equipment[slot]){
-	      delete obj;
-	      return false;
+              delete obj;
+              return false;
       } else
         ch->equipChar(obj, slot);
 
@@ -754,14 +754,14 @@ void loadSetClass::suitAdd(const char *tName, int tHelm, int tCollar,
             dynamic_cast<TArmor *>(tObj))
           otherClass = true;
 
-		       /*
+                       /*
         if (classValue == CLASS_MONK &&
             !tObj->canWear(ITEM_WEAR_FINGERS) &&
             ((tObj->getMaterial() >= 100 && tObj->getMaterial() != MAT_BONE) ||
              tObj->getMaterial() == MAT_IRON ||
              dynamic_cast<TArmor *>(tObj)))
           otherClass = true;
-		       */
+                       */
 
         if (classValue == CLASS_RANGER && tObj->isMetal() &&
             dynamic_cast<TArmor *>(tObj) && !tObj->canWear(ITEM_WEAR_FINGERS))

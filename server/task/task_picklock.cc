@@ -62,7 +62,7 @@ void TTool::pickPulse(TBeing *ch)
   }
   difficulties = 3 * exitp->lock_difficulty;
   if (exitp->lock_difficulty >= 100) {
-    // guaranteed unpickable, see if they recognize this fact 
+    // guaranteed unpickable, see if they recognize this fact
     if (ch->bSuccess(skill, SKILL_PICK_LOCK)) {
       act("This lock is totally impossible to pick.  You give up.",
           TRUE, ch, this, 0, TO_CHAR);
@@ -88,9 +88,9 @@ void TTool::pickPulse(TBeing *ch)
 
     REMOVE_BIT(exitp->condition, EX_LOCKED);
     if (exitp->keyword) {
-      act(format("$n skillfully picks the lock of the %s.\n\r") % 
-	  fname(exitp->keyword),
-	  TRUE,ch,0,0,TO_ROOM);
+      act(format("$n skillfully picks the lock of the %s.\n\r") %
+          fname(exitp->keyword),
+          TRUE,ch,0,0,TO_ROOM);
     } else
       act("$n picks the lock.", TRUE, ch, 0, 0, TO_ROOM);
     ch->sendTo("The lock quickly yields to your skills.\n\r");

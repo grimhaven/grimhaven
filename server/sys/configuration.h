@@ -21,58 +21,58 @@ class Config {
   // 4.0's no rent, and 4.1's big rent credit have distorted this so feel free
   // to adjust if this no longer works
   static int rent_credit_val;
-  
+
   // if player goes over rent, items are "sold" to pay for it
   // this handles what is done with the sold item(s)
   // If turned on, the pawnguy gets them
   // otherwise they get deleted
   static bool rent_sell_to_pawn;
-  
+
   // causes innkeepers to grant rentCredit based on the innkeepers levels
   // otherwise, it is based on the players level.
   // the chief use of this is to encourage high level pc's to use certain inns
   static bool rent_restrict_inns_by_level;
-  
+
   // causes bad things to happen to player based on time in autorent
   // there is a grace period to handle crashes
   static bool penalize_for_auto_renting;
-  
+
   // the minimum "hardness" for a material to damage/blunt a weapon
   // when hitting.
   static int weapon_dam_min_hardness;
-  
+
   // the max value of a hardness roll, raising it = weapon
   // damage/blunt DECREASE
   static int weapon_dam_max_hardness;
-  
+
   // the max value of a sharpness roll, raising it = weapon blunt DECREASE
   static int weapon_dam_max_sharp;
-  
+
   // speef is too important for comments so we don't know what this does
   static bool speef_make_body;
-  
+
   // causes items left in repair to be deleted after a set number of days.
   // Good to keep things circulating, but bad if extended downtime anticipated.
   // Simply deletes the file in mobdata/repairs/, the tickets still exist
   // and the repairman will say he doesn't have the item.
   static bool nuke_repair_items;
-  
-  // Enables a check to validate that players are not multiplaying. 
+
+  // Enables a check to validate that players are not multiplaying.
   // check is done each login and periodically for all chars logged in.
   static bool check_multiplay;
-  
+
   // code will disallow any bad multiplay event
   static bool force_multiplay_compliance;
 
   // Enables automatic generation of repossession mobs based on item max-exist.
   // Not extremely popular, but a good way to get item overturn.
   static bool repo_mobs;
-  
+
   // items that are over max-exist get hunted by a buffed up version of the
   // hunter.  Requires repo_mobs be TRUE.
   // VERY unpopular
   static bool super_repo_mobs;
-  
+
   // shops tend to get a lot of goods that strictly speaking aren't isSimilar()
   // slightly damaged, depreciated, etc.
   // We can eliminate this by turning this on.  Any item not perfect will get
@@ -83,11 +83,11 @@ class Config {
   // more then a few weeks.  Conserves disk space and speeds up the boot
   // process significantly.  Periods of college breaks are bypassed.
   static bool auto_deletion;
-  
+
   // requires auto-deletion turned on causes deletion only of the rent
   // file.  Otherwise pfile, rent and account go
   static bool rent_only_deletion;
-  
+
   // Causes mobs in inactive zones to be deleted.  Typically, 50% of the mud's
   // mobs would qualify.  Dramatically speeds up the mobileActivity loop and
   // improves CPU performance.
@@ -134,7 +134,7 @@ class Config {
 
  public:
   static bool doConfiguration(int argc=0, char *argv[]=0);
-  
+
   static int ItemDamageRate(){ return item_damage_rate; }
   static int RentCreditVal(){ return rent_credit_val;}
   static bool RentSellToPawn(){ return rent_sell_to_pawn;}

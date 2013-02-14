@@ -365,7 +365,7 @@ void TFFlame::updateFlameInfo()
       lFound = true;
     }
   if (!lFound)
-    vlogf(LOG_BUG, format("TFFlame object with No extra slots for lighting [%s].") % 
+    vlogf(LOG_BUG, format("TFFlame object with No extra slots for lighting [%s].") %
           (shortDescr ? shortDescr : "BAD OBJECT!"));
 }
 
@@ -472,10 +472,10 @@ int TFFlame::igniteMessage(TBeing *ch) const
     TTool *cTool = NULL;
     for(StuffIter it=ch->stuff.begin();it!=ch->stuff.end();++it){
       if((cTool=dynamic_cast<TTool *>(*it)) &&
-	 (cTool->getToolType() != TOOL_FLINTSTEEL))
-	break;
+         (cTool->getToolType() != TOOL_FLINTSTEEL))
+        break;
     }
-	 
+
     if ((!cTool || !cTool->getToolType())) {
       ch->sendTo("I'm afraid you need some flint and steel for this.\n\r");
       return -1;
@@ -522,7 +522,7 @@ void TFFlame::addFlameToMe(TBeing *ch, const char *argument, TThing *fObj, bool 
     }
   } else
     woodItem = fObj;
-  
+
   // Make sure we got a TOrganic type 3, It's not a Fire, and not a
   // PC or NPC.
   if (dynamic_cast<TBeing *>(woodItem)) {
@@ -566,9 +566,9 @@ void TFFlame::addFlameToMe(TBeing *ch, const char *argument, TThing *fObj, bool 
 
   obj_flags.wear_flags = 0; // Make it no-take, safty first.
   obj_flags.cost       = 0;
-  setVolume(min(150000, (int) ((isFirst ? 0 : getVolume()) +
+  setVolume(min(150000, (int) ((isFirst ? 0 : getVolume())
                    (fireItem->getVolume()*(.9+ch->GetMaxLevel()/50)))));
-  setWeight(min(2000, (int) ((isFirst ? 0 : getWeight()) +
+  setWeight(min(2000, (int) ((isFirst ? 0 : getWeight())
                    (fireItem->getWeight()*(.9+ch->GetMaxLevel()/50)))));
 
   // We use the TOrganic type 3 wood to create the fire, so lets get rid of it.
@@ -596,7 +596,7 @@ void TBeing::igniteObject(const char *argument, TThing *fObj)
   // See if were doing a new flame or adding to an existing one.
     for(StuffIter it=roomp->stuff.begin();it!=roomp->stuff.end();++it){
       if((newFlame=dynamic_cast<TFFlame *>(*it)))
-	break;
+        break;
     }
   if (newFlame) {
     if (!newFlame->isObjStat(ITEM_STRUNG)) newFlame->swapToStrung();
@@ -642,14 +642,14 @@ int TBeing::pourWaterOnMe(TBeing *ch, TObj *sObj)
 
   if(getPosition() <= POSITION_STUNNED){
     // unconscious person, let's pour it in their mouth instead
-    sprintf(Buf, "You carefully pour %s into $N's mouth!", 
-	    liquidInfo[type]->name);
+    sprintf(Buf, "You carefully pour %s into $N's mouth!",
+            liquidInfo[type]->name);
     act(Buf, TRUE, ch, 0, this, TO_CHAR);
     sprintf(Buf, "$n just poured %s into your mouth.", liquidInfo[type]->name);
     act(Buf, TRUE, ch, 0, this, TO_VICT);
     sprintf(Buf, "$n just poured %s into $N's mouth.", liquidInfo[type]->name);
     act(Buf, TRUE, ch, 0, this, TO_NOTVICT);
-    
+
     setQuaffUse(TRUE);
     dContainer->sipMe(this);
     setQuaffUse(FALSE);
@@ -703,7 +703,7 @@ int TBeing::pourWaterOnMe(TBeing *ch, TObj *sObj)
         TRUE, ch, 0, this, TO_VICT);
     act("$N looks like $E is in pain!  And they seem pretty mad at $n.",
         TRUE, ch, 0, this, TO_NOTVICT);
-    
+
     rc = reconcileDamage(this, ::number(5, max(6, min(15, (int) (size/20)))), DAMAGE_DISRUPTION);
   } else if (roomp && roomp->isArcticSector() && type != LIQ_WARM_MEAD &&
       getMaterial(WEAR_BODY) != MAT_ICE) {
@@ -717,16 +717,16 @@ int TBeing::pourWaterOnMe(TBeing *ch, TObj *sObj)
 
     rc = reconcileDamage(this, ::number(5, max(2, min(5, (int) (size/20)))), DAMAGE_FROST);
   } else if ((type != LIQ_WHISKY) && (type != LIQ_FIREBRT) &&
-	     (type != LIQ_VODKA) && (type != LIQ_RUM) &&
-	     (type != LIQ_BRANDY)){
+             (type != LIQ_VODKA) && (type != LIQ_RUM) &&
+             (type != LIQ_BRANDY)){
     TThing *t;
     TObj *obj = NULL;
     int i;
 
     for (i = MIN_WEAR;i < MAX_WEAR;i++) {
       if (!(t = equipment[i]) || !(obj = dynamic_cast<TObj *>(t)) ||
-	  !obj->isObjStat(ITEM_BURNING) || ::number(0,3))
-	continue;
+          !obj->isObjStat(ITEM_BURNING) || ::number(0,3))
+        continue;
       obj->remBurning(ch);
       act("Your $p is extinguished.", FALSE, this, obj, 0, TO_CHAR);
       act("$n's $p is extinguished.", FALSE, this, obj, 0, TO_ROOM);
@@ -740,7 +740,7 @@ int TBeing::pourWaterOnMe(TBeing *ch, TObj *sObj)
     sendTo(format("You feel %s.\n\r") % Weather::describeWet(this));
   }
 
-  dContainer->setDrinkUnits(0);  
+  dContainer->setDrinkUnits(0);
 
   // This prevents mass use from one person:
   ch->addToWait(combatRound(2));
