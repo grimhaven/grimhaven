@@ -17,9 +17,6 @@ const char * db_connect[DB_MAX] = {
   NULL, // depends on game port
   "immortal",
   "sneezyglobal",
-  "wikidb",
-  "builder_wikidb",
-  "mudadmin_wikidb",
   };
 
 

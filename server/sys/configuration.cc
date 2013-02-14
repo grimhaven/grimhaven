@@ -158,15 +158,6 @@ bool Config::doConfiguration(int argc, char *argv[])
     ("sneezyglobal_db",
       po::value<string>(&db_hosts[DB_SNEEZYGLOBAL]),
       "host for sneezyglobal database")
-    ("wiki_mortal_db",
-      po::value<string>(&db_hosts[DB_WIKI_MORTAL]),
-      "host for mortal wiki database")
-    ("wiki_builder_db",
-      po::value<string>(&db_hosts[DB_WIKI_BUILDER]),
-      "host for builder wiki database")
-    ("wiki_admin_db",
-      po::value<string>(&db_hosts[DB_WIKI_ADMIN]),
-      "host for admin wiki database")
     ;
 
   po::options_description cmdline_options;

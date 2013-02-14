@@ -24,24 +24,6 @@ static std::vector<char *>builderIndex(0);
 static std::vector<char *>skillIndex(0);
 static std::vector<char *>spellIndex(0);
 
-static const char* helpCategory[DB_MAX] = {
-  NULL,
-  NULL,
-  NULL,
-  "Help_files", // mortal
-  "Buildhelp", // builder
-  "Wizhelp", // admin
-};
-
-static const char* defaultPage[DB_MAX] = {
-  NULL,
-  NULL,
-  NULL,
-  "Help_files", // mortal
-  "Buildhelp", // builder
-  "Wizhelp", // admin
-};
-
 #if 0
 static const char *start_name(byte num)
 {
@@ -271,6 +253,25 @@ static const char *learn_name(byte num)
   else
     return "very fast";
 }
+
+#if 0 // no help wiki right now - Beorat
+static const char* helpCategory[DB_MAX] = {
+  NULL,
+  NULL,
+  NULL,
+  "Help_files", // mortal
+  "Buildhelp", // builder
+  "Wizhelp", // admin
+};
+
+static const char* defaultPage[DB_MAX] = {
+  NULL,
+  NULL,
+  NULL,
+  "Help_files", // mortal
+  "Buildhelp", // builder
+  "Wizhelp", // admin
+};
 
 static const sstring wikiColors[][2] = {
   { "darkred", "<R>" },
@@ -630,7 +631,7 @@ void wiki_searchText(const TBeing *ch, dbTypeT type, const sstring argIn)
 
   ch->desc->page_string(results);
 }
-
+#endif
 
 void /*TBeing::*/displayHelpFile(TBeing *ch, char *helppath, char *namebuf){
   int j;
@@ -693,6 +694,7 @@ void TBeing::doHelp(const char *arg)
 
   one_argument(arg, searchBuf, cElements(searchBuf));
 
+#if 0 // no help wiki right now - Beorat
   if (!strncmp(searchBuf, "-l", 2)) {
     wiki_findTitle(this, DB_WIKI_MORTAL, arg+2, true);
     return;
@@ -707,6 +709,7 @@ void TBeing::doHelp(const char *arg)
     wiki_searchText(this, DB_WIKI_MORTAL, arg+2);
     return;
   } 
+#endif
 
   // this prevents "help ../../being.h" and "help _skills"
   const char *c;
@@ -1312,12 +1315,14 @@ void TBeing::doBuildhelp(const char* arg)
     return;
   }
 
+#if 0 // no help wiki right now - Beorat
   if (!strncmp(arg, "-s", 2))
     wiki_searchText(this, DB_WIKI_BUILDER, arg+2);
   else if (!strncmp(arg, "-l", 2))
     wiki_findTitle(this, DB_WIKI_BUILDER, arg+2, true);
   else
     wiki_findTitle(this, DB_WIKI_BUILDER, arg, false);
+#endif
 }
 
 void TBeing::doWizhelp(const char *arg)
@@ -1335,6 +1340,7 @@ void TBeing::doWizhelp(const char *arg)
     return;
   for (; isspace(*arg); arg++);
 
+#if 0 // no help wiki right now - Beorat
   if (hasWizPower(POWER_WIZARD) && !strncmp(arg, "-s", 2))
   {
     wiki_searchText(this, DB_WIKI_ADMIN, arg+2);
@@ -1350,6 +1356,7 @@ void TBeing::doWizhelp(const char *arg)
     wiki_findTitle(this, DB_WIKI_ADMIN, arg+2, true);
     return;
   }
+#endif
 
   for (i = 0; i < MAX_CMD_LIST; i++) {
     if (!commandArray[i])
