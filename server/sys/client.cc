@@ -295,11 +295,11 @@ int Descriptor::read_client(char *str2)
       strcpy(buf, nextToken('|', 255, str2).c_str());
       vers = convertTo<int>(buf);
       if (vers <= BAD_VERSION) {
-        clientf(format("%d|Your client is an old version. The latest version is %d. Please upgrade! You can upgrade from http://sneezy.saw.net/client/client.html.|%d") % CLIENT_ERROR % CURRENT_VERSION % ERR_BAD_VERSION);
+        clientf(format("%d|Your client is an old version. The latest version is %d. Please upgrade! You can upgrade from " CLIENT_URL ".|%d") % CLIENT_ERROR % CURRENT_VERSION % ERR_BAD_VERSION);
         outputProcessing();
         return FALSE;
       } else if (vers < CURRENT_VERSION) {
-        clientf(format("%d|You client is an old version. You can continue playing with the current version, but upgrade is recommended. The latest version is %d and can be received from http://sneezy.saw.net/client.|%d") % CLIENT_ERROR % CURRENT_VERSION % 7); //ERR_CUR_VERSION);
+        clientf(format("%d|You client is an old version. You can continue playing with the current version, but upgrade is recommended. The latest version is %d and can be received from " CLIENT_URL ".|%d") % CLIENT_ERROR % CURRENT_VERSION % 7); //ERR_CUR_VERSION);
         outputProcessing();
       }
 
@@ -793,7 +793,7 @@ int Descriptor::read_client(char *str2)
         if (IS_SET(account->flags, TAccount::BANISHED)) {
           writeToQ("Your account has been flagged banished.\n\r");
           sprintf(buf, "If you do not know the reason for this, contact %s\n\r",
-                MUDADMIN_EMAIL);
+                MUD_EMAIL);
           writeToQ(buf);
           outputProcessing();
           return DELETE_THIS;
@@ -803,7 +803,7 @@ int Descriptor::read_client(char *str2)
           sprintf(buf, "You entered an email address of: %s\n\r", account->email.c_str());
           writeToQ(buf);
           sprintf(buf,"To regain access to your account, please send an email\n\rto: %s\n\r",
-              MUDADMIN_EMAIL);
+              MUD_EMAIL);
           writeToQ(buf);
           writeToQ("Indicate the name of your account, and the reason for the wrong email address.\n\r");
           outputProcessing();
@@ -1368,12 +1368,6 @@ int TBeing::doClientMessage(const char *arg)
   if (!desc)
      return FALSE;
 
-#if 0
-  if (!desc->m_bIsClient) {
-    sendTo("This command is only available for users of the SneezyMUD client (http://sneezy.saw.net/client).\n\r");
-    return FALSE;
-  }
-#endif
   Descriptor *i;
   TBeing *b;
 

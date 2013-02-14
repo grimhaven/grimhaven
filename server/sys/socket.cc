@@ -2004,7 +2004,7 @@ void gethostbyaddr_cb(void *arg, int status, int timeouts, struct hostent *host_
               if (d->host.find(hostlist[a], 0) != sstring::npos) {
                 d->socket->writeToSocket("Sorry, your site is banned.\n\r");
                 d->socket->writeToSocket("Questions regarding this may be addressed to: ");
-                d->socket->writeToSocket(MUDADMIN_EMAIL);
+                d->socket->writeToSocket(MUD_EMAIL);
                 d->socket->writeToSocket(".\n\r");
                 if (!lockmess.empty())
                   d->socket->writeToSocket(lockmess.c_str());
@@ -2038,7 +2038,7 @@ void gethostbyaddr_cb(void *arg, int status, int timeouts, struct hostent *host_
             if (d->host.find(sstring(hostlist[a]).lower(), 0) != sstring::npos) {
               d->socket->writeToSocket("Sorry, your site is banned.\n\r");
               d->socket->writeToSocket("Questions regarding this may be addressed to: ");
-              d->socket->writeToSocket(MUDADMIN_EMAIL);
+              d->socket->writeToSocket(MUD_EMAIL);
               d->socket->writeToSocket(".\n\r");
               if (!lockmess.empty())
                 d->socket->writeToSocket(lockmess.c_str());

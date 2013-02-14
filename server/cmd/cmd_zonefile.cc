@@ -16,8 +16,6 @@
 #include "being.h"
 #include "monster.h"
 
-//#define MAIL_ZONEFILE
-
 void doSaveZoneFile(TBeing *, const sstring &);
 void doLoadZoneFile(TBeing *, const sstring &);
 
@@ -52,10 +50,6 @@ void TBeing::doZonefile(const sstring & tStArg)
     return;
   }
 }
-
-#ifdef MAIL_ZONEFILE
-const char SAVEZONEFILE_REPLYTO[] = "damescena@sneezy.saw.net";
-#endif
 
 void doSaveZoneFile(TBeing *ch, const sstring & tArg)
 {
@@ -340,18 +334,6 @@ void doSaveZoneFile(TBeing *ch, const sstring & tArg)
   tStString += '\n';
   fputs("S\n", tFile);
   fclose(tFile);
-
-#ifdef MAIL_ZONEFILE
-  if (((zValue > 0) ? (zone_table[zValue - 1].top + 1) : 0)
-      == ch->desc->blockastart ||
-      ((zValue > 0) ? (zone_table[zValue - 1].top + 1) : 0)
-      == ch->desc->blockbstart) {
-    sprintf(tString, "/usr/sbin/sendmail -f%s %s < immortals/%s/zonefile",
-            SAVEZONEFILE_REPLYTO,
-            ch->desc->account->email, ch->getNameNOC(ch).c_str());
-    vsystem(tString);
-  }
-#endif
 
   sprintf(tString, "cp -f immortals/%s/zonefile tmp/%s.output",
           ch->getNameNOC(ch).c_str(), ch->getNameNOC(ch).c_str());

@@ -4232,55 +4232,6 @@ void Descriptor::send_feedback(const char *subject, const char *msg)
 	return;
 }
 
-
-#ifdef UNUSED
-#define FEEDBACK_FROM_ADDRESS "feedback@sneezymud.com"
-#define FEEDBACK_SENDTO_ADDRESS "mudadmin@sneezymud.com"
-// sends appropriate feedback (help, bugs, typos) via email to a feedback forum
-void Descriptor::send_feedbackMail(const char *subject, const char *msg)
-{
-  static int tempInc = 0;
-  TBeing *player = (dynamic_cast<TMonster *>(character) && original) ? original : character;
-  sstring message;
-  time_t now = time(0);
-
-  // standard mail header:
-  message += "from: "FEEDBACK_FROM_ADDRESS"\n";
-  message += "to: "FEEDBACK_SENDTO_ADDRESS"\n";
-  message += format("subject: %s (%s)\n") % subject % player->getName();
-  message += "\n";
-
-  // standard feedback header
-  message += format("Account Name: %s\n") % account->name;
-  message += format("Character Name: %s\n") % player->getName();
-  message += format("Account Email: %s\n") % account->email;
-  message += format("Time: %s") % ctime(&now); // ctime adds a \n
-  message += format("Room: %d\n") % (player->roomp ? player->roomp->number : -1);
-
-  // actual message from user to appear in mail
-  message += "\n";
-  message += msg;
-  message.ascify();
-  message.inlineReplaceString("\r\n", "\n");
-  message += "\n";
-
-  // could use vsystem, but we want the file i/o outside this thread as well
-  if (0 != vfork())
-  {
-    FILE *fp;
-    sstring tempfile = format("/usr/tmp/feedback%d.tmp") % tempInc++;
-    if (fp = fopen(tempfile.c_str(), "w"))
-    {
-        fputs(message.c_str(), fp);
-        fclose(fp);
-        system((format("/usr/sbin/sendmail -t < %s") % tempfile).c_str());
-        remove(tempfile.c_str());
-    }
-    exit(-1);
-  }
-}
-#endif
-
 void TBeing::doAfk()
 {
   if (isPlayerAction(PLR_AFK)) {

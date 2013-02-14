@@ -52,14 +52,6 @@ extern "C" {
 const int DONT_SEND = -1;
 const int FORCE_LOW_INVSTE = 1;
 
-#define _MUD_NAME "Grimhaven"
-#define _MUD_VERS "v6.0"
-#define _MUD_NAME_VERS _MUD_NAME " " _MUD_VERS
-
-const char * const MUD_NAME      = _MUD_NAME;
-const char * const MUD_NAME_VERS = _MUD_NAME_VERS;
-static const char * const WELC_MESSG = "\n\rWelcome to " _MUD_NAME_VERS "! May your journeys be enjoyable!\n\r\n\r";
-
 Descriptor::Descriptor() :
   input(false),
   ignored(this)
@@ -1018,7 +1010,7 @@ int Descriptor::nanny(sstring arg)
         writeToQ("The email account you entered for your account is thought to be bogus.\n\r");
         buf = format("You entered an email address of: %s\n\r") % account->email;
         writeToQ(buf);
-        buf = format("If this address is truly valid, please send a mail from it to: %s") % MUDADMIN_EMAIL;
+        buf = format("If this address is truly valid, please send a mail from it to: %s") % MUD_EMAIL;
         writeToQ(buf);
         writeToQ("Otherwise, please change your account email address.\n\r");
         rp = real_roomp(Room::VOID);
@@ -1439,7 +1431,7 @@ int TPerson::genericLoadPC()
       assignCorpsesToRooms();
   }
   saveChar(Room::AUTO_RENT);
-  sendTo(WELC_MESSG);
+  sendTo(WELCOME_MSG);
   next = character_list;
   character_list = this;
 
@@ -3082,7 +3074,7 @@ int Descriptor::sendLogin(const sstring &arg)
     output.putInQ(new UncategorizedComm(buf2));
 
     outputBuf="Please type NEW (case sensitive) for a new account, or ? for help.\n\r";
-    outputBuf+=format("If you need assistance you may email %s.\n\r\n\r") % MUDADMIN_EMAIL;
+    outputBuf+=format("If you need assistance you may email %s.\n\r\n\r") % MUD_EMAIL;
     outputBuf+="\n\rLogin: ";
     output.putInQ(new LoginComm("user", outputBuf));
     return FALSE;
@@ -3361,7 +3353,7 @@ int Descriptor::doAccountStuff(char *arg)
       if (IS_SET(account->flags, TAccount::BANISHED)) {
         writeToQ("Your account has been flagged banished.\n\r");
         sprintf(buf, "If you do not know the reason for this, contact %s\n\r",
-              MUDADMIN_EMAIL);
+              MUD_EMAIL);
         writeToQ(buf);
         outputProcessing();
         return DELETE_THIS;
@@ -3371,7 +3363,7 @@ int Descriptor::doAccountStuff(char *arg)
         sprintf(buf, "You entered an email address of: %s\n\r", account->email.c_str());
         writeToQ(buf);
         sprintf(buf,"To regain access to your account, please send an email\n\rto: %s\n\r",
-              MUDADMIN_EMAIL);
+              MUD_EMAIL);
         writeToQ(buf);
         writeToQ("Indicate the name of your account, and the reason for the wrong email address.\n\r");
         outputProcessing();
@@ -4297,23 +4289,6 @@ bool illegalEmail(char *buf, Descriptor *desc, silentTypeT silent)
       desc->writeToQ("Apologies, but due to abuse, that host is disallowed.\n\r");
     return TRUE;
   }
-
-#if 0
-// This works, but was deemed a bad idea...
-  char tempBuf[256]; 
-  struct hostent *hst;
-
-  hst = gethostbyname(host);
-  if (!hst) {
-    if (desc && !silent) {
-      sprintf(tempBuf, "Host '%s' does not seem to be valid.\n\r", host); 
-      desc->writeToQ(tempBuf);
-      sprintf(tempBuf, "If this is a valid host, please send e-mail to %s\n\r\n\r\n\r", MUDADMIN_EMAIL);
-      desc->writeToQ(tempBuf);
-    }
-    return TRUE;
-  }
-#endif
 
   return FALSE;
 }

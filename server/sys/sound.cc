@@ -200,8 +200,7 @@ void TBeing::stopmusic()
       // the U= command for MSP is supposed to set a default download
       // directory, so it oonly needs to be sent once, prior to all downloads
       // we will send a stopsound() when they enable MSP
-      sendTo(new SoundComm("music", "http://sneezymud.com/sounds/", "Off",
-			   "", -1, -1, -1, -1));
+      sendTo(new SoundComm("music", SOUNDS_URL, "Off", "", -1, -1, -1, -1));
     }
   }
 }
@@ -243,8 +242,7 @@ void TBeing::stopsound()
       // the U= command for MSP is supposed to set a default download
       // directory, so it oonly needs to be sent once, prior to all downloads
       // we will send a stopsound() when they enable MSP
-      sendTo(new SoundComm("sound", "http://sneezymud.com/sounds/", "Off", 
-			   "", -1,-1,-1, -1));
+      sendTo(new SoundComm("sound", SOUNDS_URL, "Off", "", -1,-1,-1, -1));
     }
   }
 }
