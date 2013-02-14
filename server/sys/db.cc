@@ -115,39 +115,6 @@
 #include "weather.h"
 #include "obj_fruit.h"
 
-const char * const File::CREDITS        = "txt/credits";    // for the credits command
-const char * const File::HELP_PAGE      = "help/general";   // for HELP <CR>
-const char * const File::MOTD           = "txt/motd";       // messages of today
-const char * const File::NEWS           = "txt/news";       // for the 'news' command
-const char * const File::SOCMESS        = "txt/actions";    // msgs for social acts
-const char * const File::STATS          = "txt/stats";      // economy stats savefile
-const char * const File::STATS_BAK      = "txt/stats.bak";  // backup of econ save
-const char * const File::TIPS           = "txt/tips";       // newbie tips file
-const char * const File::VERSION        = "txt/version";    // mud version timestamp
-const char * const File::WIZLIST        = "txt/wizlist";
-const char * const File::WIZNEWS        = "txt/wiznews";
-const char * const File::WIZMOTD        = "txt/wizmotd";
-
-const char * const File::ANSI_MENU_1    = "txt/ansi/login1.ans";
-const char * const File::ANSI_MENU_2    = "txt/ansi/login2.ans";
-const char * const File::ANSI_MENU_3    = "txt/ansi/login3.ans";
-const char * const File::ANSI_OPEN      = "txt/ansi/title.ans";
-const char * const File::NORM_MENU_1    = "txt/vt/login1.vt";
-const char * const File::NORM_MENU_2    = "txt/vt/login2.vt";
-const char * const File::NORM_MENU_3    = "txt/vt/login3.vt";
-const char * const File::NORM_OPEN      = "txt/vt/title.vt";
-
-const char * const File::FACTIONS       = "factions/factions";
-const char * const File::FACTIONS_BAK   = "factions/factions.bak";
-const char * const File::GUILDS         = "factions/guilds";
-const char * const File::GUILDS_BAK     = "factions/guilds.bak";
-
-const char * const Path::HELP	        = "help/";
-const char * const Path::IMMORTAL_HELP  = "help/_immortal";
-const char * const Path::BUILDER_HELP   = "help/_builder";
-const char * const Path::SKILL_HELP     = "help/_skills";
-const char * const Path::SPELL_HELP     = "help/_spells";
-
 int top_of_world = 0;         // ref to the top element of world 
 
 TRoom *room_db[WORLD_SIZE];

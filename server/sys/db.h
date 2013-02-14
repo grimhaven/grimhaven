@@ -7,9 +7,6 @@
 //
 //////////////////////////////////////////////////////////////////////////
 
-
-
-
 #ifndef __DB_H
 #define __DB_H
 
@@ -36,50 +33,42 @@
 
 extern bool bootTime;
 
-class File {
-  private:
-  File();
-  
- public:
-  static const char * const CREDITS;
-  static const char * const HELP_PAGE;
-  static const char * const MOTD;
-  static const char * const NEWS;
-  static const char * const SOCMESS;
-  static const char * const STATS;
-  static const char * const STATS_BAK;
-  static const char * const TIPS;
-  static const char * const VERSION;
-  static const char * const WIZLIST;
-  static const char * const WIZNEWS;
-  static const char * const WIZMOTD;
+namespace File {
+  const char * const CREDITS        = "txt/credits";    // for the credits command
+  const char * const HELP_PAGE      = "help/general";   // for HELP <CR>
+  const char * const MOTD           = "txt/motd";       // messages of today
+  const char * const NEWS           = "txt/news";       // for the 'news' command
+  const char * const SOCMESS        = "txt/actions";    // msgs for social acts
+  const char * const STATS          = "txt/stats";      // economy stats savefile
+  const char * const STATS_BAK      = "txt/stats.bak";  // backup of econ save
+  const char * const TIPS           = "txt/tips";       // newbie tips file
+  const char * const VERSION        = "txt/version";    // mud version timestamp
+  const char * const WIZLIST        = "txt/wizlist";
+  const char * const WIZNEWS        = "txt/wiznews";
+  const char * const WIZMOTD        = "txt/wizmotd";
 
-  static const char * const ANSI_MENU_1;
-  static const char * const ANSI_MENU_2;
-  static const char * const ANSI_MENU_3;
-  static const char * const ANSI_OPEN;
-  static const char * const NORM_MENU_1;
-  static const char * const NORM_MENU_2;
-  static const char * const NORM_MENU_3;
-  static const char * const NORM_OPEN;
+  const char * const ANSI_MENU_1    = "txt/ansi/login1.ans";
+  const char * const ANSI_MENU_2    = "txt/ansi/login2.ans";
+  const char * const ANSI_MENU_3    = "txt/ansi/login3.ans";
+  const char * const ANSI_OPEN      = "txt/ansi/title.ans";
+  const char * const NORM_MENU_1    = "txt/vt/login1.vt";
+  const char * const NORM_MENU_2    = "txt/vt/login2.vt";
+  const char * const NORM_MENU_3    = "txt/vt/login3.vt";
+  const char * const NORM_OPEN      = "txt/vt/title.vt";
 
-  static const char * const FACTIONS;
-  static const char * const FACTIONS_BAK;
-  static const char * const GUILDS;
-  static const char * const GUILDS_BAK;
-};
+  const char * const FACTIONS       = "factions/factions";
+  const char * const FACTIONS_BAK   = "factions/factions.bak";
+  const char * const GUILDS         = "factions/guilds";
+  const char * const GUILDS_BAK     = "factions/guilds.bak";
+}
 
-class Path {
- private:
-  Path();
-
- public:
-  static const char * const HELP;
-  static const char * const IMMORTAL_HELP;
-  static const char * const BUILDER_HELP;
-  static const char * const SKILL_HELP;
-  static const char * const SPELL_HELP;
-};  
+namespace Path {
+  const char * const HELP           = "help/";
+  const char * const IMMORTAL_HELP  = "help/_immortal";
+  const char * const BUILDER_HELP   = "help/_builder";
+  const char * const SKILL_HELP     = "help/_skills";
+  const char * const SPELL_HELP     = "help/_spells";
+}
 
 /* public procedures in db.c */
 
@@ -115,11 +104,11 @@ const resetFlag resetFlagMax = 1<<resetFlagCount;
 
 class resetCom {
   public:
-    char command; 
-    int if_flag; 
-    int arg1;   
-    int arg2;  
-    int arg3; 
+    char command;
+    int if_flag;
+    int arg1;
+    int arg2;
+    int arg3;
     int arg4;
     char character;
     int cmd_no;
@@ -190,13 +179,13 @@ public:
 class zoneData
 {
   public:
-    char *name;             // name of this zone                  
+    char *name;             // name of this zone
     int zone_nr;            // number of this zone
-    int lifespan;           // how long between resets (minutes)  
-    int age;                // current age of this zone (minutes) 
+    int lifespan;           // how long between resets (minutes)
+    int age;                // current age of this zone (minutes)
     int bottom;
-    int top;                // upper limit for rooms in this zone 
-    int reset_mode;         // conditions for reset (see below)   
+    int top;                // upper limit for rooms in this zone
+    int reset_mode;         // conditions for reset (see below)
     bool enabled;           // whether zone is enabled
     byte zone_value;
     unsigned int num_mobs;
@@ -211,11 +200,11 @@ class zoneData
     std::map<int, int> stat_objs; // key: real obj number, value: count of that obj loading in the zonefile
     // note the count value for stat_objs ignores things like load rates so is pretty useless info
     // it also doesn't contain global suitset objs and doesn't check to see if local suitsets actually load, so...
-    
+
     int stat_mobs_total;     // total # of mobs loading in the zonefile
     int stat_mobs_unique;    // unique # of mobs loading in the zonefile
     int stat_objs_unique;    // unique # of objects loading in the zonefile
-    
+
     armorSetLoad armorSets;
 
     bool isEmpty(void);
@@ -229,7 +218,7 @@ class zoneData
     void renumCmd(void);
 
     std::vector<resetCom>cmd;          // command table for reset
-  
+
     zoneData();
     zoneData(const zoneData &t);
     ~zoneData();
@@ -239,8 +228,8 @@ class zoneData
 
 class indexData {
  public:
-  int virt;   
-  long pos;  
+  int virt;
+  long pos;
  private:
   int number;
   int max_num;
@@ -249,13 +238,13 @@ class indexData {
   const char *short_desc;
   const char *long_desc;
   const char *description;
-  
+
   short max_exist;        // for objs and mobs
   int spec;
   float weight;
-  
+
   void addToNumber(const short int n){
-    //    vlogf(LOG_PEEL, fmt("adding %i to number %i for object %i") % 
+    //    vlogf(LOG_PEEL, fmt("adding %i to number %i for object %i") %
     //	  n % number % virt);
     number+=n;
   }
@@ -271,8 +260,7 @@ class indexData {
   int getMaxNumber(){
     return max_num;
   }
-  
-  
+
   indexData();
   indexData(const indexData &);
   indexData & operator= (const indexData &a);
@@ -315,7 +303,7 @@ class mobIndexData : public indexData
 class resetQElement
 {
   public:
-    unsigned int zone_to_reset;   
+    unsigned int zone_to_reset;
     resetQElement *next;	
 
   resetQElement() :
