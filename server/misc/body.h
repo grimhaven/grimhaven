@@ -59,7 +59,7 @@ public:
   Limb *search(int target, int status);
   // addLimb() should attempt to add a limb to the body.  It is more like a
   // request to add a limb.
-  int addLimb(Limb *newLimb);
+  int addLimb(sstring name, sstring targetname);
 
   int join(class Limb *);
 

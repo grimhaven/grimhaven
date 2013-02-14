@@ -1,6 +1,5 @@
-// body.cc
-//
-//  Lets see if I can make some magic.
+// -*- coding: utf-8 -*-
+// vim:set sta ai et ts=8 sw=2 sts=2 tw=79:
 
 #include <fstream>
 #include "extern.h"
@@ -85,36 +84,25 @@ Body::~Body() {
 
 }
 
-// loadBody() takes the bodyType and creates a Body based on a file in
-// /mud/code/lib/bodytypes.
+// this used to load from a file, but there was only ever HUMANOID so now it's
+// hardcoded - Beorat
 
 void Body::loadBody()
 {
-  const sstring bodyLib = "bodytypes/";
-
-  sstring limbtype, connector, description, aFilename;
-  std::ifstream bodyFile;
-
-  aFilename = bodyLib + bodyNames[bodyType];
-
-  bodyFile.open(aFilename.c_str(), std::ios::in);
-  if (!bodyFile.is_open()) {
-    aFilename = bodyLib + "HUMANOID";
-    bodyFile.open(aFilename.c_str(), std::ios::in);
-  }
-
-  // Go through each line of the bodytype file and add each limb as specified.
-  // The order in which the limbs are added is important since addLimb()
-  // does some rudimentary error checking (make sure it has the proper connects
-  // to limb available).  Ignore comments.
-  while (bodyFile >> limbtype) {
-    if(limbtype.find("#") || !(limbtype.length()))
-      continue;
-    bodyFile >> connector;
-    getline(bodyFile, description);
-    Limb *nextLimb = new Limb(limbtype, connector, description);
-    addLimb(nextLimb);
-  }
+  addLimb("HEAD", "BODY");
+  addLimb("NECK", "BODY");
+  addLimb("BACK", "BODY");
+  addLimb("ARM", "BODY");
+  addLimb("ARM", "BODY");
+  addLimb("FOREARM", "ARM");
+  addLimb("FOREARM", "ARM");
+  addLimb("HAND", "FOREARM");
+  addLimb("HAND", "FOREARM");
+  addLimb("WAIST", "BODY");
+  addLimb("LEG", "BODY");
+  addLimb("LEG", "BODY");
+  addLimb("FOOT", "LEG");
+  addLimb("FOOT", "LEG");
 }
 
 //  addLimb() checks to see if the limb connects directly to the body.
@@ -123,15 +111,16 @@ void Body::loadBody()
 //  connector.  If you find the right limb, connect them, otherwise print
 //  an error statement.
 
-int Body::addLimb(Limb *newLimb) {
-  int target = newLimb->connectsTo;
+int Body::addLimb(sstring name, sstring targetname) {
+  Limb *limb = new Limb(name, targetname, name.lower());
+  int target = limb->connectsTo;
 
   if (target == LIMB_BODY) 
-    return join(newLimb);
+    return join(limb);
 
   Limb *connector = search(target, LIMB_NOSUBLIMB);
   if(connector) {
-    connector->join(newLimb);
+    connector->join(limb);
     return TRUE;
   }
   return FALSE;
