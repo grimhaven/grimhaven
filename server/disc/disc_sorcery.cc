@@ -1094,7 +1094,7 @@ int animate(TBeing *caster, int level, short bKnown)
     // armor = 0 : -10 levels
     // armor = -2000 : +80 levels
     gol->setLevel(WARRIOR_LEVEL_IND,
-       gol->getLevel(WARRIOR_LEVEL_IND)
+       gol->getLevel(WARRIOR_LEVEL_IND) +
        level/10 -
        ((armor + 400)/30));
     gol->calcMaxLevel();

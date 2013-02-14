@@ -86,7 +86,7 @@ int TVial::suggestedPrice() const
   if (getDrinkType() != LIQ_HOLYWATER)
     return TBaseCup::suggestedPrice();
 
-  return (int) ((133.34 * (float) getMaxDrinkUnits() + 0.5)
+  return (int) ((133.34 * (float) getMaxDrinkUnits() + 0.5) +
                 (int)(10.0 * getWeight() * material_nums[getMaterial()].price));
 }
 

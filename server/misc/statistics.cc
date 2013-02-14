@@ -513,20 +513,20 @@ int getNetGoldGlobal()
   int i;
   for (i = 0; i < MAX_MORT; i++)
     net_gold += gold_statistics[GOLD_INCOME][i] +
-                gold_statistics[GOLD_COMM][i]
-                gold_statistics[GOLD_RENT][i]
-                gold_statistics[GOLD_REPAIR][i]
-                gold_statistics[GOLD_HOSPITAL][i]
-                gold_statistics[GOLD_GAMBLE][i]
-                gold_statistics[GOLD_TITHE][i]
-                gold_statistics[GOLD_DUMP][i]
-                gold_statistics[GOLD_SHOP_FOOD][i]
-                gold_statistics[GOLD_SHOP_COMPONENTS][i]
-                gold_statistics[GOLD_SHOP_SYMBOL][i]
-                gold_statistics[GOLD_SHOP_ARMOR][i]
-                gold_statistics[GOLD_SHOP_WEAPON][i]
-                gold_statistics[GOLD_SHOP_RESPONSES][i]
-                gold_statistics[GOLD_SHOP_PET][i]
+                gold_statistics[GOLD_COMM][i] +
+                gold_statistics[GOLD_RENT][i] +
+                gold_statistics[GOLD_REPAIR][i] +
+                gold_statistics[GOLD_HOSPITAL][i] +
+                gold_statistics[GOLD_GAMBLE][i] +
+                gold_statistics[GOLD_TITHE][i] +
+                gold_statistics[GOLD_DUMP][i] +
+                gold_statistics[GOLD_SHOP_FOOD][i] +
+                gold_statistics[GOLD_SHOP_COMPONENTS][i] +
+                gold_statistics[GOLD_SHOP_SYMBOL][i] +
+                gold_statistics[GOLD_SHOP_ARMOR][i] +
+                gold_statistics[GOLD_SHOP_WEAPON][i] +
+                gold_statistics[GOLD_SHOP_RESPONSES][i] +
+                gold_statistics[GOLD_SHOP_PET][i] +
                 gold_statistics[GOLD_SHOP][i];
 
 
@@ -539,20 +539,20 @@ unsigned int getPosGoldGlobal()
   int i;
   for (i = 0; i < MAX_MORT; i++)
     pos_gold += gold_positive[GOLD_INCOME][i] +
-                gold_positive[GOLD_COMM][i]
-                gold_positive[GOLD_RENT][i]
-                gold_positive[GOLD_REPAIR][i]
-                gold_positive[GOLD_HOSPITAL][i]
-                gold_positive[GOLD_GAMBLE][i]
-                gold_positive[GOLD_DUMP][i]
-                gold_positive[GOLD_TITHE][i]
-                gold_positive[GOLD_SHOP_FOOD][i]
-                gold_positive[GOLD_SHOP_COMPONENTS][i]
-                gold_positive[GOLD_SHOP_SYMBOL][i]
-                gold_positive[GOLD_SHOP_ARMOR][i]
-                gold_positive[GOLD_SHOP_WEAPON][i]
-                gold_positive[GOLD_SHOP_PET][i]
-                gold_positive[GOLD_SHOP_RESPONSES][i]
+                gold_positive[GOLD_COMM][i] +
+                gold_positive[GOLD_RENT][i] +
+                gold_positive[GOLD_REPAIR][i] +
+                gold_positive[GOLD_HOSPITAL][i] +
+                gold_positive[GOLD_GAMBLE][i] +
+                gold_positive[GOLD_DUMP][i] +
+                gold_positive[GOLD_TITHE][i] +
+                gold_positive[GOLD_SHOP_FOOD][i] +
+                gold_positive[GOLD_SHOP_COMPONENTS][i] +
+                gold_positive[GOLD_SHOP_SYMBOL][i] +
+                gold_positive[GOLD_SHOP_ARMOR][i] +
+                gold_positive[GOLD_SHOP_WEAPON][i] +
+                gold_positive[GOLD_SHOP_PET][i] +
+                gold_positive[GOLD_SHOP_RESPONSES][i] +
                 gold_positive[GOLD_SHOP][i];
 
   return pos_gold;
@@ -565,12 +565,12 @@ int getNetGoldShops()
   int net_gold = 0;
   int i;
   for (i = 0; i < MAX_MORT; i++)
-    net_gold += gold_statistics[GOLD_SHOP_FOOD][i]
-                gold_statistics[GOLD_SHOP_COMPONENTS][i]
-                gold_statistics[GOLD_SHOP_SYMBOL][i]
-                gold_statistics[GOLD_SHOP_ARMOR][i]
-                gold_statistics[GOLD_SHOP_WEAPON][i]
-                gold_statistics[GOLD_SHOP_RESPONSES][i]
+    net_gold += gold_statistics[GOLD_SHOP_FOOD][i] +
+                gold_statistics[GOLD_SHOP_COMPONENTS][i] +
+                gold_statistics[GOLD_SHOP_SYMBOL][i] +
+                gold_statistics[GOLD_SHOP_ARMOR][i] +
+                gold_statistics[GOLD_SHOP_WEAPON][i] +
+                gold_statistics[GOLD_SHOP_RESPONSES][i] +
                 gold_statistics[GOLD_SHOP][i];
 
   return net_gold;
@@ -581,12 +581,12 @@ unsigned int getPosGoldShops()
   unsigned int pos_gold = 0;
   int i;
   for (i = 0; i < MAX_MORT; i++)
-    pos_gold += gold_positive[GOLD_SHOP_FOOD][i]
-                gold_positive[GOLD_SHOP_COMPONENTS][i]
-                gold_positive[GOLD_SHOP_SYMBOL][i]
-                gold_positive[GOLD_SHOP_ARMOR][i]
-                gold_positive[GOLD_SHOP_WEAPON][i]
-                gold_positive[GOLD_SHOP_RESPONSES][i]
+    pos_gold += gold_positive[GOLD_SHOP_FOOD][i] +
+                gold_positive[GOLD_SHOP_COMPONENTS][i] +
+                gold_positive[GOLD_SHOP_SYMBOL][i] +
+                gold_positive[GOLD_SHOP_ARMOR][i] +
+                gold_positive[GOLD_SHOP_WEAPON][i] +
+                gold_positive[GOLD_SHOP_RESPONSES][i] +
                 gold_positive[GOLD_SHOP][i];
 
   return pos_gold;
@@ -600,18 +600,18 @@ int getNetGoldBudget()
   int i;
   for (i = 0; i < MAX_MORT; i++)
     net_gold += gold_statistics[GOLD_INCOME][i] +
-                gold_statistics[GOLD_COMM][i]
-                gold_statistics[GOLD_REPAIR][i]
-                gold_statistics[GOLD_HOSPITAL][i]
-                gold_statistics[GOLD_GAMBLE][i]
-                gold_statistics[GOLD_TITHE][i]
-                gold_statistics[GOLD_DUMP][i]
-                gold_statistics[GOLD_SHOP_FOOD][i]
-                gold_statistics[GOLD_SHOP_COMPONENTS][i]
-                gold_statistics[GOLD_SHOP_SYMBOL][i]
-                gold_statistics[GOLD_SHOP_ARMOR][i]
-                gold_statistics[GOLD_SHOP_WEAPON][i]
-                gold_statistics[GOLD_SHOP_RESPONSES][i]
+                gold_statistics[GOLD_COMM][i] +
+                gold_statistics[GOLD_REPAIR][i] +
+                gold_statistics[GOLD_HOSPITAL][i] +
+                gold_statistics[GOLD_GAMBLE][i] +
+                gold_statistics[GOLD_TITHE][i] +
+                gold_statistics[GOLD_DUMP][i] +
+                gold_statistics[GOLD_SHOP_FOOD][i] +
+                gold_statistics[GOLD_SHOP_COMPONENTS][i] +
+                gold_statistics[GOLD_SHOP_SYMBOL][i] +
+                gold_statistics[GOLD_SHOP_ARMOR][i] +
+                gold_statistics[GOLD_SHOP_WEAPON][i] +
+                gold_statistics[GOLD_SHOP_RESPONSES][i] +
                 gold_statistics[GOLD_SHOP][i];
 
 
@@ -624,18 +624,18 @@ unsigned int getPosGoldBudget()
   int i;
   for (i = 0; i < MAX_MORT; i++)
     pos_gold += gold_positive[GOLD_INCOME][i] +
-                gold_positive[GOLD_COMM][i]
-                gold_positive[GOLD_REPAIR][i]
-                gold_positive[GOLD_HOSPITAL][i]
-                gold_positive[GOLD_GAMBLE][i]
-                gold_positive[GOLD_DUMP][i]
-                gold_positive[GOLD_TITHE][i]
-                gold_positive[GOLD_SHOP_FOOD][i]
-                gold_positive[GOLD_SHOP_COMPONENTS][i]
-                gold_positive[GOLD_SHOP_SYMBOL][i]
-                gold_positive[GOLD_SHOP_ARMOR][i]
-                gold_positive[GOLD_SHOP_WEAPON][i]
-                gold_positive[GOLD_SHOP_RESPONSES][i]
+                gold_positive[GOLD_COMM][i] +
+                gold_positive[GOLD_REPAIR][i] +
+                gold_positive[GOLD_HOSPITAL][i] +
+                gold_positive[GOLD_GAMBLE][i] +
+                gold_positive[GOLD_DUMP][i] +
+                gold_positive[GOLD_TITHE][i] +
+                gold_positive[GOLD_SHOP_FOOD][i] +
+                gold_positive[GOLD_SHOP_COMPONENTS][i] +
+                gold_positive[GOLD_SHOP_SYMBOL][i] +
+                gold_positive[GOLD_SHOP_ARMOR][i] +
+                gold_positive[GOLD_SHOP_WEAPON][i] +
+                gold_positive[GOLD_SHOP_RESPONSES][i] +
                 gold_positive[GOLD_SHOP][i];
 
   return pos_gold;

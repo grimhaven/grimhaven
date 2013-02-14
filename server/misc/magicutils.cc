@@ -142,9 +142,9 @@ void switchStat(statTypeT stat, TBeing *giver, TBeing *taker)
 // assumes mob age mod is zero
   taker->setStat(STAT_CHOSEN, stat,
       giver->getStat(STAT_TERRITORY, stat) -
-      taker->getStat(STAT_TERRITORY, stat)
+      taker->getStat(STAT_TERRITORY, stat) +
       giver->getStat(STAT_RACE, stat) -
-      taker->getStat(STAT_RACE, stat)
+      taker->getStat(STAT_RACE, stat) +
       giver->getStat(STAT_CHOSEN, stat) );
   taker->setStat(STAT_CURRENT, stat, taker->getStat(STAT_NATURAL, stat));
 }
@@ -227,7 +227,7 @@ void SwitchStuff(TBeing *giver, TBeing *taker, bool setStats)
       for (iStat=MIN_STAT;iStat<MAX_STATS;iStat++) {
         if (iStat == STAT_INT || iStat == STAT_WIS || iStat == STAT_FOC ||
             iStat == STAT_KAR ) continue;
-        taker->setStat(STAT_CHOSEN, iStat, giver->getStat(STAT_CHOSEN, iStat)
+        taker->setStat(STAT_CHOSEN, iStat, giver->getStat(STAT_CHOSEN, iStat) +
           giver->getStat(STAT_TERRITORY, iStat) -
           taker->getStat(STAT_TERRITORY, iStat));
         taker->setStat(STAT_CURRENT, iStat, STAT_NATURAL);

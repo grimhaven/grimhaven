@@ -65,7 +65,7 @@ void TComponent::doMerge(TMergeable *tm)
   }
   // Compute the decay value of the to-be merged component by performing
   // a weighted average based on charges
-  int c_decay = (obj_flags.decay_time * getComponentCharges()
+  int c_decay = (obj_flags.decay_time * getComponentCharges() +
                  tComp->obj_flags.decay_time * tComp->getComponentCharges()) /
     max(1, (getComponentCharges() + tComp->getComponentCharges()));
   addToComponentCharges(tComp->getComponentCharges());

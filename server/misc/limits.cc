@@ -138,7 +138,7 @@ short int TPerson::hitLimit() const
     return points.maxHit;
 
 
-  float defense_amt=((35.0/100.0) * (float) getSkillValue(SKILL_DEFENSE))
+  float defense_amt=((35.0/100.0) * (float) getSkillValue(SKILL_DEFENSE)) +
              ((15.0/100.0) * (float) getSkillValue(SKILL_ADVANCED_DEFENSE));
 
   float newmax=0;
@@ -178,14 +178,11 @@ short int TPerson::manaLimit() const
 
 int TPerson::getMaxMove() const
 {
-  // age disabled
-  if(!hasQuestBit(TOG_REAL_AGING)){
-    return 100 + 15 + GetTotLevel()
+  if (!hasQuestBit(TOG_REAL_AGING)) // age disabled
+    return 100 + 15 + GetTotLevel() + plotStat(STAT_CURRENT, STAT_CON, 3, 18, 13);
+
+  return 100 + age()->year - getBaseAge() + 15 + GetTotLevel() +
       plotStat(STAT_CURRENT, STAT_CON, 3, 18, 13);
-  } else {
-    return 100 + age()->year - getBaseAge() + 15 + GetTotLevel()
-      plotStat(STAT_CURRENT, STAT_CON, 3, 18, 13);
-  }
 }
 
 short int TBeing::moveLimit() const

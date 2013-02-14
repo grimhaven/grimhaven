@@ -1623,9 +1623,7 @@ void TBaseWeapon::lowCheck()
 
 double TBaseWeapon::weaponLevel() const
 {
-  double weapon_lev = (damageLevel() * .6)
-                      (structLevel() * .3)
-                      (sharpLevel() * .1);
+  double weapon_lev = damageLevel() * .6 + structLevel() * .3 + sharpLevel() * .1;
 
   return weapon_lev;
 }

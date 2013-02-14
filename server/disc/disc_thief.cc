@@ -209,7 +209,7 @@ int subterfuge(TBeing *thief, TBeing *victim)
   }
   if ((victim->plotStat(STAT_CURRENT, STAT_PER, 3, 18, 12) +
        victim->plotStat(STAT_CURRENT, STAT_FOC, 3, 18, 12)) >
-      (thief->plotStat(STAT_CURRENT, STAT_KAR, 3, 18, 12)
+      (thief->plotStat(STAT_CURRENT, STAT_KAR, 3, 18, 12) +
        thief->plotStat(STAT_CURRENT, STAT_FOC, 3, 18, 12))) {
     act("$N is too smart to fall for this ploy.",
           FALSE, thief, NULL, victim, TO_CHAR);

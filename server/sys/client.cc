@@ -1593,17 +1593,17 @@ int Descriptor::clientCreateChar(char *arg)
 
   // Check if everything sums to 0, if not send an error message.
 
-  if (ch->chosenStats.values[STAT_STR]
-      ch->chosenStats.values[STAT_BRA]
-      ch->chosenStats.values[STAT_CON]
-      ch->chosenStats.values[STAT_DEX]
-      ch->chosenStats.values[STAT_AGI]
-      ch->chosenStats.values[STAT_INT]
-      ch->chosenStats.values[STAT_WIS]
-      ch->chosenStats.values[STAT_FOC]
-      ch->chosenStats.values[STAT_PER]
-      ch->chosenStats.values[STAT_CHA]
-      ch->chosenStats.values[STAT_KAR]
+  if (ch->chosenStats.values[STAT_STR] +
+      ch->chosenStats.values[STAT_BRA] +
+      ch->chosenStats.values[STAT_CON] +
+      ch->chosenStats.values[STAT_DEX] +
+      ch->chosenStats.values[STAT_AGI] +
+      ch->chosenStats.values[STAT_INT] +
+      ch->chosenStats.values[STAT_WIS] +
+      ch->chosenStats.values[STAT_FOC] +
+      ch->chosenStats.values[STAT_PER] +
+      ch->chosenStats.values[STAT_CHA] +
+      ch->chosenStats.values[STAT_KAR] +
       ch->chosenStats.values[STAT_SPE])  {
     clientf(format("%d|Stats do not add up to 0. Email being sent to Brutius to alert of possible client hack.|%d") % CLIENT_ERROR % ERR_BAD_STAT);
     ch->desc = NULL;

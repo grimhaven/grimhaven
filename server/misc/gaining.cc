@@ -948,12 +948,10 @@ void TPerson::raiseLevel(classIndT Class)
     long mins;
     struct time_info_data playing_time;
 
-    GameTime::realTimePassed((time(0) - player.time->logon)
+    GameTime::realTimePassed((time(0) - player.time->logon) +
                              player.time->played, 0, &playing_time);
 
-    mins = playing_time.minutes +
-      (playing_time.hours * 60)
-      (playing_time.day * 24 * 60);
+    mins = playing_time.minutes + (playing_time.hours + playing_time.day * 24) * 60;
 
     if (mins < 60 && getLevel(Class) > 10) {
       // ignore if being quick-leveled by an imm

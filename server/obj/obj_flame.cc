@@ -557,9 +557,9 @@ void TFFlame::addFlameToMe(TBeing *ch, const char *argument, TThing *fObj, bool 
 
   obj_flags.wear_flags = 0; // Make it no-take, safty first.
   obj_flags.cost       = 0;
-  setVolume(min(150000, (int) ((isFirst ? 0 : getVolume())
+  setVolume(min(150000, (int) ((isFirst ? 0 : getVolume()) +
                    (fireItem->getVolume()*(.9+ch->GetMaxLevel()/50)))));
-  setWeight(min(2000, (int) ((isFirst ? 0 : getWeight())
+  setWeight(min(2000, (int) ((isFirst ? 0 : getWeight()) +
                    (fireItem->getWeight()*(.9+ch->GetMaxLevel()/50)))));
 
   // We use the TOrganic type 3 wood to create the fire, so lets get rid of it.

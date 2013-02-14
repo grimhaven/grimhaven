@@ -95,27 +95,23 @@ void TBaseCup::weightChangeObject(float wgt_amt)
     if ((tmp = parent)) {
       if (dynamic_cast<TBeing *> (tmp)) {
         weightDiff = getWeight();
-        setWeight(obj_index[getItemIndex()].weight
-                     getDrinkUnits() * SIP_WEIGHT);
+        setWeight(obj_index[getItemIndex()].weight + getDrinkUnits() * SIP_WEIGHT);
         weightDiff -= getWeight();
         //        tmp->addToCarriedWeight(-weightDiff);
       } else {
         (*this)--;
-        setWeight(obj_index[getItemIndex()].weight
-                     getDrinkUnits() * SIP_WEIGHT);
+        setWeight(obj_index[getItemIndex()].weight + getDrinkUnits() * SIP_WEIGHT);
         *tmp += *this;
       }
     } else if ((tmp = equippedBy)) {
       TBeing *tbt = dynamic_cast<TBeing *>(tmp);
       pos = eq_pos;
       tbt->unequip(pos);
-      setWeight(obj_index[getItemIndex()].weight
-                     getDrinkUnits() * SIP_WEIGHT);
+      setWeight(obj_index[getItemIndex()].weight + getDrinkUnits() * SIP_WEIGHT);
       tbt->equipChar(this, pos, SILENT_YES);
     } else {
       // in room
-      setWeight(obj_index[getItemIndex()].weight
-                     getDrinkUnits() * SIP_WEIGHT);
+      setWeight(obj_index[getItemIndex()].weight + getDrinkUnits() * SIP_WEIGHT);
     }
   }
 }
@@ -1084,7 +1080,7 @@ void TFood::remFoodFlags(unsigned int r)
 int TFood::suggestedPrice() const
 {
   int decay = obj_flags.decay_time < 1 ? 5000 : obj_flags.decay_time;
-  return (int) ((pow(getFoodFill(), .75) * pow(decay, .35))
+  return (int) ((pow(getFoodFill(), .75) * pow(decay, .35)) +
                 (int)(10.0 * getWeight() * material_nums[getMaterial()].price));
 }
 

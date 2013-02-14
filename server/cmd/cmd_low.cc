@@ -304,7 +304,7 @@ static double hpModifier(const TMonster *ch)
   else
   // mobs over level 70 get special treatment
   {
-    hp_modifier *= sanct_modifier * 1 / ( 15.5
+    hp_modifier *= sanct_modifier * 1 / ( 15.5 +
       11 * (ch->getHPLevel() - 70) * (ch->getHPLevel() - 70) / 150);
   }
   return hp_modifier;
@@ -784,27 +784,27 @@ void TMonster::checkMobStats(tinyfileTypeT forReal)
     vlogf(LOG_LOW, format("mob (%s:%d) with AFF_UNDEF4 (%d) set.") %
           getName() % mobVnum() % AFF_UNDEF4);
 #endif
-  sumstat = getStat(STAT_CHOSEN, STAT_STR)
-            getStat(STAT_CHOSEN, STAT_BRA)
-            getStat(STAT_CHOSEN, STAT_AGI)
-            getStat(STAT_CHOSEN, STAT_DEX)
+  sumstat = getStat(STAT_CHOSEN, STAT_STR) +
+            getStat(STAT_CHOSEN, STAT_BRA) +
+            getStat(STAT_CHOSEN, STAT_AGI) +
+            getStat(STAT_CHOSEN, STAT_DEX) +
             getStat(STAT_CHOSEN, STAT_CON);
   if (sumstat > 0) {
     vlogf(LOG_LOW,format("mob (%s, %d) with excessive physical stats (%d).") %
                 getName() % mobVnum() % sumstat);
   }
 
-  sumstat = getStat(STAT_CHOSEN, STAT_INT)
-            getStat(STAT_CHOSEN, STAT_WIS)
+  sumstat = getStat(STAT_CHOSEN, STAT_INT) +
+            getStat(STAT_CHOSEN, STAT_WIS) +
             getStat(STAT_CHOSEN, STAT_FOC);
   if (sumstat > 0) {
     vlogf(LOG_LOW,format("mob (%s, %d) with excessive mental stats (%d).") %
                 getName() % mobVnum() % sumstat);
   }
 
-  sumstat = getStat(STAT_CHOSEN, STAT_CHA)
-            getStat(STAT_CHOSEN, STAT_KAR)
-            getStat(STAT_CHOSEN, STAT_SPE)
+  sumstat = getStat(STAT_CHOSEN, STAT_CHA) +
+            getStat(STAT_CHOSEN, STAT_KAR) +
+            getStat(STAT_CHOSEN, STAT_SPE) +
             getStat(STAT_CHOSEN, STAT_PER);
   if (sumstat > 0) {
     vlogf(LOG_LOW,format("mob (%s, %d) with excessive utility stats (%d).") %

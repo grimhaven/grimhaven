@@ -932,7 +932,7 @@ void TBeing::statBeing(TBeing *k)
     // Chop off trailing \n from the output of localtime
     logon_buf = logon_buf.substr(0, logon_buf.length() - 1);
 
-    GameTime::realTimePassed((time(0) - k->player.time->logon)
+    GameTime::realTimePassed((time(0) - k->player.time->logon) +
                              k->player.time->played, 0, &playing_time);
     str += format("%sBirth       : %s%s     %sLogon:%s %s\n\r") %
       cyan() % norm() % birth_buf % cyan() % norm() % logon_buf;

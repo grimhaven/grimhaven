@@ -116,8 +116,8 @@ const int KEEP_4_LAMP_PATHS = 2;
 const int MIN_KEEP_PATH_4   = (MIN_KEEP_PATH_3 + KEEP_3_LAMP_PATHS);
 const int MAX_KEEP_PATH_4   = (MIN_KEEP_PATH_4 + KEEP_4_LAMP_PATHS - 1);
 
-const int TOTAL_LAMP_PATHS  = (GRIM_LAMP_PATHS + BMOON_LAMP_PATHS
-                               AMBER_LAMP_PATHS + LOGRUS_LAMP_PATHS
+const int TOTAL_LAMP_PATHS  = (GRIM_LAMP_PATHS + BMOON_LAMP_PATHS +
+                               AMBER_LAMP_PATHS + LOGRUS_LAMP_PATHS +
                                KEEP_LAMP_PATHS);
 
 const path_struct lamp_path_pos[TOTAL_LAMP_PATHS][75] = {

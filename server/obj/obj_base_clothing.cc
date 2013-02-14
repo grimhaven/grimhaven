@@ -261,7 +261,7 @@ void TBaseClothing::setDefArmorLevel(float lev)
 
   new_acVal = (((lev * 25) * ac_perc) + ((NEWBIE_AC * ac_perc))) * (isPaired() ? 2.0 : 1.0);
 
-  new_strVal = (((lev * 1.1) / sqrt(BODY_STR / str_perc))
+  new_strVal = (((lev * 1.1) / sqrt(BODY_STR / str_perc)) +
                 ((NEWBIE_STR * sqrt(str_perc / BODY_STR)))) *
                 (isPaired() ? 2.0 : 1.0);
 
@@ -304,8 +304,7 @@ double TBaseClothing::armorLevel(armorLevT type) const
   const double NEWBIE_AC = 500.0;
 
   // This calculates the AC of each body part of the newbie suit
-  int ac_min = (int) ((NEWBIE_AC * ac_perc)
-         (isPaired() ? 1.0 : 0.5));
+  int ac_min = (int) ((NEWBIE_AC * ac_perc) + (isPaired() ? 1.0 : 0.5));
 
   // this is the struct of the BODY slot on newbie suit
   const double NEWBIE_STR = 30.0;
@@ -316,9 +315,8 @@ double TBaseClothing::armorLevel(armorLevT type) const
   // this calculates the struct of each body part on the newbie suit
   // I am not positive exactly why the sqrt is in there, but I stuck
   // it in the original equation, so I probably had a reason...
-  int str_min = (int) ((NEWBIE_STR *
-           sqrt((double) str_perc / BODY_STR))
-            (isPaired() ? 1.0 : 0.5));
+  int str_min = (int) ((NEWBIE_STR * sqrt((double) str_perc / BODY_STR)) +
+          (isPaired() ? 1.0 : 0.5));
 
   // newbie suit has 50 AC and 30 struct
   // high level gear (L60?) should have 200 AC and 90 struct

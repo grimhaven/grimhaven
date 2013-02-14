@@ -46,7 +46,7 @@ int weaponManaDrainer(TBeing *tVictim, cmdTypeT tCmd, const char *, TObj *tObj, 
        !ch->hasClass(CLASS_MONK)))
     return FALSE;
 
-  if (!::number(0, std::max(10, (int)(tWeap->weaponLevel()
+  if (!::number(0, std::max(10, (int)(tWeap->weaponLevel() +
                                       (tVictim->GetMaxLevel() -
                                        ch->GetMaxLevel())))) || forceSuccess) {
     act("A field of darkness seeps from $p.",

@@ -167,7 +167,7 @@ int taskChargeMoveInto(int to_room, TBeing *ch, bool moveHorse)
       return FALSE;
     }
 
-    nMoveCost = (TerrainInfo[from_here->getSectorType()]->movement
+    nMoveCost = (TerrainInfo[from_here->getSectorType()]->movement +
                  TerrainInfo[to_here->getSectorType()]->movement) / 2;
 
     if ((TerrainInfo[from_here->getSectorType()]->movement % 2) &&

@@ -1858,17 +1858,20 @@ static void change_mob_stats(TBeing *ch, TMonster *mob, const char *arg, editorE
              mob->getStat(STAT_CHOSEN, STAT_CHA));
 
   ch->sendTo("\n\r");
-  ch->sendTo(format("Physical sum (must be 0 or less) : %d\n\r") %             (mob->getStat(STAT_CHOSEN, STAT_STR)
-              mob->getStat(STAT_CHOSEN, STAT_BRA)
-              mob->getStat(STAT_CHOSEN, STAT_DEX)
-              mob->getStat(STAT_CHOSEN, STAT_AGI)
+  ch->sendTo(format("Physical sum (must be 0 or less) : %d\n\r") %
+             (mob->getStat(STAT_CHOSEN, STAT_STR) +
+              mob->getStat(STAT_CHOSEN, STAT_BRA) +
+              mob->getStat(STAT_CHOSEN, STAT_DEX) +
+              mob->getStat(STAT_CHOSEN, STAT_AGI) +
               mob->getStat(STAT_CHOSEN, STAT_CON)));
-  ch->sendTo(format("Mental sum (must be 0 or less) : %d\n\r") %             (mob->getStat(STAT_CHOSEN, STAT_INT)
-              mob->getStat(STAT_CHOSEN, STAT_WIS)
+  ch->sendTo(format("Mental sum (must be 0 or less) : %d\n\r") %
+             (mob->getStat(STAT_CHOSEN, STAT_INT) +
+              mob->getStat(STAT_CHOSEN, STAT_WIS) +
               mob->getStat(STAT_CHOSEN, STAT_FOC)));
-  ch->sendTo(format("Utility sum (must be 0 or less) : %d\n\r") %             (mob->getStat(STAT_CHOSEN, STAT_SPE)
-              mob->getStat(STAT_CHOSEN, STAT_CHA)
-              mob->getStat(STAT_CHOSEN, STAT_KAR)
+  ch->sendTo(format("Utility sum (must be 0 or less) : %d\n\r") %
+             (mob->getStat(STAT_CHOSEN, STAT_SPE) +
+              mob->getStat(STAT_CHOSEN, STAT_CHA) +
+              mob->getStat(STAT_CHOSEN, STAT_KAR) +
               mob->getStat(STAT_CHOSEN, STAT_PER)));
   ch->sendTo(format(VT_CURSPOS) % 20 % 1);
   ch->sendTo("Which stat to change?\n\r--> ");

@@ -156,10 +156,9 @@ static ubyte credit_factor(const TBeing *ch)
   struct time_info_data playing_time;
   float playtime, levelfactor;
 
-  GameTime::realTimePassed((time(0) - ch->player.time->logon)
+  GameTime::realTimePassed((time(0) - ch->player.time->logon) +
                                   ch->player.time->played, 0, &playing_time);
-  playtime = (float) playing_time.day;
-  playtime += (float) playing_time.hours / 24.0;
+  playtime = (float) playing_time.day + (float) playing_time.hours / 24.0;
   if (playtime <= 0.0)
     playtime = 1.0/24.0;
 

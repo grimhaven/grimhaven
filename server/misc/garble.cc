@@ -1373,7 +1373,7 @@ sstring garble_birdtalk(const TBeing *from, TBeing *to, const sstring &arg, Garb
     // add randomly a word
     if (chance/4 > number(0, 100))
     {
-      out += sstring(birdsquak_prefix[number(0, cElements(birdsquak_prefix)-1)]
+      out += sstring(birdsquak_prefix[number(0, cElements(birdsquak_prefix)-1)] +
               birdsquak_suffix[number(0, cElements(birdsquak_suffix)-1)]).matchCase(word);
       out += ' ';
     }

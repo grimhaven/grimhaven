@@ -5578,7 +5578,7 @@ int vellaKeyJoin(TBeing *ch, cmdTypeT cmd, const char *arg, TObj *o, TObj *) {
   act("You fiddle with the keys.",TRUE,ch,o,NULL,TO_CHAR,NULL);
 
   short int keycombo;
-  keycombo = vnumToVec[obj_index[key1->getItemIndex()].virt]
+  keycombo = vnumToVec[obj_index[key1->getItemIndex()].virt] +
       vnumToVec[obj_index[key2->getItemIndex()].virt];
 
   if (vecToVnum.find(keycombo) != vecToVnum.end())

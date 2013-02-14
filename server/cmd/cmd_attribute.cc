@@ -144,7 +144,7 @@ static void showStatsTo(const Descriptor *d, const TBeing *ch, bool hidden_stuff
   else
     sprintf(buffer, "\n\rIn %s's career:\n\r%s has", victim->getName(), victim->getName());
   str += buffer;
-  GameTime::realTimePassed((time(0) - victim->player.time->logon)
+  GameTime::realTimePassed((time(0) - victim->player.time->logon) +
                                 victim->player.time->played, 0, &playing_time);
 
   sprintf(buffer, " been playing for %s%d%s days and %s%d%s hours.\n\r",

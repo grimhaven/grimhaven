@@ -482,7 +482,7 @@ int task_whittleObject(TBeing *ch, sstring tStWood)
 
   ch->learnFromDoingUnusual(LEARN_UNUSUAL_NORM_LEARN, SKILL_WHITTLE, 1);
 
-  double objSize = (((ch->task->obj->getWeight()
+  double objSize = (((ch->task->obj->getWeight() +
                       ch->task->obj->getVolume()) / 25) *
                     whittleItems[ch->task->flags].itemType);
   double process = ((++ch->task->timeLeft) / objSize);
@@ -576,7 +576,7 @@ void TBeing::doWhittle(const char *tArg)
       sendTo("------------------------------------------------------------------------------\n\r");
 
       for (int whittleIndex = 0; whittleIndex < (signed) whittleItems.size(); whittleIndex++) {
-        double whittleTime = (((whittleItems[whittleIndex].volSize
+        double whittleTime = (((whittleItems[whittleIndex].volSize +
                                 whittleItems[whittleIndex].weiSize) / 25) *
                               whittleItems[whittleIndex].itemType);
 

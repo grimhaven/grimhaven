@@ -1639,14 +1639,14 @@ int TBeing::updateHalfTickStuff()
         }
         if(desc->drugs[i].total_consumed>0){
           hours_first=
-            (((GameTime::getYear() - desc->drugs[i].first_use.year) * 12 * 28 * 24)
-             ((GameTime::getMonth() - desc->drugs[i].first_use.month) * 28 * 24)
-             ((GameTime::getDay() - desc->drugs[i].first_use.day) * 24)
+            (((GameTime::getYear() - desc->drugs[i].first_use.year) * 12 * 28 * 24) +
+             ((GameTime::getMonth() - desc->drugs[i].first_use.month) * 28 * 24) +
+             ((GameTime::getDay() - desc->drugs[i].first_use.day) * 24) +
              GameTime::getHours() - desc->drugs[i].first_use.hours);
           hours_last=
-            (((GameTime::getYear() - desc->drugs[i].last_use.year) * 12 * 28 * 24)
-             ((GameTime::getMonth() - desc->drugs[i].last_use.month) * 28 * 24)
-             ((GameTime::getDay() - desc->drugs[i].last_use.day) * 24)
+            (((GameTime::getYear() - desc->drugs[i].last_use.year) * 12 * 28 * 24) +
+             ((GameTime::getMonth() - desc->drugs[i].last_use.month) * 28 * 24) +
+             ((GameTime::getDay() - desc->drugs[i].last_use.day) * 24) +
              GameTime::getHours() - desc->drugs[i].last_use.hours);
 
           if(hours_first>((30*24)+hours_last))

@@ -301,8 +301,7 @@ void TBeing::listExits(const TRoom *rp) const
       if (getRace() == RACE_ELVEN)
         chance += 25;
       if (getRace() == RACE_GNOME)
-        chance += plotStat(STAT_CURRENT, STAT_PER, 3, 18, 13)
-          GetMaxLevel()/2;
+        chance += plotStat(STAT_CURRENT, STAT_PER, 3, 18, 13) + GetMaxLevel()/2;
       if (getRace() == RACE_DWARF && rp->isIndoorSector())
         chance += GetMaxLevel()/2 + 10;
 
@@ -5282,9 +5281,9 @@ void TBeing::sendRoomName(TRoom *rp) const
 
   clientBuf = format("\200%d|") % CLIENT_ROOMNAME;
 
-  rFlagStr = sstring((rFlags & ROOM_PEACEFUL) ? " [PEACEFUL]" : "")
-             sstring((rFlags & ROOM_NO_HEAL) ? " [NOHEAL]" : "")
-             sstring((rFlags & ROOM_HOSPITAL) ? " [HOSPITAL]" : "")
+  rFlagStr = sstring((rFlags & ROOM_PEACEFUL) ? " [PEACEFUL]" : "") +
+             sstring((rFlags & ROOM_NO_HEAL) ? " [NOHEAL]" : "") +
+             sstring((rFlags & ROOM_HOSPITAL) ? " [HOSPITAL]" : "") +
              sstring((rFlags & ROOM_ARENA) ? " [ARENA]" : "");
 
   if (!rFlagStr.empty()) {
