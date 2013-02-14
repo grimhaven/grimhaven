@@ -2037,7 +2037,7 @@ static bool shopping_look(const char *arg, TBeing *ch, TMonster *keeper, int sho
   TObj *temp1;
   int rent_id;
   TDatabase db(DB_SNEEZY);
-  char buf[256];
+  sstring buf;
 
   if (!*arg)
     return FALSE;   // generic: look
@@ -2051,8 +2051,7 @@ static bool shopping_look(const char *arg, TBeing *ch, TMonster *keeper, int sho
     arg_words=arg_words.replaceString("-"," ");
 
     for(int i=0;!arg_words.word(i).empty();++i){
-      mysql_escape_string(buf, arg_words.word(i).c_str(), arg_words.word(i).length());
-
+      buf = db.escape(arg_words.word(i));
       query += format("and ((rs.name is not null and rs.name like '%s%s%s') or (o.name like '%s%s%s'))") %
         "%%" % buf % "%%" %
         "%%" % buf % "%%";
@@ -2096,7 +2095,7 @@ static bool shopping_evaluate(const char *arg, TBeing *ch, TMonster *keeper, int
   char newarg[100];
   int num;
   TObj *temp1;
-  char buf[256];
+  sstring buf;
   int rent_id;
   TDatabase db(DB_SNEEZY);
 
@@ -2118,8 +2117,7 @@ static bool shopping_evaluate(const char *arg, TBeing *ch, TMonster *keeper, int
     arg_words=arg_words.replaceString("-"," ");
 
     for(int i=0;!arg_words.word(i).empty();++i){
-      mysql_escape_string(buf, arg_words.word(i).c_str(), arg_words.word(i).length());
-
+      buf = db.escape(arg_words.word(i));
       query += format("and ((rs.name is not null and rs.name like '%s%s%s') or (o.name like '%s%s%s'))") %
         "%%" % buf % "%%" %
         "%%" % buf % "%%";
@@ -2427,9 +2425,7 @@ void shoplog(int shop_nr, TBeing *ch, TMonster *keeper, const sstring &name, int
 
   TDatabase db(DB_SNEEZY);
 
-  //  db.query("insert into shoplog values (%i, '%s', '%s', '%s', %i, %i, %i, now(), %i)", shop_nr, ch?ch->getName():"unknown", action.c_str(), name.c_str(), cost, keeper->getMoney(), value, count);
-
-  queryqueue.push(format("insert into shoplog values (%i, '%s', '%s', '%s', %i, %i, %i, now(), %i)") % shop_nr % ((sstring)(ch?ch->getName():"unknown")).escape(sstring::SQL) % action.escape(sstring::SQL) % name.escape(sstring::SQL) % cost % keeper->getMoney() % value % count);
+  queryqueue.push(format("insert into shoplog values (%i, '%s', '%s', '%s', %i, %i, %i, now(), %i)") % shop_nr % db.escape(ch?ch->getName():"unknown") % db.escape(action) % db.escape(name) % cost % keeper->getMoney() % value % count);
 
 
 }

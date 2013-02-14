@@ -888,8 +888,8 @@ void nannyStats_output(Descriptor * desc)
   for (int iStat = 0; iStat < 3; iStat++)
   {
     int statAmount = desc->getChosenStat(stats[iStat].stat);
-    int realStatAmount = desc->getRacialStat(stats[iStat].stat)
-                          desc->getTerritoryStat(stats[iStat].stat)
+    int realStatAmount = desc->getRacialStat(stats[iStat].stat) +
+                          desc->getTerritoryStat(stats[iStat].stat) +
                           statAmount;
     realStatAmount -= 100;
     const sstring statDesc[MAX_STATS] = realStatAmount < 0 ? statDescNeg : statDescPos;

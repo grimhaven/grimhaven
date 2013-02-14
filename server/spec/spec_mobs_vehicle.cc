@@ -540,11 +540,10 @@ int shipCaptain(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, TOb
         sstring buf;
         for(int i=2;i<12;++i){
           if (!argument.word(i).empty()) {
-            // use %q here to escape input because query() won't check with %r
             if (buf.empty())
-              buf = format("'%s'") % argument.word(i).escape(sstring::SQL);
+              buf = format("'%s'") % db.escape(argument.word(i));
             else
-              buf = format("%s, '%s'") % buf % argument.word(i).escape(sstring::SQL);
+              buf = format("%s, '%s'") % buf % db.escape(argument.word(i));
           }
         }
         if (!buf.empty()) {

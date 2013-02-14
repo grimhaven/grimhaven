@@ -262,18 +262,30 @@ bool TDatabase::query(const char *query,...)
   return TRUE;
 }
 
-bool TDatabase::isResults(){
+bool TDatabase::isResults()
+{
   if(res && mysql_num_rows(res))
     return TRUE;
 
   return FALSE;
 }
 
-long TDatabase::rowCount(){
+long TDatabase::rowCount()
+{
   // return # of affected or retrieved rows
   // -1 if query returned an error
 
   // this gets set in TDatabase::query
   // because the db pointer will have changed state if query timing is on
   return row_count;
+}
+
+const sstring TDatabase::escape(const sstring &str) const
+{
+    if (!db)
+        return NULL;
+    int len = str.length();
+    char buf[len*2+1];
+    mysql_real_escape_string(db, buf, str.c_str(), len);
+    return buf;
 }

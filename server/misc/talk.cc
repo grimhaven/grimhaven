@@ -875,7 +875,7 @@ int TBeing::doTell(const sstring &name, const sstring &message, bool visible)
     d->output.putInQ(new TellFromComm(vict->getName(), capbuf.cap(), garbed, false, !isPc()));
 
   TDatabase db(DB_SNEEZY);
-  queryqueue.push(format("insert into tellhistory (tellfrom, tellto, tell, telltime) values ('%s', '%s', '%s', now())") % capbuf.cap().escape(sstring::SQL) % ((sstring)vict->getName()).escape(sstring::SQL) % garbed.escape(sstring::SQL));
+  queryqueue.push(format("insert into tellhistory (tellfrom, tellto, tell, telltime) values ('%s', '%s', '%s', now())") % db.escape(capbuf.cap()) % db.escape(vict->getName()) % db.escape(garbed));
 
 
   if ((d && d->m_bIsClient) || IS_SET(d->prompt_d.type, PROMPT_CLIENT_PROMPT)) {

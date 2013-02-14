@@ -116,13 +116,14 @@ class TDatabase
 
  public:
   void setDB(dbTypeT);
-  bool query(const char *,...);
+  bool query(const char *, ...);
   bool fetchRow();
   const sstring operator[] (const sstring &) const;
   const sstring operator[] (unsigned int) const;
   bool isResults();
   long rowCount();
   long lastInsertId() { return db ? mysql_insert_id(db) : 0; }
+  const sstring escape(const sstring &) const;
 
   TDatabase();
   TDatabase(dbTypeT);
