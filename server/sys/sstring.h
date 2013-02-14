@@ -8,8 +8,6 @@ extern boost::format format(const std::string &);
 
 class sstring : public std::string {
 public:
-  enum stringEscapeT { XML, SQL };
-
   // constructors
   sstring() : std::string(){}
   sstring(const char *str) : std::string(str?str:"") {}
@@ -39,7 +37,7 @@ public:
   const sstring trim() const;
   const sstring capitalizeSentences() const;
   const sstring matchCase(const sstring match) const;
-  const sstring escape(stringEscapeT) const;
+  const sstring xmlescape() const;
   const size_t lengthNoColor() const;
 
   // call this function with NULL data to get alloc size, then agian with alloc'd array

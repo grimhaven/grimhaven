@@ -1661,7 +1661,7 @@ sstring UncategorizedComm::getClientText(){
 }
 
 sstring UncategorizedComm::getXML(){
-  return format("<uncategorized>%s</uncategorized>") % text.escape(sstring::XML);
+  return format("<uncategorized>%s</uncategorized>") % text.xmlescape();
 }
 
 // RoomExitComm
@@ -1696,7 +1696,7 @@ sstring CmdMsgComm::getClientText(){
 
 sstring CmdMsgComm::getXML(){
   return format("<cmdmsg cmd=\"%s\">%s</cmdmsg>") %
-    cmd.escape(sstring::XML) % text.escape(sstring::XML);
+    cmd.xmlescape() % text.xmlescape();
 }
 
 

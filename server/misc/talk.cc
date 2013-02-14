@@ -661,11 +661,11 @@ sstring TellFromComm::getXML(){
   sstring buf="";
 
   buf+=format("<tellfrom>\n");
-  buf+=format("  <to>%s</to>\n") % to.escape(sstring::XML);
-  buf+=format("  <from>%s</from>\n") % from.escape(sstring::XML);
+  buf+=format("  <to>%s</to>\n") % to.xmlescape();
+  buf+=format("  <from>%s</from>\n") % from.xmlescape();
   buf+=format("  <drunk>%s</drunk>\n") % (drunk ? "true" : "false");
   buf+=format("  <mob>%s</mob>\n") % (mob ? "true" : "false");
-  buf+=format("  <tell>%s</tell>\n") % text.escape(sstring::XML);
+  buf+=format("  <tell>%s</tell>\n") % text.xmlescape();
   buf+=format("</tellfrom>\n");
 
   return buf;
@@ -684,9 +684,9 @@ sstring TellToComm::getXML(){
   sstring buf="";
 
   buf+=format("<tellto>\n");
-  buf+=format("  <to>%s</to>\n") % to.escape(sstring::XML);
-  buf+=format("  <from>%s</from>\n") % from.escape(sstring::XML);
-  buf+=format("  <tell>%s</tell>\n") % text.escape(sstring::XML);
+  buf+=format("  <to>%s</to>\n") % to.xmlescape();
+  buf+=format("  <from>%s</from>\n") % from.xmlescape();
+  buf+=format("  <tell>%s</tell>\n") % text.xmlescape();
   buf+=format("</tellto>\n");
 
   return buf;

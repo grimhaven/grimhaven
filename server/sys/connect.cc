@@ -440,7 +440,7 @@ sstring SnoopComm::getClientText(){
 
 sstring SnoopComm::getXML(){
   return format("<snoop victim=\"%s\">%s</snoop>") %
-    vict.escape(sstring::XML) % text.escape(sstring::XML);
+    vict.xmlescape() % text.xmlescape();
 }
 
 int Descriptor::outputProcessing()
@@ -2425,7 +2425,7 @@ sstring PromptComm::getClientText(){
 sstring PromptComm::getXML(){
   return format("<prompt time=\"%i\" hp=\"%i\" mana=\"%i\" piety=\"%f\" lifeforce=\"%i\" moves=\"%i\" money=\"%i\" room=\"%i\">%s</prompt>") %
     time % hp % mana % piety % lifeforce % moves % money % room %
-    text.escape(sstring::XML);
+    text.xmlescape();
 }
 
 
@@ -2989,7 +2989,7 @@ sstring LoginComm::getClientText(){
 
 sstring LoginComm::getXML(){
   return format("<login prompt=\"%s\">%s</login>") %
-    prompt.escape(sstring::XML) % text.escape(sstring::XML);
+    prompt.xmlescape() % text.xmlescape();
 }
 
 // return DELETE_THIS

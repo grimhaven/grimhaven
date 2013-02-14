@@ -1270,9 +1270,9 @@ sstring WhoListComm::getXML(){
     buf+=format("  <idle>%i</idle>\n") % idle;
 
   buf+=format("  <linkdead>%s</linkdead>\n") % (linkdead ? "true" : "false");
-  buf+=format("  <name>%s</name>\n") % who.escape(sstring::XML);
-  buf+=format("  <prof>%s</prof>\n") % prof.escape(sstring::XML);
-  buf+=format("  <title>%s</title>\n") % title.escape(sstring::XML);
+  buf+=format("  <name>%s</name>\n") % who.xmlescape();
+  buf+=format("  <prof>%s</prof>\n") % prof.xmlescape();
+  buf+=format("  <title>%s</title>\n") % title.xmlescape();
   buf+=format("</wholist>\n");
 
   return buf;
