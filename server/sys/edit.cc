@@ -26,7 +26,6 @@ int Descriptor::move(int hor, int vert)
   if (edit.x < 1 || edit.y < 1) {
     edit.x = (edit.x < 1) ? 1 : edit.x;
     edit.y = (edit.y < 1) ? 1 : edit.y;
-    beep();
     return FALSE;
   }
   sprintf(buf, VT_CURSPOS, vert, hor);
@@ -69,9 +68,6 @@ void Descriptor::Edit(char *arg)
               case 'D':
                 move(--edit.x, edit.y);
                 arg += 2;
-                break;
-              default:
-                beep();
                 break;
             }
             break;

@@ -263,7 +263,7 @@ void TPerson::resetChar()
   lastHost[39] = '\0';
 
   if (desc && desc->bad_login)
-    sendTo(format("%sYou have had %d unsuccessful logins to your player since last login.%s\n\r") % red() % desc->bad_login % norm());
+    sendTo(format("%sYou have had %d unsuccessful logins to your player since last login.%s\n\r") % red() % desc->bad_login % norm());
 
   // Now that bad logins have been sent, reset it to 0 
   desc->bad_login = 0;

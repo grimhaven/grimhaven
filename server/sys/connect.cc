@@ -781,7 +781,7 @@ void TPerson::autoDeath()
 
   vlogf(LOG_PIO, format("%s reconnected with negative hp, auto death occurring.") %  
                         getName());
-  sendTo("You reconnected with negative hit points, automatic death occurring.");
+  sendTo("You reconnected with negative hit points, automatic death occurring.");
   sprintf(buf, "%s detected you reconnecting with %d hit points.\n\r", MUD_NAME, getHit());
   sprintf(buf + strlen(buf), "In order to discourage people from dropping link in order to avoid death,\n\r");
   sprintf(buf + strlen(buf), "it was decided that such an event would result in a partial death.\n\r");
@@ -3390,7 +3390,7 @@ int Descriptor::doAccountStuff(char *arg)
       strcpy(history[0], "");
 
       if (WizLock && !IS_SET(account->flags, TAccount::IMMORTAL)) {
-        writeToQ("The game is currently wiz-locked.\n\r");
+        writeToQ("The game is currently wiz-locked.\n\r");
         if (!lockmess.empty()) {
           page_string(lockmess, SHOWNOW_YES);
         } else {
@@ -3418,7 +3418,7 @@ int Descriptor::doAccountStuff(char *arg)
         break;
       } else if (WizLock) {
         // wizlock is on, but I am an IMM, just notify me
-        writeToQ("The game is currently wiz-locked.\n\r");
+        writeToQ("The game is currently wiz-locked.\n\r");
         if (!lockmess.empty()) {
           page_string(lockmess, SHOWNOW_YES);
         } else {

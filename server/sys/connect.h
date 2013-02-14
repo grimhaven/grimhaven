@@ -627,9 +627,6 @@ class Descriptor
     void cleanUpStr();
     bool getHostResolved();
     void setHostResolved(bool, const sstring &);
-    void beep() {
-      writeToQ("");
-    }
 
     // used for character creation
     void zeroChosenStats();
