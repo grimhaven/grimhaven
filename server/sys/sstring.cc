@@ -475,18 +475,6 @@ const sstring sstring::replaceString(sstring find, sstring replace) const
   return str;
 }
 
-
-const char *sstring::c_str() const
-{
-  // we say greater than here, because a string might have nulls in it, which
-  // cause strlen to come up short. we're only interested if std::string::c_str
-  // gives us a too-long string.
-  if(strlen(std::string::c_str()) > length())
-    throw std::runtime_error(format("corruption in sstring::c_str").str());
-
-  return std::string::c_str();
-}
-
 const sstring & sstring::operator+=(const char &a){
   std::string::operator+=(a);
   return *this;

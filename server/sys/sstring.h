@@ -23,8 +23,6 @@ public:
   char &operator[](unsigned int i);
   const char &operator[](unsigned int i) const;
 
-  const char *c_str() const;
-
   // these functions return modified copies of the string
   const sstring toCRLF() const;
   const sstring lower() const;
