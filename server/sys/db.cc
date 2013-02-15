@@ -107,6 +107,43 @@
 #include "weather.h"
 #include "obj_fruit.h"
 
+namespace File {
+  const char * const CREDITS        = "txt/credits";    // for the credits command
+  const char * const HELP_PAGE      = "help/general";   // for HELP <CR>
+  const char * const MOTD           = "txt/motd";       // messages of today
+  const char * const NEWS           = "txt/news";       // for the 'news' command
+  const char * const SOCMESS        = "txt/actions";    // msgs for social acts
+  const char * const STATS          = "txt/stats";      // economy stats savefile
+  const char * const STATS_BAK      = "txt/stats.bak";  // backup of econ save
+  const char * const TIPS           = "txt/tips";       // newbie tips file
+  const char * const VERSION        = "txt/version";    // mud version timestamp
+  const char * const WIZLIST        = "txt/wizlist";
+  const char * const WIZNEWS        = "txt/wiznews";
+  const char * const WIZMOTD        = "txt/wizmotd";
+
+  const char * const ANSI_MENU_1    = "txt/ansi/login1.ans";
+  const char * const ANSI_MENU_2    = "txt/ansi/login2.ans";
+  const char * const ANSI_MENU_3    = "txt/ansi/login3.ans";
+  const char * const ANSI_OPEN      = "txt/ansi/title.ans";
+  const char * const NORM_MENU_1    = "txt/vt/login1.vt";
+  const char * const NORM_MENU_2    = "txt/vt/login2.vt";
+  const char * const NORM_MENU_3    = "txt/vt/login3.vt";
+  const char * const NORM_OPEN      = "txt/vt/title.vt";
+
+  const char * const FACTIONS       = "factions/factions";
+  const char * const FACTIONS_BAK   = "factions/factions.bak";
+  const char * const GUILDS         = "factions/guilds";
+  const char * const GUILDS_BAK     = "factions/guilds.bak";
+}
+
+namespace Path {
+  const char * const HELP           = "help/";
+  const char * const IMMORTAL_HELP  = "help/_immortal";
+  const char * const BUILDER_HELP   = "help/_builder";
+  const char * const SKILL_HELP     = "help/_skills";
+  const char * const SPELL_HELP     = "help/_spells";
+}
+
 int top_of_world = 0;         // ref to the top element of world
 
 TRoom *room_db[WORLD_SIZE];
