@@ -1,11 +1,8 @@
 #include <iostream>
-#include <stdexcept>
 #include <boost/regex.hpp>
 #include "sstring.h"
-#include "db.h"
-#include "extern.h"
+#include "mudinfo.h"
 #include "ansi.h"
-#include "parse.h"
 #include "configuration.h"
 
 const sstring sstring::xmlescape() const
