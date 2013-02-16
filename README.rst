@@ -10,12 +10,13 @@ Building
 
 You will need the following available to build:
 
-* Unix-like system
-* C++ compiler (tested with gcc 4.7)
+* Unix-like system (tested with Ubuntu 12.10 "quantal")
+* glibc (tested with eglibc 2.15)
+* GNU C++ compiler (tested with g++ 4.7)
 * scons build tool (tested with 2.2.0 on Python 2.7)
-* SQLite 3 (tested with 3.7.13)
-* c-ares (tested with 1.9.1)
-* Boost C++ libraries (tested with v1.50), specifically the following modules:
+* MySQL client C library (tested with MySQL 5.5.27)
+* c-ares library (tested with 1.9.1)
+* Boost C++ libraries (tested with v1.50), including the following modules:
   * date-time
   * program-options
   * regex
