@@ -2797,7 +2797,7 @@ static TWindow * getFirstWindowInRoom(TMonster *myself)
 
 int petVeterinarian(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *me, TObj *)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   int vnum, num;
   sstring short_desc;
   char new_name[80], buf[80];
@@ -4836,7 +4836,7 @@ int fishTracker(TBeing *ch, cmdTypeT cmd, const char *argument, TMonster *myself
 {
   sstring buf, arg=argument;
   //TThing *t;
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   if(!ch || !ch->awake() || ch->fight())
     return FALSE;
@@ -6943,7 +6943,7 @@ int beeDeath(TBeing *ch, cmdTypeT cmd, const char *, TMonster *myself, TObj *) {
 
 int brickCollector(TBeing *ch, cmdTypeT cmd, const char *argument, TMonster *myself, TObj *o) {
   sstring buf, arg=argument;
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   if(!ch || !ch->awake() || ch->fight())
     return FALSE;
@@ -7099,7 +7099,7 @@ int idCardProvider(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *me, TObj
 
 int rationFactory(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *me, TObj *o)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   int factory_shop=251;
   TShopOwned tso(factory_shop, ch);
   TFood *food;

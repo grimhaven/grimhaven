@@ -157,9 +157,9 @@ void ObjLoad(TBeing *ch, int vnum)
   TBaseClothing *tbc;
   int i;
   extraDescription *new_descr;
-  TDatabase db(DB_IMMORTAL);
+  TDatabase db;
 
-  db.query("select type, name, short_desc, long_desc, action_flag, wear_flag, val0, val1, val2, val3, weight, price, can_be_seen, spec_proc, max_struct, cur_struct, decay, volume, material, max_exist, action_desc from obj where vnum=%i and owner='%s'", vnum, ch->name);
+  db.query("select type, name, short_desc, long_desc, action_flag, wear_flag, val0, val1, val2, val3, weight, price, can_be_seen, spec_proc, max_struct, cur_struct, decay, volume, material, max_exist, action_desc from immortal_obj where vnum=%i and owner='%s'", vnum, ch->name);
 
   if(!db.isResults()){
     ch->sendTo("Object not found.\n\r");
@@ -173,7 +173,7 @@ void ObjLoad(TBeing *ch, int vnum)
 
   o = makeNewObj(mapFileToItemType(convertTo<int>(db["type"])));
   if (!o) {
-    vlogf(LOG_BUG, format("%s failed to load vnum %d from immortal.obj.") % ch->name % vnum);
+    vlogf(LOG_BUG, format("%s failed to load vnum %d from immortal_immortal.obj.") % ch->name % vnum);
     ch->sendTo("Bad news.  Couldn't load that.\n\r");
     return;
   }
@@ -206,7 +206,7 @@ void ObjLoad(TBeing *ch, int vnum)
   o->ex_description = NULL;
 
 
-  db.query("select name, description from objextra where vnum=%i and owner='%s'", vnum, ch->name);
+  db.query("select name, description from immortal_objextra where vnum=%i and owner='%s'", vnum, ch->name);
 
   while(db.fetchRow()){
     new_descr = new extraDescription();
@@ -219,7 +219,7 @@ void ObjLoad(TBeing *ch, int vnum)
   o->setLight(0);
   i=0;
 
-  db.query("select type, mod1, mod2 from objaffect where vnum=%i and owner='%s'", vnum, ch->name);
+  db.query("select type, mod1, mod2 from immortal_objaffect where vnum=%i and owner='%s'", vnum, ch->name);
 
   while(db.fetchRow()){
     o->affected[i].location = mapFileToApply(convertTo<int>(db["type"]));
@@ -271,10 +271,10 @@ static void ObjSave(TBeing *ch, TObj *o, int vnum)
   int tmp1, tmp2, tmp3, tmp4;
   o->getFourValues(&tmp1, &tmp2, &tmp3, &tmp4);
 
-  TDatabase db(DB_IMMORTAL);
+  TDatabase db;
 
-  //  db.query("delete from obj where vnum=%i", vnum);
-  if(!db.query("insert into obj (vnum, name, short_desc, long_desc, type, action_flag, wear_flag, val0, val1, val2, val3, weight, price, can_be_seen, spec_proc, max_exist, cur_struct, max_struct, decay, volume, material, owner, action_desc) values (%i, '%s', '%s', '%s', %i, %i, %i, %i, %i, %i, %i, %f, %i, %i, %i, %i, %i, %i, %i, %i, %i, '%s', '%s')",
+  //  db.query("delete from immortal_obj where vnum=%i", vnum);
+  if(!db.query("insert into immortal_obj (vnum, name, short_desc, long_desc, type, action_flag, wear_flag, val0, val1, val2, val3, weight, price, can_be_seen, spec_proc, max_exist, cur_struct, max_struct, decay, volume, material, owner, action_desc) values (%i, '%s', '%s', '%s', %i, %i, %i, %i, %i, %i, %i, %f, %i, %i, %i, %i, %i, %i, %i, %i, %i, '%s', '%s')",
           vnum, o->name, o->shortDescr, o->getDescr(),o->itemType(),
           o->getObjStat(), o->obj_flags.wear_flags, tmp1, tmp2, tmp3, tmp4,
           o->getWeight(), o->obj_flags.cost, o->canBeSeen, o->spec,
@@ -287,7 +287,7 @@ static void ObjSave(TBeing *ch, TObj *o, int vnum)
     return;
   }
 
-  db.query("delete from objextra where vnum=%i and owner='%s'", vnum, ch->name);
+  db.query("delete from immortal_objextra where vnum=%i and owner='%s'", vnum, ch->name);
 
   int i, j, k;
   char temp[2048];
@@ -301,19 +301,19 @@ static void ObjSave(TBeing *ch, TObj *o, int vnum)
       }
       temp[j] = '\0';
 
-      if(!db.query("insert into objextra (name, description, owner, vnum) values ('%s', '%s', '%s', %i)", exdes->keyword, temp, ch->name, vnum)){
+      if(!db.query("insert into immortal_objextra (name, description, owner, vnum) values ('%s', '%s', '%s', %i)", exdes->keyword, temp, ch->name, vnum)){
         ch->sendTo("Database error!  Talk to a coder ASAP.\n\r");
         return;
       }
     } else {
-      if(!db.query("insert into objextra (name, description, owner, vnum) values ('%s', '', '%s')", exdes->keyword, ch->name, vnum)){
+      if(!db.query("insert into immortal_objextra (name, description, owner, vnum) values ('%s', '', '%s')", exdes->keyword, ch->name, vnum)){
         ch->sendTo("Database error!  Talk to a coder ASAP.\n\r");
         return;
       }
     }
   }
 
-  if(!db.query("delete from objaffect where vnum=%i and owner='%s'", vnum, ch->name)){
+  if(!db.query("delete from immortal_objaffect where vnum=%i and owner='%s'", vnum, ch->name)){
     ch->sendTo("Database error!  Talk to a coder ASAP.\n\r");
     return;
   }
@@ -325,7 +325,7 @@ static void ObjSave(TBeing *ch, TObj *o, int vnum)
     }
 
     if (o->affected[i].location != APPLY_NONE) {
-      if(!db.query("insert into objaffect (type, mod1, mod2, owner, vnum) values (%i, %i, %i, '%s', %i)",
+      if(!db.query("insert into immortal_objaffect (type, mod1, mod2, owner, vnum) values (%i, %i, %i, '%s', %i)",
                  mapApplyToFile(o->affected[i].location),
                  applyTypeShouldBeSpellnum(o->affected[i].location) ? mapSpellnumToFile(spellNumT(o->affected[i].modifier)) : o->affected[i].modifier,
                  o->affected[i].modifier2, ch->name, vnum)){
@@ -367,12 +367,12 @@ static void osave(TBeing *ch, const char *argument)
 static void olist(TPerson *ch, bool zone=false)
 {
   sstring longstr;
-  TDatabase db(DB_IMMORTAL);
+  TDatabase db;
 
   if(zone){
-    db.query("select vnum, name from obj where owner='%s' and vnum>%i and vnum<=%i order by vnum", ch->name, zone_table[ch->roomp->getZone()->zone_nr-1].top, ch->roomp->getZone()->top);
+    db.query("select vnum, name from immortal_obj where owner='%s' and vnum>%i and vnum<=%i order by vnum", ch->name, zone_table[ch->roomp->getZone()->zone_nr-1].top, ch->roomp->getZone()->top);
   } else {
-    db.query("select vnum, name from obj where owner='%s' order by vnum", ch->name);
+    db.query("select vnum, name from immortal_obj where owner='%s' order by vnum", ch->name);
   }
 
 
@@ -459,18 +459,18 @@ static void oedit(TBeing *ch, const char *arg)
 
 void oremove(TBeing *ch, int vnum)
 {
-  TDatabase db(DB_IMMORTAL);
+  TDatabase db;
 
-  db.query("select * from obj where vnum=%i and owner='%s'", vnum, ch->name);
+  db.query("select * from immortal_obj where vnum=%i and owner='%s'", vnum, ch->name);
 
   if(!db.isResults()){
     ch->sendTo("Object not found.\n\r");
     return;
   }
 
-  if(!db.query("delete from obj where vnum=%i and owner='%s'", vnum, ch->name) ||
-     !db.query("delete from objaffect where vnum=%i and owner='%s'", vnum, ch->name) ||
-     !db.query("delete from objextra where vnum=%i and owner='%s'", vnum, ch->name)){
+  if(!db.query("delete from immortal_obj where vnum=%i and owner='%s'", vnum, ch->name) ||
+     !db.query("delete from immortal_objaffect where vnum=%i and owner='%s'", vnum, ch->name) ||
+     !db.query("delete from immortal_objextra where vnum=%i and owner='%s'", vnum, ch->name)){
     ch->sendTo("Database error!  Talk to a coder ASAP.\n\r");
     return;
   } else
@@ -594,9 +594,9 @@ void TPerson::doOEdit(const char *argument)
     case 2:                        // load
       if (sscanf(sstring, "%d", &vnum) != 1) {
         // assume that sstring is an object name
-        TDatabase db(DB_IMMORTAL);
+        TDatabase db;
 
-        db.query("select vnum, name from obj where owner='%s'", getName());
+        db.query("select vnum, name from immortal_obj where owner='%s'", getName());
 
         vnum=-1;
         while(db.fetchRow()){

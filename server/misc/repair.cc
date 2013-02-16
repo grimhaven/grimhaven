@@ -40,7 +40,7 @@ int TObj::maxFix(const TBeing *keeper, depreciationTypeT dep_done) const
 
   if(keeper){
     unsigned int shop_nr=0;
-    TDatabase db(DB_SNEEZY);
+    TDatabase db;
 
     for (shop_nr = 0; (shop_nr < shop_index.size()) && (shop_index[shop_nr].keeper != (keeper)->number); shop_nr++);
 
@@ -85,7 +85,7 @@ int findRepairMaterials(unsigned int shop_nr, TBeing *repair, TBeing *buyer, uby
 
   TShopOwned tso(commod_shop, repair);
 
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("select r.rent_id from rent r, obj o where r.owner=%i and r.owner_type='shop' and o.vnum=r.vnum and o.type=%i and r.material=%i", commod_shop, ITEM_RAW_MATERIAL, mat);
 
@@ -210,7 +210,7 @@ static int repair_time(TBeing *keeper, const TObj *o)
   float speed = 0;
 //  int MINS_AT_60TH = 60; // maximum (full repair) for 60TH level eq
   unsigned int shop_nr=0;
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   for (shop_nr = 0; (shop_nr < shop_index.size()) && (shop_index[shop_nr].keeper != (keeper)->number); shop_nr++);
 
@@ -779,7 +779,7 @@ void TObj::giveToRepair(TMonster *repair, TBeing *buyer, int *found)
   buyer->logItem(this, CMD_REPAIR);
 
   unsigned int shop_nr=0;
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   for (shop_nr = 0; (shop_nr < shop_index.size()) && (shop_index[shop_nr].keeper != repair->number); shop_nr++);
 

@@ -371,7 +371,7 @@ int TCommodity::sellMe(TBeing *ch, TMonster *keeper, int shop_nr, int)
 {
   int num, price, rent_id = -1, units = 0;
   char buf[256];
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("select rent_id, weight*10 as units from rent where owner_type='shop' and owner=%i and material=%i and vnum=%i",
            shop_nr, getMaterial(), Obj::GENERIC_COMMODITY);
@@ -483,7 +483,7 @@ void TCommodity::valueMe(TBeing *ch, TMonster *keeper, int shop_nr, int)
 {
   int price;
   /*char buf2[80];
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   TObj *obj2;
 
   db.query("select rent_id from rent where owner_type='shop' and owner=%i and material=%i and vnum=%i",

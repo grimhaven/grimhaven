@@ -448,7 +448,7 @@ int TMonster::rawKill(spellNumT dmg_type, TBeing *tKiller, float exp_lost)
 
 void logPermaDeathDied(TBeing *ch, TBeing *killer)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("update permadeath set died=1 where name='%s'", ch->name);
 

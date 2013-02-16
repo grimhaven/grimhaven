@@ -380,7 +380,7 @@ void TPerson::saveWizPowers()
   if (GetMaxLevel() <= MAX_MORT)
     return;
 
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   for (wizPowerT num = MIN_POWER_INDEX; num < MAX_POWER_INDEX; num++) {
     if (wizPowers[num] != wizPowersOriginal[num]) {
@@ -399,7 +399,7 @@ void TPerson::loadWizPowers()
     return;
   memset(&wizPowersOriginal, 0, sizeof(wizPowersOriginal));
 
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("select wizpower from wizpower where player_id=%i",
            getPlayerID());
@@ -442,7 +442,7 @@ void TPerson::doPowers(const sstring &argument) const
       ch = get_pc_world(this, tStName, EXACT_NO);
 
     if (!ch) {
-      TDatabase db(DB_SNEEZY);
+      TDatabase db;
 
       db.query("select wizpower from wizpower w, player p where p.name='%s' and p.id=w.player_id", tStName.lower().c_str());
 

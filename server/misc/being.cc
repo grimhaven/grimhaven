@@ -609,7 +609,7 @@ const char * TBeing::getName() const
 // this returns the ID in the database, or creates a new one if needed
 int TBeing::getPlayerID() const
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   sstring myname;
   int playerID=0;
 
@@ -1187,7 +1187,7 @@ void TBeing::setDamroll(int d)
 
 int TBeing::getBank() const
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   int bankmoney=0;
 
   if(isPc()){
@@ -1711,7 +1711,7 @@ bool TBeing::applyTattoo(wearSlotT slot, const sstring & tat, silentTypeT silent
   if (!hasPart(slot) || notBleedSlot(slot))
     return FALSE;
 
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   if (tat.length() == 0) {
     // removal
     db.query("delete from tattoos where name = '%s' and location = %i", getName(), int(slot));

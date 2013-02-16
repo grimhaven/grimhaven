@@ -3101,7 +3101,7 @@ int Descriptor::sendLogin(const sstring &arg)
 
 bool Descriptor::checkForAccount(char *arg, bool silent)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   if (bogusAccountName(arg)) {
     if (!silent)
@@ -3163,7 +3163,7 @@ int Descriptor::doAccountStuff(char *arg)
   TBeing *ch;
   TTrophy *trophy;
   sstring from;
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   // apparently, crypt() has a mem leak in the lib function
   // By making this static, we limit the number of leaks to one
@@ -3828,7 +3828,7 @@ void Descriptor::deleteAccount()
     wipeFollowersFile(dp->d_name);
   }
 
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   db.query("delete from account where name='%s'",
            sstring(account->name).lower().c_str());
 

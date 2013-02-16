@@ -18,7 +18,7 @@ bool voteAdmin(TBeing *ch)
 
 int ballotBox(TBeing *ch, cmdTypeT cmd, const char *argument, TObj *o, TObj *)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   if(cmd==CMD_LIST){
     sstring arg=argument;

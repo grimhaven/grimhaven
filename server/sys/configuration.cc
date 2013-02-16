@@ -3,7 +3,6 @@
 
 #include "configuration.h"
 #include "extern.h"
-#include "database.h"
 
 #include <boost/program_options.hpp>
 namespace po = boost::program_options;
@@ -37,6 +36,10 @@ bool Config::mode_beta;
 bool Config::mode_prod;
 sstring Config::wizlock_password;
 int Config::xml_port;
+sstring Config::db_host;
+sstring Config::db_user;
+sstring Config::db_name;
+
 
 bool Config::doConfiguration(int argc, char *argv[])
 {
@@ -147,27 +150,27 @@ bool Config::doConfiguration(int argc, char *argv[])
     ;
 
   // database options
-  po::options_description databases("Databases");
-  databases.add_options()
-    ("sneezy_db",
-      po::value<string>(&db_hosts[DB_SNEEZY]),
-      "host for sneezy database")
-    ("immortal_db",
-      po::value<string>(&db_hosts[DB_IMMORTAL]),
-      "host for immortal database")
-    ("sneezyglobal_db",
-      po::value<string>(&db_hosts[DB_SNEEZYGLOBAL]),
-      "host for sneezyglobal database")
+  po::options_description database("Database");
+  database.add_options()
+    ("db_host",
+      po::value<string>(&db_host)->default_value("localhost"),
+      "host of SQL database server")
+    ("db_user",
+      po::value<string>(&db_user)->default_value("sneezy"),
+      "user name for SQL database connection")
+    ("db_name",
+      po::value<string>(&db_name)->default_value("grimhaven"),
+      "name of SQL database")
     ;
 
   po::options_description cmdline_options;
-  cmdline_options.add(cmdline_only).add(config).add(databases);
+  cmdline_options.add(cmdline_only).add(config).add(database);
 
   po::options_description config_options;
-  config_options.add(config).add(databases).add(config_only);
+  config_options.add(config).add(database).add(config_only);
 
   po::options_description visible("Available options");
-  visible.add(cmdline_only).add(config).add(databases).add(config_only);
+  visible.add(cmdline_only).add(config).add(database).add(config_only);
 
   po::variables_map vm;
 

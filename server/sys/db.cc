@@ -237,7 +237,7 @@ struct reset_q_type
 
 void update_commod_index()
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   for(int i=0;i<200;++i)
     commod_index[i]=0;
@@ -351,7 +351,7 @@ void object_stats()
 
 void assign_rooms()
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("select vnum from room where spec!=0");
 
@@ -636,7 +636,7 @@ void bootWorld(void)
 {
   int virtual_nr, num=0, tmp;
   TRoom *rp=NULL;
-  TDatabase db(DB_SNEEZY), db_extras(DB_SNEEZY), db_exits(DB_SNEEZY);
+  TDatabase db, db_extras, db_exits;
   extraDescription *new_descr;
 
   memset((char *) room_db, 0, sizeof(TRoom *) * WORLD_SIZE);
@@ -1569,7 +1569,7 @@ void bootZones(void)
   int zon=0, tmp;
   std::multimap <int, sstring, std::less<int> > files;
   std::multimap <int, sstring, std::less<int> >::iterator it;
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   if(!(dfd=opendir("zonefiles"))){
     vlogf(LOG_BUG, "couldn't open zonefiles directory");
@@ -1794,13 +1794,13 @@ void log_object(TObj *obj)
   if (dynamic_cast<TTrash *>(obj)) {
     return;
   }
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   db.query("insert into objlog values (%i, now(), %i)", obj_index[obj->getItemIndex()].virt, obj_index[obj->getItemIndex()].getNumber());
 }
 
 void TObjectCache::preload()
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("select vnum, short_desc, type, action_flag, wear_flag, val0, val1, val2, val3, weight, price, can_be_seen, spec_proc, max_struct, cur_struct, decay, volume, material, max_exist from obj");
 
@@ -1831,7 +1831,7 @@ void TObjectCache::preload()
 
 void TMobileCache::preload()
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("select vnum, name, short_desc, long_desc, description, actions, affects, faction, fact_perc, letter, attacks, class, level, tohit, ac, hpbonus, damage_level, damage_precision, gold, race, weight, height, str, bra, con, dex, agi, intel, wis, foc, per, cha, kar, spe, pos, def_position, sex, spec_proc, skin, vision, can_be_seen, max_exist, local_sound, adjacent_sound from mob");
 
@@ -1936,7 +1936,7 @@ TObj *read_object_buy_build(TBeing *buyer, int nr, readFileTypeT type)
   TObj *o=NULL;
   TObj *commod=NULL;
 
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   // look for the object in a shop
   db.query("select r.weight as weight, r.owner as shop_nr, r.rent_id as rent_id from rent r, shopowned so where r.owner=so.shop_nr and r.owner_type='shop' and r.vnum=%i order by profit_buy asc, (r.cur_struct/r.max_struct) asc, price asc", obj_index[nr].virt);
@@ -2180,10 +2180,8 @@ int TMonster::readMobFromDB(int virt, bool should_alloc, TBeing *ch)
 
   } else {
     if (ch && should_alloc) {
-      db = DB_IMMORTAL;
-      db.query("select * from mob where owner = '%s' and vnum = %i", ch->name, virt);
+      db.query("select * from immortal_mob where owner = '%s' and vnum = %i", ch->name, virt);
     } else {
-      db = DB_SNEEZY;
       db.query("select * from mob where vnum = %i", virt);
     }
     if (!db.fetchRow()) {
@@ -2378,7 +2376,7 @@ TObj *read_object(int nr, readFileTypeT type)
 {
   TObj *obj = NULL;
   int i, rc, tmpcost;
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   i = nr;
   if (type == VIRTUAL)

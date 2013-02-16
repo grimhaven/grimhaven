@@ -23,7 +23,7 @@ bool sameAccount(sstring buf, int shop_nr){
 
   load_char(buf, &stthis);
 
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("select name from shopownedaccess where shop_nr=%i", shop_nr);
 
@@ -74,7 +74,7 @@ sstring transactionToString(transactionTypeT action)
 
 int TShopOwned::getInventoryCount(const TObj *obj)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   if (obj->objVnum() == Obj::GENERIC_COMMODITY)
     db.query("select weight*10 as count from rent where vnum=%i and material=%i and owner_type='shop' and owner=%i", Obj::GENERIC_COMMODITY, obj->getMaterial(), shop_nr);
@@ -203,7 +203,7 @@ int TShopOwned::getPurchasePrice(int talens, int value){
 
 int getShopAccess(int shop_nr, TBeing *ch){
   int access=0;
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   if(!ch)
     return 0;
@@ -270,7 +270,7 @@ int TShopOwned::getTaxShopNr()
 int TShopOwned::chargeTax(int cost, const sstring &name, TObj *o)
 {
   int tax_office;
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   // no tax for messing with inventory if you own the shop
   if(hasAccess(SHOPACCESS_OWNER))
@@ -320,7 +320,7 @@ int TShopOwned::chargeTax(int cost, const sstring &name, TObj *o)
 
 void TShopOwned::setReserve(sstring arg)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   if(!hasAccess(SHOPACCESS_OWNER)){
     keeper->doTell(ch->getName(), "Sorry, you don't have access to do that.");
@@ -435,7 +435,7 @@ double TShopOwned::getSpeed()
 
 void TShopOwned::setQuality(sstring arg)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   if(!hasAccess(SHOPACCESS_RATES)){
     keeper->doTell(ch->getName(), "Sorry, you don't have access to do that.");
@@ -461,7 +461,7 @@ void TShopOwned::setQuality(sstring arg)
 
 void TShopOwned::setSpeed(sstring arg)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   if(!hasAccess(SHOPACCESS_RATES)){
     keeper->doTell(ch->getName(), "Sorry, you don't have access to do that.");
@@ -523,7 +523,7 @@ int TShopOwned::doDividend(int cost, const sstring &name)
 
 void TShopOwned::setDividend(sstring arg)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   if(!hasAccess(SHOPACCESS_DIVIDEND)){
     keeper->doTell(ch->getName(), "Sorry, you don't have access to do that.");
@@ -586,7 +586,7 @@ void TShopOwned::showInfo()
   int count=0, value=0, tmp=0;
   unsigned int i=0;
   sstring buf;
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   //  int volume=0;
 
   // if not owned, or owned and has "owner" or "info"
@@ -710,7 +710,7 @@ void TShopOwned::showInfo()
 
 int TShopOwned::setRates(sstring arg)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   sstring buf;
   float profit_buy, profit_sell;
   int max_num, argc=0;
@@ -964,7 +964,7 @@ int TShopOwned::setRates(sstring arg)
 
 int TShopOwned::buyShop(sstring arg){
   int value=0;
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   sstring buf;
   TThing *tt=NULL;
   TObj *o;
@@ -1090,7 +1090,7 @@ int TShopOwned::setString(sstring arg)
   }
 
 
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("update shopowned set %s='%s' where shop_nr=%i",
            which.c_str(), s.c_str(), shop_nr);
@@ -1104,7 +1104,7 @@ int TShopOwned::setString(sstring arg)
 
 
 int TShopOwned::sellShop(){
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   int value=0;
 
   if(!hasAccess(SHOPACCESS_SELL)){
@@ -1142,7 +1142,7 @@ int TShopOwned::sellShop(){
 
 int TShopOwned::giveMoney(sstring arg){
   sstring buf;
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   if(!hasAccess(SHOPACCESS_GIVE)){
     keeper->doTell(ch->getName(), "Sorry, you don't have access to do that.");
@@ -1192,7 +1192,7 @@ int TShopOwned::giveMoney(sstring arg){
 int TShopOwned::setAccess(sstring arg)
 {
   sstring buf, buf2;
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   unsigned int access;
 
   if(!hasAccess(SHOPACCESS_ACCESS)){
@@ -1265,7 +1265,7 @@ int TShopOwned::setAccess(sstring arg)
 
 int TShopOwned::doLogs(sstring arg)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   sstring buf;
 
   if(!hasAccess(SHOPACCESS_LOGS)){

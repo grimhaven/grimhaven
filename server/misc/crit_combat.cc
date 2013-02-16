@@ -1110,7 +1110,7 @@ buf=format("$n's %s shatters one of $N's ribs!") %
   if (dynamic_cast<TPerson *>(this)) {
     // check to see if this should be a limb quest tooth
     int limb_quest = -1;
-    TDatabase db(DB_SNEEZY);
+    TDatabase db;
     db.query("select team from quest_limbs_team where player = '%s'", getName());
     if (db.fetchRow())
       limb_quest = 0;

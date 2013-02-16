@@ -4,7 +4,7 @@
 int propertyClerk(TBeing *ch, cmdTypeT cmd, const char *argument, TMonster *me, TObj *)
 {
   sstring arg=argument;
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   if(!me || !ch)
     return false;

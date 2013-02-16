@@ -16,7 +16,7 @@ std::vector<TGuild *>guild_table(0);
 
 void TBeing::setGuildID(int id)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("update player set guild_id=%i where id=%i",
            id, getPlayerID());
@@ -24,7 +24,7 @@ void TBeing::setGuildID(int id)
 
 void TBeing::setGuildRank(int rank)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("update player set guildrank=%i where id=%i",
            rank, getPlayerID());
@@ -32,7 +32,7 @@ void TBeing::setGuildRank(int rank)
 
 int TBeing::getGuildID() const
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("select guild_id from player where id=%i", getPlayerID());
 
@@ -44,7 +44,7 @@ int TBeing::getGuildID() const
 
 int TBeing::getGuildRank() const
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("select guildrank from player where id=%i", getPlayerID());
 
@@ -292,7 +292,7 @@ void TBeing::add_guild(const char * args) {
   f->faction_affiliation = FACT_NONE;
   guild_table.push_back(f);
 
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   db.query("insert into corporation (name, bank) values ('<None>', 4)");
   db.query("select max(corp_id) as corp_id from corporation");
   db.fetchRow();
@@ -352,7 +352,7 @@ bool TBeing::canCreateGuild(bool silent = false) {
 // spec_mob proc for Miya in the bureau
 int guildRegistrar(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, TObj *o)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   char field[80], values[80];
   char buf[256];
   char tell[256];
@@ -569,7 +569,7 @@ void TBeing::edit_guild(const char * args)
   char field[80];
   char values[80];
   TGuild *f = NULL;
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   // ok 'args' is going to be of the format:
   // <guild> <field> <value(s)>
@@ -992,7 +992,7 @@ void TBeing::show_guild(const char * args)
       sendTo(" None!\n\r");
     }
 
-    TDatabase db(DB_SNEEZY);
+    TDatabase db;
     int membercount=0;
 
     if(getGuildID() == f->ID ||
@@ -1114,7 +1114,7 @@ bool remove_guild(const char *args)
 
 bool remove_guild_by_ID(int idnum) {
   std::vector<TGuild *>::iterator i;
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   for (i = guild_table.begin();i != guild_table.end();++i) {
     if ((*i)->ID == idnum) {
       guild_table.erase(i);

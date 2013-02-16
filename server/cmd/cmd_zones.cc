@@ -96,7 +96,7 @@ void TBeing::doZonesSingle(sstring tStString)
                      iFought = 0;
         float        fXPAvg  = 0.0; // 1.00 = 100%
         TTrophy    & tTrophy = *trophy;
-        TDatabase    db(DB_SNEEZY);
+        TDatabase    db;
 
         db.query("select mobvnum, count from trophy where player_id=%i order by mobvnum", getPlayerID());
 

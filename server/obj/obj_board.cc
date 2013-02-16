@@ -101,7 +101,7 @@ int TBoard::readPost(TBeing *ch, const char *arg)
     return TRUE;
   }
 
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   db.query("select post_num, date_format(date_posted, '%%b %%e %%H:%%i %%Y') as date_posted, subject, author, post from board_message where board_vnum = %i and date_removed is null and post_num = %i", objVnum(), post_num);
 
   if (db.fetchRow()){
@@ -165,7 +165,7 @@ int TBoard::lookBoard(TBeing *ch, const char *arg)
     return TRUE;
   }
 
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   db.query("select post_num, date_format(date_posted, '%%b %%e %%H:%%i %%Y') as date_posted, subject, author from board_message where board_vnum = %i and date_removed is null order by post_num %s", this->objVnum(), reverse ? "desc" : "asc");
   act("$n studies $p.", TRUE, ch, this, 0, TO_ROOM);
   sbuf1 = format("This is a bulletin board. You can %sPOST%s, %sREAD <#>%s or %sGET <#>%s.\n\r") % ch->green() % ch->norm() % ch->green() % ch->norm() % ch->green() % ch->norm();
@@ -211,7 +211,7 @@ void TNote::postMe(TBeing *ch, const char *arg2, TBoard *b)
     return;
   }
 
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   db.query("insert board_message (board_vnum, subject, author, post, post_num) select %i, '%s', '%s', '%s', count(*) + 1 from board_message where board_vnum = %i and date_removed is null", b->objVnum(), arg2, ch->getName(), mud_str_dup(action_description), b->objVnum());
   act("You post your note on $p.", TRUE, ch, b, 0, TO_CHAR, NULL);
   act("$n posts a note on $p.", TRUE, ch, b, 0, TO_ROOM);
@@ -220,7 +220,7 @@ void TNote::postMe(TBeing *ch, const char *arg2, TBoard *b)
 
 int TBoard::postCount() const
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   db.query("select count(*) as post_count from board_message where board_vnum = %i and date_removed is null", this->objVnum());
   if (db.fetchRow()){
     return convertTo<int>(db["post_count"]);
@@ -327,7 +327,7 @@ int TBoard::removeFromBoard(TBeing *ch, const char *arg)
     return TRUE;
   }
 
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   db.query("select author, post from board_message where board_vnum = %i and post_num = %i and date_removed is null", objVnum(), post_num);
   if (db.fetchRow()){
     // only the original author, a board police wiz or a faction power wanker at a faction board can remove a note
@@ -346,7 +346,7 @@ int TBoard::removeFromBoard(TBeing *ch, const char *arg)
       act("$n pulls a note off $p.", FALSE, ch, this, 0, TO_ROOM);
 
       // update board_message - remove message and adjust remaining post_nums
-      TDatabase db(DB_SNEEZY);
+      TDatabase db;
       db.query("update board_message set date_removed = now(), post_num = null where board_vnum = %i and post_num = %i and date_removed is null", objVnum(), post_num);
       db.query("update board_message set post_num = post_num - 1 where board_vnum = %i and post_num > %i and date_removed is null", objVnum(), post_num);
       return TRUE;

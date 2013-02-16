@@ -5,7 +5,7 @@
 
 int taxman(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *me, TObj *)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   int shop_nr=find_shop_nr(me->number);
 
 

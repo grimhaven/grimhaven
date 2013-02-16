@@ -11,7 +11,7 @@
 // pull data from archive
 TShopJournal::TShopJournal(int shop, int y)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("select 1 from shoplogjournal where shop_nr=%i and sneezy_year=%i", shop, y);
 
@@ -36,7 +36,7 @@ TShopJournal::TShopJournal(int shop, int y)
 // pull current data
 TShopJournal::TShopJournal(int shop)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   year=GameTime::getYear();
 
   db.query("select a.name, sum(credit)-sum(debit) as amt from shoplogjournal, shoplogaccountchart a where shop_nr=%i and a.post_ref=shoplogjournal.post_ref group by a.name", shop);
@@ -92,7 +92,7 @@ int TShopJournal::getShareholdersEquity()
 
 void TShopJournal::closeTheBooks()
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   // we have to assume here that all of the journal entries for the
   // specified year exist in the shoplogjournal table
@@ -154,7 +154,7 @@ void TShopJournal::closeTheBooks()
 void TShopOwned::journalize_debit(int post_ref, const sstring &customer,
                                   const sstring &name, int amt, bool new_id)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   //    db.query("insert into shoplogjournal (shop_nr, journal_id, customer_name, obj_name, sneezy_year, logtime, post_ref, debit, credit) values (%i, %s, '%s', '%s', %i, now(), %i, %i, 0)", shop_nr, (new_id?"NULL":"LAST_INSERT_ID()"), customer.c_str(), name.c_str(), GameTime::getYear(), post_ref, amt);
 
@@ -164,14 +164,14 @@ void TShopOwned::journalize_debit(int post_ref, const sstring &customer,
 void TShopOwned::journalize_credit(int post_ref, const sstring &customer,
                                   const sstring &name, int amt, bool new_id)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   queryqueue.push(format("insert into shoplogjournal (shop_nr, journal_id, customer_name, obj_name, sneezy_year, logtime, post_ref, debit, credit)values (%i, %s, '%s', '%s', %i, now(), %i, 0, %i)") % shop_nr % (sstring)(new_id?"NULL":"LAST_INSERT_ID()") % db.escape(customer) % db.escape(name) % GameTime::getYear() % post_ref % amt);
 }
 
 void TShopOwned::COGS_add(const sstring &name, int amt, int num)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
 
   db.query("select 1 from shoplogcogs where obj_name='%s' and shop_nr=%i", name.c_str(), shop_nr);
@@ -189,7 +189,7 @@ void TShopOwned::COGS_add(const sstring &name, int amt, int num)
 
 void TShopOwned::COGS_remove(const sstring &name, int num)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   //  db.query("update shoplogcogs set total_cost=total_cost-((total_cost/count)*%i), count=count-%i where obj_name='%s' and shop_nr=%i", num, num, name.c_str(), shop_nr);
 
@@ -198,7 +198,7 @@ void TShopOwned::COGS_remove(const sstring &name, int num)
 
 int TShopOwned::COGS_get(const sstring &name, int num)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("select (total_cost/count)*%i as cost from shoplogcogs where shop_nr=%i and obj_name='%s'", num, shop_nr, name.c_str());
 
@@ -213,7 +213,7 @@ void TShopOwned::journalize(const sstring &customer, const sstring &name,
                             int amt, int tax, int corp_cash,
                             int expenses, int num)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   int COGS=0;
 
   switch(action){

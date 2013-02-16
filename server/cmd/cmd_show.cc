@@ -1156,7 +1156,7 @@ void TPerson::doShow(const sstring &argument)
   } else if (is_abbrev(buf, "newfactions")) {
     show_guild(my_arg.c_str());
   } else if (is_abbrev(buf, "oproc")){
-    TDatabase db(DB_SNEEZY);
+    TDatabase db;
 
     db.query("select spec_proc, count(*) as count from obj where spec_proc > 0 group by spec_proc order by spec_proc");
     db.fetchRow();

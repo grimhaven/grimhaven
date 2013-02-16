@@ -336,10 +336,10 @@ static void TBeingSave(TBeing *ch, TMonster *mob, int vnum)
     actions = actions & ~1<<0;
 
   ch->sendTo("Saving.\n\r");
-  TDatabase db(DB_IMMORTAL);
-  db.query("delete from mob where owner = '%s' and vnum = %i", ch->name, vnum);
+  TDatabase db;
+  db.query("delete from immortal_mob where owner = '%s' and vnum = %i", ch->name, vnum);
   // (owner, vnum, name, short_desc, long_desc, description, actions, affects, faction, fact_perc, letter, attacks, class, level, tohit, ac, hpbonus, damage_level, damage_precision, gold, race, weight, height, str, bra, con, dex, agi, intel, wis, foc, per, cha, kar, spe, pos, def_position, sex, spec_proc, skin, vision, can_be_seen, max_exist, local_sound, adjacent_sound)
-  db.query("insert into mob values ('%s', %i, '%s', '%s', '%s', '%s', %i, %i, %i, %i, '%s', %f, %i, %i, %i, %f, %f, %f, %i, %i, %i, %i, %i, %i, %i, %i, %i, %i, %i, %i, %i, %i, %i, %i, %i, %i, %i, %i, %i, %i, %i, %i, %i, '%s', '%s')",
+  db.query("insert into immortal_mob values ('%s', %i, '%s', '%s', '%s', '%s', %i, %i, %i, %i, '%s', %f, %i, %i, %i, %f, %f, %f, %i, %i, %i, %i, %i, %i, %i, %i, %i, %i, %i, %i, %i, %i, %i, %i, %i, %i, %i, %i, %i, %i, %i, %i, %i, '%s', '%s')",
       ch->name, vnum,
       name, short_desc, long_desc, description,
       actions, static_cast<unsigned long>(mob->specials.affectedBy),
@@ -365,15 +365,15 @@ static void TBeingSave(TBeing *ch, TMonster *mob, int vnum)
       (mob->sounds ? local_sound : ""), (mob->distantSnds ? adjacent_sound : ""));
 
   // immunties
-  db.query("delete from mob_imm where owner = '%s' and vnum = %i", ch->name, vnum);
+  db.query("delete from immortal_mob_imm where owner = '%s' and vnum = %i", ch->name, vnum);
   immuneTypeT ij;
   for (ij=MIN_IMMUNE;ij < MAX_IMMUNES;ij++) {
     if (mob->getImmunity(ij) != 0)
-      db.query("insert into mob_imm (owner, vnum, type, amt) values ('%s', %i, %i, %i)", ch->name, vnum, (int) ij, mob->getImmunity(ij));
+      db.query("insert into immortal_mob_imm (owner, vnum, type, amt) values ('%s', %i, %i, %i)", ch->name, vnum, (int) ij, mob->getImmunity(ij));
   }
 
   // extra messages (repop, bamfout, etc)
-  db.query("delete from mob_extra where owner = '%s' and vnum = %i", ch->name, vnum);
+  db.query("delete from immortal_mob_extra where owner = '%s' and vnum = %i", ch->name, vnum);
   extraDescription *tExDescr;
   for (tExDescr = mob->ex_description; tExDescr; tExDescr = tExDescr->next) {
     if (strlen(tExDescr->description)) {
@@ -384,7 +384,7 @@ static void TBeingSave(TBeing *ch, TMonster *mob, int vnum)
           description[tMarker++] = tExDescr->description[tPos];
       description[tMarker] = '\0';
       */
-      db.query("insert into mob_extra (owner, vnum, keyword, description) values ('%s', %i, '%s', '%i')", ch->name, vnum, tExDescr->keyword, tExDescr->description);
+      db.query("insert into immortal_mob_extra (owner, vnum, keyword, description) values ('%s', %i, '%s', '%i')", ch->name, vnum, tExDescr->keyword, tExDescr->description);
     }
   }
 }
@@ -525,13 +525,13 @@ static void medit(TBeing *ch, char *arg)
 static void mlist(TPerson *ch, bool zone=false)
 {
   // list the mobs from a player's immortal file
-  TDatabase db = DB_IMMORTAL;
+  TDatabase db;
   sstring longstr;
 
   if(zone){
-    db.query("select vnum, name, short_desc from mob where owner='%s' and vnum>%i and vnum<=%i order by vnum", ch->name, zone_table[ch->roomp->getZone()->zone_nr-1].top, ch->roomp->getZone()->top);
+    db.query("select vnum, name, short_desc from immortal_mob where owner='%s' and vnum>%i and vnum<=%i order by vnum", ch->name, zone_table[ch->roomp->getZone()->zone_nr-1].top, ch->roomp->getZone()->top);
   } else {
-    db.query("select vnum, name, short_desc from mob where owner = '%s' order by vnum", ch->name);
+    db.query("select vnum, name, short_desc from immortal_mob where owner = '%s' order by vnum", ch->name);
   }
 
   if(!db.isResults()){
@@ -551,18 +551,18 @@ static void mlist(TPerson *ch, bool zone=false)
 static void mremove(TBeing *ch, int vnum)
 {
   // delete a mob from a player's immortal file
-  TDatabase db(DB_IMMORTAL);
+  TDatabase db;
 
-  db.query("select vnum from mob where vnum=%i and owner='%s'", vnum, ch->name);
+  db.query("select vnum from immortal_mob where vnum=%i and owner='%s'", vnum, ch->name);
 
   if(!db.isResults()){
     ch->sendTo("Mob not found.\n\r");
     return;
   }
 
-  if(!db.query("delete from mob where vnum=%i and owner='%s'", vnum, ch->name) ||
-     !db.query("delete from mob_imm where vnum=%i and owner='%s'", vnum, ch->name) ||
-     !db.query("delete from mob_extra where vnum=%i and owner='%s'", vnum, ch->name)){
+  if(!db.query("delete from immortal_mob where vnum=%i and owner='%s'", vnum, ch->name) ||
+     !db.query("delete from immortal_mob_imm where vnum=%i and owner='%s'", vnum, ch->name) ||
+     !db.query("delete from immortal_mob_extra where vnum=%i and owner='%s'", vnum, ch->name)){
     ch->sendTo("Database error!  Talk to a coder ASAP.\n\r");
     return;
   } else

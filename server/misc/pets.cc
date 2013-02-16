@@ -39,7 +39,7 @@ a pet.  That is, if I charm a pet, its a charm (not a pet).
 
 void TBeing::petSave()
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   affectedData *aff = NULL, *an = NULL;
   char *owner;
   int owner_id;

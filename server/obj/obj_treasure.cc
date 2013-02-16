@@ -53,7 +53,7 @@ sstring TTreasure::statObjInfo() const
     if (!getSerialNumber()) {
       a = "\n\r<R>Invalid Immortal Exchange coin: no serial number.<1>\n\r";
     } else {
-      TDatabase db(DB_SNEEZY);
+      TDatabase db;
       db.query("select *, (select name from player where id = c1.created_by) as name_created_by, (select name from player where id = c1.created_for) as name_created_for, (select name from player where id = c1.redeemed_by) as name_redeemed_by, (select name from player where id = c1.redeemed_for) as name_redeemed_for from immortal_exchange_coin c1 where c1.k_coin = %i", getSerialNumber());
       if (db.fetchRow()) {
         a = format("\n\rImmortal Exchange coin serial number: %i\n\r") % getSerialNumber();
@@ -78,7 +78,7 @@ void TTreasure::lowCheck()
 {
   if (objVnum() == Obj::IMMORTAL_EXCHANGE_COIN) {
     if (getSerialNumber()) {
-      TDatabase db(DB_SNEEZY);
+      TDatabase db;
       db.query("select k_coin from immortal_exchange_coin where k_coin = %i and date_redeemed is not null", getSerialNumber());
       if (db.rowCount() > 0) {
         sstring buffer;

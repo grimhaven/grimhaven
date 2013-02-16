@@ -2912,7 +2912,7 @@ static void RoomSave(TBeing *ch, int start, int end, int useSecond)
   extraDescription *exptr;
   TRoom *rp;
   roomDirData *rdd;
-  TDatabase db(DB_IMMORTAL);
+  TDatabase db;
 
   rstart = start;
   rend = end;
@@ -2925,11 +2925,11 @@ static void RoomSave(TBeing *ch, int start, int end, int useSecond)
   ch->sendTo("Saving.\n\r");
   strcpy(dots, "\0");
 
-  db.query("delete from room where owner='%s' and block=%i",
+  db.query("delete from immortal_room where owner='%s' and block=%i",
            ch->getName(), useSecond);
-  db.query("delete from roomexit where owner='%s' and block=%i",
+  db.query("delete from immortal_roomexit where owner='%s' and block=%i",
            ch->getName(), useSecond);
-  db.query("delete from roomextra where owner='%s' and block=%i",
+  db.query("delete from immortal_roomextra where owner='%s' and block=%i",
            ch->getName(), useSecond);
 
   for (i = rstart; i <= rend; i++) {
@@ -2950,7 +2950,7 @@ static void RoomSave(TBeing *ch, int start, int end, int useSecond)
     }
     temp[x] = '\0';
 
-    db.query("insert into room (owner, block, vnum,x,y,z,name,description,room_flag,sector,teletime,teletarg,telelook,river_speed,river_dir,capacity,height) values ('%s',%i,%i,%i,%i,%i, '%s','%s',%i,%i,%i,%i,%i,%i,%i,%i,%i)",
+    db.query("insert into immortal_room (owner, block, vnum,x,y,z,name,description,room_flag,sector,teletime,teletarg,telelook,river_speed,river_dir,capacity,height) values ('%s',%i,%i,%i,%i,%i, '%s','%s',%i,%i,%i,%i,%i,%i,%i,%i,%i)",
              ch->getName(), useSecond,
              rp->number, 0, 0, 0, rp->name, temp,
              rp->getRoomFlags(),
@@ -2981,7 +2981,7 @@ static void RoomSave(TBeing *ch, int start, int end, int useSecond)
         }
 
 
-        db.query("insert into roomexit (owner,block, vnum,direction,name,description,type,condition_flag,lock_difficulty,weight,key_num,destination) values ('%s', %i, %i, %i,'%s','%s',%i,%i,%i,%i,%i,%i)",
+        db.query("insert into immortal_roomexit (owner,block, vnum,direction,name,description,type,condition_flag,lock_difficulty,weight,key_num,destination) values ('%s', %i, %i, %i,'%s','%s',%i,%i,%i,%i,%i,%i)",
                  ch->getName(), useSecond,
                  rp->number, mapDirToFile(j), keyword.c_str(),
                  descr.c_str(),
@@ -3001,7 +3001,7 @@ static void RoomSave(TBeing *ch, int start, int end, int useSecond)
         }
         temp[x] = '\0';
 
-        db.query("insert into roomextra (owner, block, vnum, name, description) values ('%s',%i,%i,'%s','%s')", ch->getName(), useSecond, rp->number, exptr->keyword, temp);
+        db.query("insert into immortal_roomextra (owner, block, vnum, name, description) values ('%s',%i,%i,'%s','%s')", ch->getName(), useSecond, rp->number, exptr->keyword, temp);
       }
     }
 
@@ -3020,18 +3020,18 @@ void RoomLoad(TBeing *ch, int start, int end, int useSecond)
   int tmp;
   extraDescription *new_descr;
 
-  TDatabase db(DB_IMMORTAL);
-  TDatabase db_exits(DB_IMMORTAL);
-  TDatabase db_extras(DB_IMMORTAL);
+  TDatabase db;
+  TDatabase db_exits;
+  TDatabase db_extras;
 
   ch->sendTo("Searching and loading rooms\n\r");
 
-  db.query("select vnum, x, y, z, name, description, room_flag, sector, teletime, teletarg, telelook, river_speed, river_dir, capacity, height from room where owner='%s' and block=%i and vnum >= %i and vnum <= %i order by vnum asc", ch->getName(), useSecond, start, end);
+  db.query("select vnum, x, y, z, name, description, room_flag, sector, teletime, teletarg, telelook, river_speed, river_dir, capacity, height from immortal_room where owner='%s' and block=%i and vnum >= %i and vnum <= %i order by vnum asc", ch->getName(), useSecond, start, end);
 
-  db_exits.query("select vnum, direction, name, description, type, condition_flag, lock_difficulty, weight, key_num, destination from roomexit where owner='%s' and block=%i and vnum >= %i and vnum <= %i order by vnum asc", ch->getName(), useSecond, start, end);
+  db_exits.query("select vnum, direction, name, description, type, condition_flag, lock_difficulty, weight, key_num, destination from immortal_roomexit where owner='%s' and block=%i and vnum >= %i and vnum <= %i order by vnum asc", ch->getName(), useSecond, start, end);
   db_exits.fetchRow();
 
-  db_extras.query("select vnum, name, description from roomextra where owner='%s' and block=%i and vnum >= %i and vnum <= %i order by vnum asc", ch->getName(), useSecond, start, end);
+  db_extras.query("select vnum, name, description from immortal_roomextra where owner='%s' and block=%i and vnum >= %i and vnum <= %i order by vnum asc", ch->getName(), useSecond, start, end);
   db_extras.fetchRow();
 
   while(db.fetchRow()){

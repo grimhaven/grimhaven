@@ -23,7 +23,7 @@
 
 double getPenalty(unsigned int shop_nr, const sstring &name)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("select profit_buy from shopownedplayer where player='%s' and shop_nr=%i", name.c_str(), shop_nr);
 
@@ -41,7 +41,7 @@ double getPenalty(unsigned int shop_nr, const sstring &name)
 
 double getRate(unsigned int shop_nr, const sstring &name)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("select profit_sell from shopownedplayer where player='%s' and shop_nr=%i", name.c_str(), shop_nr);
 
@@ -59,7 +59,7 @@ double getRate(unsigned int shop_nr, const sstring &name)
 
 int getTerm(unsigned int shop_nr, const sstring &name)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("select max_num from shopownedplayer where player='%s' and shop_nr=%i", name.c_str(), shop_nr);
 
@@ -113,7 +113,7 @@ int calcInterest(int amt, time_t granted, int term, float rate, float def_charge
 int loanShark(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *me, TObj *o)
 {
   unsigned int shop_nr;
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   time_info_data due;
   sstring buf;
 

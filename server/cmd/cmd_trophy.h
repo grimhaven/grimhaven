@@ -44,7 +44,6 @@
 class TDatabase;
 
 class TTrophy {
-  TDatabase *db;
   const TBeing *parent;
   sstring name;
 

@@ -23,7 +23,7 @@ procFactoryProduction::procFactoryProduction(const int &p)
 
 void procFactoryProduction::run(const TPulse &) const
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("select distinct shop_nr from factoryproducing");
 

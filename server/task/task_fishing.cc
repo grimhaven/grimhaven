@@ -518,7 +518,7 @@ int task_fishing(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *rp, T
 void initialize_fish_records()
 {
   // put a row into the fishlargest table for any new, uncaught fish
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   unsigned int step;
   std::vector <int> fishious;
 

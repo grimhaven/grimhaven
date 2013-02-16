@@ -2169,7 +2169,7 @@ void buildComponentArray()
   unsigned int j;
   int vnum, usage;
   spellNumT spell;
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   if(!db.query("select vnum, val2, val3 from obj where type=%i", mapFileToItemType(ITEM_COMPONENT))){
     vlogf(LOG_BUG, "Terminal database error (buildComponentArray)!");
@@ -2312,7 +2312,7 @@ bool TComponent::sellMeCheck(TBeing *ch, TMonster *keeper, int num, int defaultM
     return TRUE;
   }
 
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("select val0 from rent where owner_type='shop' and owner=%i and vnum=%i",
            shop_nr, objVnum());
@@ -3148,7 +3148,7 @@ int TComponent::sellMe(TBeing *ch, TMonster *tKeeper, int tShop, int num)
   int     tCost;
   int rent_id = 0, charges = 0, totalInv = 0;
   TObj *remove = NULL;
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   TShopOwned tso(tShop, tKeeper, ch);
 
   if (!shop_index[tShop].profit_sell) {

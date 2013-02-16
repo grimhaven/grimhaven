@@ -132,6 +132,11 @@ class Config {
   // remove various production-mode restrictions
   static bool mode_prod;
 
+  // database connection params
+  static sstring db_host;
+  static sstring db_user;
+  static sstring db_name;
+
  public:
   static bool doConfiguration(int argc=0, char *argv[]=0);
 
@@ -162,11 +167,13 @@ class Config {
   static bool XmlPort(){ return xml_port; }
   static bool ModeBuilder(){ return mode_builder; }
   static bool ModeBeta(){ return mode_beta; }
-  // builder & beta mode exclude prod mode
-  static bool ModeProd(){ return !(mode_builder || mode_beta) && mode_prod; }
+  static bool ModeProd(){
+    // builder & beta mode exclude prod mode
+    return !(mode_builder || mode_beta) && mode_prod;
+  }
+  static sstring DbHost(){ return db_host; }
+  static sstring DbUser(){ return db_user; }
+  static sstring DbName(){ return db_name; }
 };
-
-
-
 
 #endif

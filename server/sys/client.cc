@@ -730,7 +730,7 @@ int Descriptor::read_client(char *str2)
     case CLIENT_CHECKACCOUNTNAME: {
       static char *crypted;
       TAccount *account;
-      TDatabase db(DB_SNEEZY);
+      TDatabase db;
       char aname[256];
       char apassword[256];
       strcpy(aname, nextToken('|', 255, str2).c_str());

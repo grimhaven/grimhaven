@@ -146,7 +146,7 @@ bool shopData::ensureCache()
   if (isCached)
     return true;
 
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   db.query("select obj_nr, profit_buy, profit_sell, max_num from shopownedratios where shop_nr=%i", shop_nr);
   while(db.fetchRow())
   {
@@ -521,7 +521,7 @@ void shopping_buy(const char *arg, TBeing *ch, TMonster *keeper, int shop_nr)
   sstring argm;
   int num = 1, rent_id;
   TObj *temp1 = NULL;
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   if (!(shop_index[shop_nr].willTradeWith(keeper, ch)))
     return;
@@ -1730,7 +1730,7 @@ sstring list_string(sstring buf, int len)
 
 void shopping_list(sstring argument, TBeing *ch, TMonster *keeper, int shop_nr)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   sstring buf, keyword="", short_desc;
   float price, perc;
   bool fit=true;
@@ -2036,7 +2036,7 @@ static bool shopping_look(const char *arg, TBeing *ch, TMonster *keeper, int sho
   const char *tmp_desc;
   TObj *temp1;
   int rent_id;
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   sstring buf;
 
   if (!*arg)
@@ -2097,7 +2097,7 @@ static bool shopping_evaluate(const char *arg, TBeing *ch, TMonster *keeper, int
   TObj *temp1;
   sstring buf;
   int rent_id;
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   if (!*arg)
     return FALSE;   // generic: look
@@ -2215,7 +2215,7 @@ int shopping_produce(TMonster *keeper)
       return FALSE;
     }
 
-    TDatabase db(DB_SNEEZY);
+    TDatabase db;
     db.query("select count(*) as count from rent where owner_type='shop' and owner=%i and vnum=%i", shop_nr, o->objVnum());
     db.fetchRow();
     int count=convertTo<int>(db["count"]);
@@ -2423,7 +2423,7 @@ void shoplog(int shop_nr, TBeing *ch, TMonster *keeper, const sstring &name, int
     value+=o->getValue();
   }
 
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   queryqueue.push(format("insert into shoplog values (%i, '%s', '%s', '%s', %i, %i, %i, now(), %i)") % shop_nr % db.escape(ch?ch->getName():"unknown") % db.escape(action) % db.escape(name) % cost % keeper->getMoney() % value % count);
 
@@ -2435,33 +2435,33 @@ void bootTheShops()
   int shop_nr;
 
   /****** producing ******/
-  TDatabase producing_db(DB_SNEEZY);
+  TDatabase producing_db;
   producing_db.query("select shop_nr, producing from shopproducing order by shop_nr");
   producing_db.fetchRow();
 
   /****** type ******/
-  TDatabase type_db(DB_SNEEZY);
+  TDatabase type_db;
   type_db.query("select shop_nr, type from shoptype order by shop_nr");
   type_db.fetchRow();
 
   /****** material ******/
-  TDatabase material_db(DB_SNEEZY);
+  TDatabase material_db;
   material_db.query("select shop_nr, mat_type from shopmaterial order by shop_nr");
   material_db.fetchRow();
 
   /****** owned ******/
-  TDatabase owned_db(DB_SNEEZY);
+  TDatabase owned_db;
   owned_db.query("select shop_nr, profit_buy, profit_sell, no_such_item1, no_such_item2, do_not_buy, missing_cash1, missing_cash2, message_buy, message_sell from shopowned order by shop_nr");
   owned_db.fetchRow();
 
 
   /****** is owned ******/
-  TDatabase isowned_db(DB_SNEEZY);
+  TDatabase isowned_db;
   isowned_db.query("select distinct shop_nr from shopowned order by shop_nr asc");
   isowned_db.fetchRow();
 
 
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("select shop_nr, no_such_item1, no_such_item2, do_not_buy, missing_cash1, missing_cash2, message_buy, message_sell, temper1, temper2, keeper, flags, in_room, open1, close1, open2, close2, profit_buy, profit_sell from shop order by shop_nr");
 
@@ -2770,8 +2770,8 @@ TMonster *shopData::getKeeper()
 
 void factoryProduction(int shop_nr)
 {
-  TDatabase db_vnum(DB_SNEEZY);
-  TDatabase db(DB_SNEEZY);
+  TDatabase db_vnum;
+  TDatabase db;
   TShopOwned tso(shop_nr);
   int vnum, count;
   TObj *obj;

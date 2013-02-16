@@ -1165,7 +1165,7 @@ void TPerson::doLow(const sstring &argument)
   } else if (is_abbrev(buf, "path")){
     lowPath(arg);
   } else if (is_abbrev(buf, "statbonus")) {
-    TDatabase db(DB_SNEEZY);
+    TDatabase db;
     db.query("select type, count(*) as count, max(mod1) as max, min(mod1) as min, avg(mod1) as avg, sum(mod1) as sum from objaffect group by type");
 
     sendTo(format("%13s %5s %5s %5s %10s %10s\n\r") %
@@ -1435,7 +1435,7 @@ void TBeing::lowTasks(const sstring &oarg)
   // low tasks priority <task ID> <priority>
   // low tasks status <task ID> <status>
   // low tasks delete <task ID>
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   sstring buf, buf2, temp, str, arg=oarg;
   int id, priority;

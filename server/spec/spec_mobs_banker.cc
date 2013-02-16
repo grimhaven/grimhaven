@@ -16,7 +16,7 @@ procBankInterest::procBankInterest(const int &p)
 
 void procBankInterest::run(const TPulse &) const
 {
-  TDatabase db(DB_SNEEZY), in(DB_SNEEZY), out(DB_SNEEZY);
+  TDatabase db, in, out;
   double profit_sell;
   unsigned int shop_nr;
   std::map <int, int> player_gain;
@@ -98,7 +98,7 @@ void procBankInterest::run(const TPulse &) const
 
 int bankWithdraw(TBeing *ch, TMonster *myself, TMonster *teller, int shop_nr, int money)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   int bankmoney;
 
   if (!ch->isPc() || dynamic_cast<TMonster *>(ch)) {
@@ -140,7 +140,7 @@ int bankWithdraw(TBeing *ch, TMonster *myself, TMonster *teller, int shop_nr, in
 
 int bankDeposit(TBeing *ch, TMonster *myself, TMonster *teller, int shop_nr, int money)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   int bankmoney;
 
   if (!ch->isPc() || dynamic_cast<TMonster *>(ch)) {
@@ -190,7 +190,7 @@ int bankDeposit(TBeing *ch, TMonster *myself, TMonster *teller, int shop_nr, int
 
 int bankBalance(TBeing *ch, TMonster *myself, TMonster *teller, int shop_nr)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   int bankmoney;
 
   db.query("select talens from shopownedbank where shop_nr=%i and player_id=%i", shop_nr, ch->getPlayerID());
@@ -211,7 +211,7 @@ int bankBalance(TBeing *ch, TMonster *myself, TMonster *teller, int shop_nr)
 
 int bankBuyAccount(TBeing *ch, TMonster *myself, TMonster *teller, int shop_nr, int money)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   if(ch->getMoney() < 100){
     teller->doTell(ch->getName(), "You don't have enough money to open an account.");
@@ -238,8 +238,8 @@ int bankBuyAccount(TBeing *ch, TMonster *myself, TMonster *teller, int shop_nr, 
 int centralBanker(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, TObj *)
 {
   int shop_nr;
-  TDatabase db(DB_SNEEZY);
-  TDatabase db2(DB_SNEEZY);
+  TDatabase db;
+  TDatabase db2;
   sstring buf;
 
   if((cmd != CMD_WHISPER &&
@@ -276,7 +276,7 @@ int centralBanker(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, T
 int banker(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, TObj *)
 {
   int shop_nr, money=0;
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   if((cmd!=CMD_WITHDRAW &&
       cmd!=CMD_DEPOSIT &&

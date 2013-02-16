@@ -739,7 +739,7 @@ int TBeing::doTell(const sstring &name, const sstring &message, bool visible)
   } else {
     if(!(vict=findTellTarget(this, name, visible, true))){
       if(isImmortal()){
-        TDatabase db(DB_SNEEZY);
+        TDatabase db;
         db.query("select p1.name as name from player p1, player p2, account a where p2.name='%s' and a.account_id=p2.account_id and p1.account_id=a.account_id", name.c_str());
 
         while(db.fetchRow()){
@@ -874,7 +874,7 @@ int TBeing::doTell(const sstring &name, const sstring &message, bool visible)
   else
     d->output.putInQ(new TellFromComm(vict->getName(), capbuf.cap(), garbed, false, !isPc()));
 
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   queryqueue.push(format("insert into tellhistory (tellfrom, tellto, tell, telltime) values ('%s', '%s', '%s', now())") % db.escape(capbuf.cap()) % db.escape(vict->getName()) % db.escape(garbed));
 
 

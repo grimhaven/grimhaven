@@ -406,7 +406,7 @@ public:
         int may_control (TMonster *captain, TBeing *ersatz_master) {
                 if (!ersatz_master)
                         return FALSE;
-                TDatabase db(DB_SNEEZY);
+                TDatabase db;
                 db.query("select case when account_id = %i then 2 when player_id = %i then 1 else 0 end as privileges from ship_master where captain_vnum =  %i and (account_id = %i or player_id = %i)", ersatz_master->desc->account->account_id, ersatz_master->desc->playerID, captain->mobVnum(), ersatz_master->desc->account->account_id, ersatz_master->desc->playerID);
                 if(!db.fetchRow()){
                   return 0;
@@ -429,7 +429,7 @@ int shipCaptain(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, TOb
   path.setNoMob(false);
   path.setShipOnly(true);
   sstring argument=arg;
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   int privileges = 0; // 0 = none, 1 = delegated (minimal control), 2 = full control of captain
   std::map<int, int>::iterator ship;
   ship = captains_and_masters.captains.find(myself->mobVnum());

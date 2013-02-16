@@ -870,13 +870,13 @@ void TPerson::advanceSelectDisciplines(classIndT Class, int numx, silentTypeT si
 
 
 void logPermaDeathLevel(TBeing *ch){
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   db.query("delete from permadeath where name='%s'", ch->name);
   db.query("insert into permadeath (name, level, killer, died) values ('%s', %i, 'no one', 0)", ch->name, ch->GetMaxLevel());
 }
 
 void clearPermaDeathLevel(TBeing *ch){
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   db.query("delete from permadeath where name='%s'", ch->name);
 }
 

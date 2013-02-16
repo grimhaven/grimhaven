@@ -16,7 +16,7 @@
 // rate players by number of unique creatures killed
 int getUniqueTrophyRank(TBeing *targ)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   if (!targ) {
     vlogf(LOG_BUG, "getUniqueTrophyRank entered with null targ");

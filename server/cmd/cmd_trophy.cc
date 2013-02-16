@@ -7,14 +7,12 @@
 #include "connect.h"
 
 TTrophy::TTrophy(sstring n) :
-  db(new TDatabase(DB_SNEEZY)),
   parent(NULL),
   name(n)
 {
 }
 
 TTrophy::TTrophy(TBeing *p) :
-  db(new TDatabase(DB_SNEEZY)),
   parent(p),
   name("")
 {
@@ -48,7 +46,7 @@ procTrophyDecay::procTrophyDecay(const int &p)
 
 void procTrophyDecay::run(const TPulse &) const
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   float dec=0.25;
 
   for(TBeing *tb=character_list;tb;tb=tb->next){
@@ -60,40 +58,45 @@ void procTrophyDecay::run(const TPulse &) const
 }
 
 void TTrophy::addToCount(int vnum, double add){
+  TDatabase db;
+
   if(vnum==-1 || vnum==0 || getMyName()==""){ return; }
 
   int player_id=parent->getPlayerID();
 
   // in most cases we just want to do an update, so start with that
-  db->query("update trophy set count=count+%f, totalcount=totalcount+%f where player_id=%i and mobvnum=%i",
+  db.query("update trophy set count=count+%f, totalcount=totalcount+%f where player_id=%i and mobvnum=%i",
       add, (add>0 ? add : 0), player_id, vnum);
-  if (db->rowCount() == 0) {
+  if (db.rowCount() == 0) {
     // no row for this player & mob so do an insert instead
-    db->query("insert into trophy values (%i, %i, %f, %f)",
+    db.query("insert into trophy values (%i, %i, %f, %f)",
         player_id, vnum, add, (add>0 ? add : 0));
   }
 
-  db->query("update trophyplayer set total=total+%f where player_id=%i",
-     add, player_id);
+  db.query("update trophyplayer set total=total+%f where player_id=%i", add, player_id);
 }
 
 
 float TTrophy::getCount(int vnum)
 {
-  db->query("select count from trophy where player_id=%i and mobvnum=%i",
+  TDatabase db;
+
+  db.query("select count from trophy where player_id=%i and mobvnum=%i",
            parent->getPlayerID(), vnum);
-  if(db->fetchRow())
-    return convertTo<float>((*db)["count"]);
+  if(db.fetchRow())
+    return convertTo<float>(db["count"]);
   else
     return 0.0;
 }
 
 float TTrophy::getTotalCount(int vnum)
 {
-  db->query("select totalcount from trophy where player_id=%i and mobvnum=%i",
+  TDatabase db;
+
+  db.query("select totalcount from trophy where player_id=%i and mobvnum=%i",
            parent->getPlayerID(), vnum);
-  if(db->fetchRow())
-    return convertTo<float>((*db)["totalcount"]);
+  if(db.fetchRow())
+    return convertTo<float>(db["totalcount"]);
   else
     return 0.0;
 }
@@ -174,7 +177,7 @@ void TBeing::doTrophy(const sstring &arg)
     summary=true;
   }
 
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   db.query("select mobvnum, count from trophy where player_id=%i order by mobvnum", per->getPlayerID());
 
   for (zone = 0; zone < zone_table.size(); zone++) {
@@ -299,9 +302,11 @@ void TBeing::doTrophy(const sstring &arg)
 
 
 void TTrophy::wipe(){
-  db->query("select id from player where name='%s'", getMyName().c_str());
+  TDatabase db;
 
-  if(db->fetchRow())
-    db->query("delete from trophy where player_id=%i", convertTo<int>((*db)["id"]));
+  db.query("select id from player where name='%s'", getMyName().c_str());
+
+  if(db.fetchRow())
+    db.query("delete from trophy where player_id=%i", convertTo<int>(db["id"]));
 
 }

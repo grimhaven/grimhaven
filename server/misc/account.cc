@@ -74,7 +74,7 @@ TAccount::~TAccount()
 
 bool TAccount::read(const sstring &aname)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   bool res;
 
   res=db.query("select account_id, email, passwd, name, birth, term, time_adjust, flags, last_logon from account where name=lower('%s')", aname.c_str());
@@ -99,7 +99,7 @@ bool TAccount::read(const sstring &aname)
 
 bool TAccount::write(const sstring &aname)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   bool res;
 
   db.query("select 1 from account where name=lower('%s')", aname.c_str());

@@ -8,7 +8,7 @@
 
 void corpListing(TBeing *ch, TMonster *me)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   std::multimap <int, sstring, std::greater<int> > m;
   std::multimap <int, sstring, std::greater<int> >::iterator it;
   std::vector <corp_list_data> corp_list;
@@ -34,7 +34,7 @@ void corpListing(TBeing *ch, TMonster *me)
 
 void corpLogs(TBeing *ch, TMonster *me, sstring arg, sstring corp_arg)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   sstring buf, sb;
   int corp_id=0;
 
@@ -114,7 +114,7 @@ void corpLogs(TBeing *ch, TMonster *me, sstring arg, sstring corp_arg)
 
 void corpSummary(TBeing *ch, TMonster *me, int corp_id)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   int value=0, gold=0, banktalens=0, bank=4, bankowner=0;
   sstring buf;
   TRoom *tr=NULL;
@@ -206,7 +206,7 @@ void corpSummary(TBeing *ch, TMonster *me, int corp_id)
 
 void corpDeposit(TBeing *ch, TMonster *me, int gold, sstring arg)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   int corp_id=0;
   unsigned int shop_nr;
   TBeing *banker;
@@ -276,7 +276,7 @@ void corpDeposit(TBeing *ch, TMonster *me, int gold, sstring arg)
 
 void corpWithdraw(TBeing *ch, TMonster *me, int gold, sstring arg)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   int corp_id=0, bank_amt=0;
   unsigned int shop_nr;
   TBeing *banker;
@@ -354,7 +354,7 @@ void corpWithdraw(TBeing *ch, TMonster *me, int gold, sstring arg)
 
 void corpBalance(TBeing *ch, TMonster *me, sstring arg)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   int corp_id=0;
 
   db.query("select corp_id from corpaccess where lower(name)='%s'",
@@ -400,7 +400,7 @@ int corporateAssistant(TBeing *ch, cmdTypeT cmd, const char *argument, TMonster 
   if(!ch || !me)
     return FALSE;
 
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   int tmp=0;
   sstring buf, arg=argument;
 

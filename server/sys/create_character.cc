@@ -673,7 +673,7 @@ connectStateT nannyLaunchpad_input(Descriptor * desc, sstring & output, const ss
     return CON_CREATION_RESET;
   else if (input.upper() == "D" && nannyLaunchpad_allowdone(desc, output))
   {
-    TDatabase db(DB_SNEEZY);
+    TDatabase db;
 
     desc->character->convertAbilities();
     desc->character->affectTotal();

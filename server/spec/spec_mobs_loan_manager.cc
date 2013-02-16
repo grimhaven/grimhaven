@@ -18,7 +18,7 @@
 void loanBuy(TBeing *ch, TMonster *myself, sstring arg)
 {
   int loan_id=convertTo<int>(arg.word(0));
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   int shop_nr=find_shop_nr(myself->number);
   TShopOwned tso(shop_nr, myself, ch);
   TCorporation corp(tso.getCorpID());
@@ -77,7 +77,7 @@ void loanBuy(TBeing *ch, TMonster *myself, sstring arg)
 
 void loanList(TBeing *ch, TMonster *myself)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("select loan_id, amt, rate, risk from shopownednpcloans order by loan_id");
 

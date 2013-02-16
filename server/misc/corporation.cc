@@ -5,7 +5,7 @@
 
 sstring TCorporation::getName()
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("select name from corporation where corp_id=%i", corp_id);
   db.fetchRow();
@@ -23,7 +23,7 @@ TCorporation::~TCorporation(){
 
 void TCorporation::corpLog(const sstring &name, const sstring &action, int talens)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
 
   db.query("insert into corplog values (%i, '%s', '%s', %i, %i, now())",
@@ -32,7 +32,7 @@ void TCorporation::corpLog(const sstring &name, const sstring &action, int talen
 
 
 int TCorporation::getAccess(TBeing *ch){
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("select access from corpaccess where corp_id=%i and lower(name)='%s'", corp_id, sstring(ch->getName()).lower().c_str());
 
@@ -44,7 +44,7 @@ int TCorporation::getAccess(TBeing *ch){
 }
 
 bool TCorporation::hasAccess(TBeing *ch, int perm){
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   int access;
 
   db.query("select access from corpaccess where corp_id=%i and lower(name)='%s'",
@@ -62,7 +62,7 @@ bool TCorporation::hasAccess(TBeing *ch, int perm){
 
 int TCorporation::getBank()
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("select bank from corporation where corp_id=%i", corp_id);
 
@@ -75,7 +75,7 @@ int TCorporation::getBank()
 
 void TCorporation::setBank(int bank)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("update corporation set bank=%i where corp_id=%i", bank, corp_id);
 
@@ -83,7 +83,7 @@ void TCorporation::setBank(int bank)
 
 int TCorporation::getMoney()
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("select talens from shopownedcorpbank b, corporation c where c.corp_id=%i and c.corp_id=b.corp_id and b.shop_nr=c.bank", corp_id);
 
@@ -96,7 +96,7 @@ int TCorporation::getMoney()
 
 void TCorporation::setMoney(int g)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("update shopownedcorpbank scb, corporation c set scb.talens=%i where scb.corp_id=c.corp_id and c.corp_id=%i and scb.shop_nr=c.bank", g, corp_id);
 }
@@ -109,7 +109,7 @@ int TCorporation::getCorpID()
 
 int TCorporation::getAssets()
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("select sum(price) as price from rent where owner_type='shop' and owner in (select shop_nr from shopowned where corp_id=%i)", corp_id);
   db.fetchRow();
@@ -120,7 +120,7 @@ int TCorporation::getAssets()
 
 std::vector <corp_list_data> getCorpListingData(void)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   int corp_id=0, gold=0, bankowner=0, bankgold=0;
   std::vector <corp_list_data> corp_list;
   corp_list_data corp_list_item;

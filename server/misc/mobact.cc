@@ -3817,7 +3817,7 @@ int TMonster::mobileActivity(int pulse)
     }
 
     if(shop_index[shop_nr].isOwned()){
-      TDatabase db(DB_SNEEZY);
+      TDatabase db;
 #if 0
 
       int salary=1000;

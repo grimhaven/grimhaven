@@ -689,7 +689,7 @@ bool ItemSave::raw_write_item(TObj *o)
 
 int ItemSaveDB::raw_write_item(TObj *o, int slot, int container, int rent_id)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   int a0, a1, a2,a3;
   o->getFourValues(&a0, &a1, &a2, &a3);
 
@@ -953,7 +953,7 @@ TObj *ItemLoad::raw_read_item()
 
 TObj *ItemLoadDB::raw_read_item(int rent_id, int &slot)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   TObj *o;
 
   db.query("select owner_type, owner, vnum, slot, container, val0, val1, val2, val3, extra_flags, weight, bitvector, decay, cur_struct, max_struct, material, volume, price, depreciation from rent where rent_id=%i and owner_type='%s' and owner=%i", rent_id, owner_type.c_str(), owner);
@@ -1300,7 +1300,7 @@ bool ItemLoadDB::objsFromStore(TObj *parent, int *numread, TBeing *ch, TRoom *r,
   signed char slot;
   int container, rent_id;
   TObj *new_obj;
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("select rent_id, owner_type, owner, vnum, slot, container, val0, val1, val2,val3, extra_flags, weight, bitvector, decay, cur_struct, max_struct, material, volume, price, depreciation from rent where owner_type='%s' and owner=%i order by rent_id", owner_type, owner);
 
@@ -1813,7 +1813,7 @@ bool TBeing::recepOffer(TBeing *recep, objCost *cost)
 
 void ItemSaveDB::clearRent()
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("delete rof from rent_obj_aff rof, rent r where r.rent_id=rof.rent_id and r.owner_type='%s' and r.owner=%i", owner_type.c_str(), owner);
 
@@ -1858,7 +1858,7 @@ void TMonster::saveItems(const sstring &filepath)
 
   // shopkeeper specific stuff - save gold
   if(isShopkeeper()){
-    TDatabase db(DB_SNEEZY);
+    TDatabase db;
     db.query("update shopowned set gold=%i where shop_nr=%i",
              getMoney(), find_shop_nr(number));
   }
@@ -1895,7 +1895,7 @@ TObj *TMonster::loadItem(int shop_nr, int rent_id)
 
 void TMonster::deleteItem(int shop_nr, int rent_id)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("delete from rent where rent_id=%i", rent_id);
   db.query("delete from rent_obj_aff where rent_id=%i", rent_id);
@@ -1928,7 +1928,7 @@ void TMonster::saveItems(int shop_nr)
 
   // shopkeeper specific stuff - save gold
   if(isShopkeeper()){
-    TDatabase db(DB_SNEEZY);
+    TDatabase db;
     db.query("update shopowned set gold=%i where shop_nr=%i",
              getMoney(), find_shop_nr(number));
   }
@@ -3220,7 +3220,7 @@ int receptionist(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *recep, TOb
   char buf[256];
   dirTypeT dir;
   roomDirData *exitp;
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   TCorporation corp(21);
 
   int shop_nr = find_shop_nr(recep->number);
@@ -3651,7 +3651,7 @@ void countAccounts(const char *arg)
 
     vlogf(LOG_MISC, format("Empty Account: %s, deleting it.") %  buf);
 
-    TDatabase db(DB_SNEEZY);
+    TDatabase db;
     db.query("delete from account where name=lower('%s')", arg);
 
     sprintf(buf2, "account/%c/%s/comment", LOWER(arg[0]), sstring(arg).lower().c_str());

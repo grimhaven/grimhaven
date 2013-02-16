@@ -11,7 +11,7 @@
 
 sstring getPlayerName(int id)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("select name from player where id=%i", id);
   if(!db.fetchRow()){
@@ -25,7 +25,7 @@ sstring getPlayerName(int id)
 
 void endAuction(int ticket, int bidder, int seller)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   sstring auctioneer, msg;
   ItemLoad il;
   TObj *obj;
@@ -77,7 +77,7 @@ procUpdateAuction::procUpdateAuction(const int &p)
 void procUpdateAuction::run(const TPulse &) const
 {
 // called once per mud day
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("select shop_nr, ticket, bidder, seller from shopownedauction where days=1");
 
@@ -107,7 +107,7 @@ sstring listItem(int ticket, TObj *obj, int bid, int buyout, int days)
 
 void auctionList(TBeing *ch, TMonster *myself)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   sstring filename;
   int ticket;
   ItemLoad il;
@@ -195,7 +195,7 @@ void auctionSell(TBeing *ch, TMonster *myself, sstring arg)
 {
   TObj *obj;
   ItemSave is;
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   int ticket=1;
   int shop_nr=find_shop_nr(myself->number);
   TShopOwned tso(shop_nr, myself, ch);
@@ -273,7 +273,7 @@ void auctionSell(TBeing *ch, TMonster *myself, sstring arg)
 void auctionBuy(TBeing *ch, TMonster *myself, sstring arg)
 {
   int ticket=convertTo<int>(arg.word(0));
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   int shop_nr=find_shop_nr(myself->number);
   int days, bidder, bid, fee;
   TShopOwned tso(shop_nr, myself, ch);
@@ -334,7 +334,7 @@ void auctionBid(TBeing *ch, TMonster *myself, sstring arg)
   int ticket=convertTo<int>(arg.word(0));
   int my_bid=convertTo<int>(arg.word(1));
   int current_bid, buyout, max_bid, bidder, seller;
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   int shop_nr=find_shop_nr(myself->number);
 
   if(!ticket){
@@ -397,7 +397,7 @@ void auctionBid(TBeing *ch, TMonster *myself, sstring arg)
 int auctioneer(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, TObj *)
 {
 #if 0
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   int shop_nr;
 
   if(cmd!=CMD_WHISPER && cmd!=CMD_BUY && cmd!=CMD_LIST &&

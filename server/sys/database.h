@@ -4,11 +4,10 @@
 #include <mysql/mysql.h>
 #include <queue>
 #include <map>
-#include <cstdio>
-#include <cstring>
-#include <string>
+#include <cstdarg>
 
-class sstring;
+#include "sstring.h"
+
 
 // TDatabase is a class for interacting with the sql database.
 //
@@ -27,7 +26,7 @@ class sstring;
 // char name[]="blade";
 // int vnum=10000;
 //
-// TDatabase db("sneezy");
+// TDatabase db();
 // db.query("select vnum, price, short_desc from obj where weight<%f and
 // name like '%%%s%%' and vnum>%i", weight, name, vnum);
 //
@@ -40,17 +39,6 @@ class sstring;
 //
 //
 // Documentation:
-//
-// TDatabase(dbTypeT) - The initializer takes the name of the database you
-// want to use as an argument.  Allowable databases are listed below under
-// dbTypeT, but the most common is DB_SNEEZY.
-// Returns: TDatabase (initializer)
-// Ex: TDatabase db(DB_SNEEZY);
-//
-// bool setDB(dbTypeT) - This function sets the database that the instance
-// will use, and is generally called from the constructor rather than directly.
-// Returns: nothing (void)
-// Ex: db.setDB(DB_SNEEZY);
 //
 // bool query(const char*,...) - This function sends a query to the database.
 // It takes a printf style format sstring as the arguments.  The allowed
@@ -89,71 +77,60 @@ class sstring;
 // as well as standard result set sizes for select statements.
 // Result of -1 means the query returned an error.
 // Although, the docs claim that the my_ulonglong datatype is unsigned so who knows?
+//
+// const sstring escape(const sstring &) - escapes string for use in SQL
+// Uses mysql_real_escape_string (mysql_escape_string is deprecated)
 
-enum dbTypeT {
-  DB_SNEEZY,
-  DB_IMMORTAL,
-  DB_SNEEZYGLOBAL,
+extern std::queue<sstring> queryqueue;
 
-  DB_MAX,
-};
-
-struct ltstr
-{
-  bool operator()(const char* s1, const char* s2) const
-  {
-    return strcmp(s1, s2) < 0;
-  }
-};
+const sstring EMPTY("");
 
 class TDatabase
 {
+ private:
   MYSQL_RES *res;
   MYSQL_ROW row;
-  MYSQL *db;
+  static MYSQL *db;
   long row_count;
-  std::map <const char *, int, ltstr> column_names;
+  unsigned long row_columns;
+  std::map<sstring, int> column_map;
+  const sstring escapeQuery(const char *, va_list) const;
+  const sstring escapeQuery(const char *, ...) const;
+  void mapColumns(void);
 
  public:
-  void setDB(dbTypeT);
   bool query(const char *, ...);
-  bool fetchRow();
-  const sstring operator[] (const sstring &) const;
-  const sstring operator[] (unsigned int) const;
-  bool isResults();
-  long rowCount();
-  long lastInsertId() { return db ? mysql_insert_id(db) : 0; }
   const sstring escape(const sstring &) const;
+  long rowCount() { return row_count; }
+  bool isResults() { return res && mysql_num_rows(res); }
+  long lastInsertId() { return db ? mysql_insert_id(db) : 0; }
+  bool fetchRow() { return res && (row=mysql_fetch_row(res)); }
+  const sstring operator[] (const unsigned int i) const
+  {
+    if (!(res && row))
+      return NULL;
+
+    if (i >= row_columns) {
+      vlogf(LOG_DB, format("TDatabase::operator[%i] - invalid column index") %  i);
+      return EMPTY;
+    }
+    return row[i];
+  }
+  const sstring operator[] (const sstring &s) const
+  {
+    if (!(res && row))
+      return NULL;
+
+    if (!column_map.count(s)) {
+      vlogf(LOG_DB, format("TDatabase::operator[\"%s\"] - invalid column name") %  s);
+      return EMPTY;
+    }
+    // use at() instead of [] - latter precludes function const status
+    return row[column_map.at(s)];
+  }
 
   TDatabase();
-  TDatabase(dbTypeT);
   ~TDatabase();
 };
 
-// maintain instances of sneezydb and immodb
-class TDatabaseConnection
-{
-  MYSQL *databases[DB_MAX];
-
- public:
-  TDatabaseConnection();
-
-  const char *getConnectParam(dbTypeT type);
-  MYSQL *getDB(dbTypeT type);
-
-  void clearConnections(){ for(int i=0;i<DB_MAX;++i) databases[i]=NULL; }
-
-  // shortcuts - not sure if they are really needed...
-  MYSQL *getSneezyDB() { return getDB(DB_SNEEZY); }
-  MYSQL *getImmoDB() { return getDB(DB_IMMORTAL); }
-  MYSQL *getSneezyGlobalDB() { return getDB(DB_SNEEZYGLOBAL); }
-
-};
-
-extern std::vector <std::string> db_hosts;
-extern std::queue<sstring> queryqueue;
-extern TDatabaseConnection database_connection;
-
 #endif
-
-

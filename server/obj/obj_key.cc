@@ -50,7 +50,7 @@ sstring TKey::statObjInfo() const
 
 void TKey::lowCheck()
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   if(isRentable()){
     db.query("select 1 from property where key_vnum=%i", objVnum());

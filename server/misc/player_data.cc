@@ -307,7 +307,7 @@ bool raw_save_char(const char *name, charFile *char_element)
   }
   fclose(fl);
 
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   db.query("update player p, account a set p.talens=%i, p.account_id=a.account_id where lower(p.name)=lower('%s') and a.name='%s'",
            char_element->money, name, char_element->aname);
 
@@ -328,7 +328,7 @@ bool load_char(const sstring &name, charFile *char_element)
   int rc = fread(char_element, sizeof(charFile), 1, fl);
   fclose(fl);
 
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   db.query("select talens from player where lower(name)=lower('%s') and talens is not null",
            name.c_str());
   if(db.fetchRow()){
@@ -758,7 +758,7 @@ void TPerson::loadFromSt(charFile *st)
   // fatigue = st->fatigue;
   setHeroNum(st->hero_num);
 
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   desc->playerID=0;
   db.query("select p_type, hp, mana, move, money, exp, room, opp, tank, piety, lifeforce, time from playerprompt where player_id=%i", getPlayerID());
@@ -876,7 +876,7 @@ void TBeing::saveChar(int load_room)
         return;
       }
 
-      TDatabase db(DB_SNEEZY);
+      TDatabase db;
       db.query("update shopowned set gold=%i where shop_nr=%i",
                getMoney(), shop_nr);
     }
@@ -922,7 +922,7 @@ void TBeing::saveChar(int load_room)
     strcpy(buf2, sstring(tmp->name).lower().c_str());
     sprintf(buf, "account/%c/%s/%s", LOWER(tmp->desc->account->name[0]), sstring(tmp->desc->account->name).lower().c_str(), buf2);
   }
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   Descriptor *mydesc=tmp?tmp->desc:desc;
 
   if(!isImmortal()){
@@ -1173,7 +1173,7 @@ void do_the_player_stuff(const char *name)
         strncpy(factname, "error", 8);
       }
 
-      TDatabase db(DB_SNEEZY);
+      TDatabase db;
       db.query("insert into factionmembers values ('%s', '%s', %i)",
                st.name, factname, max_level);
     }
@@ -1237,7 +1237,7 @@ void fixup_players(void)
 
   wiz = new wizListInfo();
 
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   db.query("truncate factionmembers");
 
 
@@ -1689,7 +1689,7 @@ bool TBeing::isLinkdead() const
 
 void TBeing::saveTitle()
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   TPerson *tp;
 
   if(!(tp=dynamic_cast<TPerson *>(this)))
@@ -1701,7 +1701,7 @@ void TBeing::saveTitle()
 
 void TBeing::loadTitle()
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   TPerson *tp;
 
   if(!(tp=dynamic_cast<TPerson *>(this)))
@@ -1718,7 +1718,7 @@ void TBeing::loadTitle()
 
 void TBeing::saveDrugStats()
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   if (!isPc() || !desc)
     return;
@@ -1745,7 +1745,7 @@ void TBeing::saveDrugStats()
 
 void TBeing::loadDrugStats()
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   int i;
 
   if (!isPc() || !desc)

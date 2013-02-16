@@ -3545,8 +3545,8 @@ int permaDeathMonument(TBeing *ch, cmdTypeT cmd, const char *arg, TObj *o1, TObj
   if(!found)
     return FALSE;
 
-  TDatabase db_dead(DB_SNEEZY);
-  TDatabase db_living(DB_SNEEZY);
+  TDatabase db_dead;
+  TDatabase db_living;
 
   ch->sendTo("You examine the plaque:\n\r");
   ch->sendTo("------------------------------------------------------------\n\r");
@@ -3602,8 +3602,8 @@ int trophyBoard(TBeing *ch, cmdTypeT cmd, const char *arg, TObj *o1, TObj *o2)
   if(!found)
     return FALSE;
 
-  TDatabase db(DB_SNEEZY);
-  TDatabase db2(DB_SNEEZY);
+  TDatabase db;
+  TDatabase db2;
 
   //  db.query("select name, count(*) from trophy group by name order by count(*) desc limit 10");
   //  db.query("select name, count from trophyplayer order by count desc limit 25");
@@ -3724,7 +3724,7 @@ int highrollersBoard(TBeing *ch, cmdTypeT cmd, const char *arg, TObj *o1, TObj *
   if(!found)
     return FALSE;
 
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("select getPlayerName(player_id) as name, money from gamblers where money > 0 order by money desc limit 10");
 
@@ -3783,7 +3783,7 @@ int shopinfoBoard(TBeing *ch, cmdTypeT cmd, const char *arg, TObj *o1, TObj *o2)
   ch->sendTo("------------------------------------------------------------\n\r");
 
 
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   //////////////////////////////////////
   // number of shops and owned status
@@ -3882,7 +3882,7 @@ int brickScorecard(TBeing *ch, cmdTypeT cmd, const char *arg, TObj *o1, TObj *o2
   if(!found)
     return FALSE;
 
-  TDatabase db_brickquest(DB_SNEEZY);
+  TDatabase db_brickquest;
 
   ch->sendTo("You examine the buletin board:\n\r");
   ch->sendTo("+------------------------------------------------+\n\r");
@@ -4312,7 +4312,7 @@ int factionScoreBoard(TBeing *ch, cmdTypeT cmd, const char *arg, TObj *o1, TObj 
   ch->sendTo("------------------------------------------------------------\n\r\n\r");
 
   const sstring factnames[]={"cult", "snake", "brother"};
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   int totalscore=0;
   int score=0;
 
@@ -6655,7 +6655,7 @@ int ieComputer(TBeing *ch, cmdTypeT cmd, const char *arg, TObj *o, TObj *)
                 sstring arg3 = sstring(arg).word(2).lower();
                 if (is_abbrev(arg3, "created") || is_abbrev(arg3, "redeemed")) {
                         TNote *note;
-                        TDatabase db(DB_SNEEZY);
+                        TDatabase db;
                         if (is_abbrev(arg3, "redeemed")) {
                                 sstring contents = "<o>Immortal Exchange Coin Redemption<1>\n\r";
                                 db.query("select p1.name as redeemed_for, p2.name as redeemed_by, count(*) as coins, date_format(now(), '%%M %%e %%Y %%l:%%i %%p') as date_printed from immortal_exchange_coin c1 left join player p1 on p1.id = c1.redeemed_for left join player p2 on c1.redeemed_by = p2.id group by p1.name, p2.name order by p1.name, p2.name;");

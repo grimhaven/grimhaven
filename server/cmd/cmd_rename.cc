@@ -176,7 +176,7 @@ void TBeing::doNameChange(const char *argument)
   wipePlayerFile(orig_name);
   wipeRentFile(orig_name);
 
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("update player set name=lower('%s') where name=lower('%s')",
            tmp_name, orig_name);

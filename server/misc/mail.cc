@@ -39,7 +39,7 @@ bool TObj::canBeMailed(sstring name) const
 
 bool has_mail(const sstring recipient)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("select count(*) as count from mail where port=%i and lower(mailto)=lower('%s')", gamePort, recipient.c_str());
 
@@ -51,7 +51,7 @@ bool has_mail(const sstring recipient)
 
 void store_mail(const char *to, const char *from, const char *message_pointer, int talens, int rent_id)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   time_t mail_time;
   char *tmstr;
 
@@ -61,7 +61,7 @@ void store_mail(const char *to, const char *from, const char *message_pointer, i
 
 
   if(!strcmp(to, "faction")){
-    TDatabase fm(DB_SNEEZY);
+    TDatabase fm;
     fm.query("select name from factionmembers where faction=(select faction from factionmembers where name='%s')", from);
 
     while(fm.fetchRow()){
@@ -74,7 +74,7 @@ void store_mail(const char *to, const char *from, const char *message_pointer, i
 
 sstring read_delete(const sstring recipient, const char *recipient_formatted, sstring &from, int & talens, int & rent_id)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   sstring buf;
 
   db.query("select mailfrom, timesent, content, mailid, talens, rent_id from mail where port=%i and lower(mailto)=lower('%s')", gamePort, recipient.c_str());
@@ -504,7 +504,7 @@ void TBeing::postmasterReceiveMail(TMonster *me)
       TObj *obj = NULL;
       int slot = -1;
       ItemLoadDB il("mail", GH_MAIL_SHOP);
-      TDatabase db(DB_SNEEZY);
+      TDatabase db;
 
       obj = il.raw_read_item(rent_id, slot);
       db.query("delete from rent where rent_id=%i", rent_id);

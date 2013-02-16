@@ -3682,7 +3682,7 @@ void TBeing::doHistory()
   for (i = 0; i < 10; i++)
     sendTo(format("[%d] %s\n\r") % i % d->history[i]);
 
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   sendTo("\n\rYour tell history :\n\r\n\r");
 
@@ -4463,7 +4463,7 @@ void ignoreList::initialize()
   if (!isStaticInitialized)
   {
     isStaticInitialized = true;
-    TDatabase db(DB_SNEEZY);
+    TDatabase db;
     db.query("select count(*) as size from blockedlist");
 
     // init statics
@@ -4487,7 +4487,7 @@ void ignoreList::initialize()
   // init individual array if not using statics
   if (!m_useStatic)
   {
-    TDatabase db(DB_SNEEZY);
+    TDatabase db;
     int myId = m_desc->playerID;
     m_ignored = new sstring[cMax];
     m_count = 0;
@@ -4503,14 +4503,14 @@ void ignoreList::initialize()
 // simple function to add to database
 void ignoreList::addDB(int playerId, const sstring ignored)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   db.query("insert into blockedlist (player_id, blocked) values (%i, '%s')", playerId, ignored.c_str());
 }
 
 // ismple function to remove from database
 void ignoreList::removeDB(int playerId, const sstring ignored)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   db.query("delete from blockedlist where player_id = %i and blocked = '%s'", playerId, ignored.c_str());
 }
 
@@ -4596,7 +4596,7 @@ bool ignoreList::isIgnored(const sstring ignored)
 bool ignoreList::isMailIgnored(Descriptor *desc, const sstring ignored)
 {
   TBeing *player = (dynamic_cast<TMonster *>(desc->character) && desc->original) ? desc->original : desc->character;
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   db.query("select count(*) as c from (player as p, blockedlist as b) where lower(p.name) = '%s' and b.player_id = p.id and (b.blocked = '~%s' or b.blocked = '%s')",
     ignored.lower().c_str(), desc->account->name.lower().c_str(), sstring(player->getName()).lower().c_str());
 

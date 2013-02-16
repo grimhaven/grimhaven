@@ -61,7 +61,7 @@ int commodTrader(TBeing *, cmdTypeT cmd, const char *, TMonster *myself, TObj *)
   int price=0;
   TObj *cart=NULL;
   TShopOwned homebase(250, myself);
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   return FALSE;
 

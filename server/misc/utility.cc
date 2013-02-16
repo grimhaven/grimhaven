@@ -1690,7 +1690,7 @@ void TBeing::addToMoney(int money, moneyTypeT type, bool allowTithe)
 {
   int lev = 0;
   int amount;
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   if(money && !bootTime)
     vlogf(LOG_SILENT, format("%s talens changed by %i.") %

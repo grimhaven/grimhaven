@@ -332,7 +332,7 @@ procQueryQueue::procQueryQueue(const int &p)
 
 void procQueryQueue::run(const TPulse &) const
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   TTiming t;
 
   t.start();
@@ -892,7 +892,7 @@ int TBeing::updateAffects()
 
 int TBeing::getNutrition()
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("select nutrition from player where id=%i", getPlayerID());
   db.fetchRow();
@@ -902,14 +902,14 @@ int TBeing::getNutrition()
 
 void TBeing::addToNutrition(int amt)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("update player set nutrition=nutrition+%i where id=%i", amt, getPlayerID());
 }
 
 void TBeing::setNutrition(int amt)
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("update player set nutrition=%i where id=%i", amt, getPlayerID());
 }

@@ -212,7 +212,7 @@ int updateWholist()
 
   if (wholist != wholist_last) {
     // every 10 RL seconds
-    TDatabase db(DB_SNEEZY);
+    TDatabase db;
 
 
     db.query("delete from wholist where port=%i", gamePort);
@@ -245,7 +245,7 @@ void updateUsagelogs(int count)
   int TIME_BETWEEN_LOGS = 300;
 
   // every 10 RL seconds
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
 
 
@@ -717,7 +717,7 @@ procCloseAccountingBooks::procCloseAccountingBooks(const int &p)
 void procCloseAccountingBooks::run(const TPulse &) const
 {
   // close out the accounting year.
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   db.query("select distinct shop_nr from shoplogjournal where sneezy_year=%i order by shop_nr", GameTime::getYear()-1);
   while (db.fetchRow()){
       TShopJournal tsj(convertTo<int>(db["shop_nr"]), GameTime::getYear()-1);
@@ -734,7 +734,7 @@ procRecordCommodPrices::procRecordCommodPrices(const int &p)
 void procRecordCommodPrices::run(const TPulse &) const
 {
 #if 0
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("select shop_nr from shoptype where type=%i",
            ITEM_RAW_MATERIAL);
@@ -1923,7 +1923,7 @@ int TMainSocket::gameLoop()
   }
 
   // flush the query queue
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   while(!queryqueue.empty()){
     db.query(queryqueue.front().c_str());
     queryqueue.pop();

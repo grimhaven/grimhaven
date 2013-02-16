@@ -78,8 +78,7 @@ togInfoT::togInfoT()
 // and TDatabase needs that to know what database to go to.
 void togInfoT::loadToggles()
 {
-  TDatabase db(DB_SNEEZY);
-
+  TDatabase db;
 
   db.query("select tog_id, toggle, testcode, name, descr from globaltoggles order by name");
 
@@ -3608,7 +3607,7 @@ void TBeing::doWipe(const char *argument)
   TBeing *victim;
   Descriptor *d = NULL;
   charFile st;
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   if (powerCheck(POWER_WIPE))
     return;
@@ -3695,7 +3694,7 @@ void TPerson::doAccess(const sstring &arg)
   time_t ct;
   struct time_info_data playing_time;
   FILE *fp;
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   TAccount account;
 
   if (powerCheck(POWER_ACCESS))
@@ -4178,7 +4177,7 @@ void TBeing::doInfo(const char *arg)
 
       arg = one_argument(arg,arg2, cElements(arg2));
 
-      TDatabase db(DB_SNEEZY);
+      TDatabase db;
 
       db.query("select shop_nr from shoptype where type=%i",
                ITEM_RAW_MATERIAL);
@@ -4189,7 +4188,7 @@ void TBeing::doInfo(const char *arg)
         unsigned int shop_nr=convertTo<int>(db["shop_nr"]);
         TShopOwned tso(shop_nr, this);
         TCommodity *commod=NULL;
-        TDatabase db2(DB_SNEEZY);
+        TDatabase db2;
 
         db2.query("select r.rent_id as rent_id from rent r, rent_strung rs, obj o where owner_type='shop' and owner=%i and r.rent_id=rs.rent_id and o.vnum=r.vnum and o.type=%i and rs.name like '%s%s%s'", shop_nr, ITEM_RAW_MATERIAL, "%", arg2, "%");
 
@@ -6191,7 +6190,7 @@ static bool verifyName(const sstring tStString)
   fclose(tFile);
 
 
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   db.query("select 1 from wizpower w, player p where p.id=w.player_id and p.name='%s' and w.wizpower=%i",
      tStString.lower().c_str(), mapWizPowerToFile(POWER_WIZARD));
   if (!db.fetchRow())
@@ -6454,7 +6453,7 @@ void TPerson::doBestow(const sstring &argument)
   int number_done = 0;
   int coin_uid = 0;
   TTreasure *coin = NULL;
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   if (is_abbrev(arg1, "coins")) {
     /*** make coins ***/

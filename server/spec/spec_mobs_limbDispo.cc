@@ -194,7 +194,7 @@ int limbDispo(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *mob, TObj *)
     }
 
     if (record_part) {
-      TDatabase db(DB_SNEEZY);
+      TDatabase db;
       // get team affiliation for cutesy message below
       sstring team;
       bool samaritan = FALSE;

@@ -2317,7 +2317,7 @@ void TPerson::doUsers(const sstring &argument)
             !hasWizPower(POWER_VIEW_IMM_ACCOUNTS)) {
         line += "*** Information Concealed ***\n\r";
       } else {
-        TDatabase db(DB_SNEEZY);
+        TDatabase db;
 
         db.query("select pingtime from pings where host='%s'", d->host.c_str());
 
@@ -2486,7 +2486,7 @@ void TBeing::doEquipment(const sstring &arg)
       }
     }
   } else if (argument.empty() || !isImmortal()) {
-    TDatabase db(DB_SNEEZY);
+    TDatabase db;
     sstring tattoos[MAX_WEAR];
 
     db.query("select location, tattoo from tattoos where name='%s' order by location",getName());
@@ -2525,7 +2525,7 @@ void TBeing::doEquipment(const sstring &arg)
       return;
     }
 
-    TDatabase db(DB_SNEEZY);
+    TDatabase db;
     sstring tattoos[MAX_WEAR];
 
     // allow immortals to get eq of players
@@ -3062,7 +3062,7 @@ void TBeing::doWhere(const char *argument)
   }
 
 
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("select coalesce(rs.name, o.name) as objkeywords, coalesce(rs.short_desc, o.short_desc) as objname, s.shop_nr as shop_nr, m.short_desc as mobname from obj o, mob m, rent r left outer join rent_strung rs using (rent_id), shop s where o.vnum=r.vnum and m.vnum=s.keeper and s.shop_nr=r.owner and r.owner_type='shop'");
 
@@ -3276,7 +3276,7 @@ void TBeing::doWorld()
     lag_info.high % lag_info.low % norm();
   str += buf;
 
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
 
   db.query("select pingtime from pings where host='%s'", desc->host.c_str());
 

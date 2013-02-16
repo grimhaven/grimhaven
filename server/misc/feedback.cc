@@ -54,7 +54,7 @@ void TPerson::doFeedback(const int cmd, const sstring &subject)
 
 void Descriptor::send_feedback()
 {
-  TDatabase db(DB_SNEEZY);
+  TDatabase db;
   static const char *q = "INSERT INTO feedback "
       "(type, account, email, player, room, subject, message) VALUES "
       "(%s, %s, %s, %s, %i, %s, %s)";
