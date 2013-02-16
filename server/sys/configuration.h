@@ -103,11 +103,6 @@ class Config {
   // scapping during a fight
   static bool load_on_death;
 
-  // whether or not boost::format will throw exceptions for bad format
-  // strings, extra or missing arguments etc.  false for maximum
-  // stability, true for maximum bug detection.
-  static bool throw_format_exceptions;
-
   // suppress assigning of special routines
   static bool no_specials;
 
@@ -159,7 +154,6 @@ class Config {
   static bool RentOnlyDeletion(){ return rent_only_deletion; }
   static bool NukeInactiveMobs(){ return nuke_inactive_mobs; }
   static bool LoadOnDeath(){ return load_on_death; }
-  static bool ThrowFormatExceptions(){ return throw_format_exceptions; }
   static bool NoSpecials(){ return no_specials; }
   static sstring DataDir(){ return data_dir; }
   static sstring ConfigFile(){ return config_file; }

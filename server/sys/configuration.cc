@@ -27,7 +27,6 @@ bool Config::auto_deletion;
 bool Config::rent_only_deletion;
 bool Config::nuke_inactive_mobs;
 bool Config::load_on_death;
-bool Config::throw_format_exceptions;
 bool Config::no_specials;
 sstring Config::data_dir;
 sstring Config::config_file;
@@ -143,9 +142,6 @@ bool Config::doConfiguration(int argc, char *argv[])
       "see configuration.h")
     ("load_on_death",
       po::value<bool>(&load_on_death)->default_value(true),
-      "see configuration.h")
-    ("throw_format_exceptions",
-      po::value<bool>(&throw_format_exceptions)->default_value(true),
       "see configuration.h")
     ;
 

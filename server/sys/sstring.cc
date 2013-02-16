@@ -3,7 +3,9 @@
 #include "sstring.h"
 #include "mudinfo.h"
 #include "ansi.h"
-#include "configuration.h"
+
+// have format() throw exceptions when a format string doesn't match its args
+//#define THROW_FORMAT_EXCEPTIONS
 
 const sstring sstring::xmlescape() const
 {
@@ -726,11 +728,11 @@ bool isvowel(const char c)
 
 boost::format format(const std::string &f_string){
   boost::format fmter(f_string);
-  if(Config::ThrowFormatExceptions()){
-    fmter.exceptions(boost::io::all_error_bits);
-  } else {
-    fmter.exceptions(boost::io::no_error_bits);
-  }
+#ifdef THROW_FORMAT_EXCEPTIONS
+  fmter.exceptions(boost::io::all_error_bits);
+#else
+  fmter.exceptions(boost::io::no_error_bits);
+#endif
   return fmter;
 }
 
