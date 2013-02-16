@@ -7,6 +7,7 @@
 #include <cstdarg>
 
 #include "sstring.h"
+#include "logging.h"
 
 
 // TDatabase is a class for interacting with the sql database.
