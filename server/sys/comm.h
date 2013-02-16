@@ -35,6 +35,7 @@ void colorAct(colorTypeT, const sstring &, bool, const TThing *, const TThing *,
 void act(const sstring &, bool, const TThing *, const TThing *, const TThing *, actToParmT, const char * color = NULL, int = 0);
 void nukeMobs(int);
 bool isEmpty(int);
+int run_the_game();
 
 
 // see comm.cc

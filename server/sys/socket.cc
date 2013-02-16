@@ -51,14 +51,14 @@ int select(int, fd_set *, fd_set *, fd_set *, struct timeval *);
 #include "obj_plant.h"
 
 int maxdesc, avail_descs;
-bool Shutdown = 0;               // clean shutdown
-int tics = 0;
+bool Shutdown = false;               // clean shutdown
+int tics;
 TMainSocket *gSocket;
-long timeTill = 0;
+long timeTill;
 ares_channel channel;
 struct in_addr ares_addr;
-int ares_status, nfds;
-Descriptor *descriptor_list = NULL, *next_to_process;
+int nfds;
+Descriptor *descriptor_list, *next_to_process;
 
 struct timeval timediff(struct timeval *a, struct timeval *b)
 {

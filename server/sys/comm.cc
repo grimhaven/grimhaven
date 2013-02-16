@@ -43,7 +43,7 @@ SystemTask *systask;
 
 // local globals
 
-time_t Uptime;                        // time that the game has been up
+time_t Uptime;                        // wall time that the game started
 
 char hostlist[MAX_BAN_HOSTS][40];        // list of sites to ban
 char hostLogList[MAX_BAN_HOSTS][40];
@@ -52,9 +52,7 @@ int numberLogHosts;
 int gamePort;
 
 extern void save_all();
-extern int run_the_game();
 extern ares_channel channel;
-extern int ares_status;
 
 
 
@@ -94,30 +92,30 @@ const int Pulse::SECS_PER_MUD_YEAR  = (12*Pulse::SECS_PER_MUD_MONTH);
 const int Pulse::UPDATES_PER_MUDHOUR = (Pulse::MUDHOUR/Pulse::COMBAT);
 
 
-
-
-
 // Init sockets, run game, and cleanup sockets
 int run_the_game()
 {
-
-  vlogf(LOG_MISC, "Signal trapping.");
   signalSetup();
 
-  vlogf(LOG_MISC, "run_the_game: calling ares_init");
-  ares_status = ares_init(&channel);
-  vlogf(LOG_MISC, "run_the_game: finished calling ares_init");
-  if (ares_status != ARES_SUCCESS) {
-    vlogf(LOG_BUG, format("fatal error in ares_init: %s") % ares_strerror(ares_status));
+  int ares_res = ares_library_init(ARES_LIB_INIT_ALL);
+  if (ares_res) {
+    vlogf(LOG_BUG, format("ares_library_init failed: %s") % ares_strerror(ares_res));
+    return FALSE;
+  }
+  ares_res = ares_init(&channel);
+  if (ares_res != ARES_SUCCESS) {
+    vlogf(LOG_BUG, format("ares_init failed: %s") % ares_strerror(ares_res));
     return FALSE;
   }
 
-  vlogf(LOG_MISC, "Opening mother connection.");
+  vlogf(LOG_MISC, format("Opening main socket on port %i") % gamePort);
   gSocket = new TMainSocket();
   gSocket->initSocket(gamePort);
 
-  if (Config::XmlPort())
+  if (Config::XmlPort()) {
+    vlogf(LOG_MISC, format("Opening XML socket on port %i") % Config::XmlPort());
     gSocket->initSocket(Config::XmlPort());
+  }
 
   bootDb();
 
@@ -126,6 +124,9 @@ int run_the_game()
   systask = new SystemTask();
   gSocket->gameLoop();
   gSocket->closeAllSockets();
+
+  ares_destroy(channel);
+  ares_library_cleanup();
 
   vlogf(LOG_MISC, "Normal termination of game.");
   delete gSocket;
