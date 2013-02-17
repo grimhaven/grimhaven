@@ -14,7 +14,6 @@
 #include "obj_pen.h"
 #include "obj_note.h"
 #include "database.h"
-#include "twitter.h"
 
 void TBeing::disturbMeditation(TBeing *vict) const
 {
@@ -368,7 +367,6 @@ void TBeing::doShout(const sstring &arg)
   addToWait(combatRound(0.5));
 
   descriptor_list->sendShout(this, garbled);
-  twitterShout(getName(), garbled);
 }
 
 void TBeing::doGrouptell(const sstring &arg)

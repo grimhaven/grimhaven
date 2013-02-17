@@ -1,30 +1,27 @@
-# -*- python -*- vim:ft=python:
+# -*- python -*- vim:set ft=python sw=4 sts=4:
 
-grimhaven_libs = [ 'stdc++', 'mysqlclient', 'cares', 'curl', 'crypt',
+server_libs = [ 'stdc++', 'mysqlclient', 'cares', 'crypt',
     'boost_regex', 'boost_program_options', 'boost_date_time', ]
 
-grimhaven_cxxflags = [
-        '-Werror', # warnings are treated as errors
-        '-Wall', # all recommended warnings
-        '-Wpointer-arith', # things that depend on sizeof()
-        '-Wcast-qual', # cast that removes const
-        '-Wcast-align', # pointer cast that changes alignment
-        '-Wwrite-strings', #
-        '-Woverloaded-virtual', # virtual method w/out declaration in base class
-        #'-Wconversion', # conversions that might lose data
-        #'-Wextra', 
-    ]
+server_cxxflags = [
+    '-Werror', # warnings are treated as errors
+    '-Wall', # all recommended warnings
+    '-Wpointer-arith', # things that depend on sizeof()
+    '-Wcast-qual', # cast that removes const
+    '-Wcast-align', # pointer cast that changes alignment
+    '-Wwrite-strings', #
+    '-Woverloaded-virtual', # virtual method w/out declaration in base class
+    #'-Wconversion', # conversions that might lose data
+    #'-Wextra', 
+]
 
-if True:
-    # debugging mode flags
-    grimhaven_cxxflags += [ '-g', '-O0' ]
+# debugging mode flags
+server_cxxflags += [ '-g', '-O0', ]
 
-grimhaven_subdirs = [ 'cmd', 'disc', 'game', 'misc', 'obj', 'spec', 'sys', 'task' ]
+server_subdirs = [ 'cmd', 'disc', 'game', 'misc', 'obj', 'spec', 'sys', 'task', ]
 
-Program(
-        target = 'grimhaven',
-        source = [ 'main.cc' ] + [ Glob(d + '/*.cc') for d in grimhaven_subdirs ],
-        CPPPATH = grimhaven_subdirs,
-        CXXFLAGS = grimhaven_cxxflags,
-        LIBS = grimhaven_libs,
-    )
+Program(target = 'grimhaven',
+        source = [ 'main.cc' ] + [ Glob(d + '/*.cc') for d in server_subdirs ],
+        CPPPATH = server_subdirs,
+        CXXFLAGS = server_cxxflags,
+        LIBS = server_libs,)
