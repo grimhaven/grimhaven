@@ -4,13 +4,14 @@ server_libs = [ 'stdc++', 'mysqlclient', 'cares', 'crypt',
     'boost_regex', 'boost_program_options', 'boost_date_time', ]
 
 server_cxxflags = [
-    '-pipe',
+    '-pipe', # more efficient on multicore machines
+    '-std=gnu++11', # C++11 standard w/GNU extensions
+
     '-Werror', # warnings are treated as errors
     '-Wall', # all recommended warnings
     '-Wpointer-arith', # things that depend on sizeof()
     '-Wcast-qual', # cast that removes const
     '-Wcast-align', # pointer cast that changes alignment
-    '-Wwrite-strings', #
     '-Woverloaded-virtual', # virtual method w/out declaration in base class
     #'-Wconversion', # conversions that might lose data
     #'-Wextra', 
