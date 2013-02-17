@@ -13,8 +13,8 @@ extern "C" {
 }
 
 #include "cmd/trophy.h"
-#include "disc/shaman/frog.h"
-#include "disc/shaman/armadillo.h"
+#include "disc/shaman_frog.h"
+#include "disc/shaman_armadillo.h"
 #include "game/crazyeights.h"
 #include "game/drawpoker.h"
 #include "game/games.h"

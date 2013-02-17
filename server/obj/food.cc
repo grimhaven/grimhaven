@@ -14,7 +14,7 @@
 #include "obj/base_cup.h"
 #include "obj/pool.h"
 #include "disc/aegis.h"
-#include "disc/shaman/armadillo.h"
+#include "disc/shaman_armadillo.h"
 #include "misc/shopowned.h"
 #include "misc/corporation.h"
 #include "misc/liquids.h"

@@ -5,7 +5,7 @@
 #include "misc/disease.h"
 #include "misc/combat.h"
 #include "misc/spelltask.h"
-#include "disc/shaman/armadillo.h"
+#include "disc/shaman_armadillo.h"
 #include "obj/magic_item.h"
 
 

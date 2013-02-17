@@ -3,7 +3,7 @@
 #include "sys/colorstring.h"
 #include "misc/disease.h"
 #include "misc/combat.h"
-#include "disc/shaman/healing.h"
+#include "disc/shaman_healing.h"
 #include "misc/spelltask.h"
 #include "misc/statistics.h"
 #include "obj/magic_item.h"

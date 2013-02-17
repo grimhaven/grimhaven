@@ -1,6 +1,6 @@
 #include "sys/comm.h"
 #include "misc/low.h"
-#include "spec/objs/sweeps.h"
+#include "spec/objs_sweeps.h"
 #include "disc/sorcery.h"
 #include "misc/being.h"
 
