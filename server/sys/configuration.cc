@@ -9,7 +9,7 @@ void Configuration::setCompositeOptions(void) {
     mud_name_version_ = mud_name_ + " v" + mud_version_;
 
     if (mode_builder_ || mode_beta_)
-        mode_prod_ = false;
+        mode_production_ = false;
 }
 
 // returns a descriptive message if error, else empty string
@@ -37,7 +37,8 @@ sstring Configuration::load(const int argc, const char *argv[]) {
       po::value<int>(&xml_port_)->default_value(xml_port_),
       "xml protocol game port")
     ("prod_mode",
-      po::value<bool>(&mode_prod_)->default_value(mode_prod_),
+      po::value<bool>(&mode_production_)
+      ->default_value(mode_production_),
       "run game in production mode")
     ("beta_mode",
       po::value<bool>(&mode_beta_)->default_value(mode_beta_),
@@ -99,9 +100,9 @@ sstring Configuration::load(const int argc, const char *argv[]) {
       po::value<int>(&weapon_dam_max_hardness_)
       ->default_value(weapon_dam_max_hardness_),
       "see configuration.h")
-    ("weapon_dam_max_sharp",
-      po::value<int>(&weapon_dam_max_sharp_)
-      ->default_value(weapon_dam_max_sharp_),
+    ("weapon_dam_max_sharpness",
+      po::value<int>(&weapon_dam_max_sharpness_)
+      ->default_value(weapon_dam_max_sharpness_),
       "see configuration.h")
     ("nuke_repair_items",
       po::value<bool>(&nuke_repair_items_)->default_value(nuke_repair_items_),

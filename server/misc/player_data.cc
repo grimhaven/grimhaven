@@ -231,7 +231,7 @@ void TPerson::resetChar()
     if (isupper(*tmp))
       *tmp = tolower(*tmp);
   }
-  if (!Config.ModeBuilder() && has_mail(recipient))
+  if (!Config.mode_builder() && has_mail(recipient))
     sendTo(format("\n\rYou have %sMAIL%s.\n\r") % bold() % norm());
 
   time_t ct = player.time->last_logon ? player.time->last_logon : time(0);
@@ -1179,14 +1179,14 @@ void do_the_player_stuff(const char *name)
     if ((time(0) - st.last_logon) <= (30 * SECS_PER_REAL_DAY))
       AccountStats::active_player30++;
 
-    if (Config.AutoDeletion()){
+    if (Config.auto_deletion()){
       time_t ltime = time(0);
       time_t lastlogin=lastAccountLogin(st.aname);
       unsigned int elapsed_time = (ltime - lastlogin) / SECS_PER_REAL_DAY;
 
       // This gives a player at least 3 months before delete occurs
       if((time(0) - lastlogin) > (90 * SECS_PER_REAL_DAY)){
-        if (!Config.RentOnlyDeletion()){
+        if (!Config.rent_only_deletion()){
           vlogf(LOG_MISC, format("%s (level %d) did not log in for %d days. Deleting.") %
                 name %
                 max_level % elapsed_time);

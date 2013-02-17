@@ -252,7 +252,7 @@ Descriptor & Descriptor::operator=(const Descriptor &a)
 // returns TRUE if multiplay is detected
 bool Descriptor::checkForMultiplay()
 {
-  if(Config.CheckMultiplay()){
+  if(Config.check_multiplay()){
     TBeing *ch;
     unsigned int total = 1;
     Descriptor *d;
@@ -300,10 +300,10 @@ bool Descriptor::checkForMultiplay()
 
       if (d->account->name==account->name) {
         total += 1;
-        if (total > max_multiplay_chars && Config.ModeProd()) {
+        if (total > max_multiplay_chars && Config.mode_production()) {
           vlogf(LOG_CHEAT, format("MULTIPLAY: %s and %s from same account[%s]") %
                 character->name % ch->name % account->name);
-          if(Config.ForceMultiplayCompliance()){
+          if(Config.force_multiplay_compliance()){
             character->sendTo(format("\n\rTake note: You have another character, %s, currently logged in.\n\r") % ch->name);
             character->sendTo("Adding this character would cause you to be in violation of multiplay rules.\n\r");
             character->sendTo("Please log off your other character and then try again.\n\r");
@@ -1127,7 +1127,7 @@ int Descriptor::nanny(sstring arg)
             tmp_ch->doCls(false);
 
           rc = checkForMultiplay();
-          if(Config.ForceMultiplayCompliance()){
+          if(Config.force_multiplay_compliance()){
             if (rc) {
               // disconnect, but don't cause character to be deleted
               // do this by disassociating character from descriptor
@@ -1397,13 +1397,9 @@ int Descriptor::nanny(sstring arg)
 int TPerson::genericLoadPC()
 {
   TRoom *rp;
-  int rc;
 
-  rc = desc->checkForMultiplay();
-  if(Config.ForceMultiplayCompliance()){
-    if (rc)
-      return DELETE_THIS;
-  }
+  if (Config.force_multiplay_compliance() && desc->checkForMultiplay())
+    return DELETE_THIS;
 
   if (should_be_logged(this)) {
     vlogf(LOG_PIO, format("Loading %s's equipment") %  name);
@@ -4103,7 +4099,7 @@ void inputQ::putInQ(const sstring &txt)
 
 int TBeing::applyAutorentPenalties(int secs)
 {
-  if(Config.PenalizeForAutoRenting()){
+  if(Config.penalize_for_auto_renting()){
     vlogf(LOG_PIO, format("%s was autorented for %d secs") %
           (getName() ? getName() : "Unknown name") % secs);
   }

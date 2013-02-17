@@ -657,7 +657,7 @@ int Descriptor::read_client(char *str2)
             dynamic_cast<TPerson *>(ch)->autoDeath();
 
           int rc = checkForMultiplay();
-          if(Config.ForceMultiplayCompliance()){
+          if(Config.force_multiplay_compliance()){
             if (rc) {
               // disconnect, but don't cause character to be deleted
               // do this by disassociating character from descriptor
@@ -1193,7 +1193,7 @@ int Descriptor::client_nanny(char *arg)
         dynamic_cast<TPerson *>(tmp_ch)->autoDeath();
 
       rc = checkForMultiplay();
-      if(Config.ForceMultiplayCompliance()){
+      if(Config.force_multiplay_compliance()){
         if (rc) {
           // disconnect, but don't cause character to be deleted
           // do this by disassociating character from descriptor

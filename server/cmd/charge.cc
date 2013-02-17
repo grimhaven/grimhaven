@@ -148,7 +148,7 @@ vict->getName());
   // added charge crit per popular request
   // this is not the right way to do this.  - bat
   // New Damage Formula for Charge
-  //if (!Config.ModeProd())
+  //if (!Config.mode_production())
     //float newDam        = (100 + ((float) mount->GetMaxLevel() -
   // (float) ch->GetMaxLevel())) / 100;
     //float crossValue    = (float) dam * newDam;

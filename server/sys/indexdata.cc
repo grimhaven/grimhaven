@@ -223,7 +223,7 @@ void generate_obj_index()
       tmpi->max_exist /= 100;
     }
     if (tmpi->max_exist)
-      tmpi->max_exist = max(tmpi->max_exist, (short int) (Config.ModeBeta() ? 9999 : 1));
+      tmpi->max_exist = max(tmpi->max_exist, (short int) (Config.mode_beta() ? 9999 : 1));
 
 
     tmpi->spec=convertTo<int>(db["spec_proc"]);
@@ -346,7 +346,7 @@ void generate_mob_index()
 
     long maxe=convertTo<int>(db["max_exist"]);
 
-    tmpi->max_exist = Config.ModeBeta() ? 9999 : maxe;
+    tmpi->max_exist = Config.mode_beta() ? 9999 : maxe;
 
     // handle some stat counters
     if (lev <= 5) {

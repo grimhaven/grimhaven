@@ -3805,7 +3805,7 @@ int TMonster::mobileActivity(int pulse)
       bumpHead(&iHeight);
   }
 
-  if (isShopkeeper() && !(pulse %(200*Pulse::MOBACT)) && !Config.NoSpecials()){
+  if (isShopkeeper() && !(pulse %(200*Pulse::MOBACT)) && !Config.no_specials()){
     unsigned int shop_nr;
 
     for (shop_nr = 0; (shop_nr < shop_index.size()) && (shop_index[shop_nr].keeper != number); shop_nr++);
@@ -3851,7 +3851,7 @@ int TMonster::mobileActivity(int pulse)
   }
 
   if (spec && !(pulse %(50*Pulse::MOBACT)) && !::number(0, 1) &&
-      !Config.NoSpecials()) {
+      !Config.no_specials()) {
     rc = checkSpec(this, CMD_MOB_ALIGN_PULSE, "", NULL);
     if (IS_SET_DELETE(rc, DELETE_THIS) || IS_SET_DELETE(rc, DELETE_VICT))
       return DELETE_THIS;
@@ -3861,7 +3861,7 @@ int TMonster::mobileActivity(int pulse)
   // trigger spec_procs
 
   // should do this in socket.cc
-  if (spec && !(pulse %(2 * Pulse::MOBACT)) && !Config.NoSpecials()) {
+  if (spec && !(pulse %(2 * Pulse::MOBACT)) && !Config.no_specials()) {
     rc = checkSpec(this, CMD_GENERIC_PULSE, "", NULL);
     if (IS_SET_DELETE(rc, DELETE_VICT) || IS_SET_DELETE(rc, DELETE_THIS))
       return DELETE_THIS;
@@ -4314,7 +4314,7 @@ int TMonster::aggroCheck(bool mobpulse)
               if(!::number(0,6) || !mobpulse) {
                 act("$n considers killing $N, but thinks better of it.",TRUE,this,NULL,tmp_ch,TO_NOTVICT,NULL);
                 act("$n considers killing you, but thinks better of it.",TRUE,this,NULL,tmp_ch,TO_VICT,NULL);
-                act("You consider killing $N, but thinks better of it.",TRUE,this,NULL,tmp_ch,TO_CHAR,NULL);
+                act("You consider killing $N, but think better of it.",TRUE,this,NULL,tmp_ch,TO_CHAR,NULL);
               }
 
               return FALSE;
@@ -4326,7 +4326,7 @@ int TMonster::aggroCheck(bool mobpulse)
               if(!::number(0,4) || !mobpulse) {
                 act("$n considers killing $N, but decides not to waste $s time.",TRUE,this,NULL,tmp_ch,TO_NOTVICT,NULL);
                 act("$n considers killing you, but decides not to waste $s time.",TRUE,this,NULL,tmp_ch,TO_VICT,NULL);
-                act("You consider killing $N, but decides not to waste your time.",TRUE,this,NULL,tmp_ch,TO_CHAR,NULL);
+                act("You consider killing $N, but decide not to waste your time.",TRUE,this,NULL,tmp_ch,TO_CHAR,NULL);
               }
               return FALSE;
             }

@@ -102,7 +102,7 @@ void zoneData::nukeMobs()
   TBeing *mob, *mob2;
   wearSlotT i;
 
-  if(!Config.NukeInactiveMobs())
+  if(!Config.nuke_inactive_mobs())
     return;
 
   for (mob = character_list; mob; mob = mob2) {

@@ -2186,7 +2186,7 @@ bool has_key(TBeing *ch, int key)
 
   // check potential loads in inventory
   TMonster *mob = dynamic_cast<TMonster*>(ch);
-  if (Config.LoadOnDeath() && mob && mob->loadCom.size() > 0) {
+  if (Config.load_on_death() && mob && mob->loadCom.size() > 0) {
     for(unsigned int iCom = 0; iCom < mob->loadCom.size(); iCom++) {
       resetCom com = mob->loadCom[iCom];
 

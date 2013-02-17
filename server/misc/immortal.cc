@@ -1403,7 +1403,7 @@ void TPerson::doShutdown(const char *argument)
   argument = one_argument(argument, arg, cElements(buf));
 
   if (!*arg) {
-    if (Config.ModeProd() || Config.ModeBuilder()) {
+    if (Config.mode_production() || Config.mode_builder()) {
       // oops, did we type shutdown in the wrong window again???
       sendTo("Running in production mode.\n\rPlease do a timed shutdown to avoid complaints.\n\r");
       return;
@@ -1589,7 +1589,7 @@ void TPerson::doSwitch(const char *argument)
 
     *roomp += *tBeing;
     (dynamic_cast<TMonster *>(tBeing))->oldRoom = inRoom();
-    if (!Config.LoadOnDeath())
+    if (!Config.load_on_death())
       (dynamic_cast<TMonster *>(tBeing))->createWealth();
 
     tStMobile = tStBuffer;
@@ -2313,7 +2313,7 @@ void TPerson::doLoad(const char *argument)
       }
       *roomp += *mob;
       mob->oldRoom = inRoom();
-      if (!Config.LoadOnDeath())
+      if (!Config.load_on_death())
         mob->createWealth();
       if (mob->isShopkeeper())
         mob->calculateGoldFromConstant();

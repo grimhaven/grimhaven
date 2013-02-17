@@ -281,13 +281,13 @@ void TMonster::createWealth(void)
     return;
 
   int cashOnHand = 0;
-  if (Config.LoadOnDeath()) {
+  if (Config.load_on_death()) {
     cashOnHand = getMoney();
     calculateGoldFromConstant(); // can reset money
   }
 
   // execute our post-load commands
-  if (Config.LoadOnDeath() && loadCom.size() > 0) {
+  if (Config.load_on_death() && loadCom.size() > 0) {
     bool last_cmd = true;
     bool objload = false;
     bool mobload = true;
@@ -541,7 +541,7 @@ void TMonster::mageComponentLoader(void)
       // this check is to prevent a mob that "sells" comps via responses
       // from loading the comp they sell, and hence preventing the response
       // load from working
-      if (!Config.LoadOnDeath() && isMobComponentSeller(comp, mobVnum()))
+      if (!Config.load_on_death() && isMobComponentSeller(comp, mobVnum()))
         num = -1;
 
       if (num == -1)

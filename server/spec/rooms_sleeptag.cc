@@ -55,7 +55,7 @@ int sleepTagControl(TBeing *tBeing, cmdTypeT tCmd, const char *tArg, TRoom *tRoo
 #if !ACTIVE
   return FALSE;
 #endif
-  if (Config.ModeProd())
+  if (Config.mode_production())
     return FALSE;
 
   SSTControl *tJob   = NULL;
@@ -227,7 +227,7 @@ int sleepTagRoom(TBeing *tBeing, cmdTypeT tCmd, const char *tArg, TRoom *tRoom)
 #if !ACTIVE
   return FALSE;
 #endif
-  if (Config.ModeProd())
+  if (Config.mode_production())
     return FALSE;
 
   TThing *tThing;

@@ -1159,7 +1159,7 @@ void zoneData::renumCmd(void)
   int value;
 
   // init the zone_value array
-  if(Config.NukeInactiveMobs())
+  if(Config.nuke_inactive_mobs())
     zone_value = ((zone_nr <= 1) ? -1 : 0);
   else
     zone_value = -1;
@@ -2372,7 +2372,7 @@ TObj *read_object(int nr, readFileTypeT type)
     obj->setVolume(convertTo<int>(obj_cache[nr]->s["volume"]));
     obj->setMaterial(convertTo<int>(obj_cache[nr]->s["material"]));
     // beta is used to test LOW loads, so don't let max_exist be a factor
-    obj->max_exist = Config.ModeBeta() ? 9999 : convertTo<int>(obj_cache[nr]->s["max_exist"]);
+    obj->max_exist = Config.mode_beta() ? 9999 : convertTo<int>(obj_cache[nr]->s["max_exist"]);
 
   } else {
     db.query("select type, action_flag, wear_flag, val0, val1, val2, val3, weight, price, can_be_seen, spec_proc, max_struct, cur_struct, decay, volume, material, max_exist from obj where vnum=%i", obj_index[nr].virt);
@@ -2403,7 +2403,7 @@ TObj *read_object(int nr, readFileTypeT type)
     obj->setVolume(convertTo<int>(db["volume"]));
     obj->setMaterial(convertTo<int>(db["material"]));
     // beta is used to test LOW loads, so don't let max_exist be a factor
-    obj->max_exist = Config.ModeBeta() ? 9999 : convertTo<int>(db["max_exist"]);
+    obj->max_exist = Config.mode_beta() ? 9999 : convertTo<int>(db["max_exist"]);
   }
 
 
@@ -2815,7 +2815,7 @@ void runResetCmdE(zoneData &zone, resetCom &rs, resetFlag flags, bool &mobload, 
   if (!mob->canUseEquipment(obj, SILENT_YES))
     vlogf(LOG_LOW, format("'E' command equipping unusable item (%s:%d) on (%s:%d).") % obj->getName() % obj->objVnum() % mob->getName() % mob->mobVnum());
   TBaseClothing *tbc = dynamic_cast<TBaseClothing *>(obj);
-  if (tbc && tbc->canWear(ITEM_WEAR_FINGERS) && !Config.ModeProd()) {
+  if (tbc && tbc->canWear(ITEM_WEAR_FINGERS) && !Config.mode_production()) {
     vlogf(LOG_LOW, format("RINGLOAD: [%s][%-6.2f] loading on [%s][%d]") %
           obj->getName() % tbc->armorLevel(ARMOR_LEV_REAL) %
           mob->getName() % mob->GetMaxLevel());
@@ -2840,7 +2840,7 @@ void runResetCmdE(zoneData &zone, resetCom &rs, resetFlag flags, bool &mobload, 
   // end sanity checks
 
   // OK, actually do the equip
-  if (Config.LoadOnDeath() && !(flags & resetFlagPropLoad))
+  if (Config.load_on_death() && !(flags & resetFlagPropLoad))
     *mob += *obj;
   else
     mob->equipChar(obj, realslot);
@@ -2853,7 +2853,7 @@ void runResetCmdE(zoneData &zone, resetCom &rs, resetFlag flags, bool &mobload, 
   double grl = mob->getRealLevel();
   if (al > (grl + 1))
     vlogf(LOG_LOW, format("Mob (%s:%d) of level %.1f loading item (%s:%d) thought to be level %.1f.") %  mob->getName() % mob->mobVnum() % grl % obj->getName() % obj->objVnum() % al);
-  if (!Config.LoadOnDeath() && !mob->equipment[realslot])
+  if (!Config.load_on_death() && !mob->equipment[realslot])
     vlogf(LOG_LOW, format("Zone-file %s (%d) failed to equip %s (%d)") % mob->getName() % mob->mobVnum() % obj->getName() % obj->objVnum());
 
   last_cmd = true;
@@ -2879,7 +2879,7 @@ void runResetCmdM(zoneData &zone, resetCom &rs, resetFlag flags, bool &mobload, 
     return;
 
   // catch cases where builder used global max over zonefile max
-  if (rs.arg2 > mob_index[rs.arg1].max_exist && Config.ModeBeta() && rs.arg3 != zone.random_room)
+  if (rs.arg2 > mob_index[rs.arg1].max_exist && Config.mode_beta() && rs.arg3 != zone.random_room)
   {
     vlogf(LOG_LOW, format("Mob %s (%i) tried has improper load max (%i) compared to global (%i) in zonefile") %
       mob_index[rs.arg1].short_desc % mob_index[rs.arg1].virt % rs.arg2 % mob_index[rs.arg1].max_exist);
@@ -2917,7 +2917,7 @@ void runResetCmdM(zoneData &zone, resetCom &rs, resetFlag flags, bool &mobload, 
     return;
   }
 
-  if (!Config.LoadOnDeath())
+  if (!Config.load_on_death())
     mob->createWealth();
 
   if (mob->isShopkeeper())
@@ -3063,7 +3063,7 @@ void runResetCmdQMark(zoneData &zone, resetCom &rs, resetFlag flags, bool &moblo
     bool useArgs = (objload && rs.character == 'P') || (mobload && rs.character == 'G');
     int my_chance = useArgs ? rs.arg1 : fixed_chance;
 
-    last_cmd = (rs.arg1 >= 98 || roll <= my_chance || Config.ModeBeta());
+    last_cmd = (rs.arg1 >= 98 || roll <= my_chance || Config.mode_beta());
     if (!last_cmd) {
       if (rs.character == 'M')
         mobload = 0; // cancel all operations after this 'M' which use the mob ptr by setting !mobload
@@ -3304,7 +3304,7 @@ void runResetCmdY(zoneData &zone, resetCom &rs, resetFlag flags, bool &mobload, 
 
   mob->loadSetEquipment(rs.arg1, NULL, (rs.arg2 >= 98) ? rs.arg2 : fixed_chance);
 
-  if (!Config.LoadOnDeath() && mob->hasClass(CLASS_MAGE)) {
+  if (!Config.load_on_death() && mob->hasClass(CLASS_MAGE)) {
     TSpellBag *tBagA = NULL,
               *tBagB = NULL;
     TThing    *tThing=NULL;
@@ -3437,7 +3437,7 @@ void zoneData::resetZone(bool bootTime, bool findLoadPotential)
   TObj *obj = NULL;
   resetFlag flags = resetFlagNone;
 
-  if (this->enabled == FALSE && Config.ModeProd()) {
+  if (this->enabled == FALSE && Config.mode_production()) {
     if (bootTime)
       vlogf(LOG_MISC, "*** Zone was disabled.");
     return;
@@ -3986,7 +3986,7 @@ bool resetCom::usesRandomRoom()
 // lastComStuck - true if the previous resetCom before this one was 'stuck' to a mob
 bool resetCom::shouldStickToMob(bool &lastComStuck)
 {
-  if (!Config.LoadOnDeath())
+  if (!Config.load_on_death())
     return lastComStuck = false;
 
   // special case: since V's modify a potentially stuck (non-existant) obj, we need to stick ?'s for V's too

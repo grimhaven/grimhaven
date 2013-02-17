@@ -77,7 +77,7 @@ void TComponent::doMerge(TMergeable *tm)
 
 void assign_component_placement()
 {
-  if (Config.ModeBuilder()) {
+  if (Config.mode_builder()) {
     vlogf(LOG_LOW, "Skipping assign_component_placement for builder mud");
     return;
   }

@@ -15,23 +15,17 @@ int game_main(int argc, const char *argv[]) {
   sstring msg = Config.load(argc, argv);
   if (!msg.empty()) {
     std::cout << msg << std::endl;
-    vlogf(LOG_FILE, "failed configuration");
+    vlogf(LOG_FILE, "Failed to load configuration");
     exit(1);
   }
 
   if (!chdir(Config.data_dir().c_str())) {
-    vlogf(LOG_FILE, format("failed chdir to lib directory '%s': %s") %
+    vlogf(LOG_FILE, format("Failed chdir to data directory '%s': %s") %
             Config.data_dir() % strerror(errno));
     exit(1);
   }
 
-  vlogf(LOG_MISC, format("Using %s as data directory.") % Config.data_dir());
-
-  if (Config.NoSpecials())
-    vlogf(LOG_MISC, "Suppressing assignment of special routines.");
-
-  if (Config.wizlock())
-    vlogf(LOG_MISC, "Starting with wizlock enabled");
+  vlogf(LOG_MISC, format("Using '%s' as data directory.") % Config.data_dir());
 
   Uptime = time(0);
   srand(Uptime);

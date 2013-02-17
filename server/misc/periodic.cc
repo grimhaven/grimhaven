@@ -244,7 +244,7 @@ void procApocCheck::run(const TPulse &) const
   int num, rc;
   TMonster *mob;
 
-  if (Config.ModeBuilder())
+  if (Config.mode_builder())
     return;
 
   if (number(0,350))
@@ -1040,7 +1040,7 @@ int TBeing::updateTickStuff()
   } else if (desc && desc->original) {
     if (desc->original->getTimer() < 127)
       desc->original->addToTimer(1);
-  } else if (!desc && !master && (!Config.ModeProd() || in_room != Room::NOCTURNAL_STORAGE)) {
+  } else if (!desc && !master && (!Config.mode_production() || in_room != Room::NOCTURNAL_STORAGE)) {
 #if 1
     bool isAnElemental = isElemental();
     bool hasExp = getExp();

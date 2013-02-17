@@ -216,13 +216,13 @@ unsigned int rent_credit(unsigned short Class, unsigned int orig_lev, unsigned i
   lev -= lev_mod;
   lev = max(lev, 1.0);
 
-  double num = (lev * max(20.0, lev) * Config.RentCreditVal());
+  double num = (lev * max(20.0, lev) * Config.rent_credit_val());
 
   // next, give credit for a weapon.
   // use the real level rather than the modified level we used above since
   // damage capacity is not class-modified.
   // a weapon should be an extra 20.5% of the price
-  num += (orig_lev * max(20, (int) orig_lev) * Config.RentCreditVal() * .205);
+  num += (orig_lev * max(20, (int) orig_lev) * Config.rent_credit_val() * .205);
 
   // make allowances for sundry items
   // this includes: water skin, food, lanterns, fuel, bags, whetstones, etc
@@ -1702,7 +1702,7 @@ bool TBeing::recepOffer(TBeing *recep, objCost *cost)
     }
   }
 
-  if(Config.RentRestrictInnsByLevel()){
+  if(Config.rent_restrict_inns_by_level()){
     // note that you could use autorent to get around this rent credit reduction
     if (recep && (recep->GetMaxLevel() < GetMaxLevel())) {
       sprintf(buf,"I can only grant rent credit through level %d.",
@@ -1961,7 +1961,7 @@ void emailStorageBag(sstring tStMessage, sstring tStSender, TThing * tStuff)
   FILE * tFile;
   sstring tStMail("");
 
-  if (!Config.ModeProd())
+  if (!Config.mode_production())
     return;
 
   if (!(tFile = fopen("storage.temp", "w")))
@@ -2059,7 +2059,7 @@ void TRoom::loadItems()
 
       // Now we verify the 'user'.  tString should have been set prior.
       if (!load_char(tString, &tSt)) {
-        if (Config.ModeProd())
+        if (Config.mode_production())
           emailStorageBag("User Deleted", tString, tThing);
 
         vlogf(LOG_LOW, format("Storage: Purging linkbag: %s") %  tString);
@@ -2189,7 +2189,7 @@ void TRoom::loadItems()
 
         // Allow a bag to be 'retained' for 30 days.
         if (tTimeDiff > tCheck || tTimeDiff < -tCheck) {
-          if (!Config.ModeProd())
+          if (!Config.mode_production())
             emailStorageBag("Time Expired", tString, tThing);
 
           vlogf(LOG_LOW, format("Storage: Expired: %s") %  tString);
@@ -2861,7 +2861,7 @@ void TPerson::loadRent()
             *this += *t;
           }
 
-          if(Config.RentSellToPawn()){
+          if(Config.rent_sell_to_pawn()){
             if (pawnman) {
               *pawnman += *i;
               //              sprintf(buf, "%s has been sold to %s for %d talens to meet your rent obligations.\n\r", i->getName(.cap()).c_str(), pawnman->getName(), amt);

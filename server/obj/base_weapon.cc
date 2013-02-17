@@ -468,10 +468,10 @@ int TBaseWeapon::damageMe(TBeing *ch, TBeing *v, wearSlotT part_hit)
 
   // this hardness check will be made for ALL types of weapon damage
   // both blunting and structural
-  if ((::number(Config.WeaponDamMinHardness(), Config.WeaponDamMaxHardness()) <= hardness) ||
-      (::number(Config.WeaponDamMinHardness(), Config.WeaponDamMaxHardness()) <= hardness)) {
+  if ((::number(Config.weapon_dam_min_hardness(), Config.weapon_dam_max_hardness()) <= hardness) ||
+      (::number(Config.weapon_dam_min_hardness(), Config.weapon_dam_max_hardness()) <= hardness)) {
     if (sharp &&
-          (::number(0, Config.WeaponDamMaxSharp()) <= sharp)) {
+          (::number(0, Config.weapon_dam_max_sharpness()) <= sharp)) {
       if (isBluntWeapon()) {
         // The blunter the weapon, the easier to chip a bit - bat
         sprintf(buf, "Your %s%s%s is %schipped%s by %s$n's %s.",
@@ -1048,7 +1048,7 @@ void TBaseWeapon::curseMe()
 int TBaseWeapon::wieldMe(TBeing *ch, char *arg2)
 {
   // Test code to flux 'Two-Handed' weapons based on size.
-  if (!Config.ModeProd()) {
+  if (!Config.mode_production()) {
     bool canSingleWieldPrim = ch->checkWeaponWeight(this, HAND_TYPE_PRIM, false),
          canSingleWieldSecd = ch->checkWeaponWeight(this, HAND_TYPE_SEC , false);
 

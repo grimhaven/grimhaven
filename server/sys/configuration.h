@@ -7,31 +7,28 @@ class Configuration {
  public:
   sstring load(const int argc, const char *argv[]);
 
-  // old-style (un-de-capitalized) accessors
-  inline int ItemDamageRate() { return item_damage_rate_; }
-  inline int RentCreditVal() { return rent_credit_val_; }
-  inline bool RentSellToPawn() { return rent_sell_to_pawn_; }
-  inline bool RentRestrictInnsByLevel() { return rent_restrict_inns_by_level_; }
-  inline bool PenalizeForAutoRenting() { return penalize_for_auto_renting_; }
-  inline int WeaponDamMinHardness() { return weapon_dam_min_hardness_; }
-  inline int WeaponDamMaxHardness() { return weapon_dam_max_hardness_; }
-  inline int WeaponDamMaxSharp() { return weapon_dam_max_sharp_; }
-  inline bool NukeRepairItems() { return nuke_repair_items_; }
-  inline bool CheckMultiplay() { return check_multiplay_; }
-  inline bool ForceMultiplayCompliance() { return force_multiplay_compliance_; }
-  inline bool RepoMobs() { return repo_mobs_; }
-  inline bool SuperRepoMobs() { return super_repo_mobs_; }
-  inline bool NoDamagedItemsShop() { return no_damaged_items_shop_; }
-  inline bool AutoDeletion() { return auto_deletion_; }
-  inline bool RentOnlyDeletion() { return rent_only_deletion_; }
-  inline bool NukeInactiveMobs() { return nuke_inactive_mobs_; }
-  inline bool LoadOnDeath() { return load_on_death_; }
-  inline bool NoSpecials() { return no_specials_; }
-  inline bool ModeBuilder() { return mode_builder_; }
-  inline bool ModeBeta() { return mode_beta_; }
-  inline bool ModeProd() { return mode_prod_; }
-
-  // new-style accessors
+  inline bool no_specials() { return no_specials_; }
+  inline bool load_on_death() { return load_on_death_; }
+  inline bool nuke_inactive_mobs() { return nuke_inactive_mobs_; }
+  inline bool rent_only_deletion() { return rent_only_deletion_; }
+  inline bool auto_deletion() { return auto_deletion_; }
+  inline bool no_damaged_items_shop() { return no_damaged_items_shop_; }
+  inline bool repo_mobs() { return repo_mobs_; }
+  inline bool super_repo_mobs() { return super_repo_mobs_; }
+  inline bool check_multiplay() { return check_multiplay_; }
+  inline bool force_multiplay_compliance() { return force_multiplay_compliance_; }
+  inline bool nuke_repair_items() { return nuke_repair_items_; }
+  inline int item_damage_rate() { return item_damage_rate_; }
+  inline int rent_credit_val() { return rent_credit_val_; }
+  inline bool rent_sell_to_pawn() { return rent_sell_to_pawn_; }
+  inline bool rent_restrict_inns_by_level() { return rent_restrict_inns_by_level_; }
+  inline bool penalize_for_auto_renting() { return penalize_for_auto_renting_; }
+  inline int weapon_dam_min_hardness() { return weapon_dam_min_hardness_; }
+  inline int weapon_dam_max_hardness() { return weapon_dam_max_hardness_; }
+  inline int weapon_dam_max_sharpness() { return weapon_dam_max_sharpness_; }
+  inline bool mode_builder() { return mode_builder_; }
+  inline bool mode_beta() { return mode_beta_; }
+  inline bool mode_production() { return mode_production_; }
   inline sstring data_dir() { return data_dir_; }
   inline bool wizlock() { return wizlock_; }
   inline void set_wizlock(bool b) { wizlock_ = b; }
@@ -91,7 +88,7 @@ class Configuration {
   int weapon_dam_max_hardness_ = 150;
 
   // the max value of a sharpness roll, raising it = weapon blunt DECREASE
-  int weapon_dam_max_sharp_ = 150;
+  int weapon_dam_max_sharpness_ = 150;
 
   // causes items left in repair to be deleted after a set number of days.
   // Good to keep things circulating, but bad if extended downtime anticipated.
@@ -175,8 +172,8 @@ class Configuration {
   // enable various beta-mode more-fun options
   bool mode_beta_ = false;
 
-  // remove various production-mode restrictions
-  bool mode_prod_ = true;
+  // enable various production-mode restrictions
+  bool mode_production_ = true;
 
   // database connection params
   sstring db_host_ = "localhost";

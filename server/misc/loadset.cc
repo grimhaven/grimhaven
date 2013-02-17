@@ -171,7 +171,7 @@ bool loadsetCheck(TBeing *ch, int vnum, int chance, wearSlotT slot, const sstrin
   // 1 - ((1-0.01*n**1/3)^(1/n)) = normalized load rate, less math
   double adj_obj_lp_ratio = 1 - pow((1 - 0.01*cbrt((double)obj_lp)), 1/(double)obj_lp);
   // vlogf(LOG_MISC, format("suitset: (10000000 * adj_obj_lp_ratio * stats.equip) = %d") % (int) (10000000 * adj_obj_lp_ratio * stats.equip));
-  if (Config.ModeBeta() ||
+  if (Config.mode_beta() ||
       (chance >= 99) ||
       (::number(0,9999999) < (int) (10000000 * adj_obj_lp_ratio * stats.equip))) {
     /*
@@ -181,7 +181,7 @@ bool loadsetCheck(TBeing *ch, int vnum, int chance, wearSlotT slot, const sstrin
     }
     */
     TObj *obj = NULL;
-    if (!Config.LoadOnDeath() || chance == 101 || (flags & resetFlagPropLoad))
+    if (!Config.load_on_death() || chance == 101 || (flags & resetFlagPropLoad))
       obj = read_object(rob, REAL);
     else
       obj = read_object_buy_build(ch, rob, REAL);
@@ -194,7 +194,7 @@ bool loadsetCheck(TBeing *ch, int vnum, int chance, wearSlotT slot, const sstrin
       {
         delete obj;  // avoid double loads of pants
         return false;
-      } else if ((Config.LoadOnDeath() || chance == 101) && !(flags & resetFlagPropLoad))
+      } else if ((Config.load_on_death() || chance == 101) && !(flags & resetFlagPropLoad))
         *ch += *obj;
       else if (ch->equipment[slot]){
               delete obj;

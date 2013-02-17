@@ -689,7 +689,7 @@ TThing * TBeing::makeCorpse(spellNumT dmg_type, TBeing * tKiller, float exp_lost
     }
   }
 
-  if (!Config.ModeProd())
+  if (!Config.mode_production())
     gen_corpse->setupDissectionObjects();
 
 

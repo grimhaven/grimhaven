@@ -319,7 +319,7 @@ static void fastFight()
   // this will ABSOLUTELY lag the game
 
   // most of this logic is stripped out of socket.cc: gameLoop()
-  if (Config.ModeProd())
+  if (Config.mode_production())
     return;
 
   int pulse = 0;
@@ -349,7 +349,7 @@ static void fastFight()
 
         TMonster * tm = dynamic_cast<TMonster *>(tmp_ch);
         if (tm && !tm->isTestmob()) {
-          if (Config.ModeProd()) {
+          if (Config.mode_production()) {
             temp = tm->next;
             continue;
           } else {
