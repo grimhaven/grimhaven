@@ -1,5 +1,5 @@
-#ifndef __OBJ_ARMOR_H
-#define __OBJ_ARMOR_H
+#ifndef SERVER_OBJ_ARMOR_H_
+#define SERVER_OBJ_ARMOR_H_
 
 #include "obj/base_clothing.h"
 

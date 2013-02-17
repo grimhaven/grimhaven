@@ -1,5 +1,5 @@
-#ifndef __DISC_SHAMAN_ARMADILLO_H
-#define __DISC_SHAMAN_ARMADILLO_H
+#ifndef SERVER_DISC_SHAMAN_ARMADILLO_H_
+#define SERVER_DISC_SHAMAN_ARMADILLO_H_
 
 // This is the ARMADILLO discipline for shaman.
 

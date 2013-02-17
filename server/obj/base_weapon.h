@@ -1,5 +1,5 @@
-#ifndef __OBJ_BASE_WEAPON_H
-#define __OBJ_BASE_WEAPON_H
+#ifndef SERVER_OBJ_BASE_WEAPON_H_
+#define SERVER_OBJ_BASE_WEAPON_H_
 
 #include "misc/obj.h"
 

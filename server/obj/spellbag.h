@@ -1,5 +1,5 @@
-#ifndef __OBJ_SPELLBAG_H
-#define __OBJ_SPELLBAG_H
+#ifndef SERVER_OBJ_SPELLBAG_H_
+#define SERVER_OBJ_SPELLBAG_H_
 
 #include "obj/expandable_container.h"
 

@@ -1,5 +1,5 @@
-#ifndef __EXTERN_H
-#define __EXTERN_H
+#ifndef SERVER_MISC_EXTERN_H_
+#define SERVER_MISC_EXTERN_H_
 
 #include "misc/wiz_powers.h"
 #include "misc/room.h"

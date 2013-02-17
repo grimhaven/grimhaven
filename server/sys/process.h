@@ -1,5 +1,5 @@
-#ifndef __PROCESS_H
-#define __PROCESS_H
+#ifndef SERVER_SYS_PROCESS_H_
+#define SERVER_SYS_PROCESS_H_
 
 #include "sys/sstring.h"
 #include "sys/comm.h"

@@ -1,5 +1,5 @@
-#ifndef __PATHS_H
-#define __PATHS_H
+#ifndef SERVER_MISC_PATHS_H_
+#define SERVER_MISC_PATHS_H_
 
 /*
 Defines paths for various special mobs to follow.

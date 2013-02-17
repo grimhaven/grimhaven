@@ -1,5 +1,5 @@
-#ifndef __SOUND_H
-#define __SOUND_H
+#ifndef SERVER_SYS_SOUND_H_
+#define SERVER_SYS_SOUND_H_
 
 class sstring;
 

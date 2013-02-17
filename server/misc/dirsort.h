@@ -1,5 +1,5 @@
-#ifndef __DIRSORT_H
-#define __DIRSORT_H
+#ifndef SERVER_MISC_DIRSORT_H_
+#define SERVER_MISC_DIRSORT_H_
 
 class dirlistSort {
   public:

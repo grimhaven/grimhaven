@@ -1,5 +1,5 @@
-#ifndef __RENT_H
-#define __RENT_H
+#ifndef SERVER_MISC_RENT_H_
+#define SERVER_MISC_RENT_H_
 
 const int CURRENT_RENT_VERSION     =10;
 // 0        3.x - initial version

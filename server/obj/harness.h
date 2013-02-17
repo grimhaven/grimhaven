@@ -1,5 +1,5 @@
-#ifndef __OBJ_HARNESS_H
-#define __OBJ_HARNESS_H
+#ifndef SERVER_OBJ_HARNESS_H_
+#define SERVER_OBJ_HARNESS_H_
 
 #include "obj/base_clothing.h"
 

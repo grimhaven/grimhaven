@@ -1,5 +1,5 @@
-#ifndef __DISC_COMBAT_H
-#define __DISC_COMBAT_H
+#ifndef SERVER_DISC_COMBAT_H_
+#define SERVER_DISC_COMBAT_H_
 
 // This contains the general combat skills.
 

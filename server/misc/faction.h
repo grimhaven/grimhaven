@@ -1,5 +1,5 @@
-#ifndef __FACTION_H
-#define __FACTION_H
+#ifndef SERVER_MISC_FACTION_H_
+#define SERVER_MISC_FACTION_H_
 
 // some faction code is bad  (faction%) without fully enabled factions
 #define FACTIONS_IN_USE 0

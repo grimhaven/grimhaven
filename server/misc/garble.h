@@ -1,5 +1,5 @@
-#ifndef __GARBLE_H
-#define __GARBLE_H
+#ifndef SERVER_MISC_GARBLE_H_
+#define SERVER_MISC_GARBLE_H_
 
 #include "sys/sstring.h"
 
@@ -150,4 +150,4 @@ extern const sstring RandomVerb();
 // Make drunk people garble their words!
 extern sstring garble_olddrunk(const TBeing *, const TBeing *, const sstring &, Garble::SPEECHTYPE);
 
-#endif // __GARBLE_H
+#endif // SERVER_MISC_GARBLE_H_

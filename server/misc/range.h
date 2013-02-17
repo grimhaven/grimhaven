@@ -1,5 +1,5 @@
-#ifndef __RANGE_H
-#define __RANGE_H
+#ifndef SERVER_MISC_RANGE_H_
+#define SERVER_MISC_RANGE_H_
 
 extern int throwThing(TThing *, dirTypeT, int, TBeing **, int, int, TBeing *);
 extern TBeing *get_char_linear(const TBeing *, char *, int *, dirTypeT *);

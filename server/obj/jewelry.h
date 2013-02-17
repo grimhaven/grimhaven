@@ -1,5 +1,5 @@
-#ifndef __OBJ_JEWELRY_H
-#define __OBJ_JEWELRY_H
+#ifndef SERVER_OBJ_JEWELRY_H_
+#define SERVER_OBJ_JEWELRY_H_
 
 #include "obj/base_clothing.h"
 

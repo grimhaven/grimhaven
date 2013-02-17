@@ -1,5 +1,5 @@
-#ifndef __SYSTEMTASK_H
-#define __SYSTEMTASK_H
+#ifndef SERVER_SYS_SYSTEMTASK_H_
+#define SERVER_SYS_SYSTEMTASK_H_
 
 const int SYSTEM_MAIL_IMMORT_DIR = 1;
 const int SYSTEM_TRACEROUTE = 2;

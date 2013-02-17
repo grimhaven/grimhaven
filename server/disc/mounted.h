@@ -1,5 +1,5 @@
-#ifndef __DISC_MOUNTED_H
-#define __DISC_MOUNTED_H
+#ifndef SERVER_DISC_MOUNTED_H_
+#define SERVER_DISC_MOUNTED_H_
 
 // This is the DEIKHAN MOUNT discipline.
 

@@ -1,5 +1,5 @@
-#ifndef __OBJ_EGG_H
-#define __OBJ_EGG_H
+#ifndef SERVER_OBJ_EGG_H_
+#define SERVER_OBJ_EGG_H_
 
 #include "misc/obj.h"
 #include "obj/food.h"

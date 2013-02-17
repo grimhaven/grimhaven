@@ -1,5 +1,5 @@
-#ifndef __OBJ_KEY_H
-#define __OBJ_KEY_H
+#ifndef SERVER_OBJ_KEY_H_
+#define SERVER_OBJ_KEY_H_
 
 #include "misc/obj.h"
 

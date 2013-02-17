@@ -1,5 +1,5 @@
-#ifndef __OBJ_DRUG_CONTAINER_H
-#define __OBJ_DRUG_CONTAINER_H
+#ifndef SERVER_OBJ_DRUG_CONTAINER_H_
+#define SERVER_OBJ_DRUG_CONTAINER_H_
 
 #include "misc/obj.h"
 

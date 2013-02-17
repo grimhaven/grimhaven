@@ -1,5 +1,5 @@
-#ifndef __OBJ_COMMODITY_H
-#define __OBJ_COMMODITY_H
+#ifndef SERVER_OBJ_COMMODITY_H_
+#define SERVER_OBJ_COMMODITY_H_
 
 #include "obj/mergeable.h"
 

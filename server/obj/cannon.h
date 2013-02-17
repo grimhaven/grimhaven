@@ -1,5 +1,5 @@
-#ifndef __OBJ_CANNON_H
-#define __OBJ_CANNON_H
+#ifndef SERVER_OBJ_CANNON_H_
+#define SERVER_OBJ_CANNON_H_
 
 #include "obj/gun.h"
 

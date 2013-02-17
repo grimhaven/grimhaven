@@ -1,5 +1,5 @@
-#ifndef __BEING_H
-#define __BEING_H
+#ifndef SERVER_MISC_BEING_H_
+#define SERVER_MISC_BEING_H_
 
 #include "sys/db.h"
 #include "misc/thing.h"

@@ -1,5 +1,5 @@
-#ifndef __MONSTER_H
-#define __MONSTER_H
+#ifndef SERVER_MISC_MONSTER_H_
+#define SERVER_MISC_MONSTER_H_
 
 #include "misc/being.h"
 #include "misc/paths.h"

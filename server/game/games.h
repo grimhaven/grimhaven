@@ -1,5 +1,5 @@
-#ifndef __GAMES_H
-#define __GAMES_H
+#ifndef SERVER_GAME_GAMES_H_
+#define SERVER_GAME_GAMES_H_
 
 #include <algorithm>
 #include <deque>

@@ -1,5 +1,5 @@
-#ifndef __TIMING_H
-#define __TIMING_H
+#ifndef SERVER_SYS_TIMING_H_
+#define SERVER_SYS_TIMING_H_
 
 #include<sys/time.h>
 

@@ -1,5 +1,5 @@
-#ifndef __OBJ_DRINKCON_H
-#define __OBJ_DRINKCON_H
+#ifndef SERVER_OBJ_DRINKCON_H_
+#define SERVER_OBJ_DRINKCON_H_
 
 #include "obj/base_cup.h"
 

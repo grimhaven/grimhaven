@@ -1,5 +1,5 @@
-#ifndef __SHOPACCOUNTING_H
-#define __SHOPACCOUNTING_H
+#ifndef SERVER_MISC_SHOPACCOUNTING_H_
+#define SERVER_MISC_SHOPACCOUNTING_H_
 
 #include <map>
 

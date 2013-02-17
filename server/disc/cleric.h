@@ -1,5 +1,5 @@
-#ifndef __DISC_CLERIC_H
-#define __DISC_CLERIC_H
+#ifndef SERVER_DISC_CLERIC_H_
+#define SERVER_DISC_CLERIC_H_
 
 // This is the CLERIC BASIC discipline.
 

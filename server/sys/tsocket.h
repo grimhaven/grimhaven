@@ -1,5 +1,5 @@
-#ifndef __SOCKET_H
-#define __SOCKET_H
+#ifndef SERVER_SYS_TSOCKET_H_
+#define SERVER_SYS_TSOCKET_H_
 
 #include "sys/comm.h"
 #include "misc/structs.h"

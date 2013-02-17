@@ -1,5 +1,5 @@
-#ifndef __OBJ_WAGON_H
-#define __OBJ_WAGON_H
+#ifndef SERVER_OBJ_WAGON_H_
+#define SERVER_OBJ_WAGON_H_
 
 #include "obj/open_container.h"
 

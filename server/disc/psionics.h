@@ -1,5 +1,5 @@
-#ifndef __DISC_PSIONICS_H
-#define __DISC_PSIONICS_H
+#ifndef SERVER_DISC_PSIONICS_H_
+#define SERVER_DISC_PSIONICS_H_
 
 #include "misc/discipline.h"
 #include "misc/skills.h"

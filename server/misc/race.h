@@ -1,5 +1,5 @@
-#ifndef __RACE_H
-#define __RACE_H
+#ifndef SERVER_MISC_RACE_H_
+#define SERVER_MISC_RACE_H_
 
 // The basic design for the handling of Races is the Flyweight Pattern as
 // explained in Design Patterns: Elements of Reusable Object-Oriented Software

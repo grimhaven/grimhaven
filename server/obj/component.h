@@ -1,5 +1,5 @@
-#ifndef __OBJ_COMPONENT_H
-#define __OBJ_COMPONENT_H
+#ifndef SERVER_OBJ_COMPONENT_H_
+#define SERVER_OBJ_COMPONENT_H_
 
 #include "obj/mergeable.h"
 #include "misc/enum.h"

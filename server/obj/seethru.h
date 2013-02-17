@@ -1,5 +1,5 @@
-#ifndef __OBJ_SEETHRU_H
-#define __OBJ_SEETHRU_H
+#ifndef SERVER_OBJ_SEETHRU_H_
+#define SERVER_OBJ_SEETHRU_H_
 
 #include "misc/obj.h"
 

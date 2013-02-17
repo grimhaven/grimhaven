@@ -1,5 +1,5 @@
-#ifndef __GAMETIME_H
-#define __GAMETIME_H
+#ifndef SERVER_SYS_GAMETIME_H_
+#define SERVER_SYS_GAMETIME_H_
 
 #include <time.h>
 

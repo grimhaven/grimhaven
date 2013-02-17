@@ -1,5 +1,5 @@
-#ifndef __DATABASE_H
-#define __DATABASE_H
+#ifndef SERVER_SYS_DATABASE_H_
+#define SERVER_SYS_DATABASE_H_
 
 #include <mysql/mysql.h>
 #include <queue>

@@ -1,5 +1,5 @@
-#ifndef __DISC_FIRE_H
-#define __DISC_FIRE_H
+#ifndef SERVER_DISC_FIRE_H_
+#define SERVER_DISC_FIRE_H_
 
 // This is the FIRE discipline.
 

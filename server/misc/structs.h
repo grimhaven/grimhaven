@@ -1,5 +1,5 @@
-#ifndef __STRUCTS_H
-#define __STRUCTS_H
+#ifndef SERVER_MISC_STRUCTS_H_
+#define SERVER_MISC_STRUCTS_H_
 
 #ifndef _TIME_H
 #include <time.h>
@@ -452,4 +452,4 @@ inline void SET_BITS_CORRECT(int& a, int p, int n, const int y)
   return;
 }
 
-#endif  // __STRUCTS_H inclusion sandwich
+#endif  // MISC_STRUCTS_H_ inclusion sandwich

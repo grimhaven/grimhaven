@@ -1,5 +1,5 @@
-#ifndef __OBJ_EXPANDABLE_CONTAINER_H
-#define __OBJ_EXPANDABLE_CONTAINER_H
+#ifndef SERVER_OBJ_EXPANDABLE_CONTAINER_H_
+#define SERVER_OBJ_EXPANDABLE_CONTAINER_H_
 
 #include "obj/open_container.h"
 

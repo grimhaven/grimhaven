@@ -1,5 +1,5 @@
-#ifndef __DISC_THIEF_H
-#define __DISC_THIEF_H
+#ifndef SERVER_DISC_THIEF_H_
+#define SERVER_DISC_THIEF_H_
 
 // This is the BASIC THIEF discipline.
 

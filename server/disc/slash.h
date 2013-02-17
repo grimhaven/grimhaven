@@ -1,5 +1,5 @@
-#ifndef __DISC_SLASH_H
-#define __DISC_SLASH_H
+#ifndef SERVER_DISC_SLASH_H_
+#define SERVER_DISC_SLASH_H_
 
 // This is the SLASH discipline.
 

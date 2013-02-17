@@ -1,5 +1,5 @@
-#ifndef __DISC_DEIKHAN_CURES_H
-#define __DISC_DEIKHAN_CURES_H
+#ifndef SERVER_DISC_DEIKHAN_CURES_H_
+#define SERVER_DISC_DEIKHAN_CURES_H_
 
 // This is the DEIKHAN CURES discipline.
 

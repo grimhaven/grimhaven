@@ -1,5 +1,5 @@
-#ifndef __COMM_H
-#define __COMM_H
+#ifndef SERVER_SYS_COMM_H_
+#define SERVER_SYS_COMM_H_
 
 #include "sys/ansi.h"
 #include "sys/sstring.h"

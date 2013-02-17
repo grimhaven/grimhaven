@@ -1,5 +1,5 @@
-#ifndef __TASK_H
-#define __TASK_H
+#ifndef SERVER_MISC_TASK_H_
+#define SERVER_MISC_TASK_H_
 
 /*************************************************************************
 

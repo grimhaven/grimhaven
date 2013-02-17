@@ -1,5 +1,5 @@
-#ifndef __CLIENT_H
-#define __CLIENT_H
+#ifndef SERVER_SYS_CLIENT_H_
+#define SERVER_SYS_CLIENT_H_
 
 class sstring;
 

@@ -1,5 +1,5 @@
-#ifndef __DISEASE_H
-#define __DISEASE_H
+#ifndef SERVER_MISC_DISEASE_H_
+#define SERVER_MISC_DISEASE_H_
 
 /**************************************************************************
 

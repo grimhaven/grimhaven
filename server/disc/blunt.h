@@ -1,5 +1,5 @@
-#ifndef __DISC_BLUNT_H
-#define __DISC_BLUNT_H
+#ifndef SERVER_DISC_BLUNT_H_
+#define SERVER_DISC_BLUNT_H_
 
 // This is the BLUNT discipline.
 

@@ -1,5 +1,5 @@
-#ifndef __COMBAT_H
-#define __COMBAT_H
+#ifndef SERVER_MISC_COMBAT_H_
+#define SERVER_MISC_COMBAT_H_
 
 class TBeing;
 

@@ -1,5 +1,5 @@
-#ifndef __OBJ_FRUIT_H
-#define __OBJ_FRUIT_H
+#ifndef SERVER_OBJ_FRUIT_H_
+#define SERVER_OBJ_FRUIT_H_
 
 #include "misc/obj.h"
 #include "obj/food.h"

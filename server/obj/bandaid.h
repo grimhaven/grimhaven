@@ -1,5 +1,5 @@
-#ifndef __OBJ_BANDAID_H
-#define __OBJ_BANDAID_H
+#ifndef SERVER_OBJ_BANDAID_H_
+#define SERVER_OBJ_BANDAID_H_
 
 #include "misc/obj.h"
 

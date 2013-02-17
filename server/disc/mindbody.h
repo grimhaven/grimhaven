@@ -1,5 +1,5 @@
-#ifndef __DISC_MINDBODY_H
-#define __DISC_MINDBODY_H
+#ifndef SERVER_DISC_MINDBODY_H_
+#define SERVER_DISC_MINDBODY_H_
 
 #include "misc/discipline.h"
 #include "misc/skills.h"

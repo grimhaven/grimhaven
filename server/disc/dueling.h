@@ -1,5 +1,5 @@
-#ifndef __DISC_DUELING_H
-#define __DISC_DUELING_H
+#ifndef SERVER_DISC_DUELING_H_
+#define SERVER_DISC_DUELING_H_
 
 // This is the dueling discipline.
 

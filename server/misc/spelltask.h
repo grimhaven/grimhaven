@@ -1,5 +1,5 @@
-#ifndef __SPELLTASK_H
-#define __SPELLTASK_H
+#ifndef SERVER_MISC_SPELLTASK_H_
+#define SERVER_MISC_SPELLTASK_H_
 
 /*************************************************************************
 

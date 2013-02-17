@@ -1,5 +1,5 @@
-#ifndef __PATHFINDER_H
-#define __PATHFINDER_H
+#ifndef SERVER_SYS_PATHFINDER_H_
+#define SERVER_SYS_PATHFINDER_H_
 
 #include <deque>
 #include <boost/shared_ptr.hpp>

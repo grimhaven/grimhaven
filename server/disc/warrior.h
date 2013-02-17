@@ -1,5 +1,5 @@
-#ifndef __DISC_WARRIOR_H
-#define __DISC_WARRIOR_H
+#ifndef SERVER_DISC_WARRIOR_H_
+#define SERVER_DISC_WARRIOR_H_
 
 // This is the WARRIOR discipline.
 

@@ -1,5 +1,5 @@
-#ifndef __OBJ_WAND_H
-#define __OBJ_WAND_H
+#ifndef SERVER_OBJ_WAND_H_
+#define SERVER_OBJ_WAND_H_
 
 #include "obj/magic_item.h"
 

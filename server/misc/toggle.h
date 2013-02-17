@@ -1,5 +1,5 @@
-#ifndef __TOGGLE_H
-#define __TOGGLE_H
+#ifndef SERVER_MISC_TOGGLE_H_
+#define SERVER_MISC_TOGGLE_H_
 
 #include <map>
 

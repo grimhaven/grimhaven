@@ -1,5 +1,5 @@
-#ifndef __TRAP_H
-#define __TRAP_H
+#ifndef SERVER_MISC_TRAP_H_
+#define SERVER_MISC_TRAP_H_
 
 class sstring;
 

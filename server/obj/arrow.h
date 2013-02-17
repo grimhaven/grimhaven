@@ -1,5 +1,5 @@
-#ifndef __OBJ_ARROW_H
-#define __OBJ_ARROW_H
+#ifndef SERVER_OBJ_ARROW_H_
+#define SERVER_OBJ_ARROW_H_
 
 #include "obj/base_weapon.h"
 

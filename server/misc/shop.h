@@ -1,5 +1,5 @@
-#ifndef __SHOP_H
-#define __SHOP_H
+#ifndef SERVER_MISC_SHOP_H_
+#define SERVER_MISC_SHOP_H_
 
 #include <map>
 #include <vector>

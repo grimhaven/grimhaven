@@ -1,5 +1,5 @@
-#ifndef __DISC_COMMONER_H
-#define __DISC_COMMONER_H
+#ifndef SERVER_DISC_COMMONER_H_
+#define SERVER_DISC_COMMONER_H_
 
 #include "misc/discipline.h"
 

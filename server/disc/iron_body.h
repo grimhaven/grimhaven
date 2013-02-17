@@ -1,5 +1,5 @@
-#ifndef __DISC_IRON_BODY_H
-#define __DISC_IRON_BODY_H
+#ifndef SERVER_DISC_IRON_BODY_H_
+#define SERVER_DISC_IRON_BODY_H_
 
 #include "misc/discipline.h"
 #include "misc/skills.h"

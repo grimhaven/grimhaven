@@ -1,5 +1,5 @@
-#ifndef __DISC_STEALTH_H
-#define __DISC_STEALTH_H
+#ifndef SERVER_DISC_STEALTH_H_
+#define SERVER_DISC_STEALTH_H_
 
 // This is the THIEF Stealth discipline.
 

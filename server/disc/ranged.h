@@ -1,5 +1,5 @@
-#ifndef __DISC_RANGED_H
-#define __DISC_RANGED_H
+#ifndef SERVER_DISC_RANGED_H_
+#define SERVER_DISC_RANGED_H_
 
 // This is the RANGED discipline.
 

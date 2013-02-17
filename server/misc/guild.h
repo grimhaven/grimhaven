@@ -1,5 +1,5 @@
-#ifndef __GUILD_H
-#define __GUILD_H
+#ifndef SERVER_MISC_GUILD_H_
+#define SERVER_MISC_GUILD_H_
 
 
 const int GUILD_CREATE_LEVEL = 25;

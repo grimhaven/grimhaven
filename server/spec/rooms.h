@@ -1,5 +1,5 @@
-#ifndef __SPEC_ROOMS_H
-#define __SPEC_ROOMS_H
+#ifndef SERVER_SPEC_ROOMS_H_
+#define SERVER_SPEC_ROOMS_H_
 
 /*************************************************************************
 

@@ -1,5 +1,5 @@
-#ifndef __DISC_PIERCE_H
-#define __DISC_PIERCE_H
+#ifndef SERVER_DISC_PIERCE_H_
+#define SERVER_DISC_PIERCE_H_
 
 // This is the PIERCE discipline.
 

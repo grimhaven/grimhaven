@@ -1,5 +1,5 @@
-#ifndef __DISC_THEOLOGY_H
-#define __DISC_THEOLOGY_H
+#ifndef SERVER_DISC_THEOLOGY_H_
+#define SERVER_DISC_THEOLOGY_H_
 
 // This is the THEOLOGY discipline.
 

@@ -1,5 +1,5 @@
-#ifndef __CREATE_H
-#define __CREATE_H
+#ifndef SERVER_MISC_CREATE_H_
+#define SERVER_MISC_CREATE_H_
 
 class TArrow;
 class TPortal;

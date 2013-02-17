@@ -1,5 +1,5 @@
-#ifndef __DISC_MEDITATION_MONK_H
-#define __DISC_MEDITATION_MONK_H
+#ifndef SERVER_DISC_MEDITATION_H_
+#define SERVER_DISC_MEDITATION_H_
 
 #include "misc/discipline.h"
 #include "misc/skills.h"

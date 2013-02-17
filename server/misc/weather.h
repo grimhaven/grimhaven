@@ -1,5 +1,5 @@
-#ifndef __WEATHER_H
-#define __WEATHER_H
+#ifndef SERVER_MISC_WEATHER_H_
+#define SERVER_MISC_WEATHER_H_
 
 class TBeing;
 class TRoom;

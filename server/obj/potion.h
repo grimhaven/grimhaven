@@ -1,5 +1,5 @@
-#ifndef __OBJ_POTION_H
-#define __OBJ_POTION_H
+#ifndef SERVER_OBJ_POTION_H_
+#define SERVER_OBJ_POTION_H_
 
 #include "obj/base_cup.h"
 

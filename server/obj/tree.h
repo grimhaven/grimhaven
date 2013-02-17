@@ -1,5 +1,5 @@
-#ifndef __OBJ_TREE_H
-#define __OBJ_TREE_H
+#ifndef SERVER_OBJ_TREE_H_
+#define SERVER_OBJ_TREE_H_
 
 #include "misc/obj.h"
 

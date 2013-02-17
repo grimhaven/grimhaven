@@ -1,5 +1,5 @@
-#ifndef __DISC_AIR_H
-#define __DISC_AIR_H
+#ifndef SERVER_DISC_AIR_H_
+#define SERVER_DISC_AIR_H_
 
 // This is the AIR discipline.
 

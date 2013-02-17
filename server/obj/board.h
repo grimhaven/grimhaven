@@ -1,5 +1,5 @@
-#ifndef __OBJ_BOARD_H
-#define __OBJ_BOARD_H
+#ifndef SERVER_OBJ_BOARD_H_
+#define SERVER_OBJ_BOARD_H_
 
 #include "misc/obj.h"
 

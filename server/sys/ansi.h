@@ -1,5 +1,5 @@
-#ifndef __ANSI_H
-#define __ANSI_H
+#ifndef SERVER_SYS_ANSI_H_
+#define SERVER_SYS_ANSI_H_
 
 enum colorTypeT {
      COLOR_NONE, //       = 0;

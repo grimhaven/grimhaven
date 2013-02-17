@@ -1,5 +1,5 @@
-#ifndef __OBJ_H
-#define __OBJ_H
+#ifndef SERVER_MISC_OBJ_H_
+#define SERVER_MISC_OBJ_H_
 
 #include <vector>
 #include <list>

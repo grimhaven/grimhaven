@@ -1,5 +1,5 @@
-#ifndef __DISC_RITUALISM_H
-#define __DISC_RITUALISM_H
+#ifndef SERVER_DISC_RITUALISM_H_
+#define SERVER_DISC_RITUALISM_H_
 
 #include "misc/discipline.h"
 #include "misc/skills.h"

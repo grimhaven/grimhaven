@@ -1,5 +1,5 @@
-#ifndef __SKILLS_H
-#define __SKILLS_H
+#ifndef SERVER_MISC_SKILLS_H_
+#define SERVER_MISC_SKILLS_H_
 
 #include "misc/structs.h"
 

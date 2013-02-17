@@ -1,5 +1,5 @@
-#ifndef __DISC_SHAMAN_FROG_H
-#define __DISC_SHAMAN_FROG_H
+#ifndef SERVER_DISC_SHAMAN_FROG_H_
+#define SERVER_DISC_SHAMAN_FROG_H_
 
 #include "misc/discipline.h"
 #include "misc/skills.h"

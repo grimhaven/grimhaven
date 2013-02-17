@@ -1,5 +1,5 @@
-#ifndef __DB_H
-#define __DB_H
+#ifndef SERVER_SYS_DB_H_
+#define SERVER_SYS_DB_H_
 
 #include "misc/structs.h"
 #include "sys/sstring.h"

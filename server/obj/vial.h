@@ -1,5 +1,5 @@
-#ifndef __OBJ_VIAL_H
-#define __OBJ_VIAL_H
+#ifndef SERVER_OBJ_VIAL_H_
+#define SERVER_OBJ_VIAL_H_
 
 #include "obj/base_cup.h"
 

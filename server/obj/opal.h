@@ -1,5 +1,5 @@
-#ifndef __OBJ_OPAL_H
-#define __OBJ_OPAL_H
+#ifndef SERVER_OBJ_OPAL_H_
+#define SERVER_OBJ_OPAL_H_
 
 #include "misc/obj.h"
 

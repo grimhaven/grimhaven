@@ -1,5 +1,5 @@
-#ifndef __OBJ_LOW_H
-#define __OBJ_LOW_H
+#ifndef SERVER_OBJ_LOW_H_
+#define SERVER_OBJ_LOW_H_
 
 /*-------------------------------------------------------------------
   New LOW classification rules for ARMOR

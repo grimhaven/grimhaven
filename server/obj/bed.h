@@ -1,5 +1,5 @@
-#ifndef __OBJ_BED_H
-#define __OBJ_BED_H
+#ifndef SERVER_OBJ_BED_H_
+#define SERVER_OBJ_BED_H_
 
 #include "misc/obj.h"
 

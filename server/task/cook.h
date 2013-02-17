@@ -1,5 +1,5 @@
-#ifndef __TASK_COOK_H
-#define __TASK_COOK_H
+#ifndef SERVER_TASK_COOK_H_
+#define SERVER_TASK_COOK_H_
 
 #include "misc/low.h"
 

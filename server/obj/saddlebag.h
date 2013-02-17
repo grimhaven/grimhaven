@@ -1,5 +1,5 @@
-#ifndef __OBJ_SADDLEBAG_H
-#define __OBJ_SADDLEBAG_H
+#ifndef SERVER_OBJ_SADDLEBAG_H_
+#define SERVER_OBJ_SADDLEBAG_H_
 
 #include "obj/expandable_container.h"
 

@@ -7,8 +7,7 @@
 #include "misc/extern.h"
 
 
-int game_main(int argc, char *argv[])
-{
+int game_main(int argc, char *argv[]) {
   if (!Config::doConfiguration(argc, argv)) {
     vlogf(LOG_FILE, "failed configuration");
     exit(1);
@@ -38,9 +37,7 @@ int game_main(int argc, char *argv[])
   return 0;
 }
 
-
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
   try {
     return game_main(argc, argv);
   } catch (const std::exception &e) {

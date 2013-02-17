@@ -1,5 +1,5 @@
-#ifndef __HELP_H
-#define __HELP_H
+#ifndef SERVER_MISC_HELP_H_
+#define SERVER_MISC_HELP_H_
 
 extern void help_skills(TBeing *, char *);
 extern void buildHelpIndex();

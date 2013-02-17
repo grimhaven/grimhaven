@@ -1,5 +1,5 @@
-#ifndef __DISC_WIZARDRY_H
-#define __DISC_WIZARDRY_H
+#ifndef SERVER_DISC_WIZARDRY_H_
+#define SERVER_DISC_WIZARDRY_H_
 
 // This is the WIZARDRY discipline.
 

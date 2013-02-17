@@ -1,5 +1,5 @@
-#ifndef __TASK_WHITTLE_H
-#define __TASK_WHITTLE_H
+#ifndef SERVER_TASK_WHITTLE_H_
+#define SERVER_TASK_WHITTLE_H_
 
 enum whittleTypeT
 {

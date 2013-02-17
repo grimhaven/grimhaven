@@ -1,5 +1,5 @@
-#ifndef __MAIL_H
-#define __MAIL_H
+#ifndef SERVER_MISC_MAIL_H_
+#define SERVER_MISC_MAIL_H_
 
 const int MIN_MAIL_LEVEL=2;
 const int STAMP_PRICE=50;

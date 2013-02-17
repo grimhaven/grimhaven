@@ -1,5 +1,5 @@
-#ifndef __DISC_DEFENSE_H
-#define __DISC_DEFENSE_H
+#ifndef SERVER_DISC_DEFENSE_H_
+#define SERVER_DISC_DEFENSE_H_
 
 #include "misc/discipline.h"
 #include "misc/skills.h"

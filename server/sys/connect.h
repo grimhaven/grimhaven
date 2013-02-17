@@ -1,5 +1,5 @@
-#ifndef __CONNECT_H
-#define __CONNECT_H
+#ifndef SERVER_SYS_CONNECT_H_
+#define SERVER_SYS_CONNECT_H_
 
 #include "obj/drug.h"
 #include "misc/stats.h"

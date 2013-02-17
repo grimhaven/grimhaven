@@ -1,5 +1,5 @@
-#ifndef __OBJ_ARMOR_WAND_H
-#define __OBJ_ARMOR_WAND_H
+#ifndef SERVER_OBJ_ARMOR_WAND_H_
+#define SERVER_OBJ_ARMOR_WAND_H_
 
 #include "obj/armor.h"
 #include "obj/wand.h"

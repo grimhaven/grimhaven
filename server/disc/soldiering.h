@@ -1,5 +1,5 @@
-#ifndef __DISC_SOLDIERING_H
-#define __DISC_SOLDIERING_H
+#ifndef SERVER_DISC_SOLDIERING_H_
+#define SERVER_DISC_SOLDIERING_H_
 
 // This is the WARRIOR SOLDIERING discipline.
 

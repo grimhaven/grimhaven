@@ -1,5 +1,5 @@
-#ifndef __DISC_LOOTING_H
-#define __DISC_LOOTING_H
+#ifndef SERVER_DISC_LOOTING_H_
+#define SERVER_DISC_LOOTING_H_
 
 // This is the LOOTING discipline.
 

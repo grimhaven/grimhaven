@@ -1,5 +1,5 @@
-#ifndef __DISC_FOCUSED_ATTACKS_H
-#define __DISC_FOCUSED_ATTACKS_H
+#ifndef SERVER_DISC_FATTACKS_H_
+#define SERVER_DISC_FATTACKS_H_
 
 #include "misc/discipline.h"
 #include "misc/skills.h"

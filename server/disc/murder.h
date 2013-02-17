@@ -1,5 +1,5 @@
-#ifndef __DISC_MURDER_H
-#define __DISC_MURDER_H
+#ifndef SERVER_DISC_MURDER_H_
+#define SERVER_DISC_MURDER_H_
 
 // This is the MURDER discipline.
 

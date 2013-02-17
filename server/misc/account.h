@@ -1,5 +1,5 @@
-#ifndef __ACCOUNT_H
-#define __ACCOUNT_H
+#ifndef SERVER_MISC_ACCOUNT_H_
+#define SERVER_MISC_ACCOUNT_H_
 
 #include "sys/sstring.h"
 #include "sys/connect.h" // termTypeT

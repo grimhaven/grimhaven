@@ -1,5 +1,5 @@
-#ifndef __OBJ_MERGEABLE_H
-#define __OBJ_MERGEABLE_H
+#ifndef SERVER_OBJ_MERGEABLE_H_
+#define SERVER_OBJ_MERGEABLE_H_
 
 // this is a base class for object types are that "mergeable"
 // ex, components, commodities, talens, etc

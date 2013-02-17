@@ -1,5 +1,5 @@
-#ifndef __RESPONSE_H
-#define __RESPONSE_H
+#ifndef SERVER_MISC_RESPONSE_H_
+#define SERVER_MISC_RESPONSE_H_
 
 #include "misc/parse.h"
 
@@ -66,4 +66,4 @@ class Responses {
     virtual ~Responses();
 };
 
-#endif // __RESPONSE_H__
+#endif // MISC_RESPONSE_H___

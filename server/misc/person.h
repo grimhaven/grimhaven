@@ -1,5 +1,5 @@
-#ifndef __PERSON_H
-#define __PERSON_H
+#ifndef SERVER_MISC_PERSON_H_
+#define SERVER_MISC_PERSON_H_
 
 #include "misc/being.h"
 #include "misc/wiz_powers.h"

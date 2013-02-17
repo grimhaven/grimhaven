@@ -1,5 +1,5 @@
-#ifndef __OBJ_TABLE_H
-#define __OBJ_TABLE_H
+#ifndef SERVER_OBJ_TABLE_H_
+#define SERVER_OBJ_TABLE_H_
 
 #include "misc/obj.h"
 

@@ -1,5 +1,5 @@
-#ifndef __OBJ_TRAP_H
-#define __OBJ_TRAP_H
+#ifndef SERVER_OBJ_TRAP_H_
+#define SERVER_OBJ_TRAP_H_
 
 #include "misc/obj.h"
 

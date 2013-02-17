@@ -1,5 +1,5 @@
-#ifndef __LIQUIDS_H
-#define __LIQUIDS_H
+#ifndef SERVER_MISC_LIQUIDS_H_
+#define SERVER_MISC_LIQUIDS_H_
 
 #include <map>
 

@@ -1,5 +1,5 @@
-#ifndef __OBJ_FLAME_H
-#define __OBJ_FLAME_H
+#ifndef SERVER_OBJ_FLAME_H_
+#define SERVER_OBJ_FLAME_H_
 
 #include "obj/base_light.h"
 

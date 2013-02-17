@@ -1,5 +1,5 @@
-#ifndef __DISC_DEIKHAN_FIGHT_H
-#define __DISC_DEIKHAN_FIGHT_H
+#ifndef SERVER_DISC_DEIKHAN_FIGHT_H_
+#define SERVER_DISC_DEIKHAN_FIGHT_H_
 
 // This is the DEIKHAN FIGHTING skills discipline.
 

@@ -1,5 +1,5 @@
-#ifndef __DISC_EARTH_H
-#define __DISC_EARTH_H
+#ifndef SERVER_DISC_EARTH_H_
+#define SERVER_DISC_EARTH_H_
 
 // This is the EARTH discipline.
 

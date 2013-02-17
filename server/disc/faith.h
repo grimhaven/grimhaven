@@ -1,5 +1,5 @@
-#ifndef __DISC_PIETY_H
-#define __DISC_PIETY_H
+#ifndef SERVER_DISC_FAITH_H_
+#define SERVER_DISC_FAITH_H_
 
 // This is the FAITH discipline.
 

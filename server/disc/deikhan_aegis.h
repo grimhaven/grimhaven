@@ -1,5 +1,5 @@
-#ifndef __DISC_DEIKHAN_AEGIS_H
-#define __DISC_DEIKHAN_AEGIS_H
+#ifndef SERVER_DISC_DEIKHAN_AEGIS_H_
+#define SERVER_DISC_DEIKHAN_AEGIS_H_
 
 // This is the DEIKHAN AEGIS discipline.
 

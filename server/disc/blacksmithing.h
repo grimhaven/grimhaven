@@ -1,5 +1,5 @@
-#ifndef __DISC_BLACKSMITHING_H
-#define __DISC_BLACKSMITHING_H
+#ifndef SERVER_DISC_BLACKSMITHING_H_
+#define SERVER_DISC_BLACKSMITHING_H_
 
 // This is the blacksmith discipline.
 

@@ -1,5 +1,5 @@
-#ifndef __OBJ_PORTAL_H
-#define __OBJ_PORTAL_H
+#ifndef SERVER_OBJ_PORTAL_H_
+#define SERVER_OBJ_PORTAL_H_
 
 #include "obj/seethru.h"
 

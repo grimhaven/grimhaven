@@ -1,5 +1,5 @@
-#ifndef __SPEC_MOBS_H
-#define __SPEC_MOBS_H
+#ifndef SERVER_SPEC_MOBS_H_
+#define SERVER_SPEC_MOBS_H_
 
 /************************************************************************
 

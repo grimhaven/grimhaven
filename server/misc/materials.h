@@ -1,5 +1,5 @@
-#ifndef __MATERIALS_H
-#define __MATERIALS_H
+#ifndef SERVER_MISC_MATERIALS_H_
+#define SERVER_MISC_MATERIALS_H_
 
 #include "misc/structs.h"
 

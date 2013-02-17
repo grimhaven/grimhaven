@@ -1,5 +1,5 @@
-#ifndef __DISC_ALCHEMY_H
-#define __DISC_ALCHEMY_H
+#ifndef SERVER_DISC_ALCHEMY_H_
+#define SERVER_DISC_ALCHEMY_H_
 
 // This is the ALCHEMY discipline.
 

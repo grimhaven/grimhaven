@@ -1,5 +1,5 @@
-#ifndef __COLORSTRING_H
-#define __COLORSTRING_H
+#ifndef SERVER_SYS_COLORSTRING_H_
+#define SERVER_SYS_COLORSTRING_H_
 
 #include "sys/ansi.h"
 

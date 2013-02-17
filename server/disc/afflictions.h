@@ -1,5 +1,5 @@
-#ifndef __DISC_AFFLICTIONS_H
-#define __DISC_AFFLICTIONS_H
+#ifndef SERVER_DISC_AFFLICTIONS_H_
+#define SERVER_DISC_AFFLICTIONS_H_
 
 // This is the AFFLICT discipline.
 

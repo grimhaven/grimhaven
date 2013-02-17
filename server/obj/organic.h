@@ -1,5 +1,5 @@
-#ifndef __OBJ_ORGANIC_H
-#define __OBJ_ORGANIC_H
+#ifndef SERVER_OBJ_ORGANIC_H_
+#define SERVER_OBJ_ORGANIC_H_
 
 #include "misc/obj.h"
 

@@ -1,5 +1,5 @@
-#ifndef __HANDLER_H
-#define __HANDLER_H
+#ifndef SERVER_SYS_HANDLER_H_
+#define SERVER_SYS_HANDLER_H_
 
 #include <list>
 

@@ -1,5 +1,5 @@
-#ifndef __OBJ_KEYRING_H
-#define __OBJ_KEYRING_H
+#ifndef SERVER_OBJ_KEYRING_H_
+#define SERVER_OBJ_KEYRING_H_
 
 #include "obj/expandable_container.h"
 

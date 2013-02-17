@@ -1,5 +1,5 @@
-#ifndef __DISC_SPIRIT_H
-#define __DISC_SPIRIT_H
+#ifndef SERVER_DISC_SPIRIT_H_
+#define SERVER_DISC_SPIRIT_H_
 
 // This is the SPIRIT discipline.
 

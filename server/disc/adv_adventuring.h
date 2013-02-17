@@ -1,5 +1,5 @@
-#ifndef __DISC_ADV_ADVENTURING_H
-#define __DISC_ADV_ADVENTURING_H
+#ifndef SERVER_DISC_ADV_ADVENTURING_H_
+#define SERVER_DISC_ADV_ADVENTURING_H_
 
 #include "misc/discipline.h"
 #include "misc/skills.h"

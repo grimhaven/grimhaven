@@ -1,5 +1,5 @@
-#ifndef __IMMUNITY_H
-#define __IMMUNITY_H
+#ifndef SERVER_MISC_IMMUNITY_H_
+#define SERVER_MISC_IMMUNITY_H_
 
 class sstring;
 

@@ -1,5 +1,5 @@
-#ifndef __LOADSET_H
-#define __LOADSET_H
+#ifndef SERVER_MISC_LOADSET_H_
+#define SERVER_MISC_LOADSET_H_
 
 enum loadSetTypeT {
   LST_ALL  = -1,

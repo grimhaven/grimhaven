@@ -1,5 +1,5 @@
-#ifndef __DISC_HAND_OF_GOD_H
-#define __DISC_HAND_OF_GOD_H
+#ifndef SERVER_DISC_HAND_OF_GOD_H_
+#define SERVER_DISC_HAND_OF_GOD_H_
 
 // This is the HAND_OF_GOD discipline.
 

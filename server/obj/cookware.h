@@ -1,5 +1,5 @@
-#ifndef __OBJ_COOKWARE_H
-#define __OBJ_COOKWARE_H
+#ifndef SERVER_OBJ_COOKWARE_H_
+#define SERVER_OBJ_COOKWARE_H_
 
 #include "obj/open_container.h"
 

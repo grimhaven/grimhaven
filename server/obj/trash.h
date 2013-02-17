@@ -1,5 +1,5 @@
-#ifndef __OBJ_TRASH_H
-#define __OBJ_TRASH_H
+#ifndef SERVER_OBJ_TRASH_H_
+#define SERVER_OBJ_TRASH_H_
 
 #include "misc/obj.h"
 

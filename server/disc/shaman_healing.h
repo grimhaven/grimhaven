@@ -1,5 +1,5 @@
-#ifndef __DISC_SHAMAN_HEALING_H
-#define __DISC_SHAMAN_HEALING_H
+#ifndef SERVER_DISC_SHAMAN_HEALING_H_
+#define SERVER_DISC_SHAMAN_HEALING_H_
 
 // This is the SHAMAN CURES discipline.
 

@@ -1,5 +1,5 @@
-#ifndef __ENUM_H
-#define __ENUM_H
+#ifndef SERVER_MISC_ENUM_H_
+#define SERVER_MISC_ENUM_H_
 
 #include "sys/logging.h"
 

@@ -1,5 +1,5 @@
-#ifndef __OBJ_NOTE_H
-#define __OBJ_NOTE_H
+#ifndef SERVER_OBJ_NOTE_H_
+#define SERVER_OBJ_NOTE_H_
 
 #include "misc/obj.h"
 

@@ -1,5 +1,5 @@
-#ifndef __THING_H
-#define __THING_H
+#ifndef SERVER_MISC_THING_H_
+#define SERVER_MISC_THING_H_
 
 #ifndef _STRING_H
 #include <string.h>

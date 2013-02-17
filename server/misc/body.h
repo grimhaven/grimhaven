@@ -1,5 +1,5 @@
-#ifndef __BODY_H
-#define __BODY_H
+#ifndef SERVER_MISC_BODY_H_
+#define SERVER_MISC_BODY_H_
 
 //  This is an attempt to make some sense out of the limb system.
 

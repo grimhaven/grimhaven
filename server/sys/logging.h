@@ -1,5 +1,5 @@
-#ifndef SYS_LOGGING_H_
-#define SYS_LOGGING_H_
+#ifndef SERVER_SYS_LOGGING_H_
+#define SERVER_SYS_LOGGING_H_
 
 #include "sys/sstring.h"
 

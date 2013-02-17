@@ -1,5 +1,5 @@
-#ifndef __DISC_LEVERAGE_H
-#define __DISC_LEVERAGE_H
+#ifndef SERVER_DISC_LEVERAGE_H_
+#define SERVER_DISC_LEVERAGE_H_
 
 #include "misc/discipline.h"
 #include "misc/skills.h"

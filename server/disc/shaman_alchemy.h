@@ -1,5 +1,5 @@
-#ifndef __DISC_SHAMAN_ALCHEMY_H
-#define __DISC_SHAMAN_ALCHEMY_H
+#ifndef SERVER_DISC_SHAMAN_ALCHEMY_H_
+#define SERVER_DISC_SHAMAN_ALCHEMY_H_
 
 // This is the SHAMAN ALCHEMY discipline.
 

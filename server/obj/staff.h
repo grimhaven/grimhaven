@@ -1,5 +1,5 @@
-#ifndef __OBJ_STAFF_H
-#define __OBJ_STAFF_H
+#ifndef SERVER_OBJ_STAFF_H_
+#define SERVER_OBJ_STAFF_H_
 
 #include "obj/magic_item.h"
 

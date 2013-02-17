@@ -1,5 +1,5 @@
-#ifndef __LOW_H
-#define __LOW_H
+#ifndef SERVER_MISC_LOW_H_
+#define SERVER_MISC_LOW_H_
 
 // I would prefer to decouple these definitions and assign them in low.cc
 // but we use these values at compile time sometimes (switch/case) so they

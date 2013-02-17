@@ -1,5 +1,5 @@
-#ifndef __OBJ_CARD_DECK_H
-#define __OBJ_CARD_DECK_H
+#ifndef SERVER_OBJ_CARD_DECK_H_
+#define SERVER_OBJ_CARD_DECK_H_
 
 #include "obj/expandable_container.h"
 

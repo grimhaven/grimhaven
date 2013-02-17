@@ -1,5 +1,5 @@
-#ifndef __GAME_DRAWPOKER_H
-#define __GAME_DRAWPOKER_H
+#ifndef SERVER_GAME_DRAWPOKER_H_
+#define SERVER_GAME_DRAWPOKER_H_
 
 #include "game/games.h"
 

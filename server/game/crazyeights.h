@@ -1,5 +1,5 @@
-#ifndef __GAME_CRAZYEIGHTS_H
-#define __GAME_CRAZYEIGHTS_H
+#ifndef SERVER_GAME_CRAZYEIGHTS_H_
+#define SERVER_GAME_CRAZYEIGHTS_H_
 
 #include "game/games.h"
 

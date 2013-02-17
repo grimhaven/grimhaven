@@ -1,5 +1,5 @@
-#ifndef __OBJ_HANDGONNE_H
-#define __OBJ_HANDGONNE_H
+#ifndef SERVER_OBJ_HANDGONNE_H_
+#define SERVER_OBJ_HANDGONNE_H_
 
 #include "obj/gun.h"
 

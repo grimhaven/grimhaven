@@ -1,5 +1,5 @@
-#ifndef __PARSE_H
-#define __PARSE_H
+#ifndef SERVER_MISC_PARSE_H_
+#define SERVER_MISC_PARSE_H_
 
 #include <sstream>
 #include "sys/sstring.h"

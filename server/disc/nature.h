@@ -1,5 +1,5 @@
-#ifndef __DISC_NATURE_H
-#define __DISC_NATURE_H
+#ifndef SERVER_DISC_NATURE_H_
+#define SERVER_DISC_NATURE_H_
 
 // This is the NATURE discipline.
 // Most of these were moved to armadillo for shaman

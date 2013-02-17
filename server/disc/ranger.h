@@ -1,5 +1,5 @@
-#ifndef __DISC_RANGER_H
-#define __DISC_RANGER_H
+#ifndef SERVER_DISC_RANGER_H_
+#define SERVER_DISC_RANGER_H_
 
 // This is the RANGER discipline.
 

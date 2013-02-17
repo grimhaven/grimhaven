@@ -1,5 +1,5 @@
-#ifndef __SYS_LOOT_H
-#define __SYS_LOOT_H
+#ifndef SERVER_MISC_SYS_LOOT_H_
+#define SERVER_MISC_SYS_LOOT_H_
 
 struct TLootStructure {
   int tLevel, // Object Level;

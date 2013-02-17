@@ -1,5 +1,5 @@
-#ifndef __OBJ_BASE_CORPSE_H
-#define __OBJ_BASE_CORPSE_H
+#ifndef SERVER_OBJ_BASE_CORPSE_H_
+#define SERVER_OBJ_BASE_CORPSE_H_
 
 #include "obj/base_container.h"
 #include "misc/extern.h"

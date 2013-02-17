@@ -1,5 +1,5 @@
-#ifndef __OBJ_BAG_H
-#define __OBJ_BAG_H
+#ifndef SERVER_OBJ_BAG_H_
+#define SERVER_OBJ_BAG_H_
 
 #include "obj/expandable_container.h"
 

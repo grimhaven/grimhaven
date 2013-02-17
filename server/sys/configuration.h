@@ -1,5 +1,5 @@
-#ifndef __CONFIGURATION_H
-#define __CONFIGURATION_H
+#ifndef SERVER_SYS_CONFIGURATION_H_
+#define SERVER_SYS_CONFIGURATION_H_
 
 #include "sys/sstring.h"
 

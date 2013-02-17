@@ -1,5 +1,5 @@
-#ifndef __DISC_BAREHAND_H
-#define __DISC_BAREHAND_H
+#ifndef SERVER_DISC_BAREHAND_H_
+#define SERVER_DISC_BAREHAND_H_
 
 // This is the BAREHAND discipline.
 

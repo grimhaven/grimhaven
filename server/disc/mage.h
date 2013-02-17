@@ -1,5 +1,5 @@
-#ifndef __DISC_MAGE_H
-#define __DISC_MAGE_H
+#ifndef SERVER_DISC_MAGE_H_
+#define SERVER_DISC_MAGE_H_
 
 // This is the MAGE BASIC discipline.
 

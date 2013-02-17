@@ -1,5 +1,5 @@
-#ifndef __DISC_LORE_H
-#define __DISC_LORE_H
+#ifndef SERVER_DISC_LORE_H_
+#define SERVER_DISC_LORE_H_
 
 // This is the mage/ranger/shaman lore discipline.
 

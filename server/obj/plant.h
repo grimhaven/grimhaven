@@ -1,5 +1,5 @@
-#ifndef __OBJ_PLANT_H
-#define __OBJ_PLANT_H
+#ifndef SERVER_OBJ_PLANT_H_
+#define SERVER_OBJ_PLANT_H_
 
 #include "obj/expandable_container.h"
 

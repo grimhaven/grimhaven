@@ -1,5 +1,5 @@
-#ifndef __OBJ_SADDLE_H
-#define __OBJ_SADDLE_H
+#ifndef SERVER_OBJ_SADDLE_H_
+#define SERVER_OBJ_SADDLE_H_
 
 #include "obj/base_clothing.h"
 

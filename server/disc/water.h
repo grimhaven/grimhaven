@@ -1,5 +1,5 @@
-#ifndef __DISC_WATER_H
-#define __DISC_WATER_H
+#ifndef SERVER_DISC_WATER_H_
+#define SERVER_DISC_WATER_H_
 
 // This is the WATER discipline.
 

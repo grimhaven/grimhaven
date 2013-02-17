@@ -1,5 +1,5 @@
-#ifndef __OBJ_PEN_H
-#define __OBJ_PEN_H
+#ifndef SERVER_OBJ_PEN_H_
+#define SERVER_OBJ_PEN_H_
 
 #include "misc/obj.h"
 

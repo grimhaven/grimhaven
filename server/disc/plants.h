@@ -1,5 +1,5 @@
-#ifndef __DISC_PLANTS_H
-#define __DISC_PLANTS_H
+#ifndef SERVER_DISC_PLANTS_H_
+#define SERVER_DISC_PLANTS_H_
 
 // This is the RANGER plants discipline.
 

@@ -1,5 +1,5 @@
-#ifndef __OBJ_CHEST_H
-#define __OBJ_CHEST_H
+#ifndef SERVER_OBJ_CHEST_H_
+#define SERVER_OBJ_CHEST_H_
 
 #include "obj/open_container.h"
 

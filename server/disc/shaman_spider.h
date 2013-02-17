@@ -1,5 +1,5 @@
-#ifndef __DISC_SHAMAN_SPIDER_H
-#define __DISC_SHAMAN_SPIDER_H
+#ifndef SERVER_DISC_SHAMAN_SPIDER_H_
+#define SERVER_DISC_SHAMAN_SPIDER_H_
 
 #include "misc/discipline.h"
 #include "misc/skills.h"

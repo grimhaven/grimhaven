@@ -1,5 +1,5 @@
-#ifndef __DISC_ADVENTURING_H
-#define __DISC_ADVENTURING_H
+#ifndef SERVER_DISC_ADVENTURING_H_
+#define SERVER_DISC_ADVENTURING_H_
 
 // This contains the general knowledge areas that _every_ pc knows.  All of
 // these are "learn by mistake".  None can be practiced.

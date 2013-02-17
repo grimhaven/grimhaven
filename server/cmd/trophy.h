@@ -1,5 +1,5 @@
-#ifndef __CMD_TROPHY_H
-#define __CMD_TROPHY_H
+#ifndef SERVER_CMD_TROPHY_H_
+#define SERVER_CMD_TROPHY_H_
 
 // TTrophy is a class for interacting with the trophy data
 // for a particular player

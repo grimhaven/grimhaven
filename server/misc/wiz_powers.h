@@ -1,5 +1,5 @@
-#ifndef __WIZ_POWERS_H
-#define __WIZ_POWERS_H
+#ifndef SERVER_MISC_WIZ_POWERS_H_
+#define SERVER_MISC_WIZ_POWERS_H_
 
 enum wizPowerT {
      POWER_BUILDER,

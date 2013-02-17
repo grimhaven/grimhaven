@@ -1,5 +1,5 @@
-#ifndef __OBJ_MONEY_H
-#define __OBJ_MONEY_H
+#ifndef SERVER_OBJ_MONEY_H_
+#define SERVER_OBJ_MONEY_H_
 
 #include <map>
 

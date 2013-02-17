@@ -1,5 +1,5 @@
-#ifndef __OBJ_POOL_H
-#define __OBJ_POOL_H
+#ifndef SERVER_OBJ_POOL_H_
+#define SERVER_OBJ_POOL_H_
 
 #include "obj/base_cup.h"
 #include "obj/mergeable.h"

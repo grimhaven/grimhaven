@@ -4,6 +4,7 @@ server_libs = [ 'stdc++', 'mysqlclient', 'cares', 'crypt',
     'boost_regex', 'boost_program_options', 'boost_date_time', ]
 
 server_cxxflags = [
+    '-pipe',
     '-Werror', # warnings are treated as errors
     '-Wall', # all recommended warnings
     '-Wpointer-arith', # things that depend on sizeof()

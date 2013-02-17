@@ -1,5 +1,5 @@
-#ifndef __SHOPOWNED_H
-#define __SHOPOWNED_H
+#ifndef SERVER_MISC_SHOPOWNED_H_
+#define SERVER_MISC_SHOPOWNED_H_
 
 #include "misc/thing.h"
 

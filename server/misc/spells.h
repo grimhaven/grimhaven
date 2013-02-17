@@ -1,5 +1,5 @@
-#ifndef __SPELLS_H
-#define __SPELLS_H
+#ifndef SERVER_MISC_SPELLS_H_
+#define SERVER_MISC_SPELLS_H_
 
 enum spellNumT {
      DAMAGE_RIPPED_OUT_HEART = -58,

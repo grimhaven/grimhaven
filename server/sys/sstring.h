@@ -1,5 +1,5 @@
-#ifndef SYS_SSTRING_H_
-#define SYS_SSTRING_H_
+#ifndef SERVER_SYS_SSTRING_H_
+#define SERVER_SYS_SSTRING_H_
 
 #include <boost/format.hpp>
 

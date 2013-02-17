@@ -1,5 +1,5 @@
-#ifndef __DISC_ANIMAL_H
-#define __DISC_ANIMAL_H
+#ifndef SERVER_DISC_ANIMAL_H_
+#define SERVER_DISC_ANIMAL_H_
 
 // This is the ANIMAL discipline.
 

@@ -1,5 +1,5 @@
-#ifndef __DEFS_H
-#define __DEFS_H
+#ifndef SERVER_MISC_DEFS_H_
+#define SERVER_MISC_DEFS_H_
 
 #include <stdint.h>
 

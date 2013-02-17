@@ -1,5 +1,5 @@
-#ifndef __ROOM_H
-#define __ROOM_H
+#ifndef SERVER_MISC_ROOM_H_
+#define SERVER_MISC_ROOM_H_
 
 #include "sys/sound.h"
 #include "sys/ansi.h"

@@ -1,5 +1,5 @@
-#ifndef __DISC_SORCERY_H
-#define __DISC_SORCERY_H
+#ifndef SERVER_DISC_SORCERY_H_
+#define SERVER_DISC_SORCERY_H_
 
 // This is the SORCERY discipline.
 

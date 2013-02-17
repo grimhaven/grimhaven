@@ -1,5 +1,5 @@
-#ifndef __CMD_DISSECT_H
-#define __CMD_DISSECT_H
+#ifndef SERVER_CMD_DISSECT_H_
+#define SERVER_CMD_DISSECT_H_
 
 #include <map>
 

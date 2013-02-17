@@ -1,5 +1,5 @@
-#ifndef __STATISTICS_H
-#define __STATISTICS_H
+#ifndef SERVER_MISC_STATISTICS_H_
+#define SERVER_MISC_STATISTICS_H_
 
 #include <algorithm>
 #include <string.h>

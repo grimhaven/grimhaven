@@ -1,5 +1,5 @@
-#ifndef __OBJ_BOOK_H
-#define __OBJ_BOOK_H
+#ifndef SERVER_OBJ_BOOK_H_
+#define SERVER_OBJ_BOOK_H_
 
 #include "misc/obj.h"
 

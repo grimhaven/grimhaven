@@ -1,5 +1,5 @@
-#ifndef __CHARFILE_H
-#define __CHARFILE_H
+#ifndef SERVER_MISC_CHARFILE_H_
+#define SERVER_MISC_CHARFILE_H_
 
 #include "misc/limbs.h"
 #include "misc/stats.h"

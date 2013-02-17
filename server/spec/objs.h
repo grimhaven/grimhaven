@@ -1,5 +1,5 @@
-#ifndef __SPEC_OBJS_H
-#define __SPEC_OBJS_H
+#ifndef SERVER_SPEC_OBJS_H_
+#define SERVER_SPEC_OBJS_H_
 
 /*************************************************************************
 

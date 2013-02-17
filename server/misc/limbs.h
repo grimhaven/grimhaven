@@ -1,5 +1,5 @@
-#ifndef __LIMBS_H
-#define __LIMBS_H
+#ifndef SERVER_MISC_LIMBS_H_
+#define SERVER_MISC_LIMBS_H_
 
 #include "misc/discipline.h"
 #include "sys/sstring.h"

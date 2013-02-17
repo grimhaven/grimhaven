@@ -1,5 +1,5 @@
-#ifndef __DISC_TRAPS_H
-#define __DISC_TRAPS_H
+#ifndef SERVER_DISC_TRAPS_H_
+#define SERVER_DISC_TRAPS_H_
 
 // This is the THIEF TRAPS discipline.
 

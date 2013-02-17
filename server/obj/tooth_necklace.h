@@ -1,5 +1,5 @@
-#ifndef __OBJ_TOOTH_NECKLACE_H
-#define __OBJ_TOOTH_NECKLACE_H
+#ifndef SERVER_OBJ_TOOTH_NECKLACE_H_
+#define SERVER_OBJ_TOOTH_NECKLACE_H_
 
 #include "obj/expandable_container.h"
 

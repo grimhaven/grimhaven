@@ -1,5 +1,5 @@
-#ifndef __OBJ_QUIVER_H
-#define __OBJ_QUIVER_H
+#ifndef SERVER_OBJ_QUIVER_H_
+#define SERVER_OBJ_QUIVER_H_
 
 #include "obj/expandable_container.h"
 

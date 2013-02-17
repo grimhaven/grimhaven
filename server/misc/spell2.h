@@ -1,5 +1,5 @@
-#ifndef __SPELL2_H
-#define __SPELL2_H
+#ifndef SERVER_MISC_SPELL2_H_
+#define SERVER_MISC_SPELL2_H_
 
 #include <map>
 

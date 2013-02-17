@@ -1,5 +1,5 @@
-#ifndef SYS_MUDINFO_H_
-#define SYS_MUDINFO_H_
+#ifndef SERVER_SYS_MUDINFO_H_
+#define SERVER_SYS_MUDINFO_H_
 
 #define MUD_NAME          "Grimhaven"
 #define MUD_VERS          "6.0"

@@ -1,5 +1,5 @@
-#ifndef __DISC_POISONS_H
-#define __DISC_POISONS_H
+#ifndef SERVER_DISC_POISONS_H_
+#define SERVER_DISC_POISONS_H_
 
 // This is the THIEF POISONS discipline.
 

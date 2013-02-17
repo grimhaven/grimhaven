@@ -1,5 +1,5 @@
-#ifndef __OBJ_BASE_LIGHT_H
-#define __OBJ_BASE_LIGHT_H
+#ifndef SERVER_OBJ_BASE_LIGHT_H_
+#define SERVER_OBJ_BASE_LIGHT_H_
 
 #include "misc/obj.h"
 

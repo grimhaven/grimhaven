@@ -1,5 +1,5 @@
-#ifndef __DISCIPLINE_H
-#define __DISCIPLINE_H
+#ifndef SERVER_MISC_DISCIPLINE_H_
+#define SERVER_MISC_DISCIPLINE_H_
 
 #include "sys/sstring.h"
 #include "misc/spells.h"

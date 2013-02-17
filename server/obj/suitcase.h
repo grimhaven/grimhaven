@@ -1,5 +1,5 @@
-#ifndef __OBJ_SUITCASE_H
-#define __OBJ_SUITCASE_H
+#ifndef SERVER_OBJ_SUITCASE_H_
+#define SERVER_OBJ_SUITCASE_H_
 
 #include "obj/expandable_container.h"
 

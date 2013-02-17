@@ -1,5 +1,5 @@
-#ifndef __SPEC_OBJS_LOTTERY_TICKET_H
-#define __SPEC_OBJS_LOTTERY_TICKET_H
+#ifndef SERVER_SPEC_OBJS_LOTTERY_TICKET_H_
+#define SERVER_SPEC_OBJS_LOTTERY_TICKET_H_
 
 #include "sys/sstring.h"
 

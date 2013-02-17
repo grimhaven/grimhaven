@@ -1,5 +1,5 @@
-#ifndef __OBJ_OPEN_CONTAINER_H
-#define __OBJ_OPEN_CONTAINER_H
+#ifndef SERVER_OBJ_OPEN_CONTAINER_H_
+#define SERVER_OBJ_OPEN_CONTAINER_H_
 
 #include "obj/base_container.h"
 

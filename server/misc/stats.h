@@ -1,5 +1,5 @@
-#ifndef __STATS_H
-#define __STATS_H
+#ifndef SERVER_MISC_STATS_H_
+#define SERVER_MISC_STATS_H_
 
 enum statTypeT {
      STAT_STR,

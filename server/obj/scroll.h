@@ -1,5 +1,5 @@
-#ifndef __OBJ_SCROLL_H
-#define __OBJ_SCROLL_H
+#ifndef SERVER_OBJ_SCROLL_H_
+#define SERVER_OBJ_SCROLL_H_
 
 #include "obj/magic_item.h"
 
