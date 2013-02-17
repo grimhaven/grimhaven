@@ -864,9 +864,6 @@ int hellfire(TBeing *caster, int level, short bKnown, int adv_learn)
   dam = caster->getSkillDam(NULL, SPELL_HELLFIRE, level, adv_learn);
 
   if (caster->bSuccess(bKnown, SPELL_HELLFIRE)) {
-
-    caster->roomp->playsound(SOUND_SPELL_HELLFIRE, SOUND_TYPE_MAGIC);
-
     for(StuffIter it=caster->roomp->stuff.begin();it!=caster->roomp->stuff.end();){
       t=*(it++);
       vict = dynamic_cast<TBeing *>(t);

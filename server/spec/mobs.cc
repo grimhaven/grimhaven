@@ -1496,9 +1496,6 @@ int payToll(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, TObj *)
     act("$n blocks $N from fleeing!", false, myself, 0, ch, TO_NOTVICT);
     act("$n blocks you from fleeing!", false, myself, 0, ch, TO_VICT);
     myself->doSay("You can't escape that easily!");
-
-    myself->roomp->playsound(SOUND_NONE_PASS, SOUND_TYPE_NOISE);
-
     return TRUE;
   } else if (cmd == CMD_DRAG) {
     // well, we aren't checking room, but oh well
@@ -1537,7 +1534,6 @@ int payToll(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, TObj *)
             FALSE, myself, 0, ch, TO_VICT);
         act("$n pushes $N back roughly and demands the toll!",
             FALSE, myself, 0, ch, TO_NOTVICT);
-        myself->roomp->playsound(SOUND_NONE_PASS, SOUND_TYPE_NOISE);
         return TRUE;
       }
       break;
@@ -1739,9 +1735,6 @@ int Tyrannosaurus_swallower(TBeing *ch, cmdTypeT cmd, const char *, TMonster *my
           targ->sendTo("In a single gulp, you are swallowed whole!\n\r");
           targ->sendTo("The horror!  The horror!\n\r");
           ch->sendTo("MMM.  yum!\n\r");
-
-          ch->roomp->playsound(SOUND_CHEWED_UP, SOUND_TYPE_NOISE);
-
           if (targ->getMyRace()->hasTalent(TALENT_FROGSLIME_SKIN) && ::number(0,1))
           {
             act("Your skin-poison defenses activate in the panic!", TRUE, targ, 0, ch, TO_CHAR);

@@ -68,9 +68,6 @@ int voodoo(TBeing *caster, TObj *obj, int level, short bKnown)
   act("You channel some of the cosmic energy into $p!", FALSE, caster, corpse, NULL, TO_CHAR);
   act("$n channels some of the cosmic energy into $p!", TRUE, caster, corpse, NULL, TO_ROOM);
 
-
-  caster->roomp->playsound(SOUND_SPELL_ANIMATE_DEAD, SOUND_TYPE_MAGIC);
-
   // adjust stats : somewhat weaker
   mob->setMaxHit(max(1, mob->hitLimit() * 2 / 7));
   mob->setHit((int) (mob->hitLimit() >> 1));

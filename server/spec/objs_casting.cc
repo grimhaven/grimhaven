@@ -44,9 +44,6 @@ int objCastSorcGlobe(TObj *o, TBeing *targ)
   aff.duration = (3 + (aff.level / 2)) * Pulse::UPDATES_PER_MUDHOUR;
   aff.modifier = -100;
   targ->affectJoin(NULL, &aff, AVG_DUR_NO, AVG_EFF_YES);
-
-
-  targ->roomp->playsound(SOUND_SPELL_SORCERERS_GLOBE, SOUND_TYPE_MAGIC);
   act("$n is instantly surrounded by a hardened wall of air!",\
       TRUE, targ, NULL, NULL, TO_ROOM);
   act("You are instantly surrounded by a hardened wall of air!", \
@@ -229,8 +226,6 @@ int objWornAstralWalk(TBeing *targ, cmdTypeT cmd, const char *arg, TObj *o, TObj
       TRUE, ch,o,NULL,TO_ROOM,NULL);
     act("You open a door to another dimension and step through.",
       TRUE, ch,o,NULL,TO_CHAR,NULL);
-    ch->roomp->playsound(SOUND_SPELL_ASTRAL_WALK, SOUND_TYPE_MAGIC);
-
     --(*ch);
     *room += *ch;
     ch->doLook("", CMD_LOOK);
@@ -440,7 +435,6 @@ int objWornMinorAstralWalk(TBeing *targ, cmdTypeT cmd, const char *arg, TObj *o,
       TRUE, ch,o,NULL,TO_ROOM,NULL);
     act("You open a door to another dimension and step through.",
       TRUE, ch,o,NULL,TO_CHAR,NULL);
-    ch->roomp->playsound(SOUND_SPELL_ASTRAL_WALK, SOUND_TYPE_MAGIC);
 
     --(*ch);
     *room += *ch;
@@ -576,15 +570,11 @@ int objWornPortal(TBeing *targ, cmdTypeT cmd, const char *arg, TObj *o, TObj *)
     if (tPerson)
       tmp_obj->checkOwnersList(tPerson);
 
-    ch->roomp->playsound(SOUND_SPELL_PORTAL, SOUND_TYPE_MAGIC);
-
     TPortal * next_tmp_obj = new TPortal(ch->roomp);
     *room += *next_tmp_obj;
 
     if (tPerson)
       next_tmp_obj->checkOwnersList(tPerson);
-
-    room->playsound(SOUND_SPELL_PORTAL, SOUND_TYPE_MAGIC);
 
     act("$p suddenly appears out of a swirling mist.", TRUE, ch, tmp_obj, NULL, TO_ROOM);
     act("$p suddenly appears out of a swirling mist.", TRUE, ch, tmp_obj, NULL, TO_CHAR);
@@ -592,7 +582,6 @@ int objWornPortal(TBeing *targ, cmdTypeT cmd, const char *arg, TObj *o, TObj *)
     buf2 = format("%s suddenly appears out of a swirling mist.\n\r") %
       sstring(next_tmp_obj->shortDescr).cap();
     sendToRoom(buf2.c_str(), location);
-
 
     if (!(ch->isImmortal())) ch->affectTo(&aff);
 

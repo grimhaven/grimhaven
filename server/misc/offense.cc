@@ -151,10 +151,6 @@ int TBeing::doHit(const sstring &argument, TBeing *vict)
       act("$n attacks you.", TRUE, this, 0, victim, TO_VICT, ANSI_YELLOW);
       act("$n attacks $N.", TRUE, this, 0, victim, TO_NOTVICT, ANSI_YELLOW);
       shouldHit = TRUE;
-
-      soundNumT snd = pickRandSound(SOUND_BANZAI_01, SOUND_BANZAI_04);
-
-      roomp->playsound(snd, SOUND_TYPE_COMBAT);
     }
     rc = hit(victim);
     addToWait(combatRound(1));
@@ -884,9 +880,6 @@ int TBeing::doFlee(const char *arg)
 
 
   dirTypeT chosenDir = getDirFromChar(arg);
-
-  soundNumT snd = pickRandSound(SOUND_FLEE_01, SOUND_FLEE_03);
-  playsound(snd, SOUND_TYPE_COMBAT);
 
   if (!(vict = fight())) {
     for (i = 0; i < 20; i++) {

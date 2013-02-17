@@ -162,7 +162,6 @@ void procGlobalRoomStuff::run(const TPulse &) const
       if (!::number(0,9)) {
         TThing *in_room=NULL;
 
-        soundNumT snd = pickRandSound(SOUND_THUNDER_1, SOUND_THUNDER_4);
         for(StuffIter it=rp->stuff.begin();it!=rp->stuff.end() && (in_room=*it);++it) {
           TBeing *ch = dynamic_cast<TBeing *>(in_room);
           if (!ch || !ch->desc)
@@ -170,7 +169,6 @@ void procGlobalRoomStuff::run(const TPulse &) const
 
           act("A flash of lightning illuminates the land.",
               FALSE, ch, 0, 0, TO_CHAR, ANSI_YELLOW);
-          ch->playsound(snd, SOUND_TYPE_NOISE);
         }
       }
     }

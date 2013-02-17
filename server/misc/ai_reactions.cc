@@ -671,17 +671,12 @@ int TMonster::aiMobShock(TBeing *doer)
       case 1:
         act("The hair on $n's back raises and $e hisses loudly.",
              TRUE, this, 0, 0, TO_ROOM);
-
-
-        doer->roomp->playsound(SOUND_CATHISS, SOUND_TYPE_NOISE);
         break;
       case 2:
         act("$n arches $s back and snarls in $N's direction.",
              TRUE, this, 0, doer, TO_NOTVICT);
         act("$n arches $s back and snarls in your direction.",
              TRUE, this, 0, doer, TO_VICT);
-
-        doer->roomp->playsound(SOUND_CATHISS, SOUND_TYPE_NOISE);
         break;
       default:
         return FALSE;
@@ -713,8 +708,6 @@ int TMonster::aiMobHappy(TBeing *doer)
   DA(3);
   DMal(2);
   if (getRace() == RACE_CANINE) {
-    soundNumT snd = pickRandSound(SOUND_DOGBARK_1, SOUND_DOGBARK_2);
-    doer->roomp->playsound(snd, SOUND_TYPE_NOISE);
     switch (::number(1,3)) {
       case 1:
         doAction(fname(doer->name),CMD_LICK);
@@ -1136,11 +1129,9 @@ void TMonster::aiGrowl(const TBeing *tar) const
       switch(tmp) {
         case 0:
           act("$n hisses impatiently at $N.", TRUE, this, 0, tar, TO_ROOM);
-          roomp->playsound(SOUND_CATHISS, SOUND_TYPE_NOISE);
           return;
         case 1:
           act("$n hisses angrily at $N.", TRUE, this, 0, tar, TO_ROOM);
-          roomp->playsound(SOUND_CATHISS, SOUND_TYPE_NOISE);
           return;
       }
     } else {
@@ -1148,18 +1139,14 @@ void TMonster::aiGrowl(const TBeing *tar) const
       switch(tmp) {
         case 0:
           act("$n hisses impatiently.", TRUE, this, 0, 0, TO_ROOM);
-          roomp->playsound(SOUND_CATHISS, SOUND_TYPE_NOISE);
           return;
         case 1:
           act("$n hisses angrily.", TRUE, this, 0, 0, TO_ROOM);
-          roomp->playsound(SOUND_CATHISS, SOUND_TYPE_NOISE);
           return;
       }
     }
     return;
   } else if (getRace() == RACE_CANINE) {
-    soundNumT snd = pickRandSound(SOUND_DOGBARK_1, SOUND_DOGBARK_2);
-    roomp->playsound(snd, SOUND_TYPE_NOISE);
     if (tar) {
       int tmp = ::number(0,1);
       switch(tmp) {

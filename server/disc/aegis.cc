@@ -982,8 +982,6 @@ int armor(TBeing *c, TBeing * victim, int level, short learn, spellNumT spell)
     if (c != victim)
       aff.modifier /= 8;
 
-    victim->roomp->playsound(SOUND_SPELL_ARMOR, SOUND_TYPE_MAGIC);
-
     switch (critSuccess(c, spell)) {
       case CRIT_S_KILL:
       case CRIT_S_DOUBLE:
@@ -1125,7 +1123,6 @@ int sanctuary(TBeing *c, TBeing *victim, int level, short learn)
         if (!victim->affectJoin(c, &aff, AVG_DUR_NO, AVG_EFF_YES))
           return SPELL_FAIL;
     }
-    victim->roomp->playsound(SOUND_SPELL_SANCTUARY, SOUND_TYPE_MAGIC);
     return SPELL_SUCCESS;
   } else
     return SPELL_FAIL;
@@ -1181,8 +1178,6 @@ int bless(TBeing *c, TObj * obj, int level, short learn, spellNumT spell)
           FALSE, c, obj, NULL, TO_ROOM);
       act("$d blesses $p.",
           FALSE, c, obj, NULL, TO_CHAR);
-
-      c->roomp->playsound(SOUND_SPELL_BLESS, SOUND_TYPE_MAGIC);
 
     } else {
       SV(spell);
@@ -1259,7 +1254,6 @@ int bless(TBeing *c, TBeing * victim, int level, short learn, spellNumT spell)
                    FALSE, c, NULL, victim, TO_NOTVICT);
       }
     }
-    victim->roomp->playsound(SOUND_SPELL_BLESS, SOUND_TYPE_MAGIC);
     return SPELL_SUCCESS;
   } else {
     c->deityIgnore();

@@ -602,11 +602,6 @@ int TBeing::critSuccessChance(TBeing *v, TThing *weapon, wearSlotT *part_hit, sp
   if(doesKnowSkill(SKILL_CRIT_HIT))
     *dam = (int)(*dam * ((getSkillValue(SKILL_CRIT_HIT)/100.0)+1.0));
 
-  // play the crit-hit sound
-  // boost the priority so that this sound will trump normal combat sounds
-  soundNumT snd = pickRandSound(SOUND_CRIT_01, SOUND_CRIT_43);
-  playsound(snd, SOUND_TYPE_COMBAT, 100, 45, 1);
-
   if (pierceType(wtype)) {
     return critPierce(v, weapon, part_hit, wtype, dam, crit_num);
   } else if (slashType(wtype)) {

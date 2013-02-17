@@ -372,11 +372,8 @@ void TBeing::doEgoTrip(const char *arg)
     TPortal * tmp_obj = new TPortal(ch->roomp);
     *roomp += *tmp_obj;
 
-    roomp->playsound(SOUND_SPELL_PORTAL, SOUND_TYPE_MAGIC);
-
     TPortal * next_tmp_obj = new TPortal(roomp);
     *ch->roomp += *next_tmp_obj;
-    ch->roomp->playsound(SOUND_SPELL_PORTAL, SOUND_TYPE_MAGIC);
 
     act("$p suddenly appears out of a swirling mist.", TRUE, this, tmp_obj, NULL, TO_ROOM);
     act("$p suddenly appears out of a swirling mist.", TRUE, this, tmp_obj, NULL, TO_CHAR);
@@ -542,9 +539,6 @@ void TBeing::doEgoTrip(const char *arg)
     worldBuf += ch->getName();
     worldBuf += "!\n\r";
     descriptor_list->worldSend(worldBuf.c_str(), this);
-
-    soundNumT snd = pickRandSound(SOUND_EGOBLAST_1, SOUND_EGOBLAST_2);
-    ch->roomp->playsound(snd, SOUND_TYPE_NOISE);
 
     // this just nails um, but shouldn't actually kill them
     if (ch->reconcileDamage(ch, ch->getHit()/2, DAMAGE_ELECTRIC) == -1) {

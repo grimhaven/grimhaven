@@ -744,8 +744,7 @@ void TBeing::doToggle(const char *arg2)
       SET_BIT(desc->account->flags, TAccount::MSP);
       sendTo("MUD Sound Protocol enabled.\n\r");
       // we need to set the default download directory, so do that by doing
-      // a stopsound which will transmit the MSP U= command
-      stopsound();
+      // a stopsound which will transmit the msp u= command
     } else {
       REMOVE_BIT(desc->account->flags, TAccount::MSP);
       sendTo("MUD Sound Protocol disabled.\n\r");

@@ -355,47 +355,6 @@ int TBeing::doAction(const sstring & argument, cmdTypeT cmd)
   if (action.char_found)
     buf=argument;
 
-  if (roomp) {
-    switch (cmd) {
-      case CMD_YAWN:
-
-        roomp->playsound(pickRandSound(SOUND_YAWN_1, SOUND_YAWN_4), SOUND_TYPE_SOCIAL);
-        break;
-      case CMD_GIGGLE:
-        roomp->playsound(SOUND_GIGGLE, SOUND_TYPE_SOCIAL);
-        break;
-      case CMD_BURP:
-        roomp->playsound(SOUND_BURP, SOUND_TYPE_SOCIAL);
-        break;
-      case CMD_CLAP:
-        roomp->playsound(SOUND_CLAP, SOUND_TYPE_SOCIAL);
-        break;
-      case CMD_FART:
-        roomp->playsound(SOUND_FART, SOUND_TYPE_SOCIAL);
-        break;
-      case CMD_SNEEZE:
-        roomp->playsound(SOUND_SNEEZE, SOUND_TYPE_SOCIAL);
-        break;
-      case CMD_CACKLE:
-        roomp->playsound(SOUND_CACKLE, SOUND_TYPE_SOCIAL);
-        break;
-      case CMD_SCREAM:
-        roomp->playsound(SOUND_SCREAM, SOUND_TYPE_SOCIAL);
-        break;
-      case CMD_CHORTLE:
-        roomp->playsound(SOUND_DM_LAUGH, SOUND_TYPE_SOCIAL);
-        break;
-      case CMD_DISAGREE:
-        roomp->playsound(SOUND_DISAGREE, SOUND_TYPE_SOCIAL);
-        break;
-      case CMD_WOO:
-        roomp->playsound(SOUND_YAHOO, SOUND_TYPE_SOCIAL);
-        break;
-      default:
-        break;
-    }
-  }
-
   if (!roomp)
     return FALSE;
 

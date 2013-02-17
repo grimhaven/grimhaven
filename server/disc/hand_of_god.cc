@@ -93,9 +93,6 @@ int astralWalk(TBeing * caster, TBeing * victim, int level, short bKnown)
                 FALSE, caster, NULL, NULL, TO_ROOM);
         break;
     }
-
-    caster->roomp->playsound(SOUND_SPELL_ASTRAL_WALK, SOUND_TYPE_MAGIC);
-
   } else {
     switch (critFail(caster, SPELL_ASTRAL_WALK)) {
       case CRIT_F_HITOTHER:
@@ -423,8 +420,6 @@ int wordOfRecall(TBeing * caster, TBeing * victim, int, short bKnown)
     victim->sendTo("You are completely lost.\n\r");
   else {
     act("You hear a small \"pop\" as $n disappears.", TRUE, victim, NULL, NULL, TO_ROOM);
-    victim->roomp->playsound(SOUND_SPELL_WORD_OF_RECALL, SOUND_TYPE_MAGIC);
-
     // not totally sure this is necessary, but added to clear up bits lit
     // engage and aggressor...
     if (victim->fight())
@@ -717,9 +712,6 @@ int summon(TBeing * caster, TBeing * victim)
   act("$d attempts to transfer $N to you through the cosmic ether!", FALSE, caster, NULL, victim, TO_CHAR);
   act("You feel a tug as $n attempts to transfer you through the cosmic ether with the help of $d!", FALSE, caster, NULL, victim, TO_VICT);
 
-  if (!caster->isPc())
-    victim->playsound(SOUND_COMEBACK, SOUND_TYPE_NOISE);
-
   ret=summon(caster,victim,level,caster->getSkillValue(SPELL_SUMMON));
   if (IS_SET(ret, SPELL_SUCCESS)) {
   } else {
@@ -912,15 +904,11 @@ int portal(TBeing * caster, const char * portalroom, int level, short bKnown)
     if (tPerson)
       tmp_obj->checkOwnersList(tPerson);
 
-    caster->roomp->playsound(SOUND_SPELL_PORTAL, SOUND_TYPE_MAGIC);
-
     TPortal * next_tmp_obj = new TPortal(caster->roomp);
     *rp += *next_tmp_obj;
 
     if (tPerson)
       next_tmp_obj->checkOwnersList(tPerson);
-
-    rp->playsound(SOUND_SPELL_PORTAL, SOUND_TYPE_MAGIC);
 
     act("$p suddenly appears out of a swirling mist.", TRUE, caster, tmp_obj, NULL, TO_ROOM);
     act("$p suddenly appears out of a swirling mist.", TRUE, caster, tmp_obj, NULL, TO_CHAR);

@@ -49,8 +49,6 @@ int slingShot(TBeing * caster, TBeing * victim, int level, short bKnown, int adv
                 FALSE, caster, NULL, victim, TO_NOTVICT);
       }
     }
-
-    victim->roomp->playsound(SOUND_SPELL_SLING_SHOT, SOUND_TYPE_MAGIC);
     if (caster->reconcileDamage(victim, dam, SPELL_SLING_SHOT) == -1)
       return SPELL_SUCCESS + VICTIM_DEAD;
     return SPELL_SUCCESS;
@@ -136,8 +134,6 @@ int graniteFists(TBeing * caster, TBeing * victim, int level, short bKnown, int 
         }
         break;
     }
-
-    victim->roomp->playsound(SOUND_SPELL_GRANITE_FIST, SOUND_TYPE_MAGIC);
     if (caster->reconcileDamage(victim, dam, SPELL_GRANITE_FISTS) == -1)
       return SPELL_SUCCESS + VICTIM_DEAD;
     return SPELL_SUCCESS;
@@ -516,8 +512,6 @@ int meteorSwarm(TBeing * caster, TBeing * victim, int level, short bKnown, int a
         }
         break;
     }
-
-    victim->roomp->playsound(SOUND_SPELL_METEOR_SWARM, SOUND_TYPE_MAGIC);
 
     sprintf(buf, "At $n's call, %d meteors blast $N to smithereens!", num_meteors);
     act(buf, FALSE, caster, NULL, victim, TO_NOTVICT);

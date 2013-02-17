@@ -3,7 +3,6 @@
 
 #include "obj/mergeable.h"
 #include "misc/enum.h"
-#include "sys/sound.h"
 
 const unsigned int COMP_DECAY      =    (1<<0);
 const unsigned int COMP_SPELL      =    (1<<1);
@@ -215,10 +214,7 @@ class compPlace
     // not used for removal at all
     const char *glo_msg;
 
-    soundNumT sound;
-    unsigned int sound_loop;
-
-    compPlace(int r, int r2, int m, int mn, int pa, int mx, int v, short h1, short h2, short m1, short m2, short d1, short d2, int w, const char *msg, const char *gm, soundNumT snt = SOUND_OFF, unsigned int sl = 1) :
+    compPlace(int r, int r2, int m, int mn, int pa, int mx, int v, short h1, short h2, short m1, short m2, short d1, short d2, int w, const char *msg, const char *gm) :
       room1(r),
       room2(r2),
       mob(m),
@@ -234,11 +230,7 @@ class compPlace
       month2(m2),
       weather(w),
       message(msg),
-      glo_msg(gm),
-      sound(snt),
-      sound_loop(sl)
-    {
-    }
+      glo_msg(gm) { }
 
     // default ctor, do not use generally
     // needs to be public for vector to use

@@ -483,9 +483,6 @@ void TFood::eatMe(TBeing *ch)
     ch->isPerceptive()) {
     act("You notice some spoilage on $p and discard it instead.", TRUE, ch, this, 0, TO_CHAR);
     act("$n disposes of some spoiled $o.", TRUE, ch, this, 0, TO_ROOM);
-
-    ch->playsound(SOUND_FOODPOISON, SOUND_TYPE_NOISE);
-
     delete this;
     return;
   }

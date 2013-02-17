@@ -1459,9 +1459,6 @@ void TBeing::setFighting(TThing *vict, int dam, bool inFight)
       checkForQuestTog(tbv);
   }
   specials.fighting = tbv;
-
-  musicNumT mus = pickRandMusic(MUSIC_COMBAT_01, MUSIC_COMBAT_03);
-  playmusic(mus, MUSIC_TYPE_COMBAT);
 }
 
 void TBeing::checkForQuestTog(TBeing *vict)
@@ -1588,8 +1585,6 @@ void TBeing::stopFighting()
   TBeing *tmp;
   affectedData *af, *af2;
   char nameBuf[MAX_NAME_LENGTH];
-
-  stopmusic();
 
   if (!fight()) {
     REMOVE_BIT(specials.affectedBy, AFF_ENGAGER);
@@ -2793,10 +2788,6 @@ int TBeing::missVictim(TBeing *v, TThing *weapon, spellNumT wtype)
 
   other = NULL;
   applyDamage(v, 0, wtype);
-
-  soundNumT snd = pickRandSound(SOUND_MISS_01, SOUND_MISS_10);
-  roomp->playsound(snd, SOUND_TYPE_COMBAT, 100, 20, 1);
-
   if (wtype == TYPE_BITE) {
     num = ::number(1,1);
     switch (num) {
@@ -3167,19 +3158,6 @@ void TBeing::normalHitMessage(TBeing *v, TThing *weapon, spellNumT w_type, int d
             ::number(0,1))
       w_type=TYPE_CLUB;
   }
-
-  soundNumT snd = MIN_SOUND_NUM;
-  if (!dam)
-    snd = pickRandSound(SOUND_PATHETIC_01, SOUND_PATHETIC_04);
-  else if (bluntType(w_type))
-    snd = pickRandSound(SOUND_HIT_BLUNT_01, SOUND_HIT_BLUNT_18);
-  else if (slashType(w_type))
-    snd = pickRandSound(SOUND_HIT_SLASH_01, SOUND_HIT_SLASH_04);
-  else if (pierceType(w_type))
-    snd = SOUND_HIT_PIERCE_01;
-  else if (w_type == TYPE_WATER)
-    snd = SOUND_WATER_WAVE;
-
   // correct w_type for the array offset
   w_type -= TYPE_MIN_HIT;
 
@@ -3209,8 +3187,6 @@ void TBeing::normalHitMessage(TBeing *v, TThing *weapon, spellNumT w_type, int d
       sprintf(buf + strlen(buf), "%s.\n\r", weapon ? other->objn(weapon).c_str() : "");
 
       other->sendTo(COLOR_MOBS, buf);
-      if (snd != MIN_SOUND_NUM)
-        other->playsound(snd, SOUND_TYPE_COMBAT, 100, 20, 1);
     }
   }
   char colorBuf[40];
@@ -3242,8 +3218,6 @@ void TBeing::normalHitMessage(TBeing *v, TThing *weapon, spellNumT w_type, int d
     }
 
     act(buf, FALSE, this, 0, v, TO_CHAR);
-    if (snd != MIN_SOUND_NUM)
-      playsound(snd, SOUND_TYPE_COMBAT, 100, 20, 1);
   }
 
   if (v->desc && (dam || !(v->desc->autobits &AUTO_NOSPAM))) {
@@ -3268,8 +3242,6 @@ void TBeing::normalHitMessage(TBeing *v, TThing *weapon, spellNumT w_type, int d
               ((weapon) ? fname(weapon->name).c_str() : ""));
     }
     act(buf, FALSE, this, 0, v, TO_VICT);
-    if (snd != MIN_SOUND_NUM)
-      v->playsound(snd, SOUND_TYPE_COMBAT, 100, 20, 1);
   }
 
   // 6-1-2004 - If they hit, let them have a chance of learning the appropriate 'Know' skill.
@@ -4436,10 +4408,6 @@ int TBeing::tellStatus(int dam, bool same, bool flying)
     }
     act("$n is dead! R.I.P.", TRUE, this, 0, 0, TO_ROOM);
     sendTo(COLOR_BASIC, "<R>You are dead!  Sorry...<z>\n\r");
-
-    soundNumT snd = pickRandSound(SOUND_DEATH_CRY_01, SOUND_DEATH_CRY_11);
-    roomp->playsound(snd, SOUND_TYPE_COMBAT, 100, 100, 1);
-
     if(!inGrimhaven()){
       for(StuffIter it=roomp->stuff.begin();it!=roomp->stuff.end() && (i=*it);++it) {
         TMonster *tmons = dynamic_cast<TMonster *>(i);

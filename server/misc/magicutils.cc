@@ -1760,20 +1760,6 @@ void TBeing::spellMessUp(spellNumT spell)
 
 void TBeing::nothingHappens(silentTypeT silent_caster) const
 {
-  soundNumT snd = pickRandSound(SOUND_CAST_FAIL_01, SOUND_CAST_FAIL_02);
-
-  if (!silent_caster)
-    roomp->playsound(snd, SOUND_TYPE_MAGIC);
-  else {
-    TThing *t=NULL;
-    for(StuffIter it=roomp->stuff.begin();it!=roomp->stuff.end() && (t=*it);++it) {
-      TBeing *tbt = dynamic_cast<TBeing *>(t);
-      if (!tbt || tbt == this)
-        continue;
-      tbt->playsound(snd, SOUND_TYPE_MAGIC);
-    }
-  }
-
   if (hasClass(CLASS_SHAMAN)) {
     int num = ::number(0,6);
     switch(num) {

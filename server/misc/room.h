@@ -1,7 +1,6 @@
 #ifndef SERVER_MISC_ROOM_H_
 #define SERVER_MISC_ROOM_H_
 
-#include "sys/sound.h"
 #include "sys/ansi.h"
 #include "misc/structs.h"
 #include "sys/db.h"
@@ -323,8 +322,6 @@ class TRoom : public TThing {
     sstring describeGroundWeather() const;
     sstring describeGroundType() const;
 
-    void playsound(soundNumT, const sstring &, int = 100, int = 50, int = 1) const;
-    void stopsound() const;
     int brightSunlight() { return getLight() > 20; }
     int pitchBlackDark() { return getLight() <= 0; }
 

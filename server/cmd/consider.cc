@@ -98,7 +98,6 @@ void TBeing::doConsider(const char *argument)
       return;
     } else {
       sendTo("Would you like to borrow a cross and a shovel?\n\r");
-      playsound(SOUND_DONT_KILL_ME, SOUND_TYPE_COMBAT);
       return;
     }
   }

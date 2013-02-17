@@ -258,9 +258,6 @@ int janitor(TBeing *ch, cmdTypeT cmd, const char *, TMonster *myself, TObj *)
     } else if (dynamic_cast<TBaseCorpse *>(obj)) {
       sprintf(buf, "$n disposes of $p.");
       act(buf, FALSE, myself, obj, 0, TO_ROOM);
-
-      myself->roomp->playsound(SOUND_BRING_DEAD, SOUND_TYPE_NOISE);
-
       TThing *t;
       for(StuffIter it=obj->stuff.begin();it!=obj->stuff.end();){
         t=*(it++);

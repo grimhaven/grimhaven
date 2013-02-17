@@ -164,7 +164,6 @@ void Weather::sendWeatherMessage(weatherMessT num)
   Descriptor *i;
   TBeing *ch;
   sstring text;
-  soundNumT snd;
 
   for (i = descriptor_list; i; i = i->next) {
     if (!i->connected && (ch = i->character)) {
@@ -183,18 +182,15 @@ void Weather::sendWeatherMessage(weatherMessT num)
                 break;
               default:
                 text="<B>It starts to rain.<1>\n\r";
-                ch->playsound(SOUND_RAIN_START, SOUND_TYPE_NOISE);
             }
             break;
           case MESS_SNOW_START:
             switch (ch->roomp->getSectorType()) {
               case SECT_JUNGLE:
                 text="You are caught in a sudden jungle downpour.\n\r";
-                ch->playsound(SOUND_RAIN_START, SOUND_TYPE_NOISE);
                 break;
               case SECT_DESERT:
                 text="<B>The cooler temperatures and worsening weather allow a light desert rain to fall.<1>\n\r";
-                ch->playsound(SOUND_RAIN_START, SOUND_TYPE_NOISE);
                 break;
               case SECT_SAVANNAH:
               case SECT_VELDT:
@@ -214,7 +210,6 @@ void Weather::sendWeatherMessage(weatherMessT num)
               case SECT_TROPICAL_ATMOSPHERE:
               case SECT_TROPICAL_CLIMBING:
               case SECT_RAINFOREST_ROAD:
-                ch->playsound(SOUND_RAIN_START, SOUND_TYPE_NOISE);
                 text="<B>It starts to rain.<1>\n\r";
                 break;
               default:
@@ -225,28 +220,21 @@ void Weather::sendWeatherMessage(weatherMessT num)
             text="<d>The clouds disappear.<1>\n\r";
             break;
           case MESS_LIGHTNING:
-            snd = pickRandSound(SOUND_THUNDER_1, SOUND_THUNDER_4);
             switch (ch->roomp->getSectorType()) {
               case SECT_DESERT:
                 text="<k>The clouds overhead grow dark and thunder can be heard in the distance.<1>\n\rIt's not going to rain this time of year though.\n\r";
-                ch->playsound(snd, SOUND_TYPE_NOISE, 50);
                 break;
               default:
                 text="<W>You are caught in a lightning storm.<1>\n\r";
-                ch->playsound(snd, SOUND_TYPE_NOISE);
             }
             break;
           case MESS_BLIZZARD:
             switch (ch->roomp->getSectorType()) {
               case SECT_JUNGLE:
-                snd = pickRandSound(SOUND_THUNDER_1, SOUND_THUNDER_4);
                 text="The rains turn torrential!\n\r";
-                ch->playsound(snd, SOUND_TYPE_NOISE);
                 break;
               case SECT_DESERT:
-                snd = pickRandSound(SOUND_THUNDER_1, SOUND_THUNDER_4);
                 text="<W>The desert rain intensifies and you are caught in a lightning storm.<1>\n\r";
-                ch->playsound(snd, SOUND_TYPE_NOISE);
                 break;
               case SECT_SAVANNAH:
               case SECT_VELDT:
@@ -267,8 +255,6 @@ void Weather::sendWeatherMessage(weatherMessT num)
               case SECT_TROPICAL_CLIMBING:
               case SECT_RAINFOREST_ROAD:
                 text="<W>You are caught in a lightning storm.<1>\n\r";
-                snd = pickRandSound(SOUND_THUNDER_1, SOUND_THUNDER_4);
-                ch->playsound(snd, SOUND_TYPE_NOISE);
                 break;
               default:
                 text="<W>You are caught in a blizzard.<1>\n\r";

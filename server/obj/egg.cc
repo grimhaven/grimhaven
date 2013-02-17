@@ -93,9 +93,6 @@ void TEgg::eatMe(TBeing *ch)
   if (isFoodFlag(FOOD_SPOILED) && ch->isPerceptive()) {
     act("You gag at the smell of $p and discard it instead.", TRUE, ch, this, 0, TO_CHAR);
     act("$n gags at the smell of $p and throws it out.", TRUE, ch, this, 0, TO_ROOM);
-
-    ch->playsound(SOUND_FOODPOISON, SOUND_TYPE_NOISE);
-
     delete this;
     return;
   }

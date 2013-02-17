@@ -136,8 +136,6 @@ void TBeing::rawOpenDoor(dirTypeT dir)
   roomDirData *exitp, *back = NULL;
   TRoom *rp, *rp2;
   char buf[256];
-  soundNumT snd = SOUND_OFF;
-
   if (!(rp = roomp))
     vlogf(LOG_BUG, format("NULL rp in rawOpenDoor() for %s.") %  getName());
 
@@ -280,9 +278,6 @@ void TBeing::rawOpenDoor(dirTypeT dir)
       break;
     case DOOR_DOOR:
     default:
-      snd = pickRandSound(SOUND_DOOROPEN_01, SOUND_DOOROPEN_02);
-      roomp->playsound(snd, SOUND_TYPE_NOISE);
-
       sprintf(buf, "$n opens the %s %s.",
               exitp->getName().uncap().c_str(), dirs_to_blank[dir]);
       act(buf, TRUE, this, 0, 0, TO_ROOM);
@@ -364,8 +359,6 @@ void TBeing::rawOpenDoor(dirTypeT dir)
         sendrpf(rp2,
               "The %s %s is opened from the other side.\n\r",
               back->getName().uncap().c_str(), dirs_to_blank[rev_dir[dir]]);
-        rp2->playsound(snd, SOUND_TYPE_NOISE);
-
     }
     TThing *t=NULL;
     for(StuffIter it=roomp->stuff.begin();it!=roomp->stuff.end() && (t=*it);++it) {
@@ -384,8 +377,6 @@ void TBeing::rawCloseDoor(dirTypeT dir)
   roomDirData *exitp, *back = NULL;
   TRoom *rp, *rp2;
   char buf[256];
-  soundNumT snd = SOUND_OFF;
-
   if (!(rp = roomp))
     vlogf(LOG_BUG, format("NULL rp in rawCloseDoor() for %s.") %  getName());
 
@@ -506,9 +497,6 @@ void TBeing::rawCloseDoor(dirTypeT dir)
       sprintf(buf, "$n closes the %s %s.", exitp->getName().uncap().c_str(), dirs_to_blank[dir]);
       act(buf, TRUE, this, 0, 0, TO_ROOM);
       sendTo(format("You close the %s %s.\n\r") %exitp->getName().uncap() % dirs_to_blank[dir]);
-
-      snd = pickRandSound(SOUND_DOORCLOSE_01, SOUND_DOORCLOSE_04);
-      roomp->playsound(snd, SOUND_TYPE_NOISE);
   }
   if (IS_SET(exitp->condition, EX_SECRET)) {
     act("$n conceals a hidden passage!", TRUE, this, 0, 0, TO_ROOM);
@@ -604,7 +592,6 @@ void TBeing::rawCloseDoor(dirTypeT dir)
         sendrpf(rp2,
               "The %s %s is closed from the other side.\n\r",
               back->getName().uncap().c_str(), dirs_to_blank[rev_dir[dir]]);
-        rp2->playsound(snd, SOUND_TYPE_NOISE);
     }
     TThing *t=NULL;
     for(StuffIter it=roomp->stuff.begin();it!=roomp->stuff.end() && (t=*it);++it) {

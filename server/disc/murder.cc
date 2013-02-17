@@ -18,12 +18,6 @@
 
 class TRoom;
 
-static void playBackstab(const TRoom *rp)
-{
-  soundNumT snd = pickRandSound(SOUND_BACKSTAB_01, SOUND_BACKSTAB_02);
-  rp->playsound(snd, SOUND_TYPE_COMBAT);
-}
-
 const int BS_MSG_DEATH_MAX = 7; // (tMessagesDeath / 2) - 1
 const int BS_MSG_NONDT_MAX = 7; // (tMessagesNonDeath / 2) - 1
 
@@ -97,8 +91,6 @@ int TBeing::backstabHit(TBeing *victim, TThing *obj)
         act("$n tries to backstab you, but you feel no pain.", FALSE, this, obj, victim, TO_VICT);
         act("$n tries to backstab $N, but $N seems unaffected.",  FALSE, this, obj, victim, TO_NOTVICT);
       } else if (willKill(victim, d, SKILL_BACKSTAB, FALSE)) {
-        playBackstab(roomp);
-
         if (victim->isUndead()) {
           act("$N coughs, shivers, then collapses as you place $p in $S back.",
               FALSE, this, obj, victim, TO_CHAR);
@@ -119,8 +111,6 @@ int TBeing::backstabHit(TBeing *victim, TThing *obj)
         act("Suddenly, $n stabs you in the back!  R.I.P...",
             FALSE, this, obj, victim, TO_VICT);
       } else {
-        playBackstab(roomp);
-
         if (victim->isUndead()) {
           act("$N coughs and shivers as you place $p in $S back.",
               FALSE, this, obj, victim, TO_CHAR);
@@ -382,13 +372,6 @@ int backstab(TBeing *thief, TBeing * victim)
 /////////////////// making the class overpowered skillwise
 /////////////////////////////////////////////////////////////////
 
-static void playThroatSlit(const TRoom *rp)
-{
-  // using backstab sounds since they seem appropriate to this skill too
-  soundNumT snd = pickRandSound(SOUND_BACKSTAB_01, SOUND_BACKSTAB_02);
-  rp->playsound(snd, SOUND_TYPE_COMBAT);
-}
-
 const int TS_MSG_DEATH_MAX = 4; // (tMessagesDeath / 2) - 1
 const int TS_MSG_NONDT_MAX = 4; // (tMessagesNonDeath / 2) - 1
 
@@ -446,7 +429,6 @@ int TBeing::throatSlitHit(TBeing *victim, TThing *obj)
         act("$n tries to slit your throat, but your neck is too strong.", FALSE, this, obj, victim, TO_VICT);
         act("$n tries to slit $N's throat, but $N seems unaffected.",  FALSE, this, obj, victim, TO_NOTVICT);
       } else if (willKill(victim, d, SKILL_THROATSLIT, FALSE)) {
-        playThroatSlit(roomp);
         victim->dropPool(20, LIQ_BLOOD);
         if (victim->isUndead()) {
           act("$N shakes and then collapses as you slit $S throat.",
@@ -468,7 +450,6 @@ int TBeing::throatSlitHit(TBeing *victim, TThing *obj)
         act("You suddenly fall over dead as $n slices your throat!  R.I.P...",
             FALSE, this, obj, victim, TO_VICT);
       } else {
-        playThroatSlit(roomp);
         victim->dropPool(20, LIQ_BLOOD);
 
         if (victim->isUndead()) {

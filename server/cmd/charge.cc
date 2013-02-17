@@ -104,9 +104,6 @@ vict->getName());
   else
     ch->cantHit += ch->loseRound(3);
 
-  soundNumT snd = pickRandSound(SOUND_HORSE_1, SOUND_HORSE_2);
-  ch->roomp->playsound(snd, SOUND_TYPE_NOISE);
-
   if (vict->awake() &&
       (!ch->specialAttack(vict,SKILL_CHARGE) ||
        !ch->bSuccess(bKnown, ch->getPerc(), SKILL_CHARGE))) {

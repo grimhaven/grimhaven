@@ -1103,8 +1103,6 @@ int accelerate(TBeing *caster, TBeing *victim, int level, short bKnown)
       caster->nothingHappens();
       return SPELL_FALSE;
     }
-    victim->roomp->playsound(SOUND_SPELL_ACCELERATE, SOUND_TYPE_MAGIC);
-
     act("$N seems more nimble on $S feet!",
         FALSE, caster, NULL, victim, TO_NOTVICT, ANSI_WHITE_BOLD);
     act("You seem to be able to move with more ease!",
@@ -1180,9 +1178,6 @@ int haste(TBeing *caster, TBeing *victim, int level, short bKnown)
       caster->nothingHappens();
       return SPELL_FALSE;
     }
-
-    victim->roomp->playsound(SOUND_SPELL_HASTE, SOUND_TYPE_MAGIC);
-
     act("$N has gained a bounce in $S step!",
            FALSE, caster, NULL, victim, TO_NOTVICT);
     act("You seem to be able to move with the greatest of ease!",

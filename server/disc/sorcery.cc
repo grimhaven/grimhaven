@@ -90,10 +90,6 @@ int mysticDarts(TBeing *caster, TBeing *victim, int level, short bKnown, int adv
           dam /= 2;
         }
     }
-
-
-    victim->roomp->playsound(SOUND_SPELL_MYSTIC_DART, SOUND_TYPE_MAGIC);
-
     if (caster->reconcileDamage(victim, dam, SPELL_MYSTIC_DARTS) == -1)
       return SPELL_SUCCESS + VICTIM_DEAD;
 
@@ -218,9 +214,6 @@ int stunningArrow(TBeing *caster, TBeing *victim, int level, short bKnown, int a
           dam /= 2;
         }
     }
-
-    victim->roomp->playsound(SOUND_SPELL_STUNNING_ARROW, SOUND_TYPE_MAGIC);
-
     if (caster->reconcileDamage(victim, dam, SPELL_STUNNING_ARROW) == -1)
       return SPELL_SUCCESS + VICTIM_DEAD;
 
@@ -1222,9 +1215,6 @@ int sorcerersGlobe(TBeing *caster, TBeing *victim, int level, short bKnown)
       caster->nothingHappens();
       return FALSE;
     }
-
-    victim->roomp->playsound(SOUND_SPELL_SORCERERS_GLOBE, SOUND_TYPE_MAGIC);
-
     act("$n is instantly surrounded by a hardened wall of air!", FALSE, victim, NULL, NULL, TO_ROOM);
     act("You are instantly surrounded by a hardened wall of air!", FALSE, victim, NULL, NULL, TO_CHAR);
 

@@ -8,7 +8,6 @@
 #include "misc/race.h"
 #include "misc/immunity.h"
 #include "misc/garble.h"
-#include "sys/sound.h"
 #include "misc/wiz_powers.h"
 #include "cmd/message.h"
 #include "misc/task.h"
@@ -1165,10 +1164,6 @@ class TBeing : public TThing {
     int doSkySpirit(const char *);
     int doEarthmaw(const char *);
     int doTransform(const char *);
-    void playsound(soundNumT, const sstring &, int vol = 100, int prior = 50, int loop = 1);
-    void playmusic(musicNumT, const sstring &, int vol = 100, int cont = 1, int loop = 1);
-    void stopsound();
-    void stopmusic();
     void doPlay(const char *);
     void doSort(const char *) const;
     void doGamestats(const sstring &);

@@ -2905,7 +2905,6 @@ void TBeing::doWake(const char *argument)
                 act("You wake $M up.", FALSE, this, 0, tmp_char, TO_CHAR);
                 tmp_char->setPosition(POSITION_SITTING);
                 act("You are awakened by $n.", TRUE, this,0, tmp_char, TO_VICT);
-                tmp_char->stopsound();
               }
             }
           } else
@@ -2941,7 +2940,6 @@ void TBeing::doWake(const char *argument)
           act("$n awakens and stands up.", TRUE, this, 0, 0, TO_ROOM);
           setPosition(POSITION_STANDING);
         }
-        stopsound();
       }
     }
   }
@@ -3038,14 +3036,7 @@ void TBeing::setPosition(positionTypeT pos)
   }
   if (task)
     stopTask();
-
-  if (specials.position == POSITION_SLEEPING && pos != POSITION_SLEEPING) {
-    playsound(SOUND_SNORE, SOUND_TYPE_SOCIAL, 100, 50, -1);
-  }
   specials.position = pos;
-  if (pos == POSITION_SLEEPING) {
-    playsound(SOUND_SNORE, SOUND_TYPE_SOCIAL, 100, 50, -1);
-  }
 }
 
 void TBeing::doCrawl()

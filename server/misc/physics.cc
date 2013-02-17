@@ -652,7 +652,6 @@ rp->isFlyingSector())) {
         act("You bounce like rubber upon hitting the $g.  Immortality rocks!", FALSE, this, 0, 0, TO_CHAR);
         act("$n drops into the room, and bounces off the $g like rubber.", FALSE, this, 0, 0, TO_ROOM);
         setPosition(POSITION_STANDING);
-        roomp->playsound(SOUND_BOING, SOUND_TYPE_NOISE);
         return TRUE;
       }
       if (count > num1) {

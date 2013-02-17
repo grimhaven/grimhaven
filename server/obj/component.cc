@@ -328,7 +328,7 @@ void assign_component_placement()
      COMP_ACID_BLAST,
      CACT_PLACE | CACT_UNIQUE, -1, 60,
      -1, -1, -1, -1, -1, -1, -1,
-     "Drops of clear liquid drip from the ceiling and collect in a forgotten decanter.", "", SOUND_WATER_DROP, 5));
+     "Drops of clear liquid drip from the ceiling and collect in a forgotten decanter.", ""));
 
 // Some white silicon [sand blast] //
   // sand only CREATED during day, night doesn't destroy
@@ -927,9 +927,6 @@ void do_components(int situ)
         if (placed && *component_placement[i].message && !rp->stuff.empty()) {
           act(component_placement[i].message, TRUE, rp->stuff.front(), obj, m, TO_CHAR);
           act(component_placement[i].message, TRUE, rp->stuff.front(), obj, m, TO_ROOM);
-
-          if (component_placement[i].sound != SOUND_OFF)
-            rp->playsound(component_placement[i].sound, SOUND_TYPE_NOISE, 100, 5, component_placement[i].sound_loop);
         }
       } else if (IS_SET(component_placement[i].place_act, CACT_REMOVE)) {
         // removing the object

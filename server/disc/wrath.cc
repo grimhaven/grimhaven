@@ -267,10 +267,6 @@ int pillarOfSalt(TBeing * caster, TBeing * victim, int level, short bKnown, int 
         dam /= 2;
       }
     }
-
-
-    victim->roomp->playsound(SOUND_SPELL_PILLAR_OF_SALT, SOUND_TYPE_MAGIC);
-
     if (caster->reconcileDamage(victim, dam, SPELL_PILLAR_SALT) == -1)
       return SPELL_SUCCESS | VICTIM_DEAD;
 
@@ -381,9 +377,6 @@ int rainBrimstone(TBeing * caster, TBeing * victim, int level, short bKnown, spe
       dam *= 2;
       dam /= 3;
     }
-
-    victim->roomp->playsound(SOUND_SPELL_RAIN_BRIMSTONE, SOUND_TYPE_MAGIC);
-
     if (caster->reconcileDamage(victim, dam, spell) == -1)
       return SPELL_SUCCESS | VICTIM_DEAD;
     return SPELL_SUCCESS;
@@ -757,9 +750,6 @@ int callLightning(TBeing *caster, TBeing *victim, int level, short bKnown, spell
       CS(spell);
       dam *= 2;
     }
-
-    victim->roomp->playsound(SOUND_SPELL_CALL_LIGHTNING, SOUND_TYPE_MAGIC);
-
     act("$n summons a lightning bolt from the stormy skies, guiding it down upon $N!", FALSE, caster, NULL, victim, TO_NOTVICT);
     act("You summon a lightning bolt from the stormy skies, guiding it down upon $N!", FALSE, caster, NULL, victim, TO_CHAR);
     act("$n summons a lightning bolt from the stormy skies, guiding it down upon you!", FALSE, caster, NULL, victim, TO_VICT);
@@ -900,8 +890,6 @@ int spontaneousCombust(TBeing *caster, TBeing *victim, int level, short bKnown, 
 
       }
     }
-      victim->roomp->playsound(SOUND_SPELL_SPONTANEOUS_COMBUST, SOUND_TYPE_MAGIC);
-
     act("$N howls in pain!",
           FALSE, caster, NULL, victim, TO_NOTVICT);
     if (caster != victim) {
