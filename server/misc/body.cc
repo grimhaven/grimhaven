@@ -40,24 +40,6 @@ Body::Body(body_t body_type, int hitpoints)
   loadBody();
 }
 
-// Default constructor.
-
-Body::Body()
-  : Limb(),
-  bodyType(BODY_NONE),
-  attack(NULL),
-  hit(0)
-{
-
-  for(int mainLimb=LIMB_HEAD; mainLimb < MAX_MAIN_LIMBS; mainLimb++) {
-    body[mainLimb]=NULL;
-  }
-
-  for(int i=0;i<MAX_SHEATH;i++) {
-    sheathSlots[i] = NULL;
-  }
-}
-
 // Destructor.  Sets the attack limb list to NULL before it proceeds to
 // delete all of the limbs.  Top is just the top of the list.  It also relies
 // a bit on the Limb destructor to take care of its own sublimbs.

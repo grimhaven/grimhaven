@@ -39,8 +39,6 @@ private:
   TThing *sheathSlots[MAX_SHEATH];
 
 public:
-
-  Body();
   Body(body_t body_type, int hitpoints);
   ~Body();
 
