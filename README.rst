@@ -3,11 +3,10 @@ Grimhaven MUD
 
 This is the source code to the Grimhaven MUD online game. It is derived from the SneezyMUD 5.2 source code and game data release.
 
-License / Copyright
-===================
+License / Copyright / Credits
+=============================
 
-Insofar as a fork of a licenseless MUD that was authored on a somewhat casual basis by tens of people can have a license, Grimhaven is being made available under the terms of the
-`GNU Affero General Public License version 3 <http://www.gnu.org/licenses/>`_.
+Insofar as a fork of a licenseless MUD that was authored on a somewhat casual basis by tons of people can have a license, Grimhaven is being made available under the terms of the `GNU Affero General Public License version 3 <http://www.gnu.org/licenses/>`_. Please see LICENSE.txt and CREDITS.txt for details.
 
 Building
 ========
@@ -42,14 +41,12 @@ Coding Guildelines
 ==================
 
 C++
-+++
+---
 
-All new C++ code shall conform to the
-`Google C++ Style Guide
-<http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml>`_.
+All new C++ code shall conform to the `Google C++ Style Guide <http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml>`_.
 
 Highlights
-----------
+__________
 
 * All header files should have `#define` guards to prevent multiple inclusion. The format of the symbol name should be `<PROJECT>_<PATH>_<FILE>_H_`.
 * Indentation is 2 spaces (no tabs).
@@ -60,15 +57,15 @@ Highlights
 * Use streams only for logging.
 
 Exceptions
-----------
+__________
 
 * Do not use features only available in C++11 (formerly known as C++0x).
 * The use of exceptions is permitted.
 
 Other Guidelines
-++++++++++++++++
+----------------
 
 * Avoid use of external libraries apart from Boost modules.
 * Anything not written in C++ is written in Python.
 
-.. vim: ft=rst:
+.. -*- tab-width: 2; -*- vim: ft=rst:sw=2:sts=2:ts=8:et

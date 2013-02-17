@@ -1,0 +1,9 @@
+Grimhaven v6.0:
+Ryan Smith-Roberts (Beorat)
+
+SneezyMUD opensource release:
+Travis Nelson (Peel)
+Elmo Todurov (Cizra)
+
+SneezyMUD v5.2 and earlier:
+... many humans
