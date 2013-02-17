@@ -1,7 +1,7 @@
 #include <cstdio>
 #include <dirent.h>
 
-#include "logging.h"
+#include "core/logging.h"
 #include "misc/extern.h"
 #include "misc/room.h"
 #include "misc/being.h"

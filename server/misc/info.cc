@@ -2,7 +2,7 @@
 
 #include <dirent.h>
 
-#include "logging.h"
+#include "core/logging.h"
 #include "game/games.h"
 #include "misc/account.h"
 #include "misc/being.h"

@@ -1,6 +1,6 @@
 #include <cstdio>
 
-#include "logging.h"
+#include "core/logging.h"
 #include "sys/colorstring.h"
 #include "misc/disease.h"
 #include "misc/combat.h"

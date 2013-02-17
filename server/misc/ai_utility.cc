@@ -7,7 +7,7 @@
 //   a mob could piss off another mob, and the pissed off mob "think"
 //   it was some random PC that did nothing. */
 
-#include "logging.h"
+#include "core/logging.h"
 #include "misc/being.h"
 #include "misc/room.h"
 #include "misc/low.h"

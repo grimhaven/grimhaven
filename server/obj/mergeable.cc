@@ -1,4 +1,4 @@
-#include "logging.h"
+#include "core/logging.h"
 #include "obj/mergeable.h"
 
 bool TMergeable::willMerge(TMergeable *t)

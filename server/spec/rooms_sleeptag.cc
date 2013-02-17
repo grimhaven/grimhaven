@@ -6,7 +6,7 @@
 
 #include <cstdarg>
 
-#include "logging.h"
+#include "core/logging.h"
 #include "misc/extern.h"
 #include "misc/room.h"
 #include "obj/staff.h"

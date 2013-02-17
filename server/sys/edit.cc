@@ -3,7 +3,7 @@
 #include <arpa/telnet.h>
 #include <cstdio>
 
-#include "logging.h"
+#include "core/logging.h"
 #include "sys/tsocket.h"
 #include "sys/connect.h"
 

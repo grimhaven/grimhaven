@@ -1,6 +1,6 @@
 #include <cstdio>
 
-#include "logging.h"
+#include "core/logging.h"
 #include "misc/extern.h"
 #include "disc/looting.h"
 #include "obj/open_container.h"

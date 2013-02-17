@@ -19,7 +19,7 @@
 
 #include <boost/regex.hpp>
 
-#include "logging.h"
+#include "core/logging.h"
 #include "misc/being.h"
 #include "misc/person.h"
 #include "misc/extern.h"

@@ -1,6 +1,6 @@
 //  return DELETE_THIS if this dies, or DELETE_VICT if doer dies
 
-#include "logging.h"
+#include "core/logging.h"
 #include "misc/room.h"
 #include "misc/extern.h"
 #include "misc/being.h"

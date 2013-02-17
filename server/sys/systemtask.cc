@@ -5,7 +5,7 @@
 #include <sys/wait.h>
 #include <sys/stat.h>
 
-#include "logging.h"
+#include "core/logging.h"
 #include "sys/systemtask.h"
 #include "misc/being.h"
 #include "obj/note.h"

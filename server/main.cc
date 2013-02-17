@@ -3,7 +3,7 @@
 #include <iostream>
 
 #include "configuration.h"
-#include "logging.h"
+#include "core/logging.h"
 #include "util/sstring.h"
 #include "misc/extern.h"
 

@@ -4,7 +4,7 @@
 #include <fcntl.h>
 #include <ares.h>
 
-#include "logging.h"
+#include "core/logging.h"
 #include "misc/room.h"
 #include "misc/monster.h"
 #include "misc/extern.h"

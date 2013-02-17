@@ -2,7 +2,7 @@
 #include <cstdio>
 #include <map>
 
-#include "logging.h"
+#include "core/logging.h"
 
 // number of levels to print in a backtrace
 const int MAX_TRACE_LEVELS = 10;

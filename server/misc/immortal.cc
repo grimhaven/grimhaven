@@ -2,7 +2,7 @@
 #include <dirent.h>
 #include <sys/socket.h>
 
-#include "logging.h"
+#include "core/logging.h"
 #include "cmd/trophy.h"
 #include "disc/shaman_frog.h"
 #include "disc/shaman_armadillo.h"

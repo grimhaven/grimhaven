@@ -1,6 +1,6 @@
 #include <cstdio>
 
-#include "logging.h"
+#include "core/logging.h"
 #include "misc/room.h"
 #include "sys/handler.h"
 #include "obj/portal.h"

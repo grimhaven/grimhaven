@@ -39,7 +39,7 @@
 
 #include <cstdio>
 
-#include "logging.h"
+#include "core/logging.h"
 #include "misc/being.h"
 #include "misc/discipline.h"
 #include "misc/room.h"

@@ -1,4 +1,4 @@
-#include "logging.h"
+#include "core/logging.h"
 #include "misc/monster.h"
 #include "sys/pathfinder.h"
 #include "obj/commodity.h"

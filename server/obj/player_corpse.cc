@@ -1,6 +1,6 @@
 #include <cstdio>
 
-#include "logging.h"
+#include "core/logging.h"
 #include "obj/player_corpse.h"
 #include "obj/base_corpse.h"
 #include "misc/being.h"

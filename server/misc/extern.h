@@ -8,8 +8,7 @@
 #include "misc/body.h"
 #include "misc/race.h"
 #include "obj/drug.h"
-
-#include "configuration.h"
+#include "core/configuration.h"
 
 extern Configuration Config;
 

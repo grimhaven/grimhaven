@@ -1,7 +1,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-#include "logging.h"
+#include "core/logging.h"
 #include "misc/being.h"
 #include "misc/extern.h"
 #include "misc/monster.h"
