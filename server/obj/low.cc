@@ -526,10 +526,4 @@ Tier WeaponEvaluator::getTier()
   return Tier_Common;
 }
 
-
-int WeaponEvaluator::getMainPointsRaw()
-{
-  return 0;
-}
-
-
+int WeaponEvaluator::getMainPointsRaw() { return 0; }

@@ -1,16 +1,13 @@
 #ifndef SERVER_MISC_THING_H_
 #define SERVER_MISC_THING_H_
 
-#ifndef _STRING_H
-#include <string.h>
-#endif
-
+#include <cstring>
 #include <list>
 
 #include "misc/limbs.h"
 #include "misc/faction.h"
-#include "sys/ansi.h"
 #include "misc/spells.h"
+#include "sys/ansi.h"
 
 enum thingTypeT {
   TYPETHING,    // = 0;

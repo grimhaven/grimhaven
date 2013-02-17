@@ -34,11 +34,17 @@ enum PointType
 };
 
 // constants used to try to approximate armor vs stats
-#define low_acPerHitrate (25.0 / 3.0) // ac to affect hit rate by 1%
-#define low_statValue (0.25) // change to hit rate for 1 stat point
-#define low_acModifier (0.25) // inflation multiplier for stat costs (used for more than combat, etc)
-#define low_acPerLevel (25.0) // the base AC you get per item level?
-#define low_exchangeRate (low_acPerHitrate * low_statValue * low_acModifier) // cost in ac for 1 stat point
+
+// ac to affect hit rate by 1%
+const float low_acPerHitrate =  25.0 / 3.0;
+// change to hit rate for 1 stat point
+const float low_statValue = 0.25;
+// inflation multiplier for stat costs (used for more than combat, etc)
+const float low_acModifier = 0.25;
+// the base AC you get per item level?
+const float low_acPerLevel = 25.0;
+// cost in ac for 1 stat point
+const float low_exchangeRate = low_acPerHitrate * low_statValue * low_acModifier;
 
 // base class for TObj
 class ObjectEvaluator

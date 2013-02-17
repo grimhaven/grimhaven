@@ -3,12 +3,6 @@
 
 #include "util/sstring.h"
 
-#ifndef cElements
-#define cElements(x) (sizeof(x)/sizeof(x[0]))
-#endif
-
-
-
 // flags for a garble's scope
 // consider a scope for when a garble should activate, depending on
 // who the garble is intended for

@@ -134,7 +134,7 @@ void TFruit::eatMe(TBeing *ch){
 
   // race-based food preferences
   if(ch->isVampire()){
-    msg = "You eat the mortal food, but it has no affect on you.\n\r";
+    msg = "You eat the mortal food, but it has no effect on you.\n\r";
     adjust = 0;
   } else if (ch->getMyRace()->hasTalent(TALENT_FISHEATER) && isFoodFlag(FOOD_FISHED)) {
     msg = "You savor this delicious fishy bite!\n\r";

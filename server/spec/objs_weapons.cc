@@ -2012,7 +2012,7 @@ int warMaker(TBeing *ch, cmdTypeT cmd, const char *, TObj *o, TObj *)
     switch (cmd) {
       case CMD_CAST:
       case CMD_RECITE:
-        obj_act("hums 'Get this:  $n wants to use some sissy magic!'", ch, o, NULL, NULL);
+        obj_act("hums 'Get this: $n wants to use some sissy magic!'", ch, o, NULL, NULL);
         ch->sendTo("You feel confused... what was it you were going to do?\n\r");
         return TRUE;
       case CMD_FLEE:
