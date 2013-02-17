@@ -75,19 +75,7 @@ class TDrug : public TObj {
     virtual ~TDrug();
 };
 
-
-
 void applyDrugAffects(TBeing *, drugTypeT, bool);
 void applyAddictionAffects(TBeing *, drugTypeT, int);
 
 #endif
-
-
-
-
-
-
-
-
-
-

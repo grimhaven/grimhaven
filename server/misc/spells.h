@@ -716,6 +716,4 @@ extern spellNumT & operator-= (spellNumT &, spellNumT);
      SKILL_TAN,
 #endif
 
-
 #endif
-

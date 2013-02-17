@@ -1,6 +1,7 @@
-//  This is an attempt to make some sense out of the limb system.
 #ifndef __BODY_H
 #define __BODY_H
+
+//  This is an attempt to make some sense out of the limb system.
 
 #include "limbs.h"
 
@@ -57,4 +58,5 @@ public:
 
   void showBody(TBeing *caller);
 };
+
 #endif

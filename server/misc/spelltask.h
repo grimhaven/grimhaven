@@ -1,3 +1,6 @@
+#ifndef __SPELLTASK_H
+#define __SPELLTASK_H
+
 /*************************************************************************
 
   Tasks provide a mechanism for delayed/sequenced/periodic mob actions.
@@ -6,9 +9,6 @@
   meantime.
 
 *************************************************************************/
-
-#ifndef __SPELLTASK_H
-#define __SPELLTASK_H
 
 #include "spell2.h"
 

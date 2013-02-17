@@ -27,11 +27,3 @@ class CDBrawling : public CDiscipline
 };
 
 #endif
-
-
-
-
-
-
-
-

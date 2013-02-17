@@ -34,20 +34,12 @@ public:
 private:
 };
 
-    int treeWalk(TBeing *, const char *, int, short);
-    int treeWalk(TBeing *, const char *);
+int treeWalk(TBeing *, const char *, int, short);
+int treeWalk(TBeing *, const char *);
 
-    int barkskin(TBeing *, TBeing *);
-    int castBarkskin(TBeing *, TBeing *);
-    int barkskin(TBeing *, TBeing *, TMagicItem *);
-    int barkskin(TBeing *, TBeing *, int, short);
-
-
+int barkskin(TBeing *, TBeing *);
+int castBarkskin(TBeing *, TBeing *);
+int barkskin(TBeing *, TBeing *, TMagicItem *);
+int barkskin(TBeing *, TBeing *, int, short);
 
 #endif
-
-
-
-
-
-

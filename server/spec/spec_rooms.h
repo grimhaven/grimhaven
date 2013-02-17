@@ -1,3 +1,6 @@
+#ifndef __SPEC_ROOMS_H
+#define __SPEC_ROOMS_H
+
 /*************************************************************************
 
   Special procedures for rooms may be called under five different
@@ -24,9 +27,6 @@
      rp - a pointer to the room for which the spec_proc was called.
 
 *************************************************************************/
-
-#ifndef __SPEC_ROOMS_H
-#define __SPEC_ROOMS_H
 
 extern int sleepTagControl(TBeing *, cmdTypeT, const char *, TRoom *);
 extern int sleepTagRoom(TBeing *, cmdTypeT, const char *, TRoom *);

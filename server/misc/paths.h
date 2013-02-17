@@ -1,3 +1,6 @@
+#ifndef __PATHS_H
+#define __PATHS_H
+
 /*
 Defines paths for various special mobs to follow.
 This file is somewhat maintained by the LOWs and to keep them
@@ -7,9 +10,6 @@ These paths are somewhat a pain to generate.  There is a small
 #if piece of code at the bottom of doMove() (movement.cc) to help
 generate paths quickly.
 */
-
-#ifndef __PATHS_H
-#define __PATHS_H
 
 struct path_struct {
     dirTypeT direction;

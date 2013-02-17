@@ -1,3 +1,6 @@
+#ifndef __GAME_CRAZYEIGHTS_H
+#define __GAME_CRAZYEIGHTS_H
+
 #include "games.h"
 
 class CrazyEightsGame : public CardGame {
@@ -36,3 +39,5 @@ class CrazyEightsGame : public CardGame {
 };
 
 extern CrazyEightsGame gEights;
+
+#endif

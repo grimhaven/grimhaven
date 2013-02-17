@@ -104,25 +104,4 @@ extern bool is_client_sstring(char *str);
 extern void stripFrontBytes(char *, int);
 extern void processStringForClient(sstring &);
 
-
 #endif
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

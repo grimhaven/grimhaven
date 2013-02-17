@@ -1,5 +1,5 @@
 #ifndef __DISC_COMBAT_H
-#define __DISC_COMBAT_H   1
+#define __DISC_COMBAT_H
 
 // This contains the general combat skills.
 
@@ -29,8 +29,7 @@ class CDCombat : public CDiscipline
 private:
 };
 
-    void sharpen(TBeing *, TThing *);
-    void dull(TBeing *, TThing *);
+void sharpen(TBeing *, TThing *);
+void dull(TBeing *, TThing *);
 
 #endif
-

@@ -35,13 +35,12 @@ public:
 private:
 };
 
-    int detectSecret(TBeing *);
+int detectSecret(TBeing *);
 
-    int disarmTrapObj(TBeing *, TObj *);
-    int disarmTrapDoor(TBeing *, dirTypeT);
+int disarmTrapObj(TBeing *, TObj *);
+int disarmTrapDoor(TBeing *, dirTypeT);
 
-    int detectTrapObj(TBeing *, const TThing *);
-    int detectTrapDoor(TBeing *, int);
+int detectTrapObj(TBeing *, const TThing *);
+int detectTrapDoor(TBeing *, int);
 
 #endif
-

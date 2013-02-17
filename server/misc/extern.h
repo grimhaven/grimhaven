@@ -1,7 +1,6 @@
 #ifndef __EXTERN_H
 #define __EXTERN_H
 
-
 #include "wiz_powers.h"
 #include "room.h"
 #include "immunity.h"
@@ -55,11 +54,12 @@ extern bool getall(const char *, char *);
 extern int getabunch(const char *, char *);
 extern bool is_number(const sstring &);
 extern void bisect_arg_safe(const char *, int *, char *, unsigned int, const char * const array[]);
-#define bisect_arg(in, nt, out, ar) bisect_arg_safe(in, nt, out, cElements(out), ar)
-  extern const float repair_mats_ratio;
-
-  extern const char * heraldcolors[];
-  extern const char * heraldcodes[];
+inline void bisect_arg(const char *in, int *nt, char *out, const char * const ar) {
+    return bisect_arg_safe(in, nt, out, cElements(out), ar);
+}
+extern const float repair_mats_ratio;
+extern const char * heraldcolors[];
+extern const char * heraldcodes[];
 extern const char * const card_names[14];
 extern const char * const scandirs[];
 extern const char * const home_terrains[];
@@ -191,7 +191,7 @@ extern int numberLogHosts;
 extern long roomCount;
 extern int script_on_command(TBeing *, char *, int);
 extern void initWhittle();
-  //extern std::vector<zoneData>zone_table;
+//extern std::vector<zoneData>zone_table;
 extern void DeleteHatreds(const TBeing *, const char *);
 extern void DeleteFears(const TBeing *, const char *);
 extern bool UtilProcs(int);
@@ -207,7 +207,6 @@ extern void list_thing_on_heap(const TThing *, TBeing *ch, bool);
 extern void list_in_heap(StuffList list, TBeing *ch, bool show_all, int perc);
 
 extern bool list_in_heap_filtered(StuffList list, TBeing *ch, sstring filter, bool show_all, silentTypeT silent = SILENT_NO);
-
 
 extern bool pierceType(spellNumT);
 extern bool bluntType(spellNumT);
@@ -377,5 +376,5 @@ extern int atoi_safe(const sstring);
 extern double atof_safe(const sstring);
 extern int GetApprox(int, int);
 extern double GetApprox(double, int);
-#endif
 
+#endif

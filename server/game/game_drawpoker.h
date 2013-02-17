@@ -1,3 +1,6 @@
+#ifndef __GAME_DRAWPOKER_H
+#define __GAME_DRAWPOKER_H
+
 #include "games.h"
 
 class TBeing;
@@ -58,3 +61,5 @@ class DrawPokerGame : public CardGame {
 };
 
 extern DrawPokerGame gDrawPoker;
+
+#endif

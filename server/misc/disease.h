@@ -1,3 +1,6 @@
+#ifndef __DISEASE_H
+#define __DISEASE_H
+
 /**************************************************************************
 
  A note on diseases in SneezyMUD ...  Diseases are simply periodically
@@ -11,9 +14,6 @@
                                             - Stargazer   9/93
 
 **************************************************************************/
-
-#ifndef __DISEASE_H
-#define __DISEASE_H
 
 /* tech note:  Mob_Affect fields for diseases are defined as follows ...
    short type;         <-- should always be AFFECT_DISEASE

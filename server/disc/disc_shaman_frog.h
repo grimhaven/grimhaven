@@ -50,31 +50,28 @@ public:
     virtual CDShamanFrog * cloneMe() { return new CDShamanFrog(*this); }
 private:
 };
-    int stormySkies(TBeing *, TBeing *);
-    int castStormySkies(TBeing *, TBeing *);
-    int stormySkies(TBeing *, TBeing *, TMagicItem *);
-    int stormySkies(TBeing *, TBeing *, int, short);
 
-    int aquaticBlast(TBeing *, TBeing *);
-    int castAquaticBlast(TBeing *, TBeing *);
-    int aquaticBlast(TBeing *, TBeing *, TMagicItem *);
-    int aquaticBlast(TBeing *, TBeing *, int, short, int);
+int stormySkies(TBeing *, TBeing *);
+int castStormySkies(TBeing *, TBeing *);
+int stormySkies(TBeing *, TBeing *, TMagicItem *);
+int stormySkies(TBeing *, TBeing *, int, short);
 
-    int shapeShift(TBeing *caster, int level, short bKnown);
-    int shapeShift(TBeing *caster, const char * buffer);
-    int castShapeShift(TBeing *caster);
+int aquaticBlast(TBeing *, TBeing *);
+int castAquaticBlast(TBeing *, TBeing *);
+int aquaticBlast(TBeing *, TBeing *, TMagicItem *);
+int aquaticBlast(TBeing *, TBeing *, int, short, int);
 
-    int deathWave(TBeing *, TBeing *);
-    int castDeathWave(TBeing *, TBeing *);
-    int deathWave(TBeing *, TBeing *, TMagicItem *);
-    int deathWave(TBeing *, TBeing *, int, short, int);
+int shapeShift(TBeing *caster, int level, short bKnown);
+int shapeShift(TBeing *caster, const char * buffer);
+int castShapeShift(TBeing *caster);
 
+int deathWave(TBeing *, TBeing *);
+int castDeathWave(TBeing *, TBeing *);
+int deathWave(TBeing *, TBeing *, TMagicItem *);
+int deathWave(TBeing *, TBeing *, int, short, int);
 
-    int transformLimb(TBeing *, const char *);
-    int castTransformLimb(TBeing *);
-    int transformLimb(TBeing *, const char *, int, short);
-
+int transformLimb(TBeing *, const char *);
+int castTransformLimb(TBeing *);
+int transformLimb(TBeing *, const char *, int, short);
 
 #endif
-
-

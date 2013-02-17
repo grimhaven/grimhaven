@@ -1,14 +1,11 @@
+#ifndef __RACE_H
+#define __RACE_H
+
 // The basic design for the handling of Races is the Flyweight Pattern as
 // explained in Design Patterns: Elements of Reusable Object-Oriented Software
 // ISBN 0-201-63361-2
 
-#ifndef __RACE_H
-#define __RACE_H
-
-#ifndef __BODY_H
 #include "body.h"
-#endif
-
 #include "cmd_dissect.h"
 #include "immunity.h"
 #include "stats.h"

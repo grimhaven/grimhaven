@@ -53,9 +53,6 @@ public:
 private:
 };
 
-    int shove(TBeing *, TBeing *, char *, spellNumT);
+int shove(TBeing *, TBeing *, char *, spellNumT);
 
 #endif
-
-
-

@@ -425,10 +425,5 @@ class Mob {
   static const int FAT_ELF_3      =3907;
   static const int DEE            =7600;
 };
+
 #endif
-
-
-
-
-
-

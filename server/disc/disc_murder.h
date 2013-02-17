@@ -34,15 +34,11 @@ public:
 private:
 };
 
-    int backstab(TBeing *, TBeing *);
-    int throatSlit(TBeing *, TBeing *);
-    int poisonWeapon(TBeing *, TThing *, TThing *);
-    int garrotte(TBeing *, TBeing *);
-    int cudgel(TBeing *, TBeing *);
-
-
-     bool addPoison(affectedData aff[5],
-                    liqTypeT liq, int level, int duration);
+int backstab(TBeing *, TBeing *);
+int throatSlit(TBeing *, TBeing *);
+int poisonWeapon(TBeing *, TThing *, TThing *);
+int garrotte(TBeing *, TBeing *);
+int cudgel(TBeing *, TBeing *);
+bool addPoison(affectedData aff[5], liqTypeT liq, int level, int duration);
 
 #endif
-

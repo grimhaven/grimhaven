@@ -118,9 +118,8 @@ enum wizPowerT {
 
      MAX_POWER_INDEX
 };
+
 const wizPowerT MIN_POWER_INDEX = wizPowerT(0);
 wizPowerT & operator++ (wizPowerT &, int);
 
 #endif
-
-

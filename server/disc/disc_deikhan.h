@@ -172,10 +172,9 @@ public:
 private:
 };
 
-    int synostodweomer(TBeing * caster, TBeing * victim);
-    int synostodweomer(TBeing * caster, TBeing * victim, int, short);
+int synostodweomer(TBeing * caster, TBeing * victim);
+int synostodweomer(TBeing * caster, TBeing * victim, int, short);
 
-    int smite(TBeing *, TBeing *);
+int smite(TBeing *, TBeing *);
 
 #endif
-

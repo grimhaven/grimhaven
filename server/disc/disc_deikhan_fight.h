@@ -41,6 +41,4 @@ class CDDeikhanFight : public CDiscipline
 private:
 };
 
-
 #endif
-

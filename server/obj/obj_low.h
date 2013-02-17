@@ -1,3 +1,6 @@
+#ifndef __OBJ_LOW_H
+#define __OBJ_LOW_H
+
 /*-------------------------------------------------------------------
   New LOW classification rules for ARMOR
 
@@ -95,3 +98,5 @@ protected:
   virtual int getMainPointsRaw();
   virtual Tier getTier();
 };
+
+#endif

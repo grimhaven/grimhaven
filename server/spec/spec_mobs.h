@@ -1,3 +1,6 @@
+#ifndef __SPEC_MOBS_H
+#define __SPEC_MOBS_H
+
 /************************************************************************
 
   Special procedures for mobiles may be called under a number of different
@@ -12,19 +15,15 @@
 
 *************************************************************************/
 
-#ifndef __SPEC_MOBS_H
-#define __SPEC_MOBS_H
-
-class TBeing;
-class TMonster;
-class TObj;
-class TSymbol;
-
 #include "parse.h"
 #include "faction.h"
 #include "spells.h"
 #include "structs.h"
 
+class TBeing;
+class TMonster;
+class TObj;
+class TSymbol;
 
 const int SPEC_JANITOR           =5;
 const int SPEC_TORMENTOR         =6;
@@ -328,6 +327,5 @@ class sharp_struct {
 };
 
 extern sstring randommessage(sstring);
-
 
 #endif

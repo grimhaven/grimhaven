@@ -77,8 +77,7 @@ public:
 private:
 };
 
-    int berserk(TBeing *);
-    void repair(TBeing *, TObj *);
+int berserk(TBeing *);
+void repair(TBeing *, TObj *);
 
 #endif
-

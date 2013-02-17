@@ -60,11 +60,9 @@ int castShadowWalk(TBeing *, TBeing *);
 void shadowWalk(TBeing *, TBeing *, TMagicItem *);
 int shadowWalk(TBeing *, TBeing *, int, short);
 
-    int celerite(TBeing *, TBeing *);
-    int castCelerite(TBeing *, TBeing *);
-    void celerite(TBeing *, TBeing *, TMagicItem *);
-    int celerite(TBeing *, TBeing *, int, short);
+int celerite(TBeing *, TBeing *);
+int castCelerite(TBeing *, TBeing *);
+void celerite(TBeing *, TBeing *, TMagicItem *);
+int celerite(TBeing *, TBeing *, int, short);
 
 #endif
-
-

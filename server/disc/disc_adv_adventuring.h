@@ -1,6 +1,5 @@
 #ifndef __DISC_ADV_ADVENTURING_H
-#define __DISC_ADV_ADVENTURING_H   1
-
+#define __DISC_ADV_ADVENTURING_H
 
 #include "discipline.h"
 #include "skills.h"
@@ -73,19 +72,15 @@ class CDAdvAdventuring : public CDiscipline
     }
 
     bool isFast(){ return true; }
-
-private:
 };
 
-    void forage(TBeing *);
-    int forage(TBeing *, short);
-    int forage_insect(TBeing *caster);
+void forage(TBeing *);
+int forage(TBeing *, short);
+int forage_insect(TBeing *caster);
 
-    void divine(TBeing *, TThing *);
-    int divine(TBeing *, int, short, TThing *);
+void divine(TBeing *, TThing *);
+int divine(TBeing *, int, short, TThing *);
 
-    int encamp(TBeing *);
-
+int encamp(TBeing *);
 
 #endif
-

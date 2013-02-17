@@ -1,7 +1,7 @@
-// A class for defining the stat system.
-
 #ifndef __CHARACTERISTICS_H
 #define __CHARACTERISTICS_H
+
+// A class for defining the stat system.
 
 class Stats {
   private:

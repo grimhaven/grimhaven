@@ -1,5 +1,5 @@
 #ifndef __DISC_ADVENTURING_H
-#define __DISC_ADVENTURING_H   1
+#define __DISC_ADVENTURING_H
 
 // This contains the general knowledge areas that _every_ pc knows.  All of
 // these are "learn by mistake".  None can be practiced.
@@ -158,7 +158,6 @@ class CDAdventuring : public CDiscipline
 private:
 };
 
-    int dissect(TBeing *, TObj *);
+int dissect(TBeing *, TObj *);
 
 #endif
-

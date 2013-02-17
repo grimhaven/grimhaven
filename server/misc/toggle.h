@@ -77,9 +77,7 @@ const unsigned long PLR_DENY_LOOT  = (unsigned)(1<<31);
 
 extern const char * const auto_name[MAX_AUTO];
 
-
-// stuff for global toggles
-
+// global toggles
 enum togTypeT {
   TOG_NONE = 0,
   TOG_SHOUTING,
@@ -108,7 +106,6 @@ enum togTypeT {
 
 extern togTypeT & operator++(togTypeT &c, int);
 
-
 class togEntry {
   public:
   bool toggle;
@@ -122,7 +119,6 @@ class togEntry {
   private:
   togEntry();  // deny usage in this format
 };
-
 
 class togInfoT {
   std::map<togTypeT, togEntry *>toggles;
@@ -138,7 +134,6 @@ class togInfoT {
   togInfoT();
   ~togInfoT();
 };
-
 
 
 // defines for avenger quest
@@ -634,7 +629,3 @@ extern TOGINFO TogIndex[MAX_TOG_INDEX + 1];
 extern togInfoT toggleInfo;
 
 #endif
-
-
-
-
