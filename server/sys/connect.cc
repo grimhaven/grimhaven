@@ -23,7 +23,6 @@
 #include "misc/low.h"
 #include "misc/person.h"
 #include "misc/monster.h"
-#include "sys/configuration.h"
 #include "misc/charfile.h"
 #include "misc/account.h"
 #include "misc/statistics.h"
@@ -253,7 +252,7 @@ Descriptor & Descriptor::operator=(const Descriptor &a)
 // returns TRUE if multiplay is detected
 bool Descriptor::checkForMultiplay()
 {
-  if(Config::CheckMultiplay()){
+  if(Config.CheckMultiplay()){
     TBeing *ch;
     unsigned int total = 1;
     Descriptor *d;
@@ -301,10 +300,10 @@ bool Descriptor::checkForMultiplay()
 
       if (d->account->name==account->name) {
         total += 1;
-        if (total > max_multiplay_chars && Config::ModeProd()) {
+        if (total > max_multiplay_chars && Config.ModeProd()) {
           vlogf(LOG_CHEAT, format("MULTIPLAY: %s and %s from same account[%s]") %
                 character->name % ch->name % account->name);
-          if(Config::ForceMultiplayCompliance()){
+          if(Config.ForceMultiplayCompliance()){
             character->sendTo(format("\n\rTake note: You have another character, %s, currently logged in.\n\r") % ch->name);
             character->sendTo("Adding this character would cause you to be in violation of multiplay rules.\n\r");
             character->sendTo("Please log off your other character and then try again.\n\r");
@@ -463,7 +462,7 @@ int Descriptor::outputProcessing()
   while((c=output.takeFromQ())){
     if(m_bIsClient){
       commtype=Comm::CLIENT;
-    } else if(socket->port==Config::XmlPort()){
+    } else if(socket->port==Config.xml_port()){
       commtype=Comm::XML;
     } else {
       commtype=Comm::TEXT;
@@ -761,7 +760,7 @@ void TPerson::autoDeath()
   vlogf(LOG_PIO, format("%s reconnected with negative hp, auto death occurring.") %
                         getName());
   sendTo("You reconnected with negative hit points, automatic death occurring.");
-  sprintf(buf, "%s detected you reconnecting with %d hit points.\n\r", MUD_NAME, getHit());
+  sprintf(buf, "%s detected you reconnecting with %d hit points.\n\r", Config.mud_name().c_str(), getHit());
   sprintf(buf + strlen(buf), "In order to discourage people from dropping link in order to avoid death,\n\r");
   sprintf(buf + strlen(buf), "it was decided that such an event would result in a partial death.\n\r");
   sprintf(buf + strlen(buf), "As such, you have been penalized %.2f experience.\n\r\n\r", deathExp());
@@ -997,7 +996,7 @@ int Descriptor::nanny(sstring arg)
         writeToQ("The email account you entered for your account is thought to be bogus.\n\r");
         buf = format("You entered an email address of: %s\n\r") % account->email;
         writeToQ(buf);
-        buf = format("If this address is truly valid, please send a mail from it to: %s") % MUD_EMAIL;
+        buf = format("If this address is truly valid, please send a mail from it to: %s") % Config.mud_email();
         writeToQ(buf);
         writeToQ("Otherwise, please change your account email address.\n\r");
         rp = real_roomp(Room::VOID);
@@ -1128,7 +1127,7 @@ int Descriptor::nanny(sstring arg)
             tmp_ch->doCls(false);
 
           rc = checkForMultiplay();
-          if(Config::ForceMultiplayCompliance()){
+          if(Config.ForceMultiplayCompliance()){
             if (rc) {
               // disconnect, but don't cause character to be deleted
               // do this by disassociating character from descriptor
@@ -1401,7 +1400,7 @@ int TPerson::genericLoadPC()
   int rc;
 
   rc = desc->checkForMultiplay();
-  if(Config::ForceMultiplayCompliance()){
+  if(Config.ForceMultiplayCompliance()){
     if (rc)
       return DELETE_THIS;
   }
@@ -1418,14 +1417,10 @@ int TPerson::genericLoadPC()
       assignCorpsesToRooms();
   }
   saveChar(Room::AUTO_RENT);
-  sendTo(WELCOME_MSG);
+  sendTo(format("\n\rWelcome to %s! May your journeys be enjoyable!\n\r\n\r") %
+          Config.mud_name_version());
   next = character_list;
   character_list = this;
-
-  if(Config::SpeefMakeBody()){
-    vlogf(LOG_MISC, format("Loading a body for %s\n\r") %  name);
-    body = new Body(race->getBodyType(), points.maxHit);
-  }
 
   if (in_room == Room::NOWHERE || in_room == Room::AUTO_RENT) {
     if (banished()) {
@@ -1806,13 +1801,13 @@ void Descriptor::show_string(const char *the_input, showNowT showNow, allowRepla
           }
           break;
         case 'h':
-          strcpy(buffer + i, MUD_NAME);
-          i+= strlen(MUD_NAME);
+          strcpy(buffer + i, Config.mud_name().c_str());
+          i+= strlen(Config.mud_name().c_str());
           chk += 2;
           break;
         case 'H':
-          strcpy(buffer + i, MUD_NAME_VERS);
-          i+= strlen(MUD_NAME);
+          strcpy(buffer + i, Config.mud_name_version().c_str());
+          i+= strlen(Config.mud_name().c_str());
           chk += 2;
           break;
         case 'R':
@@ -3008,7 +3003,7 @@ int Descriptor::sendLogin(const sstring &arg)
   else if (my_arg == "?") {
     writeToQ("Accounts are used to store all characters belonging to a given person.\n\r");
     writeToQ("One account can hold multiple characters.  Creating more than one account\n\r");
-    sprintf(buf, "for yourself is a violation of %s multiplay rules and will lead to\n\r", MUD_NAME);
+    sprintf(buf, "for yourself is a violation of %s multiplay rules and will lead to\n\r", Config.mud_name().c_str());
     writeToQ(buf);
     writeToQ("strict sanctions.  Your account holds information that is applied to all\n\r");
     writeToQ("characters that you own (including: generic terminal type, time zone\n\r");
@@ -3031,7 +3026,7 @@ int Descriptor::sendLogin(const sstring &arg)
       buf[strlen(buf) - 1] = '\0';
 
       sprintf(buf2 + strlen(buf2), "\n\r\n\rWelcome to %s:\n\r%s:\n\r",
-              MUD_NAME_VERS, buf);
+              Config.mud_name_version().c_str(), buf);
       fclose(fp);
     }
 
@@ -3049,15 +3044,15 @@ int Descriptor::sendLogin(const sstring &arg)
     output.putInQ(new UncategorizedComm(buf2));
 
     outputBuf="Please type NEW (case sensitive) for a new account, or ? for help.\n\r";
-    outputBuf+=format("If you need assistance you may email %s.\n\r\n\r") % MUD_EMAIL;
+    outputBuf+=format("If you need assistance you may email %s.\n\r\n\r") % Config.mud_email();
     outputBuf+="\n\rLogin: ";
     output.putInQ(new LoginComm("user", outputBuf));
     return FALSE;
   } else if (my_arg == "NEW") {
-    if (WizLock) {
+    if (Config.wizlock()) {
       writeToQ("The game is currently wiz-locked.\n\r");
-      if (!lockmess.empty()) {
-        page_string(lockmess, SHOWNOW_YES);
+      if (!Config.wizlock_message().empty()) {
+        page_string(Config.wizlock_message(), SHOWNOW_YES);
       }
       output.putInQ(new LoginComm("wizlock", "Wiz-Lock password: "));
 
@@ -3239,7 +3234,7 @@ int Descriptor::doAccountStuff(char *arg)
       }
       account->email=arg;
 
-      sprintf(buf, "%s is presently based in Washington state (Pacific Time)\n\r", MUD_NAME);
+      sprintf(buf, "%s is presently based in Washington state (Pacific Time)\n\r", Config.mud_name().c_str());
       writeToQ(buf);
       writeToQ("For purposes of keeping track of time, please enter the difference\n\r");
       writeToQ("between your home site and Pacific Time.  For instance, players on\n\r");
@@ -3281,7 +3276,7 @@ int Descriptor::doAccountStuff(char *arg)
         return DELETE_THIS;
       break;
     case CON_WIZLOCKNEW:
-      if (!*arg || strcasecmp(arg, Config::WizLockPassword().c_str()))
+      if (!*arg || strcasecmp(arg, Config.wizlock_password().c_str()))
         return DELETE_THIS;
 
       vlogf(LOG_MISC, "Person making new character after entering wizlock password.");
@@ -3290,7 +3285,7 @@ int Descriptor::doAccountStuff(char *arg)
       connected = CON_NEWLOG;
       break;
     case CON_WIZLOCK:
-      if (!*arg || strcasecmp(arg, Config::WizLockPassword().c_str()))
+      if (!*arg || strcasecmp(arg, Config.wizlock_password().c_str()))
         return DELETE_THIS;
 
       vlogf(LOG_MISC, "Person entering game by entering wizlock password.");
@@ -3328,7 +3323,7 @@ int Descriptor::doAccountStuff(char *arg)
       if (IS_SET(account->flags, TAccount::BANISHED)) {
         writeToQ("Your account has been flagged banished.\n\r");
         sprintf(buf, "If you do not know the reason for this, contact %s\n\r",
-              MUD_EMAIL);
+              Config.mud_email().c_str());
         writeToQ(buf);
         outputProcessing();
         return DELETE_THIS;
@@ -3338,7 +3333,7 @@ int Descriptor::doAccountStuff(char *arg)
         sprintf(buf, "You entered an email address of: %s\n\r", account->email.c_str());
         writeToQ(buf);
         sprintf(buf,"To regain access to your account, please send an email\n\rto: %s\n\r",
-              MUD_EMAIL);
+              Config.mud_email().c_str());
         writeToQ(buf);
         writeToQ("Indicate the name of your account, and the reason for the wrong email address.\n\r");
         outputProcessing();
@@ -3347,19 +3342,19 @@ int Descriptor::doAccountStuff(char *arg)
       // let's yank the password out of their history list
       strcpy(history[0], "");
 
-      if (WizLock && !IS_SET(account->flags, TAccount::IMMORTAL)) {
+      if (Config.wizlock() && !IS_SET(account->flags, TAccount::IMMORTAL)) {
         writeToQ("The game is currently wiz-locked.\n\r");
-        if (!lockmess.empty()) {
-          page_string(lockmess, SHOWNOW_YES);
+        if (!Config.wizlock_message().empty()) {
+          page_string(Config.wizlock_message(), SHOWNOW_YES);
         }
         writeToQ("Wiz-Lock password: ");
         connected = CON_WIZLOCK;
         break;
-      } else if (WizLock) {
+      } else if (Config.wizlock()) {
         // wizlock is on, but I am an IMM, just notify me
         writeToQ("The game is currently wiz-locked.\n\r");
-        if (!lockmess.empty()) {
-          page_string(lockmess, SHOWNOW_YES);
+        if (!Config.wizlock_message().empty()) {
+          page_string(Config.wizlock_message(), SHOWNOW_YES);
         }
       }
       account->status = TRUE;
@@ -3536,7 +3531,7 @@ int Descriptor::doAccountStuff(char *arg)
       }
       deleteAccount();
       writeToQ("Your account has been deleted, including all characters and equipment.\n\r");
-      sprintf(buf, "Thank you for playing %s, and hopefully you will remake your character(s)!\n\r", MUD_NAME);
+      sprintf(buf, "Thank you for playing %s, and hopefully you will remake your character(s)!\n\r", Config.mud_name().c_str());
       writeToQ(buf);
       outputProcessing();
       return DELETE_THIS;
@@ -3764,11 +3759,11 @@ int Descriptor::doAccountMenu(const char *arg)
 
         writeToQ("<<C>onnect an existing character       <<A>dd a new character\n\r");
         writeToQ("<<D>elete account or character         <<M>essage of the day\n\r");
-        sprintf(buf, "<<N>ews of %-25.25s   <<F>inger an account\n\r", MUD_NAME);
+        sprintf(buf, "<<N>ews of %-25.25s   <<F>inger an account\n\r", Config.mud_name().c_str());
         writeToQ(buf);
         writeToQ("<<W>ho is in the game                  <<P>assword change\n\r");
         writeToQ("<<L>ist characters in account          <<H>elp\n\r");
-        sprintf(buf, "<<E>xit %s\n\r", MUD_NAME);
+        sprintf(buf, "<<E>xit %s\n\r", Config.mud_name().c_str());
         writeToQ(buf);
         writeToQ("\n\r-> ");
       }
@@ -3967,7 +3962,7 @@ void Descriptor::sendMotd(int wiz)
   if (iter != sstring::npos)
     version.erase(iter+1);
 
-  sprintf(motd + strlen(motd), "\n\r\n\r     Welcome to %s\n\r     %s\n\r\n\r", MUD_NAME_VERS, version.c_str());
+  sprintf(motd + strlen(motd), "\n\r\n\r     Welcome to %s\n\r     %s\n\r\n\r", Config.mud_name_version().c_str(), version.c_str());
 
   file_to_sstring(File::MOTD, version);
   // swap color sstrings
@@ -4108,7 +4103,7 @@ void inputQ::putInQ(const sstring &txt)
 
 int TBeing::applyAutorentPenalties(int secs)
 {
-  if(Config::PenalizeForAutoRenting()){
+  if(Config.PenalizeForAutoRenting()){
     vlogf(LOG_PIO, format("%s was autorented for %d secs") %
           (getName() ? getName() : "Unknown name") % secs);
   }

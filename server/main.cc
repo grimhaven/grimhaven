@@ -1,30 +1,36 @@
 #include <errno.h>
+#include <string.h>
+#include <iostream>
 
-#include "sys/comm.h"
 #include "sys/configuration.h"
-#include "sys/socket.h"
-#include "misc/enum.h"
+#include "sys/logging.h"
+#include "sys/sstring.h"
 #include "misc/extern.h"
 
+Configuration Config;
 
-int game_main(int argc, char *argv[]) {
-  if (!Config::doConfiguration(argc, argv)) {
+time_t Uptime;
+
+int game_main(int argc, const char *argv[]) {
+  sstring msg = Config.load(argc, argv);
+  if (!msg.empty()) {
+    std::cout << msg << std::endl;
     vlogf(LOG_FILE, "failed configuration");
     exit(1);
   }
 
-  if (!chdir(Config::DataDir().c_str())) {
+  if (!chdir(Config.data_dir().c_str())) {
     vlogf(LOG_FILE, format("failed chdir to lib directory '%s': %s") %
-            Config::DataDir() % strerror(errno));
+            Config.data_dir() % strerror(errno));
     exit(1);
   }
 
-  vlogf(LOG_MISC, format("Using %s as data directory.") % Config::DataDir());
+  vlogf(LOG_MISC, format("Using %s as data directory.") % Config.data_dir());
 
-  if (Config::NoSpecials())
+  if (Config.NoSpecials())
     vlogf(LOG_MISC, "Suppressing assignment of special routines.");
 
-  if (WizLock)
+  if (Config.wizlock())
     vlogf(LOG_MISC, "Starting with wizlock enabled");
 
   Uptime = time(0);
@@ -37,7 +43,7 @@ int game_main(int argc, char *argv[]) {
   return 0;
 }
 
-int main(int argc, char **argv) {
+int main(int argc, const char **argv) {
   try {
     return game_main(argc, argv);
   } catch (const std::exception &e) {

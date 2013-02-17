@@ -1,11 +1,10 @@
 #ifndef SERVER_SYS_DB_H_
 #define SERVER_SYS_DB_H_
 
+#include <map>
+
 #include "misc/structs.h"
 #include "sys/sstring.h"
-#include "sys/mudinfo.h"
-
-#include <map>
 
 #define WORLD_SIZE        50000
 #define ZONE_ROOM_RANDOM  -99
@@ -14,40 +13,40 @@
 extern bool bootTime;
 
 namespace File {
-  extern const char * const CREDITS;
-  extern const char * const HELP_PAGE;
-  extern const char * const MOTD;
-  extern const char * const NEWS;
-  extern const char * const SOCMESS;
-  extern const char * const STATS;
-  extern const char * const STATS_BAK;
-  extern const char * const TIPS;
-  extern const char * const VERSION;
-  extern const char * const WIZLIST;
-  extern const char * const WIZNEWS;
-  extern const char * const WIZMOTD;
+  const char * const CREDITS        = "txt/credits";    // for the credits command
+  const char * const HELP_PAGE      = "help/general";   // for HELP <CR>
+  const char * const MOTD           = "txt/motd";       // messages of today
+  const char * const NEWS           = "txt/news";       // for the 'news' command
+  const char * const SOCMESS        = "txt/actions";    // msgs for social acts
+  const char * const STATS          = "txt/stats";      // economy stats savefile
+  const char * const STATS_BAK      = "txt/stats.bak";  // backup of econ save
+  const char * const TIPS           = "txt/tips";       // newbie tips file
+  const char * const VERSION        = "txt/version";    // mud version timestamp
+  const char * const WIZLIST        = "txt/wizlist";
+  const char * const WIZNEWS        = "txt/wiznews";
+  const char * const WIZMOTD        = "txt/wizmotd";
 
-  extern const char * const ANSI_MENU_1;
-  extern const char * const ANSI_MENU_2;
-  extern const char * const ANSI_MENU_3;
-  extern const char * const ANSI_OPEN;
-  extern const char * const NORM_MENU_1;
-  extern const char * const NORM_MENU_2;
-  extern const char * const NORM_MENU_3;
-  extern const char * const NORM_OPEN;
+  const char * const ANSI_MENU_1    = "txt/ansi/login1.ans";
+  const char * const ANSI_MENU_2    = "txt/ansi/login2.ans";
+  const char * const ANSI_MENU_3    = "txt/ansi/login3.ans";
+  const char * const ANSI_OPEN      = "txt/ansi/title.ans";
+  const char * const NORM_MENU_1    = "txt/vt/login1.vt";
+  const char * const NORM_MENU_2    = "txt/vt/login2.vt";
+  const char * const NORM_MENU_3    = "txt/vt/login3.vt";
+  const char * const NORM_OPEN      = "txt/vt/title.vt";
 
-  extern const char * const FACTIONS;
-  extern const char * const FACTIONS_BAK;
-  extern const char * const GUILDS;
-  extern const char * const GUILDS_BAK;
+  const char * const FACTIONS       = "factions/factions";
+  const char * const FACTIONS_BAK   = "factions/factions.bak";
+  const char * const GUILDS         = "factions/guilds";
+  const char * const GUILDS_BAK     = "factions/guilds.bak";
 }
 
 namespace Path {
-  extern const char * const HELP;
-  extern const char * const IMMORTAL_HELP;
-  extern const char * const BUILDER_HELP;
-  extern const char * const SKILL_HELP;
-  extern const char * const SPELL_HELP;
+  const char * const HELP           = "help/";
+  const char * const IMMORTAL_HELP  = "help/_immortal";
+  const char * const BUILDER_HELP   = "help/_builder";
+  const char * const SKILL_HELP     = "help/_skills";
+  const char * const SPELL_HELP     = "help/_spells";
 }
 
 /* public procedures in db.c */
@@ -69,8 +68,8 @@ class mobIndexData;
 class resetQElement;
 
 enum readFileTypeT {
-     REAL,
-     VIRTUAL
+  REAL,
+  VIRTUAL
 };
 
 typedef unsigned int resetFlag;

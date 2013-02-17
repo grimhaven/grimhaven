@@ -12,7 +12,6 @@
 #include "sys/database.h"
 #include "misc/person.h"
 #include "cmd/trophy.h"
-#include "sys/configuration.h"
 
 // there is another one of these defines in combat.cc
 #define DAMAGE_DEFINE 0
@@ -465,7 +464,7 @@ int TBeing::damageEpilog(TBeing *v, spellNumT dmg_type)
     positionTypeT pos = v->getPosition();
     v->setPosition(POSITION_STANDING); // temporarily set to allow scripts to drop items, etc
     rc = dynamic_cast<TMonster*>(v)->checkResponses(this, 0, "", CMD_RESP_KILLED);
-    if (Config::LoadOnDeath()) {
+    if (Config.LoadOnDeath()) {
       // Don't create wealth unless one of the attackers is a player
       TBeing *attacker = NULL;
       TThing *t = NULL;

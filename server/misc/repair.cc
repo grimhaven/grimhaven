@@ -9,7 +9,6 @@
 #include "misc/low.h"
 #include "misc/extern.h"
 #include "misc/monster.h"
-#include "sys/configuration.h"
 #include "misc/statistics.h"
 #include "misc/account.h"
 #include "obj/note.h"
@@ -1084,7 +1083,7 @@ void processRepairFile(const char *name)
     fclose(fp);
     return;
   }
-  if(Config::NukeRepairItems()){
+  if(Config.NukeRepairItems()){
     if ((time(0) - then) > 180 * SECS_PER_REAL_DAY) {
       fclose(fp);
       vlogf(LOG_MISC, format("REPAIR: Item %s was in repair %d days") %  name %

@@ -6,7 +6,6 @@
 #include "misc/extern.h"
 #include "sys/handler.h"
 #include "misc/guild.h"
-#include "sys/configuration.h"
 #include "misc/weather.h"
 #include "sys/gametime.h"
 
@@ -578,15 +577,6 @@ void TBeing::doAttribute(const char *arg)
       sendTo(format("You are allied to %s.\n\r") %
              FactionInfo[getFaction()].faction_name);
 #endif
-    }
-
-    if(Config::SpeefMakeBody()){
-      vlogf(LOG_MISC, format("Attribute argument: %s") % cmdbuf);
-      if(body)
-        body->showBody(this);
-      else
-        sendTo("You have no Body!\n\r");
-      vlogf(LOG_MISC, "I tried to show a body.");
     }
 
     buf="";

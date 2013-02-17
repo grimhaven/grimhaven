@@ -12,7 +12,6 @@ extern "C" {
 #include "misc/room.h"
 #include "misc/being.h"
 #include "misc/low.h"
-#include "sys/configuration.h"
 #include "misc/combat.h"
 #include "misc/dirsort.h"
 #include "misc/person.h"
@@ -200,7 +199,7 @@ void TPerson::doSEdit(const char *tArg)
         return;
       }
 
-      if (!Config::ModeProd())
+      if (!Config.ModeProd())
         sedit(this, tMonster);
       else
         sendTo("There are still problems with the menu system, please don't use it yet.\n\r");

@@ -6,7 +6,6 @@
 #include "misc/low.h"
 #include "misc/person.h"
 #include "misc/monster.h"
-#include "sys/configuration.h"
 #include "misc/shop.h"
 #include "misc/statistics.h"
 #include "sys/pathfinder.h"
@@ -1126,7 +1125,7 @@ void repoCheckForRent(TBeing *ch, TObj *obj, bool corpse) {
 
 void repoCheck(TMonster *mob, int rnum)
 {
-  if(Config::RepoMobs()){
+  if(Config.RepoMobs()){
     char buf[160],buf2[160];
     int cur_num = obj_index[rnum].getNumber();
     int max_num = obj_index[rnum].max_exist;
@@ -1145,7 +1144,7 @@ void repoCheck(TMonster *mob, int rnum)
         mob->spec = SPEC_BOUNTY_HUNTER;
         bounty_hunter(NULL, CMD_SAY, buf2, mob, NULL);
 
-        if(Config::SuperRepoMobs()){
+        if(Config.SuperRepoMobs()){
           // make supertough to enforce max-exist rules
           if (cur_num > max_num) {
             mob->setMaxHit(5*mob->hitLimit());

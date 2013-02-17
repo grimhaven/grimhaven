@@ -1,51 +1,48 @@
 #include <stdio.h>
-
-#include "sys/handler.h"
-#include "misc/extern.h"
-#include "misc/being.h"
-#include "misc/low.h"
-#include "sys/colorstring.h"
-#include "misc/monster.h"
-#include "sys/client.h"
-#include "misc/guild.h"
-
 #include <algorithm>
 #include <sys/types.h>
 #include <dirent.h>
 
-#include "misc/account.h"
 #include "game/games.h"
-#include "misc/disease.h"
+#include "misc/account.h"
+#include "misc/being.h"
 #include "misc/combat.h"
-#include "misc/statistics.h"
-#include "misc/materials.h"
-#include "obj/component.h"
-#include "sys/database.h"
-#include "misc/room.h"
-#include "misc/person.h"
-#include "misc/shop.h"
+#include "misc/disease.h"
+#include "misc/extern.h"
+#include "misc/guild.h"
 #include "misc/liquids.h"
-#include "spec/mobs.h"
-#include "misc/weather.h"
-
+#include "misc/low.h"
+#include "misc/materials.h"
+#include "misc/monster.h"
+#include "misc/person.h"
+#include "misc/room.h"
+#include "misc/shop.h"
 #include "misc/skillsort.h"
-#include "obj/open_container.h"
-#include "obj/corpse.h"
-#include "obj/bow.h"
-#include "obj/symbol.h"
-#include "obj/food.h"
-#include "obj/tool.h"
-#include "obj/trap.h"
+#include "misc/statistics.h"
+#include "misc/weather.h"
 #include "obj/arrow.h"
-#include "obj/general_weapon.h"
 #include "obj/base_weapon.h"
 #include "obj/base_cup.h"
 #include "obj/base_clothing.h"
+#include "obj/bow.h"
+#include "obj/component.h"
+#include "obj/corpse.h"
+#include "obj/food.h"
+#include "obj/general_weapon.h"
 #include "obj/magic_item.h"
+#include "obj/open_container.h"
 #include "obj/potion.h"
 #include "obj/scroll.h"
 #include "obj/staff.h"
+#include "obj/symbol.h"
+#include "obj/tool.h"
+#include "obj/trap.h"
 #include "obj/wand.h"
+#include "spec/mobs.h"
+#include "sys/client.h"
+#include "sys/colorstring.h"
+#include "sys/database.h"
+#include "sys/handler.h"
 
 sstring describeDuration(const TBeing *ch, int dur)
 {
@@ -2108,7 +2105,7 @@ void TBeing::doTime(const char *argument)
       return;
     }
     desc->account->time_adjust = convertTo<int>(arg);
-    sendTo(format("Your new time difference between your site and %s's will be: %d hours.\n\r") % MUD_NAME % desc->account->time_adjust);
+    sendTo(format("Your new time difference between your site and %s's will be: %d hours.\n\r") % Config.mud_name() % desc->account->time_adjust);
     desc->saveAccount();
     return;
   }

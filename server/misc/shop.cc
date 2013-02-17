@@ -8,7 +8,6 @@
 #include "misc/room.h"
 #include "misc/monster.h"
 #include "misc/extern.h"
-#include "sys/configuration.h"
 #include "misc/shop.h"
 #include "misc/materials.h"
 #include "misc/statistics.h"
@@ -714,7 +713,7 @@ bool will_not_buy(TBeing *ch, TMonster *keeper, TObj *temp1, int shop_nr)
     else
       return TRUE;
   }
-  if(Config::NoDamagedItemsShop()){
+  if(Config.NoDamagedItemsShop()){
     if (temp1->getStructPoints() != temp1->getMaxStructPoints()) {
       keeper->doTell(ch->getName(), "I don't buy damaged goods.");
       return TRUE;
@@ -887,7 +886,7 @@ int TObj::sellMe(TBeing *ch, TMonster *keeper, int shop_nr, int num = 1)
       cost *= getStructPoints();
       cost /= getMaxStructPoints();
     }
-    if(Config::NoDamagedItemsShop()){
+    if(Config.NoDamagedItemsShop()){
       keeper->doTell(fname(ch->name), "It's been damaged, but I guess I can buy it as scrap.");
     }
   }
@@ -1116,7 +1115,7 @@ int shopping_sell(const char *tString, TBeing *ch, TMonster *tKeeper, int shop_n
   if (!num)
     num = 1;
 
-  if (0 && !Config::ModeProd()) {
+  if (0 && !Config.ModeProd()) {
     sstring         tStString("");
     itemTypeT      tItemType;
     tObjectManipT  tObjectManip;
@@ -1413,7 +1412,7 @@ void TObj::valueMe(TBeing *ch, TMonster *keeper, int shop_nr, int num = 1)
     cost /= 10;
     cost *= getStructPoints();
     cost /= getMaxStructPoints();
-    if(Config::NoDamagedItemsShop()){
+    if(Config.NoDamagedItemsShop()){
       keeper->doTell(fname(ch->name), "It's been damaged, but I guess I can buy it as scrap.");
     }
 

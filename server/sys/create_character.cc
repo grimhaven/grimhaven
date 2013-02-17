@@ -319,7 +319,7 @@ connectStateT nannyMultiplaywarn_input(Descriptor * desc, sstring & output, cons
   {
     // somehow this error message doesnt get displayed.
     output = "\n\rI'm sorry, you MUST agree to the terms and conditions of our rules\n\r";
-    output += format("before we allow you to play a character on %s. Please reconsider\n\r") % MUD_NAME;
+    output += format("before we allow you to play a character on %s. Please reconsider\n\r") % Config.mud_name();
     output += "and come back soon!\n\r";
     return CON_CREATION_ERROR;
   }
@@ -514,7 +514,7 @@ void nannyRace_output(Descriptor * desc)
   }
 
   desc->writeToQ(raceString);
-  desc->writeToQ(format("\n\rThe choice of race is very important on %s.\n\r") % MUD_NAME);
+  desc->writeToQ(format("\n\rThe choice of race is very important on %s.\n\r") % Config.mud_name());
   desc->writeToQ("There are advantages and disadvantages to each choice.\n\r");
   desc->writeToQ("Among other factors, race will majorly affect your stats,\n\r");
   desc->writeToQ("immunities, racial skills, and the supply of available equipment.\n\r");
@@ -858,7 +858,7 @@ void nannyStatRules_output(Descriptor * desc)
 {
   sstring output;
 
-  output += format("Welcome to the %s stat customization process.\n\r") % MUD_NAME;
+  output += format("Welcome to the %s stat customization process.\n\r") % Config.mud_name();
   output += "All changes apply on top of your existing stats given your race and homeland.\n\r";
   output += "REALIZE THAT A ZERO STAT IS THE NORMAL AMOUNT FOR YOU RACE AND HOMELAND.\n\r";
   output += "Your stats are split into four groups: power and grace, mental, and utility.\n\r";
@@ -992,7 +992,7 @@ connectStateT nannyStats_input(Descriptor * desc, sstring & output, const sstrin
 void nannyDone_output(Descriptor * desc)
 {
   sstring output = "Congratulations, you have finished the character creation process.\n\r";
-  output += format("If you are a newcomer to %s, %stake a minute to read this screen%s.\n\r\n\r") % MUD_NAME % desc->orange() % desc->norm();
+  output += format("If you are a newcomer to %s, %stake a minute to read this screen%s.\n\r\n\r") % Config.mud_name() % desc->orange() % desc->norm();
 
   output += "Upon connecting, you will want to check your initial terminal options.\n\r";
   output += "Know that the game will automatically set some of these options for you.\n\r";
@@ -1006,7 +1006,7 @@ void nannyDone_output(Descriptor * desc)
   output += "allowed to help you discover The World.  However, they are allowed\n\r";
   output += "and encouraged to help you with command problems and general orientation.\n\r\n\r";
 
-  output += format("The staff of %s hope that you enjoy your stay.\n\r") % MUD_NAME;
+  output += format("The staff of %s hope that you enjoy your stay.\n\r") % Config.mud_name();
 
   desc->writeToQ(output);
 }

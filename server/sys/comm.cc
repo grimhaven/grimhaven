@@ -46,13 +46,10 @@ SystemTask *systask;
 
 // local globals
 
-time_t Uptime;                        // wall time that the game started
-
 char hostlist[MAX_BAN_HOSTS][40];        // list of sites to ban
 char hostLogList[MAX_BAN_HOSTS][40];
 int numberhosts;
 int numberLogHosts;
-int gamePort;
 
 extern void save_all();
 extern ares_channel channel;
@@ -73,13 +70,13 @@ int run_the_game()
     return FALSE;
   }
 
-  vlogf(LOG_MISC, format("Opening main socket on port %i") % gamePort);
+  vlogf(LOG_MISC, format("Opening main socket on port %i") % Config.game_port());
   gSocket = new TMainSocket();
-  gSocket->initSocket(gamePort);
+  gSocket->initSocket(Config.game_port());
 
-  if (Config::XmlPort()) {
-    vlogf(LOG_MISC, format("Opening XML socket on port %i") % Config::XmlPort());
-    gSocket->initSocket(Config::XmlPort());
+  if (Config.xml_port()) {
+    vlogf(LOG_MISC, format("Opening XML socket on port %i") % Config.xml_port());
+    gSocket->initSocket(Config.xml_port());
   }
 
   bootDb();
@@ -105,7 +102,7 @@ void zoneData::nukeMobs()
   TBeing *mob, *mob2;
   wearSlotT i;
 
-  if(!Config::NukeInactiveMobs())
+  if(!Config.NukeInactiveMobs())
     return;
 
   for (mob = character_list; mob; mob = mob2) {

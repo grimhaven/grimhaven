@@ -23,7 +23,6 @@ int select(int, fd_set *, fd_set *, fd_set *, struct timeval *);
 
 #include "misc/room.h"
 #include "misc/monster.h"
-#include "sys/configuration.h"
 #include "misc/extern.h"
 #include "misc/statistics.h"
 #include "sys/database.h"
@@ -215,14 +214,14 @@ int updateWholist()
     TDatabase db;
 
 
-    db.query("delete from wholist where port=%i", gamePort);
+    db.query("delete from wholist where port=%i", Config.game_port());
 
-    //  vlogf(LOG_DASH, format("Updating who table for port %d") %  gamePort);
+    //  vlogf(LOG_DASH, format("Updating who table for port %d") %  Config.game_port());
   for (p = descriptor_list; p; p = p->next) {
     if ((p && p->connected == CON_PLYNG) || (p->connected > MAX_CON_STATUS && p->character &&
                                              p->character->name && p->character->isPc() && !p->character->isLinkdead() && p->character->polyed == POLY_TYPE_NONE)) {
       if ((p2 = dynamic_cast<TPerson *>(p->character))) {
-          db.query("insert into wholist (name, title, port, invis) VALUES('%s', '%s', %i, %i)", p2->getName(), p2->title,  gamePort, (p2->getInvisLevel() >MAX_MORT)?1:0);
+          db.query("insert into wholist (name, title, port, invis) VALUES('%s', '%s', %i, %i)", p2->getName(), p2->title,  Config.game_port(), (p2->getInvisLevel() >MAX_MORT)?1:0);
           count++;
         }
       }
@@ -257,10 +256,10 @@ void updateUsagelogs(int count)
 
     if (logtime != 0) logtime += TIME_BETWEEN_LOGS;
     else logtime = ct;
-    db.query("insert into usagelogs (time, players, port) VALUES(%i, %i, %i)", logtime, count, gamePort);
+    db.query("insert into usagelogs (time, players, port) VALUES(%i, %i, %i)", logtime, count, Config.game_port());
     // delete logs older than two months
-    db.query("insert into usagelogsarchive select * from usagelogs where port=%i and time>%i", gamePort, logtime + 5184000);
-    db.query("delete from usagelogs where port=%i and time>%i", gamePort, logtime + 5184000);
+    db.query("insert into usagelogsarchive select * from usagelogs where port=%i and time>%i", Config.game_port(), logtime + 5184000);
+    db.query("delete from usagelogs where port=%i and time>%i", Config.game_port(), logtime + 5184000);
   }
 }
 
@@ -291,7 +290,7 @@ void procNukeInactiveMobs::run(const TPulse &) const
 {
   unsigned int i;
 
-  if(!Config::NukeInactiveMobs())
+  if(!Config.NukeInactiveMobs())
     return;
 
   for (i = 0; i < zone_table.size(); i++) {
@@ -1994,10 +1993,10 @@ void gethostbyaddr_cb(void *arg, int status, int timeouts, struct hostent *host_
               if (d->host.find(hostlist[a], 0) != sstring::npos) {
                 d->socket->writeToSocket("Sorry, your site is banned.\n\r");
                 d->socket->writeToSocket("Questions regarding this may be addressed to: ");
-                d->socket->writeToSocket(MUD_EMAIL);
+                d->socket->writeToSocket(Config.mud_email().c_str());
                 d->socket->writeToSocket(".\n\r");
-                if (!lockmess.empty())
-                  d->socket->writeToSocket(lockmess.c_str());
+                if (!Config.wizlock_message().empty())
+                  d->socket->writeToSocket(Config.wizlock_message().c_str());
 
                 // descriptor deletion handles socket closing
                 delete d;
@@ -2028,10 +2027,10 @@ void gethostbyaddr_cb(void *arg, int status, int timeouts, struct hostent *host_
             if (d->host.find(sstring(hostlist[a]).lower(), 0) != sstring::npos) {
               d->socket->writeToSocket("Sorry, your site is banned.\n\r");
               d->socket->writeToSocket("Questions regarding this may be addressed to: ");
-              d->socket->writeToSocket(MUD_EMAIL);
+              d->socket->writeToSocket(Config.mud_email().c_str());
               d->socket->writeToSocket(".\n\r");
-              if (!lockmess.empty())
-                d->socket->writeToSocket(lockmess.c_str());
+              if (!Config.wizlock_message().empty())
+                d->socket->writeToSocket(Config.wizlock_message().c_str());
 
               // descriptor deletion handles socket closing
               delete d;

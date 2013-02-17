@@ -6,7 +6,6 @@
 #include "misc/monster.h"
 #include "sys/handler.h"
 #include "sys/colorstring.h"
-#include "sys/configuration.h"
 #include "misc/combat.h"
 #include "misc/statistics.h"
 #include "misc/shop.h"
@@ -469,10 +468,10 @@ int TBaseWeapon::damageMe(TBeing *ch, TBeing *v, wearSlotT part_hit)
 
   // this hardness check will be made for ALL types of weapon damage
   // both blunting and structural
-  if ((::number(Config::WeaponDamMinHardness(), Config::WeaponDamMaxHardness()) <= hardness) ||
-      (::number(Config::WeaponDamMinHardness(), Config::WeaponDamMaxHardness()) <= hardness)) {
+  if ((::number(Config.WeaponDamMinHardness(), Config.WeaponDamMaxHardness()) <= hardness) ||
+      (::number(Config.WeaponDamMinHardness(), Config.WeaponDamMaxHardness()) <= hardness)) {
     if (sharp &&
-          (::number(0, Config::WeaponDamMaxSharp()) <= sharp)) {
+          (::number(0, Config.WeaponDamMaxSharp()) <= sharp)) {
       if (isBluntWeapon()) {
         // The blunter the weapon, the easier to chip a bit - bat
         sprintf(buf, "Your %s%s%s is %schipped%s by %s$n's %s.",
@@ -1049,7 +1048,7 @@ void TBaseWeapon::curseMe()
 int TBaseWeapon::wieldMe(TBeing *ch, char *arg2)
 {
   // Test code to flux 'Two-Handed' weapons based on size.
-  if (!Config::ModeProd()) {
+  if (!Config.ModeProd()) {
     bool canSingleWieldPrim = ch->checkWeaponWeight(this, HAND_TYPE_PRIM, false),
          canSingleWieldSecd = ch->checkWeaponWeight(this, HAND_TYPE_SEC , false);
 

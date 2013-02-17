@@ -5,7 +5,6 @@
 #include "misc/room.h"
 #include "misc/being.h"
 #include "sys/colorstring.h"
-#include "sys/configuration.h"
 #include "disc/looting.h"
 #include "misc/materials.h"
 #include "misc/monster.h"
@@ -265,7 +264,7 @@ sstring showComponentTechnical(const int tValue)
   // Check for script loads.  This will go through ALL of the scripts and check.
   // We only do this on !PROD because of the lag it will generate, and I do mean a
   // LOT of lag it will make.
-  if (!Config::ModeProd()) {
+  if (!Config.ModeProd()) {
     if (!(tDirInfo = opendir("mobdata/responses"))) {
       vlogf(LOG_FILE, "Unable to dirwalk directory mobdata/resposnes");
       tStString += "ERROR.  Unable to open mobdata/responses for reading.";
@@ -1393,7 +1392,7 @@ sstring showComponentTechnical(const int tValue)
   // Check for script loads.  This will go through ALL of the scripts and check.
   // We only do this on !PROD because of the lag it will generate, and I do mean a
   // LOT of lag it will make.
-  if (!Config::ModeProd()) {
+  if (!Config.ModeProd()) {
     if (!(tDirInfo = opendir("mobdata/responses"))) {
       vlogf(LOG_FILE, "Unable to dirwalk directory mobdata/resposnes");
       tStString += "ERROR.  Unable to open mobdata/responses for reading.";

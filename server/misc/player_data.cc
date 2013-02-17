@@ -1,20 +1,13 @@
-extern "C" {
 #include <stdio.h>
-
 #include <unistd.h>
 #include <dirent.h>
-}
-
 #include <errno.h>
 
 #include "misc/extern.h"
 #include "misc/room.h"
 #include "misc/being.h"
-#include "sys/client.h"
 #include "misc/low.h"
-#include "sys/handler.h"
 #include "misc/monster.h"
-#include "sys/configuration.h"
 #include "misc/account.h"
 #include "misc/person.h"
 #include "misc/charfile.h"
@@ -23,8 +16,10 @@ extern "C" {
 #include "misc/mail.h"
 #include "misc/statistics.h"
 #include "misc/combat.h"
-#include "sys/database.h"
 #include "misc/materials.h"
+#include "sys/client.h"
+#include "sys/handler.h"
+#include "sys/database.h"
 
 
 wizListInfo *wiz;
@@ -236,7 +231,7 @@ void TPerson::resetChar()
     if (isupper(*tmp))
       *tmp = tolower(*tmp);
   }
-  if (!Config::ModeBuilder() && has_mail(recipient))
+  if (!Config.ModeBuilder() && has_mail(recipient))
     sendTo(format("\n\rYou have %sMAIL%s.\n\r") % bold() % norm());
 
   time_t ct = player.time->last_logon ? player.time->last_logon : time(0);
@@ -1184,14 +1179,14 @@ void do_the_player_stuff(const char *name)
     if ((time(0) - st.last_logon) <= (30 * SECS_PER_REAL_DAY))
       AccountStats::active_player30++;
 
-    if (Config::AutoDeletion()){
+    if (Config.AutoDeletion()){
       time_t ltime = time(0);
       time_t lastlogin=lastAccountLogin(st.aname);
       unsigned int elapsed_time = (ltime - lastlogin) / SECS_PER_REAL_DAY;
 
       // This gives a player at least 3 months before delete occurs
       if((time(0) - lastlogin) > (90 * SECS_PER_REAL_DAY)){
-        if (!Config::RentOnlyDeletion()){
+        if (!Config.RentOnlyDeletion()){
           vlogf(LOG_MISC, format("%s (level %d) did not log in for %d days. Deleting.") %
                 name %
                 max_level % elapsed_time);
@@ -1211,8 +1206,22 @@ void do_the_player_stuff(const char *name)
             wipeRentFile(name);
             wipeCorpseFile(sstring(name).lower().c_str());
 
-            sprintf(longbuf, "%s detected this character has been inactive for %d days.  To avoid\n\r", MUD_NAME, elapsed_time);
-            sprintf(longbuf + strlen(longbuf), "having equipment tied up on players that no longer play, players that have not\n\rconnected within a reasonable length of time have their rent files removed in\n\rorder for that equipment to go back into circulation.  Due to your inactivity,\n\ryour rent file has been wiped.  The %s administration apologizes\n\rfor any inconvenience this may cause.  Reimbursements for this eventuality\n\rare not typically granted since the item(s) in question have gone back into\n\rgeneral circulation, however an extremely basic set of equipment (newbie), and\n\rsimple adventuring supplies (lantern, food, drink) may be requested that you\n\rbe able to bootstrap your way back up the ladder.\n\r\n\rIf, however, you made arrangements prior to going inactive for things of\n\ryours to be preserved in stasis, then whatever deal was made at that time\n\rmay apply.  If such is the case, contact whichever 59+ immortal placed\n\ryour character into stasis.\n\r\n\rOn a final note, welcome back!\n\r", MUD_NAME);
+            sprintf(longbuf, "%s detected this character has been inactive for %d days.  To avoid\n\r", Config.mud_name().c_str(), elapsed_time);
+            sprintf(longbuf + strlen(longbuf),
+                    "having equipment tied up on players that no longer play, players that have not\n\r"
+                    "connected within a reasonable length of time have their rent files removed in\n\r"
+                    "order for that equipment to go back into circulation.  Due to your inactivity,\n\r"
+                    "your rent file has been wiped.  The %s administration apologizes\n\r"
+                    "for any inconvenience this may cause.  Reimbursements for this eventuality\n\r"
+                    "are not typically granted since the item(s) in question have gone back into\n\r"
+                    "general circulation, however an extremely basic set of equipment (newbie), and\n\r"
+                    "simple adventuring supplies (lantern, food, drink) may be requested that you\n\r"
+                    "be able to bootstrap your way back up the ladder.\n\r\n\r"
+                    "If, however, you made arrangements prior to going inactive for things of\n\r"
+                    "yours to be preserved in stasis, then whatever deal was made at that time\n\r"
+                    "may apply.  If such is the case, contact whichever 59+ immortal placed\n\r"
+                    "your character into stasis.\n\r\n\r"
+                    "On a final note, welcome back!\n\r", Config.mud_name().c_str());
 
 
             autoMail(NULL, name, longbuf);

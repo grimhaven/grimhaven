@@ -107,7 +107,7 @@ void TScheduler::add(TCharProcess *p)
 }
 
 TProcTop::TProcTop(){
-  if((shmid=shmget(gamePort, shm_size, IPC_CREAT | 0666)) < 0){
+  if((shmid=shmget(Config.game_port(), shm_size, IPC_CREAT | 0666)) < 0){
     vlogf(LOG_BUG, "failed to get shared memory segment in TScheduler()");
     shm=NULL;
   } else if((shm = (char *)shmat(shmid, NULL, 0)) == (char *) -1){

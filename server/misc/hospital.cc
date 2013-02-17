@@ -2,7 +2,6 @@
 #include "misc/room.h"
 #include "misc/monster.h"
 #include "sys/handler.h"
-#include "sys/configuration.h"
 #include "misc/combat.h"
 #include "misc/disease.h"
 #include "misc/shop.h"

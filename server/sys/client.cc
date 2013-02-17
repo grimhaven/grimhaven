@@ -10,7 +10,6 @@
 #include "misc/low.h"
 #include "misc/person.h"
 #include "misc/monster.h"
-#include "sys/configuration.h"
 #include "misc/account.h"
 #include "misc/charfile.h"
 #include "misc/person.h"
@@ -23,6 +22,8 @@
 
 const int  CURRENT_VERSION = 19990615;
 const int  BAD_VERSION = 19990614;
+
+const char * CLIENT_URL = "http://grimhaven.org/client/";
 
 // clientf(...) will take a string, and tack on the CLIENT_CODE_CHAR at
 // the beginning and end, and also put a newline at the end. - Russ
@@ -273,23 +274,23 @@ int Descriptor::read_client(char *str2)
         outputProcessing();
         return FALSE;
       }
-      if (WizLock) {
+      if (Config.wizlock()) {
         // this may need better handling to let wizs in, but, oh well
         clientf(format("%d|The mud is presently Wizlocked.|%d") %
                 CLIENT_ERROR % ERR_NOT_ALLOWED);
-        if (!lockmess.empty())
-          clientf(lockmess);
+        if (!Config.wizlock_message().empty())
+          clientf(Config.wizlock_message());
         outputProcessing();
         return FALSE;
       }
       strcpy(buf, nextToken('|', 255, str2).c_str());
       vers = convertTo<int>(buf);
       if (vers <= BAD_VERSION) {
-        clientf(format("%d|Your client is an old version. The latest version is %d. Please upgrade! You can upgrade from " CLIENT_URL ".|%d") % CLIENT_ERROR % CURRENT_VERSION % ERR_BAD_VERSION);
+        clientf(format("%d|Your client is an old version. The latest version is %d. Please upgrade! You can upgrade from %s.|%d") % CLIENT_ERROR % CURRENT_VERSION % CLIENT_URL %  ERR_BAD_VERSION);
         outputProcessing();
         return FALSE;
       } else if (vers < CURRENT_VERSION) {
-        clientf(format("%d|You client is an old version. You can continue playing with the current version, but upgrade is recommended. The latest version is %d and can be received from " CLIENT_URL ".|%d") % CLIENT_ERROR % CURRENT_VERSION % 7); //ERR_CUR_VERSION);
+        clientf(format("%d|You client is an old version. You can continue playing with the current version, but upgrade is recommended. The latest version is %d and can be received from %s.|%d") % CLIENT_ERROR % CURRENT_VERSION % CLIENT_URL % 7); //ERR_CUR_VERSION);
         outputProcessing();
       }
 
@@ -527,7 +528,7 @@ int Descriptor::read_client(char *str2)
       character->saveChar(save_room);
       character->in_room = save_room;
       character->preKillCheck(TRUE);
-      sprintf(buf, "$n just rented with the %s client.", MUD_NAME_VERS);
+      sprintf(buf, "$n just rented with the %s client.", Config.mud_name_version().c_str());
       act(buf, FALSE, character, NULL, NULL, TO_ROOM);
       return DELETE_VICT;
       break;
@@ -656,7 +657,7 @@ int Descriptor::read_client(char *str2)
             dynamic_cast<TPerson *>(ch)->autoDeath();
 
           int rc = checkForMultiplay();
-          if(Config::ForceMultiplayCompliance()){
+          if(Config.ForceMultiplayCompliance()){
             if (rc) {
               // disconnect, but don't cause character to be deleted
               // do this by disassociating character from descriptor
@@ -781,7 +782,7 @@ int Descriptor::read_client(char *str2)
         if (IS_SET(account->flags, TAccount::BANISHED)) {
           writeToQ("Your account has been flagged banished.\n\r");
           sprintf(buf, "If you do not know the reason for this, contact %s\n\r",
-                MUD_EMAIL);
+                Config.mud_email().c_str());
           writeToQ(buf);
           outputProcessing();
           return DELETE_THIS;
@@ -791,7 +792,7 @@ int Descriptor::read_client(char *str2)
           sprintf(buf, "You entered an email address of: %s\n\r", account->email.c_str());
           writeToQ(buf);
           sprintf(buf,"To regain access to your account, please send an email\n\rto: %s\n\r",
-              MUD_EMAIL);
+              Config.mud_email().c_str());
           writeToQ(buf);
           writeToQ("Indicate the name of your account, and the reason for the wrong email address.\n\r");
           outputProcessing();
@@ -800,10 +801,10 @@ int Descriptor::read_client(char *str2)
         // let's yank the password out of their history list
         strcpy(history[0], "");
 
-        if (WizLock && !IS_SET(account->flags, TAccount::IMMORTAL)) {
+        if (Config.wizlock() && !IS_SET(account->flags, TAccount::IMMORTAL)) {
           writeToQ("The game is currently wiz-locked.\n\r^G^G^G^G^G");
-          if (!lockmess.empty()) {
-            page_string(lockmess, SHOWNOW_YES);
+          if (!Config.wizlock_message().empty()) {
+            page_string(Config.wizlock_message(), SHOWNOW_YES);
           }
           // we ought to allow for them to enter the password here, but oh well
 
@@ -1070,12 +1071,12 @@ int Descriptor::client_nanny(char *arg)
     account = NULL;
     return FALSE;
   }
-  if (WizLock) {
+  if (Config.wizlock()) {
     // this may need better handling to let wizs in, but, oh well
     clientf(format("%d|The mud is presently Wizlocked.|%d") %
                 CLIENT_ERROR % ERR_NOT_ALLOWED);
-    if (!lockmess.empty())
-      clientf(lockmess);
+    if (!Config.wizlock_message().empty())
+      clientf(Config.wizlock_message());
     outputProcessing();
 
     return DELETE_THIS;
@@ -1192,7 +1193,7 @@ int Descriptor::client_nanny(char *arg)
         dynamic_cast<TPerson *>(tmp_ch)->autoDeath();
 
       rc = checkForMultiplay();
-      if(Config::ForceMultiplayCompliance()){
+      if(Config.ForceMultiplayCompliance()){
         if (rc) {
           // disconnect, but don't cause character to be deleted
           // do this by disassociating character from descriptor

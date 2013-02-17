@@ -14,7 +14,6 @@
 #include "obj/open_container.h"
 #include "spec/mobs.h"
 #include "misc/combat.h"
-#include "sys/configuration.h"
 
 // may not exceed NAME_SIZE (15) chars
 static const char * const SNEEZY_ADMIN = "SneezyMUD Administration";
@@ -41,7 +40,7 @@ bool has_mail(const sstring recipient)
 {
   TDatabase db;
 
-  db.query("select count(*) as count from mail where port=%i and lower(mailto)=lower('%s')", gamePort, recipient.c_str());
+  db.query("select count(*) as count from mail where port=%i and lower(mailto)=lower('%s')", Config.game_port(), recipient.c_str());
 
   if(db.fetchRow() && convertTo<int>(db["count"]) != 0)
     return TRUE;
@@ -65,10 +64,10 @@ void store_mail(const char *to, const char *from, const char *message_pointer, i
     fm.query("select name from factionmembers where faction=(select faction from factionmembers where name='%s')", from);
 
     while(fm.fetchRow()){
-      db.query("insert into mail (port, mailfrom, mailto, timesent, content, talens, rent_id) values (%i, '%s', '%s', '%s', '%s', 0, 0)", gamePort, from, fm["name"].c_str(), tmstr, message_pointer);
+      db.query("insert into mail (port, mailfrom, mailto, timesent, content, talens, rent_id) values (%i, '%s', '%s', '%s', '%s', 0, 0)", Config.game_port(), from, fm["name"].c_str(), tmstr, message_pointer);
     }
   } else {
-    db.query("insert into mail (port, mailfrom, mailto, timesent, content, talens, rent_id) values (%i, '%s', '%s', '%s', '%s', %i, %i)", gamePort, from, to, tmstr, message_pointer, talens, rent_id);
+    db.query("insert into mail (port, mailfrom, mailto, timesent, content, talens, rent_id) values (%i, '%s', '%s', '%s', '%s', %i, %i)", Config.game_port(), from, to, tmstr, message_pointer, talens, rent_id);
   }
 }                               /* store mail */
 
@@ -77,7 +76,7 @@ sstring read_delete(const sstring recipient, const char *recipient_formatted, ss
   TDatabase db;
   sstring buf;
 
-  db.query("select mailfrom, timesent, content, mailid, talens, rent_id from mail where port=%i and lower(mailto)=lower('%s')", gamePort, recipient.c_str());
+  db.query("select mailfrom, timesent, content, mailid, talens, rent_id from mail where port=%i and lower(mailto)=lower('%s')", Config.game_port(), recipient.c_str());
   if(!db.fetchRow())
     return "error!";
 

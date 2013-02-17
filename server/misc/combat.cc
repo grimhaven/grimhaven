@@ -10,7 +10,6 @@
 #include "misc/low.h"
 #include "sys/colorstring.h"
 #include "misc/monster.h"
-#include "sys/configuration.h"
 #include "misc/materials.h"
 #include "misc/range.h"
 #include "misc/combat.h"
@@ -671,7 +670,7 @@ bool TBeing::checkCut(TBeing *ch, wearSlotT part_hit, spellNumT wtype, TThing *w
     return FALSE;
   }
 
-  if (dam <= Config::ItemDamageRate())
+  if (dam <= Config.ItemDamageRate())
     return FALSE;
 
   if(inPkZone())
@@ -742,7 +741,7 @@ bool TBeing::checkSmashed(TBeing *ch, wearSlotT part_hit, spellNumT wtype, TThin
     vlogf(LOG_COMBAT, "check_smashed called with no item!");
     return FALSE;
   }
-  if (dam <= Config::ItemDamageRate())
+  if (dam <= Config.ItemDamageRate())
     return FALSE;
 
   if(inPkZone())
@@ -821,7 +820,7 @@ bool TBeing::checkPierced(TBeing *ch, wearSlotT part_hit, spellNumT wtype, TThin
     vlogf(LOG_COMBAT, "Check pierced called with no item! BUG BRUTIUS!!!");
     return FALSE;
   }
-  if (dam <= Config::ItemDamageRate())
+  if (dam <= Config.ItemDamageRate())
     return FALSE;
 
   if(inPkZone())
@@ -4674,7 +4673,7 @@ void TBeing::catchLostLink(TBeing *vict)
   delete token;
 
   // gen mail
-  buf = MUD_NAME;
+  buf = Config.mud_name();
   buf += " detected you lost link while fighting an apparently superior opponent\n\r(";
   buf += getName();
   buf += ").  Under such circumstances, the policy is to\n\r";

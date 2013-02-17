@@ -5,7 +5,6 @@
 #include "sys/handler.h"
 #include "misc/low.h"
 #include "misc/monster.h"
-#include "sys/configuration.h"
 #include "misc/materials.h"
 #include "misc/combat.h"
 #include "misc/extern.h"
@@ -245,7 +244,7 @@ void procApocCheck::run(const TPulse &) const
   int num, rc;
   TMonster *mob;
 
-  if (Config::ModeBuilder())
+  if (Config.ModeBuilder())
     return;
 
   if (number(0,350))
@@ -1041,7 +1040,7 @@ int TBeing::updateTickStuff()
   } else if (desc && desc->original) {
     if (desc->original->getTimer() < 127)
       desc->original->addToTimer(1);
-  } else if (!desc && !master && (!Config::ModeProd() || in_room != Room::NOCTURNAL_STORAGE)) {
+  } else if (!desc && !master && (!Config.ModeProd() || in_room != Room::NOCTURNAL_STORAGE)) {
 #if 1
     bool isAnElemental = isElemental();
     bool hasExp = getExp();
@@ -2495,6 +2494,6 @@ void procAutoTips::run(const TPulse &) const
       continue;
     if (!IS_SET(d->autobits, AUTO_TIPS) || ch->isImmortal())
       continue;
-    ch->sendTo(COLOR_BASIC, format("<y>%s Tip :<z> %s\n\r") % MUD_NAME % buf);
+    ch->sendTo(COLOR_BASIC, format("<y>%s Tip :<z> %s\n\r") % Config.mud_name() % buf);
   }
 }

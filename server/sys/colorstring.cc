@@ -363,11 +363,11 @@ const sstring colorString(const TBeing *me, const Descriptor *ch, const sstring 
         }
         switch (arg[(s+1)]) {
           case 'h':
-            buf += MUD_NAME;
+            buf += Config.mud_name();
             s += 2;
             break;
           case 'H':
-            buf += MUD_NAME_VERS;
+            buf += Config.mud_name_version();
             s += 2;
             break;
           case 'R':

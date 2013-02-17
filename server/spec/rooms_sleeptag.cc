@@ -11,7 +11,6 @@
 
 #include "misc/extern.h"
 #include "misc/room.h"
-#include "sys/configuration.h"
 #include "obj/staff.h"
 #include "obj/wand.h"
 #include "misc/person.h"
@@ -56,7 +55,7 @@ int sleepTagControl(TBeing *tBeing, cmdTypeT tCmd, const char *tArg, TRoom *tRoo
 #if !ACTIVE
   return FALSE;
 #endif
-  if (Config::ModeProd())
+  if (Config.ModeProd())
     return FALSE;
 
   SSTControl *tJob   = NULL;
@@ -228,7 +227,7 @@ int sleepTagRoom(TBeing *tBeing, cmdTypeT tCmd, const char *tArg, TRoom *tRoom)
 #if !ACTIVE
   return FALSE;
 #endif
-  if (Config::ModeProd())
+  if (Config.ModeProd())
     return FALSE;
 
   TThing *tThing;

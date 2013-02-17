@@ -44,7 +44,6 @@ extern "C" {
 #include "spec/mobs.h"
 #include "sys/client.h"
 #include "sys/colorstring.h"
-#include "sys/configuration.h"
 #include "sys/database.h"
 #include "sys/handler.h"
 #include "sys/tsocket.h"
@@ -74,7 +73,7 @@ togInfoT::togInfoT()
   loaded=false;
 }
 
-// can't do this in the constructor, because gamePort isn't defined
+// can't do this in the constructor, because Config.game_port() isn't defined
 // and TDatabase needs that to know what database to go to.
 void togInfoT::loadToggles()
 {
@@ -436,26 +435,26 @@ void TBeing::doWizlock(const char *argument)
 
   if (!*buf) {
     sendTo("Wizlock {all | off | add <host> | rem <host> | list  | message}\n\r");
-    sendTo(format("Global wizlock is presently %s.\n\r") % (WizLock ? "ON" : "OFF"));
+    sendTo(format("Global wizlock is presently %s.\n\r") % (Config.wizlock() ? "ON" : "OFF"));
     sendTo("The wizlock message is currently:\n\r");
-    sendTo(lockmess);
+    sendTo(Config.wizlock_message());
     return;
   }
   if (!strcmp(buf, "all")) {
-    if (WizLock)
+    if (Config.wizlock())
       sendTo("It's already on!\n\r");
     else {
       sendTo("WizLock is now on.\n\r");
       vlogf(LOG_MISC, format("WizLock was turned on by %s.") %  getName());
-      WizLock = TRUE;
+      Config.set_wizlock(true);
     }
   } else if (!strcmp(buf, "off")) {
-    if (!WizLock)
+    if (!Config.wizlock())
       sendTo("It's already off!\n\r");
     else {
       sendTo("WizLock is now off.\n\r");
       vlogf(LOG_MISC, format("WizLock was turned off by %s.") %  getName());
-      WizLock = FALSE;
+      Config.set_wizlock(false);
     }
   } else if (!strcmp(buf, "add")) {
     argument = one_argument(argument, buf, cElements(buf));
@@ -506,7 +505,8 @@ void TBeing::doWizlock(const char *argument)
     sendTo("Host is not in database.\n\r");
     return;
   } else if (!strcmp(buf, "list")) {
-    sendTo(format("Global wizlock is presently %s.\n\r") % (WizLock ? "ON" : "OFF"));
+    sendTo(format("Global wizlock is presently %s.\n\r") %
+            (Config.wizlock() ? "ON" : "OFF"));
     if (numberhosts <= 0) {
       sendTo("Host list is empty.\n\r");
       return;
@@ -520,13 +520,13 @@ void TBeing::doWizlock(const char *argument)
     note = dynamic_cast<TObj *>(t_note);
     if (note) {
       if (!note->action_description) {
-        sendTo("Your note has no message for the new lockmess!\n\r");
+        sendTo("Your note has no message for the new wizlock message!\n\r");
         return;
       } else {
-        lockmess = note->action_description;
+        Config.set_wizlock_message(note->action_description);
         vlogf(LOG_MISC, format("%s added a wizlock message.") %  getName());
         sendTo("The wizlock message is now:\n\r");
-        sendTo(lockmess);
+        sendTo(Config.wizlock_message());
         return;
       }
     } else {
@@ -535,9 +535,10 @@ void TBeing::doWizlock(const char *argument)
     }
   } else {
     sendTo("Wizlock {all | add <host> | rem <host> | list}\n\r");
-    sendTo(format("Global wizlock is presently %s.\n\r") % (WizLock ? "ON" : "OFF"));
+    sendTo(format("Global wizlock is presently %s.\n\r") %
+            (Config.wizlock() ? "ON" : "OFF"));
     sendTo("The wizlock message is currently:\n\r");
-    sendTo(lockmess);
+    sendTo(Config.wizlock_message());
     return;
   }
   return;
@@ -1402,7 +1403,7 @@ void TPerson::doShutdown(const char *argument)
   argument = one_argument(argument, arg, cElements(buf));
 
   if (!*arg) {
-    if (Config::ModeProd() || Config::ModeBuilder()) {
+    if (Config.ModeProd() || Config.ModeBuilder()) {
       // oops, did we type shutdown in the wrong window again???
       sendTo("Running in production mode.\n\rPlease do a timed shutdown to avoid complaints.\n\r");
       return;
@@ -1588,7 +1589,7 @@ void TPerson::doSwitch(const char *argument)
 
     *roomp += *tBeing;
     (dynamic_cast<TMonster *>(tBeing))->oldRoom = inRoom();
-    if (!Config::LoadOnDeath())
+    if (!Config.LoadOnDeath())
       (dynamic_cast<TMonster *>(tBeing))->createWealth();
 
     tStMobile = tStBuffer;
@@ -2312,7 +2313,7 @@ void TPerson::doLoad(const char *argument)
       }
       *roomp += *mob;
       mob->oldRoom = inRoom();
-      if (!Config::LoadOnDeath())
+      if (!Config.LoadOnDeath())
         mob->createWealth();
       if (mob->isShopkeeper())
         mob->calculateGoldFromConstant();
@@ -2645,7 +2646,7 @@ void TPerson::doPurge(const char *argument)
       return;
     } else if (is_abbrev(name_buf, "zone")) {
       unsigned int zone = 0;
-      //      bool old_nuke_inactive_mobs=Config::NukeInactiveMobs();
+      //      bool old_nuke_inactive_mobs=Config.NukeInactiveMobs();
 
       for (; isspace(*argument); argument++);
 

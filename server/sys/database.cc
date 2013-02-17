@@ -3,7 +3,7 @@
 #include "sys/database.h"
 #include "misc/enum.h"
 #include "misc/structs.h"
-#include "sys/configuration.h"
+#include "misc/extern.h"
 #include "sys/timing.h"
 #include "misc/toggle.h"
 
@@ -29,7 +29,7 @@ TDatabase::TDatabase() :
   vlogf(LOG_DB, "Connecting to database.");
   my_bool reconnect = 1;
   mysql_options(db, MYSQL_OPT_RECONNECT, &reconnect);
-  if (!mysql_real_connect(db, Config::DbHost().c_str(), Config::DbUser().c_str(), NULL, Config::DbName().c_str(), 0, NULL, 0))
+  if (!mysql_real_connect(db, Config.db_host().c_str(), Config.db_user().c_str(), NULL, Config.db_name().c_str(), 0, NULL, 0))
     vlogf(LOG_DB, format("Could not connect to database: %s") % mysql_error(db));
 }
 

@@ -3,16 +3,61 @@
 
 #include "sys/sstring.h"
 
-class Config {
+class Configuration {
+ public:
+  sstring load(const int argc, const char *argv[]);
+
+  // old-style (un-de-capitalized) accessors
+  inline int ItemDamageRate() { return item_damage_rate_; }
+  inline int RentCreditVal() { return rent_credit_val_; }
+  inline bool RentSellToPawn() { return rent_sell_to_pawn_; }
+  inline bool RentRestrictInnsByLevel() { return rent_restrict_inns_by_level_; }
+  inline bool PenalizeForAutoRenting() { return penalize_for_auto_renting_; }
+  inline int WeaponDamMinHardness() { return weapon_dam_min_hardness_; }
+  inline int WeaponDamMaxHardness() { return weapon_dam_max_hardness_; }
+  inline int WeaponDamMaxSharp() { return weapon_dam_max_sharp_; }
+  inline bool NukeRepairItems() { return nuke_repair_items_; }
+  inline bool CheckMultiplay() { return check_multiplay_; }
+  inline bool ForceMultiplayCompliance() { return force_multiplay_compliance_; }
+  inline bool RepoMobs() { return repo_mobs_; }
+  inline bool SuperRepoMobs() { return super_repo_mobs_; }
+  inline bool NoDamagedItemsShop() { return no_damaged_items_shop_; }
+  inline bool AutoDeletion() { return auto_deletion_; }
+  inline bool RentOnlyDeletion() { return rent_only_deletion_; }
+  inline bool NukeInactiveMobs() { return nuke_inactive_mobs_; }
+  inline bool LoadOnDeath() { return load_on_death_; }
+  inline bool NoSpecials() { return no_specials_; }
+  inline bool ModeBuilder() { return mode_builder_; }
+  inline bool ModeBeta() { return mode_beta_; }
+  inline bool ModeProd() { return mode_prod_; }
+
+  // new-style accessors
+  inline sstring data_dir() { return data_dir_; }
+  inline bool wizlock() { return wizlock_; }
+  inline void set_wizlock(bool b) { wizlock_ = b; }
+  inline sstring wizlock_password() { return wizlock_password_; }
+  inline sstring wizlock_message() { return wizlock_message_; }
+  inline void set_wizlock_message(sstring s) { wizlock_message_ = s; }
+  inline int game_port() { return game_port_; }
+  inline int xml_port() { return xml_port_; }
+  inline sstring config_file() { return config_file_; }
+  inline sstring db_host() { return db_host_; }
+  inline sstring db_user() { return db_user_; }
+  inline sstring db_name() { return db_name_; }
+  inline sstring mud_name() { return mud_name_; }
+  inline sstring mud_version() { return mud_version_; }
+  inline sstring mud_name_version() { return mud_name_version_; }
+  inline sstring mud_email() { return mud_email_; }
+
+  Configuration() {};
  private:
-  Config();
+  void setCompositeOptions();
 
   // modifies rate at which items take damage
   // The higher the number, the lower the damage
   // Any hit doing less then this amount has no chance of damaging
   // All other hits get modifier on damage rate based on this value
-  // 4.1 balanced at 2 prior to depreciation
-  static int item_damage_rate;
+  int item_damage_rate_ = 1;
 
   // used to determine rent credit
   // credit = level * maxi(20, level) * x
@@ -20,78 +65,75 @@ class Config {
   // on this rent credit being at 75
   // 4.0's no rent, and 4.1's big rent credit have distorted this so feel free
   // to adjust if this no longer works
-  static int rent_credit_val;
+  int rent_credit_val_ = 75;
 
   // if player goes over rent, items are "sold" to pay for it
   // this handles what is done with the sold item(s)
   // If turned on, the pawnguy gets them
   // otherwise they get deleted
-  static bool rent_sell_to_pawn;
+  bool rent_sell_to_pawn_ = false;
 
   // causes innkeepers to grant rentCredit based on the innkeepers levels
   // otherwise, it is based on the players level.
   // the chief use of this is to encourage high level pc's to use certain inns
-  static bool rent_restrict_inns_by_level;
+  bool rent_restrict_inns_by_level_ = false;
 
   // causes bad things to happen to player based on time in autorent
   // there is a grace period to handle crashes
-  static bool penalize_for_auto_renting;
+  bool penalize_for_auto_renting_ = true;
 
   // the minimum "hardness" for a material to damage/blunt a weapon
   // when hitting.
-  static int weapon_dam_min_hardness;
+  int weapon_dam_min_hardness_ = 20;
 
   // the max value of a hardness roll, raising it = weapon
   // damage/blunt DECREASE
-  static int weapon_dam_max_hardness;
+  int weapon_dam_max_hardness_ = 150;
 
   // the max value of a sharpness roll, raising it = weapon blunt DECREASE
-  static int weapon_dam_max_sharp;
-
-  // speef is too important for comments so we don't know what this does
-  static bool speef_make_body;
+  int weapon_dam_max_sharp_ = 150;
 
   // causes items left in repair to be deleted after a set number of days.
   // Good to keep things circulating, but bad if extended downtime anticipated.
   // Simply deletes the file in mobdata/repairs/, the tickets still exist
   // and the repairman will say he doesn't have the item.
-  static bool nuke_repair_items;
+  bool nuke_repair_items_ = true;
 
   // Enables a check to validate that players are not multiplaying.
   // check is done each login and periodically for all chars logged in.
-  static bool check_multiplay;
+  bool check_multiplay_ = true;
 
   // code will disallow any bad multiplay event
-  static bool force_multiplay_compliance;
+  bool force_multiplay_compliance_ = true;
 
   // Enables automatic generation of repossession mobs based on item max-exist.
   // Not extremely popular, but a good way to get item overturn.
-  static bool repo_mobs;
+  bool repo_mobs_ = false;
 
   // items that are over max-exist get hunted by a buffed up version of the
   // hunter.  Requires repo_mobs be TRUE.
   // VERY unpopular
-  static bool super_repo_mobs;
+  bool super_repo_mobs_ = false;
 
   // shops tend to get a lot of goods that strictly speaking aren't isSimilar()
   // slightly damaged, depreciated, etc.
   // We can eliminate this by turning this on.  Any item not perfect will get
   // deleted.
-  static bool no_damaged_items_shop;
+  bool no_damaged_items_shop_ = false;
 
   // causes player/rent files to be automatically purged if inactive for
   // more then a few weeks.  Conserves disk space and speeds up the boot
   // process significantly.  Periods of college breaks are bypassed.
-  static bool auto_deletion;
+  bool auto_deletion_ = false;
 
   // requires auto-deletion turned on causes deletion only of the rent
   // file.  Otherwise pfile, rent and account go
-  static bool rent_only_deletion;
+  bool rent_only_deletion_ = false;
 
   // Causes mobs in inactive zones to be deleted.  Typically, 50% of the mud's
   // mobs would qualify.  Dramatically speeds up the mobileActivity loop and
   // improves CPU performance.
-  static bool nuke_inactive_mobs;
+  bool nuke_inactive_mobs_ = false;
 
   // Causes mobs to drop their zonefile loaded gear and randomly
   // generated loot when they die, and not when they spawn.  the
@@ -101,73 +143,53 @@ class Config {
   // 'random' reduces server memory footprint, reduces load time (from
   // having to calculate loot at spawn), and keeps loot items from
   // scapping during a fight
-  static bool load_on_death;
+  bool load_on_death_ = true;
 
   // suppress assigning of special routines
-  static bool no_specials;
+  bool no_specials_ = false;
 
   // data directory to run in (eg "lib")
-  static sstring data_dir;
+  sstring data_dir_ = "lib";
 
   // config file that options were loaded from
-  static sstring config_file;
+  sstring config_file_ = "";
+
+  // whether wizlock is enabled
+  bool wizlock_ = false;
 
   // password to bypass wizlock
-  static sstring wizlock_password;
+  sstring wizlock_password_ = "superviii";
+
+  // reason wizlock is active
+  sstring wizlock_message_ = "";
+
+  // TCP port which speaks the regular telnet protocol
+  int game_port_ = 7900;
 
   // TCP port which speaks the XML network protocol rather than raw telnet
-  static int xml_port;
+  int xml_port_ = 0;
 
   // turn off mail & horsemen & comp placement
-  static bool mode_builder;
+  bool mode_builder_ = false;
 
-  // enable various beta-mode more fun options
-  static bool mode_beta;
+  // enable various beta-mode more-fun options
+  bool mode_beta_ = false;
 
   // remove various production-mode restrictions
-  static bool mode_prod;
+  bool mode_prod_ = true;
 
   // database connection params
-  static sstring db_host;
-  static sstring db_user;
-  static sstring db_name;
+  sstring db_host_ = "localhost";
+  sstring db_user_ = "grimhaven";
+  sstring db_name_ = "grimhaven";
 
- public:
-  static bool doConfiguration(int argc=0, char *argv[]=0);
+  // mud metadata
+  sstring mud_name_ = "Grimhaven";
+  sstring mud_version_ = "6.0";
+  sstring mud_email_ = "mud@grimhaven.org";
+  sstring mud_url_ = "http://grimhaven.org";
+  sstring mud_name_version_ = mud_name_ + " v" + mud_version_;
 
-  static int ItemDamageRate(){ return item_damage_rate; }
-  static int RentCreditVal(){ return rent_credit_val;}
-  static bool RentSellToPawn(){ return rent_sell_to_pawn;}
-  static bool RentRestrictInnsByLevel(){return rent_restrict_inns_by_level;}
-  static bool PenalizeForAutoRenting(){ return penalize_for_auto_renting;}
-  static int WeaponDamMinHardness(){ return weapon_dam_min_hardness;}
-  static int WeaponDamMaxHardness(){ return weapon_dam_max_hardness;}
-  static int WeaponDamMaxSharp(){ return weapon_dam_max_sharp;}
-  static bool SpeefMakeBody(){ return speef_make_body;}
-  static bool NukeRepairItems(){ return nuke_repair_items; }
-  static bool CheckMultiplay(){ return check_multiplay; }
-  static bool ForceMultiplayCompliance(){return force_multiplay_compliance;}
-  static bool RepoMobs(){ return repo_mobs; }
-  static bool SuperRepoMobs(){ return super_repo_mobs; }
-  static bool NoDamagedItemsShop(){ return no_damaged_items_shop; }
-  static bool AutoDeletion(){ return auto_deletion; }
-  static bool RentOnlyDeletion(){ return rent_only_deletion; }
-  static bool NukeInactiveMobs(){ return nuke_inactive_mobs; }
-  static bool LoadOnDeath(){ return load_on_death; }
-  static bool NoSpecials(){ return no_specials; }
-  static sstring DataDir(){ return data_dir; }
-  static sstring ConfigFile(){ return config_file; }
-  static sstring WizLockPassword(){ return wizlock_password; }
-  static bool XmlPort(){ return xml_port; }
-  static bool ModeBuilder(){ return mode_builder; }
-  static bool ModeBeta(){ return mode_beta; }
-  static bool ModeProd(){
-    // builder & beta mode exclude prod mode
-    return !(mode_builder || mode_beta) && mode_prod;
-  }
-  static sstring DbHost(){ return db_host; }
-  static sstring DbUser(){ return db_user; }
-  static sstring DbName(){ return db_name; }
 };
 
 #endif

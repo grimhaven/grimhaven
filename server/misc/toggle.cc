@@ -3,7 +3,6 @@
 #include "sys/handler.h"
 #include "misc/low.h"
 #include "misc/monster.h"
-#include "sys/configuration.h"
 #include "misc/person.h"
 #include "misc/account.h"
 #include "obj/player_corpse.h"

@@ -1,8 +1,8 @@
+#include "misc/extern.h"
 #include "misc/room.h"
 #include "misc/monster.h"
 #include "obj/trap.h"
 #include "spec/mobs.h"
-
 
 sstring guardShout(TBeing *ch){
   sstring s;
@@ -265,7 +265,7 @@ sstring guardShout(TBeing *ch){
     case 119:
     case 120:
       if (targVis) {
-        s = format("When I get through with %s, %s'll wish %s'd never heard the name %s!") % ch->pers(ch->fight()) % ch->fight()->hssh() % ch->fight()->hssh() % MUD_NAME;
+        s = format("When I get through with %s, %s'll wish %s'd never heard the name %s!") % ch->pers(ch->fight()) % ch->fight()->hssh() % ch->fight()->hssh() % Config.mud_name();
         break;
       }
     case 121:
@@ -294,7 +294,7 @@ sstring guardShout(TBeing *ch){
       }
     case 131:
       if (targVis) {
-        s = format("I'm gonna stomp %s's butt right out of %s!") % ch->pers(ch->fight()) % MUD_NAME;
+        s = format("I'm gonna stomp %s's butt right out of %s!") % ch->pers(ch->fight()) % Config.mud_name();
         break;
       }
     case 132:

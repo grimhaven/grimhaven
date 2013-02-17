@@ -10,7 +10,6 @@
 #include "obj/commodity.h"
 #include "misc/loadset.h"
 #include "spec/mobs.h"
-#include "sys/configuration.h"
 
 static void treasureCreate(int num, int mat, int &wealth, TObj *bag, TMonster *ch)
 {
@@ -282,13 +281,13 @@ void TMonster::createWealth(void)
     return;
 
   int cashOnHand = 0;
-  if (Config::LoadOnDeath()) {
+  if (Config.LoadOnDeath()) {
     cashOnHand = getMoney();
     calculateGoldFromConstant(); // can reset money
   }
 
   // execute our post-load commands
-  if (Config::LoadOnDeath() && loadCom.size() > 0) {
+  if (Config.LoadOnDeath() && loadCom.size() > 0) {
     bool last_cmd = true;
     bool objload = false;
     bool mobload = true;
@@ -542,7 +541,7 @@ void TMonster::mageComponentLoader(void)
       // this check is to prevent a mob that "sells" comps via responses
       // from loading the comp they sell, and hence preventing the response
       // load from working
-      if (!Config::LoadOnDeath() && isMobComponentSeller(comp, mobVnum()))
+      if (!Config.LoadOnDeath() && isMobComponentSeller(comp, mobVnum()))
         num = -1;
 
       if (num == -1)

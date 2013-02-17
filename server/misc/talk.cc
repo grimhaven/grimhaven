@@ -519,7 +519,7 @@ void TBeing::doCommune(const sstring &arg)
           act(buf, 0, this, 0, i->character, TO_VICT);
 
     if (!i->m_bIsClient && IS_SET(i->prompt_d.type, PROMPT_CLIENT_PROMPT))
-      i->clientf(format("%d|%d|%d|%s|%s") % CLIENT_WIZNET % levnum % gamePort % getName() % str);
+      i->clientf(format("%d|%d|%d|%s|%s") % CLIENT_WIZNET % levnum % Config.game_port() % getName() % str);
         } else if (critter->hasWizPower(POWER_WIZNET_ALWAYS)) {
           buf = format("[nobuilders] %s$n: %s%s%s") %
                  i->purple() % i->cyan() %
@@ -527,7 +527,7 @@ void TBeing::doCommune(const sstring &arg)
           act(buf, 0, this, 0, i->character, TO_VICT);
 
     if (!i->m_bIsClient && IS_SET(i->prompt_d.type, PROMPT_CLIENT_PROMPT))
-      i->clientf(format("%d|%d|%d|%s|%s") % CLIENT_WIZNET % levnum % gamePort % getName() % str);
+      i->clientf(format("%d|%d|%d|%s|%s") % CLIENT_WIZNET % levnum % Config.game_port() % getName() % str);
         }
       } else {
         str = colorString(this, i,
@@ -544,7 +544,7 @@ void TBeing::doCommune(const sstring &arg)
           act(buf, 0, this, 0, i->character, TO_VICT);
 
     if (!i->m_bIsClient && IS_SET(i->prompt_d.type, PROMPT_CLIENT_PROMPT))
-      i->clientf(format("%d|%d|%d|%s|%s") % CLIENT_WIZNET % levnum % gamePort % getName() % str);
+      i->clientf(format("%d|%d|%d|%s|%s") % CLIENT_WIZNET % levnum % Config.game_port() % getName() % str);
         } else if (critter->hasWizPower(POWER_WIZNET_ALWAYS) &&
                    critter->GetMaxLevel() >= levnum) {
           buf = format("%s(level: %d) $n: %s%s%s") %
@@ -553,7 +553,7 @@ void TBeing::doCommune(const sstring &arg)
           act(buf, 0, this, 0, i->character, TO_VICT);
 
     if (!i->m_bIsClient && IS_SET(i->prompt_d.type, PROMPT_CLIENT_PROMPT))
-      i->clientf(format("%d|%d|%d|%s|%s") % CLIENT_WIZNET % levnum % gamePort % getName() % str);
+      i->clientf(format("%d|%d|%d|%s|%s") % CLIENT_WIZNET % levnum % Config.game_port() % getName() % str);
         }
       }
     }

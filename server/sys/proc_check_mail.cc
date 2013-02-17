@@ -1,5 +1,4 @@
 #include "misc/person.h"
-#include "sys/configuration.h"
 #include "misc/extern.h"
 #include "sys/process.h"
 #include "misc/mail.h"
@@ -15,7 +14,7 @@ void procCheckMail::run(const TPulse &) const
 {
   Descriptor *d;
 
-  if (Config::ModeBuilder())
+  if (Config.ModeBuilder())
     return;
 
   for (d = descriptor_list; d; d = d->next) {

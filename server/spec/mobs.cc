@@ -36,7 +36,6 @@
 #include "misc/being.h"
 #include "misc/low.h"
 #include "misc/monster.h"
-#include "sys/configuration.h"
 #include "misc/account.h"
 #include "misc/combat.h"
 #include "misc/disease.h"
@@ -2693,7 +2692,7 @@ int horse(TBeing *, cmdTypeT cmd, const char *, TMonster *me, TObj *)
   int rc;
 
   if (cmd == CMD_GENERIC_PULSE){
-    if (!::number(0,500) && Config::ModeProd()) {
+    if (!::number(0,500) && Config.ModeProd()) {
       me->setCond(POOP, 24);
       me->doPoop();
     }

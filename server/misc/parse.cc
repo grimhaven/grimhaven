@@ -10,15 +10,12 @@ extern "C" {
 #include "misc/being.h"
 #include "sys/colorstring.h"
 #include "misc/person.h"
-#include "sys/configuration.h"
 #include "sys/tsocket.h"
 #include "misc/mail.h"
 #include "misc/monster.h"
 #include "sys/client.h"
 
-sstring lockmess;
 commandInfo *commandArray[MAX_CMD_LIST];
-bool WizLock;
 
 int search_block(const sstring &arg, const char * const *list, bool exact)
 {
@@ -3387,7 +3384,7 @@ void TBeing::makeOutputPaged()
   Comm *c;
 
   // don't try to page xml
-  if(desc->socket->port==Config::XmlPort())
+  if(desc->socket->port==Config.xml_port())
     return;
 
   while((c=desc->output.takeFromQ())){

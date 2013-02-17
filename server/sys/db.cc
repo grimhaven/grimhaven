@@ -1,18 +1,16 @@
 #include <stdio.h>
+#include <sys/types.h>
+#include <dirent.h>
+
+#include <cmath>
 
 #include "misc/room.h"
 #include "misc/being.h"
 #include "misc/low.h"
 #include "misc/person.h"
 #include "misc/monster.h"
-#include "sys/configuration.h"
 #include "misc/guild.h"
 #include "sys/sstring.h"
-
-#include <sys/types.h>
-#include <dirent.h>
-#include <cmath>
-
 #include "sys/tsocket.h"
 #include "sys/colorstring.h"
 #include "misc/statistics.h"
@@ -108,42 +106,7 @@
 #include "misc/weather.h"
 #include "obj/fruit.h"
 
-namespace File {
-  const char * const CREDITS        = "txt/credits";    // for the credits command
-  const char * const HELP_PAGE      = "help/general";   // for HELP <CR>
-  const char * const MOTD           = "txt/motd";       // messages of today
-  const char * const NEWS           = "txt/news";       // for the 'news' command
-  const char * const SOCMESS        = "txt/actions";    // msgs for social acts
-  const char * const STATS          = "txt/stats";      // economy stats savefile
-  const char * const STATS_BAK      = "txt/stats.bak";  // backup of econ save
-  const char * const TIPS           = "txt/tips";       // newbie tips file
-  const char * const VERSION        = "txt/version";    // mud version timestamp
-  const char * const WIZLIST        = "txt/wizlist";
-  const char * const WIZNEWS        = "txt/wiznews";
-  const char * const WIZMOTD        = "txt/wizmotd";
-
-  const char * const ANSI_MENU_1    = "txt/ansi/login1.ans";
-  const char * const ANSI_MENU_2    = "txt/ansi/login2.ans";
-  const char * const ANSI_MENU_3    = "txt/ansi/login3.ans";
-  const char * const ANSI_OPEN      = "txt/ansi/title.ans";
-  const char * const NORM_MENU_1    = "txt/vt/login1.vt";
-  const char * const NORM_MENU_2    = "txt/vt/login2.vt";
-  const char * const NORM_MENU_3    = "txt/vt/login3.vt";
-  const char * const NORM_OPEN      = "txt/vt/title.vt";
-
-  const char * const FACTIONS       = "factions/factions";
-  const char * const FACTIONS_BAK   = "factions/factions.bak";
-  const char * const GUILDS         = "factions/guilds";
-  const char * const GUILDS_BAK     = "factions/guilds.bak";
-}
-
-namespace Path {
-  const char * const HELP           = "help/";
-  const char * const IMMORTAL_HELP  = "help/_immortal";
-  const char * const BUILDER_HELP   = "help/_builder";
-  const char * const SKILL_HELP     = "help/_skills";
-  const char * const SPELL_HELP     = "help/_spells";
-}
+bool bootTime=false;
 
 int top_of_world = 0;         // ref to the top element of world
 
@@ -215,8 +178,6 @@ public:
   cached_object *operator[](int);
 } mob_cache;
 
-
-bool bootTime=false;
 
 class lag_data lag_info;
 
@@ -292,7 +253,7 @@ void bootPulse(const char *str, bool end_str)
 
   if (str) {
     if (strcmp(str, ".")) {
-      sc = MUD_NAME_VERS;
+      sc = Config.mud_name_version();
       sc += " Boot Process: ";
 
       // Set the last real output.
@@ -397,8 +358,6 @@ void bootDb(void)
     vlogf(LOG_MISC, "Bad loading of new factions.");
     exit(0);
   }
-
-  lockmess.erase();
 
   // keep this prior to object load
   bootPulse("Initializing Spells.");
@@ -1200,7 +1159,7 @@ void zoneData::renumCmd(void)
   int value;
 
   // init the zone_value array
-  if(Config::NukeInactiveMobs())
+  if(Config.NukeInactiveMobs())
     zone_value = ((zone_nr <= 1) ? -1 : 0);
   else
     zone_value = -1;
@@ -2413,7 +2372,7 @@ TObj *read_object(int nr, readFileTypeT type)
     obj->setVolume(convertTo<int>(obj_cache[nr]->s["volume"]));
     obj->setMaterial(convertTo<int>(obj_cache[nr]->s["material"]));
     // beta is used to test LOW loads, so don't let max_exist be a factor
-    obj->max_exist = Config::ModeBeta() ? 9999 : convertTo<int>(obj_cache[nr]->s["max_exist"]);
+    obj->max_exist = Config.ModeBeta() ? 9999 : convertTo<int>(obj_cache[nr]->s["max_exist"]);
 
   } else {
     db.query("select type, action_flag, wear_flag, val0, val1, val2, val3, weight, price, can_be_seen, spec_proc, max_struct, cur_struct, decay, volume, material, max_exist from obj where vnum=%i", obj_index[nr].virt);
@@ -2444,7 +2403,7 @@ TObj *read_object(int nr, readFileTypeT type)
     obj->setVolume(convertTo<int>(db["volume"]));
     obj->setMaterial(convertTo<int>(db["material"]));
     // beta is used to test LOW loads, so don't let max_exist be a factor
-    obj->max_exist = Config::ModeBeta() ? 9999 : convertTo<int>(db["max_exist"]);
+    obj->max_exist = Config.ModeBeta() ? 9999 : convertTo<int>(db["max_exist"]);
   }
 
 
@@ -2856,7 +2815,7 @@ void runResetCmdE(zoneData &zone, resetCom &rs, resetFlag flags, bool &mobload, 
   if (!mob->canUseEquipment(obj, SILENT_YES))
     vlogf(LOG_LOW, format("'E' command equipping unusable item (%s:%d) on (%s:%d).") % obj->getName() % obj->objVnum() % mob->getName() % mob->mobVnum());
   TBaseClothing *tbc = dynamic_cast<TBaseClothing *>(obj);
-  if (tbc && tbc->canWear(ITEM_WEAR_FINGERS) && !Config::ModeProd()) {
+  if (tbc && tbc->canWear(ITEM_WEAR_FINGERS) && !Config.ModeProd()) {
     vlogf(LOG_LOW, format("RINGLOAD: [%s][%-6.2f] loading on [%s][%d]") %
           obj->getName() % tbc->armorLevel(ARMOR_LEV_REAL) %
           mob->getName() % mob->GetMaxLevel());
@@ -2881,7 +2840,7 @@ void runResetCmdE(zoneData &zone, resetCom &rs, resetFlag flags, bool &mobload, 
   // end sanity checks
 
   // OK, actually do the equip
-  if (Config::LoadOnDeath() && !(flags & resetFlagPropLoad))
+  if (Config.LoadOnDeath() && !(flags & resetFlagPropLoad))
     *mob += *obj;
   else
     mob->equipChar(obj, realslot);
@@ -2894,7 +2853,7 @@ void runResetCmdE(zoneData &zone, resetCom &rs, resetFlag flags, bool &mobload, 
   double grl = mob->getRealLevel();
   if (al > (grl + 1))
     vlogf(LOG_LOW, format("Mob (%s:%d) of level %.1f loading item (%s:%d) thought to be level %.1f.") %  mob->getName() % mob->mobVnum() % grl % obj->getName() % obj->objVnum() % al);
-  if (!Config::LoadOnDeath() && !mob->equipment[realslot])
+  if (!Config.LoadOnDeath() && !mob->equipment[realslot])
     vlogf(LOG_LOW, format("Zone-file %s (%d) failed to equip %s (%d)") % mob->getName() % mob->mobVnum() % obj->getName() % obj->objVnum());
 
   last_cmd = true;
@@ -2920,7 +2879,7 @@ void runResetCmdM(zoneData &zone, resetCom &rs, resetFlag flags, bool &mobload, 
     return;
 
   // catch cases where builder used global max over zonefile max
-  if (rs.arg2 > mob_index[rs.arg1].max_exist && Config::ModeBeta() && rs.arg3 != zone.random_room)
+  if (rs.arg2 > mob_index[rs.arg1].max_exist && Config.ModeBeta() && rs.arg3 != zone.random_room)
   {
     vlogf(LOG_LOW, format("Mob %s (%i) tried has improper load max (%i) compared to global (%i) in zonefile") %
       mob_index[rs.arg1].short_desc % mob_index[rs.arg1].virt % rs.arg2 % mob_index[rs.arg1].max_exist);
@@ -2958,7 +2917,7 @@ void runResetCmdM(zoneData &zone, resetCom &rs, resetFlag flags, bool &mobload, 
     return;
   }
 
-  if (!Config::LoadOnDeath())
+  if (!Config.LoadOnDeath())
     mob->createWealth();
 
   if (mob->isShopkeeper())
@@ -3104,7 +3063,7 @@ void runResetCmdQMark(zoneData &zone, resetCom &rs, resetFlag flags, bool &moblo
     bool useArgs = (objload && rs.character == 'P') || (mobload && rs.character == 'G');
     int my_chance = useArgs ? rs.arg1 : fixed_chance;
 
-    last_cmd = (rs.arg1 >= 98 || roll <= my_chance || Config::ModeBeta());
+    last_cmd = (rs.arg1 >= 98 || roll <= my_chance || Config.ModeBeta());
     if (!last_cmd) {
       if (rs.character == 'M')
         mobload = 0; // cancel all operations after this 'M' which use the mob ptr by setting !mobload
@@ -3345,7 +3304,7 @@ void runResetCmdY(zoneData &zone, resetCom &rs, resetFlag flags, bool &mobload, 
 
   mob->loadSetEquipment(rs.arg1, NULL, (rs.arg2 >= 98) ? rs.arg2 : fixed_chance);
 
-  if (!Config::LoadOnDeath() && mob->hasClass(CLASS_MAGE)) {
+  if (!Config.LoadOnDeath() && mob->hasClass(CLASS_MAGE)) {
     TSpellBag *tBagA = NULL,
               *tBagB = NULL;
     TThing    *tThing=NULL;
@@ -3478,7 +3437,7 @@ void zoneData::resetZone(bool bootTime, bool findLoadPotential)
   TObj *obj = NULL;
   resetFlag flags = resetFlagNone;
 
-  if (this->enabled == FALSE && Config::ModeProd()) {
+  if (this->enabled == FALSE && Config.ModeProd()) {
     if (bootTime)
       vlogf(LOG_MISC, "*** Zone was disabled.");
     return;
@@ -4027,7 +3986,7 @@ bool resetCom::usesRandomRoom()
 // lastComStuck - true if the previous resetCom before this one was 'stuck' to a mob
 bool resetCom::shouldStickToMob(bool &lastComStuck)
 {
-  if (!Config::LoadOnDeath())
+  if (!Config.LoadOnDeath())
     return lastComStuck = false;
 
   // special case: since V's modify a potentially stuck (non-existant) obj, we need to stick ?'s for V's too

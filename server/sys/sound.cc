@@ -8,6 +8,8 @@
 #include "sys/colorstring.h"
 #include "misc/monster.h"
 
+const char * SOUNDS_URL = "http://grimhaven.org/sounds/";
+
 int RecGetObjRoom(const TThing *obj)
 {
   if (obj->in_room != Room::NOWHERE)

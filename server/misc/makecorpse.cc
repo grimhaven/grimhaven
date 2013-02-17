@@ -6,7 +6,6 @@
 #include "misc/low.h"
 #include "misc/extern.h"
 #include "misc/monster.h"
-#include "sys/configuration.h"
 #include "misc/combat.h"
 #include "obj/component.h"
 #include "obj/base_corpse.h"
@@ -690,7 +689,7 @@ TThing * TBeing::makeCorpse(spellNumT dmg_type, TBeing * tKiller, float exp_lost
     }
   }
 
-  if (!Config::ModeProd())
+  if (!Config.ModeProd())
     gen_corpse->setupDissectionObjects();
 
 

@@ -8,6 +8,9 @@
 #include "misc/body.h"
 #include "misc/race.h"
 #include "obj/drug.h"
+#include "sys/configuration.h"
+
+extern Configuration Config;
 
 struct PolyType;
 class charFile;
@@ -40,7 +43,6 @@ extern const int thaco[128];
 extern const byte ac_percent_pos[MAX_WEAR];
 extern int AddToCharHeap(TBeing *heap[50], int *, int total[50], TBeing *);
 extern int MobCountInRoom(const StuffList);
-extern bool WizLock;
 extern bool Shutdown;
 extern long timeTill;
 extern time_t Uptime;
@@ -101,7 +103,6 @@ extern const char * const illegalnames[];
 extern const char * const month_name[12];
 extern const char * const weekdays[7];
 extern int numberhosts;
-extern sstring lockmess;
 extern const byte sharpness[];
 extern const byte attack_mode_bonus[];
 extern const int corpse_volume[];
@@ -249,7 +250,6 @@ extern char lcb[256];
 extern const sstring describeTime();
 extern void assign_item_info();
 extern void assignTerrainInfo();
-extern int gamePort;   // the port we are running on
 extern void mud_assert(int, const char *,...);
 extern int determineDissectionItem(TBaseCorpse *, int *, char *, char *, TBeing *);
 extern int determineSkinningItem(TBaseCorpse *, int *, char *, char *);
