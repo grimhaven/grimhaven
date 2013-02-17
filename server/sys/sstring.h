@@ -1,6 +1,7 @@
 #ifndef SERVER_SYS_SSTRING_H_
 #define SERVER_SYS_SSTRING_H_
 
+#include <sstream>
 #include <boost/format.hpp>
 
 extern boost::format format(const std::string &);
@@ -32,15 +33,10 @@ public:
   const sstring comify() const;
   const sstring replaceString(sstring, sstring) const;
   const sstring trim() const;
-  const sstring capitalizeSentences() const;
   const sstring matchCase(const sstring match) const;
-  const sstring xmlescape() const;
-  const size_t lengthNoColor() const;
 
   // call this function with NULL data to get alloc size, then agian with alloc'd array
   int split(const char delimit, sstring *data) const;
-  size_t findBetween(const sstring start, const sstring toFind, const sstring end) const;
-  int countSubstr(const sstring sub) const;
 
   // other functions
   const bool hasDigit() const;
@@ -49,27 +45,23 @@ public:
   const bool startsVowel() const;
 
   // string mungers
-  void ascify();
   void convertStringColor(const sstring replacement);
 
   // inlines
   void inlineReplaceString(const std::string f, const std::string r) {
     std::string::size_type start = 0;
-    while(std::string::npos != (start = find(f, start)))
-    {
+    while(std::string::npos != (start = find(f, start))) {
       replace(start, f.length(), r.c_str(), r.length());
       start += r.length();
     }
   }
 
   // inline: trims to crlf those lines which consist only of whitespace
-  void inlineTrimWhiteLines()
-  {
+  void inlineTrimWhiteLines() {
     size_t len = length();
     size_t start = 0;
 
-    while(1)
-    {
+    while(1) {
       size_t spaces = 0;
       start = find("\n\r", start);
       if (start == sstring::npos)
@@ -81,7 +73,8 @@ public:
       if (start >= len)
         return;
 
-      if (spaces && start+spaces+1 < len && (*this)[start+spaces] == '\n' && (*this)[start+spaces+1] == '\r')
+      if (spaces && start+spaces+1 < len && (*this)[start+spaces] == '\n' &&
+          (*this)[start+spaces+1] == '\r')
         erase(start, spaces);
       else
         start += spaces;
@@ -89,12 +82,11 @@ public:
   }
 
   // removes all text inbetween start and end (inclusive or exclusive)
-  void inlineRemoveBetween(const sstring start, const sstring end, bool inclusive, bool stopNewline = false)
-  {
+  void inlineRemoveBetween(const sstring start, const sstring end,
+                           bool inclusive, bool stopNewline = false) {
     size_t iStart = 0;
 
-    while(1)
-    {
+    while (1) {
       iStart = find(start.c_str(), iStart);
       if (iStart == sstring::npos)
         return;
@@ -104,8 +96,7 @@ public:
       if (iEnd == sstring::npos)
         return;
       size_t newLine = stopNewline ? find("\n", iStart) : sstring::npos;
-      if (newLine != sstring::npos && newLine < iEnd)
-      {
+      if (newLine != sstring::npos && newLine < iEnd) {
         iStart = newLine;
         continue;
       }
@@ -117,11 +108,12 @@ public:
   }
 
   // takes one set of markup tags if they exist in order, and replaces then with new tags in the same order
-  void inlineReplaceMarkup(const sstring markupStart, const sstring markupEnd, const sstring replaceStart, const sstring replaceEnd)
-  {
+  void inlineReplaceMarkup(const sstring markupStart,
+                           const sstring markupEnd,
+                           const sstring replaceStart,
+                           const sstring replaceEnd) {
     size_t startMarkup = find(markupStart.c_str());
-    while(startMarkup != sstring::npos)
-    {
+    while (startMarkup != sstring::npos) {
       size_t startLen = markupStart.length();
       size_t endLen = markupEnd.length();
       size_t repSLen = replaceStart.length();
@@ -139,37 +131,30 @@ public:
   }
 
   // simple function; probably should just macro but what the hell
-  void inlinePad(const char pad, int num)
-  {
-    resize(length()+num, pad);
-  }
+  inline void inlinePad(const char pad, int num) { resize(length()+num, pad); }
 };
 
 extern bool isvowel(const char c);
-
 
 // used for easily defining buffer sizes
 #ifndef cElements
 #define cElements(x) (sizeof(x)/sizeof(x[0]))
 #endif
 
-template<class T> T convertTo(const sstring &s)
-{
+template<class T> T convertTo(const sstring &s) {
   T x;
-
-  if(typeid(x)==typeid(int)){
+  if (typeid(x) == typeid(int)) {
     return (T) strtol(s.c_str(), NULL, 10);
-  } else if(typeid(x)==typeid(float)){
+  } else if (typeid(x) == typeid(float)) {
     return (T) strtof(s.c_str(), NULL);
-  } else if(typeid(x)==typeid(double)){
+  } else if (typeid(x) == typeid(double)) {
     return (T) strtof(s.c_str(), NULL);
-  } else if(typeid(x)==typeid(unsigned int)){
+  } else if (typeid(x) == typeid(unsigned int)) {
     return (T) strtoll(s.c_str(), NULL, 10);
   } else {
     std::istringstream is(s);
-    if(!(is >> x)) // let failure convert to 0 with no warning.  we relied on
-      x=0;         // this (undefined) behavior with atoi, so we need it now
-
+    if (!(is >> x)) // let failure convert to 0 with no warning.  we relied on
+      x=0;          // this (undefined) behavior with atoi, so we need it now
     return x;
   }
 }

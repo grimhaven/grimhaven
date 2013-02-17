@@ -21,6 +21,9 @@ extern "C" {
 extern int max_stat(race_t, statTypeT);
 extern int min_stat(race_t, statTypeT);
 #endif
+extern int run_the_game();
+extern void generic_cleanup();
+extern const sstring xmlescape(const sstring &);
 extern wearSlotT slot_from_bit(int);
 extern void cleanCharBuf(char *);
 extern int split_string(const sstring &str, const sstring &sep, std::vector<sstring> &argv);
@@ -304,7 +307,6 @@ extern void sendAutoTips();
 extern int sstringncmp(const sstring, const sstring, unsigned int);
 extern void generate_obj_index();
 extern void generate_mob_index();
-extern void generic_cleanup();
 extern int listAccount(sstring, sstring &);
 extern std::vector<sstring> listAccountCharacters(sstring name);
 extern int numFifties(race_t, bool, sstring);

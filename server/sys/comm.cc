@@ -1662,7 +1662,7 @@ sstring UncategorizedComm::getClientText(){
 }
 
 sstring UncategorizedComm::getXML(){
-  return format("<uncategorized>%s</uncategorized>") % text.xmlescape();
+  return format("<uncategorized>%s</uncategorized>") % xmlescape(text);
 }
 
 // RoomExitComm
@@ -1681,7 +1681,7 @@ WhoListComm::WhoListComm(const sstring &w, bool o, int l, int i, bool ld,
   prof=p;
   title=t;
 }
-// CmdMsgComm
+
 CmdMsgComm::CmdMsgComm(const sstring &c, const sstring &t){
   cmd=c;
   text=t;
@@ -1697,11 +1697,9 @@ sstring CmdMsgComm::getClientText(){
 
 sstring CmdMsgComm::getXML(){
   return format("<cmdmsg cmd=\"%s\">%s</cmdmsg>") %
-    cmd.xmlescape() % text.xmlescape();
+    xmlescape(cmd) % xmlescape(text);
 }
 
-
-// TellComm
 TellFromComm::TellFromComm(const sstring &tt, const sstring &f,
                            const sstring &t, bool d, bool m){
   to=tt;
@@ -1710,27 +1708,17 @@ TellFromComm::TellFromComm(const sstring &tt, const sstring &f,
   drunk=d;
   mob=m;
 }
+
 TellToComm::TellToComm(const sstring &tt, const sstring &f, const sstring &t){
   to=tt;
   from=f;
   text=t;
 }
 
-
-// SnoopComm
 SnoopComm::SnoopComm(const sstring &v, const sstring &t){
   vict=v;
   text=t;
 }
-
-// SystemLogComm
-SystemLogComm::SystemLogComm(time_t t, logTypeT l, const sstring &txt){
-  logtime=t;
-  logtype=l;
-  text=txt;
-}
-
-// LoginComm
 
 LoginComm::LoginComm(const sstring &p, const sstring &t){
   prompt=p;
@@ -1749,7 +1737,6 @@ PromptComm::PromptComm(time_t t, int h, int m, float p, int l, int mv, int g, in
   text=txt;
 }
 
-// SoundComm
 SoundComm::SoundComm(const sstring &st, const sstring &u, const sstring &s, const sstring &t, int v, int p, int r, int c){
   soundtype=st;
   url=u;
@@ -1760,3 +1747,246 @@ SoundComm::SoundComm(const sstring &st, const sstring &u, const sstring &s, cons
   repeats=r;
   cont=c;
 }
+
+const sstring xmlescape(const sstring &s) {
+  sstring buf = "";
+
+  boost::regex e("(^|[^<])<.>");
+  boost::sregex_iterator m(s.begin(), s.end(), e);
+  boost::sregex_iterator last_m;
+  boost::sregex_iterator end;
+  char code;
+
+  for (; m != end; m++) {
+    buf.append((*m).prefix());
+    buf.append((*m)[1]);
+
+    if ((*m)[0].str()[1] == '<')
+      code=(*m)[0].str()[2];
+    else
+      code=(*m)[0].str()[1];
+
+    switch(code){
+      case 'h':
+        buf.append(Config.mud_name());
+        break;
+      case 'H':
+        buf.append(Config.mud_name_version());
+        break;
+      case 'R':
+        buf.append(ANSI_RED_BOLD);
+        break;
+      case 'r':
+        buf.append(ANSI_NORMAL);
+        buf.append(ANSI_RED);
+        break;
+      case 'G':
+        buf.append(ANSI_GREEN_BOLD);
+        break;
+      case 'g':
+        buf.append(ANSI_NORMAL);
+        buf.append(ANSI_GREEN);
+        break;
+      case 'y':
+        buf.append(ANSI_ORANGE_BOLD);
+        break;
+      case 'Y':
+        buf.append(ANSI_ORANGE_BOLD);
+        break;
+      case 'o':
+        buf.append(ANSI_NORMAL);
+        buf.append(ANSI_ORANGE);
+        break;
+      case 'O':
+        buf.append(ANSI_NORMAL);
+        buf.append(ANSI_ORANGE);
+        break;
+      case 'B':
+        buf.append(ANSI_BLUE_BOLD);
+        break;
+      case 'b':
+        buf.append(ANSI_NORMAL);
+        buf.append(ANSI_BLUE);
+        break;
+      case 'P':
+        buf.append(ANSI_PURPLE_BOLD);
+        break;
+      case 'p':
+        buf.append(ANSI_NORMAL);
+        buf.append(ANSI_PURPLE);
+        break;
+      case 'C':
+        buf.append(ANSI_CYAN_BOLD);
+        break;
+      case 'c':
+        buf.append(ANSI_NORMAL);
+        buf.append(ANSI_CYAN);
+        break;
+      case 'W':
+        buf.append(ANSI_WHITE_BOLD);
+        break;
+      case 'w':
+        buf.append(ANSI_NORMAL);
+        buf.append(ANSI_WHITE);
+        break;
+      case 'k':
+        buf.append(VT_BOLDTEX);
+        buf.append(ANSI_BLACK);
+        break;
+      case 'K':
+        buf.append(ANSI_NORMAL);
+        buf.append(ANSI_BLACK);
+        break;
+      case 'A':
+        buf.append(VT_BOLDTEX);
+        buf.append(ANSI_UNDER);
+        break;
+      case 'a':
+        buf.append(ANSI_UNDER);
+        break;
+      case 'D':
+        buf.append(VT_BOLDTEX);
+        break;
+      case 'd':
+        buf.append(VT_BOLDTEX);
+        break;
+      case 'F':
+        buf.append(ANSI_FLASH);
+        break;
+      case 'f':
+        buf.append(ANSI_FLASH);
+        break;
+      case 'i':
+        buf.append(VT_INVERTT);
+        break;
+      case 'I':
+        buf.append(VT_INVERTT);
+        break;
+      case 'e':
+        buf.append(ANSI_BK_ON_WH);
+        break;
+      case 'E':
+        buf.append(ANSI_BK_ON_WH);
+        break;
+      case 'j':
+        buf.append(ANSI_BK_ON_BK);
+        break;
+      case 'J':
+        buf.append(ANSI_BK_ON_BK);
+        break;
+      case 'l':
+        buf.append(ANSI_WH_ON_RD);
+        break;
+      case 'L':
+        buf.append(ANSI_WH_ON_RD);
+        break;
+      case 'q':
+        buf.append(ANSI_WH_ON_GR);
+        break;
+      case 'Q':
+        buf.append(ANSI_WH_ON_GR);
+        break;
+      case 't':
+        buf.append(ANSI_WH_ON_OR);
+        break;
+      case 'T':
+        buf.append(ANSI_WH_ON_OR);
+        break;
+      case 'u':
+        buf.append(ANSI_WH_ON_BL);
+        break;
+      case 'U':
+        buf.append(ANSI_WH_ON_BL);
+        break;
+      case 'v':
+        buf.append(ANSI_WH_ON_PR);
+        break;
+      case 'V':
+        buf.append(ANSI_WH_ON_PR);
+        break;
+      case 'x':
+        buf.append(ANSI_WH_ON_CY);
+        break;
+      case 'X':
+        buf.append(ANSI_WH_ON_CY);
+        break;
+      case 'z':
+        buf.append(ANSI_NORMAL);
+        break;
+      case 'Z':
+        buf.append(ANSI_NORMAL);
+        break;
+      case '1':
+        buf.append(ANSI_NORMAL);
+        break;
+    }
+    last_m = m;
+  }
+  if (last_m != m)
+    buf.append((*last_m).suffix());
+  else
+    buf = s;
+
+  buf.inlineReplaceString("<<", "<");
+
+  // escape for xml
+  buf.inlineReplaceString("&", "&#38;");
+  buf.inlineReplaceString("<", "&#60;");
+  buf.inlineReplaceString(">", "&#62;");
+
+  // ansi font styles
+  buf.inlineReplaceString(VT_BOLDTEX, "<font style=\"bold\" />");
+  buf.inlineReplaceString(ANSI_UNDER, "<font style=\"under\" />");
+  buf.inlineReplaceString(VT_INVERTT, "<font style=\"invert\" />");
+  buf.inlineReplaceString(ANSI_FLASH, "<font style=\"flash\" />");
+  // ansi font colors
+  buf.inlineReplaceString(ANSI_WHITE, "<font color=\"white\" />");
+  buf.inlineReplaceString(ANSI_BLACK, "<font color=\"black\" />");
+  buf.inlineReplaceString(ANSI_RED, "<font color=\"red\" />");
+  buf.inlineReplaceString(ANSI_NORMAL, "<font color=\"norm\" />");
+  buf.inlineReplaceString(ANSI_BLUE, "<font color=\"blue\" />");
+  buf.inlineReplaceString(ANSI_CYAN, "<font color=\"cyan\" />");
+  buf.inlineReplaceString(ANSI_GREEN, "<font color=\"green\" />");
+  buf.inlineReplaceString(ANSI_ORANGE, "<font color=\"orange\" />");
+  buf.inlineReplaceString(ANSI_PURPLE, "<font color=\"purple\" />");
+
+  // colors with styles
+  buf.inlineReplaceString(ANSI_RED_BOLD,
+                          "<font style=\"bold\" color=\"red\" />");
+  buf.inlineReplaceString(ANSI_GREEN_BOLD,
+                          "<font style=\"bold\" color=\"green\" />");
+  buf.inlineReplaceString(ANSI_ORANGE_BOLD,
+                          "<font style=\"bold\" color=\"orange\" />");
+  buf.inlineReplaceString(ANSI_YELLOW_BOLD,
+                          "<font style=\"bold\" color=\"yellow\" />");
+  buf.inlineReplaceString(ANSI_BLUE_BOLD,
+                          "<font style=\"bold\" color=\"blue\" />");
+  buf.inlineReplaceString(ANSI_PURPLE_BOLD,
+                          "<font style=\"bold\" color=\"purple\" />");
+  buf.inlineReplaceString(ANSI_CYAN_BOLD,
+                          "<font style=\"bold\" color=\"cyan\" />");
+  buf.inlineReplaceString(ANSI_WHITE_BOLD,
+                          "<font style=\"bold\" color=\"white\" />");
+
+  // colors with background
+  buf.inlineReplaceString(ANSI_BK_ON_BK,
+                          "<font bgcolor=\"black\" color=\"black\" />");
+  buf.inlineReplaceString(ANSI_BK_ON_WH,
+                          "<font bgcolor=\"white\" color=\"black\" />");
+  buf.inlineReplaceString(ANSI_WH_ON_BL,
+                          "<font bgcolor=\"blue\" color=\"white\" />");
+  buf.inlineReplaceString(ANSI_WH_ON_CY,
+                          "<font bgcolor=\"cyan\" color=\"white\" />");
+  buf.inlineReplaceString(ANSI_WH_ON_GR,
+                          "<font bgcolor=\"green\" color=\"white\" />");
+  buf.inlineReplaceString(ANSI_WH_ON_OR,
+                          "<font bgcolor=\"orange\" color=\"white\" />");
+  buf.inlineReplaceString(ANSI_WH_ON_PR,
+                          "<font bgcolor=\"purple\" color=\"white\" />");
+  buf.inlineReplaceString(ANSI_WH_ON_RD,
+                          "<font bgcolor=\"red\" color=\"white\" />");
+
+  return buf;
+}
+
+

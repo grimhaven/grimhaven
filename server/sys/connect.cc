@@ -1,10 +1,7 @@
 #include <stdio.h>
-
 #include <csignal>
 #include <cstdarg>
 #include <errno.h>
-
-extern "C" {
 #include <dirent.h>
 #include <unistd.h>
 #include <sys/socket.h>
@@ -18,7 +15,6 @@ extern "C" {
 #include <arpa/telnet.h>
 #include <arpa/inet.h>
 #include <sys/stat.h>
-}
 
 #include "misc/extern.h"
 #include "misc/being.h"
@@ -440,7 +436,7 @@ sstring SnoopComm::getClientText(){
 
 sstring SnoopComm::getXML(){
   return format("<snoop victim=\"%s\">%s</snoop>") %
-    vict.xmlescape() % text.xmlescape();
+    xmlescape(vict) % xmlescape(text);
 }
 
 int Descriptor::outputProcessing()
@@ -2425,7 +2421,7 @@ sstring PromptComm::getClientText(){
 sstring PromptComm::getXML(){
   return format("<prompt time=\"%i\" hp=\"%i\" mana=\"%i\" piety=\"%f\" lifeforce=\"%i\" moves=\"%i\" money=\"%i\" room=\"%i\">%s</prompt>") %
     time % hp % mana % piety % lifeforce % moves % money % room %
-    text.xmlescape();
+    xmlescape(text);
 }
 
 
@@ -2989,7 +2985,7 @@ sstring LoginComm::getClientText(){
 
 sstring LoginComm::getXML(){
   return format("<login prompt=\"%s\">%s</login>") %
-    prompt.xmlescape() % text.xmlescape();
+    xmlescape(prompt) % xmlescape(text);
 }
 
 // return DELETE_THIS
