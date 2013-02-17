@@ -6,7 +6,7 @@
 #include <map>
 #include <cstdarg>
 
-#include "sys/sstring.h"
+#include "util/sstring.h"
 #include "logging.h"
 
 

@@ -1,7 +1,7 @@
 #ifndef SERVER_MISC_ACCOUNT_H_
 #define SERVER_MISC_ACCOUNT_H_
 
-#include "sys/sstring.h"
+#include "util/sstring.h"
 #include "sys/connect.h" // termTypeT
 
 

@@ -1,7 +1,7 @@
 #ifndef SERVER_SPEC_OBJS_LOTTERY_TICKET_H_
 #define SERVER_SPEC_OBJS_LOTTERY_TICKET_H_
 
-#include "sys/sstring.h"
+#include "util/sstring.h"
 
 const int NUM_LOTTERY_PRIZES=10;
 

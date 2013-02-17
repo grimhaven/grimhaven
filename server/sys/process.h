@@ -1,7 +1,7 @@
 #ifndef SERVER_SYS_PROCESS_H_
 #define SERVER_SYS_PROCESS_H_
 
-#include "sys/sstring.h"
+#include "util/sstring.h"
 #include "sys/comm.h"
 #include "misc/obj.h"
 #include "sys/timing.h"

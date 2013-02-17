@@ -1,7 +1,7 @@
 #ifndef SERVER_MISC_GARBLE_H_
 #define SERVER_MISC_GARBLE_H_
 
-#include "sys/sstring.h"
+#include "util/sstring.h"
 
 #ifndef cElements
 #define cElements(x) (sizeof(x)/sizeof(x[0]))

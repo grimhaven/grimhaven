@@ -1,7 +1,7 @@
 #ifndef SERVER_MISC_CORPORATION_H_
 #define SERVER_MISC_CORPORATION_H_
 
-#include "sys/sstring.h"
+#include "util/sstring.h"
 
 class TBeing;
 

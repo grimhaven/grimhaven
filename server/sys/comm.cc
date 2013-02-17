@@ -35,7 +35,7 @@ extern "C" {
 #include "spec/mobs.h"
 #include "misc/weather.h"
 #include "sys/ansi.h"
-#include "sys/sstring.h"
+#include "util/sstring.h"
 
 const int PACKET_BUFFER_SIZE = 40960;
 const int MAX_HOSTNAME =   256;

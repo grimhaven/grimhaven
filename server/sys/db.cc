@@ -7,7 +7,7 @@
 #include "misc/person.h"
 #include "misc/monster.h"
 #include "misc/guild.h"
-#include "sys/sstring.h"
+#include "util/sstring.h"
 #include "sys/tsocket.h"
 #include "sys/colorstring.h"
 #include "misc/statistics.h"

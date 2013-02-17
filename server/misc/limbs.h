@@ -2,7 +2,7 @@
 #define SERVER_MISC_LIMBS_H_
 
 #include "misc/discipline.h"
-#include "sys/sstring.h"
+#include "util/sstring.h"
 #include "misc/spells.h"
 
 const int LIMB_NONE        = -1;

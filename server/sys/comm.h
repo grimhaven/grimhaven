@@ -2,7 +2,7 @@
 #define SERVER_SYS_COMM_H_
 
 #include "sys/ansi.h"
-#include "sys/sstring.h"
+#include "util/sstring.h"
 #include "misc/enum.h"
 
 class TThing;

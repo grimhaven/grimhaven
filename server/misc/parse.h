@@ -2,7 +2,7 @@
 #define SERVER_MISC_PARSE_H_
 
 #include <sstream>
-#include "sys/sstring.h"
+#include "util/sstring.h"
 #include "misc/enum.h"
 
 int search_block(const sstring &arg, const char * const *, bool);

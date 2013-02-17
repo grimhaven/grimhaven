@@ -1,7 +1,7 @@
 #ifndef SERVER_MISC_DISCIPLINE_H_
 #define SERVER_MISC_DISCIPLINE_H_
 
-#include "sys/sstring.h"
+#include "util/sstring.h"
 #include "misc/spells.h"
 #include "misc/structs.h"
 

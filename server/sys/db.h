@@ -4,7 +4,7 @@
 #include <map>
 
 #include "misc/structs.h"
-#include "sys/sstring.h"
+#include "util/sstring.h"
 
 #define WORLD_SIZE        50000
 #define ZONE_ROOM_RANDOM  -99

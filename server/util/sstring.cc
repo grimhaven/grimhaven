@@ -1,4 +1,4 @@
-#include "sys/sstring.h"
+#include "util/sstring.h"
 
 // have format() throw exceptions when a format string doesn't match its args
 //#define THROW_FORMAT_EXCEPTIONS
