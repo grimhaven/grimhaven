@@ -1,7 +1,7 @@
 #ifndef SERVER_SYS_LOGGING_H_
 #define SERVER_SYS_LOGGING_H_
 
-#include "sys/sstring.h"
+#include "util/sstring.h"
 
 enum LogSeverity {
   LOG_SILENT  = -2, // Log is recoreded but not echoed to immortals (anti-spam)

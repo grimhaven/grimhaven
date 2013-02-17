@@ -4,7 +4,7 @@
 
 #include "configuration.h"
 #include "logging.h"
-#include "sys/sstring.h"
+#include "util/sstring.h"
 #include "misc/extern.h"
 
 Configuration Config;

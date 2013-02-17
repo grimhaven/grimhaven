@@ -1,7 +1,7 @@
 #ifndef SERVER_SYS_CONFIGURATION_H_
 #define SERVER_SYS_CONFIGURATION_H_
 
-#include "sys/sstring.h"
+#include "util/sstring.h"
 
 class Configuration {
  public:
