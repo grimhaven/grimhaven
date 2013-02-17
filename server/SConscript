@@ -18,7 +18,7 @@ server_cxxflags = [
 # debugging mode flags
 server_cxxflags += [ '-g', '-O0', ]
 
-server_subdirs = [ 'cmd', 'disc', 'game', 'misc', 'obj', 'spec', 'sys', 'task', ]
+server_subdirs = [ 'cmd', 'disc', 'disc/shaman', 'game', 'misc', 'obj', 'spec', 'sys', 'task', ]
 
 Program(target = 'grimhaven',
         source = [ 'main.cc' ] + [ Glob(d + '/*.cc') for d in server_subdirs ],

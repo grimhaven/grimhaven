@@ -21,7 +21,7 @@
 #include "obj/magic_item.h"
 #include "misc/shopowned.h"
 #include "obj/casino_chip.h"
-#include "spec/objs_lottery_ticket.h"
+#include "spec/objs/lottery_ticket.h"
 #include "obj/component.h"
 #include "obj/potion.h"
 #include "spec/rooms.h"

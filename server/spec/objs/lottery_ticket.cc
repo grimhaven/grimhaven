@@ -1,4 +1,4 @@
-#include "spec/objs_lottery_ticket.h"
+#include "spec/objs/lottery_ticket.h"
 #include "misc/being.h"
 #include "misc/parse.h"
 #include "misc/obj.h"

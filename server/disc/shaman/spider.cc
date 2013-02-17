@@ -9,7 +9,7 @@
 #include "misc/disease.h"
 #include "misc/combat.h"
 #include "misc/spelltask.h"
-#include "disc/shaman_spider.h"
+#include "disc/shaman/spider.h"
 #include "obj/magic_item.h"
 #include "misc/combat.h"
 

@@ -4,7 +4,7 @@
 #include "misc/disease.h"
 #include "misc/combat.h"
 #include "misc/spelltask.h"
-#include "disc/shaman_skunk.h"
+#include "disc/shaman/skunk.h"
 #include "obj/magic_item.h"
 #include "misc/person.h"
 

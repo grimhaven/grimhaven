@@ -1,5 +1,5 @@
 #include "misc/monster.h"
-#include "spec/objs_lottery_ticket.h"
+#include "spec/objs/lottery_ticket.h"
 
 
 int lotteryRedeemer(TBeing *ch, cmdTypeT cmd, const char *, TMonster *myself, TObj *o)

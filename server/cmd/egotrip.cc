@@ -3,7 +3,7 @@
 #include "misc/room.h"
 #include "misc/being.h"
 #include "disc/shaman.h"
-#include "disc/shaman_healing.h"
+#include "disc/shaman/healing.h"
 #include "disc/fire.h"
 #include "disc/wrath.h"
 #include "disc/aegis.h"
