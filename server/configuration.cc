@@ -2,7 +2,7 @@
 
 #include <boost/program_options.hpp>
 
-#include "sys/configuration.h"
+#include "configuration.h"
 
 // massage certain options after loading
 void Configuration::setCompositeOptions(void) {

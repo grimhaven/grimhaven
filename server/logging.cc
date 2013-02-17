@@ -1,8 +1,8 @@
-#include <stdio.h>
 #include <execinfo.h>
+#include <cstdio>
 #include <map>
 
-#include "sys/logging.h"
+#include "logging.h"
 
 // number of levels to print in a backtrace
 const int MAX_TRACE_LEVELS = 10;
