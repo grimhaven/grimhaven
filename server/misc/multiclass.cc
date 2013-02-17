@@ -1,6 +1,6 @@
-#include "extern.h"
-#include "being.h"
-#include "person.h"
+#include "misc/extern.h"
+#include "misc/being.h"
+#include "misc/person.h"
 
 int NumClasses(int Class)
 {

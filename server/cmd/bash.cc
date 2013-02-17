@@ -1,10 +1,10 @@
-#include "being.h"
-#include "combat.h"
-#include "obj_base_clothing.h"
-#include "being.h"
-#include "room.h"
-#include "extern.h"
-#include "handler.h"
+#include "misc/being.h"
+#include "misc/combat.h"
+#include "obj/base_clothing.h"
+#include "misc/being.h"
+#include "misc/room.h"
+#include "misc/extern.h"
+#include "sys/handler.h"
 
 bool TBeing::canBash(TBeing *victim, silentTypeT silent)
 {

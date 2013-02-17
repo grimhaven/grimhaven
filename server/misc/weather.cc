@@ -1,14 +1,14 @@
 #include <cmath>
 
-#include "weather.h"
-#include "room.h"
-#include "extern.h"
-#include "being.h"
-#include "person.h"
-#include "colorstring.h"
-#include "monster.h"
-#include "obj_trash_pile.h"
-#include "process.h"
+#include "misc/weather.h"
+#include "misc/room.h"
+#include "misc/extern.h"
+#include "misc/being.h"
+#include "misc/person.h"
+#include "sys/colorstring.h"
+#include "misc/monster.h"
+#include "obj/trash_pile.h"
+#include "sys/process.h"
 
 // static data defs
 int Weather::pressure;

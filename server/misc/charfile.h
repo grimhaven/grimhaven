@@ -1,11 +1,11 @@
 #ifndef __CHARFILE_H
 #define __CHARFILE_H
 
-#include "limbs.h"
-#include "stats.h"
-#include "ansi.h"
-#include "faction.h"
-#include "obj.h"
+#include "misc/limbs.h"
+#include "misc/stats.h"
+#include "sys/ansi.h"
+#include "misc/faction.h"
+#include "misc/obj.h"
 
 class charFile {
   public:

@@ -1,6 +1,6 @@
-#include "monster.h"
-#include "obj_keyring.h"
-#include "obj_key.h"
+#include "misc/monster.h"
+#include "obj/keyring.h"
+#include "obj/key.h"
 
 TKeyring::TKeyring() :
   TExpandableContainer()

@@ -1,6 +1,6 @@
-#include "liquids.h"
-#include "enum.h"
-#include "structs.h"
+#include "misc/liquids.h"
+#include "misc/enum.h"
+#include "misc/structs.h"
 
 liqEntry *liqInfoT::operator[] (const liqTypeT i)
 {

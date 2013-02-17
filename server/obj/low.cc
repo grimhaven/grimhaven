@@ -1,14 +1,14 @@
 #include <cmath>
 #include <algorithm>
 
-#include "immunity.h"
-#include "statistics.h"
-#include "combat.h"
-#include "obj_base_weapon.h"
-#include "obj_base_clothing.h"
-#include "obj_worn.h"
-#include "obj_jewelry.h"
-#include "obj_low.h"
+#include "misc/immunity.h"
+#include "misc/statistics.h"
+#include "misc/combat.h"
+#include "obj/base_weapon.h"
+#include "obj/base_clothing.h"
+#include "obj/worn.h"
+#include "obj/jewelry.h"
+#include "obj/low.h"
 
 /*-------------------------------------------------------------------
   New LOW classification rules for gear

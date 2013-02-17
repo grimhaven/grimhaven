@@ -1,15 +1,15 @@
 #include <stdio.h>
 
-#include "room.h"
-#include "being.h"
-#include "extern.h"
-#include "colorstring.h"
-#include "low.h"
-#include "obj_table.h"
-#include "obj_seethru.h"
-#include "database.h"
-#include "person.h"
-#include "weather.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/extern.h"
+#include "sys/colorstring.h"
+#include "misc/low.h"
+#include "obj/table.h"
+#include "obj/seethru.h"
+#include "sys/database.h"
+#include "misc/person.h"
+#include "misc/weather.h"
 
 const char *room_fields[] =
 {

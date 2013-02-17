@@ -1,7 +1,7 @@
-#include "handler.h"
-#include "being.h"
-#include "combat.h"
-#include "obj_base_weapon.h"
+#include "sys/handler.h"
+#include "misc/being.h"
+#include "misc/combat.h"
+#include "obj/base_weapon.h"
 
 static int deathstroke(TBeing *caster, TBeing *victim)
 {

@@ -1,8 +1,8 @@
-#include "obj_base_container.h"
-#include "obj_poison.h"
-#include "monster.h"
-#include "shop.h"
-#include "liquids.h"
+#include "obj/base_container.h"
+#include "obj/poison.h"
+#include "misc/monster.h"
+#include "misc/shop.h"
+#include "misc/liquids.h"
 
 TPoison::TPoison() :
   TBaseCup()

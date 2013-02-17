@@ -1,11 +1,11 @@
-#include "handler.h"
-#include "extern.h"
-#include "room.h"
-#include "being.h"
-#include "combat.h"
-#include "enum.h"
-#include "spells.h"
-#include "being.h"
+#include "sys/handler.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/combat.h"
+#include "misc/enum.h"
+#include "misc/spells.h"
+#include "misc/being.h"
 
 bool TBeing::canBodyslam(TBeing *victim, silentTypeT silent)
 {

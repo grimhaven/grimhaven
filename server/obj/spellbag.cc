@@ -1,8 +1,8 @@
-#include "comm.h"
-#include "obj_spellbag.h"
-#include "obj_component.h"
-#include "thing.h"
-#include "being.h"
+#include "sys/comm.h"
+#include "obj/spellbag.h"
+#include "obj/component.h"
+#include "misc/thing.h"
+#include "misc/being.h"
 
 TSpellBag::TSpellBag() :
   TExpandableContainer()

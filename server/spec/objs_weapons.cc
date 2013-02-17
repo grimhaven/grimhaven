@@ -1,17 +1,17 @@
 #include <stdio.h>
 
-#include "extern.h"
-#include "room.h"
-#include "handler.h"
-#include "low.h"
-#include "pathfinder.h"
-#include "materials.h"
-#include "obj_trap.h"
-#include "obj_base_weapon.h"
-#include "obj_general_weapon.h"
-#include "disc_fire.h"
-#include "being.h"
-#include "weather.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "sys/handler.h"
+#include "misc/low.h"
+#include "sys/pathfinder.h"
+#include "misc/materials.h"
+#include "obj/trap.h"
+#include "obj/base_weapon.h"
+#include "obj/general_weapon.h"
+#include "disc/fire.h"
+#include "misc/being.h"
+#include "misc/weather.h"
 
 int ghostlyShiv(TBeing *vict, cmdTypeT cmd, const char *arg, TObj *o, TObj *)
 {

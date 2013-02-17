@@ -1,11 +1,11 @@
 #include <stdio.h>
 
-#include "room.h"
-#include "handler.h"
-#include "extern.h"
-#include "low.h"
-#include "monster.h"
-#include "paths.h"
+#include "misc/room.h"
+#include "sys/handler.h"
+#include "misc/extern.h"
+#include "misc/low.h"
+#include "misc/monster.h"
+#include "misc/paths.h"
 
 int grimhavenPosse(TBeing *ch, cmdTypeT cmd, const char *, TMonster *myself, TObj *)
 {

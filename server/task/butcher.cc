@@ -1,12 +1,12 @@
-#include "comm.h"
-#include "low.h"
-#include "obj_base_corpse.h"
-#include "obj_tool.h"
-#include "obj_food.h"
-#include "being.h"
-#include "obj_base_weapon.h"
-#include "obj_player_corpse.h"
-#include "skills.h"
+#include "sys/comm.h"
+#include "misc/low.h"
+#include "obj/base_corpse.h"
+#include "obj/tool.h"
+#include "obj/food.h"
+#include "misc/being.h"
+#include "obj/base_weapon.h"
+#include "obj/player_corpse.h"
+#include "misc/skills.h"
 
 const static char *meats[]={"rib-eye steak", "chuck-eye steak", "skirt steak",
   "flank steak", "t-bone steak", "porterhouse steak",

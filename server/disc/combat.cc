@@ -1,11 +1,11 @@
-#include "handler.h"
-#include "extern.h"
-#include "being.h"
-#include "disease.h"
-#include "combat.h"
-#include "obj_component.h"
-#include "disc_combat.h"
-#include "obj_tool.h"
+#include "sys/handler.h"
+#include "misc/extern.h"
+#include "misc/being.h"
+#include "misc/disease.h"
+#include "misc/combat.h"
+#include "obj/component.h"
+#include "disc/combat.h"
+#include "obj/tool.h"
 
 void TBeing::doSharpen(const char *argument)
 {

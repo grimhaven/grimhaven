@@ -1,8 +1,8 @@
-#include "handler.h"
-#include "extern.h"
-#include "being.h"
-#include "combat.h"
-#include "obj_base_clothing.h"
+#include "sys/handler.h"
+#include "misc/extern.h"
+#include "misc/being.h"
+#include "misc/combat.h"
+#include "obj/base_clothing.h"
 
 static int grapple(TBeing *c, TBeing *victim, spellNumT skill)
 {

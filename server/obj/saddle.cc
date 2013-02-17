@@ -1,5 +1,5 @@
-#include "obj_base_clothing.h"
-#include "obj_saddle.h"
+#include "obj/base_clothing.h"
+#include "obj/saddle.h"
 
 TSaddle::TSaddle() :
   TBaseClothing()

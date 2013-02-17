@@ -1,10 +1,10 @@
-#include "room.h"
-#include "extern.h"
-#include "being.h"
-#include "low.h"
-#include "handler.h"
-#include "combat.h"
-#include "materials.h"
+#include "misc/room.h"
+#include "misc/extern.h"
+#include "misc/being.h"
+#include "misc/low.h"
+#include "sys/handler.h"
+#include "misc/combat.h"
+#include "misc/materials.h"
 
 bool TBeing::hasBoat() const
 {

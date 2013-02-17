@@ -1,7 +1,7 @@
 #ifndef __ENUM_H
 #define __ENUM_H
 
-#include "logging.h"
+#include "sys/logging.h"
 
 /* For 'Sector types' */
 enum sectorTypeT {

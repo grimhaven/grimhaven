@@ -1,10 +1,10 @@
-#include "extern.h"
-#include "room.h"
-#include "low.h"
-#include "obj_money.h"
-#include "person.h"
-#include "obj_table.h"
-#include "obj_portal.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "misc/low.h"
+#include "obj/money.h"
+#include "misc/person.h"
+#include "obj/table.h"
+#include "obj/portal.h"
 
 int objCastFaerieFire(TObj *o, TBeing *targ)
 {

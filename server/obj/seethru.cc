@@ -1,9 +1,9 @@
-#include "room.h"
-#include "low.h"
-#include "obj_seethru.h"
-#include "extern.h"
-#include "obj_window.h"
-#include "being.h" // for number()
+#include "misc/room.h"
+#include "misc/low.h"
+#include "obj/seethru.h"
+#include "misc/extern.h"
+#include "obj/window.h"
+#include "misc/being.h" // for number()
 
 TSeeThru::TSeeThru() :
   TObj(),

@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-#include "room.h"
-#include "handler.h"
-#include "monster.h"
+#include "misc/room.h"
+#include "sys/handler.h"
+#include "misc/monster.h"
 #include <deque>
 
 class organizer_struct {

@@ -1,6 +1,6 @@
-#include "extern.h"
-#include "being.h"
-#include "statistics.h"
+#include "misc/extern.h"
+#include "misc/being.h"
+#include "misc/statistics.h"
 
 double getSkillDiffModifier(spellNumT skill)
 {

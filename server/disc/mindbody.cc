@@ -1,4 +1,4 @@
-#include "disc_mindbody.h"
+#include "disc/mindbody.h"
 
 CDMindBody::CDMindBody() :
   CDiscipline(),

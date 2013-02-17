@@ -1,5 +1,5 @@
-#include "obj_casino_chip.h"
-#include "shop.h"
+#include "obj/casino_chip.h"
+#include "misc/shop.h"
 
 TCasinoChip::TCasinoChip() :
   TObj()

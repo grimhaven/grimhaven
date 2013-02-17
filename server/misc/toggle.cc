@@ -1,12 +1,12 @@
-#include "being.h"
-#include "client.h"
-#include "handler.h"
-#include "low.h"
-#include "monster.h"
-#include "configuration.h"
-#include "person.h"
-#include "account.h"
-#include "obj_player_corpse.h"
+#include "misc/being.h"
+#include "sys/client.h"
+#include "sys/handler.h"
+#include "misc/low.h"
+#include "misc/monster.h"
+#include "sys/configuration.h"
+#include "misc/person.h"
+#include "misc/account.h"
+#include "obj/player_corpse.h"
 
 TOGINFO TogIndex[MAX_TOG_INDEX + 1] =
 {

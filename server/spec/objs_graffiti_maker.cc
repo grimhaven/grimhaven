@@ -1,8 +1,8 @@
-#include "comm.h"
-#include "colorstring.h"
-#include "obj_tool.h"
-#include "being.h"
-#include "room.h"
+#include "sys/comm.h"
+#include "sys/colorstring.h"
+#include "obj/tool.h"
+#include "misc/being.h"
+#include "misc/room.h"
 
 const unsigned int GRAFFITI_MAX = 50;
 const int GRAFFITI_OBJ = 33315;

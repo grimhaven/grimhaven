@@ -1,13 +1,13 @@
 #ifndef __EXTERN_H
 #define __EXTERN_H
 
-#include "wiz_powers.h"
-#include "room.h"
-#include "immunity.h"
-#include "connect.h"
-#include "body.h"
-#include "race.h"
-#include "obj_drug.h"
+#include "misc/wiz_powers.h"
+#include "misc/room.h"
+#include "misc/immunity.h"
+#include "sys/connect.h"
+#include "misc/body.h"
+#include "misc/race.h"
+#include "obj/drug.h"
 
 struct PolyType;
 class charFile;
@@ -54,7 +54,7 @@ extern bool getall(const char *, char *);
 extern int getabunch(const char *, char *);
 extern bool is_number(const sstring &);
 extern void bisect_arg_safe(const char *, int *, char *, unsigned int, const char * const array[]);
-inline void bisect_arg(const char *in, int *nt, char *out, const char * const ar) {
+inline void bisect_arg(const char *in, int *nt, char *out, const char * const ar[]) {
     return bisect_arg_safe(in, nt, out, cElements(out), ar);
 }
 extern const float repair_mats_ratio;

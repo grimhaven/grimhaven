@@ -1,8 +1,8 @@
-#include "room.h"
-#include "being.h"
-#include "combat.h"
-#include "disc_mindbody.h"
-#include "monster.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/combat.h"
+#include "disc/mindbody.h"
+#include "misc/monster.h"
 
 static int feignDeath(TBeing * caster)
 {

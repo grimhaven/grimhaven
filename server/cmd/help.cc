@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-#include "extern.h"
-#include "being.h"
+#include "misc/extern.h"
+#include "misc/being.h"
 
 extern "C" {
 #include <unistd.h>
@@ -10,11 +10,11 @@ extern "C" {
 #include <dirent.h>
 }
 
-#include "help.h"
-#include "obj_component.h"
-#include "statistics.h"
-#include "systemtask.h"
-#include "database.h"
+#include "misc/help.h"
+#include "obj/component.h"
+#include "misc/statistics.h"
+#include "sys/systemtask.h"
+#include "sys/database.h"
 
 #define ARTICLE_LIST_WIDTH 80
 

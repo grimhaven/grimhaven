@@ -1,14 +1,14 @@
 #include <stdio.h>
 
-#include "handler.h"
-#include "extern.h"
-#include "room.h"
-#include "being.h"
-#include "disease.h"
-#include "combat.h"
-#include "disc_looting.h"
-#include "obj_trap.h"
-#include "obj_portal.h"
+#include "sys/handler.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/disease.h"
+#include "misc/combat.h"
+#include "disc/looting.h"
+#include "obj/trap.h"
+#include "obj/portal.h"
 
 int TBeing::doSearch(const char *argument)
 {

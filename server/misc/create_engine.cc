@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-#include "being.h"
-#include "create_engine.h"
-#include "extern.h"
+#include "misc/being.h"
+#include "misc/create_engine.h"
+#include "misc/extern.h"
 
 int appliedSubstanceCreateBalm  (TBeing *, cmdTypeT, int, TObj *),
     appliedSubstanceCreateSalve (TBeing *, cmdTypeT, int, TObj *),

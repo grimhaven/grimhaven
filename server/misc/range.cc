@@ -3,21 +3,21 @@
 #include <cmath>
 #include <map>
 
-#include "handler.h"
-#include "extern.h"
-#include "room.h"
-#include "being.h"
-#include "low.h"
-#include "monster.h"
-#include "range.h"
-#include "combat.h"
-#include "obj_quiver.h"
-#include "obj_bow.h"
-#include "obj_portal.h"
-#include "obj_arrow.h"
-#include "obj_gun.h"
-#include "pathfinder.h"
-#include "weather.h"
+#include "sys/handler.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/low.h"
+#include "misc/monster.h"
+#include "misc/range.h"
+#include "misc/combat.h"
+#include "obj/quiver.h"
+#include "obj/bow.h"
+#include "obj/portal.h"
+#include "obj/arrow.h"
+#include "obj/gun.h"
+#include "sys/pathfinder.h"
+#include "misc/weather.h"
 
 #define RANGE_DEBUG 0
 

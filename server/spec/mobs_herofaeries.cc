@@ -1,11 +1,11 @@
-#include "room.h"
-#include "low.h"
-#include "person.h"
-#include "monster.h"
-#include "db.h"
-#include "handler.h"
-#include "database.h"
-#include "spec_mobs.h"
+#include "misc/room.h"
+#include "misc/low.h"
+#include "misc/person.h"
+#include "misc/monster.h"
+#include "sys/db.h"
+#include "sys/handler.h"
+#include "sys/database.h"
+#include "spec/mobs.h"
 
 #define UNIQUE_TROPHY_FAERIE 33313
 #define PERMA_DEATH_FAERIE 33314

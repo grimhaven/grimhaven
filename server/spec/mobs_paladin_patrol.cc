@@ -1,9 +1,9 @@
-#include "low.h"
-#include "room.h"
-#include "monster.h"
-#include "paths.h"
-#include "pathfinder.h"
-#include "obj_commodity.h"
+#include "misc/low.h"
+#include "misc/room.h"
+#include "misc/monster.h"
+#include "misc/paths.h"
+#include "sys/pathfinder.h"
+#include "obj/commodity.h"
 
 int paladinPatrol(TBeing *ch, cmdTypeT cmd, const char *, TMonster *myself, TObj *)
 {

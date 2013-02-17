@@ -1,11 +1,11 @@
-#include "being.h"
-#include "obj_bow.h"
-#include "extern.h"
-#include "obj_arrow.h"
-#include "obj_quiver.h"
-#include "being.h"
-#include "room.h"
-#include "monster.h"
+#include "misc/being.h"
+#include "obj/bow.h"
+#include "misc/extern.h"
+#include "obj/arrow.h"
+#include "obj/quiver.h"
+#include "misc/being.h"
+#include "misc/room.h"
+#include "misc/monster.h"
 
 #define MAX_RANGE 3
 

@@ -1,13 +1,13 @@
-#include "handler.h"
-#include "room.h"
-#include "being.h"
-#include "create_engine.h"
-#include "extern.h"
-#include "obj_expandable_container.h"
-#include "obj_organic.h"
-#include "obj_arrow.h"
-#include "obj_flame.h"
-#include "obj_appliedsub.h"
+#include "sys/handler.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/create_engine.h"
+#include "misc/extern.h"
+#include "obj/expandable_container.h"
+#include "obj/organic.h"
+#include "obj/arrow.h"
+#include "obj/flame.h"
+#include "obj/appliedsub.h"
 
 TASubstance::TASubstance() :
   TObj(),

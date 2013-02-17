@@ -1,6 +1,6 @@
-#include "comm.h"
-#include "obj_base_weapon.h"
-#include "being.h"
+#include "sys/comm.h"
+#include "obj/base_weapon.h"
+#include "misc/being.h"
 
 /*
   Name: Blinder

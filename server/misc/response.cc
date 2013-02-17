@@ -1,7 +1,7 @@
-#include "response.h"
-#include "parse.h"
-#include "structs.h"
-#include "being.h"
+#include "misc/response.h"
+#include "misc/parse.h"
+#include "misc/structs.h"
+#include "misc/being.h"
 
 command::command() :
   cmd(MAX_CMD_LIST),

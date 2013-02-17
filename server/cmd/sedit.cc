@@ -7,16 +7,16 @@ extern "C" {
 #include <algorithm>
 #include <stdio.h>
 
-#include "extern.h"
-#include "handler.h"
-#include "room.h"
-#include "being.h"
-#include "low.h"
-#include "configuration.h"
-#include "combat.h"
-#include "dirsort.h"
-#include "person.h"
-#include "monster.h"
+#include "misc/extern.h"
+#include "sys/handler.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/low.h"
+#include "sys/configuration.h"
+#include "misc/combat.h"
+#include "misc/dirsort.h"
+#include "misc/person.h"
+#include "misc/monster.h"
 
 void seditAddMenu        (TBeing *, TMonster *, const char *, int);
 void seditDeleteMenu     (TBeing *, TMonster *, const char *, int);

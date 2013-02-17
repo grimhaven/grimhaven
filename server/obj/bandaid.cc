@@ -1,5 +1,5 @@
-#include "obj_bandaid.h"
-#include "being.h"
+#include "obj/bandaid.h"
+#include "misc/being.h"
 
 TBandaid::TBandaid() :
   TObj()

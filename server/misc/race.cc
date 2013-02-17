@@ -1,11 +1,11 @@
 #include <stdio.h>
 
-#include "extern.h"
-#include "being.h"
-#include "race.h"
-#include "obj_player_corpse.h"
-#include "obj_corpse.h"
-#include "garble.h"
+#include "misc/extern.h"
+#include "misc/being.h"
+#include "misc/race.h"
+#include "obj/player_corpse.h"
+#include "obj/corpse.h"
+#include "misc/garble.h"
 
 
 const char * RaceNames[MAX_RACIAL_TYPES] = {

@@ -1,9 +1,9 @@
 #include <unistd.h>
 #include <stdio.h>
 
-#include "extern.h"
-#include "being.h"
-#include "colorstring.h"
+#include "misc/extern.h"
+#include "misc/being.h"
+#include "sys/colorstring.h"
 
 messageTypeT mapMessageFromFile(const char tString);
 sstring mapMessageToFile(TMessages *tMsgStore, messageTypeT tType);

@@ -1,11 +1,11 @@
 #include <stdio.h>
 
-#include "extern.h"
-#include "monster.h"
-#include "handler.h"
-#include "obj_magic_item.h"
-#include "obj_wand.h"
-#include "materials.h"
+#include "misc/extern.h"
+#include "misc/monster.h"
+#include "sys/handler.h"
+#include "obj/magic_item.h"
+#include "obj/wand.h"
+#include "misc/materials.h"
 
 
 TWand::TWand() :

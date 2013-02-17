@@ -1,18 +1,18 @@
 #include <stdio.h>
 
-#include "handler.h"
-#include "extern.h"
-#include "room.h"
-#include "being.h"
-#include "low.h"
-#include "monster.h"
-#include "combat.h"
-#include "statistics.h"
-#include "obj_base_corpse.h"
-#include "database.h"
-#include "person.h"
-#include "cmd_trophy.h"
-#include "configuration.h"
+#include "sys/handler.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/low.h"
+#include "misc/monster.h"
+#include "misc/combat.h"
+#include "misc/statistics.h"
+#include "obj/base_corpse.h"
+#include "sys/database.h"
+#include "misc/person.h"
+#include "cmd/trophy.h"
+#include "sys/configuration.h"
 
 // there is another one of these defines in combat.cc
 #define DAMAGE_DEFINE 0

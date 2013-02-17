@@ -1,4 +1,4 @@
-#include "disc_slash.h"
+#include "disc/slash.h"
 
 CDSlash::CDSlash() :
   CDiscipline(),

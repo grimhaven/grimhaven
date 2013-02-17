@@ -2,18 +2,18 @@
 
 #include <stdarg.h>
 
-#include "handler.h"
-#include "extern.h"
-#include "room.h"
-#include "being.h"
-#include "client.h"
-#include "colorstring.h"
-#include "monster.h"
-#include "person.h"
-#include "disease.h"
-#include "obj_pen.h"
-#include "obj_note.h"
-#include "database.h"
+#include "sys/handler.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "sys/client.h"
+#include "sys/colorstring.h"
+#include "misc/monster.h"
+#include "misc/person.h"
+#include "misc/disease.h"
+#include "obj/pen.h"
+#include "obj/note.h"
+#include "sys/database.h"
 
 void TBeing::disturbMeditation(TBeing *vict) const
 {

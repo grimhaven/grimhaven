@@ -1,13 +1,13 @@
-#include "handler.h"
-#include "monster.h"
-#include "database.h"
-#include "shop.h"
-#include "shopowned.h"
-#include "rent.h"
-#include "extern.h"
-#include "corporation.h"
-#include "room.h"
-#include "process.h"
+#include "sys/handler.h"
+#include "misc/monster.h"
+#include "sys/database.h"
+#include "misc/shop.h"
+#include "misc/shopowned.h"
+#include "misc/rent.h"
+#include "misc/extern.h"
+#include "misc/corporation.h"
+#include "misc/room.h"
+#include "sys/process.h"
 
 sstring getPlayerName(int id)
 {

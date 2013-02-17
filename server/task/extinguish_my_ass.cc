@@ -1,6 +1,6 @@
-#include "being.h"
-#include "room.h"
-#include "obj.h"
+#include "misc/being.h"
+#include "misc/room.h"
+#include "misc/obj.h"
 
 int task_extinguish_my_ass(TBeing *ch, cmdTypeT cmd, const char *arg, int pulse, TRoom *, TObj *)
 {

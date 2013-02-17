@@ -1,18 +1,18 @@
 #include <stdio.h>
 
-#include "handler.h"
-#include "extern.h"
-#include "room.h"
-#include "being.h"
-#include "low.h"
-#include "monster.h"
-#include "disease.h"
-#include "combat.h"
-#include "spelltask.h"
-#include "disc_shaman_frog.h"
-#include "obj_magic_item.h"
-#include "person.h"
-#include "weather.h"
+#include "sys/handler.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/low.h"
+#include "misc/monster.h"
+#include "misc/disease.h"
+#include "misc/combat.h"
+#include "misc/spelltask.h"
+#include "disc/shaman_frog.h"
+#include "obj/magic_item.h"
+#include "misc/person.h"
+#include "misc/weather.h"
 
 int vampireTransform(TBeing *ch)
 {

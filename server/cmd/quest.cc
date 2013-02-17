@@ -1,9 +1,9 @@
 #include <stdio.h>
 
-#include "extern.h"
-#include "being.h"
-#include "person.h"
-#include "race.h"
+#include "misc/extern.h"
+#include "misc/being.h"
+#include "misc/person.h"
+#include "misc/race.h"
 
 bool TBeing::hasQuestBit(int value) const
 {

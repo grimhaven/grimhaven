@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-#include "monster.h"
-#include "obj_open_container.h"
-#include "obj_keyring.h"
-#include "obj_key.h"
-#include "database.h"
+#include "misc/monster.h"
+#include "obj/open_container.h"
+#include "obj/keyring.h"
+#include "obj/key.h"
+#include "sys/database.h"
 
 TKey::TKey() :
   TObj()

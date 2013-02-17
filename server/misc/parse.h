@@ -2,8 +2,8 @@
 #define __PARSE_H
 
 #include <sstream>
-#include "sstring.h"
-#include "enum.h"
+#include "sys/sstring.h"
+#include "misc/enum.h"
 
 int search_block(const sstring &arg, const char * const *, bool);
 int old_search_block(const char *, int, int, const char * const *, bool);

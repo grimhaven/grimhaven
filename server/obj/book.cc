@@ -1,9 +1,9 @@
 #include <stdio.h>
 
-#include "client.h"
-#include "being.h"
-#include "obj_book.h"
-#include "extern.h"
+#include "sys/client.h"
+#include "misc/being.h"
+#include "obj/book.h"
+#include "misc/extern.h"
 
 TBook::TBook() :
   TObj()

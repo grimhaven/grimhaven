@@ -1,12 +1,12 @@
 #include <stdio.h>
 
-#include "low.h"
-#include "monster.h"
-#include "obj_base_corpse.h"
-#include "pathfinder.h"
-#include "room.h"
-#include "handler.h"
-#include "spec_mobs.h"
+#include "misc/low.h"
+#include "misc/monster.h"
+#include "obj/base_corpse.h"
+#include "sys/pathfinder.h"
+#include "misc/room.h"
+#include "sys/handler.h"
+#include "spec/mobs.h"
 
 // returns DELETE_THIS
 int goToMorgue(TBeing *myself)

@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-#include "being.h"
-#include "statistics.h"
-#include "systemtask.h"
-#include "extern.h"
-#include "process.h"
+#include "misc/being.h"
+#include "misc/statistics.h"
+#include "sys/systemtask.h"
+#include "misc/extern.h"
+#include "sys/process.h"
 
 GameStats stats;
 // statistics for info command

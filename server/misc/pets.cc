@@ -1,9 +1,9 @@
-#include "handler.h"
-#include "being.h"
-#include "monster.h"
-#include "room.h"
-#include "extern.h"
-#include "database.h"
+#include "sys/handler.h"
+#include "misc/being.h"
+#include "misc/monster.h"
+#include "misc/room.h"
+#include "misc/extern.h"
+#include "sys/database.h"
 
 /* **********************************************************************
 Every mob that follows a PC should be classified as one of the following:

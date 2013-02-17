@@ -1,13 +1,13 @@
 #include <stdio.h>
 
-#include "being.h"
-#include "games.h"
-#include "obj_money.h"
-#include "room.h"
-#include "handler.h"
-#include "game_crazyeights.h"
-#include "game_drawpoker.h"
-#include "connect.h"
+#include "misc/being.h"
+#include "game/games.h"
+#include "obj/money.h"
+#include "misc/room.h"
+#include "sys/handler.h"
+#include "game/crazyeights.h"
+#include "game/drawpoker.h"
+#include "sys/connect.h"
 
 void spin_slot(TBeing *ch);
 

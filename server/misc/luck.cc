@@ -1,5 +1,5 @@
-#include "being.h"
-#include "extern.h"
+#include "misc/being.h"
+#include "misc/extern.h"
 
 // assumption is that mod/20 is "level" of the effect being defended against
 bool TBeing::isLucky(int mod) const

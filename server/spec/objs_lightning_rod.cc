@@ -4,11 +4,11 @@
 
 ******************************************************************************/
 
-#include "room.h"
-#include "obj_base_weapon.h"
-#include "being.h"
-#include "obj_base_clothing.h"
-#include "weather.h"
+#include "misc/room.h"
+#include "obj/base_weapon.h"
+#include "misc/being.h"
+#include "obj/base_clothing.h"
+#include "misc/weather.h"
 
 using std::max;
 

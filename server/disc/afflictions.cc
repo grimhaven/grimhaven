@@ -1,12 +1,12 @@
 #include <stdio.h>
 
-#include "being.h"
-#include "extern.h"
-#include "monster.h"
-#include "disease.h"
-#include "combat.h"
-#include "disc_afflictions.h"
-#include "obj_magic_item.h"
+#include "misc/being.h"
+#include "misc/extern.h"
+#include "misc/monster.h"
+#include "misc/disease.h"
+#include "misc/combat.h"
+#include "disc/afflictions.h"
+#include "obj/magic_item.h"
 
 // returns DELETE_VICT
 static int injureLimbs(TBeing *ch, TBeing *victim, spellNumT skill, int level, int adv_learn)

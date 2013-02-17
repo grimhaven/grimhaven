@@ -1,15 +1,15 @@
 #include <stdio.h>
 
-#include "extern.h"
-#include "handler.h"
-#include "room.h"
-#include "being.h"
-#include "low.h"
-#include "configuration.h"
-#include "combat.h"
-#include "spelltask.h"
-#include "monster.h"
-#include "person.h"
+#include "misc/extern.h"
+#include "sys/handler.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/low.h"
+#include "sys/configuration.h"
+#include "misc/combat.h"
+#include "misc/spelltask.h"
+#include "misc/monster.h"
+#include "misc/person.h"
 
 static unsigned int num_fighting = 0;
 static unsigned long left1 = 0;

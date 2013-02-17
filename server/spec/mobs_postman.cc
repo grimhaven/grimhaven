@@ -1,7 +1,7 @@
-#include "low.h"
-#include "room.h"
-#include "monster.h"
-#include "extern.h"
+#include "misc/low.h"
+#include "misc/room.h"
+#include "misc/monster.h"
+#include "misc/extern.h"
 
 sstring randommessage(sstring from)
 {

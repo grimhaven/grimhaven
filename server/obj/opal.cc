@@ -1,9 +1,9 @@
 #include <stdio.h>
 
-#include "monster.h"
-#include "extern.h"
-#include "materials.h"
-#include "obj_opal.h"
+#include "misc/monster.h"
+#include "misc/extern.h"
+#include "misc/materials.h"
+#include "obj/opal.h"
 
 TOpal::TOpal() :
   TObj(),

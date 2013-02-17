@@ -1,11 +1,11 @@
 #include <stdio.h>
 
-#include "being.h"
-#include "monster.h"
-#include "games.h"
-#include "extern.h"
-#include "handler.h"
-#include "game_drawpoker.h"
+#include "misc/being.h"
+#include "misc/monster.h"
+#include "game/games.h"
+#include "misc/extern.h"
+#include "sys/handler.h"
+#include "game/drawpoker.h"
 
 DrawPokerGame gDrawPoker;
 

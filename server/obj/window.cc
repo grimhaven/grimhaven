@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-#include "extern.h"
-#include "handler.h"
-#include "room.h"
-#include "being.h"
-#include "obj_window.h"
+#include "misc/extern.h"
+#include "sys/handler.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "obj/window.h"
 
 TWindow::TWindow() :
   TSeeThru()

@@ -5,21 +5,21 @@
 #include <sys/types.h>
 #include <dirent.h>
 
-#include "handler.h"
-#include "low.h"
-#include "extern.h"
-#include "monster.h"
-#include "configuration.h"
-#include "statistics.h"
-#include "account.h"
-#include "obj_note.h"
-#include "shop.h"
-#include "database.h"
-#include "shopowned.h"
-#include "rent.h"
-#include "obj_commodity.h"
-#include "materials.h"
-#include "spec_mobs.h"
+#include "sys/handler.h"
+#include "misc/low.h"
+#include "misc/extern.h"
+#include "misc/monster.h"
+#include "sys/configuration.h"
+#include "misc/statistics.h"
+#include "misc/account.h"
+#include "obj/note.h"
+#include "misc/shop.h"
+#include "sys/database.h"
+#include "misc/shopowned.h"
+#include "misc/rent.h"
+#include "obj/commodity.h"
+#include "misc/materials.h"
+#include "spec/mobs.h"
 
 extern int kick_mobs_from_shop(TMonster *myself, TBeing *ch, int from_room);
 

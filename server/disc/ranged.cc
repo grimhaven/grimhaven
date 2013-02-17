@@ -1,9 +1,9 @@
 #include <stdio.h>
 
-#include "being.h"
-#include "disc_ranged.h"
-#include "obj_bow.h"
-#include "obj_tool.h"
+#include "misc/being.h"
+#include "disc/ranged.h"
+#include "obj/bow.h"
+#include "obj/tool.h"
 
 void TThing::sstringMeBow(TBeing *ch, TThing *)
 {

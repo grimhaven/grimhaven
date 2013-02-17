@@ -1,13 +1,13 @@
-#include "comm.h"
-#include "room.h"
-#include "low.h"
-#include "extern.h"
-#include "obj_gas.h"
-#include "pathfinder.h"
-#include "obj_portal.h"
-#include "being.h"
-#include "obj_plant.h"
-#include "materials.h"
+#include "sys/comm.h"
+#include "misc/room.h"
+#include "misc/low.h"
+#include "misc/extern.h"
+#include "obj/gas.h"
+#include "sys/pathfinder.h"
+#include "obj/portal.h"
+#include "misc/being.h"
+#include "obj/plant.h"
+#include "misc/materials.h"
 
 // TGas uses function pointers to get a virtual-class like affect,
 // without having to have multiple objects and object types for each

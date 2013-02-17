@@ -1,4 +1,4 @@
-#include "disc_fattacks.h"
+#include "disc/fattacks.h"
 
 CDFAttacks::CDFAttacks() :
   CDiscipline(),

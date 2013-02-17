@@ -1,6 +1,6 @@
-#include "being.h"
-#include "parse.h"
-#include "obj.h"
+#include "misc/being.h"
+#include "misc/parse.h"
+#include "misc/obj.h"
 
 int blackSun(TBeing *vict, cmdTypeT cmd, const char *arg, TObj *o, TObj *)
 {

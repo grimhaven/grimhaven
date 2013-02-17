@@ -2,21 +2,21 @@
 
 #include <cmath>
 
-#include "extern.h"
-#include "room.h"
-#include "being.h"
-#include "low.h"
-#include "monster.h"
-#include "disease.h"
-#include "combat.h"
-#include "statistics.h"
-#include "obj_corpse.h"
-#include "obj_gun.h"
-#include "obj_trash.h"
-#include "obj_drinkcon.h"
-#include "database.h"
-#include "materials.h"
-#include "person.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/low.h"
+#include "misc/monster.h"
+#include "misc/disease.h"
+#include "misc/combat.h"
+#include "misc/statistics.h"
+#include "obj/corpse.h"
+#include "obj/gun.h"
+#include "obj/trash.h"
+#include "obj/drinkcon.h"
+#include "sys/database.h"
+#include "misc/materials.h"
+#include "misc/person.h"
 
 // adjust the crit table for fighting barehand.  All crit types are not equal,
 // but for barehand we want them to appear so.  This means nerfing slash barehand crits.

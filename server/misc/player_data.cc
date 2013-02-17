@@ -7,24 +7,24 @@ extern "C" {
 
 #include <errno.h>
 
-#include "extern.h"
-#include "room.h"
-#include "being.h"
-#include "client.h"
-#include "low.h"
-#include "handler.h"
-#include "monster.h"
-#include "configuration.h"
-#include "account.h"
-#include "person.h"
-#include "charfile.h"
-#include "shop.h"
-#include "skills.h"
-#include "mail.h"
-#include "statistics.h"
-#include "combat.h"
-#include "database.h"
-#include "materials.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "sys/client.h"
+#include "misc/low.h"
+#include "sys/handler.h"
+#include "misc/monster.h"
+#include "sys/configuration.h"
+#include "misc/account.h"
+#include "misc/person.h"
+#include "misc/charfile.h"
+#include "misc/shop.h"
+#include "misc/skills.h"
+#include "misc/mail.h"
+#include "misc/statistics.h"
+#include "misc/combat.h"
+#include "sys/database.h"
+#include "misc/materials.h"
 
 
 wizListInfo *wiz;
@@ -1391,7 +1391,7 @@ void fixup_players(void)
   bootPulse(".", false);
   dirwalk("account/g", countAccounts);
   bootPulse(".", false);
-  dirwalk("account/h", countAccounts);
+  dirwalk("misc/account.h", countAccounts);
   bootPulse(".", false);
   dirwalk("account/i", countAccounts);
   bootPulse(".", false);

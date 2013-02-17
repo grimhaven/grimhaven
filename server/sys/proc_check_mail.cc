@@ -1,8 +1,8 @@
-#include "person.h"
-#include "configuration.h"
-#include "extern.h"
-#include "process.h"
-#include "mail.h"
+#include "misc/person.h"
+#include "sys/configuration.h"
+#include "misc/extern.h"
+#include "sys/process.h"
+#include "misc/mail.h"
 
 // procCheckMail
 procCheckMail::procCheckMail(const int &p)

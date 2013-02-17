@@ -1,10 +1,10 @@
-#include "monster.h"
-#include "room.h"
-#include "obj_corpse.h"
-#include "obj_drinkcon.h"
-#include "obj_trash.h"
-#include "mail.h"
-#include "database.h"
+#include "misc/monster.h"
+#include "misc/room.h"
+#include "obj/corpse.h"
+#include "obj/drinkcon.h"
+#include "obj/trash.h"
+#include "misc/mail.h"
+#include "sys/database.h"
 
 const int CART_VNUM = 33313;
 const int CONTENTS_VNUM = 33314;

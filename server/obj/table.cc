@@ -1,9 +1,9 @@
 #include <stdio.h>
 
-#include "extern.h"
-#include "obj_table.h"
-#include "handler.h"
-#include "being.h"
+#include "misc/extern.h"
+#include "obj/table.h"
+#include "sys/handler.h"
+#include "misc/being.h"
 
 TTable::TTable() :
   TObj()

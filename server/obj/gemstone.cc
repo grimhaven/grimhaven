@@ -1,4 +1,4 @@
-#include "obj_gemstone.h"
+#include "obj/gemstone.h"
 
 TGemstone::TGemstone() :
   TObj()

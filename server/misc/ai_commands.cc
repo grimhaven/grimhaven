@@ -1,14 +1,14 @@
 //  return DELETE_THIS if this dies, or DELETE_VICT if doer dies
 
-#include "room.h"
-#include "extern.h"
-#include "being.h"
-#include "low.h"
-#include "colorstring.h"
-#include "monster.h"
-#include "combat.h"
-#include "materials.h"
-#include "spec_mobs.h"
+#include "misc/room.h"
+#include "misc/extern.h"
+#include "misc/being.h"
+#include "misc/low.h"
+#include "sys/colorstring.h"
+#include "misc/monster.h"
+#include "misc/combat.h"
+#include "misc/materials.h"
+#include "spec/mobs.h"
 
 int TMonster::aiBounce(TBeing *doer,TBeing *, aiTarg cond)
 {

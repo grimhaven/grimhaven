@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-#include "monster.h"
-#include "shop.h"
-#include "extern.h"
-#include "obj_organic.h"
-#include "obj_flame.h"
+#include "misc/monster.h"
+#include "misc/shop.h"
+#include "misc/extern.h"
+#include "obj/organic.h"
+#include "obj/flame.h"
 
 
 TOrganic::TOrganic() :

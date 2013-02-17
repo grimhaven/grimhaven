@@ -8,8 +8,8 @@
 #include <string.h>
 #include <stdint.h>
 
-#include "parse.h"
-#include "spells.h"
+#include "misc/parse.h"
+#include "misc/spells.h"
 
 class sstring;
 

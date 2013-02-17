@@ -1,16 +1,16 @@
 #include <stdio.h>
 
-#include "extern.h"
-#include "obj_handgonne.h"
-#include "obj_general_weapon.h"
-#include "obj_base_weapon.h"
-#include "obj_gun.h"
-#include "colorstring.h"
-#include "range.h"
-#include "obj_arrow.h"
-#include "obj_tool.h"
-#include "being.h"
-#include "weather.h"
+#include "misc/extern.h"
+#include "obj/handgonne.h"
+#include "obj/general_weapon.h"
+#include "obj/base_weapon.h"
+#include "obj/gun.h"
+#include "sys/colorstring.h"
+#include "misc/range.h"
+#include "obj/arrow.h"
+#include "obj/tool.h"
+#include "misc/being.h"
+#include "misc/weather.h"
 
 // this is a hand held cannon-lock firearm - essentially a small cannon
 // it takes a long time to load and is virtually unaimable

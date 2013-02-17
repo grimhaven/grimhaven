@@ -1,14 +1,14 @@
 #include <stdio.h>
 
-#include "room.h"
-#include "being.h"
-#include "monster.h"
-#include "low.h"
-#include "disease.h"
-#include "obj_tool.h"
-#include "obj_corpse.h"
-#include "spec_mobs.h"
-#include "materials.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/monster.h"
+#include "misc/low.h"
+#include "misc/disease.h"
+#include "obj/tool.h"
+#include "obj/corpse.h"
+#include "spec/mobs.h"
+#include "misc/materials.h"
 
 //  use reconcileDamage to apply damage to victims.
 //  if victim dies, leave victim valid (do not delete) annd return a -1

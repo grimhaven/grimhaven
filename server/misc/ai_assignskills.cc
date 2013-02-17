@@ -1,5 +1,5 @@
-#include "extern.h"
-#include "being.h"
+#include "misc/extern.h"
+#include "misc/being.h"
 #include <algorithm>
 
 std::vector<discNumT>disclist;

@@ -10,7 +10,7 @@
 
 *************************************************************************/
 
-#include "spell2.h"
+#include "misc/spell2.h"
 
 //CASTER HAS TO BE ABLE TO SEE THE VICTIM
 const unsigned int CASTFLAG_SEE_VICT   = (1<<0);

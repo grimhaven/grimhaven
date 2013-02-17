@@ -4,7 +4,7 @@
 
 ******************************************************************************/
 
-#include "monster.h"
+#include "misc/monster.h"
 
 int tuskGoring(TBeing *ch, cmdTypeT tCmd, const char *tArg, TMonster *tMyself, TObj *tObj)
 {

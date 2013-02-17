@@ -1,13 +1,13 @@
 #include <stdio.h>
 
-#include "room.h"
-#include "being.h"
-#include "low.h"
-#include "monster.h"
-#include "games.h"
-#include "spec_mobs.h"
-#include "game_drawpoker.h"
-#include "connect.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/low.h"
+#include "misc/monster.h"
+#include "game/games.h"
+#include "spec/mobs.h"
+#include "game/drawpoker.h"
+#include "sys/connect.h"
 
 Craps::Craps() :
   m_ch(NULL)

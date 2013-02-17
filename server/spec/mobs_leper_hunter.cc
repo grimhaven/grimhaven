@@ -1,9 +1,9 @@
-#include "monster.h"
-#include "paths.h"
-#include "pathfinder.h"
-#include "room.h"
-#include "obj_commodity.h"
-#include "spec_mobs.h"
+#include "misc/monster.h"
+#include "misc/paths.h"
+#include "sys/pathfinder.h"
+#include "misc/room.h"
+#include "obj/commodity.h"
+#include "spec/mobs.h"
 
 int leperHunter(TBeing *, cmdTypeT cmd, const char *, TMonster *myself, TObj *)
 {

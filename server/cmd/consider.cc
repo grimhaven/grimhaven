@@ -1,11 +1,11 @@
 #include <cmath>
 
-#include "handler.h"
-#include "extern.h"
-#include "being.h"
-#include "cmd_trophy.h"
-#include "person.h"
-#include "monster.h"
+#include "sys/handler.h"
+#include "misc/extern.h"
+#include "misc/being.h"
+#include "cmd/trophy.h"
+#include "misc/person.h"
+#include "misc/monster.h"
 
 void TBeing::doConsider(const char *argument)
 {

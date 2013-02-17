@@ -1,9 +1,9 @@
-#include "monster.h"
-#include "shop.h"
-#include "obj_note.h"
-#include "extern.h"
-#include "shopowned.h"
-#include "spec_mobs.h"
+#include "misc/monster.h"
+#include "misc/shop.h"
+#include "obj/note.h"
+#include "misc/extern.h"
+#include "misc/shopowned.h"
+#include "spec/mobs.h"
 
 const int SIGN_COST = 100000;
 const int SIGN_VNUM = 33271;

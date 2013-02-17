@@ -1,13 +1,13 @@
 #include <stdio.h>
 
-#include "extern.h"
-#include "handler.h"
-#include "being.h"
-#include "charfile.h"
-#include "statistics.h"
-#include "person.h"
-#include "monster.h"
-#include "guild.h"
+#include "misc/extern.h"
+#include "sys/handler.h"
+#include "misc/being.h"
+#include "misc/charfile.h"
+#include "misc/statistics.h"
+#include "misc/person.h"
+#include "misc/monster.h"
+#include "misc/guild.h"
 
 void TBeing::doSet(const char *)
 {

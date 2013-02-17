@@ -1,9 +1,9 @@
 #ifndef __DISCIPLINE_H
 #define __DISCIPLINE_H
 
-#include "sstring.h"
-#include "spells.h"
-#include "structs.h"
+#include "sys/sstring.h"
+#include "misc/spells.h"
+#include "misc/structs.h"
 
 // technically, these should be unsigned.
 // I got lazy and didn't want to change all the return types and vars

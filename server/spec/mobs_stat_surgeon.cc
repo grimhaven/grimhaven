@@ -1,4 +1,4 @@
-#include "monster.h"
+#include "misc/monster.h"
 
 const int COST = 1000000;
 

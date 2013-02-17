@@ -1,12 +1,12 @@
 #include <stdio.h>
 
-#include "shop.h"
-#include "shopowned.h"
-#include "corporation.h"
-#include "materials.h"
-#include "obj.h"
-#include "extern.h"
-#include "being.h"
+#include "misc/shop.h"
+#include "misc/shopowned.h"
+#include "misc/corporation.h"
+#include "misc/materials.h"
+#include "misc/obj.h"
+#include "misc/extern.h"
+#include "misc/being.h"
 
 bool TObj::isPluralItem() const
 {

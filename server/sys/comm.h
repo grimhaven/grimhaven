@@ -1,9 +1,9 @@
 #ifndef __COMM_H
 #define __COMM_H
 
-#include "ansi.h"
-#include "sstring.h"
-#include "enum.h"
+#include "sys/ansi.h"
+#include "sys/sstring.h"
+#include "misc/enum.h"
 
 class TThing;
 class TBeing;

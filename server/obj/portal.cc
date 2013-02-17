@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-#include "room.h"
-#include "handler.h"
-#include "obj_portal.h"
-#include "extern.h"
-#include "person.h"
+#include "misc/room.h"
+#include "sys/handler.h"
+#include "obj/portal.h"
+#include "misc/extern.h"
+#include "misc/person.h"
 
 
 

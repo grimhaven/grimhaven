@@ -1,7 +1,7 @@
-#include "being.h"
-#include "obj.h"
-#include "room.h"
-#include "connect.h"
+#include "misc/being.h"
+#include "misc/obj.h"
+#include "misc/room.h"
+#include "sys/connect.h"
 
 int task_sit(TBeing *ch, cmdTypeT cmd, const char *arg, int pulse, TRoom *, TObj *)
 {

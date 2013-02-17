@@ -4,9 +4,9 @@
 
 ******************************************************************************/
 
-#include "handler.h"
-#include "room.h"
-#include "monster.h"
+#include "sys/handler.h"
+#include "misc/room.h"
+#include "misc/monster.h"
 
 class mimicStructure
 {

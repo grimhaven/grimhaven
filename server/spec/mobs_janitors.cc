@@ -1,17 +1,17 @@
 #include <stdio.h>
 
-#include "room.h"
-#include "being.h"
-#include "low.h"
-#include "monster.h"
-#include "paths.h"
-#include "obj_base_corpse.h"
-#include "handler.h"
-#include "obj_player_corpse.h"
-#include "obj_pool.h"
-#include "combat.h"
-#include "pathfinder.h"
-#include "obj_plant.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/low.h"
+#include "misc/monster.h"
+#include "misc/paths.h"
+#include "obj/base_corpse.h"
+#include "sys/handler.h"
+#include "obj/player_corpse.h"
+#include "obj/pool.h"
+#include "misc/combat.h"
+#include "sys/pathfinder.h"
+#include "obj/plant.h"
 
 bool okForJanitor(TMonster *myself, TObj *obj)
 {

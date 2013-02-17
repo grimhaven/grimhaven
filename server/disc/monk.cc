@@ -1,14 +1,14 @@
 #include <stdio.h>
 
-#include "handler.h"
-#include "extern.h"
-#include "room.h"
-#include "being.h"
-#include "combat.h"
-#include "disc_monk.h"
-#include "disc_cures.h"
-#include "disc_aegis.h"
-#include "obj_light.h"
+#include "sys/handler.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/combat.h"
+#include "disc/monk.h"
+#include "disc/cures.h"
+#include "disc/aegis.h"
+#include "obj/light.h"
 
 
 int TBeing::doLeap(const sstring &arg)

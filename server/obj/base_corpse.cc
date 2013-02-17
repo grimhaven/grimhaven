@@ -1,16 +1,16 @@
 #include <stdio.h>
 
-#include "comm.h"
-#include "room.h"
-#include "low.h"
-#include "materials.h"
-#include "being.h"
-#include "obj_base_corpse.h"
-#include "obj_player_corpse.h"
-#include "obj_base_corpse.h"
-#include "obj_base_clothing.h"
-#include "obj_tooth_necklace.h"
-#include "obj_table.h"
+#include "sys/comm.h"
+#include "misc/room.h"
+#include "misc/low.h"
+#include "misc/materials.h"
+#include "misc/being.h"
+#include "obj/base_corpse.h"
+#include "obj/player_corpse.h"
+#include "obj/base_corpse.h"
+#include "obj/base_clothing.h"
+#include "obj/tooth_necklace.h"
+#include "obj/table.h"
 
 TBaseCorpse::TBaseCorpse() :
   TBaseContainer(),

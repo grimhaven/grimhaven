@@ -1,4 +1,4 @@
-#include "being.h"
+#include "misc/being.h"
 
 /*
 doCast -> doDiscipline -> flamingSword -> start_cast

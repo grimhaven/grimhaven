@@ -1,17 +1,17 @@
 #include <stdio.h>
 
-#include "handler.h"
-#include "extern.h"
-#include "room.h"
-#include "being.h"
-#include "client.h"
-#include "games.h"
-#include "disease.h"
-#include "combat.h"
-#include "disc_thief.h"
-#include "obj_tool.h"
-#include "pathfinder.h"
-#include "obj_portal.h"
+#include "sys/handler.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "sys/client.h"
+#include "game/games.h"
+#include "misc/disease.h"
+#include "misc/combat.h"
+#include "disc/thief.h"
+#include "obj/tool.h"
+#include "sys/pathfinder.h"
+#include "obj/portal.h"
 
 int TBeing::doSneak(const char *argument)
 {

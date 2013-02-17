@@ -1,9 +1,9 @@
 #ifndef __DB_H
 #define __DB_H
 
-#include "structs.h"
-#include "sstring.h"
-#include "mudinfo.h"
+#include "misc/structs.h"
+#include "sys/sstring.h"
+#include "sys/mudinfo.h"
 
 #include <map>
 

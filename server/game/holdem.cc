@@ -1,7 +1,7 @@
-#include "being.h"
-#include "low.h"
-#include "games.h"
-#include "handler.h"
+#include "misc/being.h"
+#include "misc/low.h"
+#include "game/games.h"
+#include "sys/handler.h"
 
 // this is a good example of how not to write code
 // no need to thank me - peel

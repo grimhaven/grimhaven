@@ -1,12 +1,12 @@
 #include <stdio.h>
 
-#include "extern.h"
-#include "room.h"
-#include "low.h"
-#include "monster.h"
-#include "materials.h"
-#include "obj_magic_item.h"
-#include "obj_staff.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "misc/low.h"
+#include "misc/monster.h"
+#include "misc/materials.h"
+#include "obj/magic_item.h"
+#include "obj/staff.h"
 
 TStaff::TStaff() :
   TMagicItem(),

@@ -1,17 +1,17 @@
 #include <stdio.h>
 
-#include "extern.h"
-#include "room.h"
-#include "being.h"
-#include "colorstring.h"
-#include "statistics.h"
-#include "games.h"
-#include "database.h"
-#include "cmd_message.h"
-#include "account.h"
-#include "person.h"
-#include "monster.h"
-#include "guild.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "sys/colorstring.h"
+#include "misc/statistics.h"
+#include "game/games.h"
+#include "sys/database.h"
+#include "cmd/message.h"
+#include "misc/account.h"
+#include "misc/person.h"
+#include "misc/monster.h"
+#include "misc/guild.h"
 
 sstring TBeing::parseTitle(Descriptor *)
 {

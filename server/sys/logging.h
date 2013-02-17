@@ -1,7 +1,7 @@
 #ifndef SYS_LOGGING_H_
 #define SYS_LOGGING_H_
 
-#include "sstring.h"
+#include "sys/sstring.h"
 
 enum logTypeT
 {

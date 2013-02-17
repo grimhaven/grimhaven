@@ -1,10 +1,10 @@
-#include "room.h"
-#include "monster.h"
-#include "database.h"
-#include "shop.h"
-#include "shopowned.h"
-#include "corporation.h"
-#include "spec_mobs.h"
+#include "misc/room.h"
+#include "misc/monster.h"
+#include "sys/database.h"
+#include "misc/shop.h"
+#include "misc/shopowned.h"
+#include "misc/corporation.h"
+#include "spec/mobs.h"
 
 // need a periodic function to create the loans
 

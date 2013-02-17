@@ -1,7 +1,7 @@
-#include "extern.h"
-#include "room.h"
-#include "being.h"
-#include "weather.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/weather.h"
 
 void TBeing::doScore()
 {

@@ -1,13 +1,13 @@
 #include <stdio.h>
 
-#include "handler.h"
-#include "room.h"
-#include "being.h"
-#include "obj_component.h"
-#include "disc_adventuring.h"
-#include "cmd_dissect.h"
-#include "obj_base_corpse.h"
-#include "low.h"
+#include "sys/handler.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "obj/component.h"
+#include "disc/adventuring.h"
+#include "cmd/dissect.h"
+#include "obj/base_corpse.h"
+#include "misc/low.h"
 
 std::map<unsigned short int, dissectInfo>dissect_array;
 

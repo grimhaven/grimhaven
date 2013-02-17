@@ -1,9 +1,9 @@
 #ifndef __CONNECT_H
 #define __CONNECT_H
 
-#include "obj_drug.h"
-#include "stats.h"
-#include "comm.h"
+#include "obj/drug.h"
+#include "misc/stats.h"
+#include "sys/comm.h"
 #include <deque>
 
 const unsigned int PROMPT_HIT               = (1<<0);

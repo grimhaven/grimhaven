@@ -10,20 +10,20 @@
 #include <cmath>
 #include <cstdio>
 
-#include "extern.h"
-#include "room.h"
-#include "handler.h"
-#include "low.h"
-#include "monster.h"
-#include "configuration.h"
-#include "statistics.h"
-#include "obj_food.h"
-#include "obj_note.h"
-#include "obj_portal.h"
-#include "spec_rooms.h"
-#include "person.h"
-#include "weather.h"
-#include "rent.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "sys/handler.h"
+#include "misc/low.h"
+#include "misc/monster.h"
+#include "sys/configuration.h"
+#include "misc/statistics.h"
+#include "obj/food.h"
+#include "obj/note.h"
+#include "obj/portal.h"
+#include "spec/rooms.h"
+#include "misc/person.h"
+#include "misc/weather.h"
+#include "misc/rent.h"
 
 int TRoom::checkSpec(TBeing *ch, cmdTypeT cmd, const char *arg, TThing *)
 

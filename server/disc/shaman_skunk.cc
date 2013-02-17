@@ -1,12 +1,12 @@
 #include <stdio.h>
 
-#include "room.h"
-#include "disease.h"
-#include "combat.h"
-#include "spelltask.h"
-#include "disc_shaman_skunk.h"
-#include "obj_magic_item.h"
-#include "person.h"
+#include "misc/room.h"
+#include "misc/disease.h"
+#include "misc/combat.h"
+#include "misc/spelltask.h"
+#include "disc/shaman_skunk.h"
+#include "obj/magic_item.h"
+#include "misc/person.h"
 
 int deathMist(TBeing *caster, int level, short bKnown)
 {

@@ -1,5 +1,5 @@
-#include "obj_base_clothing.h"
-#include "obj_jewelry.h"
+#include "obj/base_clothing.h"
+#include "obj/jewelry.h"
 
 TJewelry::TJewelry() :
   TBaseClothing()

@@ -1,6 +1,6 @@
-#include "monster.h"
-#include "obj_wagon.h"
-#include "obj_open_container.h"
+#include "misc/monster.h"
+#include "obj/wagon.h"
+#include "obj/open_container.h"
 
 TWagon::TWagon() :
   TOpenContainer()

@@ -5,10 +5,10 @@ extern "C" {
 #include <sys/stat.h>
 }
 
-#include "being.h"
-#include "extern.h"
-#include "monster.h"
-#include "person.h"
+#include "misc/being.h"
+#include "misc/extern.h"
+#include "misc/monster.h"
+#include "misc/person.h"
 
 class wizSaveData {
   public:

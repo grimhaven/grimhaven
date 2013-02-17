@@ -1,10 +1,10 @@
-#include "handler.h"
-#include "room.h"
-#include "being.h"
-#include "low.h"
-#include "monster.h"
-#include "obj_tool.h"
-#include "obj_plant.h"
+#include "sys/handler.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/low.h"
+#include "misc/monster.h"
+#include "obj/tool.h"
+#include "obj/plant.h"
 
 int TBeing::doPlant(sstring arg)
 {

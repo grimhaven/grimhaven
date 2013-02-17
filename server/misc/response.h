@@ -1,7 +1,7 @@
 #ifndef __RESPONSE_H
 #define __RESPONSE_H
 
-#include "parse.h"
+#include "misc/parse.h"
 
 class TBeing;
 

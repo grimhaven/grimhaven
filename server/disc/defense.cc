@@ -1,4 +1,4 @@
-#include "disc_defense.h"
+#include "disc/defense.h"
 
 CDDefense::CDDefense() :
   CDiscipline(),

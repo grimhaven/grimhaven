@@ -1,7 +1,7 @@
 #ifndef __SKILLS_H
 #define __SKILLS_H
 
-#include "structs.h"
+#include "misc/structs.h"
 
 const int SKILL_MIN = -99;
 

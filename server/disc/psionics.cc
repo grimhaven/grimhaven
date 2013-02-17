@@ -1,16 +1,16 @@
 #include <stdio.h>
 
-#include "handler.h"
-#include "extern.h"
-#include "room.h"
-#include "being.h"
-#include "client.h"
-#include "person.h"
-#include "low.h"
-#include "colorstring.h"
-#include "monster.h"
-#include "disc_psionics.h"
-#include "garble.h"
+#include "sys/handler.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "sys/client.h"
+#include "misc/person.h"
+#include "misc/low.h"
+#include "sys/colorstring.h"
+#include "misc/monster.h"
+#include "disc/psionics.h"
+#include "misc/garble.h"
 
 CDPsionics::CDPsionics() :
   CDiscipline(),

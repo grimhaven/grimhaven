@@ -1,11 +1,11 @@
 #include <cstdarg>
 
-#include "database.h"
-#include "enum.h"
-#include "structs.h"
-#include "configuration.h"
-#include "timing.h"
-#include "toggle.h"
+#include "sys/database.h"
+#include "misc/enum.h"
+#include "misc/structs.h"
+#include "sys/configuration.h"
+#include "sys/timing.h"
+#include "misc/toggle.h"
 
 // log queries that take longer than this many seconds - comment out to disable
 #define LONG_QUERY 1.0

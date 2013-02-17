@@ -1,8 +1,8 @@
-#include "comm.h"
-#include "obj_boat.h"
-#include "obj_light.h"
-#include "being.h"
-#include "room.h"
+#include "sys/comm.h"
+#include "obj/boat.h"
+#include "obj/light.h"
+#include "misc/being.h"
+#include "misc/room.h"
 
 TBoat::TBoat() :
   TObj()

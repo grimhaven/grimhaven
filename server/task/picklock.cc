@@ -1,8 +1,8 @@
-#include "extern.h"
-#include "comm.h"
-#include "room.h"
-#include "obj_tool.h"
-#include "being.h"
+#include "misc/extern.h"
+#include "sys/comm.h"
+#include "misc/room.h"
+#include "obj/tool.h"
+#include "misc/being.h"
 
 void TThing::pickPulse(TBeing *ch)
 {

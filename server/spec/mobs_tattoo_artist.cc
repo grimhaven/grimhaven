@@ -1,6 +1,6 @@
-#include "monster.h"
-#include "database.h"
-#include "extern.h"
+#include "misc/monster.h"
+#include "sys/database.h"
+#include "misc/extern.h"
 
 int tattooArtist(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *myself, TObj *)
 {

@@ -1,12 +1,12 @@
 #include <cmath>
 
-#include "monster.h"
-#include "database.h"
-#include "extern.h"
-#include "shop.h"
-#include "shopowned.h"
-#include "spec_mobs.h"
-#include "weather.h"
+#include "misc/monster.h"
+#include "sys/database.h"
+#include "misc/extern.h"
+#include "misc/shop.h"
+#include "misc/shopowned.h"
+#include "spec/mobs.h"
+#include "misc/weather.h"
 
 // 1 loan per account
 

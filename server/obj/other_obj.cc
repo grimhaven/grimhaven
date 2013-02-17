@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-#include "obj_other_obj.h"
-#include "extern.h"
+#include "obj/other_obj.h"
+#include "misc/extern.h"
 
 TOtherObj::TOtherObj() :
   TObj()

@@ -2,18 +2,18 @@
 //               loop
 
 #include <cstdio>
-#include "being.h"
-#include "person.h"
-#include "extern.h"
-#include "monster.h"
-#include "room.h"
-#include "account.h"
-#include "configuration.h"
-#include "colorstring.h"
-#include "systemtask.h"
-#include "socket.h"
-#include "spec_mobs.h"
-#include "weather.h"
+#include "misc/being.h"
+#include "misc/person.h"
+#include "misc/extern.h"
+#include "misc/monster.h"
+#include "misc/room.h"
+#include "misc/account.h"
+#include "sys/configuration.h"
+#include "sys/colorstring.h"
+#include "sys/systemtask.h"
+#include "sys/tsocket.h"
+#include "spec/mobs.h"
+#include "misc/weather.h"
 
 #include <csignal>
 #include <cstdarg>

@@ -1,19 +1,19 @@
 #include <stdio.h>
 
-#include "room.h"
-#include "being.h"
-#include "handler.h"
-#include "low.h"
-#include "extern.h"
-#include "monster.h"
-#include "configuration.h"
-#include "combat.h"
-#include "obj_component.h"
-#include "obj_base_corpse.h"
-#include "obj_player_corpse.h"
-#include "obj_corpse.h"
-#include "obj_money.h"
-#include "materials.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "sys/handler.h"
+#include "misc/low.h"
+#include "misc/extern.h"
+#include "misc/monster.h"
+#include "sys/configuration.h"
+#include "misc/combat.h"
+#include "obj/component.h"
+#include "obj/base_corpse.h"
+#include "obj/player_corpse.h"
+#include "obj/corpse.h"
+#include "obj/money.h"
+#include "misc/materials.h"
 
 TThing * TBeing::makeCorpse(spellNumT dmg_type, TBeing * tKiller, float exp_lost)
 {

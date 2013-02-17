@@ -1,12 +1,12 @@
 #include <stdio.h>
 
-#include "extern.h"
-#include "being.h"
-#include "monster.h"
-#include "combat.h"
-#include "obj_corpse.h"
-#include "limbs.h"
-#include "materials.h"
+#include "misc/extern.h"
+#include "misc/being.h"
+#include "misc/monster.h"
+#include "misc/combat.h"
+#include "obj/corpse.h"
+#include "misc/limbs.h"
+#include "misc/materials.h"
 
 void TBeing::setCurLimbHealth(wearSlotT slot, unsigned short num)
 {

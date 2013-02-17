@@ -1,10 +1,10 @@
-#include "monster.h"
-#include "obj_base_container.h"
-#include "obj_potion.h"
-#include "shop.h"
-#include "extern.h"
-#include "database.h"
-#include "liquids.h"
+#include "misc/monster.h"
+#include "obj/base_container.h"
+#include "obj/potion.h"
+#include "misc/shop.h"
+#include "misc/extern.h"
+#include "sys/database.h"
+#include "misc/liquids.h"
 
 TPotion::TPotion() :
   TBaseCup()

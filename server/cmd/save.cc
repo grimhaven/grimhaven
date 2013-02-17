@@ -1,12 +1,12 @@
 #include <stdio.h>
 
-#include "handler.h"
-#include "room.h"
-#include "being.h"
-#include "monster.h"
-#include "account.h"
-#include "person.h"
-#include "low.h"
+#include "sys/handler.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/monster.h"
+#include "misc/account.h"
+#include "misc/person.h"
+#include "misc/low.h"
 
 void doSaveMOEdit(TBeing *ch, const char *tArg)
 {

@@ -1,18 +1,18 @@
 #include <stdio.h>
 
-#include "handler.h"
-#include "room.h"
-#include "extern.h"
-#include "being.h"
-#include "low.h"
-#include "monster.h"
-#include "disc_looting.h"
-#include "disease.h"
-#include "obj_trap.h"
-#include "obj_portal.h"
-#include "obj_open_container.h"
-#include "obj_arrow.h"
-#include "trap.h"
+#include "sys/handler.h"
+#include "misc/room.h"
+#include "misc/extern.h"
+#include "misc/being.h"
+#include "misc/low.h"
+#include "misc/monster.h"
+#include "disc/looting.h"
+#include "misc/disease.h"
+#include "obj/trap.h"
+#include "obj/portal.h"
+#include "obj/open_container.h"
+#include "obj/arrow.h"
+#include "misc/trap.h"
 
 extern const char * const GRENADE_EX_DESC = "__grenade_puller";
 extern const char * const TRAP_EX_DESC = "__trap_setter";

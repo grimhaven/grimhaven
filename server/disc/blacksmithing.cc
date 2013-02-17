@@ -1,4 +1,4 @@
-#include "disc_blacksmithing.h"
+#include "disc/blacksmithing.h"
 
 CDBlacksmithing::CDBlacksmithing() :
   CDiscipline(),

@@ -1,7 +1,7 @@
-#include "room.h"
-#include "database.h"
-#include "corporation.h"
-#include "monster.h"
+#include "misc/room.h"
+#include "sys/database.h"
+#include "misc/corporation.h"
+#include "misc/monster.h"
 
 sstring TCorporation::getName()
 {

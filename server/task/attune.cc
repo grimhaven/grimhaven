@@ -1,8 +1,8 @@
-#include "comm.h"
-#include "extern.h"
-#include "obj_symbol.h"
-#include "being.h"
-#include "obj_vial.h"
+#include "sys/comm.h"
+#include "misc/extern.h"
+#include "obj/symbol.h"
+#include "misc/being.h"
+#include "obj/vial.h"
 
 static void stop_attune(TBeing *ch, silentTypeT silent_char, silentTypeT silent_room)
 {

@@ -1,6 +1,6 @@
-#include "being.h"
-#include "extern.h"
-#include "room.h"
+#include "misc/being.h"
+#include "misc/extern.h"
+#include "misc/room.h"
 
 class TObj;
 

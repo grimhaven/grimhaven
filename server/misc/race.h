@@ -5,10 +5,10 @@
 // explained in Design Patterns: Elements of Reusable Object-Oriented Software
 // ISBN 0-201-63361-2
 
-#include "body.h"
-#include "cmd_dissect.h"
-#include "immunity.h"
-#include "stats.h"
+#include "misc/body.h"
+#include "cmd/dissect.h"
+#include "misc/immunity.h"
+#include "misc/stats.h"
 
 // forward declarations
 class TCorpse;

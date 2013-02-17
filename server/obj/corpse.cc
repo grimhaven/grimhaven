@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-#include "obj_corpse.h"
-#include "obj_base_corpse.h"
+#include "obj/corpse.h"
+#include "obj/base_corpse.h"
 
 TCorpse::TCorpse() :
   TBaseCorpse()

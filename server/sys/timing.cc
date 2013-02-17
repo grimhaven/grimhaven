@@ -1,4 +1,4 @@
-#include "timing.h"
+#include "sys/timing.h"
 
 double TTiming::to_secs(struct timeval tv){
   return tv.tv_sec + ((tv.tv_usec)/1000000.0);

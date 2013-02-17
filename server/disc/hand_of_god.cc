@@ -1,19 +1,19 @@
 #include <stdio.h>
 
-#include "room.h"
-#include "low.h"
-#include "monster.h"
-#include "disease.h"
-#include "spelltask.h"
-#include "combat.h"
-#include "disc_hand_of_god.h"
-#include "being.h"
-#include "obj_food.h"
-#include "obj_portal.h"
-#include "obj_drinkcon.h"
-#include "person.h"
-#include "obj_magic_item.h"
-#include "materials.h"
+#include "misc/room.h"
+#include "misc/low.h"
+#include "misc/monster.h"
+#include "misc/disease.h"
+#include "misc/spelltask.h"
+#include "misc/combat.h"
+#include "disc/hand_of_god.h"
+#include "misc/being.h"
+#include "obj/food.h"
+#include "obj/portal.h"
+#include "obj/drinkcon.h"
+#include "misc/person.h"
+#include "obj/magic_item.h"
+#include "misc/materials.h"
 
 static void moveLoss(TBeing &ch)
 {

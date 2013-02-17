@@ -1,12 +1,12 @@
 #include <stdio.h>
 
-#include "handler.h"
-#include "being.h"
-#include "combat.h"
-#include "disc_monk.h"
-#include "disc_leverage.h"
-#include "spells.h"
-#include "extern.h"
+#include "sys/handler.h"
+#include "misc/being.h"
+#include "misc/combat.h"
+#include "disc/monk.h"
+#include "disc/leverage.h"
+#include "misc/spells.h"
+#include "misc/extern.h"
 
 int TBeing::doBoneBreak(const char *argument, TBeing *vict)
 {

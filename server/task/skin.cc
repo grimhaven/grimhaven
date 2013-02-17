@@ -1,13 +1,13 @@
-#include "comm.h"
-#include "obj_base_corpse.h"
-#include "extern.h"
-#include "obj_organic.h"
-#include "obj_component.h"
-#include "being.h"
-#include "obj_tool.h"
-#include "obj_base_weapon.h"
-#include "connect.h"
-#include "skills.h"
+#include "sys/comm.h"
+#include "obj/base_corpse.h"
+#include "misc/extern.h"
+#include "obj/organic.h"
+#include "obj/component.h"
+#include "misc/being.h"
+#include "obj/tool.h"
+#include "obj/base_weapon.h"
+#include "sys/connect.h"
+#include "misc/skills.h"
 
 void stop_skin(TBeing *ch)
 {

@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-#include "extern.h"
-#include "client.h"
-#include "obj_portal.h"
-#include "pathfinder.h"
-#include "being.h"
+#include "misc/extern.h"
+#include "sys/client.h"
+#include "obj/portal.h"
+#include "sys/pathfinder.h"
+#include "misc/being.h"
 
 void stop_tracking(TBeing *ch)
 {

@@ -1,9 +1,9 @@
 #include <stdio.h>
 
-#include "low.h"
-#include "extern.h"
-#include "obj_audio.h"
-#include "being.h" // for number()... groan
+#include "misc/low.h"
+#include "misc/extern.h"
+#include "obj/audio.h"
+#include "misc/being.h" // for number()... groan
 
 int TAudio::getFreq() const
 {

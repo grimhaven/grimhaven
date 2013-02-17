@@ -1,18 +1,18 @@
 #include <stdio.h>
 
-#include "extern.h"
-#include "handler.h"
-#include "room.h"
-#include "low.h"
-#include "monster.h"
-#include "combat.h"
-#include "obj_symbol.h"
-#include "obj_potion.h"
-#include "pathfinder.h"
-#include "shop.h"
-#include "database.h"
-#include "spec_mobs.h"
-#include "shopowned.h"
+#include "misc/extern.h"
+#include "sys/handler.h"
+#include "misc/room.h"
+#include "misc/low.h"
+#include "misc/monster.h"
+#include "misc/combat.h"
+#include "obj/symbol.h"
+#include "obj/potion.h"
+#include "sys/pathfinder.h"
+#include "misc/shop.h"
+#include "sys/database.h"
+#include "spec/mobs.h"
+#include "misc/shopowned.h"
 
 static char        responseFile[32];
 

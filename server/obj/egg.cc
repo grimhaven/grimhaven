@@ -2,10 +2,10 @@
 
 #include <cmath>
 
-#include "monster.h"
-#include "obj_food.h"
-#include "obj_egg.h"
-#include "room.h"
+#include "misc/monster.h"
+#include "obj/food.h"
+#include "obj/egg.h"
+#include "misc/room.h"
 
 TEgg::TEgg() :
   TFood(),

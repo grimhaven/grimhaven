@@ -1,8 +1,8 @@
-#include "handler.h"
-#include "being.h"
-#include "disease.h"
-#include "combat.h"
-#include "disc_deikhan.h"
+#include "sys/handler.h"
+#include "misc/being.h"
+#include "misc/disease.h"
+#include "misc/combat.h"
+#include "disc/deikhan.h"
 
 extern void startChargeTask(TBeing *, const char *);
 

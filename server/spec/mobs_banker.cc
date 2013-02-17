@@ -1,11 +1,11 @@
-#include "room.h"
-#include "monster.h"
-#include "database.h"
-#include "shop.h"
-#include "extern.h"
-#include "shopowned.h"
-#include "process.h"
-#include "spec_mobs.h"
+#include "misc/room.h"
+#include "misc/monster.h"
+#include "sys/database.h"
+#include "misc/shop.h"
+#include "misc/extern.h"
+#include "misc/shopowned.h"
+#include "sys/process.h"
+#include "spec/mobs.h"
 
 // procBankInterest
 procBankInterest::procBankInterest(const int &p)

@@ -1,11 +1,11 @@
 #include <stdio.h>
 
-#include "extern.h"
-#include "handler.h"
-#include "room.h"
-#include "being.h"
-#include "combat.h"
-#include "disc_warrior.h"
+#include "misc/extern.h"
+#include "sys/handler.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/combat.h"
+#include "disc/warrior.h"
 
 // returns DELETE_THIS
 int TBeing::slamIntoWall(roomDirData * exitp)

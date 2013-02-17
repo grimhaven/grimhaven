@@ -1,9 +1,9 @@
-#include "handler.h"
-#include "extern.h"
-#include "room.h"
-#include "being.h"
-#include "combat.h"
-#include "enum.h"
+#include "sys/handler.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/combat.h"
+#include "misc/enum.h"
 
 bool TBeing::canHeadbutt(TBeing *victim, silentTypeT silent)
 {

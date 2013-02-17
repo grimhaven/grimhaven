@@ -1,7 +1,7 @@
-#include "comm.h"
-#include "obj_pen.h"
-#include "thing.h"
-#include "being.h"
+#include "sys/comm.h"
+#include "obj/pen.h"
+#include "misc/thing.h"
+#include "misc/being.h"
 
 TPen::TPen() :
   TObj()

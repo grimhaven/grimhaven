@@ -1,12 +1,12 @@
 // this code sucks and should be rewritten from scratch at some point
 
-#include "comm.h"
-#include "being.h"
-#include "handler.h"
-#include "room.h"
-#include "obj_vehicle.h"
-#include "comm.h"
-#include "extern.h"
+#include "sys/comm.h"
+#include "misc/being.h"
+#include "sys/handler.h"
+#include "misc/room.h"
+#include "obj/vehicle.h"
+#include "sys/comm.h"
+#include "misc/extern.h"
 
 TVehicle::TVehicle() :
   TPortal(),

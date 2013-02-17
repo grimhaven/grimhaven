@@ -1,4 +1,4 @@
-#include "disc_blunt.h"
+#include "disc/blunt.h"
 
 CDBash::CDBash() :
   CDiscipline(),

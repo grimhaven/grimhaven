@@ -1,8 +1,8 @@
-#include "room.h"
-#include "extern.h"
-#include "being.h"
-#include "handler.h"
-#include "obj_tool.h"
+#include "misc/room.h"
+#include "misc/extern.h"
+#include "misc/being.h"
+#include "sys/handler.h"
+#include "obj/tool.h"
 
 bool find_paint_target(TBeing *ch, sstring arg, TBeing **tb, TObj **obj, TRoom **rp)
 {

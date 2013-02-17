@@ -1,12 +1,12 @@
 #ifndef __ROOM_H
 #define __ROOM_H
 
-#include "sound.h"
-#include "ansi.h"
-#include "structs.h"
-#include "db.h"
-#include "thing.h"
-#include "obj.h"
+#include "sys/sound.h"
+#include "sys/ansi.h"
+#include "misc/structs.h"
+#include "sys/db.h"
+#include "misc/thing.h"
+#include "misc/obj.h"
 
 class TRoom;
 

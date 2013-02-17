@@ -3,13 +3,13 @@
 #include <cmath>
 
 
-#include "extern.h"
-#include "monster.h"
-#include "materials.h"
-#include "shop.h"
-#include "obj_symbol.h"
-#include "shopowned.h"
-#include "corporation.h"
+#include "misc/extern.h"
+#include "misc/monster.h"
+#include "misc/materials.h"
+#include "misc/shop.h"
+#include "obj/symbol.h"
+#include "misc/shopowned.h"
+#include "misc/corporation.h"
 
 TSymbol::TSymbol() :
   TObj(),

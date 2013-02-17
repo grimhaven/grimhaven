@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-#include "being.h"
-#include "room.h"
+#include "misc/being.h"
+#include "misc/room.h"
 
 void TBeing::dropWeapon(wearSlotT slot)
 {

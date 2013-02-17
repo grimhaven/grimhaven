@@ -1,7 +1,7 @@
-#include "comm.h"
-#include "obj_tree.h"
-#include "thing.h"
-#include "being.h"
+#include "sys/comm.h"
+#include "obj/tree.h"
+#include "misc/thing.h"
+#include "misc/being.h"
 
 TTree::TTree() :
   TObj()

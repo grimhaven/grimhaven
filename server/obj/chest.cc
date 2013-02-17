@@ -1,6 +1,6 @@
-#include "monster.h"
-#include "obj_chest.h"
-#include "obj_open_container.h"
+#include "misc/monster.h"
+#include "obj/chest.h"
+#include "obj/open_container.h"
 
 TChest::TChest() :
   TOpenContainer()

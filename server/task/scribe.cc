@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-#include "low.h"
-#include "being.h"
-#include "obj_scroll.h"
+#include "misc/low.h"
+#include "misc/being.h"
+#include "obj/scroll.h"
 
 int task_scribe(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, TObj *)
 {

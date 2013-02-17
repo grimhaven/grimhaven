@@ -1,6 +1,6 @@
-#include "monster.h"
-#include "obj_vial.h"
-#include "materials.h"
+#include "misc/monster.h"
+#include "obj/vial.h"
+#include "misc/materials.h"
 
 TVial::TVial() :
   TBaseCup()

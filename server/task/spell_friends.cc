@@ -1,6 +1,6 @@
-#include "being.h"
-#include "obj.h"
-#include "room.h"
+#include "misc/being.h"
+#include "misc/obj.h"
+#include "misc/room.h"
 
 int task_spell_friends(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, TObj *)
 {

@@ -1,9 +1,9 @@
 #include <stdio.h>
 
-#include "extern.h"
-#include "room.h"
-#include "being.h"
-#include "monster.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/monster.h"
 
 void doSaveZoneFile(TBeing *, const sstring &);
 void doLoadZoneFile(TBeing *, const sstring &);

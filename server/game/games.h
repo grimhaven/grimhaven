@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <deque>
 
-#include "sstring.h"
+#include "sys/sstring.h"
 
 class TBeing;
 class TObj;

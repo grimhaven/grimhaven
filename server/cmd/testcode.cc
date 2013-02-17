@@ -1,7 +1,7 @@
-#include "being.h"
-#include "statistics.h"
-#include "obj_symbol.h"
-#include "obj_base_clothing.h"
+#include "misc/being.h"
+#include "misc/statistics.h"
+#include "obj/symbol.h"
+#include "obj/base_clothing.h"
 
 void TBeing::doTestCode(const char *arg)
 {

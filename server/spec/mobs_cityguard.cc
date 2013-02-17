@@ -1,7 +1,7 @@
-#include "room.h"
-#include "monster.h"
-#include "obj_trap.h"
-#include "spec_mobs.h"
+#include "misc/room.h"
+#include "misc/monster.h"
+#include "obj/trap.h"
+#include "spec/mobs.h"
 
 
 sstring guardShout(TBeing *ch){

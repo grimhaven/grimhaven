@@ -4,13 +4,13 @@
 #include <vector>
 #include <list>
 
-#include "trap.h"
-#include "create.h"
-#include "spells.h"
-#include "db.h"
-#include "thing.h"
-#include "limbs.h"
-#include "spec_objs.h"
+#include "misc/trap.h"
+#include "misc/create.h"
+#include "misc/spells.h"
+#include "sys/db.h"
+#include "misc/thing.h"
+#include "misc/limbs.h"
+#include "spec/objs.h"
 
 class objIndexData;
 

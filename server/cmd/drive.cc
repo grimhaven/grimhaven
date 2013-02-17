@@ -1,6 +1,6 @@
-#include "extern.h"
-#include "being.h"
-#include "obj_vehicle.h"
+#include "misc/extern.h"
+#include "misc/being.h"
+#include "obj/vehicle.h"
 
 TVehicle *findVehicle(TBeing *ch)
 {

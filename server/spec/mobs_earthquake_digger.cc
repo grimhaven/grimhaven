@@ -4,8 +4,8 @@
 
 ******************************************************************************/
 
-#include "room.h"
-#include "monster.h"
+#include "misc/room.h"
+#include "misc/monster.h"
 
 int tunnelerEarthquake(TBeing *ch, cmdTypeT tCmd, const char *tArg, TMonster *tMyself, TObj *tObj)
 {

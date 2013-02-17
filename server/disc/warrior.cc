@@ -1,9 +1,9 @@
-#include "being.h"
-#include "disease.h"
-#include "combat.h"
-#include "disc_warrior.h"
-#include "obj_tool.h"
-#include "materials.h"
+#include "misc/being.h"
+#include "misc/disease.h"
+#include "misc/combat.h"
+#include "disc/warrior.h"
+#include "obj/tool.h"
+#include "misc/materials.h"
 
 using std::min;
 using std::max;

@@ -1,6 +1,6 @@
-#include "being.h"
-#include "obj.h"
-#include "parse.h"
+#include "misc/being.h"
+#include "misc/obj.h"
+#include "misc/parse.h"
 
 int graffitiObject(TBeing *ch, cmdTypeT cmd, const char *arg, TObj *o, TObj *)
 {

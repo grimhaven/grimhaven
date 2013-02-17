@@ -1,5 +1,5 @@
-#include "monster.h"
-#include "obj_saddlebag.h"
+#include "misc/monster.h"
+#include "obj/saddlebag.h"
 
 TSaddlebag::TSaddlebag() :
   TExpandableContainer()

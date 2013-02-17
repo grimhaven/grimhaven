@@ -2,11 +2,11 @@
 
 #include <stdio.h>
 
-#include "room.h"
-#include "being.h"
-#include "extern.h"
-#include "monster.h"
-#include "combat.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/extern.h"
+#include "misc/monster.h"
+#include "misc/combat.h"
 
 int TMonster::aiGrinnedAt(TBeing *doer)
 {

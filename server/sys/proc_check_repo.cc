@@ -1,8 +1,8 @@
-#include "process.h"
-#include "being.h"
-#include "thing.h"
-#include "obj.h"
-#include "extern.h"
+#include "sys/process.h"
+#include "misc/being.h"
+#include "misc/thing.h"
+#include "misc/obj.h"
+#include "misc/extern.h"
 
 // procCheckForRepo
 procCheckForRepo::procCheckForRepo(const int &p)

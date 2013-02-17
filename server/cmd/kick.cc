@@ -1,9 +1,9 @@
-#include "handler.h"
-#include "extern.h"
-#include "room.h"
-#include "being.h"
-#include "enum.h"
-#include "combat.h"
+#include "sys/handler.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/enum.h"
+#include "misc/combat.h"
 
 bool TBeing::canKick(TBeing *victim, silentTypeT silent)
 {

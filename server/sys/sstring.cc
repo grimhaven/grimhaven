@@ -1,8 +1,8 @@
 #include <iostream>
 #include <boost/regex.hpp>
-#include "sstring.h"
-#include "mudinfo.h"
-#include "ansi.h"
+#include "sys/sstring.h"
+#include "sys/mudinfo.h"
+#include "sys/ansi.h"
 
 // have format() throw exceptions when a format string doesn't match its args
 //#define THROW_FORMAT_EXCEPTIONS

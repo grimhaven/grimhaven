@@ -1,8 +1,8 @@
-#include "handler.h"
-#include "extern.h"
-#include "being.h"
-#include "enum.h"
-#include "combat.h"
+#include "sys/handler.h"
+#include "misc/extern.h"
+#include "misc/being.h"
+#include "misc/enum.h"
+#include "misc/combat.h"
 
 bool TBeing::canSpin(TBeing *victim, silentTypeT silent)
 {

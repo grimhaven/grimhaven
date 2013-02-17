@@ -1,11 +1,11 @@
 #include <stdio.h>
 
-#include "extern.h"
-#include "disc_looting.h"
-#include "obj_open_container.h"
-#include "obj_money.h"
-#include "handler.h"
-#include "being.h"
+#include "misc/extern.h"
+#include "disc/looting.h"
+#include "obj/open_container.h"
+#include "obj/money.h"
+#include "sys/handler.h"
+#include "misc/being.h"
 
 TOpenContainer::TOpenContainer() :
   TBaseContainer(),

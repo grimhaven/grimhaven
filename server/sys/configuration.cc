@@ -1,8 +1,8 @@
 #include <iostream>
 #include <fstream>
 
-#include "configuration.h"
-#include "extern.h"
+#include "sys/configuration.h"
+#include "misc/extern.h"
 
 #include <boost/program_options.hpp>
 namespace po = boost::program_options;
@@ -47,7 +47,7 @@ bool Config::doConfiguration(int argc, char *argv[])
   // command line only options
   po::options_description cmdline_only("Command line only");
   cmdline_only.add_options()
-    ("help,h", "produce help message")
+    ("misc/help.h", "produce help message")
     ("config,c", po::value<string>(&config_file), "configuration file to use")
     ;
 

@@ -1,7 +1,7 @@
 #ifndef __COLORSTRING_H
 #define __COLORSTRING_H
 
-#include "ansi.h"
+#include "sys/ansi.h"
 
 class sstring;
 class TBeing;

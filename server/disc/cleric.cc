@@ -1,4 +1,4 @@
-#include "disc_cleric.h"
+#include "disc/cleric.h"
 
 CDCleric::CDCleric() :
   CDiscipline(),

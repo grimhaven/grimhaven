@@ -1,5 +1,5 @@
-#include "monster.h"
-#include "obj_suitcase.h"
+#include "misc/monster.h"
+#include "obj/suitcase.h"
 
 TSuitcase::TSuitcase() :
   TExpandableContainer()

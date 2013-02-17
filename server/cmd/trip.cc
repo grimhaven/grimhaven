@@ -1,9 +1,9 @@
-#include "handler.h"
-#include "extern.h"
-#include "room.h"
-#include "being.h"
-#include "combat.h"
-#include "obj_base_clothing.h"
+#include "sys/handler.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/combat.h"
+#include "obj/base_clothing.h"
 
 bool TBeing::canTrip(TBeing *victim, silentTypeT silent)
 {

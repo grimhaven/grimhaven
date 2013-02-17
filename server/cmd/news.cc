@@ -3,9 +3,9 @@
 #include <dirent.h>
 #include <algorithm>
 
-#include "extern.h"
-#include "being.h"
-#include "statistics.h"
+#include "misc/extern.h"
+#include "misc/being.h"
+#include "misc/statistics.h"
 #include <fstream>
 
 class newsFileList {

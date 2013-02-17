@@ -1,8 +1,8 @@
 #ifndef __ACCOUNT_H
 #define __ACCOUNT_H
 
-#include "sstring.h"
-#include "connect.h" // termTypeT
+#include "sys/sstring.h"
+#include "sys/connect.h" // termTypeT
 
 
 class AccountStats

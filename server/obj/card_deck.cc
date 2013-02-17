@@ -1,9 +1,9 @@
-#include "being.h"
-#include "obj_tooth_necklace.h"
-#include "extern.h"
-#include "monster.h"
-#include "obj_card_deck.h"
-#include "handler.h"
+#include "misc/being.h"
+#include "obj/tooth_necklace.h"
+#include "misc/extern.h"
+#include "misc/monster.h"
+#include "obj/card_deck.h"
+#include "sys/handler.h"
 
 void TBeing::doShuffle(const sstring &arg)
 {

@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-#include "monster.h"
-#include "disc_looting.h"
-#include "obj_quiver.h"
+#include "misc/monster.h"
+#include "disc/looting.h"
+#include "obj/quiver.h"
 
 TQuiver::TQuiver() :
   TExpandableContainer()

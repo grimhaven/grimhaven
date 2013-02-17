@@ -2,14 +2,14 @@
 
 #include <cmath>
 
-#include "extern.h"
-#include "low.h"
-#include "monster.h"
-#include "materials.h"
-#include "shop.h"
-#include "obj_commodity.h"
-#include "shopowned.h"
-#include "database.h"
+#include "misc/extern.h"
+#include "misc/low.h"
+#include "misc/monster.h"
+#include "misc/materials.h"
+#include "misc/shop.h"
+#include "obj/commodity.h"
+#include "misc/shopowned.h"
+#include "sys/database.h"
 
 // maximum number of units shop will hold. price=0 at this quantity
 const int shop_capacity = 100000;

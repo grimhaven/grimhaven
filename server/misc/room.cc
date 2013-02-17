@@ -1,8 +1,8 @@
-#include "room.h"
-#include "extern.h"
-#include "being.h"
-#include "monster.h"
-#include "weather.h"
+#include "misc/room.h"
+#include "misc/extern.h"
+#include "misc/being.h"
+#include "misc/monster.h"
+#include "misc/weather.h"
 
 bool TRoom::isCitySector() const
 {

@@ -1,7 +1,7 @@
-#include "comm.h"
-#include "obj_tool.h"
-#include "handler.h"
-#include "being.h"
+#include "sys/comm.h"
+#include "obj/tool.h"
+#include "sys/handler.h"
+#include "misc/being.h"
 
 void stop_dull(TBeing *ch)
 {

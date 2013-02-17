@@ -1,15 +1,15 @@
 #include <stdio.h>
 
-#include "handler.h"
-#include "extern.h"
-#include "room.h"
-#include "being.h"
-#include "low.h"
-#include "combat.h"
-#include "disc_leverage.h"
-#include "range.h"
-#include "obj_window.h"
-#include "pathfinder.h"
+#include "sys/handler.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/low.h"
+#include "misc/combat.h"
+#include "disc/leverage.h"
+#include "misc/range.h"
+#include "obj/window.h"
+#include "sys/pathfinder.h"
 
 int TBeing::doHurl(const char *argument, TBeing *vict)
 {

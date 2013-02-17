@@ -1,7 +1,7 @@
-#include "extern.h"
-#include "room.h"
-#include "being.h"
-#include "garble.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/garble.h"
 
 // combined to designate multiple types of speech (say to detemine which are valid to a garble)
 const unsigned int Garble::SPEECH_FLAG_SAY=(1<<Garble::SPEECH_SAY);

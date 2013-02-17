@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-#include "monster.h"
-#include "obj_tool.h"
+#include "misc/monster.h"
+#include "obj/tool.h"
 
 TTool::TTool() :
   TObj(),

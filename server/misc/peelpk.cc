@@ -1,11 +1,11 @@
 #include <ctime>
 
-#include "handler.h"
-#include "room.h"
-#include "being.h"
-#include "person.h"
-#include "monster.h"
-#include "obj_gun.h"
+#include "sys/handler.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/person.h"
+#include "misc/monster.h"
+#include "obj/gun.h"
 
 
 #define PEELPK_TEAMSIZE 12

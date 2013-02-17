@@ -1,12 +1,12 @@
-#include "handler.h"
-#include "room.h"
-#include "low.h"
-#include "monster.h"
-#include "pathfinder.h"
-#include "obj_portal.h"
-#include "obj_base_corpse.h"
-#include "spec_mobs.h"
-#include "person.h"
+#include "sys/handler.h"
+#include "misc/room.h"
+#include "misc/low.h"
+#include "misc/monster.h"
+#include "sys/pathfinder.h"
+#include "obj/portal.h"
+#include "obj/base_corpse.h"
+#include "spec/mobs.h"
+#include "misc/person.h"
 
 using std::vector;
 

@@ -1,10 +1,10 @@
-#include "comm.h"
-#include "room.h"
-#include "extern.h"
-#include "obj_tool.h"
-#include "obj_commodity.h"
-#include "being.h"
-#include "materials.h"
+#include "sys/comm.h"
+#include "misc/room.h"
+#include "misc/extern.h"
+#include "obj/tool.h"
+#include "obj/commodity.h"
+#include "misc/being.h"
+#include "misc/materials.h"
 
 
 // used to plug messages and behavior to common repair functions

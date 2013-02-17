@@ -1,10 +1,10 @@
-#include "extern.h"
-#include "room.h"
-#include "monster.h"
-#include "disc_looting.h"
-#include "disease.h"
-#include "obj_trap.h"
-#include "trap.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "misc/monster.h"
+#include "disc/looting.h"
+#include "misc/disease.h"
+#include "obj/trap.h"
+#include "misc/trap.h"
 
 int TTrap::anyTrapCheck(TBeing *ch)
 {

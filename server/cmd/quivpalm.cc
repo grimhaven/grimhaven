@@ -1,6 +1,6 @@
-#include "handler.h"
-#include "being.h"
-#include "combat.h"
+#include "sys/handler.h"
+#include "misc/being.h"
+#include "misc/combat.h"
 
 static int quiveringPalm(TBeing *c, TBeing *v)
 {

@@ -1,11 +1,11 @@
 #include <stdio.h>
 
-#include "room.h"
-#include "being.h"
-#include "extern.h"
-#include "client.h"
-#include "person.h"
-#include "account.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/extern.h"
+#include "sys/client.h"
+#include "misc/person.h"
+#include "misc/account.h"
 
 void TBeing::doPrompt(const char *arg)
 {

@@ -1,6 +1,6 @@
-#include "being.h"
-#include "immunity.h"
-#include "extern.h"
+#include "misc/being.h"
+#include "misc/immunity.h"
+#include "misc/extern.h"
 
 using std::min;
 using std::max;

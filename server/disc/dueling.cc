@@ -1,14 +1,14 @@
 #include <stdio.h>
 
-#include "extern.h"
-#include "handler.h"
-#include "being.h"
-#include "monster.h"
-#include "range.h"
-#include "disease.h"
-#include "combat.h"
-#include "disc_dueling.h"
-#include "obj_base_weapon.h"
+#include "misc/extern.h"
+#include "sys/handler.h"
+#include "misc/being.h"
+#include "misc/monster.h"
+#include "misc/range.h"
+#include "misc/disease.h"
+#include "misc/combat.h"
+#include "disc/dueling.h"
+#include "obj/base_weapon.h"
 
 int TBeing::doShove(const char *argument, TBeing *vict)
 {

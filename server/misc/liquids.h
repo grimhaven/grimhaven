@@ -3,7 +3,7 @@
 
 #include <map>
 
-#include "obj.h"
+#include "misc/obj.h"
 
 // this contains data for a single liquid type
 // meant to be used as an element in a list of types

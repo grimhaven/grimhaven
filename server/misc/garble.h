@@ -1,7 +1,7 @@
 #ifndef __GARBLE_H
 #define __GARBLE_H
 
-#include "sstring.h"
+#include "sys/sstring.h"
 
 #ifndef cElements
 #define cElements(x) (sizeof(x)/sizeof(x[0]))

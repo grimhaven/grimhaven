@@ -1,10 +1,10 @@
-#include "handler.h"
-#include "extern.h"
-#include "room.h"
-#include "being.h"
-#include "monster.h"
-#include "disease.h"
-#include "weather.h"
+#include "sys/handler.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/monster.h"
+#include "misc/disease.h"
+#include "misc/weather.h"
 
 static int dragonBreathDam(byte level, int lag)
 {

@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-#include "extern.h"
-#include "monster.h"
-#include "materials.h"
-#include "obj_magic_item.h"
-#include "obj_scroll.h"
+#include "misc/extern.h"
+#include "misc/monster.h"
+#include "misc/materials.h"
+#include "obj/magic_item.h"
+#include "obj/scroll.h"
 
 TScroll::TScroll() :
   TMagicItem()

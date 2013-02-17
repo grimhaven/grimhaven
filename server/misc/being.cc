@@ -1,19 +1,19 @@
 #include <stdio.h>
 #include <limits.h>
 
-#include "room.h"
-#include "being.h"
-#include "extern.h"
-#include "client.h"
-#include "low.h"
-#include "charfile.h"
-#include "being.h"
-#include "database.h"
-#include "obj_opal.h"
-#include "account.h"
-#include "person.h"
-#include "monster.h"
-#include "weather.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/extern.h"
+#include "sys/client.h"
+#include "misc/low.h"
+#include "misc/charfile.h"
+#include "misc/being.h"
+#include "sys/database.h"
+#include "obj/opal.h"
+#include "misc/account.h"
+#include "misc/person.h"
+#include "misc/monster.h"
+#include "misc/weather.h"
 
 #include <sys/types.h>
 #include <sys/stat.h>

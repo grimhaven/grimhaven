@@ -1,9 +1,9 @@
 #include <stdio.h>
 
-#include "extern.h"
-#include "room.h"
-#include "being.h"
-#include "materials.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/materials.h"
 
 /* remove these races
     case RACE_UNCERT:

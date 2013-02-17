@@ -1,7 +1,7 @@
-#include "gametime.h"
-#include "weather.h"
-#include "comm.h"
-#include "person.h"
+#include "sys/gametime.h"
+#include "misc/weather.h"
+#include "sys/comm.h"
+#include "misc/person.h"
 
 // static defs
 struct time_info_data GameTime::time_info;

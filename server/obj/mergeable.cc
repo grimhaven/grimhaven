@@ -1,4 +1,4 @@
-#include "obj_mergeable.h"
+#include "obj/mergeable.h"
 
 bool TMergeable::willMerge(TMergeable *t)
 {

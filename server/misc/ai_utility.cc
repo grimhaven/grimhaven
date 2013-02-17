@@ -7,13 +7,13 @@
 //   a mob could piss off another mob, and the pissed off mob "think"
 //   it was some random PC that did nothing. */
 
-#include "being.h"
-#include "room.h"
-#include "low.h"
-#include "extern.h"
-#include "monster.h"
-#include "combat.h"
-#include "spec_mobs.h"
+#include "misc/being.h"
+#include "misc/room.h"
+#include "misc/low.h"
+#include "misc/extern.h"
+#include "misc/monster.h"
+#include "misc/combat.h"
+#include "spec/mobs.h"
 
 // This function should be used if you want to see if the mob is "pissed"
 int TMonster::pissed(void)

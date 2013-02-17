@@ -1,13 +1,13 @@
 #include <stdio.h>
 
-#include "monster.h"
-#include "extern.h"
-#include "obj_open_container.h"
-#include "obj_arrow.h"
-#include "obj_base_weapon.h"
-#include "shop.h"
-#include "shopowned.h"
-#include "materials.h"
+#include "misc/monster.h"
+#include "misc/extern.h"
+#include "obj/open_container.h"
+#include "obj/arrow.h"
+#include "obj/base_weapon.h"
+#include "misc/shop.h"
+#include "misc/shopowned.h"
+#include "misc/materials.h"
 
 TArrow::TArrow() :
   TBaseWeapon(),

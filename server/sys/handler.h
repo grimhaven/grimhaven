@@ -3,7 +3,7 @@
 
 #include <list>
 
-#include "obj_money.h"
+#include "obj/money.h"
 
 class equipmentData;
 

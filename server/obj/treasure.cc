@@ -1,9 +1,9 @@
-#include "room.h"
-#include "low.h"
-#include "obj_treasure.h"
-#include "database.h"
-#include "obj_base_container.h"
-#include "being.h"
+#include "misc/room.h"
+#include "misc/low.h"
+#include "obj/treasure.h"
+#include "sys/database.h"
+#include "obj/base_container.h"
+#include "misc/being.h"
 
 TTreasure::TTreasure() :
   TObj()

@@ -1,9 +1,9 @@
 #ifndef __LIMBS_H
 #define __LIMBS_H
 
-#include "discipline.h"
-#include "sstring.h"
-#include "spells.h"
+#include "misc/discipline.h"
+#include "sys/sstring.h"
+#include "misc/spells.h"
 
 const int LIMB_NONE        = -1;
 

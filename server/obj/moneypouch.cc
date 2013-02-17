@@ -1,6 +1,6 @@
-#include "monster.h"
-#include "obj_moneypouch.h"
-#include "obj_money.h"
+#include "misc/monster.h"
+#include "obj/moneypouch.h"
+#include "obj/money.h"
 
 int TMoneypouch::getMoney(currencyTypeT c) const
 {

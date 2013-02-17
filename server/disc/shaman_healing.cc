@@ -1,13 +1,13 @@
 #include <stdio.h>
 
-#include "colorstring.h"
-#include "disease.h"
-#include "combat.h"
-#include "disc_shaman_healing.h"
-#include "spelltask.h"
-#include "statistics.h"
-#include "obj_magic_item.h"
-#include "being.h"
+#include "sys/colorstring.h"
+#include "misc/disease.h"
+#include "misc/combat.h"
+#include "disc/shaman_healing.h"
+#include "misc/spelltask.h"
+#include "misc/statistics.h"
+#include "obj/magic_item.h"
+#include "misc/being.h"
 
 ////////////////////////////////////////////////////////////////
 //   The following are copies of repHealing and adjustHealHp

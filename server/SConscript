@@ -22,6 +22,6 @@ server_subdirs = [ 'cmd', 'disc', 'game', 'misc', 'obj', 'spec', 'sys', 'task', 
 
 Program(target = 'grimhaven',
         source = [ 'main.cc' ] + [ Glob(d + '/*.cc') for d in server_subdirs ],
-        CPPPATH = server_subdirs,
+        CPPPATH = [ '.' ],
         CXXFLAGS = server_cxxflags,
         LIBS = server_libs,)

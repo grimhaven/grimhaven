@@ -1,9 +1,9 @@
 #include <stdio.h>
 
-#include "monster.h"
-#include "obj_fuel.h"
-#include "room.h"
-#include "obj_light.h"
+#include "misc/monster.h"
+#include "obj/fuel.h"
+#include "misc/room.h"
+#include "obj/light.h"
 
 TFuel::TFuel() :
   TObj(),

@@ -1,7 +1,7 @@
 #ifndef __CORPORATION_H
 #define __CORPORATION_H
 
-#include "sstring.h"
+#include "sys/sstring.h"
 
 class TBeing;
 

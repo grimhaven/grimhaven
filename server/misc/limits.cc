@@ -5,20 +5,20 @@ extern "C" {
 }
 #include <cmath>
 
-#include "room.h"
-#include "being.h"
-#include "extern.h"
-#include "low.h"
-#include "handler.h"
-#include "monster.h"
-#include "statistics.h"
-#include "games.h"
-#include "obj_base_container.h"
-#include "person.h"
-#include "obj_food.h"
-#include "obj_bed.h"
-#include "obj_drinkcon.h"
-#include "obj_opal.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/extern.h"
+#include "misc/low.h"
+#include "sys/handler.h"
+#include "misc/monster.h"
+#include "misc/statistics.h"
+#include "game/games.h"
+#include "obj/base_container.h"
+#include "misc/person.h"
+#include "obj/food.h"
+#include "obj/bed.h"
+#include "obj/drinkcon.h"
+#include "obj/opal.h"
 
 #if 0
 static const sstring ClassTitles(const TBeing *ch)

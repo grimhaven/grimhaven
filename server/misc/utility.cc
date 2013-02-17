@@ -1,17 +1,17 @@
 #include <stdio.h>
 
-#include "extern.h"
-#include "room.h"
-#include "being.h"
-#include "low.h"
-#include "monster.h"
-#include "materials.h"
-#include "person.h"
-#include "client.h"
-#include "skills.h"
-#include "game_crazyeights.h"
-#include "game_drawpoker.h"
-#include "weather.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/low.h"
+#include "misc/monster.h"
+#include "misc/materials.h"
+#include "misc/person.h"
+#include "sys/client.h"
+#include "misc/skills.h"
+#include "game/crazyeights.h"
+#include "game/drawpoker.h"
+#include "misc/weather.h"
 
 #include <csignal>
 #include <cstdarg>
@@ -36,17 +36,17 @@ extern "C" {
 pid_t vfork(void);
 
 }
-#include "disease.h"
-#include "shop.h"
-#include "combat.h"
-#include "account.h"
-#include "statistics.h"
-#include "socket.h"
-#include "games.h"
-#include "mail.h"
-#include "database.h"
-#include "obj_seethru.h"
-#include "corporation.h"
+#include "misc/disease.h"
+#include "misc/shop.h"
+#include "misc/combat.h"
+#include "misc/account.h"
+#include "misc/statistics.h"
+#include "sys/tsocket.h"
+#include "game/games.h"
+#include "misc/mail.h"
+#include "sys/database.h"
+#include "obj/seethru.h"
+#include "misc/corporation.h"
 
 bool TBeing::canSeeWho(const TBeing *o) const
 {

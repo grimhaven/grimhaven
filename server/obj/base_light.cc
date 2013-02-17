@@ -1,4 +1,4 @@
-#include "obj_base_light.h"
+#include "obj/base_light.h"
 
 TBaseLight::TBaseLight() :
   TObj(),

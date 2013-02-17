@@ -1,8 +1,8 @@
 #ifndef __MONSTER_H
 #define __MONSTER_H
 
-#include "being.h"
-#include "paths.h"
+#include "misc/being.h"
+#include "misc/paths.h"
 
 using std::min;
 using std::max;

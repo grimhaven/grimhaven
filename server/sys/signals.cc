@@ -7,8 +7,8 @@
 #include <csignal>
 
 #include <sys/time.h>
-#include "extern.h"
-#include "person.h"
+#include "misc/extern.h"
+#include "misc/person.h"
 
 void checkpointing(int);
 void shutdownRequest(int);

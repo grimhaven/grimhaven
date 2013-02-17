@@ -1,8 +1,8 @@
-#include "extern.h"
-#include "being.h"
-#include "disc_theology.h"
-#include "obj_vial.h"
-#include "obj_symbol.h"
+#include "misc/extern.h"
+#include "misc/being.h"
+#include "disc/theology.h"
+#include "obj/vial.h"
+#include "obj/symbol.h"
 
 void TBeing::doAttune(const char *argument)
 {

@@ -2,11 +2,11 @@
 
 #include <cmath>
 
-#include "monster.h"
-#include "obj_food.h"
-#include "obj_fruit.h"
-#include "obj_tool.h"
-#include "room.h"
+#include "misc/monster.h"
+#include "obj/food.h"
+#include "obj/fruit.h"
+#include "obj/tool.h"
+#include "misc/room.h"
 
 TFruit::TFruit() :
   TFood(),

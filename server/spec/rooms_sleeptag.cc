@@ -9,12 +9,12 @@
 #include <stdarg.h>
 #include <cmath>
 
-#include "extern.h"
-#include "room.h"
-#include "configuration.h"
-#include "obj_staff.h"
-#include "obj_wand.h"
-#include "person.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "sys/configuration.h"
+#include "obj/staff.h"
+#include "obj/wand.h"
+#include "misc/person.h"
 
 const int SLEEPTAG_CONTROL_ROOM = 23599;
 const int SLEEPTAG_STAFF        = 23500;

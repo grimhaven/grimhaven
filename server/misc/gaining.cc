@@ -2,16 +2,16 @@
 
 #include <cmath>
 
-#include "extern.h"
-#include "being.h"
-#include "monster.h"
-#include "statistics.h"
-#include "obj_component.h"
-#include "person.h"
-#include "database.h"
-#include "spec_mobs.h"
-#include "materials.h"
-#include "skills.h"
+#include "misc/extern.h"
+#include "misc/being.h"
+#include "misc/monster.h"
+#include "misc/statistics.h"
+#include "obj/component.h"
+#include "misc/person.h"
+#include "sys/database.h"
+#include "spec/mobs.h"
+#include "misc/materials.h"
+#include "misc/skills.h"
 
 #define REPRAC_COST_PER_PRAC 1000
 

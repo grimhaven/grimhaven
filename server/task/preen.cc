@@ -1,8 +1,8 @@
-#include "handler.h"
-#include "room.h"
-#include "being.h"
-#include "low.h"
-#include "process.h"
+#include "sys/handler.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/low.h"
+#include "sys/process.h"
 
 // simple function to do the non-bird social
 void preen_social(TBeing *ch, TThing *target)

@@ -1,18 +1,18 @@
 #include <stdio.h>
 
-#include "handler.h"
-#include "extern.h"
-#include "room.h"
-#include "being.h"
-#include "colorstring.h"
-#include "low.h"
-#include "monster.h"
-#include "obj_pool.h"
-#include "obj_plant.h"
-#include "disc_sorcery.h"
-#include "liquids.h"
-#include "obj_drinkcon.h"
-#include "obj_drug.h"
+#include "sys/handler.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "sys/colorstring.h"
+#include "misc/low.h"
+#include "misc/monster.h"
+#include "obj/pool.h"
+#include "obj/plant.h"
+#include "disc/sorcery.h"
+#include "misc/liquids.h"
+#include "obj/drinkcon.h"
+#include "obj/drug.h"
 
 class socialMessg {
   public:

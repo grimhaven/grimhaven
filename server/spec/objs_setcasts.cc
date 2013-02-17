@@ -1,6 +1,6 @@
-#include "comm.h"
-#include "obj_base_clothing.h"
-#include "being.h"
+#include "sys/comm.h"
+#include "obj/base_clothing.h"
+#include "misc/being.h"
 
 // constants that define the combo items
 // combo 1

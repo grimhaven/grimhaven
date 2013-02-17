@@ -2,20 +2,20 @@
 
 #include <cmath>
 
-#include "extern.h"
-#include "handler.h"
-#include "room.h"
-#include "being.h"
-#include "low.h"
-#include "low.h"
-#include "monster.h"
-#include "disease.h"
-#include "obj_open_container.h"
-#include "obj_opal.h"
-#include "obj_component.h"
-#include "person.h"
-#include "obj_key.h"
-#include "being.h"
+#include "misc/extern.h"
+#include "sys/handler.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/low.h"
+#include "misc/low.h"
+#include "misc/monster.h"
+#include "misc/disease.h"
+#include "obj/open_container.h"
+#include "obj/opal.h"
+#include "obj/component.h"
+#include "misc/person.h"
+#include "obj/key.h"
+#include "misc/being.h"
 
 void TMonster::balanceMakeNPCLikePC()
 {

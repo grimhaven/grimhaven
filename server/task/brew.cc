@@ -1,5 +1,5 @@
-#include "obj_potion.h"
-#include "being.h"
+#include "obj/potion.h"
+#include "misc/being.h"
 
 int task_brew(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, TObj *)
 {

@@ -1,9 +1,9 @@
-#include "handler.h"
-#include "being.h"
-#include "combat.h"
-#include "obj_general_weapon.h"
-#include "materials.h"
-#include "skills.h"
+#include "sys/handler.h"
+#include "misc/being.h"
+#include "misc/combat.h"
+#include "obj/general_weapon.h"
+#include "misc/materials.h"
+#include "misc/skills.h"
 
 //#define ALLOW_STAB_SEVER
 #define USE_NEW_STAB

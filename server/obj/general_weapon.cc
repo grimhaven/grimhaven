@@ -1,12 +1,12 @@
-#include "obj_general_weapon.h"
-#include "obj_base_weapon.h"
-#include "obj_gun.h"
-#include "shop.h"
-#include "shopowned.h"
-#include "liquids.h"
-#include "toggle.h"
-#include "extern.h"
-#include "being.h"
+#include "obj/general_weapon.h"
+#include "obj/base_weapon.h"
+#include "obj/gun.h"
+#include "misc/shop.h"
+#include "misc/shopowned.h"
+#include "misc/liquids.h"
+#include "misc/toggle.h"
+#include "misc/extern.h"
+#include "misc/being.h"
 
 TGenWeapon::TGenWeapon() :
   TBaseWeapon()

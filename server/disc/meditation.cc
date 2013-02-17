@@ -1,3 +1,3 @@
-#include "combat.h"
-#include "disc_meditation.h"
+#include "misc/combat.h"
+#include "disc/meditation.h"
 

@@ -1,10 +1,10 @@
 #ifndef __PROCESS_H
 #define __PROCESS_H
 
-#include "sstring.h"
-#include "comm.h"
-#include "obj.h"
-#include "timing.h"
+#include "sys/sstring.h"
+#include "sys/comm.h"
+#include "misc/obj.h"
+#include "sys/timing.h"
 
 class TPulse {
 public:

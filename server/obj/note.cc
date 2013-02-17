@@ -2,11 +2,11 @@
 
 #include <errno.h>
 
-#include "low.h"
-#include "monster.h"
+#include "misc/low.h"
+#include "misc/monster.h"
 #include "unistd.h"
-#include "obj_note.h"
-#include "extern.h"
+#include "obj/note.h"
+#include "misc/extern.h"
 
 TNote::TNote() :
   TObj(),

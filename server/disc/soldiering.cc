@@ -1,4 +1,4 @@
-#include "disc_soldiering.h"
+#include "disc/soldiering.h"
 
 CDSoldiering::CDSoldiering() :
       CDiscipline(),

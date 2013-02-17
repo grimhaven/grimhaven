@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-#include "comm.h"
-#include "room.h"
-#include "obj_plant.h"
-#include "thing.h"
-#include "being.h"
+#include "sys/comm.h"
+#include "misc/room.h"
+#include "obj/plant.h"
+#include "misc/thing.h"
+#include "misc/being.h"
 
 TPlant::TPlant() :
   TExpandableContainer()

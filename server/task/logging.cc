@@ -1,9 +1,9 @@
-#include "room.h"
-#include "being.h"
-#include "process.h"
-#include "extern.h"
-#include "obj_base_weapon.h"
-#include "skills.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "sys/process.h"
+#include "misc/extern.h"
+#include "obj/base_weapon.h"
+#include "misc/skills.h"
 
 #define LAST_WOOD_TYPE 0
 #define LOGS_PER_ROOM 5

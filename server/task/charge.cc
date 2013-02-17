@@ -1,11 +1,11 @@
 #include <stdio.h>
 
-#include "room.h"
-#include "extern.h"
-#include "handler.h"
-#include "being.h"
-#include "monster.h"
-#include "spec_mobs.h"
+#include "misc/room.h"
+#include "misc/extern.h"
+#include "sys/handler.h"
+#include "misc/being.h"
+#include "misc/monster.h"
+#include "spec/mobs.h"
 
 extern void warn_busy(TBeing *);
 

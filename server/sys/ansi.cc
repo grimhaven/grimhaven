@@ -1,5 +1,5 @@
-#include "being.h"
-#include "connect.h"
+#include "misc/being.h"
+#include "sys/connect.h"
 
 void TBeing::setColor(setColorFieldT num, setColorKolorT col)
 {

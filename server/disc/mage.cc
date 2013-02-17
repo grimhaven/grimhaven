@@ -1,4 +1,4 @@
-#include "disc_mage.h"
+#include "disc/mage.h"
 
 CDMage::CDMage() :
   CDiscipline(),

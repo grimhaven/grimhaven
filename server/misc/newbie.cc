@@ -1,11 +1,11 @@
-#include "being.h"
-#include "client.h"
-#include "person.h"
-#include "colorstring.h"
-#include "monster.h"
-#include "account.h"
-#include "cmd_message.h"
-#include "spec_mobs.h"
+#include "misc/being.h"
+#include "sys/client.h"
+#include "misc/person.h"
+#include "sys/colorstring.h"
+#include "misc/monster.h"
+#include "misc/account.h"
+#include "cmd/message.h"
+#include "spec/mobs.h"
 
 void TBeing::doNewbieEqLoad(race_t num, unsigned short num2, bool initNum)
 {

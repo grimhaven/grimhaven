@@ -1,7 +1,7 @@
-#include "handler.h"
-#include "being.h"
-#include "combat.h"
-#include "disc_monk.h"
+#include "sys/handler.h"
+#include "misc/being.h"
+#include "misc/combat.h"
+#include "disc/monk.h"
 
 static int chopMiss(TBeing *c, TBeing *v)
 {

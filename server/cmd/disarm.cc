@@ -1,10 +1,10 @@
-#include "handler.h"
-#include "extern.h"
-#include "being.h"
-#include "combat.h"
-#include "obj_base_clothing.h"
-#include "monster.h"
-#include "skills.h"
+#include "sys/handler.h"
+#include "misc/extern.h"
+#include "misc/being.h"
+#include "misc/combat.h"
+#include "obj/base_clothing.h"
+#include "misc/monster.h"
+#include "misc/skills.h"
 
 bool TBeing::canDisarm(TBeing *victim, silentTypeT silent)
 {

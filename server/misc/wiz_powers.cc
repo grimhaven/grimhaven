@@ -1,10 +1,10 @@
 #include <unistd.h>
 
-#include "being.h"
-#include "database.h"
-#include "person.h"
-#include "extern.h"
-#include "handler.h"
+#include "misc/being.h"
+#include "sys/database.h"
+#include "misc/person.h"
+#include "misc/extern.h"
+#include "sys/handler.h"
 
 bool TBeing::powerCheck(wizPowerT wpt) const
 {

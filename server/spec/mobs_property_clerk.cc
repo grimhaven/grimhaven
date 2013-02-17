@@ -1,5 +1,5 @@
-#include "database.h"
-#include "monster.h"
+#include "sys/database.h"
+#include "misc/monster.h"
 
 int propertyClerk(TBeing *ch, cmdTypeT cmd, const char *argument, TMonster *me, TObj *)
 {

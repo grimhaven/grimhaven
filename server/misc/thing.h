@@ -7,10 +7,10 @@
 
 #include <list>
 
-#include "limbs.h"
-#include "faction.h"
-#include "ansi.h"
-#include "spells.h"
+#include "misc/limbs.h"
+#include "misc/faction.h"
+#include "sys/ansi.h"
+#include "misc/spells.h"
 
 enum thingTypeT {
   TYPETHING,    // = 0;

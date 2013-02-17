@@ -1,6 +1,6 @@
-#include "extern.h"
-#include "spell2.h"
-#include "toggle.h"
+#include "misc/extern.h"
+#include "misc/spell2.h"
+#include "misc/toggle.h"
 
 spellInfo *discArray[MAX_SKILL+1];
 

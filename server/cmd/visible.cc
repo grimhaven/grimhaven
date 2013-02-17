@@ -1,5 +1,5 @@
-#include "being.h"
-#include "person.h"
+#include "misc/being.h"
+#include "misc/person.h"
 
 void TBeing::doVisible(const char *, bool)
 {

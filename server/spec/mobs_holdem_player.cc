@@ -1,6 +1,6 @@
-#include "monster.h"
-#include "obj_casino_chip.h"
-#include "games.h"
+#include "misc/monster.h"
+#include "obj/casino_chip.h"
+#include "game/games.h"
 
 void deleteChips(TMonster *me)
 {

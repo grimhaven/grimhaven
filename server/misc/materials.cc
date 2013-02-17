@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-#include "being.h"
-#include "materials.h"
-#include "room.h"
-#include "statistics.h"
-#include "obj_base_weapon.h"
+#include "misc/being.h"
+#include "misc/materials.h"
+#include "misc/room.h"
+#include "misc/statistics.h"
+#include "obj/base_weapon.h"
 
 static bool genericDamCheck(int susc, int sharp)
 {

@@ -1,19 +1,19 @@
 #include <stdio.h>
 
-#include "extern.h"
-#include "room.h"
-#include "client.h"
-#include "low.h"
-#include "handler.h"
-#include "colorstring.h"
-#include "monster.h"
-#include "disease.h"
-#include "combat.h"
-#include "spelltask.h"
-#include "disc_spirit.h"
-#include "obj_magic_item.h"
-#include "combat.h"
-#include "person.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "sys/client.h"
+#include "misc/low.h"
+#include "sys/handler.h"
+#include "sys/colorstring.h"
+#include "misc/monster.h"
+#include "misc/disease.h"
+#include "misc/combat.h"
+#include "misc/spelltask.h"
+#include "disc/spirit.h"
+#include "obj/magic_item.h"
+#include "misc/combat.h"
+#include "misc/person.h"
 
 int knot(TBeing *caster, TBeing *victim)
 {

@@ -1,5 +1,5 @@
-#include "extern.h"
-#include "obj_money.h"
+#include "misc/extern.h"
+#include "obj/money.h"
 
 int mapApplyToFile(applyTypeT att)
 {

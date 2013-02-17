@@ -1,11 +1,11 @@
-#include "comm.h"
-#include "handler.h"
-#include "materials.h"
-#include "obj_base_container.h"
-#include "obj_open_container.h"
-#include "obj_component.h"
-#include "obj_tool.h"
-#include "being.h"
+#include "sys/comm.h"
+#include "sys/handler.h"
+#include "misc/materials.h"
+#include "obj/base_container.h"
+#include "obj/open_container.h"
+#include "obj/component.h"
+#include "obj/tool.h"
+#include "misc/being.h"
 
 const char * TThing::objs(const TThing *t) const
 {

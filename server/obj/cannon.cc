@@ -1,16 +1,16 @@
 #include <stdio.h>
 
-#include "extern.h"
-#include "obj_cannon.h"
-#include "obj_general_weapon.h"
-#include "obj_base_weapon.h"
-#include "colorstring.h"
-#include "obj_gun.h"
-#include "range.h"
-#include "obj_arrow.h"
-#include "obj_tool.h"
-#include "being.h"
-#include "weather.h"
+#include "misc/extern.h"
+#include "obj/cannon.h"
+#include "obj/general_weapon.h"
+#include "obj/base_weapon.h"
+#include "sys/colorstring.h"
+#include "obj/gun.h"
+#include "misc/range.h"
+#include "obj/arrow.h"
+#include "obj/tool.h"
+#include "misc/being.h"
+#include "misc/weather.h"
 
 
 int TCannon::shootMeBow(TBeing *ch, TBeing *targ, unsigned int count, dirTypeT dir, int shoot_dist)

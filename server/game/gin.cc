@@ -1,9 +1,9 @@
 #include <stdio.h>
 
-#include "monster.h"
-#include "games.h"
-#include "extern.h"
-#include "handler.h"
+#include "misc/monster.h"
+#include "game/games.h"
+#include "misc/extern.h"
+#include "sys/handler.h"
 
 GinGame gGin;
 

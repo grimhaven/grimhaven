@@ -1,4 +1,4 @@
-#include "extern.h"
+#include "misc/extern.h"
 
 #if 0
     case SPELL_FIND_FAMILIAR:

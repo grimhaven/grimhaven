@@ -1,18 +1,18 @@
 #include <stdio.h>
 
-#include "handler.h"
-#include "extern.h"
-#include "room.h"
-#include "being.h"
-#include "materials.h"
-#include "obj_general_weapon.h"
-#include "obj_base_weapon.h"
-#include "colorstring.h"
-#include "obj_gun.h"
-#include "range.h"
-#include "obj_arrow.h"
-#include "obj_handgonne.h"
-#include "obj_tool.h"
+#include "sys/handler.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/materials.h"
+#include "obj/general_weapon.h"
+#include "obj/base_weapon.h"
+#include "sys/colorstring.h"
+#include "obj/gun.h"
+#include "misc/range.h"
+#include "obj/arrow.h"
+#include "obj/handgonne.h"
+#include "obj/tool.h"
 
 const char *getAmmoKeyword(int ammo){
   if(ammo < AMMO_NONE ||

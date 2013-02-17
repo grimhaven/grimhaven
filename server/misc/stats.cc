@@ -1,6 +1,6 @@
-#include "extern.h"
-#include "being.h"
-#include "stats.h"
+#include "misc/extern.h"
+#include "misc/being.h"
+#include "misc/stats.h"
 
 #include <cmath>
 #include <cstdio>

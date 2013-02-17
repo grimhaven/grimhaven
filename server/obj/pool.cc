@@ -1,13 +1,13 @@
 #include <stdio.h>
 
-#include "room.h"
-#include "being.h"
-#include "colorstring.h"
-#include "low.h"
-#include "extern.h"
-#include "obj_pool.h"
-#include "liquids.h"
-#include "materials.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "sys/colorstring.h"
+#include "misc/low.h"
+#include "misc/extern.h"
+#include "obj/pool.h"
+#include "misc/liquids.h"
+#include "misc/materials.h"
 
 void TPool::overFlow()
 {

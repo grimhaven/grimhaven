@@ -1,7 +1,7 @@
-#include "room.h"
-#include "being.h"
-#include "extern.h"
-#include "monster.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/extern.h"
+#include "misc/monster.h"
 
 int TMonster::remHated(const TBeing *hatee, const char *n)
 {

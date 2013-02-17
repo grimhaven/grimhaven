@@ -1,11 +1,11 @@
 #include <stdio.h>
 
-#include "comm.h"
-#include "room.h"
-#include "obj_drug.h"
-#include "extern.h"
-#include "being.h"
-#include "obj_drug_container.h"
+#include "sys/comm.h"
+#include "misc/room.h"
+#include "obj/drug.h"
+#include "misc/extern.h"
+#include "misc/being.h"
+#include "obj/drug_container.h"
 
 TDrugContainer::TDrugContainer() :
   TObj(),

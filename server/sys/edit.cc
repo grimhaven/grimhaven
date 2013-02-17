@@ -2,8 +2,8 @@
 
 #include <stdio.h>
 
-#include "socket.h"
-#include "connect.h"
+#include "sys/tsocket.h"
+#include "sys/connect.h"
 
 #include <unistd.h>
 #include <arpa/telnet.h>

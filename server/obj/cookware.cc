@@ -1,9 +1,9 @@
-#include "low.h"
-#include "monster.h"
-#include "obj_cookware.h"
-#include "obj_open_container.h"
-#include "obj_pool.h"
-#include "liquids.h"
+#include "misc/low.h"
+#include "misc/monster.h"
+#include "obj/cookware.h"
+#include "obj/open_container.h"
+#include "obj/pool.h"
+#include "misc/liquids.h"
 
 TCookware::TCookware() :
   TOpenContainer()

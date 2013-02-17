@@ -1,13 +1,13 @@
 #include <stdio.h>
 
-#include "extern.h"
-#include "range.h"
-#include "colorstring.h"
-#include "obj_bow.h"
-#include "obj_arrow.h"
-#include "shop.h"
-#include "shopowned.h"
-#include "being.h"
+#include "misc/extern.h"
+#include "misc/range.h"
+#include "sys/colorstring.h"
+#include "obj/bow.h"
+#include "obj/arrow.h"
+#include "misc/shop.h"
+#include "misc/shopowned.h"
+#include "misc/being.h"
 
 TBow::TBow() :
   TObj(),

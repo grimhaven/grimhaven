@@ -5,16 +5,16 @@ extern "C" {
 #include <arpa/telnet.h>
 }
 
-#include "extern.h"
-#include "room.h"
-#include "being.h"
-#include "colorstring.h"
-#include "person.h"
-#include "configuration.h"
-#include "socket.h"
-#include "mail.h"
-#include "monster.h"
-#include "client.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "sys/colorstring.h"
+#include "misc/person.h"
+#include "sys/configuration.h"
+#include "sys/tsocket.h"
+#include "misc/mail.h"
+#include "misc/monster.h"
+#include "sys/client.h"
 
 sstring lockmess;
 commandInfo *commandArray[MAX_CMD_LIST];

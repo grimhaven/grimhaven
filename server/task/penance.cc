@@ -1,7 +1,7 @@
-#include "being.h"
-#include "room.h"
-#include "obj.h"
-#include "connect.h"
+#include "misc/being.h"
+#include "misc/room.h"
+#include "misc/obj.h"
+#include "sys/connect.h"
 
 int task_penance(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, TObj *)
 {

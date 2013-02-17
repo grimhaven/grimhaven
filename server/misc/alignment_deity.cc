@@ -1,8 +1,8 @@
-#include "extern.h"
-#include "person.h"
-#include "handler.h"
-#include "low.h"
-#include "monster.h"
+#include "misc/extern.h"
+#include "misc/person.h"
+#include "sys/handler.h"
+#include "misc/low.h"
+#include "misc/monster.h"
 
 // returns DELETE_THIS if deity went boom
 int personalize_object(TBeing *deity, TBeing *ch, int virt, int decay)

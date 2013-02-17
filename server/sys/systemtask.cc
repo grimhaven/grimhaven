@@ -8,10 +8,10 @@ extern "C" {
 #include <unistd.h>
 }
 
-#include "systemtask.h"
-#include "being.h"
-#include "obj_note.h"
-#include "extern.h"
+#include "sys/systemtask.h"
+#include "misc/being.h"
+#include "obj/note.h"
+#include "misc/extern.h"
 
 const char TMPFILE[] = "/mud/prod/lib/tmp/task.output";
 

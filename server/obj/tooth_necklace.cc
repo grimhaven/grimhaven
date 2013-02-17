@@ -1,6 +1,6 @@
-#include "extern.h"
-#include "monster.h"
-#include "obj_tooth_necklace.h"
+#include "misc/extern.h"
+#include "misc/monster.h"
+#include "obj/tooth_necklace.h"
 
 TToothNecklace::TToothNecklace() :
   TExpandableContainer()

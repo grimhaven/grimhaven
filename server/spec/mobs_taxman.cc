@@ -1,7 +1,7 @@
-#include "shop.h"
-#include "database.h"
-#include "spec_mobs.h"
-#include "monster.h"
+#include "misc/shop.h"
+#include "sys/database.h"
+#include "spec/mobs.h"
+#include "misc/monster.h"
 
 int taxman(TBeing *ch, cmdTypeT cmd, const char *arg, TMonster *me, TObj *)
 {

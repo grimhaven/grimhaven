@@ -5,19 +5,19 @@ extern "C" {
 #include <sys/stat.h>
 }
 
-#include "handler.h"
-#include "room.h"
-#include "extern.h"
-#include "being.h"
-#include "low.h"
-#include "monster.h"
-#include "mail.h"
-#include "materials.h"
-#include "combat.h"
-#include "person.h"
-#include "statistics.h"
-#include "spec_mobs.h"
-#include "database.h"
+#include "sys/handler.h"
+#include "misc/room.h"
+#include "misc/extern.h"
+#include "misc/being.h"
+#include "misc/low.h"
+#include "misc/monster.h"
+#include "misc/mail.h"
+#include "misc/materials.h"
+#include "misc/combat.h"
+#include "misc/person.h"
+#include "misc/statistics.h"
+#include "spec/mobs.h"
+#include "sys/database.h"
 
 static void stripSpellAffects(TBeing * mob)
 {

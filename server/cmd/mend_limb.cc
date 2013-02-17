@@ -1,4 +1,4 @@
-#include "being.h"
+#include "misc/being.h"
 
 int TBeing::doMendLimb(const sstring &)
 {

@@ -1,7 +1,7 @@
 #ifndef __CONFIGURATION_H
 #define __CONFIGURATION_H
 
-#include "sstring.h"
+#include "sys/sstring.h"
 
 class Config {
  private:

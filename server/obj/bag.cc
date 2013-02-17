@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-#include "monster.h"
-#include "obj_bag.h"
-#include "connect.h"
+#include "misc/monster.h"
+#include "obj/bag.h"
+#include "sys/connect.h"
 
 TBag::TBag() :
   TExpandableContainer()

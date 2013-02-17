@@ -1,12 +1,12 @@
-#include "being.h"
-#include "low.h"
-#include "extern.h"
-#include "monster.h"
-#include "room.h"
-#include "statistics.h"
-#include "shop.h"
-#include "database.h"
-#include "spec_mobs.h"
+#include "misc/being.h"
+#include "misc/low.h"
+#include "misc/extern.h"
+#include "misc/monster.h"
+#include "misc/room.h"
+#include "misc/statistics.h"
+#include "misc/shop.h"
+#include "sys/database.h"
+#include "spec/mobs.h"
 
 charList::charList() :
   name(NULL),

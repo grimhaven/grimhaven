@@ -1,6 +1,6 @@
-#include "room.h"
-#include "monster.h"
-#include "person.h"
+#include "misc/room.h"
+#include "misc/monster.h"
+#include "misc/person.h"
 
 const int OBJ_TUDY_BILGE        = 9635;
 const int OBJ_TUDY_SHACKLE_KEY1 = 9636;

@@ -1,12 +1,12 @@
-#include "being.h"
-#include "person.h"
-#include "monster.h"
-#include "account.h"
-#include "mail.h"
-#include "client.h"
-#include "connect.h"
-#include "room.h"
-#include "database.h"
+#include "misc/being.h"
+#include "misc/person.h"
+#include "misc/monster.h"
+#include "misc/account.h"
+#include "misc/mail.h"
+#include "sys/client.h"
+#include "sys/connect.h"
+#include "misc/room.h"
+#include "sys/database.h"
 
 void TBeing::doFeedback(const int cmd, const sstring &subject)
 {

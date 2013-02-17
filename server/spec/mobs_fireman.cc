@@ -1,8 +1,8 @@
-#include "monster.h"
-#include "obj_base_corpse.h"
-#include "pathfinder.h"
-#include "room.h"
-#include "handler.h"
+#include "misc/monster.h"
+#include "obj/base_corpse.h"
+#include "sys/pathfinder.h"
+#include "misc/room.h"
+#include "sys/handler.h"
 
 // yuck, global variable, seems to be the only way to do it
 bool fireInGrimhaven=false;

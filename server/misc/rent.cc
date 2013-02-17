@@ -9,38 +9,38 @@
 #define __STDC_FORMAT_MACROS
 #include <inttypes.h>
 
-#include "extern.h"
-#include "room.h"
-#include "being.h"
-#include "client.h"
-#include "low.h"
-#include "monster.h"
-#include "handler.h"
-#include "configuration.h"
-#include "charfile.h"
-#include "rent.h"
-#include "account.h"
-#include "statistics.h"
-#include "mail.h"
-#include "shop.h"
-#include "person.h"
-#include "database.h"
-#include "spec_mobs.h"
-#include "obj_player_corpse.h"
-#include "obj_bag.h"
-#include "obj_symbol.h"
-#include "obj_money.h"
-#include "obj_component.h"
-#include "obj_note.h"
-#include "obj_magic_item.h"
-#include "obj_wand.h"
-#include "obj_general_weapon.h"
-#include "obj_open_container.h"
-#include "corporation.h"
-#include "shopowned.h"
-#include "materials.h"
-#include "combat.h"
-#include "timing.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "sys/client.h"
+#include "misc/low.h"
+#include "misc/monster.h"
+#include "sys/handler.h"
+#include "sys/configuration.h"
+#include "misc/charfile.h"
+#include "misc/rent.h"
+#include "misc/account.h"
+#include "misc/statistics.h"
+#include "misc/mail.h"
+#include "misc/shop.h"
+#include "misc/person.h"
+#include "sys/database.h"
+#include "spec/mobs.h"
+#include "obj/player_corpse.h"
+#include "obj/bag.h"
+#include "obj/symbol.h"
+#include "obj/money.h"
+#include "obj/component.h"
+#include "obj/note.h"
+#include "obj/magic_item.h"
+#include "obj/wand.h"
+#include "obj/general_weapon.h"
+#include "obj/open_container.h"
+#include "misc/corporation.h"
+#include "misc/shopowned.h"
+#include "misc/materials.h"
+#include "misc/combat.h"
+#include "sys/timing.h"
 
 static const char ROOM_SAVE_PATH[] = "roomdata/saved";
 static const int NORMAL_SLOT   = -1;
@@ -4265,7 +4265,7 @@ void updateRentFiles(void)
   bootPulse(".", false);
   dirwalk("rent/g", chargeRent);
   bootPulse(".", false);
-  dirwalk("rent/h", chargeRent);
+  dirwalk("misc/rent.h", chargeRent);
   bootPulse(".", false);
   dirwalk("rent/i", chargeRent);
   bootPulse(".", false);

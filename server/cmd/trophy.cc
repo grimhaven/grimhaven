@@ -1,10 +1,9 @@
-#include "room.h"
-#include "being.h"
-#include "cmd_trophy.h"
-#include "database.h"
-#include "process.h"
-#include "person.h"
-#include "connect.h"
+#include "cmd/trophy.h"
+#include "sys/database.h"
+#include "misc/room.h"
+#include "misc/person.h"
+#include "sys/connect.h"
+#include "sys/process.h"
 
 TTrophy::TTrophy(sstring n) :
   parent(NULL),

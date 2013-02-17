@@ -1,12 +1,12 @@
-#include "shopowned.h"
-#include "database.h"
-#include "shop.h"
-#include "extern.h"
-#include "corporation.h"
-#include "obj_note.h"
-#include "shopaccounting.h"
-#include "monster.h"
-#include "room.h"
+#include "misc/shopowned.h"
+#include "sys/database.h"
+#include "misc/shop.h"
+#include "misc/extern.h"
+#include "misc/corporation.h"
+#include "obj/note.h"
+#include "misc/shopaccounting.h"
+#include "misc/monster.h"
+#include "misc/room.h"
 
 // pull data from archive
 TShopJournal::TShopJournal(int shop, int y)

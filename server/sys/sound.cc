@@ -1,12 +1,12 @@
 #include <stdio.h>
 
-#include "room.h"
-#include "being.h"
-#include "low.h"
-#include "account.h"
-#include "extern.h"
-#include "colorstring.h"
-#include "monster.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/low.h"
+#include "misc/account.h"
+#include "misc/extern.h"
+#include "sys/colorstring.h"
+#include "misc/monster.h"
 
 int RecGetObjRoom(const TThing *obj)
 {

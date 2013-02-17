@@ -1,12 +1,12 @@
-#include "handler.h"
-#include "extern.h"
-#include "room.h"
-#include "being.h"
-#include "disease.h"
-#include "combat.h"
-#include "spelltask.h"
-#include "disc_nature.h"
-#include "obj_magic_item.h"
+#include "sys/handler.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/disease.h"
+#include "misc/combat.h"
+#include "misc/spelltask.h"
+#include "disc/nature.h"
+#include "obj/magic_item.h"
 
 
 

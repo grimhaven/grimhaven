@@ -1,7 +1,7 @@
-#include "handler.h"
-#include "being.h"
-#include "enum.h"
-#include "combat.h"
+#include "sys/handler.h"
+#include "misc/being.h"
+#include "misc/enum.h"
+#include "misc/combat.h"
 
 bool TBeing::canStomp(TBeing *victim, silentTypeT silent)
 {

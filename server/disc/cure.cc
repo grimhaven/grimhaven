@@ -1,15 +1,15 @@
 #include <stdio.h>
 
-#include "extern.h"
-#include "colorstring.h"
-#include "disease.h"
-#include "combat.h"
-#include "disc_cures.h"
-#include "spelltask.h"
-#include "statistics.h"
-#include "obj_magic_item.h"
-#include "being.h"
-#include "room.h"
+#include "misc/extern.h"
+#include "sys/colorstring.h"
+#include "misc/disease.h"
+#include "misc/combat.h"
+#include "disc/cures.h"
+#include "misc/spelltask.h"
+#include "misc/statistics.h"
+#include "obj/magic_item.h"
+#include "misc/being.h"
+#include "misc/room.h"
 
 static void repHealing(TBeing *caster, TBeing *victim)
 {

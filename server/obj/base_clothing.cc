@@ -2,18 +2,18 @@
 
 #include <cmath>
 
-#include "comm.h"
-#include "shop.h"
-#include "materials.h"
-#include "extern.h"
-#include "obj_base_clothing.h"
-#include "shopowned.h"
-#include "corporation.h"
-#include "being.h"
-#include "obj_suitcase.h"
-#include "obj_saddle.h"
-#include "obj_harness.h"
-#include "obj_low.h"
+#include "sys/comm.h"
+#include "misc/shop.h"
+#include "misc/materials.h"
+#include "misc/extern.h"
+#include "obj/base_clothing.h"
+#include "misc/shopowned.h"
+#include "misc/corporation.h"
+#include "misc/being.h"
+#include "obj/suitcase.h"
+#include "obj/saddle.h"
+#include "obj/harness.h"
+#include "obj/low.h"
 
 TBaseClothing::TBaseClothing() :
   TObj()

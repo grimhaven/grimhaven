@@ -1,9 +1,9 @@
 #include <stdio.h>
 
-#include "extern.h"
-#include "configuration.h"
-#include "statistics.h"
-#include "database.h"
+#include "misc/extern.h"
+#include "sys/configuration.h"
+#include "misc/statistics.h"
+#include "sys/database.h"
 
 extern FILE *obj_f;
 extern FILE *mob_f;

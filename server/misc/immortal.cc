@@ -1,19 +1,5 @@
 #include <stdio.h>
-
-#include "extern.h"
-#include "handler.h"
-#include "room.h"
-#include "being.h"
-#include "client.h"
 #include <errno.h>
-#include "colorstring.h"
-#include "low.h"
-#include "monster.h"
-#include "configuration.h"
-#include "charfile.h"
-#include "game_crazyeights.h"
-#include "game_drawpoker.h"
-#include "weather.h"
 
 extern "C" {
 #include <dirent.h>
@@ -22,33 +8,47 @@ extern "C" {
 #include <netinet/in.h>
 #include <sys/param.h>
 #include <sys/syscall.h>
+#include <sys/types.h>
 #include <sys/socket.h>
 }
 
-#include "disease.h"
-#include "statistics.h"
-#include "person.h"
-#include "combat.h"
-#include "mail.h"
-#include "games.h"
-#include "disc_shaman_frog.h"
-#include "disc_shaman_armadillo.h"
-#include "account.h"
-#include "systemtask.h"
-#include "socket.h"
-#include "shop.h"
-#include "cmd_trophy.h"
-#include "obj_note.h"
-#include "obj_portal.h"
-#include "obj_base_clothing.h"
-#include "database.h"
-#include "rent.h"
-#include "obj_suitcase.h"
-#include "obj_treasure.h"
-#include "shopowned.h"
-#include "obj_commodity.h"
-#include "spec_mobs.h"
-#include "materials.h"
+#include "cmd/trophy.h"
+#include "disc/shaman_frog.h"
+#include "disc/shaman_armadillo.h"
+#include "game/crazyeights.h"
+#include "game/drawpoker.h"
+#include "game/games.h"
+#include "misc/account.h"
+#include "misc/being.h"
+#include "misc/charfile.h"
+#include "misc/combat.h"
+#include "misc/disease.h"
+#include "misc/extern.h"
+#include "misc/low.h"
+#include "misc/mail.h"
+#include "misc/materials.h"
+#include "misc/monster.h"
+#include "misc/person.h"
+#include "misc/room.h"
+#include "misc/statistics.h"
+#include "misc/weather.h"
+#include "misc/shop.h"
+#include "misc/rent.h"
+#include "misc/shopowned.h"
+#include "obj/base_clothing.h"
+#include "obj/commodity.h"
+#include "obj/note.h"
+#include "obj/portal.h"
+#include "obj/suitcase.h"
+#include "obj/treasure.h"
+#include "spec/mobs.h"
+#include "sys/client.h"
+#include "sys/colorstring.h"
+#include "sys/configuration.h"
+#include "sys/database.h"
+#include "sys/handler.h"
+#include "sys/tsocket.h"
+#include "sys/systemtask.h"
 
 togEntry *togInfoT::operator[] (const togTypeT i)
 {
@@ -5231,7 +5231,7 @@ void TBeing::doTimeshift(const char *arg)
     dirwalk("rent/e",TimeTravel);
     dirwalk("rent/f",TimeTravel);
     dirwalk("rent/g",TimeTravel);
-    dirwalk("rent/h",TimeTravel);
+    dirwalk("misc/rent.h",TimeTravel);
     dirwalk("rent/i",TimeTravel);
     dirwalk("rent/j",TimeTravel);
     dirwalk("rent/k",TimeTravel);

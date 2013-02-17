@@ -1,13 +1,13 @@
 #include <stdio.h>
 
-#include "room.h"
-#include "low.h"
-#include "monster.h"
-#include "disease.h"
-#include "combat.h"
-#include "spelltask.h"
-#include "disc_earth.h"
-#include "obj_magic_item.h"
+#include "misc/room.h"
+#include "misc/low.h"
+#include "misc/monster.h"
+#include "misc/disease.h"
+#include "misc/combat.h"
+#include "misc/spelltask.h"
+#include "disc/earth.h"
+#include "obj/magic_item.h"
 
 int slingShot(TBeing * caster, TBeing * victim, int level, short bKnown, int adv_learn)
 {

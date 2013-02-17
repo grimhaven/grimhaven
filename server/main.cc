@@ -1,10 +1,10 @@
 #include <errno.h>
 
-#include "configuration.h"
-#include "extern.h"
-#include "enum.h"
-#include "comm.h"
-#include "socket.h"
+#include "sys/comm.h"
+#include "sys/configuration.h"
+#include "sys/socket.h"
+#include "misc/enum.h"
+#include "misc/extern.h"
 
 
 int game_main(int argc, char *argv[])

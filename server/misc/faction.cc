@@ -6,17 +6,17 @@ extern "C" {
 }
 #include <cmath>
 
-#include "handler.h"
-#include "extern.h"
-#include "being.h"
-#include "client.h"
-#include "low.h"
-#include "monster.h"
-#include "charfile.h"
-#include "person.h"
-#include "database.h"
-#include "corporation.h"
-#include "process.h"
+#include "sys/handler.h"
+#include "misc/extern.h"
+#include "misc/being.h"
+#include "sys/client.h"
+#include "misc/low.h"
+#include "misc/monster.h"
+#include "misc/charfile.h"
+#include "misc/person.h"
+#include "sys/database.h"
+#include "misc/corporation.h"
+#include "sys/process.h"
 
 TFactionInfo FactionInfo[MAX_FACTIONS];
 

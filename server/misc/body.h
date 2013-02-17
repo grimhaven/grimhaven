@@ -3,7 +3,7 @@
 
 //  This is an attempt to make some sense out of the limb system.
 
-#include "limbs.h"
+#include "misc/limbs.h"
 
 const int MAX_SHEATH = 3;
 

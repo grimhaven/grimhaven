@@ -1,8 +1,8 @@
-#include "comm.h"
-#include "obj_armor.h"
-#include "obj_base_clothing.h"
-#include "being.h"
-#include "skills.h"
+#include "sys/comm.h"
+#include "obj/armor.h"
+#include "obj/base_clothing.h"
+#include "misc/being.h"
+#include "misc/skills.h"
 
 TArmor::TArmor() :
   TBaseClothing()

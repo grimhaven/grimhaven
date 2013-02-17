@@ -6,8 +6,8 @@
 #include <map>
 #include <cstdarg>
 
-#include "sstring.h"
-#include "logging.h"
+#include "sys/sstring.h"
+#include "sys/logging.h"
 
 
 // TDatabase is a class for interacting with the sql database.
@@ -21,7 +21,7 @@
 //
 // Usage example:
 //
-// #include "database.h"
+// #include "sys/database.h"
 //
 // float weight=5.5;
 // char name[]="blade";

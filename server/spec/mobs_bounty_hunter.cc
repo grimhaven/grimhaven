@@ -1,16 +1,16 @@
 #include <stdio.h>
 
-#include "handler.h"
-#include "room.h"
-#include "extern.h"
-#include "low.h"
-#include "person.h"
-#include "monster.h"
-#include "configuration.h"
-#include "shop.h"
-#include "statistics.h"
-#include "pathfinder.h"
-#include "spec_mobs.h"
+#include "sys/handler.h"
+#include "misc/room.h"
+#include "misc/extern.h"
+#include "misc/low.h"
+#include "misc/person.h"
+#include "misc/monster.h"
+#include "sys/configuration.h"
+#include "misc/shop.h"
+#include "misc/statistics.h"
+#include "sys/pathfinder.h"
+#include "spec/mobs.h"
 
 static TBeing *char_with_name(char *name)
 {

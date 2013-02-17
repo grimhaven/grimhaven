@@ -1,9 +1,9 @@
-#include "handler.h"
-#include "extern.h"
-#include "being.h"
-#include "monster.h"
-#include "combat.h"
-#include "room.h"
+#include "sys/handler.h"
+#include "misc/extern.h"
+#include "misc/being.h"
+#include "misc/monster.h"
+#include "misc/combat.h"
+#include "misc/room.h"
 
 extern void startChargeTask(TBeing *, const char *);
 

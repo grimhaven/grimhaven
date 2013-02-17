@@ -1,9 +1,9 @@
 #ifndef __PERSON_H
 #define __PERSON_H
 
-#include "being.h"
-#include "wiz_powers.h"
-#include "connect.h"
+#include "misc/being.h"
+#include "misc/wiz_powers.h"
+#include "sys/connect.h"
 
 extern Descriptor *descriptor_list;
 extern Descriptor *next_to_process;

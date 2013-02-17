@@ -1,9 +1,9 @@
 #include <stdio.h>
 
-#include "being.h"
-#include "low.h"
-#include "games.h"
-#include "extern.h"
+#include "misc/being.h"
+#include "misc/low.h"
+#include "game/games.h"
+#include "misc/extern.h"
 
 const unsigned short MAX_BLACKJACK = 1;
 

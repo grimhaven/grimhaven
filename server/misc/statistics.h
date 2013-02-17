@@ -5,8 +5,8 @@
 #include <string.h>
 #include <time.h>
 
-#include "enum.h"
-#include "defs.h"
+#include "misc/enum.h"
+#include "misc/defs.h"
 
 using std::min;
 using std::max;

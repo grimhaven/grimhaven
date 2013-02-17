@@ -1,8 +1,8 @@
-#include "handler.h"
-#include "extern.h"
-#include "room.h"
-#include "being.h"
-#include "disc_brawling.h"
+#include "sys/handler.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "disc/brawling.h"
 
 CDBrawling::CDBrawling() :
   CDiscipline(),

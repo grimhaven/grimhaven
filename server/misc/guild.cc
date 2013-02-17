@@ -1,15 +1,15 @@
 #include <stdio.h>
 
-#include "being.h"
+#include "misc/being.h"
 #include <errno.h>
-#include "low.h"
-#include "monster.h"
-#include "database.h"
-#include "corporation.h"
-#include "guild.h"
-#include "handler.h"
-#include "room.h"
-#include "extern.h"
+#include "misc/low.h"
+#include "misc/monster.h"
+#include "sys/database.h"
+#include "misc/corporation.h"
+#include "misc/guild.h"
+#include "sys/handler.h"
+#include "misc/room.h"
+#include "misc/extern.h"
 
 // start new guild stuff
 std::vector<TGuild *>guild_table(0);

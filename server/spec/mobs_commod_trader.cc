@@ -1,12 +1,12 @@
-#include "monster.h"
-#include "pathfinder.h"
-#include "obj_commodity.h"
-#include "shop.h"
-#include "shopowned.h"
-#include "obj_open_container.h"
-#include "room.h"
-#include "database.h"
-#include "materials.h"
+#include "misc/monster.h"
+#include "sys/pathfinder.h"
+#include "obj/commodity.h"
+#include "misc/shop.h"
+#include "misc/shopowned.h"
+#include "obj/open_container.h"
+#include "misc/room.h"
+#include "sys/database.h"
+#include "misc/materials.h"
 
 // shop rooms 558,8734,1393,3709
 

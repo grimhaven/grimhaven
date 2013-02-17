@@ -2,10 +2,10 @@
 #include <algorithm>
 #include <cmath>
 
-#include "extern.h"
-#include "being.h"
-#include "database.h"
-#include "cmd_trophy.h"
+#include "misc/extern.h"
+#include "misc/being.h"
+#include "sys/database.h"
+#include "cmd/trophy.h"
 
 class zoneSorter {
   public:

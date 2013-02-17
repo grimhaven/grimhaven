@@ -1,12 +1,12 @@
 #include <stdio.h>
 
-#include "room.h"
-#include "being.h"
-#include "obj_component.h"
-#include "obj_staff.h"
-#include "extern.h"
-#include "connect.h"
-#include "skills.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "obj/component.h"
+#include "obj/staff.h"
+#include "misc/extern.h"
+#include "sys/connect.h"
+#include "misc/skills.h"
 
 // How many charges per 'charge' does it cost.
 static const int STAVECHARGE_COMPMULTIPLIER = 5;

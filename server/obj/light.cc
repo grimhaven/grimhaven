@@ -1,11 +1,11 @@
 #include <stdio.h>
 
-#include "room.h"
-#include "extern.h"
-#include "low.h"
-#include "monster.h"
-#include "obj_light.h"
-#include "weather.h"
+#include "misc/room.h"
+#include "misc/extern.h"
+#include "misc/low.h"
+#include "misc/monster.h"
+#include "obj/light.h"
+#include "misc/weather.h"
 
 TLight::TLight() :
   TBaseLight(),

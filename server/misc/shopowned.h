@@ -1,7 +1,7 @@
 #ifndef __SHOPOWNED_H
 #define __SHOPOWNED_H
 
-#include "thing.h"
+#include "misc/thing.h"
 
 class TMonster;
 class TBeing;

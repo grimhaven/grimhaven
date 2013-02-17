@@ -1,10 +1,10 @@
-#include "room.h"
-#include "monster.h"
-#include "extern.h"
-#include "database.h"
-#include "corporation.h"
-#include "shop.h"
-#include "shopowned.h"
+#include "misc/room.h"
+#include "misc/monster.h"
+#include "misc/extern.h"
+#include "sys/database.h"
+#include "misc/corporation.h"
+#include "misc/shop.h"
+#include "misc/shopowned.h"
 
 void corpListing(TBeing *ch, TMonster *me)
 {

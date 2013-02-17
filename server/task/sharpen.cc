@@ -1,7 +1,7 @@
-#include "comm.h"
-#include "obj_tool.h"
-#include "being.h"
-#include "handler.h"
+#include "sys/comm.h"
+#include "obj/tool.h"
+#include "misc/being.h"
+#include "sys/handler.h"
 
 void stop_sharpen(TBeing *ch)
 {

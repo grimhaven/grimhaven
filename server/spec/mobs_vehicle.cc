@@ -1,16 +1,16 @@
 #include <stdio.h>
 
-#include "room.h"
-#include "extern.h"
-#include "handler.h"
-#include "monster.h"
-#include "account.h"
-#include "obj_vehicle.h"
-#include "pathfinder.h"
-#include "obj_casino_chip.h"
-#include "games.h"
-#include "database.h"
-#include "person.h"
+#include "misc/room.h"
+#include "misc/extern.h"
+#include "sys/handler.h"
+#include "misc/monster.h"
+#include "misc/account.h"
+#include "obj/vehicle.h"
+#include "sys/pathfinder.h"
+#include "obj/casino_chip.h"
+#include "game/games.h"
+#include "sys/database.h"
+#include "misc/person.h"
 
 int trolleyBoatCaptain(TBeing *, cmdTypeT cmd, const char *, TMonster *myself, TObj *)
 {

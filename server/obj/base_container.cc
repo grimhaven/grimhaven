@@ -1,15 +1,15 @@
 #include <stdio.h>
 
-#include "handler.h"
-#include "low.h"
-#include "monster.h"
-#include "obj_base_container.h"
-#include "obj_player_corpse.h"
-#include "obj_open_container.h"
-#include "obj_food.h"
-#include "obj_opal.h"
-#include "obj_saddlebag.h"
-#include "obj_component.h"
+#include "sys/handler.h"
+#include "misc/low.h"
+#include "misc/monster.h"
+#include "obj/base_container.h"
+#include "obj/player_corpse.h"
+#include "obj/open_container.h"
+#include "obj/food.h"
+#include "obj/opal.h"
+#include "obj/saddlebag.h"
+#include "obj/component.h"
 
 TBaseContainer::TBaseContainer() :
   TObj()

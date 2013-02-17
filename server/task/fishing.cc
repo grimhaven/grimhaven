@@ -1,10 +1,10 @@
-#include "room.h"
-#include "being.h"
-#include "obj_tool.h"
-#include "process.h"
-#include "extern.h"
-#include "database.h"
-#include "obj_food.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "obj/tool.h"
+#include "sys/process.h"
+#include "misc/extern.h"
+#include "sys/database.h"
+#include "obj/food.h"
 
 std::map <int, bool> mRoomsFished;
 

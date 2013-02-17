@@ -1,8 +1,8 @@
-#include "room.h"
-#include "monster.h"
-#include "games.h"
-#include "obj_casino_chip.h"
-#include "handler.h"
+#include "misc/room.h"
+#include "misc/monster.h"
+#include "game/games.h"
+#include "obj/casino_chip.h"
+#include "sys/handler.h"
 
 void payout(TBeing *ch, int talens, int chip_vnum)
 {

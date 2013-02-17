@@ -1,19 +1,19 @@
 #include <stdio.h>
 
-#include "handler.h"
-#include "extern.h"
-#include "room.h"
-#include "being.h"
-#include "obj_fuel.h"
-#include "obj_organic.h"
-#include "obj_trash.h"
-#include "obj_tool.h"
-#include "obj_flame.h"
-#include "obj_light.h"
-#include "obj_drinkcon.h"
-#include "liquids.h"
-#include "materials.h"
-#include "weather.h"
+#include "sys/handler.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "obj/fuel.h"
+#include "obj/organic.h"
+#include "obj/trash.h"
+#include "obj/tool.h"
+#include "obj/flame.h"
+#include "obj/light.h"
+#include "obj/drinkcon.h"
+#include "misc/liquids.h"
+#include "misc/materials.h"
+#include "misc/weather.h"
 
 TFFlame::TFFlame() :
   TBaseLight(),

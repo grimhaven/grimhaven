@@ -1,6 +1,6 @@
-#include "being.h"
-#include "low.h"
-#include "games.h"
+#include "misc/being.h"
+#include "misc/low.h"
+#include "game/games.h"
 
 BaccaratGame gBaccarat;
 

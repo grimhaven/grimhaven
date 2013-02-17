@@ -2,13 +2,13 @@
 #include <errno.h>
 #include <stdio.h>
 
-#include "extern.h"
-#include "handler.h"
-#include "being.h"
-#include "database.h"
-#include "charfile.h"
-#include "account.h"
-#include "monster.h"
+#include "misc/extern.h"
+#include "sys/handler.h"
+#include "misc/being.h"
+#include "sys/database.h"
+#include "misc/charfile.h"
+#include "misc/account.h"
+#include "misc/monster.h"
 
 static void renamePersonalizeFix(TThing *t, const char * orig_name, const char * new_name)
 {

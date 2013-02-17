@@ -1,4 +1,4 @@
-#include "disc_pierce.h"
+#include "disc/pierce.h"
 
 CDPierce::CDPierce() :
   CDiscipline(),

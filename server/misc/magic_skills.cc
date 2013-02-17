@@ -1,8 +1,8 @@
-#include "handler.h"
-#include "extern.h"
-#include "room.h"
-#include "being.h"
-#include "combat.h"
+#include "sys/handler.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/combat.h"
 
 int TBeing::doTurn(const char *argument, TBeing *vict)
 {

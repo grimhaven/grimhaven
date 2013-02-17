@@ -2,15 +2,15 @@
 
 #include <cmath>
 
-#include "being.h"
-#include "configuration.h"
-#include "monster.h"
-#include "extern.h"
-#include "materials.h"
-#include "loadset.h"
-#include "obj_armor.h"
-#include "obj_base_clothing.h"
-#include "statistics.h"
+#include "misc/being.h"
+#include "sys/configuration.h"
+#include "misc/monster.h"
+#include "misc/extern.h"
+#include "misc/materials.h"
+#include "misc/loadset.h"
+#include "obj/armor.h"
+#include "obj/base_clothing.h"
+#include "misc/statistics.h"
 
 extern int  GetItemClassRestrictions(const TObj *);
 extern bool IsRestricted(unsigned short int, unsigned short int);

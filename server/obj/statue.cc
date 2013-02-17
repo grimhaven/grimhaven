@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-#include "obj_statue.h"
-#include "extern.h"
+#include "obj/statue.h"
+#include "misc/extern.h"
 
 TStatue::TStatue() :
   TObj()

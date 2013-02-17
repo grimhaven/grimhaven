@@ -1,8 +1,8 @@
-#include "handler.h"
-#include "room.h"
-#include "monster.h"
-#include "obj_base_corpse.h"
-#include "obj_tool.h"
+#include "sys/handler.h"
+#include "misc/room.h"
+#include "misc/monster.h"
+#include "obj/base_corpse.h"
+#include "obj/tool.h"
 
 int task_sacrifice(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, TObj *obj)
 {

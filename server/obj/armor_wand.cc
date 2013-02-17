@@ -3,13 +3,13 @@
 
 #include <stdio.h>
 
-#include "comm.h"
-#include "handler.h"
-#include "materials.h"
-#include "obj_armor_wand.h"
-#include "thing.h"
-#include "being.h"
-#include "spell2.h"
+#include "sys/comm.h"
+#include "sys/handler.h"
+#include "misc/materials.h"
+#include "obj/armor_wand.h"
+#include "misc/thing.h"
+#include "misc/being.h"
+#include "misc/spell2.h"
 
 TArmorWand::TArmorWand() :
   TArmor(),

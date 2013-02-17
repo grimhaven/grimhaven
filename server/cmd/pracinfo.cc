@@ -1,5 +1,5 @@
-#include "handler.h"
-#include "being.h"
+#include "sys/handler.h"
+#include "misc/being.h"
 
 
 void TBeing::doPracInfo(sstring arg) {

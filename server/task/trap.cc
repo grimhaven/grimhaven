@@ -1,10 +1,10 @@
-#include "room.h"
-#include "low.h"
-#include "extern.h"
-#include "monster.h"
-#include "obj_open_container.h"
-#include "obj_trap.h"
-#include "obj_arrow.h"
+#include "misc/room.h"
+#include "misc/low.h"
+#include "misc/extern.h"
+#include "misc/monster.h"
+#include "obj/open_container.h"
+#include "obj/trap.h"
+#include "obj/arrow.h"
 
 // returns DELETE_THIS for ch
 // returns true if guard disrupts trap pulse

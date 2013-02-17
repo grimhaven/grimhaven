@@ -1,4 +1,4 @@
-#include "extern.h"
+#include "misc/extern.h"
 
 class TBeing;
 class TRoom;

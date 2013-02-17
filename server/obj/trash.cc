@@ -1,5 +1,5 @@
-#include "monster.h"
-#include "obj_trash.h"
+#include "misc/monster.h"
+#include "obj/trash.h"
 
 TTrash::TTrash() :
   TObj()

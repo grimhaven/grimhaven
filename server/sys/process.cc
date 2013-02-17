@@ -1,13 +1,13 @@
-#include "process.h"
-#include "timing.h"
-#include "database.h"
-#include "shop.h"
-#include "parse.h"
-#include "faction.h"
-#include "extern.h"
-#include "toggle.h"
-#include "guild.h"
-#include "being.h"
+#include "sys/process.h"
+#include "sys/timing.h"
+#include "sys/database.h"
+#include "misc/shop.h"
+#include "misc/parse.h"
+#include "misc/faction.h"
+#include "misc/extern.h"
+#include "misc/toggle.h"
+#include "misc/guild.h"
+#include "misc/being.h"
 #include <sys/shm.h>
 #include <sys/ipc.h>
 

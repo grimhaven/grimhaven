@@ -1,15 +1,15 @@
 #include <stdio.h>
 
-#include "extern.h"
-#include "room.h"
-#include "low.h"
-#include "monster.h"
-#include "disc_air.h"
-#include "disease.h"
-#include "combat.h"
-#include "spelltask.h"
-#include "obj_magic_item.h"
-#include "combat.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "misc/low.h"
+#include "misc/monster.h"
+#include "disc/air.h"
+#include "misc/disease.h"
+#include "misc/combat.h"
+#include "misc/spelltask.h"
+#include "obj/magic_item.h"
+#include "misc/combat.h"
 
 int gust(TBeing * caster, TBeing * victim, int level, short bKnown, int adv_learn)
 {

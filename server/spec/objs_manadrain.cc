@@ -1,6 +1,6 @@
-#include "comm.h"
-#include "being.h"
-#include "obj_base_weapon.h"
+#include "sys/comm.h"
+#include "misc/being.h"
+#include "obj/base_weapon.h"
 
 /*
   Name: Mana Drainer

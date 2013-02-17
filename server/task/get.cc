@@ -1,10 +1,10 @@
-#include "extern.h"
-#include "handler.h"
-#include "being.h"
-#include "obj_player_corpse.h"
-#include "room.h"
-#include "obj_base_container.h"
-#include "obj_table.h"
+#include "misc/extern.h"
+#include "sys/handler.h"
+#include "misc/being.h"
+#include "obj/player_corpse.h"
+#include "misc/room.h"
+#include "obj/base_container.h"
+#include "obj/table.h"
 
 // anything_getable(TBeing *, Obj *, char *) - Russ Russell c. June 1994
 // anything_getable() looks to see if there is anything getable (gee)

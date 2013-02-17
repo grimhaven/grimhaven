@@ -60,9 +60,9 @@ struct tJumpCmdInformation
    "$n falls from above but stops meer inches from the water!"}
 };
 
-#include "handler.h"
-#include "room.h"
-#include "being.h"
+#include "sys/handler.h"
+#include "misc/room.h"
+#include "misc/being.h"
 
 int TBeing::doJump(const sstring &tArg)
 {

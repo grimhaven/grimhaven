@@ -1,8 +1,8 @@
-#include "monster.h"
-#include "room.h"
-#include "obj_tool.h"
-#include "materials.h"
-#include "handler.h"
+#include "misc/monster.h"
+#include "misc/room.h"
+#include "obj/tool.h"
+#include "misc/materials.h"
+#include "sys/handler.h"
 
 int task_lightfire(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, TObj *obj)
 {

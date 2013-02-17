@@ -1,9 +1,9 @@
-#include "handler.h"
-#include "extern.h"
-#include "obj_drug.h"
-#include "obj_gun.h"
-#include "materials.h"
-#include "being.h"
+#include "sys/handler.h"
+#include "misc/extern.h"
+#include "obj/drug.h"
+#include "obj/gun.h"
+#include "misc/materials.h"
+#include "misc/being.h"
 
 const sstring whitespace=" \f\n\r\t\v";  // from isspace() man page
 

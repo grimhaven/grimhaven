@@ -1,7 +1,7 @@
-#include "room.h"
-#include "low.h"
-#include "monster.h"
-#include "paths.h"
+#include "misc/room.h"
+#include "misc/low.h"
+#include "misc/monster.h"
+#include "misc/paths.h"
 
 const unsigned int MT_GUARD=31762;
 const unsigned int MT_CLERIC=31763;

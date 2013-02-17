@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-#include "obj_player_corpse.h"
-#include "obj_base_corpse.h"
-#include "being.h"
+#include "obj/player_corpse.h"
+#include "obj/base_corpse.h"
+#include "misc/being.h"
 
 float TPCorpse::getExpLost() const
 {

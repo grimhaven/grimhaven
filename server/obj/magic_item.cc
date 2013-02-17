@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-#include "monster.h"
-#include "obj_magic_item.h"
+#include "misc/monster.h"
+#include "obj/magic_item.h"
 
 TMagicItem::TMagicItem() :
   TObj(),

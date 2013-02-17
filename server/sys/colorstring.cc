@@ -1,6 +1,6 @@
-#include "extern.h"
-#include "colorstring.h"
-#include "being.h"
+#include "misc/extern.h"
+#include "sys/colorstring.h"
+#include "misc/being.h"
 
 sstring stripColorCodes(const sstring &s)
 {

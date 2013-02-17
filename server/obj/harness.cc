@@ -1,5 +1,5 @@
-#include "obj_base_clothing.h"
-#include "obj_harness.h"
+#include "obj/base_clothing.h"
+#include "obj/harness.h"
 
 THarness::THarness() :
   TBaseClothing()

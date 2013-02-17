@@ -1,7 +1,7 @@
 #include <fstream>
-#include "extern.h"
-#include "body.h"
-#include "race.h"
+#include "misc/extern.h"
+#include "misc/body.h"
+#include "misc/race.h"
 
 const char *bodyNames[MAX_BODY_TYPES]={"BODY_NONE","HUMANOID",
     "INSECTOID", "PIERCER", "MOSS", "ELEMENTAL", "KUOTOA",

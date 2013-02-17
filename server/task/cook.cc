@@ -1,10 +1,10 @@
-#include "handler.h"
-#include "being.h"
-#include "obj_cookware.h"
-#include "task_cook.h"
-#include "obj_pool.h"
-#include "obj_corpse.h"
-#include "obj_food.h"
+#include "sys/handler.h"
+#include "misc/being.h"
+#include "obj/cookware.h"
+#include "task/cook.h"
+#include "obj/pool.h"
+#include "obj/corpse.h"
+#include "obj/food.h"
 
 
 bool check_ingredients(TCookware *pot, int recipe){

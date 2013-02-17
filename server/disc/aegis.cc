@@ -1,14 +1,14 @@
 #include <stdio.h>
 
-#include "extern.h"
-#include "room.h"
-#include "being.h"
-#include "low.h"
-#include "disease.h"
-#include "combat.h"
-#include "disc_aegis.h"
-#include "obj_magic_item.h"
-#include "obj_player_corpse.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/low.h"
+#include "misc/disease.h"
+#include "misc/combat.h"
+#include "disc/aegis.h"
+#include "obj/magic_item.h"
+#include "obj/player_corpse.h"
 
 void relive(TBeing *ch, TBeing *vict)
 {

@@ -1,4 +1,4 @@
-#include "being.h"
+#include "misc/being.h"
 #include <cmath>
 
 const char *limbNames[MAX_LIMB_TYPES] = {

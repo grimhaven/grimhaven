@@ -1,14 +1,14 @@
 #include <stdio.h>
 
-#include "extern.h"
-#include "room.h"
-#include "low.h"
-#include "monster.h"
-#include "handler.h"
-#include "statistics.h"
-#include "obj_player_corpse.h"
-#include "obj_money.h"
-#include "spec_mobs.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "misc/low.h"
+#include "misc/monster.h"
+#include "sys/handler.h"
+#include "misc/statistics.h"
+#include "obj/player_corpse.h"
+#include "obj/money.h"
+#include "spec/mobs.h"
 
 currencyEntry *currencyInfoT::operator[] (const currencyTypeT i)
 {

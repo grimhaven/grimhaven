@@ -1,14 +1,14 @@
 #include <stdio.h>
 
-#include "handler.h"
-#include "extern.h"
-#include "room.h"
-#include "being.h"
-#include "monster.h"
-#include "disease.h"
-#include "combat.h"
-#include "disc_animal.h"
-#include "obj_magic_item.h"
+#include "sys/handler.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "misc/being.h"
+#include "misc/monster.h"
+#include "misc/disease.h"
+#include "misc/combat.h"
+#include "disc/animal.h"
+#include "obj/magic_item.h"
 
 int beastSoother(TBeing *caster, TBeing *victim, TMagicItem *tObj)
 {

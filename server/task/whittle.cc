@@ -1,11 +1,11 @@
-#include "handler.h"
-#include "being.h"
-#include "task_whittle.h"
-#include "obj_bow.h"
-#include "obj_organic.h"
-#include "obj_arrow.h"
-#include "extern.h"
-#include "obj_general_weapon.h"
+#include "sys/handler.h"
+#include "misc/being.h"
+#include "task/whittle.h"
+#include "obj/bow.h"
+#include "obj/organic.h"
+#include "obj/arrow.h"
+#include "misc/extern.h"
+#include "obj/general_weapon.h"
 
 using std::max;
 using std::min;

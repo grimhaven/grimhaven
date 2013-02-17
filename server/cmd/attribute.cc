@@ -1,14 +1,14 @@
 #include <stdio.h>
 
-#include "being.h"
-#include "account.h"
-#include "ansi.h"
-#include "extern.h"
-#include "handler.h"
-#include "guild.h"
-#include "configuration.h"
-#include "weather.h"
-#include "gametime.h"
+#include "misc/being.h"
+#include "misc/account.h"
+#include "sys/ansi.h"
+#include "misc/extern.h"
+#include "sys/handler.h"
+#include "misc/guild.h"
+#include "sys/configuration.h"
+#include "misc/weather.h"
+#include "sys/gametime.h"
 
 static void showStatsTo(const Descriptor *d, const TBeing *ch, bool hidden_stuff)
 {

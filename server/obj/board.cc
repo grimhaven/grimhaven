@@ -1,13 +1,13 @@
 #include <stdio.h>
 
-#include "comm.h"
-#include "handler.h"
-#include "extern.h"
-#include "client.h"
-#include "obj_board.h"
-#include "being.h"
-#include "obj_note.h"
-#include "database.h"
+#include "sys/comm.h"
+#include "sys/handler.h"
+#include "misc/extern.h"
+#include "sys/client.h"
+#include "obj/board.h"
+#include "misc/being.h"
+#include "obj/note.h"
+#include "sys/database.h"
 
 int board(TBeing *ch, cmdTypeT cmd, const char *arg, TObj *me, TObj *)
 {

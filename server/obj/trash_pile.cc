@@ -1,8 +1,8 @@
-#include "room.h"
-#include "monster.h"
-#include "obj_trash_pile.h"
-#include "extern.h"
-#include "pathfinder.h"
+#include "misc/room.h"
+#include "misc/monster.h"
+#include "obj/trash_pile.h"
+#include "misc/extern.h"
+#include "sys/pathfinder.h"
 
 const int MAX_TRASH_PILE_VOL=46656;
 

@@ -2,17 +2,17 @@
 
 #include <cmath>
 
-#include "room.h"
-#include "low.h"
-#include "monster.h"
-#include "disease.h"
-#include "combat.h"
-#include "spelltask.h"
-#include "disc_sorcery.h"
-#include "obj_armor.h"
-#include "obj_magic_item.h"
-#include "obj_worn.h"
-#include "person.h"
+#include "misc/room.h"
+#include "misc/low.h"
+#include "misc/monster.h"
+#include "misc/disease.h"
+#include "misc/combat.h"
+#include "misc/spelltask.h"
+#include "disc/sorcery.h"
+#include "obj/armor.h"
+#include "obj/magic_item.h"
+#include "obj/worn.h"
+#include "misc/person.h"
 
 int mysticDarts(TBeing *caster, TBeing *victim, int level, short bKnown, int adv_learn)
 {

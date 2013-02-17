@@ -1,9 +1,9 @@
 #include <stdio.h>
 
-#include "colorstring.h"
-#include "monster.h"
-#include "obj_base_cup.h"
-#include "liquids.h"
+#include "sys/colorstring.h"
+#include "misc/monster.h"
+#include "obj/base_cup.h"
+#include "misc/liquids.h"
 
 TBaseCup::TBaseCup() :
   TObj(),

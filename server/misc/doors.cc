@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-#include "extern.h"
-#include "room.h"
-#include "being.h"
+#include "misc/extern.h"
+#include "misc/room.h"
+#include "misc/being.h"
 
 void TBeing::rawUnlockDoor(roomDirData * exitp, dirTypeT door)
 {

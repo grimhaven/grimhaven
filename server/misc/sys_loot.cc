@@ -1,17 +1,17 @@
 #include <stdio.h>
 
-#include "being.h"
-#include "statistics.h"
-#include "handler.h"
-#include "room.h"
-#include "sys_loot.h"
-#include "extern.h"
-#include "obj_money.h"
-#include "obj_magic_item.h"
-#include "obj_potion.h"
-#include "obj_scroll.h"
-#include "obj_staff.h"
-#include "obj_wand.h"
+#include "misc/being.h"
+#include "misc/statistics.h"
+#include "sys/handler.h"
+#include "misc/room.h"
+#include "misc/sys_loot.h"
+#include "misc/extern.h"
+#include "obj/money.h"
+#include "obj/magic_item.h"
+#include "obj/potion.h"
+#include "obj/scroll.h"
+#include "obj/staff.h"
+#include "obj/wand.h"
 
 TLootStructure * tLoot;
 
