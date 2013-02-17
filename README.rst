@@ -1,16 +1,20 @@
 Grimhaven MUD
 =============
 
-This is the source code to the Grimhaven MUD server. It is derived from the SneezyMUD 5.2
-source code and game data release. It is tested on Debian GNU/Linux, but will probably
-build and run on any Unix-like system meeting the prerequisites.
+This is the source code to the Grimhaven MUD online game. It is derived from the SneezyMUD 5.2 source code and game data release.
+
+License / Copyright
+===================
+
+Insofar as a fork of a licenseless MUD that was authored on a somewhat casual basis by tens of people can have a license, Grimhaven is being made available under the terms of the
+`GNU Affero General Public License version 3 <http://www.gnu.org/licenses/>`_.
 
 Building
 ========
 
-You will need the following available to build:
+You will need the following software installed to build:
 
-* Unix-like system (tested with Ubuntu 12.10 "quantal")
+* Linux-based operating system (tested on Debian unstable / Ubuntu 12.10 quantal with kernel v3.7)
 * glibc (tested with eglibc 2.15)
 * GNU C++ compiler (tested with g++ 4.7)
 * scons build tool (tested with 2.2.0 on Python 2.7)
@@ -22,7 +26,7 @@ You will need the following available to build:
   * regex
   * serialization
 
-Once these are met, simply run the `scons` command in this directory.
+Once these requirements are met, simply run the `scons` command in the root of this source tree, which will by default build the MUD server binary `build/grimhaven`.
 
 Setup
 =====
@@ -34,4 +38,37 @@ Running
 
 TODO
 
-.. vim: tw=79 ft=rst
+Coding Guildelines
+==================
+
+C++
++++
+
+All new C++ code shall conform to the
+`Google C++ Style Guide
+<http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml>`_.
+
+Highlights
+----------
+
+* All header files should have `#define` guards to prevent multiple inclusion. The format of the symbol name should be `<PROJECT>_<PATH>_<FILE>_H_`.
+* Indentation is 2 spaces (no tabs).
+* Open curly brace is never on its own line.
+* Avoid use of `#define` macros when possible.
+* All parameters passed by reference must be labeled const.
+* Use overloaded functions (including constructors) only if a reader looking at a call site can get a good idea of what is happening without having to first figure out exactly which overload is being called.
+* Use streams only for logging.
+
+Exceptions
+----------
+
+* Do not use features only available in C++11 (formerly known as C++0x).
+* The use of exceptions is permitted.
+
+Other Guidelines
+++++++++++++++++
+
+* Avoid use of external libraries apart from Boost modules.
+* Anything not written in C++ is written in Python.
+
+.. vim: ft=rst:
