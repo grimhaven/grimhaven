@@ -3,8 +3,7 @@
 
 #include "sys/sstring.h"
 
-enum logTypeT
-{
+enum LogSeverity {
   LOG_SILENT  = -2, // Log is recoreded but not echoed to immortals (anti-spam)
   LOG_NONE    = -1, // Empty
   LOG_MISC    =  0, // Anything not yet defined below
@@ -41,8 +40,7 @@ enum logTypeT
   LOG_JESUS   = 23  // Jesus only
 };
 
-extern const sstring getLogType(logTypeT);
-extern void vlogf(const logTypeT, const sstring &);
-extern void vlogf_trace(const logTypeT, const sstring &);
+extern void vlogf(const LogSeverity, const sstring &);
+extern void vlogf_trace(const LogSeverity, const sstring &);
 
 #endif

@@ -497,27 +497,6 @@ void TPerson::logf(const char * tString, ...)
   fflush(tLogFile);
 }
 
-sstring SystemLogComm::getText(){
-  return format("// %s: %s\n\r") % getLogType(logtype) % text;
-}
-
-sstring SystemLogComm::getClientText(){
-  return format("\200%d|%d|%s: %s\n") % CLIENT_LOG % logtype %
-    getLogType(logtype) % text;
-}
-
-sstring SystemLogComm::getXML(){
-  sstring buf="";
-
-  buf+=format("<log>\n");
-  buf+=format("  <time>%i</time>\n") % logtime;
-  buf+=format("  <type>%s</type>\n") % getLogType(logtype).xmlescape();
-  buf+=format("  <msg>%s</msg>\n") % text.xmlescape();
-  buf+=format("</log>\n");
-
-  return buf;
-}
-
 void dirwalk(const sstring &dir, void (*fcn) (const char *))
 {
   struct dirent *dp;

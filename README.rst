@@ -17,7 +17,7 @@ You will need the following software installed to build:
 
 * Linux-based operating system (tested on Debian unstable / Ubuntu 12.10 quantal with kernel v3.7)
 * glibc (tested with eglibc 2.15)
-* GNU C++ compiler (tested with g++ 4.7)
+* GNU C++ compiler with C++11 support (tested with g++ 4.7)
 * scons build tool (tested with 2.2.0 on Python 2.7)
 * MySQL client C library (tested with MySQL 5.5.27)
 * c-ares library (tested with 1.9.1)
@@ -61,8 +61,7 @@ __________
 Exceptions
 __________
 
-* Do not use features only available in C++11 (formerly known as C++0x).
-* The use of exceptions is permitted.
+* The use of C++ exceptions is permitted.
 
 Other Guidelines
 ----------------
