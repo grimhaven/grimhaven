@@ -1,5 +1,7 @@
 //  return values are unimportant.  if char(s) are lost, return a -1
 
+#include <cstdio>
+
 #include "logging.h"
 #include "misc/room.h"
 #include "misc/being.h"

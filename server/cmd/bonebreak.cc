@@ -1,3 +1,5 @@
+#include <cstdio>
+
 #include "sys/handler.h"
 #include "misc/being.h"
 #include "misc/combat.h"

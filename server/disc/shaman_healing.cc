@@ -1,3 +1,5 @@
+#include <cstdio>
+
 #include "logging.h"
 #include "sys/colorstring.h"
 #include "misc/disease.h"

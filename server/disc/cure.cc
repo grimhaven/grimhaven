@@ -1,3 +1,5 @@
+#include <cstdio>
+
 #include "logging.h"
 #include "misc/extern.h"
 #include "sys/colorstring.h"

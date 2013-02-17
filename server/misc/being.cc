@@ -1,3 +1,4 @@
+#include <cstdio>
 #include <limits.h>
 
 #include "logging.h"

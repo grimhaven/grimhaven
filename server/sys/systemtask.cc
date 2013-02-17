@@ -1,5 +1,6 @@
 // systemtask.cc : tasks shelled out to the operating system
 
+#include <cstdio>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <sys/stat.h>

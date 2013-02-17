@@ -1,3 +1,5 @@
+#include <cstdio>
+
 #include "misc/room.h"
 #include "misc/low.h"
 #include "misc/monster.h"

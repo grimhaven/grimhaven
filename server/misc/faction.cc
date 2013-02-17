@@ -1,3 +1,4 @@
+#include <cstdio>
 #include <sys/stat.h>
 
 #include "logging.h"

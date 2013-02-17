@@ -1,3 +1,5 @@
+#include <cstdio>
+
 #include "misc/low.h"
 #include "misc/extern.h"
 #include "obj/audio.h"

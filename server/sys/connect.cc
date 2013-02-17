@@ -1,3 +1,4 @@
+#include <cstdio>
 #include <dirent.h>
 #include <arpa/telnet.h>
 #include <sys/stat.h>

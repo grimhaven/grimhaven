@@ -25,6 +25,8 @@
       return DELETE_THIS if second TBeing gone
 */
 
+#include <cstdio>
+
 #include "logging.h"
 #include "sys/handler.h"
 #include "misc/extern.h"

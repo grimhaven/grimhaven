@@ -1,3 +1,5 @@
+#include <cstdio>
+
 #include "logging.h"
 #include "sys/client.h"
 #include "misc/being.h"

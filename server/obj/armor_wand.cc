@@ -1,6 +1,8 @@
 // armorwand is essentially a virtual object class derived from TArmor and
 // TWand.  It is possible since TArmor uses no 4-values
 
+#include <cstdio>
+
 #include "sys/comm.h"
 #include "sys/handler.h"
 #include "misc/materials.h"

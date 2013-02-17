@@ -1,3 +1,5 @@
+#include <cstdio>
+
 #include "misc/low.h"
 #include "misc/monster.h"
 #include "obj/base_corpse.h"

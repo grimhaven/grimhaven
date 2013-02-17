@@ -1,3 +1,5 @@
+#include <cstdio>
+
 #include "misc/extern.h"
 #include "obj/handgonne.h"
 #include "obj/general_weapon.h"

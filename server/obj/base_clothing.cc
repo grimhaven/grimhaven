@@ -1,3 +1,5 @@
+#include <cstdio>
+
 #include "logging.h"
 #include "sys/comm.h"
 #include "misc/shop.h"

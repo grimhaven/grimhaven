@@ -1,3 +1,5 @@
+#include <cstdio>
+
 #include "obj/corpse.h"
 #include "obj/base_corpse.h"
 

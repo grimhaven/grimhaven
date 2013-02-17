@@ -1,3 +1,5 @@
+#include <cstdio>
+
 #include "logging.h"
 #include "sys/handler.h"
 #include "misc/low.h"

@@ -1,3 +1,5 @@
+#include <cstdio>
+
 #include "sys/comm.h"
 #include "obj/base_weapon.h"
 #include "misc/being.h"

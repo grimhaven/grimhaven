@@ -1,3 +1,4 @@
+#include <cstdio>
 #include <map>
 
 #include "logging.h"

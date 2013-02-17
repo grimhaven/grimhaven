@@ -1,3 +1,5 @@
+#include <cstdio>
+
 #include "logging.h"
 #include "misc/being.h"
 #include "game/games.h"

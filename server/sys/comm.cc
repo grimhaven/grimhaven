@@ -4,8 +4,6 @@
 #include <cstdio>
 #include <csignal>
 #include <cstdarg>
-
-extern "C" {
 #include <unistd.h>
 #include <sys/socket.h>
 #include <sys/select.h>
@@ -18,7 +16,6 @@ extern "C" {
 #include <sys/param.h>
 #include <arpa/inet.h>
 #include <ares.h>
-}
 
 #include <boost/regex.hpp>
 

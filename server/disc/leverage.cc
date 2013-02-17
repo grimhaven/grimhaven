@@ -1,3 +1,5 @@
+#include <cstdio>
+
 #include "sys/handler.h"
 #include "misc/extern.h"
 #include "misc/room.h"

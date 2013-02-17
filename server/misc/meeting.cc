@@ -1,3 +1,4 @@
+#include <cstdio>
 #include <deque>
 
 #include "misc/room.h"

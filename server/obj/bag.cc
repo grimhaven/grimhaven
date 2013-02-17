@@ -1,3 +1,5 @@
+#include <cstdio>
+
 #include "misc/monster.h"
 #include "obj/bag.h"
 #include "sys/connect.h"

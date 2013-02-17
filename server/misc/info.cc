@@ -1,3 +1,5 @@
+#include <cstdio>
+
 #include <dirent.h>
 
 #include "logging.h"

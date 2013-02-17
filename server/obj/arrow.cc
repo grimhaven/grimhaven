@@ -1,3 +1,5 @@
+#include <cstdio>
+
 #include "misc/monster.h"
 #include "misc/extern.h"
 #include "obj/open_container.h"

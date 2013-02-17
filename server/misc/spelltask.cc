@@ -37,6 +37,8 @@
     - SO BASICALLY, THIS VALUE IS WORTHLESS
 */
 
+#include <cstdio>
+
 #include "logging.h"
 #include "misc/being.h"
 #include "misc/discipline.h"

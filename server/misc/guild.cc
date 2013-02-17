@@ -1,6 +1,7 @@
+#include <cstdio>
+
 #include "logging.h"
 #include "misc/being.h"
-#include <errno.h>
 #include "misc/low.h"
 #include "misc/monster.h"
 #include "sys/database.h"

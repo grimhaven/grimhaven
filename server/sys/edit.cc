@@ -1,6 +1,7 @@
 //   edit.cc : All routines related to vt100 editor.
 
 #include <arpa/telnet.h>
+#include <cstdio>
 
 #include "logging.h"
 #include "sys/tsocket.h"

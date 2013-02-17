@@ -1,3 +1,5 @@
+#include <cstdio>
+
 #include "misc/being.h"
 #include "misc/materials.h"
 #include "misc/room.h"

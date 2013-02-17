@@ -1,3 +1,5 @@
+#include <cstdio>
+
 #include "logging.h"
 #include "misc/room.h"
 #include "misc/low.h"

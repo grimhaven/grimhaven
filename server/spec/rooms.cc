@@ -6,6 +6,8 @@
 //  cmd = normal
 //      return DELETE_VICT to kill ch
 
+#include <cstdio>
+
 #include "logging.h"
 #include "misc/extern.h"
 #include "misc/room.h"
