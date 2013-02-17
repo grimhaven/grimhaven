@@ -1,9 +1,8 @@
-#include <stdio.h>
+#include <deque>
 
 #include "misc/room.h"
 #include "sys/handler.h"
 #include "misc/monster.h"
-#include <deque>
 
 class organizer_struct {
   public:

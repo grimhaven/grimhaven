@@ -1,5 +1,4 @@
-#include <stdio.h>
-
+#include "logging.h"
 #include "misc/monster.h"
 #include "game/games.h"
 #include "misc/extern.h"

@@ -1,4 +1,6 @@
 #include <fstream>
+
+#include "logging.h"
 #include "misc/extern.h"
 #include "misc/body.h"
 #include "misc/race.h"

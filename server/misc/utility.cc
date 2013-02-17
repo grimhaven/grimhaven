@@ -1,5 +1,8 @@
-#include <stdio.h>
+#include <sys/stat.h>
+#include <sys/wait.h>
+#include <dirent.h>
 
+#include "logging.h"
 #include "misc/extern.h"
 #include "misc/room.h"
 #include "misc/being.h"
@@ -12,30 +15,6 @@
 #include "game/crazyeights.h"
 #include "game/drawpoker.h"
 #include "misc/weather.h"
-
-#include <csignal>
-#include <cstdarg>
-#include <cmath>
-
-extern "C" {
-#include <unistd.h>
-#include <sys/socket.h>
-#include <sys/wait.h>
-#include <netinet/in.h>
-#include <netdb.h>
-#include <fcntl.h>
-#include <arpa/telnet.h>
-#include <sys/resource.h>
-#include <sys/syscall.h>
-#include <sys/param.h>
-#include <dirent.h>
-#include <sys/stat.h>
-#include <sys/wait.h>
-#include <execinfo.h>
-
-pid_t vfork(void);
-
-}
 #include "misc/disease.h"
 #include "misc/shop.h"
 #include "misc/combat.h"

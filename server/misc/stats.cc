@@ -1,9 +1,9 @@
+#include <cmath>
+
+#include "logging.h"
 #include "misc/extern.h"
 #include "misc/being.h"
 #include "misc/stats.h"
-
-#include <cmath>
-#include <cstdio>
 
 Stats Stats::operator+(const Stats &operand)
 {

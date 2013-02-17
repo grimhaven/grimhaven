@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 #include "misc/monster.h"
 #include "obj/bag.h"
 #include "sys/connect.h"

@@ -1,3 +1,4 @@
+#include "logging.h"
 #include "obj/general_weapon.h"
 #include "obj/base_weapon.h"
 #include "obj/gun.h"

@@ -1,7 +1,4 @@
-#include <stdio.h>
-#include <algorithm>
-#include <cmath>
-
+#include "logging.h"
 #include "misc/extern.h"
 #include "misc/being.h"
 #include "sys/database.h"

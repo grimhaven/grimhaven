@@ -1,5 +1,6 @@
 #include <cmath>
 
+#include "logging.h"
 #include "misc/monster.h"
 #include "sys/database.h"
 #include "misc/extern.h"

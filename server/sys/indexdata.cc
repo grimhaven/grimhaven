@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 #include "misc/extern.h"
 #include "misc/statistics.h"
 #include "sys/database.h"

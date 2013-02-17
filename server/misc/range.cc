@@ -1,8 +1,6 @@
-#include <stdio.h>
-
-#include <cmath>
 #include <map>
 
+#include "logging.h"
 #include "sys/handler.h"
 #include "misc/extern.h"
 #include "misc/room.h"

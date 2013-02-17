@@ -1,6 +1,6 @@
 #include <dirent.h>
-#include <stdio.h>
 
+#include "logging.h"
 #include "misc/extern.h"
 #include "misc/room.h"
 #include "misc/being.h"

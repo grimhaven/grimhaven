@@ -1,5 +1,4 @@
-#include <stdio.h>
-
+#include "logging.h"
 #include "misc/extern.h"
 #include "misc/range.h"
 #include "sys/colorstring.h"

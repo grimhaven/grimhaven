@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 #include "misc/being.h"
 #include "misc/extern.h"
 #include "misc/monster.h"

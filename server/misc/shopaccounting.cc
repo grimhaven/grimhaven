@@ -1,3 +1,4 @@
+#include "logging.h"
 #include "misc/shopowned.h"
 #include "sys/database.h"
 #include "misc/shop.h"

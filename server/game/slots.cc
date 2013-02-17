@@ -1,5 +1,4 @@
-#include <stdio.h>
-
+#include "logging.h"
 #include "misc/being.h"
 #include "game/games.h"
 #include "obj/money.h"

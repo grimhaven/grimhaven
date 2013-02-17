@@ -1,10 +1,7 @@
-extern "C" {
-#include <stdio.h>
-
-#include <unistd.h>
 #include <sys/stat.h>
-}
+#include <sys/types.h>
 
+#include "logging.h"
 #include "misc/being.h"
 #include "misc/extern.h"
 #include "misc/monster.h"

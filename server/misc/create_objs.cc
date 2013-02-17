@@ -1,13 +1,6 @@
-extern "C" {
-#include <stdio.h>
-
-#include <unistd.h>
-#include <sys/stat.h>
 #include <dirent.h>
-}
 
-#include <algorithm>
-
+#include "logging.h"
 #include "misc/extern.h"
 #include "sys/handler.h"
 #include "misc/being.h"

@@ -1,7 +1,4 @@
-#include <stdio.h>
-
-#include <cmath>
-
+#include "logging.h"
 #include "misc/monster.h"
 #include "obj/food.h"
 #include "obj/egg.h"

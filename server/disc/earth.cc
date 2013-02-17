@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 #include "misc/room.h"
 #include "misc/low.h"
 #include "misc/monster.h"

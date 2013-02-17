@@ -4,8 +4,6 @@
 //       The assumption here is that something was "corrected" during the
 //       loading, and now we are saving it.
 
-#include <stdio.h>
-
 #include "obj/base_weapon.h"
 #include "misc/extern.h"
 #include "obj/base_cup.h"

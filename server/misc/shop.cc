@@ -1,9 +1,4 @@
-#include <stdio.h>
-
-#include <cmath>
-#include <unistd.h>
-#include <algorithm>
-
+#include "logging.h"
 #include "sys/handler.h"
 #include "misc/room.h"
 #include "misc/monster.h"

@@ -1,3 +1,4 @@
+#include "logging.h"
 #include "sys/gametime.h"
 #include "misc/weather.h"
 #include "sys/comm.h"

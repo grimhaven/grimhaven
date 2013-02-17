@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 #include "misc/being.h"
 #include "game/games.h"
 #include "misc/extern.h"

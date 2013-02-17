@@ -1,3 +1,4 @@
+#include "logging.h"
 #include "misc/monster.h"
 #include "obj/casino_chip.h"
 #include "game/games.h"

@@ -42,6 +42,7 @@
     - SO BASICALLY, THIS VALUE IS WORTHLESS
 */
 
+#include "logging.h"
 #include "misc/being.h"
 
 //FYI: CMD_TASK_CONTINUE is checked once per Pulse::MOBACT

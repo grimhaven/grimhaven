@@ -1,9 +1,6 @@
-#include <stdio.h>
-#include <sys/types.h>
 #include <dirent.h>
 
-#include <cmath>
-
+#include "logging.h"
 #include "misc/room.h"
 #include "misc/being.h"
 #include "misc/low.h"

@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 #include "misc/being.h"
 #include "disc/ranged.h"
 #include "obj/bow.h"

@@ -14,6 +14,7 @@
   "Raw" functions.
 */
 
+#include "logging.h"
 #include "misc/being.h"
 #include "disc/mage.h"
 #include "disc/cleric.h"

@@ -1,5 +1,4 @@
-#include <stdio.h>
-
+#include "logging.h"
 #include "sys/client.h"
 #include "misc/being.h"
 #include "obj/book.h"

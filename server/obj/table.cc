@@ -1,5 +1,4 @@
-#include <stdio.h>
-
+#include "logging.h"
 #include "misc/extern.h"
 #include "obj/table.h"
 #include "sys/handler.h"

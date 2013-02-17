@@ -1,14 +1,7 @@
-#include <stdio.h>
-
-#include <unistd.h>
 #include <dirent.h>
-#include <sys/types.h>
 #include <sys/stat.h>
-#include <errno.h>
 
-#define __STDC_FORMAT_MACROS
-#include <inttypes.h>
-
+#include "logging.h"
 #include "misc/extern.h"
 #include "misc/room.h"
 #include "misc/being.h"
@@ -4423,7 +4416,7 @@ bool TBeing::saveFollowers(bool rent_time)
 
     found = TRUE;
     fprintf(fp, "#%d\n", mob->mobVnum());
-    fprintf(fp, "%ld %" PRIu64 " %d %.1f %.1f\n",
+    fprintf(fp, "%ld %lu %d %.1f %.1f\n",
             mob->specials.act,
             mob->specials.affectedBy,
             mob->getFaction(), (double) mob->getPerc(),
@@ -4465,7 +4458,7 @@ bool TBeing::saveFollowers(bool rent_time)
     affectedData *af;
     for (af = a_list, i = 0; i < MAX_AFFECT; i++) {
       if (af) {
-        fprintf(fp, "%d %d %d %ld %ld %d %" PRIu64 "\n",
+        fprintf(fp, "%d %d %d %ld %ld %d %lu\n",
                mapSpellnumToFile(af->type),
                af->level,
                af->duration,

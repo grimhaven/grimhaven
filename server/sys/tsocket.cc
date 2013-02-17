@@ -1,26 +1,10 @@
-#include <csignal>
-#include <cstdarg>
-#include <errno.h>
-#include <stdio.h>
-
-extern "C" {
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <sys/wait.h>
-#include <sys/time.h>
 #include <netdb.h>
-#include <fcntl.h>
-#include <sys/resource.h>
-#include <sys/syscall.h>
+#include <signal.h>
 #include <sys/param.h>
+#include <fcntl.h>
 #include <ares.h>
 
-int select(int, fd_set *, fd_set *, fd_set *, struct timeval *);
-}
-
+#include "logging.h"
 #include "misc/room.h"
 #include "misc/monster.h"
 #include "misc/extern.h"

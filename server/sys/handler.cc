@@ -1,11 +1,6 @@
 #include <cstdarg>
-#include <cmath>
-#include <cstdio>
 
-extern "C" {
-#include <unistd.h>
-}
-
+#include "logging.h"
 #include "misc/extern.h"
 #include "sys/handler.h"
 #include "misc/room.h"

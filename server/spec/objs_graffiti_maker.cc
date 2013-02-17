@@ -1,3 +1,4 @@
+#include "logging.h"
 #include "sys/comm.h"
 #include "sys/colorstring.h"
 #include "obj/tool.h"

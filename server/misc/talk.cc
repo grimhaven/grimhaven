@@ -1,7 +1,4 @@
-#include <stdio.h>
-
-#include <stdarg.h>
-
+#include "logging.h"
 #include "sys/handler.h"
 #include "misc/extern.h"
 #include "misc/room.h"

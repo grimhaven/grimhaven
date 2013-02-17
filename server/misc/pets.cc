@@ -1,3 +1,4 @@
+#include "logging.h"
 #include "sys/handler.h"
 #include "misc/being.h"
 #include "misc/monster.h"

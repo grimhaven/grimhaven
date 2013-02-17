@@ -1,3 +1,4 @@
+#include "logging.h"
 #include "misc/extern.h"
 #include "misc/spell2.h"
 #include "misc/toggle.h"

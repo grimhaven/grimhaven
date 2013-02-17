@@ -1,8 +1,6 @@
-#include <stdio.h>
-#include <unistd.h>
 #include <dirent.h>
-#include <errno.h>
 
+#include "logging.h"
 #include "misc/extern.h"
 #include "misc/room.h"
 #include "misc/being.h"

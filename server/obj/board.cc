@@ -1,5 +1,4 @@
-#include <stdio.h>
-
+#include "logging.h"
 #include "sys/comm.h"
 #include "sys/handler.h"
 #include "misc/extern.h"

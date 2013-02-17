@@ -1,10 +1,4 @@
-extern "C" {
-#include <stdio.h>
-
-#include <unistd.h>
-}
-#include <cmath>
-
+#include "logging.h"
 #include "misc/room.h"
 #include "misc/being.h"
 #include "misc/extern.h"

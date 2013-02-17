@@ -1,5 +1,4 @@
-#include <stdio.h>
-
+#include "logging.h"
 #include "misc/being.h"
 #include <errno.h>
 #include "misc/low.h"

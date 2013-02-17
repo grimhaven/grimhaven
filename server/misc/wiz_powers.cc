@@ -1,5 +1,6 @@
 #include <unistd.h>
 
+#include "logging.h"
 #include "misc/being.h"
 #include "sys/database.h"
 #include "misc/person.h"

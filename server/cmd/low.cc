@@ -1,7 +1,7 @@
 #include <cmath>
 #include <algorithm>
-#include <stdio.h>
 
+#include "logging.h"
 #include "misc/extern.h"
 #include "sys/handler.h"
 #include "misc/being.h"

@@ -1,5 +1,4 @@
-#include <stdio.h>
-
+#include "logging.h"
 #include "misc/monster.h"
 #include "obj/open_container.h"
 #include "obj/keyring.h"

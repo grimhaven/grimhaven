@@ -1,13 +1,10 @@
 // systemtask.cc : tasks shelled out to the operating system
 
-extern "C" {
-#include <stdio.h>
-
+#include <sys/types.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
-#include <unistd.h>
-}
 
+#include "logging.h"
 #include "sys/systemtask.h"
 #include "misc/being.h"
 #include "obj/note.h"

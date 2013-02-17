@@ -1,21 +1,8 @@
-#include <stdio.h>
-#include <csignal>
-#include <cstdarg>
-#include <errno.h>
 #include <dirent.h>
-#include <unistd.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <sys/wait.h>
-#include <netdb.h>
-#include <fcntl.h>
-#include <sys/resource.h>
-#include <sys/syscall.h>
-#include <sys/param.h>
 #include <arpa/telnet.h>
-#include <arpa/inet.h>
 #include <sys/stat.h>
 
+#include "logging.h"
 #include "misc/extern.h"
 #include "misc/being.h"
 #include "sys/client.h"

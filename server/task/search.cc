@@ -1,9 +1,8 @@
-#include <stdio.h>
-
 #include "misc/being.h"
 #include "misc/room.h"
 #include "misc/obj.h"
 #include "misc/extern.h"
+
 int task_search(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, TObj *)
 {
   roomDirData *fdd = NULL;

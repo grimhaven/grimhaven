@@ -1,3 +1,4 @@
+#include "logging.h"
 #include "sys/comm.h"
 #include "misc/extern.h"
 #include "obj/symbol.h"

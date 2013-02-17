@@ -1,3 +1,4 @@
+#include "logging.h"
 #include "misc/extern.h"
 
 #if 0

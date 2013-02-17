@@ -4,11 +4,9 @@
 
 ******************************************************************************/
 
-#include <stdio.h>
+#include <cstdarg>
 
-#include <stdarg.h>
-#include <cmath>
-
+#include "logging.h"
 #include "misc/extern.h"
 #include "misc/room.h"
 #include "obj/staff.h"

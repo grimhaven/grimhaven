@@ -1,10 +1,8 @@
-#include <stdio.h>
-
-#include <unistd.h>
-#include <sys/stat.h>
 #include <sys/types.h>
+#include <sys/stat.h>
 #include <dirent.h>
 
+#include "logging.h"
 #include "sys/handler.h"
 #include "misc/low.h"
 #include "misc/extern.h"

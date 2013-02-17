@@ -1,3 +1,4 @@
+#include "logging.h"
 #include "misc/extern.h"
 #include "sys/colorstring.h"
 #include "misc/being.h"

@@ -1,3 +1,4 @@
+#include "logging.h"
 #include "misc/extern.h"
 #include "obj/money.h"
 

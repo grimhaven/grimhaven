@@ -1,3 +1,4 @@
+#include "logging.h"
 #include "misc/room.h"
 #include "misc/monster.h"
 #include "game/games.h"

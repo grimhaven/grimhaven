@@ -1,5 +1,4 @@
-#include <stdio.h>
-
+#include "logging.h"
 #include "misc/room.h"
 #include "misc/disease.h"
 #include "misc/combat.h"

@@ -1,4 +1,4 @@
-#include <cstdio>
+#include "logging.h"
 #include "misc/extern.h"
 #include "misc/room.h"
 #include "sys/handler.h"

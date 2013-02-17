@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 #include "misc/monster.h"
 #include "disc/looting.h"
 #include "obj/quiver.h"

@@ -1,7 +1,4 @@
-#include <stdio.h>
-
-#include <errno.h>
-
+#include "logging.h"
 #include "misc/low.h"
 #include "misc/monster.h"
 #include "unistd.h"

@@ -1,7 +1,4 @@
-#include <stdio.h>
-
-#include <cmath>
-
+#include "logging.h"
 #include "sys/comm.h"
 #include "misc/shop.h"
 #include "misc/materials.h"

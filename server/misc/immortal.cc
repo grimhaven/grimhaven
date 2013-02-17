@@ -1,17 +1,7 @@
-#include <stdio.h>
-#include <errno.h>
-
-extern "C" {
 #include <dirent.h>
-#include <unistd.h>
-#include <netdb.h>
-#include <netinet/in.h>
-#include <sys/param.h>
-#include <sys/syscall.h>
-#include <sys/types.h>
 #include <sys/socket.h>
-}
 
+#include "logging.h"
 #include "cmd/trophy.h"
 #include "disc/shaman_frog.h"
 #include "disc/shaman_armadillo.h"

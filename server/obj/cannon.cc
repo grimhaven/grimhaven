@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 #include "misc/extern.h"
 #include "obj/cannon.h"
 #include "obj/general_weapon.h"

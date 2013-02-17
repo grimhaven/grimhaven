@@ -1,7 +1,4 @@
-#include <stdio.h>
-
-#include <cmath>
-
+#include "logging.h"
 #include "misc/extern.h"
 #include "misc/room.h"
 #include "misc/being.h"

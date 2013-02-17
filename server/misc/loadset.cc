@@ -1,7 +1,4 @@
-#include <stdio.h>
-
-#include <cmath>
-
+#include "logging.h"
 #include "misc/being.h"
 #include "misc/monster.h"
 #include "misc/extern.h"

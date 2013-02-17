@@ -1,5 +1,4 @@
-#include <stdio.h>
-
+#include "logging.h"
 #include "misc/low.h"
 #include "misc/being.h"
 #include "obj/scroll.h"

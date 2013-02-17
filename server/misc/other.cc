@@ -1,11 +1,4 @@
-extern "C" {
-#include <stdio.h>
-
-#include <unistd.h>
-}
-
-#include <algorithm>
-
+#include "logging.h"
 #include "sys/handler.h"
 #include "misc/extern.h"
 #include "misc/room.h"

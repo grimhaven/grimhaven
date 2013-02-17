@@ -1,3 +1,4 @@
+#include "logging.h"
 #include "sys/process.h"
 #include "sys/timing.h"
 #include "sys/database.h"

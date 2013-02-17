@@ -1,3 +1,4 @@
+#include "logging.h"
 #include "sys/comm.h"
 #include "obj/spellbag.h"
 #include "obj/component.h"

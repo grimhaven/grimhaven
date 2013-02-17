@@ -1,3 +1,4 @@
+#include "logging.h"
 #include "misc/monster.h"
 #include "obj/vial.h"
 #include "misc/materials.h"

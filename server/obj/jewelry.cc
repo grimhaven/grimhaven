@@ -1,3 +1,4 @@
+#include "logging.h"
 #include "obj/base_clothing.h"
 #include "obj/jewelry.h"
 

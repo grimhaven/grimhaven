@@ -1,5 +1,4 @@
-#include <stdio.h>
-
+#include "logging.h"
 #include "misc/monster.h"
 #include "obj/fuel.h"
 #include "misc/room.h"

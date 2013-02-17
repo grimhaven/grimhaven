@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 #include "obj/statue.h"
 #include "misc/extern.h"
 

@@ -1,6 +1,4 @@
-#include <unistd.h>
-#include <stdio.h>
-
+#include "logging.h"
 #include "misc/extern.h"
 #include "misc/being.h"
 #include "sys/colorstring.h"

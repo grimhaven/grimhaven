@@ -25,11 +25,7 @@
       return DELETE_THIS if second TBeing gone
 */
 
-#include <stdio.h>
-
-#include <errno.h>
-
-
+#include "logging.h"
 #include "sys/handler.h"
 #include "misc/extern.h"
 #include "misc/room.h"

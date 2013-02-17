@@ -1,8 +1,6 @@
-#include <stdio.h>
-#include <algorithm>
-#include <sys/types.h>
 #include <dirent.h>
 
+#include "logging.h"
 #include "game/games.h"
 #include "misc/account.h"
 #include "misc/being.h"

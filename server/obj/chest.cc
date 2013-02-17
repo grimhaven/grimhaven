@@ -1,3 +1,4 @@
+#include "logging.h"
 #include "misc/monster.h"
 #include "obj/chest.h"
 #include "obj/open_container.h"

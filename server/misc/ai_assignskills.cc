@@ -1,6 +1,8 @@
+#include <algorithm>
+
+#include "logging.h"
 #include "misc/extern.h"
 #include "misc/being.h"
-#include <algorithm>
 
 std::vector<discNumT>disclist;
 

@@ -52,10 +52,7 @@
     if item1 goes poof, return DELETE_THIS
 */
 
-#include <stdio.h>
-
-#include <cmath>
-
+#include "logging.h"
 #include "sys/handler.h"
 #include "misc/extern.h"
 #include "misc/room.h"

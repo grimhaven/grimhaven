@@ -1,17 +1,10 @@
 //   edit.cc : All routines related to vt100 editor.
 
-#include <stdio.h>
+#include <arpa/telnet.h>
 
+#include "logging.h"
 #include "sys/tsocket.h"
 #include "sys/connect.h"
-
-#include <unistd.h>
-#include <arpa/telnet.h>
-#include <sys/syscall.h>
-#include <netdb.h>
-#include <sys/param.h>
-#include <netinet/in.h>
-#include <sys/socket.h>
 
 int Descriptor::move(int hor, int vert)
 {

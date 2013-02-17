@@ -1,8 +1,6 @@
 #ifndef SERVER_MISC_ENUM_H_
 #define SERVER_MISC_ENUM_H_
 
-#include "sys/logging.h"
-
 /* For 'Sector types' */
 enum sectorTypeT {
      SECT_SUBARCTIC,

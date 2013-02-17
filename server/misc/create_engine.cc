@@ -1,5 +1,4 @@
-#include <stdio.h>
-
+#include "logging.h"
 #include "misc/being.h"
 #include "misc/create_engine.h"
 #include "misc/extern.h"

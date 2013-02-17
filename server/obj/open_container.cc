@@ -1,5 +1,4 @@
-#include <stdio.h>
-
+#include "logging.h"
 #include "misc/extern.h"
 #include "disc/looting.h"
 #include "obj/open_container.h"

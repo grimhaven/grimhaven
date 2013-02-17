@@ -1,5 +1,6 @@
 #include <cmath>
 
+#include "logging.h"
 #include "misc/extern.h"
 #include "sys/handler.h"
 #include "misc/room.h"

@@ -1,3 +1,4 @@
+#include "logging.h"
 #include "sys/handler.h"
 #include "misc/low.h"
 #include "misc/extern.h"

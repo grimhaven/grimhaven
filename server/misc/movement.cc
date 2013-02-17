@@ -8,8 +8,7 @@
 // It keeps track of where being was and temporarily moves them back and
 // forth in order to echo things properly.
 
-#include <stdio.h>
-
+#include "logging.h"
 #include "sys/handler.h"
 #include "misc/extern.h"
 #include "misc/being.h"

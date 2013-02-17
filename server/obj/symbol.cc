@@ -1,8 +1,4 @@
-#include <stdio.h>
-
-#include <cmath>
-
-
+#include "logging.h"
 #include "misc/extern.h"
 #include "misc/monster.h"
 #include "misc/materials.h"

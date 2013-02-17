@@ -1,5 +1,4 @@
-#include <stdio.h>
-
+#include "logging.h"
 #include "sys/colorstring.h"
 #include "misc/monster.h"
 #include "obj/base_cup.h"

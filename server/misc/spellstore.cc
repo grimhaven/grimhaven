@@ -1,3 +1,4 @@
+#include "logging.h"
 #include "misc/being.h"
 
 /*

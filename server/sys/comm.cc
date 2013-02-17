@@ -22,6 +22,7 @@ extern "C" {
 
 #include <boost/regex.hpp>
 
+#include "logging.h"
 #include "misc/being.h"
 #include "misc/person.h"
 #include "misc/extern.h"

@@ -1,5 +1,4 @@
-#include <stdio.h>
-
+#include "logging.h"
 #include "misc/extern.h"
 #include "sys/client.h"
 #include "obj/portal.h"

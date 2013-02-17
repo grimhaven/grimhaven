@@ -1,3 +1,4 @@
+#include "logging.h"
 #include "misc/monster.h"
 #include "misc/shop.h"
 #include "obj/note.h"

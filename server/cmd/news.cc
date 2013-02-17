@@ -2,11 +2,12 @@
 #include <sys/stat.h>
 #include <dirent.h>
 #include <algorithm>
+#include <fstream>
 
+#include "logging.h"
 #include "misc/extern.h"
 #include "misc/being.h"
 #include "misc/statistics.h"
-#include <fstream>
 
 class newsFileList {
   public:

@@ -1,3 +1,4 @@
+#include "logging.h"
 #include "sys/comm.h"
 #include "obj/base_clothing.h"
 #include "misc/being.h"

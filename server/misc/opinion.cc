@@ -1,3 +1,4 @@
+#include "logging.h"
 #include "misc/room.h"
 #include "misc/being.h"
 #include "misc/extern.h"

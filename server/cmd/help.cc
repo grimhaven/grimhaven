@@ -1,15 +1,11 @@
-#include <stdio.h>
-
-#include "misc/extern.h"
-#include "misc/being.h"
-
-extern "C" {
 #include <unistd.h>
 #include <sys/stat.h>
 #include <sys/socket.h>
 #include <dirent.h>
-}
 
+#include "logging.h"
+#include "misc/extern.h"
+#include "misc/being.h"
 #include "misc/help.h"
 #include "obj/component.h"
 #include "misc/statistics.h"

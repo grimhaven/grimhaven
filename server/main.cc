@@ -2,8 +2,8 @@
 #include <string.h>
 #include <iostream>
 
-#include "sys/configuration.h"
-#include "sys/logging.h"
+#include "configuration.h"
+#include "logging.h"
 #include "sys/sstring.h"
 #include "misc/extern.h"
 

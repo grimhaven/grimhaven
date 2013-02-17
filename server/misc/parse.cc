@@ -1,10 +1,4 @@
-extern "C" {
-#include <stdio.h>
-
-#include <unistd.h>
-#include <arpa/telnet.h>
-}
-
+#include "logging.h"
 #include "misc/extern.h"
 #include "misc/room.h"
 #include "misc/being.h"

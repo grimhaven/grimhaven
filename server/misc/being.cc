@@ -1,6 +1,6 @@
-#include <stdio.h>
 #include <limits.h>
 
+#include "logging.h"
 #include "misc/room.h"
 #include "misc/being.h"
 #include "misc/extern.h"
@@ -14,9 +14,6 @@
 #include "misc/person.h"
 #include "misc/monster.h"
 #include "misc/weather.h"
-
-#include <sys/types.h>
-#include <sys/stat.h>
 
 extern bool affectShouldApply(const TObj *obj, wearSlotT pos);
 

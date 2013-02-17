@@ -1,5 +1,4 @@
-#include <stdio.h>
-
+#include "logging.h"
 #include "obj/other_obj.h"
 #include "misc/extern.h"
 
