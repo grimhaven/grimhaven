@@ -1,7 +1,9 @@
 Grimhaven MUD
 =============
 
-This is the source code to the Grimhaven MUD online game. It is derived from the SneezyMUD 5.2 source code and game data release.
+This is the source code and game data of the Grimhaven `MUD <http://en.wikipedia.org/wiki/MUD>`_.
+
+It is derived from the SneezyMUD 5.2 source code and game data release, as found at `https://bitbucket.org/peel/sneezymud/ <https://bitbucket.org/peel/sneezymud/>`_ and `https://bitbucket.org/cizra/sneezymud <https://bitbucket.org/cizra/sneezymud>`_.
 
 License / Copyright / Credits
 =============================
@@ -51,7 +53,7 @@ __________
 * All header files should have `#define` guards to prevent multiple inclusion. The format of the symbol name should be `<PROJECT>_<PATH>_<FILE>_H_`.
 * Indentation is 2 spaces (no tabs).
 * Open curly brace is never on its own line.
-* Avoid use of `#define` macros when possible.
+* Strongly avoid use of `#define` macros.
 * All parameters passed by reference must be labeled const.
 * Use overloaded functions (including constructors) only if a reader looking at a call site can get a good idea of what is happening without having to first figure out exactly which overload is being called.
 * Use streams only for logging.
