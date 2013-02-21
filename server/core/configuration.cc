@@ -20,7 +20,7 @@ sstring Configuration::load(const int argc, const char *argv[]) {
   // command line only options
   po::options_description cmdline_only("Command line only");
   cmdline_only.add_options()
-    ("misc/help.h", "produce help message")
+    ("help,h", "produce help message")
     ("config,c", po::value<string>(&config_file_), "configuration file to use")
     ;
 
