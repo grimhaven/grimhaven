@@ -35,10 +35,10 @@ namespace File {
   const char * const NORM_MENU_3    = "txt/vt/login3.vt";
   const char * const NORM_OPEN      = "txt/vt/title.vt";
 
-  const char * const FACTIONS       = "factions/factions";
-  const char * const FACTIONS_BAK   = "factions/factions.bak";
-  const char * const GUILDS         = "factions/guilds";
-  const char * const GUILDS_BAK     = "factions/guilds.bak";
+  const char * const FACTIONS       = "faction/factions";
+  const char * const FACTIONS_BAK   = "faction/factions.bak";
+  const char * const GUILDS         = "faction/guilds";
+  const char * const GUILDS_BAK     = "faction/guilds.bak";
 }
 
 namespace Path {
