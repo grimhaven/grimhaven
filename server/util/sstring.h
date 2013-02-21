@@ -1,10 +1,23 @@
 #ifndef SERVER_SYS_SSTRING_H_
 #define SERVER_SYS_SSTRING_H_
 
+#include <cstdlib>
+#include <typeinfo>
 #include <sstream>
+
 #include <boost/format.hpp>
 
-extern boost::format format(const std::string &);
+const char * const WHITESPACE = " \f\n\r\t\v";
+
+inline boost::format format(const std::string &f_string) {
+  boost::format fmter(f_string);
+#if 0 // throw format exceptions
+  fmter.exceptions(boost::io::all_error_bits);
+#else
+  fmter.exceptions(boost::io::no_error_bits);
+#endif
+  return fmter;
+}
 
 class sstring : public std::string {
 public:
@@ -14,14 +27,12 @@ public:
   sstring(const std::string &str) : std::string(str) {}
   sstring(boost::format &a) : std::string(a.str()) {}
 
-  const sstring & operator=(const boost::format &a);
-  const sstring & operator+=(const boost::format &a);
-  const sstring & operator+=(const char &a);
-  const sstring & operator+=(const char *a);
-  const sstring & operator+=(const std::string &a);
+  const sstring & operator=(const boost::format &a) { assign(a.str()); return *this; }
 
-  char &operator[](unsigned int i);
-  const char &operator[](unsigned int i) const;
+  const sstring & operator+=(const boost::format &a) { append(a.str()); return *this; }
+  const sstring & operator+=(const char &a) { push_back(a); return *this; }
+  const sstring & operator+=(const char *a) { append(a); return *this; }
+  const sstring & operator+=(const std::string &a) { append(a); return *this; }
 
   // these functions return modified copies of the string
   const sstring toCRLF() const;
@@ -45,93 +56,12 @@ public:
   const bool startsVowel() const;
 
   // string mungers
-  void convertStringColor(const sstring replacement);
-
-  // inlines
-  void inlineReplaceString(const std::string f, const std::string r) {
-    std::string::size_type start = 0;
-    while(std::string::npos != (start = find(f, start))) {
-      replace(start, f.length(), r.c_str(), r.length());
-      start += r.length();
-    }
-  }
-
-  // inline: trims to crlf those lines which consist only of whitespace
-  void inlineTrimWhiteLines() {
-    size_t len = length();
-    size_t start = 0;
-
-    while(1) {
-      size_t spaces = 0;
-      start = find("\n\r", start);
-      if (start == sstring::npos)
-        return;
-      start += 2;
-
-      while(start+spaces < len && (*this)[start+spaces] == ' ')
-        spaces++;
-      if (start >= len)
-        return;
-
-      if (spaces && start+spaces+1 < len && (*this)[start+spaces] == '\n' &&
-          (*this)[start+spaces+1] == '\r')
-        erase(start, spaces);
-      else
-        start += spaces;
-    }
-  }
-
-  // removes all text inbetween start and end (inclusive or exclusive)
-  void inlineRemoveBetween(const sstring start, const sstring end,
-                           bool inclusive, bool stopNewline = false) {
-    size_t iStart = 0;
-
-    while (1) {
-      iStart = find(start.c_str(), iStart);
-      if (iStart == sstring::npos)
-        return;
-      if (!inclusive)
-        iStart += start.length();
-      size_t iEnd = find(end.c_str(), iStart);
-      if (iEnd == sstring::npos)
-        return;
-      size_t newLine = stopNewline ? find("\n", iStart) : sstring::npos;
-      if (newLine != sstring::npos && newLine < iEnd) {
-        iStart = newLine;
-        continue;
-      }
-      if (inclusive)
-        iEnd += end.length();
-      if (iEnd > iStart)
-        replace(iStart, iEnd-iStart, "", 0);
-    }
-  }
-
-  // takes one set of markup tags if they exist in order, and replaces then with new tags in the same order
-  void inlineReplaceMarkup(const sstring markupStart,
-                           const sstring markupEnd,
-                           const sstring replaceStart,
-                           const sstring replaceEnd) {
-    size_t startMarkup = find(markupStart.c_str());
-    while (startMarkup != sstring::npos) {
-      size_t startLen = markupStart.length();
-      size_t endLen = markupEnd.length();
-      size_t repSLen = replaceStart.length();
-      size_t repELen = replaceEnd.length();
-      size_t endMarkup = find(markupEnd.c_str(), startMarkup+startLen);
-
-      if (sstring::npos == endMarkup)
-        break;
-
-      replace(startMarkup, startLen, replaceStart.c_str(), repSLen);
-      endMarkup -= (startLen - repSLen);
-      replace(endMarkup, endLen, replaceEnd.c_str(), repELen);
-      startMarkup =  find(markupStart.c_str(), endMarkup + repELen);
-    }
-  }
-
-  // simple function; probably should just macro but what the hell
-  inline void inlinePad(const char pad, int num) { resize(length()+num, pad); }
+  void convertStringColor(const sstring);
+  void inlineReplaceString(const std::string, const std::string);
+  void inlineTrimWhiteLines();
+  void inlineRemoveBetween(const sstring, const sstring, bool, bool);
+  void inlineReplaceMarkup(const sstring, const sstring, const sstring, const sstring);
+  void inlinePad(const char pad, int num) { resize(length()+num, pad); }
 };
 
 extern bool isvowel(const char c);
@@ -145,12 +75,12 @@ template<class T> T convertTo(const sstring &s) {
   T x;
   if (typeid(x) == typeid(int)) {
     return (T) strtol(s.c_str(), NULL, 10);
+  } else if (typeid(x) == typeid(unsigned int)) {
+    return (T) strtoll(s.c_str(), NULL, 10);
   } else if (typeid(x) == typeid(float)) {
     return (T) strtof(s.c_str(), NULL);
   } else if (typeid(x) == typeid(double)) {
-    return (T) strtof(s.c_str(), NULL);
-  } else if (typeid(x) == typeid(unsigned int)) {
-    return (T) strtoll(s.c_str(), NULL, 10);
+    return (T) strtod(s.c_str(), NULL);
   } else {
     std::istringstream is(s);
     if (!(is >> x)) // let failure convert to 0 with no warning.  we relied on
@@ -160,3 +90,5 @@ template<class T> T convertTo(const sstring &s) {
 }
 
 #endif
+
+// vim: ft=cpp:tw=79:sw=2:sts=2:ts=8:et
