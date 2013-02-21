@@ -19,7 +19,7 @@ int game_main(int argc, const char *argv[]) {
     exit(1);
   }
 
-  if (!chdir(Config.data_dir().c_str())) {
+  if (chdir(Config.data_dir().c_str())) {
     vlogf(LOG_FILE, format("Failed chdir to data directory '%s': %s") %
             Config.data_dir() % strerror(errno));
     exit(1);
