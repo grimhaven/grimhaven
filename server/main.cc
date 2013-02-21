@@ -2,7 +2,7 @@
 #include <string.h>
 #include <iostream>
 
-#include "configuration.h"
+#include "core/configuration.h"
 #include "core/logging.h"
 #include "util/sstring.h"
 #include "misc/extern.h"

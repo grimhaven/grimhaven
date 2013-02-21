@@ -10,7 +10,6 @@ bool TBeing::canKneestrike(TBeing *victim, silentTypeT silent)
 {
   if (checkBusy() || checkPeaceful())
     return FALSE;
-  }
 
   if (affectedBySpell(AFFECT_TRANSFORMED_LEGS)) {
     sendTo("You don't know how to knee someone with these kind of legs.\n\r");
