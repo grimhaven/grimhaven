@@ -86,8 +86,7 @@ extern std::queue<sstring> queryqueue;
 
 const sstring EMPTY("");
 
-class TDatabase
-{
+class TDatabase {
  private:
   MYSQL_RES *res;
   MYSQL_ROW row;
@@ -106,28 +105,25 @@ class TDatabase
   bool isResults() { return res && mysql_num_rows(res); }
   long lastInsertId() { return db ? mysql_insert_id(db) : 0; }
   bool fetchRow() { return res && (row=mysql_fetch_row(res)); }
-  const sstring operator[] (const unsigned int i) const
-  {
+  const sstring operator[] (const unsigned int i) const {
     if (!(res && row))
       return NULL;
-
     if (i >= row_columns) {
       vlogf(LOG_DB, format("TDatabase::operator[%i] - invalid column index") %  i);
       return EMPTY;
     }
     return row[i];
   }
-  const sstring operator[] (const sstring &s) const
-  {
+  const sstring operator[] (const sstring &s) const {
+    sstring col = s.lower();
     if (!(res && row))
       return NULL;
-
-    if (!column_map.count(s)) {
+    if (!column_map.count(col)) {
       vlogf(LOG_DB, format("TDatabase::operator[\"%s\"] - invalid column name") %  s);
       return EMPTY;
     }
     // use at() instead of [] - latter precludes function const status
-    return row[column_map.at(s)];
+    return row[column_map.at(col)];
   }
 
   TDatabase();

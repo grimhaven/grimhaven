@@ -34,15 +34,13 @@ TDatabase::TDatabase() :
     vlogf(LOG_DB, format("Could not connect to database: %s") % mysql_error(db));
 }
 
-TDatabase::~TDatabase()
-{
+TDatabase::~TDatabase() {
   if (res)
     mysql_free_result(res);
 }
 
 // execute a query
-bool TDatabase::query(const char *query, ...)
-{
+bool TDatabase::query(const char *query, ...) {
   va_list ap;
   MYSQL_RES *restmp;
   TTiming t;
@@ -99,18 +97,18 @@ bool TDatabase::query(const char *query, ...)
   return TRUE;
 }
 
-void TDatabase::mapColumns(void)
-{
+void TDatabase::mapColumns(void) {
   column_map.clear();
   row_columns = mysql_num_fields(res);
   MYSQL_FIELD *fields=mysql_fetch_fields(res);
 
-  for (unsigned int i=0; i<row_columns; i++)
-    column_map[fields[i].name] = i;
+  for (unsigned int i=0; i<row_columns; i++) {
+    sstring field = fields[i].name;
+    column_map[field.lower()] = i;
+  }
 }
 
-const sstring TDatabase::escapeQuery(const char *query, ...) const
-{
+const sstring TDatabase::escapeQuery(const char *query, ...) const {
   va_list ap;
   va_start(ap, query);
   sstring ret = escapeQuery(query, ap);
@@ -118,8 +116,7 @@ const sstring TDatabase::escapeQuery(const char *query, ...) const
   return ret;
 }
 
-const sstring TDatabase::escapeQuery(const char *query, va_list ap) const
-{
+const sstring TDatabase::escapeQuery(const char *query, va_list ap) const {
   sstring buf="";
   const char *cur=query, *next, *arg;
   char fmt;
@@ -160,8 +157,7 @@ const sstring TDatabase::escapeQuery(const char *query, va_list ap) const
   return buf;
 }
 
-const sstring TDatabase::escape(const sstring &str) const
-{
+const sstring TDatabase::escape(const sstring &str) const {
     if (!db)
         return NULL;
     int len = str.length();
