@@ -1399,7 +1399,7 @@ void fixup_players(void)
   bootPulse(".", false);
   dirwalk("account/g", countAccounts);
   bootPulse(".", false);
-  dirwalk("misc/account.h", countAccounts);
+  dirwalk("account/h", countAccounts);
   bootPulse(".", false);
   dirwalk("account/i", countAccounts);
   bootPulse(".", false);
