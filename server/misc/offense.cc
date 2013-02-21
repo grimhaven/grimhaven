@@ -43,7 +43,7 @@ int TBeing::doHit(const sstring &argument, TBeing *vict)
     sendTo("Try standing up first.\n\r");
     return FALSE;
   }
-  if (checkPeaceful("You feel too peaceful to contemplate violence.\n\r"))
+  if (checkPeaceful())
     return FALSE;
 
   arg=argument.word(0);
@@ -307,7 +307,7 @@ int TBeing::doEngage(const char *argument, TBeing *vict)
   char arg[MAX_INPUT_LENGTH];
   TBeing *victim, *tmp;
 
-  if (checkPeaceful("You feel too peaceful to contemplate violence!\n\r"))
+  if (checkPeaceful())
     return FALSE;
 
 //  if (fight() && isAffected(AFF_ENGAGER)) {
@@ -393,7 +393,7 @@ int TBeing::doEngage(const char *argument, TBeing *vict)
       sendTo("Try standing up first.\n\r");
       return FALSE;
     }
-    if (checkPeaceful("You feel too peaceful to contemplate violence.\n\r"))
+    if (checkPeaceful())
       return FALSE;
 
     if (noHarmCheck(victim) || victim->isImmortal()) {
@@ -478,7 +478,7 @@ int TBeing::doKill(const char *argument, TBeing *vict)
   char arg[MAX_INPUT_LENGTH];
   TBeing *v;
 
-  if (checkPeaceful("You feel too peaceful to contemplate violence!\n\r"))
+  if (checkPeaceful())
     return FALSE;
 
   if (!hasWizPower(POWER_SLAY)) {

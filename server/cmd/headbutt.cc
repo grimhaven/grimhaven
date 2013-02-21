@@ -15,6 +15,10 @@ bool TBeing::canHeadbutt(TBeing *victim, silentTypeT silent)
       sendTo("You know nothing about headbutting.\n\r");
     return FALSE;
   }
+
+  if (checkPeaceful())
+    return FALSE;
+
   switch (race->getBodyType()) {
     case BODY_HUMANOID:
     case BODY_OWLBEAR:
@@ -28,9 +32,6 @@ bool TBeing::canHeadbutt(TBeing *victim, silentTypeT silent)
         sendTo("You lack the proper body form to headbutt.\n\r");
       return FALSE;
   }
-  if (checkPeaceful("You feel too peaceful to contemplate violence.\n\r"))
-    return FALSE;
-
   if (getCombatMode() == ATTACK_BERSERK) {
     if (!silent)
       sendTo("You are berserking! You can't focus enough to headbutt anyone!\n\r ");

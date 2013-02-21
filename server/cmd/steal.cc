@@ -42,7 +42,7 @@ static bool genericCanSteal(TBeing *thief, TBeing *victim)
     return FALSE;
 
   if (!is_imp) {
-    if (thief->checkPeaceful("What if they caught you?\n\r"))
+    if (thief->checkPeacefulAction("steal anything"))
       return FALSE;
 
     if (thief->roomp->isRoomFlag(ROOM_NO_STEAL)) {

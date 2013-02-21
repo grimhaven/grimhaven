@@ -149,13 +149,7 @@ static int chop(TBeing *c, TBeing *v)
   int i;//level;
   const int CHOP_MOVE = 9;
 
-  if (c->checkPeaceful("You feel too peaceful to contemplate violence.\n\r"))
-    return FALSE;
-
-  if (c->noHarmCheck(v))
-    return FALSE;
-
-  if (IS_SET(v->specials.act, ACT_IMMORTAL)) {
+  if (IS_SET(v->specials.act, ACT_IMMORTAL) || v->isImmortal()) {
     c->sendTo("You decide that your chop would not affect an immortal.\n\r");
     return FALSE;
   }
@@ -187,8 +181,7 @@ static int chop(TBeing *c, TBeing *v)
     c->sendTo("You can't chop at them while they are flying unless you are flying as well!\n\r");
     return FALSE;
   }
-  if (c->equipment[HOLD_RIGHT] ||
-      c->equipment[HOLD_LEFT]) {
+  if (c->equipment[HOLD_RIGHT] || c->equipment[HOLD_LEFT]) {
     c->sendTo("You can't chop while holding things!\n\r");
     return FALSE;
   }
@@ -214,42 +207,39 @@ static int chop(TBeing *c, TBeing *v)
 
 int TBeing::doChop(const char *arg, TBeing *vict)
 {
-  int rc;
-  TBeing *victim;
-  char v_name[MAX_INPUT_LENGTH];
-
-  if (checkBusy()) {
+  if (checkBusy())
     return FALSE;
-  }
+
   if (!doesKnowSkill(SKILL_CHOP)) {
     sendTo("You do not know the secrets of the chop attack.\n\r");
     return FALSE;
   }
 
-  strcpy(v_name, arg);
+  if (checkPeaceful())
+    return FALSE;
 
-  if (!(victim = vict)) {
-    if (!(victim = get_char_room_vis(this, v_name))) {
-      if (!(victim = fight())) {
-        sendTo("You want to execute a chop on whom?\n\r");
-        return FALSE;
-      }
-    }
+  TBeing *victim = vict;
+  if (!victim && !(victim = get_char_room_vis(this, arg)) &&
+      !(victim = fight())) {
+    sendTo("You want to execute a chop on whom?\n\r");
+    return FALSE;
   }
+
+  if (noHarmCheck(victim))
+    return FALSE;
+
   if (!sameRoom(*victim)) {
     sendTo("That person isn't around.\n\r");
     return FALSE;
   }
-  rc = chop(this, victim);
+
+  int rc = chop(this, victim);
   if (rc)
     addSkillLag(SKILL_CHOP, rc);
-  if (IS_SET_DELETE(rc, DELETE_VICT)) {
-    if (vict)
-      return rc;
+  if (!vict && IS_SET_DELETE(rc, DELETE_VICT)) {
     delete victim;
     victim = NULL;
     REM_DELETE(rc, DELETE_VICT);
   }
   return rc;
 }
-

@@ -990,7 +990,7 @@ int TBeing::doBite(const sstring &arg)
       return FALSE;
     }
 
-    if (checkPeaceful("You feel too peaceful to contemplate violence.\n\r"))
+    if (checkPeaceful())
       return FALSE;
 
     if (noHarmCheck(b))
@@ -1085,7 +1085,7 @@ int TBeing::doBite(const sstring &arg)
       return FALSE;
     }
 
-    if (checkPeaceful("You feel too peaceful to contemplate violence.\n\r"))
+    if (checkPeaceful())
       return FALSE;
 
     if (noHarmCheck(b))

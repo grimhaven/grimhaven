@@ -48,7 +48,7 @@ int berserk(TBeing * caster)
     return FALSE;
   }
 
-  if (caster->checkPeaceful("This room is too tranquil to go berserk in.\n\r"))
+  if (caster->checkPeacefulAction("to go berserk"))
     return FALSE;
 
   if (!caster->isPc())

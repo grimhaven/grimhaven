@@ -17,6 +17,9 @@ bool TBeing::canTrip(TBeing *victim, silentTypeT silent)
     return FALSE;
   }
 
+  if (checkPeaceful())
+    return FALSE;
+
   if (!sameRoom(*victim)) {
     if (!silent)
       sendTo("That person isn't around.\n\r");
@@ -64,9 +67,6 @@ bool TBeing::canTrip(TBeing *victim, silentTypeT silent)
       sendTo("You can't trip them while they are flying.\n\r");
     return FALSE;
   }
-  if (checkPeaceful("You feel too peaceful to contemplate violence.\n\r"))
-    return FALSE;
-
   if (eitherLegHurt()) {
     if (!silent)
       sendTo("It's very hard to trip without the use of your legs!\n\r");

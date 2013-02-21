@@ -191,7 +191,7 @@ int TFuel::chiMe(TBeing *tLunatic)
   } else
     tLunatic->reconcileMana(TYPE_UNDEFINED, 0, tMana);
 
-  if (tLunatic->checkPeaceful("Violent things can not be done here and something tells you that would be violent!"))
+  if (tLunatic->checkPeaceful("Violent things cannot be done here and something tells you that would be violent!\n\r"))
     return FALSE;
 
   if (!roomp) {

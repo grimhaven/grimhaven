@@ -16,7 +16,7 @@ static int grapple(TBeing *c, TBeing *victim, spellNumT skill)
   TBaseClothing *tbc = NULL;
   int suitDam = 0;
 
-  if (c->checkPeaceful("You feel too peaceful to contemplate violence.\n\r"))
+  if (c->checkPeaceful())
     return FALSE;
 
   if (c->getCombatMode() == ATTACK_BERSERK) {

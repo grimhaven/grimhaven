@@ -40,7 +40,7 @@ static bool genericCanPlantThief(TBeing *thief, TBeing *victim)
     return FALSE;
   }
   if (!is_imp) {
-    if (thief->checkPeaceful("What if they caught you?\n\r"))
+    if (thief->checkPeacefulAction("plant anything"))
       return FALSE;
     if (thief->roomp->isRoomFlag(ROOM_NO_STEAL)) {
       thief->sendTo("Such actions are prevented here.\n\r");

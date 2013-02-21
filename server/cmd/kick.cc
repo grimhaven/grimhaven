@@ -15,6 +15,13 @@ bool TBeing::canKick(TBeing *victim, silentTypeT silent)
       sendTo("How do you expect to kick with your legs transformed.\n\r");
     return FALSE;
   }
+
+  if (checkPeaceful())
+    return FALSE;
+
+  if (noHarmCheck(victim))
+    return FALSE;
+
   if (getPosition() == POSITION_CRAWLING) {
     if (!silent)
       sendTo("You can't kick while crawling.\n\r");
@@ -40,36 +47,27 @@ bool TBeing::canKick(TBeing *victim, silentTypeT silent)
     return FALSE;
   }
 
-  switch (getRace()) {
-    case RACE_BIRD:
-      // note, we intentionally do NOT trap ostriches, penguins here which
-      // are allowed to kick
-      if (!silent)
-        sendTo("Bird's can't kick.\n\r");
-      return false;
-    default:
-      break;
-  }
-
-  if (checkPeaceful("You feel too peaceful to contemplate violence.\n\r"))
+  if (getRace() == RACE_BIRD) {
+    if (!silent)
+      sendTo("Birds can't kick.\n\r");
     return FALSE;
+  }
 
   if (eitherLegHurt()) {
     if (!silent)
       sendTo("It's very hard to kick without the use of your legs!\n\r");
     return FALSE;
   }
+
   if (victim == this) {
     if (!silent)
       sendTo("You cannot kick yourself!\n\r");
     return FALSE;
   }
-  if (noHarmCheck(victim))
-    return FALSE;
 
   if (victim->isImmortal() || IS_SET(victim->specials.act, ACT_IMMORTAL)) {
     if (!silent)
-      sendTo("You can't successfully kick an immortal.\n\r");
+      sendTo("It is unwise to kick an immortal.\n\r");
     return FALSE;
   }
 

@@ -1546,7 +1546,7 @@ int TBeing::chiMe(TBeing *tLunatic)
     return RET_STOP_PARSING;
   }
 
-  if (tLunatic->checkPeaceful("You feel too peaceful to contemplate violence here.\n\r"))
+  if (tLunatic->checkPeaceful())
     return RET_STOP_PARSING;
 
   if (tLunatic == this) {

@@ -262,7 +262,7 @@ int springleap(TBeing * caster, TBeing * victim, bool should_lag)
   int percent;
   spellNumT iSkill = SKILL_SPRINGLEAP;
 
-  if (caster->checkPeaceful("You feel too peaceful to contemplate violence.\n\r"))
+  if (caster->checkPeaceful());
     return FALSE;
 
   if (!caster->doesKnowSkill(iSkill)) {

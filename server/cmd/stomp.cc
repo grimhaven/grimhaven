@@ -30,7 +30,7 @@ bool TBeing::canStomp(TBeing *victim, silentTypeT silent)
     return FALSE;
   }
 
-  if (checkPeaceful("You feel too peaceful to contemplate violence.\n\r"))
+  if (checkPeaceful())
     return FALSE;
 
   if (victim == this) {

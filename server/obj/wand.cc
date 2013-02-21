@@ -247,7 +247,7 @@ int TWand::useMe(TBeing *ch, const char * argument)
     generalUseMessage(ch, bits, tmp_char, o);
 
     if (IS_SET(discArray[the_spell]->targets, TAR_VIOLENT) &&
-        ch->checkPeaceful("Impolite magic is banned here.\n\r"))
+        ch->checkPeaceful("Impolite magic is not allowed here.\n\r"))
       return FALSE;
 
     if (getCurCharges() > 0) {      // Is there any charges left?

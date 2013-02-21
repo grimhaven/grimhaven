@@ -201,7 +201,7 @@ void TBeing::doThrow(const sstring &argument)
   int rc;
   dirTypeT tdir;
 
-  if (checkPeaceful("You feel too peaceful to contemplate violence.\n\r"))
+  if (checkPeaceful())
     return;
 
   if (getMove() <= 2) {
@@ -1236,7 +1236,7 @@ int TBeing::doShoot(const char *arg)
     dir = dirTypeT(::number(MIN_DIR, MAX_DIR-1));
   }
 
-  if (checkPeaceful("You feel much too peaceful to contemplate violence.\n\r"))
+  if (checkPeaceful())
     return FALSE;
 
   if (!(t = equipment[getPrimaryHold()])) {

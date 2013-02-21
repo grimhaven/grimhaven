@@ -8,7 +8,7 @@ static int quiveringPalm(TBeing *c, TBeing *v)
   int percent;
   int i;
 
-  if (c->checkPeaceful("You feel too peaceful to contemplate violence.\n\r"))
+  if (c->checkPeaceful())
     return FALSE;
 
   if (c->noHarmCheck(v))

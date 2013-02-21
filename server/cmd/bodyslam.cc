@@ -17,6 +17,10 @@ bool TBeing::canBodyslam(TBeing *victim, silentTypeT silent)
       sendTo("You know nothing about bodyslamming.\n\r");
     return FALSE;
   }
+
+  if (checkPeaceful() || noHarmCheck(victim))
+    return FALSE;
+
   if (!hasHands()) {
     if (!silent)
       sendTo("You need hands to bodyslam.\n\r");
@@ -27,9 +31,6 @@ bool TBeing::canBodyslam(TBeing *victim, silentTypeT silent)
       sendTo("You can't bodyslam with an injured arm.\n\r");
     return FALSE;
   }
-
-  if (checkPeaceful("You feel too peaceful to contemplate violence.\n\r"))
-    return FALSE;
 
   if (getCombatMode() == ATTACK_BERSERK) {
     if (!silent)
@@ -47,9 +48,6 @@ bool TBeing::canBodyslam(TBeing *victim, silentTypeT silent)
       sendTo("You lack the agility to bodyslam yourself!\n\r");
     return FALSE;
   }
-  if (noHarmCheck(victim))
-    return FALSE;
-
   if (riding) {
     if (!silent)
       sendTo("You can't bodyslam while mounted!\n\r");

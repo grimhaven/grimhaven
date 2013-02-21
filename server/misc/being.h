@@ -1387,7 +1387,9 @@ class TBeing : public TThing {
     void catchLostLink(TBeing *);
     void throwChar(TBeing *v, dirTypeT dir, bool throwerMove, silentTypeT silent, bool forceStand);
     void throwChar(TBeing *v, int to_room, bool throwerMove, silentTypeT silent, bool forceStand);
+    bool checkPeacefulAction(const sstring &) const;
     bool checkPeaceful(const sstring &) const;
+    bool checkPeaceful() const;
     bool checkPeacefulVictim(const sstring &, const TThing *) const;
     int extraDam(const TBeing *, const TBaseWeapon *) const;
     TThing * makeCorpse(spellNumT, TBeing * = NULL, float = 0);

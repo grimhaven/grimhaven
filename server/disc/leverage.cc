@@ -193,7 +193,7 @@ int hurl(TBeing *caster, TBeing *victim, char *direction)
   int rc;
   const int THROW_MOVE        = 10;
 
-  if (caster->checkPeaceful("You feel too peaceful to contemplate violence.\n\r"))
+  if (caster->checkPeaceful())
     return FALSE;
 
   if (caster->noHarmCheck(victim))
@@ -420,7 +420,7 @@ int shoulderThrow(TBeing *caster, TBeing *victim)
   int rc;
   const int THROW_MOVE        = 10;
 
-  if (caster->checkPeaceful("You feel too peaceful to contemplate violence.\n\r"))
+  if (caster->checkPeaceful())
     return FALSE;
 
   if (caster->noHarmCheck(victim))
@@ -646,7 +646,7 @@ int defenestrate(TBeing *caster, TBeing *victim, sstring direction)
   int rc;
   const int THROW_MOVE        = 10;
 
-  if (caster->checkPeaceful("You feel too peaceful to contemplate violence.\n\r"))
+  if (caster->checkPeaceful())
     return FALSE;
 
   if (caster->noHarmCheck(victim))

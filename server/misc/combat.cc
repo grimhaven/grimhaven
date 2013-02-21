@@ -1673,17 +1673,26 @@ void TBeing::stopFighting()
   goBerserk(tmp);
 }
 
-bool TBeing::checkPeaceful(const sstring &msg) const
-{
+bool TBeing::checkPeaceful(const sstring &msg) const {
   if (roomp && roomp->isRoomFlag(ROOM_PEACEFUL)) {
-    sendTo(msg);
+    if (msg.length())
+      sendTo(msg);
     return TRUE;
   }
   if (affectedBySpell(SPELL_CALM) && !fight()) {
-    sendTo("You've got a peaceful easy feeling.\n\r");
+    if (msg.length())
+      sendTo("You've got a peaceful easy feeling.\n\r");
     return TRUE;
   }
   return FALSE;
+}
+
+bool TBeing::checkPeacefulAction(const sstring &action) const {
+  return checkPeaceful(format("You feel too peaceful to %s here.\n\r") % action);
+}
+
+bool TBeing::checkPeaceful(void) const {
+  return checkPeaceful("You feel too peaceful to contemplate violence here.\n\r");
 }
 
 bool TBeing::checkPeacefulVictim(const sstring &msg, const TThing *v) const

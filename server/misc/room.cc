@@ -402,7 +402,7 @@ int TRoom::chiMe(TBeing *tLunatic)
     return FALSE;
   }
 
-  if (tLunatic->checkPeaceful("You feel too peaceful to contemplate violence here.\n\r"))
+  if (tLunatic->checkPeaceful())
     return FALSE;
 
   act("You focus your <c>mind<z> and unleash a <r>blast of chi<z> upon your foes!",

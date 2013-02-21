@@ -47,7 +47,7 @@ bool TBeing::canDisarm(TBeing *victim, silentTypeT silent)
     default:
       break;
   }
-  if (checkPeaceful("You feel too peaceful to contemplate violence.\n\r"))
+  if (checkPeaceful())
     return FALSE;
 
   if (getCombatMode() == ATTACK_BERSERK) {

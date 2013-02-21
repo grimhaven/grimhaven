@@ -193,7 +193,7 @@ int subterfuge(TBeing *thief, TBeing *victim)
   }
 
   // failure sets fighting
-  if (thief->checkPeaceful("You can't subterfuge in a place of refuge.\n\r"))
+  if (thief->checkPeacefulAction("employ subterfuge"))
     return FALSE;
 
   int level = thief->getSkillLevel(SKILL_SUBTERFUGE);

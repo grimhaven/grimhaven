@@ -6,7 +6,7 @@
 
 bool TBeing::canSpin(TBeing *victim, silentTypeT silent)
 {
-  if (checkBusy())
+  if (checkBusy() || checkPeaceful())
     return FALSE;
 
   if (!doesKnowSkill(SKILL_SPIN)) {
@@ -14,6 +14,7 @@ bool TBeing::canSpin(TBeing *victim, silentTypeT silent)
       sendTo("You know nothing about spinning.\n\r");
     return FALSE;
   }
+
   if (!hasHands()) {
     if (!silent)
       sendTo("You need hands to spin someone.\n\r");
@@ -29,9 +30,6 @@ bool TBeing::canSpin(TBeing *victim, silentTypeT silent)
       sendTo("You can't spin someone with an injured arm.\n\r");
     return FALSE;
   }
-
-  if (checkPeaceful("You feel too peaceful to contemplate violence.\n\r"))
-    return FALSE;
 
   if (getCombatMode() == ATTACK_BERSERK) {
     if (!silent)

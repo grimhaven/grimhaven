@@ -31,7 +31,7 @@ int TBeing::doShove(const char *argument, TBeing *vict)
     sendTo("Aren't we funny today...\n\r");
     return FALSE;
   }
-  if (checkPeaceful("You can't shove from this room!\n\r"))
+  if (checkPeacefulAction("shove"))
     return FALSE;
 
   if (victim->isImmortal()) {
@@ -418,7 +418,7 @@ void TBeing::doTranceOfBlades(const char *newarg) {
     sendTo("You can't enter the defensive trance berserking. Like, duh.\n\r ");
     return;
   }
-  if (checkPeaceful("You cannot enter the defensive trance in a peaceful room.\n\r"))
+  if (checkPeacefulAction("enter a defensive trance"))
     return;
   if (!(getPosition() > POSITION_SITTING)) {
     sendTo("You can not enter the defensive trance while sitting.\n\r");

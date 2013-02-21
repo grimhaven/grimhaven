@@ -2524,7 +2524,7 @@ int telekinesisGlove(TBeing *ch, cmdTypeT cmd, const char *arg, TObj *o, TObj *)
     return FALSE;
   }
 
-  if (ch->checkPeaceful("Somehow, you think pointing that thing around here wouldn't go over well."))
+  if (ch->checkPeaceful("Pointing that thing around here wouldn't go over well.\n\r"))
     return FALSE;
 
   vict2 = ch->fight();

@@ -3211,7 +3211,7 @@ int TScroll::reciteMe(TBeing *ch, const char * argument)
         continue;
       }
       if ((discArray[the_spell]->targets & TAR_VIOLENT) &&
-          ch->checkPeaceful("Impolite magic is banned here.\n\r"))
+          ch->checkPeaceful("Impolite magic is not allowed here.\n\r"))
         continue;
 
       if(max_lag<discArray[the_spell]->lag)

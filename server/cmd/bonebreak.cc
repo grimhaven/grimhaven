@@ -153,7 +153,7 @@ int bonebreak(TBeing *caster, TBeing *victim)
   int rc = 0;
   const int BONEBREAK_MOVE   = 15;
 
-  if (caster->checkPeaceful("You feel too peaceful to contemplate violence.\n\r"))
+  if (caster->checkPeaceful())
     return FALSE;
 
   if (victim == caster) {

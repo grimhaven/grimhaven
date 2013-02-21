@@ -253,7 +253,7 @@ int smite(TBeing *ch, TBeing *v)
     ch->sendTo("You contemplate smiting yourself.\n\rYou realize there are better ways to punish yourself.\n\r");
     return FALSE;
   }
-  if (ch->checkPeaceful("This room is too peaceful to contemplate violence in.\n\r"))
+  if (ch->checkPeaceful())
     return FALSE;
 
   if (!(weap = ch->heldInPrimHand())) {

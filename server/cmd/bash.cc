@@ -60,7 +60,7 @@ bool TBeing::canBash(TBeing *victim, silentTypeT silent)
       sendTo("You can't bash while flying if your victim isn't flying.\n\r");
     return FALSE;
   }
-  if (checkPeaceful("You feel too peaceful to contemplate violence.\n\r"))
+  if (checkPeaceful())
     return FALSE;
 
   if (eitherLegHurt()) {

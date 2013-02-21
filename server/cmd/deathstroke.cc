@@ -13,7 +13,7 @@ static int deathstroke(TBeing *caster, TBeing *victim)
   TBaseWeapon *tw;
   spellNumT sktype = SKILL_DEATHSTROKE;
 
-  if (caster->checkPeaceful("You feel too peaceful to contemplate violence.\n\r"))
+  if (caster->checkPeaceful())
     return FALSE;
 
   if (caster->getCombatMode() == ATTACK_BERSERK) {

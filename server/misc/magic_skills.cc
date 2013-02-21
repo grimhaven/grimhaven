@@ -17,7 +17,7 @@ int TBeing::doTurn(const char *argument, TBeing *vict)
   }
 
   // turn undead
-  if (checkPeaceful("You feel too peaceful to contemplate violence.\n\r"))
+  if (checkPeaceful())
     return FALSE;
 
   strcpy(caName, argument);

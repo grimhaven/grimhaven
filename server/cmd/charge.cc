@@ -10,6 +10,9 @@ extern void startChargeTask(TBeing *, const char *);
 
 static int charge(TBeing *ch, TBeing *vict)
 {
+  if (ch->checkPeaceful())
+    return FALSE;
+
   TThing *c=NULL;
   TBeing *tb;
   int rc;
@@ -61,9 +64,6 @@ static int charge(TBeing *ch, TBeing *vict)
         FALSE,ch,mount,vict, TO_CHAR);
     return FALSE;
   }
-  if (ch->checkPeaceful("This room is too peaceful to contemplate violence in.\n\r"))
-    return FALSE;
-
   // if there are a lot of attackers, just plain deny
   if (vict->attackers > 4) {
     act("Too many people are fighting $N.  Charging is prohibited.",

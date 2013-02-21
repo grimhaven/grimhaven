@@ -314,12 +314,13 @@ static int stab(TBeing *thief, TBeing * victim)
   int rc;
   int level;
 
+  if (thief->checkPeaceful())
+    return FALSE;
+
   if (thief == victim) {
     thief->sendTo("Hey now, let's not be stupid.\n\r");
     return FALSE;
   }
-  if (thief->checkPeaceful("Naughty, naughty.  None of that here.\n\r"))
-    return FALSE;
 
   TGenWeapon * obj = dynamic_cast<TGenWeapon *>(thief->heldInPrimHand());
   if (!obj) {

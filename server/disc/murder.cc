@@ -256,7 +256,7 @@ int backstab(TBeing *thief, TBeing * victim)
   int base = 0;
   int rc = 0;
 
-  if (thief->checkPeaceful("You cannot backstab in a peaceful room!\n\t"))
+  if (thief->checkPeaceful())
     return FALSE;
 
   if (victim == thief) {
@@ -595,7 +595,7 @@ int throatSlit(TBeing *thief, TBeing * victim)
   int base = 0;
   int rc = 0;
 
-  if (thief->checkPeaceful("You cannot murder in a peaceful room!\n\t"))
+  if (thief->checkPeaceful())
     return FALSE;
 
   if (victim == thief) {
@@ -1095,7 +1095,7 @@ int garrotte(TBeing *thief, TBeing * victim)
   TThing * obj;
   int rc;
 
-  if (thief->checkPeaceful("Naughty, naughty.  None of that here.\n\r"))
+  if (thief->checkPeaceful())
     return FALSE;
 
   if (victim == thief) {
@@ -1182,7 +1182,7 @@ int cudgel(TBeing *thief, TBeing *victim)
   int bKnown = thief->getSkillValue(SKILL_CUDGEL);
   int i;
 
-  if (thief->checkPeaceful("Naughty, naughty.  None of that here.\n\r"))
+  if (thief->checkPeaceful())
     return FALSE;
 
   TGenWeapon * obj = dynamic_cast<TGenWeapon *>(thief->heldInPrimHand());
