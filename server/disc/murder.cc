@@ -546,7 +546,7 @@ int TBeing::doThroatSlit(const char *argument, TBeing *vict)
     arg = one_argument(arg, namebuf);
 
     if (!(victim = get_char_room_vis(this, namebuf))) {
-      sendTo("Slit who's throat?\n\r");
+      sendTo("Slit whose throat?\n\r");
       return FALSE;
     }
   }
@@ -559,6 +559,7 @@ int TBeing::doThroatSlit(const char *argument, TBeing *vict)
     sendTo("That person isn't around.\n\r");
     return FALSE;
   }
+
   if (IS_SET(victim->specials.act, ACT_IMMORTAL) || victim->isImmortal()) {
     sendTo("Your slit attempt has no effect on your immortal target.\n\r");
     return FALSE;
