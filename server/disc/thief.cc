@@ -581,7 +581,7 @@ void TBeing::doTrack(const char *argument)
       if (get_char_room(namebuf, targrm) == this)
         sendTo("Do you often lose yourself?\n\r");
       else
-        sendTo("I believe what your tracking is right here with you.\n\r");
+        sendTo("What you're tracking is right here with you.\n\r");
     } else
       sendTo("You are unable to find any signs of that.\n\r");
     return;
