@@ -626,7 +626,7 @@ int TMonster::checkResponses(TBeing *tBeing, TThing *tThing, const sstring &tSai
     return FALSE;
 
   int            nRc;
-  taskData      *tTask = NULL;
+  TTask         *tTask = NULL;
   spellTaskData *tSpell = NULL;
 
   if ((tTask = task)) {

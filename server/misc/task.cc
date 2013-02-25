@@ -47,7 +47,7 @@
 
 //FYI: CMD_TASK_CONTINUE is checked once per Pulse::MOBACT
 
-taskData::taskData() :
+TTask::TTask() :
   task(TASK_BOGUS),
   nextUpdate(0),
   timeLeft(0),
@@ -56,41 +56,34 @@ taskData::taskData() :
   status(0),
   flags(0),
   obj(NULL),
-  room(NULL)
-{
-}
+  room(NULL) { }
 
-taskData::taskData(const taskData &a) :
-  task(a.task),
-  nextUpdate(a.nextUpdate),
-  timeLeft(a.timeLeft),
-  wasInRoom(a.wasInRoom),
-  status(a.status),
-  flags(a.flags),
-  obj(a.obj),
-  room(a.room)
-{
-  orig_arg = mud_str_dup(a.orig_arg);
-}
+TTask::TTask(const TTask &t) :
+  task(t.task),
+  nextUpdate(t.nextUpdate),
+  timeLeft(t.timeLeft),
+  wasInRoom(t.wasInRoom),
+  status(t.status),
+  flags(t.flags),
+  obj(t.obj),
+  room(t.room) { orig_arg = mud_str_dup(a.orig_arg); }
 
-taskData & taskData::operator=(const taskData &a)
-{
-  if (this == &a) return *this;
-  task = a.task;
-  status = a.status;
-  nextUpdate = a.nextUpdate;
-  timeLeft = a.timeLeft;
-  flags = a.flags;
-  wasInRoom = a.wasInRoom;
-  obj = a.obj;
-  room = a.room;
+TTask & TTask::operator=(const TTask &t) {
+  if (this == &t) return *this;
+  task = t.task;
+  status = t.status;
+  nextUpdate = t.nextUpdate;
+  timeLeft = t.timeLeft;
+  flags = t.flags;
+  wasInRoom = t.wasInRoom;
+  obj = t.obj;
+  room = t.room;
   delete [] orig_arg;
-  orig_arg = mud_str_dup(a.orig_arg);
+  orig_arg = mud_str_dup(t.orig_arg);
   return *this;
 }
 
-taskData::~taskData()
-{
+TTask::~TTask() {
   delete [] orig_arg;
   orig_arg = NULL;
 
@@ -98,8 +91,7 @@ taskData::~taskData()
     obj->setIsTaskObj(false);
 }
 
-void taskData::calcNextUpdate(int pulse, int interval)
-{
+void TTask::calcNextUpdate(int pulse, int interval) {
   nextUpdate = pulse + interval;
   nextUpdate %= 2400;
 }
@@ -128,7 +120,7 @@ int start_task(TBeing *ch, TThing *t, TRoom *rp, taskTypeT task, const char *arg
       ch->sendTo("Problem in task.  Bug Brutius.\n\r");
     return FALSE;
   }
-  if (!(ch->task = new taskData)) {
+  if (!(ch->task = new TTask)) {
     vlogf(LOG_BUG, format("Couldn't allocate memory in start_task for %s") %  ch->getName());
     return FALSE;
   }

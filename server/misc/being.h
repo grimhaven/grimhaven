@@ -247,7 +247,7 @@ class spellTaskData {
 };
 
 class spellStoreData {
-public:
+ public:
   spellTaskData *spelltask;
   bool storing;
 
@@ -257,22 +257,22 @@ public:
   ~spellStoreData();
 };
 
-class taskData {
-  public:
-    taskTypeT task;
-    int nextUpdate;
-    int timeLeft;
-    const char *orig_arg;
-    int wasInRoom;
-    ubyte status;
-    int flags;
-    TObj *obj;
-    TRoom *room;
-    void calcNextUpdate(int, int);
-    taskData();
-    taskData(const taskData &a);
-    taskData & operator=(const taskData &a);
-    ~taskData();
+class TTask {
+ public:
+  taskTypeT task;
+  int nextUpdate;
+  int timeLeft;
+  const char *orig_arg;
+  int wasInRoom;
+  ubyte status;
+  int flags;
+  TObj *obj;
+  TRoom *room;
+  void calcNextUpdate(int, int);
+  TTask();
+  TTask(const TTask &);
+  TTask & operator=(const TTask &);
+  ~TTask();
 };
 
 class equipmentData {
@@ -395,7 +395,7 @@ class TBeing : public TThing {
 
     spellTaskData *spelltask;
     spellStoreData spellstore;
-    taskData *task;
+    TTask *task;
     skillApplyData *skillApplys;
     TTrophy *trophy;
 
