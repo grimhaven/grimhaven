@@ -62,16 +62,16 @@ const int MUDDAY      =         MUDHOUR * 24;
 const int SECS_PER_UPDATE  =    UPDATE/ONE_SECOND;
 
 const int SECS_PER_MUDHOUR  =   MUDHOUR/ONE_SECOND;
-const int SECS_PER_MUD_DAY   =  (24 * SECS_PER_MUDHOUR);
-const int SECS_PER_MUD_MONTH =  (28 * SECS_PER_MUD_DAY);
-const int SECS_PER_MUD_YEAR  =  (12 * SECS_PER_MUD_MONTH);
+const int SECS_PER_MUD_DAY   =  24 * SECS_PER_MUDHOUR;
+const int SECS_PER_MUD_MONTH =  28 * SECS_PER_MUD_DAY;
+const int SECS_PER_MUD_YEAR  =  12 * SECS_PER_MUD_MONTH;
 
 // updateAffects() is called on combat counter (socket.cc)
 // this will tell us how many combat-calls needed to simulate a "tick"
 // The reason for this is that we sometimes want to say "it takes a mud-hour"
 // and the mud-hour must be represented as a number of combat-pulse calls
 //const int UPDATES_PER_TICK = (UPDATE/COMBAT);
-const int UPDATES_PER_MUDHOUR = (MUDHOUR / COMBAT);
+const int UPDATES_PER_MUDHOUR = MUDHOUR / COMBAT;
 
 }
 
