@@ -1015,13 +1015,13 @@ int TBeing::doGarrotte(const char * argument, TBeing *vict)
   return rc;
 }
 
-int TThing::garotteMe(TBeing *thief, TBeing *)
+int TThing::garrotteMe(TBeing *thief, TBeing *)
 {
   thief->sendTo("Only a specialized garrotte can be used for this.\n\r");
   return FALSE;
 }
 
-int TTool::garotteMe(TBeing *thief, TBeing *victim)
+int TTool::garrotteMe(TBeing *thief, TBeing *victim)
 {
   int level;
 
@@ -1048,7 +1048,7 @@ int TTool::garotteMe(TBeing *thief, TBeing *victim)
   int dam = thief->getSkillDam(victim, SKILL_GARROTTE, level, thief->getAdvLearning(SKILL_GARROTTE));
 
   if (this != (thief->unequip(thief->getPrimaryHold()))) {
-    vlogf(LOG_BUG, "Error in garotte");
+    vlogf(LOG_BUG, "Error in garrotte");
   }
   if (thief->bSuccess(bKnown, SKILL_GARROTTE) || !victim->awake()) {
     affectedData aff;
@@ -1120,7 +1120,7 @@ int garrotte(TBeing *thief, TBeing * victim)
     thief->sendTo("You need to be holding the garrotte to make it a success.\n\r");
     return FALSE;
   }
-  rc = obj->garotteMe(thief, victim);
+  rc = obj->garrotteMe(thief, victim);
   if (IS_SET_DELETE(rc, DELETE_THIS)) {
     delete obj;
     return TRUE;
