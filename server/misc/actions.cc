@@ -541,14 +541,9 @@ void TBeing::doInsult(const char *argument)
     sendTo("Sure you don't want to insult everybody.\n\r");
 }
 
-void TBeing::doScratch(const char *argument)
-{
-  char arg[256];
-
+void TBeing::doScratch(const char *arg) {
   if (in_room < 0)
     return;
-
-  strcpy(arg, argument);
 
   if (!strcasecmp(arg, "leg")) {
     act("$n vigorously scratches $s leg!", TRUE, this, 0, 0, TO_ROOM);
