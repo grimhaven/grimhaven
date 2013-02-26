@@ -11,9 +11,6 @@
 #include "obj/magic_item.h"
 #include "misc/person.h"
 
-using std::min;
-using std::max;
-
 int deathMist(TBeing *caster, int level, short bKnown)
 {
   TBeing *tmp_victim;
