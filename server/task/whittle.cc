@@ -209,7 +209,7 @@ void task_whittlePulse(TBeing *ch, TArrow *tArrow, whittlePulseT tWhitLevel)
       tArrow->setWeapDamDev((int)tTemp);
       break;
     default:
-      vlogf(LOG_BUG, format("task_shittlePulse(TArrow) called with invalid tWhitLevel.  [%d]") %
+      vlogf(LOG_BUG, format("task_whittlePulse(TArrow) called with invalid tWhitLevel.  [%d]") %
             tWhitLevel);
       break;
   }
@@ -260,7 +260,7 @@ void task_whittlePulse(TBeing *ch, TBow *tBow, whittlePulseT tWhitLevel)
       tBow->setMaxRange((int)(tValue + tBow->getMaxRange()));
       break;
     default:
-      vlogf(LOG_BUG, format("task_shittlePulse(TBow) called with invalid tWhitLevel.  [%d]") %
+      vlogf(LOG_BUG, format("task_whittlePulse(TBow) called with invalid tWhitLevel.  [%d]") %
             tWhitLevel);
       break;
   }
