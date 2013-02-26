@@ -15,9 +15,6 @@ extern Configuration Config;
 struct PolyType;
 class charFile;
 
-using std::min;
-using std::max;
-
 extern "C" {
 #if 0
 // disabled functions
