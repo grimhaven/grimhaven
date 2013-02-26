@@ -827,14 +827,14 @@ int disease_suffocate(TBeing *victim, int message, affectedData *af)
   return FALSE;
 }
 
-int TThing::garottePulse(TBeing *, affectedData *af)
+int TThing::garrottePulse(TBeing *, affectedData *af)
 {
-  // bad news, garotting without it being a garotte
+  // bad news, garrotting without it being a garrotte
   af->duration = 0;
   return FALSE;
 }
 
-int TTool::garottePulse(TBeing *victim, affectedData *af)
+int TTool::garrottePulse(TBeing *victim, affectedData *af)
 {
   int dam;
 
@@ -883,7 +883,7 @@ int disease_garrotte(TBeing *victim, int message, affectedData *af)
         af->duration = 0;
         return FALSE;
       }
-      rc = obj->garottePulse(victim, af);
+      rc = obj->garrottePulse(victim, af);
       if (IS_SET_DELETE(rc, DELETE_VICT))
         return DELETE_THIS;
       break;

@@ -301,7 +301,7 @@ class TThing {
     virtual void sharpenMeStone(TBeing *, TThing *);
     virtual void dullMeFile(TBeing *, TThing *);
     virtual int poisonMePoison(TBeing *, TBaseWeapon *);
-    virtual int garotteMe(TBeing *, TBeing *);
+    virtual int garrotteMe(TBeing *, TBeing *);
     virtual void sstringMeBow(TBeing *, TThing *);
     virtual void sstringMeString(TBeing *, TBow *);
     virtual void skinMe(TBeing *, const char *);
@@ -309,7 +309,7 @@ class TThing {
     virtual void sacrificeMe(TBeing *, const char *);
     virtual int pickWithMe(TBeing *, const char *, const char *, const char *);
     virtual void repairMeHammer(TBeing *, TObj *);
-    virtual int garottePulse(TBeing *, affectedData *);
+    virtual int garrottePulse(TBeing *, affectedData *);
     virtual int ChargePulse(TBeing *);
     virtual void unequipMe(TBeing *) {}
     virtual void attunePulse(TBeing *);
