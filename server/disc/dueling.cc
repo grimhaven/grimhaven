@@ -35,7 +35,7 @@ int TBeing::doShove(const char *argument, TBeing *vict)
     return FALSE;
 
   if (victim->isImmortal()) {
-    sendTo("Oh no you don't!\n\r");
+    sendTo("It is unwise to shove an immortal.\n\r");
     return FALSE;
   }
   if (noHarmCheck(victim))
