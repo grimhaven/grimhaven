@@ -428,7 +428,7 @@ sstring garble_sign(const TBeing *from, TBeing *to, const sstring &arg, Garble::
       garble += RandomWord();
 
     // skip past the whitespace to the beginning of the next word
-    pos = arg.find_first_of(WHITEAPCE, pos);
+    pos = arg.find_first_of(WHITESPACE, pos);
     if (pos != sstring::npos)
       garble += arg.substr(pos, arg.find_first_not_of(WHITESPACE, pos) - pos);
     pos = arg.find_first_not_of(WHITESPACE, pos);
