@@ -1,5 +1,6 @@
+#include "util/math.h"
+
 #include "misc/being.h"
-#include <cmath>
 
 const char *limbNames[MAX_LIMB_TYPES] = {
   "HEAD", "NECK", "BACK", "ARM", "WAIST", "LEG", "WINGS", "TAIL",
@@ -123,7 +124,7 @@ int TBeing::hurtLimb(unsigned int dam, wearSlotT part_hit)
   sstring buf;
 
   if (limHlt > 0) {
-    addCurLimbHealth(part_hit, -std::min(dam, limHlt));
+    addCurLimbHealth(part_hit, -min(dam, limHlt));
     if (getCurLimbHealth(part_hit) <= 0) {
       sendTo(COLOR_BASIC, format("%sYour %s has become totally useless!%s\n\r") %
              red() % describeBodySlot(part_hit) % norm());

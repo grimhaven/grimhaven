@@ -1,3 +1,5 @@
+#include "util/math.h"
+
 #include "sys/handler.h"
 #include "misc/being.h"
 #include "misc/disease.h"
@@ -185,7 +187,7 @@ int TBeing::doLayHands(const char *arg)
           FALSE, this, 0, vict, TO_ROOM);
     }
     vict->addToHit(amt);
-    vict->setHit(std::min(vict->getHit(), (int) vict->hitLimit()));
+    vict->setHit(min(vict->getHit(), (int) vict->hitLimit()));
 
     // success prevents from working for 12 hours
     aff.type = SKILL_LAY_HANDS;

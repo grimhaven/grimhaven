@@ -102,7 +102,7 @@ void TSymbol::attunePulse(TBeing *ch)
     // get total uses required
     uses = (int) (0.005 * obj_flags.cost);
     // account for usage during the  task
-    uses = std::max(1, uses - ch->task->flags);
+    uses = max(1, uses - ch->task->flags);
 
     TThing *tmp=NULL;
     for(StuffIter it=ch->stuff.begin();it!=ch->stuff.end() && (tmp=*it);++it) {

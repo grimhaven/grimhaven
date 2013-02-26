@@ -1,3 +1,5 @@
+#include "util/math.h"
+
 #include "misc/extern.h"
 #include "sys/handler.h"
 #include "misc/room.h"
@@ -114,7 +116,7 @@ void TBeing::doMortalCompare(const char *tArg)
 
 int compareDetermineMessage(const int tDrift, const int tValue)
 {
-  return (std::min(6, std::max(0, 3 - (tValue / tDrift))));
+  return (min(6, max(0, 3 - (tValue / tDrift))));
 }
 
 sstring compareStructure(TObj *tObj1, TObj *tObj2, TBeing *ch)

@@ -1,6 +1,8 @@
 #include <cstdio>
 
 #include "core/logging.h"
+#include "util/math.h"
+
 #include "misc/extern.h"
 #include "misc/room.h"
 #include "misc/being.h"
@@ -21,9 +23,6 @@
 #include "sys/pathfinder.h"
 #include "sys/handler.h"
 #include "misc/weather.h"
-
-using std::vector;
-using std::deque;
 
 int identify(TBeing *caster, TObj *obj, int, short bKnown)
 {
@@ -472,7 +471,7 @@ int eyesOfFertuman(TBeing *caster, TBeing* victim, int level, short bKnown)
 {
   sstring exitNames;
   TPerson *person;
-  vector<sstring> exits;
+  std::vector<sstring> exits;
   int range = 0, bonus = 0;
   int searches = 1;
 
@@ -536,7 +535,7 @@ int eyesOfFertuman(TBeing *caster, TBeing* victim, int level, short bKnown)
 
   // track our target, build up result strings
   findEquipment eqFinder(person);
-  vector<sstring> paths;
+  std::vector<sstring> paths;
 
   for(int iSearch = 0; iSearch < searches; iSearch++) {
     TPathFinder eqScan;

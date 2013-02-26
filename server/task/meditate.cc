@@ -1,3 +1,5 @@
+#include "util/math.h"
+
 #include "misc/being.h"
 #include "misc/obj.h"
 #include "misc/room.h"
@@ -37,8 +39,8 @@ int task_meditate(TBeing *ch, cmdTypeT cmd, const char *, int pulse, TRoom *, TO
             ch->sendTo(format("%sYour meditation focuses your mind%s!\n\r") %
                      ch->green() % ch->norm());
             gainAmt = ch->manaGain() - 1;
-            gainAmt = std::max(gainAmt, 1);
-            ch->setMana(std::min(ch->getMana() + gainAmt, (int) ch->manaLimit()));
+            gainAmt = max(gainAmt, 1);
+            ch->setMana(min(ch->getMana() + gainAmt, (int) ch->manaLimit()));
           } else {
             // give them resting regen if a fail on meditate
             ch->addToMana(1);

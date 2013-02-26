@@ -1,10 +1,9 @@
 #include "core/logging.h"
+#include "util/math.h"
+
 #include "misc/being.h"
 #include "misc/immunity.h"
 #include "misc/extern.h"
-
-using std::min;
-using std::max;
 
 // Constructor.  Zero out everything.
 Immunities::Immunities()

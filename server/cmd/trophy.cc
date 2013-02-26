@@ -1,4 +1,6 @@
 #include "core/logging.h"
+#include "util/math.h"
+
 #include "cmd/trophy.h"
 #include "sys/database.h"
 #include "misc/room.h"
@@ -120,8 +122,8 @@ float TTrophy::getExpModVal(float count, int mobvnum)
   t2=step_mod / num_steps;
   t3=t1*t2;
   t4=max_mod-t3;
-  t5=(double)(std::max(t4*100, min_mod*100)/100);
-  t5=(double)(std::min(t5*100, max_mod*100)/100);
+  t5=(double)(max(t4*100, min_mod*100)/100);
+  t5=(double)(min(t5*100, max_mod*100)/100);
 
   //  vlogf(LOG_PEEL, format("%f %f %f %f %f") %  t1 % t2 % t3 % t4 % t5);
 

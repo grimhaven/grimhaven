@@ -1,6 +1,8 @@
 #include <cstdio>
 
 #include "core/logging.h"
+#include "util/math.h"
+
 #include "sys/comm.h"
 #include "misc/room.h"
 #include "obj/plant.h"
@@ -119,7 +121,7 @@ int seed_to_plant(int vnum)
 
 void TPlant::updateDesc()
 {
-  int plantindex=std::min(3, (getAge()/10));
+  int plantindex=min(3, (getAge()/10));
   char buf[256];
 
   const char *plantkeywords [] =

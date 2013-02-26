@@ -1,3 +1,5 @@
+#include "util/math.h"
+
 #include "sys/handler.h"
 #include "misc/being.h"
 #include "misc/combat.h"
@@ -216,7 +218,7 @@ spellNumT doStabMsg(TBeing *tThief, TBeing *tSucker, TGenWeapon *tWeapon, wearSl
       float tNewDamage = (tDamage * (25 + tThief->GetMaxLevel()));
 
       tNewDamage /= 100; // Make the damage *REAL* light
-      tNewDamage = std::max((float) 0.0, tNewDamage);
+      tNewDamage = max((float) 0.0, tNewDamage);
 
       // These limbs should be VERY difficult to damage with this.
       if (tLimb == WEAR_HEAD ||

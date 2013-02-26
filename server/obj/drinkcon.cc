@@ -1,3 +1,5 @@
+#include "util/math.h"
+
 #include "sys/comm.h"
 #include "obj/base_container.h"
 #include "obj/drinkcon.h"
@@ -60,7 +62,7 @@ void TDrinkCon::waterCreate(const TBeing *caster, int level)
     }
 
     // Calculate water it can contain, or water created
-    water = std::min(getMaxDrinkUnits() - getDrinkUnits(), water);
+    water = min(getMaxDrinkUnits() - getDrinkUnits(), water);
 
     if (water > 0) {
       LogDam(caster, SPELL_CREATE_WATER, water);

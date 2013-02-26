@@ -1,8 +1,9 @@
 #include "core/logging.h"
+#include "util/math.h"
+
 #include "sys/handler.h"
 #include "misc/room.h"
 #include "misc/being.h"
-//#include "misc/low.h"
 #include "misc/monster.h"
 #include "obj/tool.h"
 #include "obj/plant.h"
@@ -108,7 +109,7 @@ int thief_plant_chance(TBeing *thief, TBeing *victim) {
     modifier -= dynamic_cast<TMonster *>(victim)->susp() / 2;
 
   int competence = thief->getSkillValue(SKILL_PLANT);
-  modifier = std::max(std::min(modifier, 100 - competence), -100);
+  modifier = max(min(modifier, 100 - competence), -100);
   return competence + modifier;
 }
 

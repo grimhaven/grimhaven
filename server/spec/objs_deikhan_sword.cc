@@ -1,3 +1,5 @@
+#include "util/math.h"
+
 #include "sys/comm.h"
 #include "obj/base_weapon.h"
 #include "misc/being.h"
@@ -60,7 +62,7 @@ void doBlind(TBeing *ch, TBeing *vict, TObj *o)
       ch->isNotPowerful(vict, (int)tWeap->weaponLevel(), SPELL_BLINDNESS, SILENT_YES))
     return;
 
-  if (!::number(0, std::max(10, (int)(tWeap->weaponLevel() +
+  if (!::number(0, max(10, (int)(tWeap->weaponLevel() +
                                       (vict->GetMaxLevel() -
                                        ch->GetMaxLevel()))))) {
     act("A searing light shines from $p, blinding $N.",

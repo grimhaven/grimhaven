@@ -1,9 +1,10 @@
 #ifndef SERVER_MISC_STATISTICS_H_
 #define SERVER_MISC_STATISTICS_H_
 
-#include <algorithm>
-#include <string.h>
-#include <time.h>
+#include <cstring>
+#include <ctime>
+
+#include "util/math.h"
 
 #include "misc/enum.h"
 #include "misc/defs.h"
@@ -176,7 +177,7 @@ class TGoldModifier {
 
   public:
     float valAssign    (float tCheck) {
-      return (tCurrent = std::max(tMin, std::min(tMax, tCheck)));
+      return (tCurrent = max(tMin, min(tMax, tCheck)));
     }
     float * operator & (            ) { return &tCurrent; }
     float   operator  =(float tCheck) { return valAssign(tCurrent =  tCheck); }

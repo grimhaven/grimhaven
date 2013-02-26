@@ -1,6 +1,9 @@
 #ifndef SERVER_MISC_EXTERN_H_
 #define SERVER_MISC_EXTERN_H_
 
+#include "core/configuration.h"
+#include "util/math.h"
+
 #include "misc/wiz_powers.h"
 #include "misc/room.h"
 #include "misc/immunity.h"
@@ -8,7 +11,6 @@
 #include "misc/body.h"
 #include "misc/race.h"
 #include "obj/drug.h"
-#include "core/configuration.h"
 
 extern Configuration Config;
 

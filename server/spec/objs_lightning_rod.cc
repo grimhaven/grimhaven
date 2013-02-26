@@ -1,8 +1,4 @@
-/*****************************************************************************
-
-  All functions and routines related to the Lightning Rod Proc
-
-******************************************************************************/
+#include "util/math.h"
 
 #include "misc/room.h"
 #include "obj/base_weapon.h"
@@ -10,7 +6,11 @@
 #include "obj/base_clothing.h"
 #include "misc/weather.h"
 
-using std::max;
+/*****************************************************************************
+
+  All functions and routines related to the Lightning Rod Proc
+
+******************************************************************************/
 
 int lightningRodFryPerson  (TBaseWeapon   *, TBeing *, TBeing *);
 int lightningRodGotHit     (TBaseWeapon   *, TBeing *, TBeing *);

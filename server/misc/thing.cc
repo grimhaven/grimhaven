@@ -1,3 +1,5 @@
+#include "util/math.h"
+
 #include "sys/comm.h"
 #include "sys/handler.h"
 #include "misc/materials.h"
@@ -96,7 +98,7 @@ int TThing::swungObjectDamage(const TBeing *, const TBeing *) const
   int dam = 0;
 
   dam = (int) getWeight() / 5;
-  dam = std::min(15, dam);
+  dam = min(15, dam);
   return dam;
 }
 

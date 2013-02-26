@@ -1,4 +1,6 @@
 #include "core/logging.h"
+#include "util/math.h"
+
 #include "sys/handler.h"
 #include "misc/being.h"
 #include "task/whittle.h"
@@ -7,10 +9,6 @@
 #include "obj/arrow.h"
 #include "misc/extern.h"
 #include "obj/general_weapon.h"
-
-using std::max;
-using std::min;
-
 
 std::map<unsigned long int, taskWhittleEntry>whittleItems;
 

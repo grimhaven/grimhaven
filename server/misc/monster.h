@@ -1,6 +1,8 @@
 #ifndef SERVER_MISC_MONSTER_H_
 #define SERVER_MISC_MONSTER_H_
 
+#include "util/math.h"
+
 #include "misc/being.h"
 #include "misc/paths.h"
 
@@ -180,28 +182,28 @@ class TMonster : public TBeing {
       return (::number(0,101) < susp());
     }
     void US(int num) {
-      setSusp(susp() + std::min(::number(0,2*num),100 - susp()));
+      setSusp(susp() + min(::number(0,2*num),100 - susp()));
     }
     void DS(int num) {
-      setSusp(susp() - std::min(::number(0,2*num),susp()));
+      setSusp(susp() - min(::number(0,2*num),susp()));
     }
     void UG(int num) {
-      setGreed(greed() + std::min(::number(0,2*num),100 - greed()));
+      setGreed(greed() + min(::number(0,2*num),100 - greed()));
     }
     void DG(int num) {
-      setGreed(greed() - std::min(::number(0,2*num),greed()));
+      setGreed(greed() - min(::number(0,2*num),greed()));
     }
     void UA(int num) {
-      setAnger(anger() + std::min(::number(0,2*num),100 - anger()));
+      setAnger(anger() + min(::number(0,2*num),100 - anger()));
     }
     void DA(int num) {
-      setAnger(anger() - std::min(::number(0,2*num),anger()));
+      setAnger(anger() - min(::number(0,2*num),anger()));
     }
     void UM(int num) {
-      setMalice(malice() + std::min(::number(0,2*num),100 - malice()));
+      setMalice(malice() + min(::number(0,2*num),100 - malice()));
     }
     void DMal(int num) {
-      setMalice(malice() - std::min(::number(0,2*num),malice()));
+      setMalice(malice() - min(::number(0,2*num),malice()));
     }
 
     void setACFromACLevel();

@@ -9,8 +9,6 @@
 #include "spec/mobs.h"
 #include "misc/person.h"
 
-using std::vector;
-
 findFairFight::findFairFight(TBeing *tb)
 {
   myself=tb;
@@ -400,7 +398,7 @@ bool findEquipment::findInThing(TThing *t) const
 
 bool findEquipment::contains(TThing *t) const
 {
-  for(vector<TThing *>::const_iterator it = foundlist.begin(); it < foundlist.end(); it++)
+  for(std::vector<TThing *>::const_iterator it = foundlist.begin(); it < foundlist.end(); it++)
     if (t == *it)
       return true;
   return false;

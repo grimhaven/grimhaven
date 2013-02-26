@@ -1,6 +1,8 @@
 #include <cstdio>
 
 #include "core/logging.h"
+#include "util/math.h"
+
 #include "misc/room.h"
 #include "misc/disease.h"
 #include "misc/combat.h"
@@ -8,6 +10,9 @@
 #include "disc/shaman_skunk.h"
 #include "obj/magic_item.h"
 #include "misc/person.h"
+
+using std::min;
+using std::max;
 
 int deathMist(TBeing *caster, int level, short bKnown)
 {
@@ -358,7 +363,7 @@ int cardiacStress(TBeing *caster, TBeing *victim, int level, short bKnown, int a
     return SPELL_FAIL;
   }
 
-  level = std::min(level, 80);
+  level = min(level, 80);
 
   int dam = caster->getSkillDam(victim, SPELL_CARDIAC_STRESS, level, adv_learn);
 
@@ -480,7 +485,7 @@ int bloodBoil(TBeing *caster, TBeing *victim, int level, short bKnown, int adv_l
     caster->nothingHappens(SILENT_YES);
     return SPELL_FAIL;
   }
-  level = std::min(level, 45);
+  level = min(level, 45);
 
   int dam = caster->getSkillDam(victim, SPELL_BLOOD_BOIL, level, adv_learn);
 
