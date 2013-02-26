@@ -1394,9 +1394,10 @@ sstring showComponentTechnical(const int tValue)
   // We only do this on !PROD because of the lag it will generate, and I do mean a
   // LOT of lag it will make.
   if (!Config.mode_production()) {
-    if (!(tDirInfo = opendir("mobdata/responses"))) {
-      vlogf(LOG_FILE, "Unable to dirwalk directory mobdata/resposnes");
-      tStString += "ERROR.  Unable to open mobdata/responses for reading.";
+    const char* path = "mobdata/responses";
+    if (!(tDirInfo = opendir(path))) {
+      vlogf(LOG_FILE, format("Unable to dirwalk directory %s" % path);
+      tStString += format("ERROR.  Unable to open %s for reading.") % path;
       return tStString;
     }
 
@@ -1404,7 +1405,7 @@ sstring showComponentTechnical(const int tValue)
       if (!strcmp(tDir->d_name, ".") || !strcmp(tDir->d_name, ".."))
         continue;
 
-      sprintf(tBuffer, "mobdata/responses/%s", tDir->d_name);
+      sprintf(tBuffer, "%s/%s", path, tDir->d_name);
 
       if (!(tFile = fopen(tBuffer, "r")))
         continue;
