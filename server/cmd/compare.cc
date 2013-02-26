@@ -114,7 +114,7 @@ void TBeing::doMortalCompare(const char *tArg)
 
 int compareDetermineMessage(const int tDrift, const int tValue)
 {
-  return (min(6, max(0, 3 - (tValue / tDrift))));
+  return (std::min(6, std::max(0, 3 - (tValue / tDrift))));
 }
 
 sstring compareStructure(TObj *tObj1, TObj *tObj2, TBeing *ch)
