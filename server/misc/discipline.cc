@@ -2050,7 +2050,7 @@ bool TBeing::bSuccess(spellNumT spell)
   return bSuccess(getSkillValue(spell), spell);
 }
 
-bool TBeing::bSuccess(int ubCompetence, spellNumT spell)
+bool TBeing::bSuccess(int competence, spellNumT spell)
 {
   // number of uses
   logSkillAttempts(this, spell, ATTEMPT_ADD_NORM);
@@ -2060,37 +2060,27 @@ bool TBeing::bSuccess(int ubCompetence, spellNumT spell)
     return true;
   }
 
-  if (isImmortal() && desc &&
-      IS_SET(desc->autobits, AUTO_SUCCESS)) {
-    if (isPlayerAction(PLR_NOHASSLE))
-      return TRUE;
-    else
-      return FALSE;
-  }
+  if (isImmortal() && desc && IS_SET(desc->autobits, AUTO_SUCCESS))
+    return isPlayerAction(PLR_NOHASSLE);
 
-  if (desc) {
-    // Do learning
-    if (getRawSkillValue(spell) >= 0) {
-      if (learnFromDoing(spell, SILENT_NO, 0)) {
-        ubCompetence++;
-      }
-    }
-  }
+  // Do learning
+  if (desc && getRawSkillValue(spell) >= 0
+          && learnFromDoing(spell, SILENT_NO, 0))
+    competence++;
 
    // not learned at all
-  if (ubCompetence <= 0) {
+  if (competence <= 0) {
     logSkillFail(this, spell, FAIL_GENERAL);
 #if DISC_DEBUG
-    if (desc && isPc()) {
-      vlogf(LOG_BUG, format("%s Fail Spell %s (%d) ubComp < 0") %
+    if (desc && isPc())
+      vlogf(LOG_BUG, format("%s Fail Spell %s (%d) competence < 0") %
             getName() % discArray[spell]->name % spell);
-    }
 #endif
     return FALSE;
   }
 
 // force into range
-  ubCompetence = min(max(ubCompetence, 0), (int) MAX_SKILL_LEARNEDNESS);
+  competence = min(max(competence, 0), (int) MAX_SKILL_LEARNEDNESS);
 
   // Here's the basis of this stuff:
   // At max learning, we desire the following results:
@@ -2106,7 +2096,7 @@ bool TBeing::bSuccess(int ubCompetence, spellNumT spell)
   float limit = getSkillDiffModifier(spell);
 
   // scale linearly based on learning
-  limit *= ubCompetence;
+  limit *= competence;
   limit /= MAX_SKILL_LEARNEDNESS;
 
   // factor in focus
@@ -2122,7 +2112,7 @@ bool TBeing::bSuccess(int ubCompetence, spellNumT spell)
 
   if (roll < iLimit) {
     // success
-    return bSucCounter(this, skillType, spell, roll, ubCompetence);
+    return bSucCounter(this, skillType, spell, roll, competence);
   } else {
     // fail
     logSkillFail(this, spell, FAIL_GENERAL);
