@@ -1888,7 +1888,6 @@ int TBeing::parseCommand(const sstring &orig_arg, bool typedIn)
   int i;
   unsigned int pos;
   sstring argument, aliasbuf, arg1, arg2;
-  sstring whitespace=" \f\n\r\t\v";
 
   argument=orig_arg;
 
@@ -1955,8 +1954,8 @@ int TBeing::parseCommand(const sstring &orig_arg, bool typedIn)
     }
 
     // strip out first word
-    pos=argument.find_first_not_of(whitespace,0);
-    argument.erase(0, argument.find_first_of(whitespace, pos));
+    pos=argument.find_first_not_of(WHITESPACE, 0);
+    argument.erase(0, argument.find_first_of(WHITESPACE, pos));
   }
 
 
@@ -1999,8 +1998,8 @@ int TBeing::parseCommand(const sstring &orig_arg, bool typedIn)
   // END LIFEFORCE
 
   // strip leading whitespace, if any
-  if(argument.find_first_not_of(whitespace) != sstring::npos)
-    argument=argument.substr(argument.find_first_not_of(whitespace));
+  if(argument.find_first_not_of(WHITESPACE) != sstring::npos)
+    argument=argument.substr(argument.find_first_not_of(WHITESPACE));
 
   return (doCommand(cmd, argument, NULL, typedIn));
 }
@@ -2087,12 +2086,11 @@ sstring one_argument(sstring argument, sstring & first_arg)
 {
   size_t bgin, look_at;
   sstring a2;
-  sstring whitespace = " \n\r\t";
   bgin = 0;
 
   do {
-    bgin = argument.find_first_not_of(whitespace);
-    look_at = argument.find_first_of(whitespace, bgin);
+    bgin = argument.find_first_not_of(WHITESPACE);
+    look_at = argument.find_first_of(WHITESPACE, bgin);
 
     if (look_at != sstring::npos) {
       // normal, return the part between
@@ -2112,7 +2110,7 @@ sstring one_argument(sstring argument, sstring & first_arg)
 
 
   // strip leading whitespace from argument
-  if((bgin = argument.find_first_not_of(whitespace))!= sstring::npos){
+  if((bgin = argument.find_first_not_of(WHITESPACE))!= sstring::npos){
     a2 = argument.substr(bgin);
     argument = a2;
   }
@@ -2135,21 +2133,20 @@ bool is_abbrev(const sstring &arg1, const sstring &arg2, multipleTypeT multiple,
 {
   int spaces1 = 0;
   int spaces2 = 0;
-  const sstring whitespace = " \n\r\t";
 
   // This functionality was added 01/03/98 by me - Russ
   if (multiple) {
     // Do we wanna check for multi word stuff?
     sstring carg1 = arg1;
     trimString(carg1);
-    sstring::size_type pos = carg1.find_last_not_of(whitespace);
+    sstring::size_type pos = carg1.find_last_not_of(WHITESPACE);
     if (pos != sstring::npos)
       carg1.erase(pos+1);
 
     pos = 0;
     do {
       pos++;
-      pos = carg1.find_first_of(whitespace, pos);
+      pos = carg1.find_first_of(WHITESPACE, pos);
       if (pos != sstring::npos)
         spaces1++;
     } while (pos != sstring::npos);
@@ -2161,7 +2158,7 @@ bool is_abbrev(const sstring &arg1, const sstring &arg2, multipleTypeT multiple,
     pos = 0;
     do {
       ++pos;
-      pos = carg2.find_first_of(whitespace, pos);
+      pos = carg2.find_first_of(WHITESPACE, pos);
       if (pos != sstring::npos)
         spaces2++;
     } while (pos != sstring::npos);
@@ -2226,14 +2223,13 @@ void half_chop_safe(const char *sstring, char *arg1, unsigned int arg1Len, char 
 }
 
 sstring add_bars(const sstring &s){
-  sstring whitespace=" \f\n\r\t\v";
   sstring stmp=s;
 
-  for(size_t pos=stmp.find_first_of(whitespace);
+  for(size_t pos=stmp.find_first_of(WHITESPACE);
       pos != sstring::npos;
-      pos=stmp.find_first_of(whitespace, pos)){
+      pos=stmp.find_first_of(WHITESPACE, pos)){
     // replace any contiguous string of white space with a single -
-    stmp.replace(pos, stmp.find_first_not_of(whitespace, pos)-pos, "-");
+    stmp.replace(pos, stmp.find_first_not_of(WHITESPACE, pos)-pos, "-");
   }
 
   return stmp;

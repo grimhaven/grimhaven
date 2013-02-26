@@ -1298,8 +1298,6 @@ void TPerson::doEdit(const char *arg)
       // C) Lines should be no longer than 80 characters, and should not break in the
       //    middle of a word.
 
-      whitespace = " \n\r";
-
       punctuation = ".!?;:";
       colors = "<";
 
@@ -1311,8 +1309,8 @@ void TPerson::doEdit(const char *arg)
 
         bgin = 0;
 
-        bgin = tStr.find_first_not_of(whitespace);
-        look_at = tStr.find_first_of(whitespace, bgin);
+        bgin = tStr.find_first_not_of(WHITESPACE);
+        look_at = tStr.find_first_of(WHITESPACE, bgin);
 
         if (look_at != sstring::npos) {
           // normal, return the part between
