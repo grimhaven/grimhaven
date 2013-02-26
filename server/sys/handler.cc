@@ -1330,9 +1330,7 @@ TThing *unequip_char_for_save(TBeing *ch, wearSlotT pos)
   return (o);
 }
 
-int get_number(char **name)
-{
-  int i;
+int get_number(char **name) {
   char *ppos, numx[MAX_INPUT_LENGTH] = "";
 
   if ((ppos = (char *) strchr(*name, '.')) && ppos[1]) {
@@ -1340,7 +1338,7 @@ int get_number(char **name)
     strncpy(numx, *name, cElements(numx));
     strcpy(*name, ppos);
 
-    for (i = 0; *(numx + i); i++) {
+    for (int i = 0; *(numx + i); i++) {
       if (*(numx + i) == ' ')
         continue;
       if (!isdigit(*(numx + i))) {
@@ -2250,71 +2248,56 @@ TObj *get_obj_vis_accessible(TBeing *ch, const sstring &name)
 // The routine returns a pointer to the next word in *arg (just like the
 // one_argument routine).
 
-TObj *generic_find_obj(sstring arg, int bv, TBeing *ch)
-{
-  TBeing *tar_ch=NULL;
-  TObj *o=NULL;
-
-  generic_find(arg.c_str(), bv, ch, &tar_ch, &o);
-
-  return o;
+TObj *generic_find_obj(sstring arg, int bv, TBeing *ch) {
+  TObj *obj;
+  TBeing *target;
+  generic_find(arg.c_str(), bv, ch, &target, &obj);
+  return obj;
 }
 
-TBeing *generic_find_being(sstring arg, int bv, TBeing *ch)
-{
-  TBeing *tar_ch=NULL;
-  TObj *o=NULL;
-
-  generic_find(arg.c_str(), bv, ch, &tar_ch, &o);
-
-  return tar_ch;
+TBeing *generic_find_being(sstring arg, int bv, TBeing *ch) {
+  TObj *obj;
+  TBeing *target;
+  generic_find(arg.c_str(), bv, ch, &target, &obj);
+  return target;
 }
 
-
-int generic_find(const char *arg, int bv, TBeing *ch, TBeing **tar_ch, TObj **obj)
-{
-  const char *ignore[] =
-  {
-    "the",
-    "in",
-    "on",
-    "at",
-    "\n"
-  };
-  unsigned int i;
-  bool found = FALSE;
+int generic_find(const char *arg, int bv, TBeing *ch, TBeing **target, TObj **obj) {
+  const char *ignore[] = { "the", "in", "on", "at", "\n" };
   int count = 0, numx = 0;
   char name[256];
   TThing *t;
   char tmpname[MAX_INPUT_LENGTH];
   char *tmp;
 
-  *tar_ch = NULL;
+  *target = NULL;
   *obj = NULL;
 
-
-//  strcpy(tmpname, name);
   strncpy(tmpname, arg, cElements(tmpname));
   tmp = tmpname;
   if (!(numx = get_number(&tmp)))
-    return (0);
+    return 0;
 
-  while (*arg && !found) {
-    for (; *arg == ' '; arg++);
+  while (*arg) {
+    while (*arg == ' ')
+      arg++;
 
-    for (i = 0; i < (cElements(name)-1) && (name[i] = *(arg + i)) && (name[i] != ' '); i++);
+    unsigned int i = 0;
+    while (i < 256 && (name[i] = *(arg + i)) && name[i] != ' ')
+      i++;
     name[i] = 0;
     arg += i;
     if (search_block(name, ignore, TRUE) > -1)
-      found = TRUE;
+      break;
   }
+
   if (!name[0])
-    return (0);
+    return 0;
 
   strncpy(tmpname, name, cElements(tmpname));
   tmp = tmpname;
   if (!(numx = get_number(&tmp)))
-    return (0);
+    return 0;
 
   // please leave this ordering alone
   // look for beings first
@@ -2328,62 +2311,58 @@ int generic_find(const char *arg, int bv, TBeing *ch, TBeing **tar_ch, TObj **ob
   // if you don't want this order, do something different...
 
   if (bv & FIND_CHAR_ROOM) {
-    if ((*tar_ch = get_char_room_vis(ch, name, &count)))
+    if ((*target = get_char_room_vis(ch, name, &count)))
       return FIND_CHAR_ROOM;
   }
+
   if (bv & FIND_CHAR_WORLD) {
-    if ((*tar_ch = get_char_vis(ch, name, &count)))
+    if ((*target = get_char_vis(ch, name, &count)))
       return FIND_CHAR_WORLD;
   }
+
   if (bv & FIND_OBJ_INV) {
-    if ((t = searchLinkedListVis(ch, name, ch->stuff, &count, TYPEOBJ))) {
-      *obj = dynamic_cast<TObj *>(t);
-      if (*obj) {
-        return FIND_OBJ_INV;
-      }
-    }
+    if ((t = searchLinkedListVis(ch, name, ch->stuff, &count, TYPEOBJ)) &&
+        (*obj = dynamic_cast<TObj *>(t)))
+      return FIND_OBJ_INV;
   }
+
   if (bv & FIND_OBJ_HELD) {
     wearSlotT primary = ch->isRightHanded() ? HOLD_RIGHT : HOLD_LEFT;
-    wearSlotT secondary = ch->isRightHanded() ? HOLD_LEFT : HOLD_RIGHT;
-    t = ch->equipment[primary];
-    if (t && ch->canSee(t) && isname(arg, t->name))
-      *obj = dynamic_cast<TObj *>(t);
-    if (!*obj && (t = ch->equipment[secondary]) && ch->canSee(t) && isname(arg, t->name))
-      *obj = dynamic_cast<TObj *>(t);
-    if (*obj)
+    wearSlotT secondary = primary == HOLD_RIGHT ? HOLD_LEFT : HOLD_RIGHT;
+    if ((t = ch->equipment[primary]) && isname(arg, t->name) &&
+        ch->canSee(t) && (*obj = dynamic_cast<TObj *>(t)))
+      return FIND_OBJ_HELD;
+    if ((t = ch->equipment[secondary]) && isname(arg, t->name) &&
+        ch->canSee(t) && (*obj = dynamic_cast<TObj *>(t)))
       return FIND_OBJ_HELD;
   }
+
   if (bv & FIND_OBJ_EQUIP) {
     wearSlotT j;
-    if ((t = get_thing_in_equip(ch, name, ch->equipment, &j, TRUE, &count))) {
-      *obj = dynamic_cast<TObj *>(t);
-      if (*obj) {
-        return FIND_OBJ_EQUIP;
-      }
-    }
+    if ((t = get_thing_in_equip(ch, name, ch->equipment, &j, TRUE, &count)) &&
+        (*obj = dynamic_cast<TObj *>(t)))
+      return FIND_OBJ_EQUIP;
   }
+
   if (bv & FIND_OBJ_ROOM) {
-    if ((t = searchLinkedListVis(ch, name, ch->roomp->stuff, &count, TYPEOBJ))) {
-      *obj = dynamic_cast<TObj *>(t);
-      if (*obj) {
-        return FIND_OBJ_ROOM;
-      }
-    }
+    if ((t = searchLinkedListVis(ch, name, ch->roomp->stuff, &count, TYPEOBJ)) &&
+        (*obj = dynamic_cast<TObj *>(t)))
+      return FIND_OBJ_ROOM;
   }
+
   if (bv & FIND_ROOM_EXTRA) {
     if (ch->roomp && ch->roomp->ex_description &&
-      ch->roomp->ex_description->findExtraDesc(tmp)) {
-      count++;
-      if (count == numx)
-        return FIND_ROOM_EXTRA;
-    }
+        ch->roomp->ex_description->findExtraDesc(tmp) &&
+        ++count == numx)
+      return FIND_ROOM_EXTRA;
   }
+
   if (bv & FIND_OBJ_WORLD) {
     if ((*obj = get_obj_vis(ch, name, NULL, EXACT_NO)))
       return FIND_OBJ_WORLD;
   }
-  return (0);
+
+  return 0;
 }
 
 // looks in hands and bags
