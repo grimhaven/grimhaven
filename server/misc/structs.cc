@@ -1295,7 +1295,7 @@ TBeing::TBeing(const TBeing &a) :
     followers = NULL;
 
   if (a.task)
-    task = new taskData(*a.task);
+    task = new TTask(*a.task);
   else
     task = NULL;
 
@@ -1403,7 +1403,7 @@ TBeing & TBeing::operator=(const TBeing &a)
     followers = NULL;
 
   if (a.task)
-    task = new taskData(*a.task);
+    task = new TTask(*a.task);
   else
     task = NULL;
 

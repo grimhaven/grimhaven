@@ -56,7 +56,8 @@ TTask::TTask() :
   status(0),
   flags(0),
   obj(NULL),
-  room(NULL) { }
+  room(NULL)
+{ }
 
 TTask::TTask(const TTask &t) :
   task(t.task),
@@ -66,7 +67,8 @@ TTask::TTask(const TTask &t) :
   status(t.status),
   flags(t.flags),
   obj(t.obj),
-  room(t.room) { orig_arg = mud_str_dup(a.orig_arg); }
+  room(t.room)
+{ orig_arg = mud_str_dup(t.orig_arg); }
 
 TTask & TTask::operator=(const TTask &t) {
   if (this == &t) return *this;
