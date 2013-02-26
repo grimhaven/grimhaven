@@ -574,8 +574,8 @@ void TObj::peeMe(const TBeing *, liqTypeT)
 
 void TPool::peeMe(const TBeing *ch, liqTypeT liq)
 {
-  act("$n smiles happily as $e pisses into $p.", TRUE, ch, this, NULL, TO_ROOM);
-  act("You smile happily as you piss into $p.",  TRUE, ch, this, NULL, TO_CHAR);
+  act("$n sighs contentedly as $e pisses into $p.", TRUE, ch, this, NULL, TO_ROOM);
+  act("You sigh contentedly as you piss into $p.",  TRUE, ch, this, NULL, TO_CHAR);
 
   if (ch->isImmortal() && getDrinkType() == LIQ_WATER) {
     act("$e turns water to wine!", TRUE, ch, this, NULL, TO_ROOM);
@@ -587,8 +587,8 @@ void TPool::peeMe(const TBeing *ch, liqTypeT liq)
 
 void TPlant::peeOnMe(const TBeing *ch)
 {
-  act("$n smiles happily as $e pisses all over $p.", TRUE, ch, this, NULL, TO_ROOM);
-  act("You smile happily as you piss all over $p.",  TRUE, ch, this, NULL, TO_CHAR);
+  act("$n sighs contentedly as $e pisses all over $p.", TRUE, ch, this, NULL, TO_ROOM);
+  act("You sigh contentedly as you piss all over $p.",  TRUE, ch, this, NULL, TO_CHAR);
 
   if(ch->isImmortal())
     updateAge();
