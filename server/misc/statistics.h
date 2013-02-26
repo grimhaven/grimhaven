@@ -8,9 +8,6 @@
 #include "misc/enum.h"
 #include "misc/defs.h"
 
-using std::min;
-using std::max;
-
 const int PC_STAT  = 0;
 const int MOB_STAT = 1;
 
@@ -179,7 +176,7 @@ class TGoldModifier {
 
   public:
     float valAssign    (float tCheck) {
-      return (tCurrent = max(tMin, min(tMax, tCheck)));
+      return (tCurrent = std::max(tMin, std::min(tMax, tCheck)));
     }
     float * operator & (            ) { return &tCurrent; }
     float   operator  =(float tCheck) { return valAssign(tCurrent =  tCheck); }
