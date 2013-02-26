@@ -11,6 +11,11 @@ bool TBeing::canKneestrike(TBeing *victim, silentTypeT silent)
   if (checkBusy() || checkPeaceful())
     return FALSE;
 
+  if (!doesKnowSkill(SKILL_KNEESTRIKE)) {
+    sendTo("You know nothing about knee strikes.\n\r");
+    return FALSE;
+  }
+
   if (affectedBySpell(AFFECT_TRANSFORMED_LEGS)) {
     sendTo("You don't know how to knee someone with these kind of legs.\n\r");
     return FALSE;
@@ -20,11 +25,6 @@ bool TBeing::canKneestrike(TBeing *victim, silentTypeT silent)
     sendTo("You can't kneestrike while crawling.\n\r");
     return FALSE;
   }
-  if (!doesKnowSkill(SKILL_KNEESTRIKE)) {
-    sendTo("You know nothing about knee strikes.\n\r");
-    return FALSE;
-  }
-
   if (victim == this) {
     if (!silent)
       sendTo("You try to knee yourself in the groin, but it doesn't seem to work...\n\r");
