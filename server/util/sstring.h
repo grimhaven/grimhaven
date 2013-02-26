@@ -1,5 +1,5 @@
-#ifndef SERVER_SYS_SSTRING_H_
-#define SERVER_SYS_SSTRING_H_
+#ifndef SERVER_UTIL_SSTRING_H_
+#define SERVER_UTIL_SSTRING_H_
 
 #include <cstdlib>
 #include <typeinfo>
