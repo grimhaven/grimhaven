@@ -1432,19 +1432,18 @@ TThing *get_thing_stuck_in_vis(TBeing *ch, const char *arg, wearSlotT *j, int *c
   return NULL;
 }
 
-TThing *searchLinkedList(const char * name, StuffList list, thingTypeT type)
+TThing *searchLinkedList(const sstring & name, StuffList list, thingTypeT type)
 {
-  const sstring tmps = name;
-  return searchLinkedList(tmps, list, type);
+  return searchLinkedList(name.c_str(), list, type);
 }
 
-TThing *searchLinkedList(const sstring & name, StuffList list, thingTypeT type)
+TThing *searchLinkedList(const char * name, StuffList list, thingTypeT type)
 {
   TThing *i, *t;
   int j=1, numx;
   char tmpname[MAX_INPUT_LENGTH], *tmp;
 
-  strcpy(tmpname, name.c_str());
+  strncpy(tmpname, name, MAX_INPUT_LENGTH);
   tmp = tmpname;
 
   if (!(numx = get_number(&tmp)))
@@ -2588,3 +2587,5 @@ TBeing *get_best_char_room(const TBeing *ch, const char *name, visibleTypeT visi
 
   return i;
 }
+
+// vim: ft=cpp:tw=79:sw=2:sts=2:ts=8:et
