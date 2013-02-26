@@ -4,9 +4,6 @@
 #include "misc/being.h"
 #include "misc/paths.h"
 
-using std::min;
-using std::max;
-
 enum zoneHateT {
      OP_SEX      = 1,
      OP_RACE,
@@ -183,28 +180,28 @@ class TMonster : public TBeing {
       return (::number(0,101) < susp());
     }
     void US(int num) {
-      setSusp(susp() + min(::number(0,2*num),100 - susp()));
+      setSusp(susp() + std::min(::number(0,2*num),100 - susp()));
     }
     void DS(int num) {
-      setSusp(susp() - min(::number(0,2*num),susp()));
+      setSusp(susp() - std::min(::number(0,2*num),susp()));
     }
     void UG(int num) {
-      setGreed(greed() + min(::number(0,2*num),100 - greed()));
+      setGreed(greed() + std::min(::number(0,2*num),100 - greed()));
     }
     void DG(int num) {
-      setGreed(greed() - min(::number(0,2*num),greed()));
+      setGreed(greed() - std::min(::number(0,2*num),greed()));
     }
     void UA(int num) {
-      setAnger(anger() + min(::number(0,2*num),100 - anger()));
+      setAnger(anger() + std::min(::number(0,2*num),100 - anger()));
     }
     void DA(int num) {
-      setAnger(anger() - min(::number(0,2*num),anger()));
+      setAnger(anger() - std::min(::number(0,2*num),anger()));
     }
     void UM(int num) {
-      setMalice(malice() + min(::number(0,2*num),100 - malice()));
+      setMalice(malice() + std::min(::number(0,2*num),100 - malice()));
     }
     void DMal(int num) {
-      setMalice(malice() - min(::number(0,2*num),malice()));
+      setMalice(malice() - std::min(::number(0,2*num),malice()));
     }
 
     void setACFromACLevel();
