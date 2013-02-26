@@ -478,47 +478,12 @@ int TBeing::doMount(const char *arg, cmdTypeT cmd, TBeing *h, silentTypeT silent
       }
     }
 
-    // This was the old 'lets beat the shit out of newbies' code, disabled.
-#if 0
-    check = MountEgoCheck(this, horse);
-    if ((check > 5 || (horse->GetMaxLevel() > GetMaxLevel())) &&
-        (roomp && !roomp->isRoomFlag(ROOM_PEACEFUL))) {
-      act("$N snarls and attacks!", FALSE, this, 0, horse, TO_CHAR);
-      act("As $n tries to mount $N, $N attacks $n!", FALSE, this, 0, horse, TO_NOTVICT);
-      addToWait(combatRound(1));
-      rc = horse->hit(this);
-      if (IS_SET_DELETE(rc, DELETE_THIS)) {
-        if (h)
-          return DELETE_VICT;
-        if (h)
-          return DELETE_VICT;
-        delete horse;
-        horse = NULL;
-      }
-      if (IS_SET_DELETE(rc, DELETE_VICT))
-        return DELETE_THIS;
-      return TRUE;
-    } else if ((check > -1) || (horse->GetMaxLevel() > GetMaxLevel())) {
-      if ((horse->getPosition() > POSITION_STUNNED) && (horse->getPosition() < POSITION_STANDING)) {
-        act("$n quickly stands up.",0, horse, 0, 0, TO_ROOM);
-
-        horse->setPosition(POSITION_STANDING);
-      }
-      act("$N bucks you off, you fall on your butt.", FALSE, this, 0, horse, TO_CHAR);
-      act("As $n tries to mount $N, $N bucks $m off.", FALSE, this, 0, horse, TO_NOTVICT);
-      addToWait(combatRound(1));
-      setPosition(POSITION_SITTING);
-      if (!horse->isPc())
-        dynamic_cast<TMonster *>(horse)->aiHorse(this);
-      return TRUE;
-    }
-#else
     if(!(horse->mobVnum()==Mob::ELEPHANT &&
          hasQuestBit(TOG_MONK_GREEN_STARTED)) &&
        horse->GetMaxLevel() > GetMaxLevel()){
       switch (::number(0, 3)) {
         case 0:
-          act("$N bucks you off, you fall on your butt.",
+          act("$N bucks you off and you fall on your butt.",
               FALSE, this, 0, horse, TO_CHAR);
           act("As $n tries to mount $N, $N bucks $m off.",
               FALSE, this, 0, horse, TO_NOTVICT);
@@ -551,7 +516,6 @@ int TBeing::doMount(const char *arg, cmdTypeT cmd, TBeing *h, silentTypeT silent
 
       return TRUE;
     }
-#endif
     if (rideCheck(-check)) {
       if (!silent) {
         if (horse->hasSaddle()==1 && !horse->rider) {
