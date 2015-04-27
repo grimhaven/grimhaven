@@ -5888,12 +5888,15 @@ int bmarcher(TBeing *, cmdTypeT cmd, const char *, TMonster *ch, TObj *)
         return TRUE;
       } else if (Hi > Hf) {
         // we hit them, so lets shout some catcalls down
-        switch (::number(1,9)) {
+        switch (::number(0,7)) {
+          case 0:
+            sprintf(buf2, "Straight from my heart to yours!");
+            break;
           case 1:
             sprintf(buf2, "How 'bout DEM apples!");
             break;
           case 2:
-            sprintf(buf2, "Why don't you go on a diet you fat bastard, I couldn't miss you if I tried!");
+            sprintf(buf2, "Why don't you go on a diet, you corpulent bastard, I couldn't miss you if I tried!");
             break;
           case 3:
             sprintf(buf2, "U-G-L-Y, you ain't got no ALIBI, you UGLY!");
@@ -5902,19 +5905,13 @@ int bmarcher(TBeing *, cmdTypeT cmd, const char *, TMonster *ch, TObj *)
             sprintf(buf2, "Hey, I didn't know Logrus was enlisting pincushions!");
             break;
           case 5:
-            sprintf(buf2, "Why don't you go home, you dirty whores!");
+            sprintf(buf2, "Why don't you go home, you filty harlot!");
             break;
           case 6:
-            sprintf(buf2, "You like it this way?  UNGH!  You like that??  UNGH!  UNGH!  Take that!  UNGH!");
+            sprintf(buf2, "You like it this way? UNGH! You like that?? UNGH! UNGH! Take that! UNGH!");
             break;
           case 7:
             sprintf(buf2, "Eat some of that!");
-            break;
-          case 8:
-            sprintf(buf2, "Straight from my heart to yours!");
-            break;
-          case 9:
-            sprintf(buf2, "Wa-hey, bitch!");
             break;
         }
 

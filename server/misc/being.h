@@ -1765,7 +1765,7 @@ class TBeing : public TThing {
     int doGet(const char *);
     void doGrab(const char *);
     int doPut(const char *);
-    int doKick(const char *, TBeing *);
+    int doKick(const sstring &, TBeing *);
     bool isSaveMob(const TBeing *) const;
     bool isPet(const unsigned int) const;
     bool isElemental() const;

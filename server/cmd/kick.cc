@@ -5,14 +5,21 @@
 #include "misc/enum.h"
 #include "misc/combat.h"
 
-bool TBeing::canKick(TBeing *victim, silentTypeT silent)
-{
+enum kKickSlot {
+  KICK_NONE,
+  KICK_LEG,
+  KICK_WAIST,
+  KICK_BODY,
+  KICK_HEAD
+};
+
+bool TBeing::canKick(TBeing *victim, silentTypeT silent) {
   if (checkBusy())
     return FALSE;
 
-  if (affectedBySpell(AFFECT_TRANSFORMED_LEGS)) {
+  if (!doesKnowSkill(SKILL_KICK)) {
     if (!silent)
-      sendTo("How do you expect to kick with your legs transformed.\n\r");
+      sendTo("You know nothing about kicking.\n\r");
     return FALSE;
   }
 
@@ -22,20 +29,19 @@ bool TBeing::canKick(TBeing *victim, silentTypeT silent)
   if (noHarmCheck(victim))
     return FALSE;
 
+  if (affectedBySpell(AFFECT_TRANSFORMED_LEGS)) {
+    if (!silent)
+      sendTo("How do you expect to kick with your legs transformed?\n\r");
+    return FALSE;
+  }
+
   if (getPosition() == POSITION_CRAWLING) {
     if (!silent)
       sendTo("You can't kick while crawling.\n\r");
     return FALSE;
   }
 
-  spellNumT skill = getSkillNum(SKILL_KICK);
-  if (!doesKnowSkill(skill)) {
-    if (!silent)
-      sendTo("You know nothing about kicking.\n\r");
-    return FALSE;
-  }
-
-  if (doesKnowSkill(SKILL_ADVANCED_KICKING)){
+  if (doesKnowSkill(SKILL_ADVANCED_KICKING)) {
     if (!silent)
       sendTo("You are kicking constantly in melee, already.\n\r");
     return FALSE;
@@ -71,11 +77,6 @@ bool TBeing::canKick(TBeing *victim, silentTypeT silent)
     return FALSE;
   }
 
-  if (isPet(PETTYPE_PET | PETTYPE_CHARM | PETTYPE_THRALL) && (master == victim)) {
-    act("$N is just such a good friend, you simply can't hit $M.", FALSE,
-        this, 0, victim, TO_CHAR);
-    return FALSE;
-  }
   if (riding) {
     if (!silent)
       sendTo("You can't kick while mounted!\n\r");
@@ -87,6 +88,13 @@ bool TBeing::canKick(TBeing *victim, silentTypeT silent)
       sendTo("The water around you totally impedes your kick!\n\r");
     return FALSE;
   }
+
+  if (isPet(PETTYPE_PET | PETTYPE_CHARM | PETTYPE_THRALL) && (master == victim)) {
+    act("$N is just such a good friend, you simply can't hit $M.", FALSE,
+        this, 0, victim, TO_CHAR);
+    return FALSE;
+  }
+
   if (victim->isFlying()) {
     if (!silent)
       act("How can you kick $N when $E is flying?",
@@ -97,18 +105,8 @@ bool TBeing::canKick(TBeing *victim, silentTypeT silent)
   return TRUE;
 }
 
-enum kickSlotT {
-  KICK_NONE,
-  KICK_LEG,
-  KICK_WAIST,
-  KICK_BODY,
-  KICK_HEAD
-};
-
-static int kickMiss(TBeing *caster, TBeing *victim, kickSlotT slot, spellNumT skill)
-{
-  switch (slot)
-  {
+static int kickMiss(TBeing *caster, TBeing *victim, kKickSlot slot, spellNumT skill) {
+  switch (slot) {
     case KICK_BODY:   // body
       act("$n misses a kick at $N's solar plexus.", FALSE, caster, 0, victim, TO_NOTVICT);
       act("You miss your kick at $N's solar plexus.", FALSE, caster, 0, victim, TO_CHAR);
@@ -143,12 +141,11 @@ static int kickMiss(TBeing *caster, TBeing *victim, kickSlotT slot, spellNumT sk
   return TRUE;
 }
 
-static int kickHit(TBeing *caster, TBeing *victim, int score, int level, spellNumT skill)
-{
+static int kickHit(TBeing *caster, TBeing *victim, int score, int level, spellNumT skill) {
   int dam, limb_dam;
   spellNumT dam_type = skill;
   int hgt=caster->getHeight() ;
-  kickSlotT slot_i;
+  kKickSlot slot_i;
   wearSlotT slot;
   int rc;
 
@@ -297,28 +294,21 @@ static int kickHit(TBeing *caster, TBeing *victim, int score, int level, spellNu
   return TRUE;
 }
 
-static int kick(TBeing *ch, TBeing *victim, spellNumT skill)
-{
-  int percent;
-  int level, i = 0;
-  int kick_move = dice(2,3);
-  int rc = 0;
-
-  if (!ch->canKick(victim, SILENT_NO))
-    return FALSE;
-
-  percent = -((10 - (victim->getArmor() / 100)));
-  level = ch->getSkillLevel(skill);
+static int kick(TBeing *ch, TBeing *victim, spellNumT skill) {
+  int percent = -((10 - (victim->getArmor() / 100)));
+  int level = ch->getSkillLevel(skill);
   int bKnown = ch->getSkillValue(skill);
 
   if (ch->getMove() < 10) {
     ch->sendTo("You don't have the energy to make the kick!\n\r");
     return FALSE;
   }
-  if (!ch->isImmortal())
-    ch->addToMove(-kick_move);
 
-  i = ch->specialAttack(victim, skill);
+  if (!ch->isImmortal())
+    ch->addToMove(dice(2,3));
+
+  int i = ch->specialAttack(victim, skill);
+
   // check bSuccess last so skill counters are OK
   if (i && (i != GUARANTEED_FAILURE) &&
       ch->bSuccess(bKnown, skill)) {
@@ -329,12 +319,12 @@ static int kick(TBeing *ch, TBeing *victim, spellNumT skill)
       act("$N blocks $n's kick.", TRUE, ch, 0, victim, TO_NOTVICT);
       return TRUE;
     }
-    rc = kickHit(ch, victim, bKnown+percent, level, skill);
+    int rc = kickHit(ch, victim, bKnown+percent, level, skill);
     if (IS_SET_DELETE(rc, DELETE_VICT))
       return DELETE_VICT;
   } else {
     if (victim->getPosition() <= POSITION_SLEEPING) {
-      rc = kickHit(ch, victim, bKnown+percent, level, skill);
+      int rc = kickHit(ch, victim, bKnown+percent, level, skill);
       if (IS_SET_DELETE(rc, DELETE_VICT))
         return DELETE_VICT;
     } else {
@@ -344,37 +334,34 @@ static int kick(TBeing *ch, TBeing *victim, spellNumT skill)
   return TRUE;
 }
 
-int TBeing::doKick(const char *argument, TBeing *vict)
-{
-  int rc;
-  TBeing *victim;
-  char namebuf[256];
+int TBeing::doKick(const sstring &target, TBeing *victim_arg) {
+  TBeing *victim = victim_arg;
 
-  strcpy(namebuf, argument);
-  if (!(victim = vict)) {
-    if (!(victim = get_char_room_vis(this, namebuf))) {
-      if (!(victim = fight())) {
-        sendTo("Kick whom?\n\r");
-        return FALSE;
-      }
-    }
+  if (!victim && !(victim = get_char_room_vis(this, target)) &&
+      !(victim = fight())) {
+    sendTo("Kick whom?\n\r");
+    return FALSE;
   }
 
   if (!sameRoom(*victim)) {
     sendTo("That person isn't around.\n\r");
     return FALSE;
   }
+
+  if (!canKick(victim, SILENT_NO))
+      return FALSE;
+
   spellNumT skill = getSkillNum(SKILL_KICK);
-  rc = kick(this,victim, skill);
+  int rc = kick(this, victim, skill);
   if (rc)
     addSkillLag(skill, rc);
-  if (IS_SET_DELETE(rc, DELETE_VICT)) {
-    if (vict)
-      return rc;
+
+  if (!victim_arg && IS_SET_DELETE(rc, DELETE_VICT)) {
     delete victim;
     victim = NULL;
     REM_DELETE(rc, DELETE_VICT);
   }
+
   return rc;
 }
 

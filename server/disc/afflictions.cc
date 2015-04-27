@@ -341,7 +341,7 @@ void poison(TBeing * caster, TBeing * victim)
 
   if (IS_SET(ret, SPELL_SUCCESS)) {
     if (caster != victim) {
-      sprintf(gender_desc, "%s", (!caster->getSex() ? "eunuch" : (caster->getSex() == 1 ? "bastard" : "bitch")));
+      sprintf(gender_desc, "%s", (!caster->getSex() ? "jerk" : (caster->getSex() == 1 ? "knave" : "witch")));
       sprintf(buf, "That %s $n just poisoned $N!", gender_desc);
       act(buf, FALSE, caster, NULL, victim, TO_NOTVICT);
       sprintf(buf, "That %s $n just poisoned you!", gender_desc);
@@ -354,7 +354,7 @@ void poison(TBeing * caster, TBeing * victim)
     }
   } else if (IS_SET(ret, SPELL_CRIT_SUCCESS)) {
     if (caster != victim) {
-      sprintf(gender_desc, "%s", (!caster->getSex() ? "eunuch" : (caster->getSex() == 1 ? "bastard" : "bitch")));
+      sprintf(gender_desc, "%s", (!caster->getSex() ? "jerk" : (caster->getSex() == 1 ? "knave" : "witch")));
       sprintf(buf, "That %s $n just seriously poisoned $N!", gender_desc);
       act(buf, FALSE, caster, NULL, victim, TO_NOTVICT);
       sprintf(buf, "That %s $n just seriously poisoned you!", gender_desc);

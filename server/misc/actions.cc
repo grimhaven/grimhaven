@@ -494,51 +494,56 @@ int TBeing::doAction(const sstring & argument, cmdTypeT cmd)
   return FALSE;
 }
 
-void TBeing::doInsult(const char *argument)
-{
+void TBeing::doInsult(const char *argument) {
   char buf[100];
   char arg[MAX_INPUT_LENGTH];
   TBeing *victim;
 
   strcpy(arg, argument);
 
-  if (*arg) {
-    if (!(victim = get_char_room_vis(this, arg)))
-      sendTo("Can't hear you!\n\r");
-    else {
-      if (victim != this) {
-        sprintf(buf, "You insult %s.\n\r", victim->getName());
-        sendTo(buf);
+  if (!*arg) {
+    sendTo("Surely you don't want to insult everybody.\n\r");
+    return;
+  }
 
-        switch (::number(0, 2)) {
-          case 0:
-            if (getSex() == SEX_MALE) {
-              if (victim->getSex() == SEX_MALE)
-                act("$n accuses you of fighting like a woman!", FALSE, this, 0, victim, TO_VICT);
-              else
-                act("$n says that women can't fight.", FALSE, this, 0, victim, TO_VICT);
-            } else {
-              if (victim->getSex() == SEX_MALE)
-                act("$n accuses you of having the smallest.... (brain?)",
-                   FALSE, this, 0, victim, TO_VICT);
-              else
-                act("$n tells you that you'd lose a beauty contest against a troll.",
-                   FALSE, this, 0, victim, TO_VICT);
-            }
-            break;
-          case 1:
-            act("$n calls your mother a bitch!", FALSE, this, 0, victim, TO_VICT);
-            break;
-          default:
-            act("$n tells you to get lost!", FALSE, this, 0, victim, TO_VICT);
-            break;
-        }
-        act("$n insults $N.", TRUE, this, 0, victim, TO_NOTVICT);
-      } else
-        sendTo("You feel insulted.\n\r");
-    }
-  } else
-    sendTo("Sure you don't want to insult everybody.\n\r");
+  if (!(victim = get_char_room_vis(this, arg))) {
+    sendTo("They can't hear you!\n\r");
+    return;
+  }
+
+  if (victim == this) {
+    sendTo("You feel insulted.\n\r");
+    return;
+  }
+
+  act("$n insults $N.", FALSE, this, NULL, victim, TO_ROOM);
+  act("You insult $N.", FALSE, this, NULL, victim, TO_CHAR);
+
+  const char* insult;
+
+  switch (::number(0, 3)) {
+    case 0:
+      if (getSex() == SEX_MALE) {
+        if (victim->getSex() == SEX_MALE)
+          insult = "$n accuses you of fighting like a woman!";
+        else
+          insult = "$n tells you that women can't fight.";
+      } else {
+        if (victim->getSex() == SEX_MALE)
+          insult = "$n accuses you of having the smallest... brain?";
+        else
+          insult = "$n tells you that you'd lose a beauty contest against a troll.";
+      }
+      break;
+    case 1:
+      insult = "$n calls your mother a dirty word!";
+      break;
+    default:
+      insult = "$n tells you to get lost!";
+      break;
+  }
+
+  act(insult, FALSE, this, 0, victim, TO_VICT);
 }
 
 void TBeing::doScratch(const char *arg) {
@@ -1134,3 +1139,4 @@ void TBeing::doToast(const sstring &arg)
   sendTo("Do you often share a toast with someone that isn't there?\n\r");
 }
 
+// vim: ft=cpp:tw=79:sw=2:sts=2:ts=8:et

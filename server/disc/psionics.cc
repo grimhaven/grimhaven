@@ -89,30 +89,31 @@ int TBeing::doPTell(const char *arg, bool visible){
     return FALSE;
   }
 
-
   if (isPet(PETTYPE_PET | PETTYPE_CHARM | PETTYPE_THRALL)) {
     sendTo("What a dumb master you have, charmed mobiles can't tell.\n\r");
     return FALSE;
   }
+
   half_chop(arg, name, message);
 
   if (!*name || !*message) {
     sendTo("Whom do you wish to telepath what??\n\r");
     return FALSE;
-  } else if (!(vict = get_pc_world(this, name, EXACT_YES, INFRA_NO, visible))) {
-    if (!(vict = get_pc_world(this, name, EXACT_NO, INFRA_NO, visible))) {
-      if (!(vict = get_char_vis_world(this, name, NULL, EXACT_YES))) {
-        if (!(vict = get_char_vis_world(this, name, NULL, EXACT_NO))) {
-          sendTo(format("You fail to telepath to '%s'\n\r") % name);
-          return FALSE;
-        }
-      }
-    }
   }
+
+  if (!((vict = get_pc_world(this, name, EXACT_YES, INFRA_NO, visible)) ||
+        (vict = get_pc_world(this, name, EXACT_NO, INFRA_NO, visible)) ||
+        (vict = get_char_vis_world(this, name, NULL, EXACT_YES)) ||
+        (vict = get_char_vis_world(this, name, NULL, EXACT_NO)))) {
+    sendTo(format("You fail to telepath to '%s'\n\r") % name);
+    return FALSE;
+  }
+
   if (isPlayerAction(PLR_GODNOSHOUT) && (vict->GetMaxLevel() <= MAX_MORT)) {
     sendTo("You have been sanctioned by the gods and can't telepath to them!!\n\r");
     return FALSE;
   }
+
   if (this == vict) {
     sendTo("You try to telepath yourself something.\n\r");
     return FALSE;
@@ -348,7 +349,6 @@ void TBeing::doPShout(const char *msg){
     return;
   }
 
-
   if (!*msg) {
     sendTo("What do you wish to broadcast to the world?\n\r");
     return;
@@ -385,17 +385,17 @@ void TBeing::doTelevision(const char *arg)
   TBeing *vict;
   bool visible = TRUE;
 
-  if(!doesKnowSkill(SKILL_TELE_VISION)){
+  if (!doesKnowSkill(SKILL_TELE_VISION)){
     sendTo("You have not yet mastered psionics well enough to do that.\n\r");
     return;
   }
 
-  if(getMana() < discArray[SKILL_TELE_VISION]->minMana){
+  if (getMana() < discArray[SKILL_TELE_VISION]->minMana){
     sendTo("You don't have enough mana.\n\r");
     return;
   }
 
-  if(affectedBySpell(SKILL_MIND_FOCUS)){
+  if (affectedBySpell(SKILL_MIND_FOCUS)){
     sendTo("You can't use psionic powers until you are done focusing your mind.\n\r");
     return;
   }
@@ -421,7 +421,6 @@ void TBeing::doTelevision(const char *arg)
         false, this, 0, 0, TO_CHAR);
     return ;
   }
-
 
   target = vict->roomp->number;
 
@@ -459,8 +458,6 @@ void TBeing::doTelevision(const char *arg)
 
     return;
   }
-
-  return;
 }
 
 void TBeing::doMindfocus(const char *){
@@ -469,21 +466,19 @@ void TBeing::doMindfocus(const char *){
     return;
   }
 
-
   if(getMana() < discArray[SKILL_MIND_FOCUS]->minMana){
     sendTo("You don't have enough mana.\n\r");
     return;
   }
 
-
-  int bKnown=getSkillValue(SKILL_MIND_FOCUS);
+  int competence = getSkillValue(SKILL_MIND_FOCUS);
   affectedData aff;
 
-  if (bSuccess(bKnown, SKILL_MIND_FOCUS)){
+  if (bSuccess(competence, SKILL_MIND_FOCUS)){
     act("You begin to focus your mind on regenerating your psionic powers.", TRUE, this, NULL, NULL, TO_CHAR);
 
     aff.type      = SKILL_MIND_FOCUS;
-    aff.level     = bKnown;
+    aff.level     = competence;
     aff.duration  = 4 * Pulse::UPDATES_PER_MUDHOUR;
     aff.location  = APPLY_NONE;
     affectTo(&aff, -1);
@@ -493,69 +488,67 @@ void TBeing::doMindfocus(const char *){
   }
 
   reconcileMana(SKILL_MIND_FOCUS, FALSE);
-
-  return;
 }
 
-TBeing *psiAttackChecks(TBeing *caster, spellNumT sk, const char *tString){
-  char tTarget[256];
-  TObj *tobj=NULL;
-  TBeing *tVictim=NULL;
-
+TBeing *psiAttackChecks(TBeing *caster, spellNumT skill, const char *arg) {
   if (caster->checkBusy())
     return NULL;
 
-  if (!caster->doesKnowSkill(sk)) {
+  if (!caster->doesKnowSkill(skill)) {
     caster->sendTo(format("You do not have the skill to use %s.\n\r") %
-                   discArray[sk]->name);
+                   discArray[skill]->name);
     return NULL;
   }
 
-  if(caster->getMana() < discArray[sk]->minMana){
+  if (caster->checkPeaceful())
+    return NULL;
+
+  if(caster->getMana() < discArray[skill]->minMana){
     caster->sendTo("You don't have enough mana.\n\r");
     return NULL;
   }
 
   if(caster->affectedBySpell(SKILL_MIND_FOCUS)){
-    caster->sendTo("You can't use psionic powers until you are done focusing your mind.\n\r");
+    caster->sendTo("You must finish focusing your mind first.\n\r");
     return NULL;
   }
 
-
-  if (tString && *tString){
-    strcpy(tTarget, tString);
-    generic_find(tTarget, FIND_CHAR_ROOM, caster, &tVictim, &tobj);
-  } else if (caster->fight()) {
-    tVictim = caster->fight();
-  }
-
-  if(!tVictim){
-    caster->sendTo(format("Who do you want to use %s on?\n\r") % discArray[sk]->name);
+  TBeing *victim;
+  if (arg && *arg)
+    generic_find(arg, FIND_CHAR_ROOM, caster, &victim, NULL);
+  else
+    victim = caster->fight();
+  if (!victim){
+    caster->sendTo(format("Who do you want to use %s on?\n\r") %
+                   discArray[skill]->name);
     return NULL;
   }
 
-  if (caster->checkPeaceful("You feel too peaceful to contemplate violence here.\n\r")
-      || tVictim->isImmortal() || tVictim->inGroup(*caster))
+  if (victim->isImmortal()) {
+    caster->sendTo("That would be unwise.\n\r");
+    return NULL;
+  }
+
+  if (victim->inGroup(*caster))
     return NULL;
 
+  caster->reconcileMana(skill, FALSE);
 
-  caster->reconcileMana(sk, FALSE);
-
-  return tVictim;
+  return victim;
 }
 
-void psiAttackFailMsg(TBeing *ch, TBeing *tVictim){
+void psiAttackFailMsg(TBeing *caster, TBeing *victim) {
   act("You fail to breach $N's mind with your psionic powers.",
-      FALSE, ch, NULL, tVictim, TO_CHAR);
+      FALSE, caster, NULL, victim, TO_CHAR);
   act("You feel a malevolent psionic power emanating from $n towards you, but it quickly dissipates.",
-      TRUE, ch, NULL, tVictim, TO_VICT);
+      TRUE, caster, NULL, victim, TO_VICT);
 }
 
-int TBeing::doPsiblast(const char *tString){
+int TBeing::doPsiblast(const char *tString) {
   // decreases int/wis/foc
-  TBeing *tVictim=NULL;
+  TBeing *tVictim = psiAttackChecks(this, SKILL_PSI_BLAST, tString);
 
-  if(!(tVictim=psiAttackChecks(this, SKILL_PSI_BLAST, tString)))
+  if (!tVictim)
     return FALSE;
 
   int bKnown=getSkillValue(SKILL_PSI_BLAST);

@@ -1,6 +1,7 @@
 //  return values are unimportant.  if char(s) are lost, return a -1
 
 #include <cstdio>
+#include <vector>
 
 #include "core/logging.h"
 #include "misc/room.h"
@@ -9,8 +10,7 @@
 #include "misc/monster.h"
 #include "misc/combat.h"
 
-int TMonster::aiGrinnedAt(TBeing *doer)
-{
+int TMonster::aiGrinnedAt(TBeing *doer) {
   US(3);
   switch (::number(1,4)) {
     case 1:
@@ -22,13 +22,11 @@ int TMonster::aiGrinnedAt(TBeing *doer)
       return TRUE;
       break;
     default:
-      break;
   }
   return FALSE;
 }
 
-int TMonster::aiAccuseAvoid(TBeing *doer)
-{
+int TMonster::aiAccuseAvoid(TBeing *doer) {
   US(2);
   UA(1);
   switch (::number(1,4)) {
@@ -51,8 +49,7 @@ int TMonster::aiAccuseAvoid(TBeing *doer)
   return FALSE;
 }
 
-int TMonster::aiLoveSelf(TBeing *doer)
-{
+int TMonster::aiLoveSelf(TBeing *doer) {
   US(1);
   switch (::number(1,5)) {
     case 1:
@@ -72,12 +69,11 @@ int TMonster::aiLoveSelf(TBeing *doer)
   return FALSE;
 }
 
-int TMonster::aiShutUp(TBeing *doer)
-{
+int TMonster::aiShutUp(TBeing *doer) {
   UA(1);
   switch (::number(1,8)) {
     case 1:
-      doSay("Oh shut up, fool");
+      doSay("Oh, shut up, fool");
       return TRUE;
       break;
     case 2:
@@ -93,30 +89,27 @@ int TMonster::aiShutUp(TBeing *doer)
   return FALSE;
 }
 
-int TMonster::aiOtherInsulted(TBeing *, TBeing *other)
-{
+int TMonster::aiOtherInsulted(TBeing *, TBeing *other) {
   switch (::number(1,5)) {
     case 1:
       doSay("Hehehehe heh");
-      return TRUE;
       break;
     case 2:
       if (canSpeak())
         act("$n says, \"Yep, $N sure is stupid.\"",TRUE,this,0,other,TO_ROOM);
-      return TRUE;
       break;
     default:
+      return false;
       break;
   }
-  return FALSE;
+  return true;
 }
 
 // proc referenced by social calls if homosexual act occurs
 // SneezyMUD != politically correct  :)
 // self = TRUE if ch was homo with mob
 // self = FALSE if mob saw ch homo with other
-int TMonster::aiFag(TBeing *homo,int self)
-{
+int TMonster::aiFag(TBeing *homo,int self) {
   char buf[160];
   char sex[10], sex2[10];
 
@@ -179,18 +172,11 @@ int TMonster::aiFag(TBeing *homo,int self)
       doSay("Hey now, let's not get carried away.");
       break;
     case 9:
-#if 0
-      doSay("Homo!");
-#endif
-      break;
     case 10:
       return aiInsultDoer(homo);
       break;
     case 11:
       doAction(fname(homo->name),CMD_SLAP);
-#if 0
-      doSay("Fag!");
-#endif
       break;
     case 6:
       if (getSex() == SEX_MALE)
@@ -203,151 +189,269 @@ int TMonster::aiFag(TBeing *homo,int self)
   return TRUE;
 }
 
-sstring TBeing::getInsult(TBeing *vict)
-{
-  sstring buf, buf2, buf3;
+inline const char* choose(std::vector<const char *> v) {
+  return v.at(::number(0, v.size()-1));
+}
+
+const std::vector<const char *> insults_bra = {
+  "feeble",
+  "flaccid",
+  "frail",
+  "limp",
+  "pathetic",
+  "pitiful",
+  "puny",
+  "weak",
+  "wimpy",
+};
+
+const std::vector<const char *> insults_int = {
+  "daft",
+  "dim-witted",
+  "dozy",
+  "dumb",
+  "fatuous",
+  "feebleminded",
+  "harebrained",
+  "idiotic",
+  "ignorant",
+  "mindless",
+  "moronic",
+  "stupid",
+  "vacuous",
+  "witless",
+};
+
+const std::vector<const char *> insults_wis = {
+  "barmy",
+  "batty",
+  "crazed",
+  "cracked",
+  "deranged",
+  "foolish",
+  "gormless",
+  "inept",
+  "juvenile",
+  "psychotic",
+  "puerile",
+  "tedious",
+  "thick-headed",
+};
+
+const std::vector<const char *> insults_agi = {
+  "awkward",
+  "blundering",
+  "bumbling",
+  "clumsy",
+  "floundering",
+  "gawky",
+  "inept",
+  "lumbering",
+  "lumpish",
+  "ponderous",
+  "ungainly",
+};
+
+const std::vector<const char *> insults_con = {
+  "cadaverous",
+  "corpulent",
+  "emaciated",
+  "gaunt",
+  "reedy",
+  "scrawny",
+  "spindly",
+  "weedy",
+  "wizened",
+};
+
+// includes both appearance and personality
+const std::vector<const char *> insults_cha = {
+  "degenerate",
+  "ugly",
+  "hideous",
+  "loathesome",
+  "foul",
+  "repellent",
+  "horrid",
+  "barbaric",
+  "vulgar",
+  "churlish",
+  "coarse",
+  "ill-bred",
+  "repulsive",
+};
+
+const std::vector<const char *> insults_misc = {
+  "ankyloproctian", // tight anus
+  "asinine",
+  "bescumbering", // spray with feces
+  "bloody",
+  "cacopygian", // ugly butt
+  "caprylic", "hircine", // smells like a goat
+  "cheeky",
+  "cowering",
+  "cowhearted",
+  "craven",
+  "cretinous",
+  "dasypygal", // hairy butt
+  "depraved",
+  "fatuous",
+  "fimicolous", // live & grow on feces
+  "flatulous",
+  "froggy",
+  "gnollish",
+  "goatfaced",
+  "greasy",
+  "gutless",
+  "helpless",
+  "hircismic", // smelly armpits
+  "impotent",
+  "inbred",
+  "janky",
+  "mangy",
+  "pusillanimous",
+  "raddled",
+  "ridiculous",
+  "sleazy",
+  "sordid",
+  "spineless",
+  "steatopygous", // fat butt
+  "tacky",
+  "timorous",
+  "weak-kneed",
+  "worthless",
+  "wretched",
+  "yellow",
+  "yellow-bellied",
+}
+
+const char* adjective(TBeing *vict) {
+  int bra = vict->getStat(STAT_CURRENT,STAT_BRA);
+  int intel = vict->getStat(STAT_CURRENT,STAT_INT);
+  int wis = vict->getStat(STAT_CURRENT,STAT_WIS);
+  int agi = vict->getStat(STAT_CURRENT,STAT_AGI);
+  int con = vict->getStat(STAT_CURRENT,STAT_CON);
+  int cha = vict->getStat(STAT_CURRENT,STAT_CHA);
+  if (bra <= intel && bra <= wis && bra <= agi && bra <= con && bra <= cha)
+    return choose(insults_bra);
+  if (intel <= wis && intel <= agi && intel <= con && intel <= cha)
+    return choose(insults_int);
+  if (wis <= agi && wis <= con && wis <= cha)
+    return choose(insults_wis);
+  if (agi <= con && agi <= cha)
+    return choose(insults_agi);
+  if (con <= cha)
+    return choose(insults_con);
+  return choose(insults_cha);
+}
+
+const char* adjective_random(void) {
+  switch (::number(0, 5)) {
+    case 0:
+      return choose(insults_bra);
+    case 1:
+      return choose(insults_int);
+    case 2:
+      return choose(insults_wis);
+    case 3:
+      return choose(insults_agi);
+    case 4:
+      return choose(insults_con);
+    case 5:
+      return choose(insults_cha);
+  }
+}
+
+static const std::vector<const char *> nouns = {
+  "asshat",
+  "arsehat",
+  "bastich",
+  "birdbrain",
+  "blatherskite",
+  "blob",
+  "blockhead",
+  "boob",
+  "boogerdin",
+  "boor",
+  "braggart",
+  "bumblenocker",
+  "bugger",
+  "clod",
+  "coccydynia", // pain in the ass
+  "cretin",
+  "dimwit",
+  "dinksmacker",
+  "dope",
+  "dolt",
+  "dork",
+  "fussock", // fat lady
+  "freak",
+  "fruitcake",
+  "gasconader",
+  "git",
+  "goober",
+  "halfwit",
+  "humpertin",
+  "imbecile",
+  "idiot",
+  "jackass",
+  "jerk",
+  "jobbernowl",
+  "kook",
+  "lackwit",
+  "lout",
+  "lunatic",
+  "maniac",
+  "muttonhead",
+  "nancy",
+  "nimrod",
+  "ninnyhammer",
+  "numbnuts",
+  "numskull",
+  "oaf",
+  "pansy",
+  "poltroon",
+  "putz",
+  "pucknut",
+  "rat-bastard",
+  "scumbag",
+  "sleazeball",
+  "smacktapper",
+  "wanker",
+  "weasel",
+  "witling",
+  "yutz",
+}
+
+inline const char *noun(void) {
+  return choose(nouns);
+}
+
+sstring TBeing::getInsult(TBeing *vict) {
+  sstring buf;
   ubyte insult = 1;
 
-  // find a convenient stat to make fun of.  allow some randomness
-  if (!::number(0,3)) {
-    switch (::number(1,10)) {
-      case 1:
-        buf2 = "weak";
-        break;
-      case 2:
-        buf2 = "stupid";
-        break;
-      case 3:
-        buf2 = "idiotic";
-        break;
-      case 4:
-        buf2 = "ugly";
-        break;
-      case 5:
-        buf2 = "clumsy";
-        break;
-      case 6:
-        buf2 = "wimpy";
-        break;
-      case 7:
-        buf2 = "faggy";
-        break;
-      default:
-        buf2 =  "gutless";
-        break;
-    }
-  } else {
-    if ((vict->getStat(STAT_CURRENT,STAT_BRA) <=
-                         vict->getStat(STAT_CURRENT,STAT_INT)) &&
-        (vict->getStat(STAT_CURRENT,STAT_BRA) <=
-                        vict->getStat(STAT_CURRENT,STAT_WIS)) &&
-        (vict->getStat(STAT_CURRENT,STAT_BRA) <=
-                        vict->getStat(STAT_CURRENT,STAT_AGI)) &&
-        (vict->getStat(STAT_CURRENT,STAT_BRA) <=
-                        vict->getStat(STAT_CURRENT,STAT_CON)) &&
-        (vict->getStat(STAT_CURRENT,STAT_BRA) <=
-                        vict->getStat(STAT_CURRENT,STAT_CHA)))
-      buf2 = "weak";
-    else if ((vict->getStat(STAT_CURRENT, STAT_INT) <= vict->getStat(STAT_CURRENT, STAT_WIS)) &&
-             (vict->getStat(STAT_CURRENT, STAT_INT) <= vict->getStat(STAT_CURRENT, STAT_AGI)) &&
-             (vict->getStat(STAT_CURRENT, STAT_INT) <= vict->getStat(STAT_CURRENT, STAT_CON)) &&
-             (vict->getStat(STAT_CURRENT, STAT_INT) <= vict->getStat(STAT_CURRENT, STAT_CHA)))
-      buf2 = "stupid";
-    else if ((vict->getStat(STAT_CURRENT, STAT_WIS) <= vict->getStat(STAT_CURRENT, STAT_AGI)) &&
-             (vict->getStat(STAT_CURRENT, STAT_WIS) <= vict->getStat(STAT_CURRENT, STAT_CON)) &&
-             (vict->getStat(STAT_CURRENT, STAT_WIS) <= vict->getStat(STAT_CURRENT, STAT_CHA)))
-      buf2 = "idiotic";
-    else if ((vict->getStat(STAT_CURRENT, STAT_AGI) <= vict->getStat(STAT_CURRENT, STAT_CON)) &&
-             (vict->getStat(STAT_CURRENT, STAT_AGI) <= vict->getStat(STAT_CURRENT, STAT_CHA)))
-      buf2 = "clumsy";
-    else if (vict->getStat(STAT_CURRENT, STAT_CON) <= vict->getStat(STAT_CURRENT, STAT_CHA))
-      buf2 = "wimpy";
-    else
-      buf2 = "ugly";
-  }
-  switch (::number(1,22)) {
-    case 1:
-      buf3 = "bastich";
-      break;
-    case 2:
-      buf3 = "dork";
-      break;
-    case 3:
-      buf3 = "wanker";
-      break;
-    case 4:
-      buf3 = "jank";
-      break;
-    case 5:
-      buf3 = "boogerdin";
-      break;
-    case 6:
-      buf3 = "bumblenocker";
-      break;
-    case 7:
-      buf3 = "putz";
-      break;
-    case 8:
-      buf3 = "pucknut";
-      break;
-    case 9:
-      buf3 = "goober";
-      break;
-    case 10:
-      buf3 = "humpertin";
-      break;
-    case 11:
-      buf3 = "muttonhead";
-      break;
-    case 12:
-      buf3 = "retard";
-      break;
-    case 13:
-      buf3 = "rat-bastard";
-      break;
-    case 14:
-      buf3 = "smacktapper";
-      break;
-    case 15:
-      buf3 = "dinkknocker";
-      break;
-    case 16:
-      buf3 = "scum of the earth";
-      break;
-    case 17:
-      buf3 = "jackass";
-      break;
-    case 18:
-      buf3 = "hunk of DiqMeat";
-      break;
-    default:
-      buf3 = "freak of nature";
-      break;
-  }
   switch (::number(1,50)) {
     case 1:
-      buf = format("You %s %s") %buf2 % buf3;
+      buf = format("You %s %s") %
       break;
     case 2:
-      buf = format("Goddamn %s %s") %buf2 % buf3;
+      buf = format("Cursed %s %s") % adverb(vict) % noun();
       break;
     case 3:
       buf = format("Damn %s") % buf3;
       break;
     case 4:
-      buf="Piece of doo-doo";
+      buf = "Clump of feces";
       break;
     case 5:
-      buf = format("Janky %s") %buf3;
+      buf = format("Janky %s") % buf3;
       break;
     case 6:
-      buf="Dude, you got some heinous weenie-dog breath";
+      buf = "Dude, you got some heinous weenie-dog breath";
       break;
     case 7:
-      buf=buf3;
-      break;
-    case 8:
-      buf = format("Mangy %s") %buf3;
+      buf = buf3;
       break;
     case 9:
       buf="Gnollish arsehat";
@@ -367,7 +471,7 @@ sstring TBeing::getInsult(TBeing *vict)
       buf = "I bet your mother doesn't even know your father's name";
       break;
     case 14:
-      buf = "Where'd you get that equipment?  I've seen better stuff in a dump";
+      buf = "Where'd you get that equipment?  I've seen better stuff in the dump";
       break;
     case 15:
       buf = format("Hey %s, is it true your IQ is the same as your shoe size") % fname(vict->name);
@@ -385,7 +489,7 @@ sstring TBeing::getInsult(TBeing *vict)
       buf = "You are the finest woman to have ever walked the streets";
       break;
     case 20:
-      buf = "The best part of you rolled down the back of a horses leg!";
+      buf = "The best part of you rolled down the back of a horse's leg!";
       break;
     case 21:
       buf = "Blah blah blah";
@@ -397,7 +501,7 @@ sstring TBeing::getInsult(TBeing *vict)
       buf = "Feh! Meh! Plahhhh";
       break;
     case 24:
-      buf = "Midos loving crap hugging piece of apple pie";
+      buf = "Midos-loving crap-hugging piece of apple pie";
       break;
     case 25:
       buf = "Ha ha ha ha hahahahaha!! Hahahahahaha";
@@ -469,7 +573,7 @@ sstring TBeing::getInsult(TBeing *vict)
       buf = format("Stop wasting precious oxygen, you %s %s") %buf2 % buf3;
       break;
     case 48:
-      buf = "Your butt is on fire";
+      buf = "Your arse is on fire";
       break;
     case 49:
       buf = "Look out behind you";
@@ -1308,3 +1412,5 @@ int TMonster::aiToastedAt(TBeing *doer)
   }
   return FALSE;
 }
+
+// vim: ft=cpp:tw=79:sw=2:sts=2:ts=8:et
